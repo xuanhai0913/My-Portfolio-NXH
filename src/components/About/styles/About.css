@@ -3,7 +3,7 @@
   min-height: 100vh;
   width: 100vw;
   margin: 0;
-  padding: 0;
+  padding: 6rem 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,47 +18,206 @@
   position: relative;
   z-index: 2;
   width: 100%;
-  max-width: 100%;
-  padding: 2rem;
+  max-width: 1200px;
+  padding: 0 2rem;
   color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
-.about-text {
-  max-width: 800px;
-  width: 90%;
-  margin: 0 auto;
+.about-header {
   text-align: center;
+  margin-bottom: 4rem;
 }
 
-.about-text h3 {
+.about-header h2 {
+  font-size: 2.5rem;
   color: #4a90e2;
-  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.about-header h3 {
+  font-size: 2rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.title {
+  font-size: 1.3rem;
+  color: #4a90e2;
+  margin-bottom: 1rem;
+  opacity: 0.9;
+}
+
+.description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.skills-section, .projects-section, .career-goal {
+  margin-top: 3rem;
+}
+
+.skills-section {
+  text-align: center;
+  margin: 4rem 0;
+}
+
+h4 {
+  color: #4a90e2;
+  font-size: 1.3rem;
   margin-bottom: 1rem;
 }
 
 .skills {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 1.5rem;
+  gap: 1rem;
   justify-content: center;
+  margin: 1.5rem 0 3rem;
 }
 
 .skill-tag {
-  background: rgba(74, 144, 226, 0.3);
-  padding: 0.5rem 1rem;
-  border-radius: 15px;
-  color: #fff;
+  background: rgba(74, 144, 226, 0.15);
+  padding: 0.7rem 1.2rem;
+  border-radius: 20px;
   transition: all 0.3s ease;
+  border: 1px solid rgba(74, 144, 226, 0.3);
+}
+
+.skill-tag.soft {
+  background: rgba(255, 148, 180, 0.15);
+  border-color: rgba(255, 148, 180, 0.3);
 }
 
 .skill-tag:hover {
-  background: rgba(74, 144, 226, 0.8);
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+  transform: translateY(-3px);
+  background: rgba(74, 144, 226, 0.3);
+  box-shadow: 0 5px 15px rgba(74, 144, 226, 0.2);
+}
+
+.skill-tag.soft:hover {
+  background: rgba(255, 148, 180, 0.3);
+  box-shadow: 0 5px 15px rgba(255, 148, 180, 0.2);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.project-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.project-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.project-card:hover .project-image img {
+  transform: scale(1.05);
+}
+
+.project-content {
+  padding: 1.5rem;
+}
+
+.project-content h5 {
+  font-size: 1.3rem;
+  margin-bottom: 0.8rem;
+  color: #4a90e2;
+}
+
+.project-content p {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 1.2rem;
+  line-height: 1.5;
+}
+
+.project-content a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #4a90e2;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.project-content a:hover {
+  color: #fff;
+  transform: translateX(5px);
+}
+
+.career-goal {
+  text-align: center;
+  margin-top: 4rem;
+  padding: 2rem;
+  background: rgba(74, 144, 226, 0.1);
+  border-radius: 15px;
+  border: 1px solid rgba(74, 144, 226, 0.2);
+}
+
+.career-goal p {
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+@media (max-width: 768px) {
+  .about-section {
+    padding: 4rem 0;
+  }
+
+  .about-content {
+    padding: 0 1.5rem;
+  }
+
+  .about-header h2 {
+    font-size: 2rem;
+  }
+
+  .about-header h3 {
+    font-size: 1.6rem;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .skills {
+    gap: 0.8rem;
+  }
+
+  .skill-tag {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
 }
 
 @media (min-width: 1440px) {
@@ -67,12 +226,13 @@
   }
 }
 
-@media (max-width: 768px) {
-  .about-content {
-    padding: 1rem;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  
-  .about-text {
-    width: 95%;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
