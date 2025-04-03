@@ -1,0 +1,36 @@
+.about-section {
+  min-height: 100vh;
+  padding: 6rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.about-content {
+  max-width: 800px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 2rem;
+}
+
+.about-text h3 {
+  color: #4a90e2;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.skill-tag {
+  background: rgba(74, 144, 226, 0.3);
+  padding: 0.5rem 1rem;
+  border-radius: 15px;
+  color: #fff;
+}
