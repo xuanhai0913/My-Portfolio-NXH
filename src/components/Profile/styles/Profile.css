@@ -1,20 +1,29 @@
 .profile-section {
   position: relative;
   min-height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 6rem 2rem;
-  overflow: hidden;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4));
+  overflow-x: hidden; /* Change from overflow: hidden */
+  background: rgba(0, 0, 0, 0.8);
+  box-sizing: border-box;
+  left: 50%;
+  transform: translateX(-50%); /* Center the section properly */
 }
 
 .profile-content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   width: 100%;
-  max-width: 1200px;
+  max-width: 100%;  /* Change from 100vw */
+  padding: 2rem;    /* Reduce padding */
   animation: fadeIn 1s ease-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .profile-card {
@@ -23,8 +32,8 @@
   border-radius: 20px;
   padding: 3rem;
   text-align: center;
-  max-width: 600px;
-  width: 100%;
+  max-width: 800px; /* Tăng max-width cho profile card */
+  width: 90%;
   margin: 0 auto;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -123,6 +132,16 @@
   box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
 }
 
+.aurora-container {
+  width: 100vw;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
 @keyframes pulse {
   0% {
     transform: scale(1);
@@ -151,29 +170,27 @@
 
 @media (max-width: 768px) {
   .profile-section {
-    padding: 4rem 1rem;
+    padding: 0;
+  }
+
+  .profile-content {
+    padding: 1rem;
   }
 
   .profile-card {
+    width: 95%;
     padding: 2rem;
   }
+}
 
-  .profile-info h2 {
-    font-size: 2rem;
+@media (min-width: 1440px) {
+  .profile-content {
+    max-width: 1440px;
   }
+}
 
-  .profile-info .title {
-    font-size: 1.1rem;
-  }
-
-  .social-links {
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .social-links a {
-    width: 80%;
-    justify-content: center;
+@media (min-width: 2560px) {
+  .profile-card {
+    max-width: 1200px;
   }
 }

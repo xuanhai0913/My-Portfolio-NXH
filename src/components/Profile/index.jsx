@@ -1,23 +1,16 @@
 import React from 'react';
-import Waves from '../Waves';
-import profileImage from '../../images/profile.png'; // Import the image
+import Aurora from '../Aurora';
+import profileImage from '../../images/profile.png';
 import './styles/Profile.css';
 
 const Profile = () => {
   return (
     <section id="profile" className="profile-section">
-      <Waves
-        lineColor="#4a90e2"
-        backgroundColor="rgba(75, 65, 65, 0.31)"
-        waveSpeedX={0.015}
-        waveSpeedY={0.01}
-        waveAmpX={30}
-        waveAmpY={15}
-        friction={0.9}
-        tension={0.01}
-        maxCursorMove={100}
-        xGap={15}
-        yGap={40}
+      <Aurora
+        colorStops={["#3A29FF", "#FF94B4", "#FF3232"]}
+        blend={0.5}
+        amplitude={1.0}
+        speed={0.5}
       />
       <div className="profile-content">
         <div className="profile-card">
