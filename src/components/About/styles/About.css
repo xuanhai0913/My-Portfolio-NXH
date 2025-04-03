@@ -1,18 +1,36 @@
 .about-section {
+  position: relative;
   min-height: 100vh;
-  padding: 6rem 2rem;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  background: rgba(0, 0, 0, 0.8);
+  box-sizing: border-box;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.about-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 100%;
+  padding: 2rem;
+  color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.about-content {
+.about-text {
   max-width: 800px;
-  width: 100%;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 2rem;
+  width: 90%;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .about-text h3 {
@@ -26,6 +44,7 @@
   flex-wrap: wrap;
   gap: 0.5rem;
   margin-top: 1.5rem;
+  justify-content: center;
 }
 
 .skill-tag {
@@ -33,4 +52,27 @@
   padding: 0.5rem 1rem;
   border-radius: 15px;
   color: #fff;
+  transition: all 0.3s ease;
+}
+
+.skill-tag:hover {
+  background: rgba(74, 144, 226, 0.8);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+}
+
+@media (min-width: 1440px) {
+  .about-content {
+    max-width: 1440px;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-content {
+    padding: 1rem;
+  }
+  
+  .about-text {
+    width: 95%;
+  }
 }
