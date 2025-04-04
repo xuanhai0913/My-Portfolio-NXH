@@ -21,25 +21,31 @@ const Profile = () => {
           <div className="profile-info">
             <h2>Nguyễn Xuân Hải</h2>
             <div className="title-container">
-              <span className="role-prefix">I'm a </span>
-              <RotatingText
-                texts={[
-                  'Full-Stack Developer',
-                  'React Developer',
-                  'Web Designer',
-                  'Problem Solver'
-                ]}
-                mainClassName="rotating-title"
-                staggerFrom="last"
-                initial={{ y: "100%" }}
-                animate={{ y: 0 }}
-                exit={{ y: "-120%" }}
-                staggerDuration={0.025}
-                splitLevelClassName="title-split"
-                transition={{ type: "spring", damping: 30, stiffness: 400 }}
-                rotationInterval={3000}
-              />
-              <span className="emoji">👨‍💻</span>
+              <span className="role-prefix">I'm a</span>
+              <div className="rotating-text-wrapper">
+                <RotatingText
+                  texts={[
+                    'Full-Stack Developer',
+                    'React Developer',
+                    'Web Designer',
+                    'Problem Solver'
+                  ]}
+                  mainClassName="rotating-title"
+                  staggerFrom="center"
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -20, opacity: 0 }}
+                  transition={{ 
+                    type: "spring",
+                    damping: 25,
+                    stiffness: 300,
+                    mass: 0.5
+                  }}
+                  staggerDuration={0.02}
+                  rotationInterval={3500}
+                  splitLevelClassName="title-split"
+                />
+              </div>
             </div>
             <p className="description">Building digital experiences with modern web technologies</p>
             <div className="social-links">

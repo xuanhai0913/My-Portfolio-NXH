@@ -9,7 +9,6 @@ import {
   useState,
 } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
 import "./styles/RotatingText.css";
 
 function cn(...classes) {
@@ -19,15 +18,33 @@ function cn(...classes) {
 const RotatingText = forwardRef((props, ref) => {
   const {
     texts,
-    transition = { type: "spring", damping: 25, stiffness: 300 },
-    initial = { y: "100%", opacity: 0 },
-    animate = { y: 0, opacity: 1 },
-    exit = { y: "-120%", opacity: 0 },
+    transition = {
+      type: "spring",
+      damping: 20,
+      stiffness: 250,
+      mass: 0.5,
+      duration: 0.5,
+    },
+    initial = {
+      y: 30,
+      opacity: 0,
+      scale: 0.95,
+    },
+    animate = {
+      y: 0,
+      opacity: 1,
+      scale: 1,
+    },
+    exit = {
+      y: -30,
+      opacity: 0,
+      scale: 0.95,
+    },
     animatePresenceMode = "wait",
-    animatePresenceInitial = false,
-    rotationInterval = 2000,
-    staggerDuration = 0,
-    staggerFrom = "first",
+    animatePresenceInitial = true,
+    rotationInterval = 3000,
+    staggerDuration = 0.015,
+    staggerFrom = "center",
     loop = true,
     auto = true,
     splitBy = "characters",
@@ -174,6 +191,10 @@ const RotatingText = forwardRef((props, ref) => {
             splitBy === "lines" ? "text-rotate-lines" : "text-rotate"
           )}
           layout
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
           aria-hidden="true"
         >
           {elements.map((wordObj, wordIndex, array) => {

@@ -160,30 +160,39 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  margin: 1rem 0;
-  min-height: 2.5rem;
-  width: 100%;
-  text-align: center;
+  gap: 0.8rem;
+  margin: 1.5rem 0;
 }
 
 .role-prefix {
-  color: #fff;
-  font-size: 1.2rem;
-  display: inline-block;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.rotating-text-wrapper {
+  position: relative;
+  min-width: 280px;
+  display: flex;
+  align-items: center;
 }
 
 .rotating-title {
   color: #4a90e2;
   font-weight: 700;
-  font-size: 1.2rem;
-  min-width: 200px;
-  text-align: left;
+  font-size: 1.3rem;
+  letter-spacing: 0.3px;
+  line-height: 1.4;
 }
 
 .title-split {
-  overflow: hidden;
-  padding-bottom: 0.25rem;
+  display: inline-block;
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.title-split:hover {
+  color: #64a6f3;
+  transform: translateY(-1px);
 }
 
 .emoji {
@@ -276,21 +285,17 @@
   }
 
   .title-container {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.25rem;
-  }
-  
-  .rotating-title {
-    font-size: 1.1rem;
-    min-width: 150px;
-    text-align: center;
+    gap: 0.5rem;
+    margin: 1.2rem 0;
   }
 
+  .rotating-text-wrapper {
+    min-width: 240px;
+  }
+
+  .rotating-title,
   .role-prefix {
-    width: 100%;
-    text-align: center;
-    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
   }
 }
 
