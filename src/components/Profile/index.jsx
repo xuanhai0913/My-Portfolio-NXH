@@ -6,12 +6,12 @@ import './styles/Profile.css';
 const Profile = () => {
   return (
     <section id="profile" className="profile-section">
-      <Aurora
-        colorStops={["#4a90e2", "#FF94B4", "#4a90e2"]} // Matches your profile card theme
-        blend={0.6}                                     // Slightly increased blend for smoother transition
-        amplitude={0.8}                                 // Reduced amplitude for subtler effect
-        speed={0.4}                                    // Slower animation speed
-      />
+    <Aurora
+      colorStops={["#3A29FF", "#FF94B4", "#FF3232"]}
+      blend={0.2}
+      amplitude={0.8}
+      speed={1.5}
+    />
       <div className="profile-content">
         <div className="profile-card">
           <div className="profile-image"> 
