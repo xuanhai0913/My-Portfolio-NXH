@@ -4,7 +4,6 @@
   left: 0;
   width: 100%;
   height: 80px;
-  overflow: hidden;
   background: transparent;
   z-index: 1000;
 }
@@ -97,6 +96,18 @@
   padding: 0.5rem;
 }
 
+.nav-toggle.active .hamburger {
+  background: transparent;
+}
+
+.nav-toggle.active .hamburger::before {
+  transform: rotate(45deg) translate(0, 0);
+}
+
+.nav-toggle.active .hamburger::after {
+  transform: rotate(-45deg) translate(0, 0);
+}
+
 .hamburger {
   display: block;
   position: relative;
@@ -173,6 +184,7 @@
     background: rgba(74, 144, 226, 0.1);
     border-radius: 8px;
     transition: all 0.3s ease;
+    z-index: 1001;
   }
 
   .nav-toggle:hover {
@@ -196,31 +208,38 @@
     position: fixed;
     top: 0;
     right: -100%;
-    width: 80%;
+    width: 100%;
     height: 100vh;
     background: rgba(0, 0, 0, 0.95);
     backdrop-filter: blur(10px);
-    padding: 2rem;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 6rem 2rem 2rem;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
   }
 
   .nav.nav-open {
     right: 0;
-    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
   }
 
   .nav-links {
     flex-direction: column;
     align-items: center;
-    margin-top: 4rem;
     gap: 2rem;
+    width: 100%;
   }
 
   .nav-links a {
-    font-size: 1.2rem;
+    display: block;
     width: 100%;
     text-align: center;
     padding: 1rem;
+    font-size: 1.2rem;
+  }
+
+  .header-overlay {
+    backdrop-filter: blur(5px);
   }
 
   .logo-text {
