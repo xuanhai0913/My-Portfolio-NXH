@@ -32,7 +32,7 @@ const About = () => {
       });
       observer.disconnect();
     };
-  }, []);
+  }, [contentRefs]);
 
   useEffect(() => {
     const cleanup = setupObserver();
