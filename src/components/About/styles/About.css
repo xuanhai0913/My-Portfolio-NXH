@@ -33,6 +33,23 @@
   color: #4a90e2;
   margin-bottom: 1rem;
   animation: fadeIn 0.8s ease-out;
+  position: relative;
+  display: inline-block;
+}
+
+.about-header h2::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #4a90e2;
+  transition: width 0.8s ease;
+}
+
+.reveal h2::after {
+  width: 100%;
 }
 
 .about-header h3 {
@@ -55,6 +72,24 @@
   color: rgba(255, 255, 255, 0.9);
   max-width: 600px;
   margin: 0 auto;
+  position: relative;
+  padding-left: 20px;
+}
+
+.description::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 3px;
+  height: 0;
+  background: #4a90e2;
+  transition: height 0.5s ease;
+  transform: translateY(-50%);
+}
+
+.reveal .description::before {
+  height: 100%;
 }
 
 .skills-section, .projects-section, .career-goal {
@@ -86,6 +121,13 @@ h4 {
   border-radius: 20px;
   transition: all 0.3s ease;
   border: 1px solid rgba(74, 144, 226, 0.3);
+  opacity: 0;
+  animation: skillFadeIn 0.5s ease forwards;
+  animation-play-state: paused;
+}
+
+.reveal .skill-tag {
+  animation-play-state: running;
 }
 
 .skill-tag.soft {
@@ -94,9 +136,8 @@ h4 {
 }
 
 .skill-tag:hover {
-  transform: translateY(-3px);
-  background: rgba(74, 144, 226, 0.3);
-  box-shadow: 0 5px 15px rgba(74, 144, 226, 0.2);
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
 }
 
 .skill-tag.soft:hover {
@@ -235,4 +276,37 @@ h4 {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+@keyframes skillFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-in {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fade-in {
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slide-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal {
+  opacity: 1;
+  transform: translate(0);
 }

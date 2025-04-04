@@ -7,7 +7,6 @@ const Header = () => {
 
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
-    // Prevent body scroll when nav is open
     document.body.style.overflow = !isNavOpen ? 'hidden' : 'auto';
   };
 
@@ -15,6 +14,13 @@ const Header = () => {
     setIsNavOpen(false);
     document.body.style.overflow = 'auto';
   };
+
+  const navItems = [
+    { id: 'home', label: 'Home', href: '#profile' },
+    { id: 'about', label: 'About', href: '#about' },
+    { id: 'portfolio', label: 'Portfolio', href: '#portfolio' },
+    { id: 'contact', label: 'Contact', href: '#contact' }
+  ];
 
   return (
     <header className="header">
@@ -34,7 +40,7 @@ const Header = () => {
       />
       <div className="nav-container">
         <div className="logo-container">
-          <a href="#welcome-section" className="logo-link" onClick={closeNav}>
+          <a href="#profile" className="logo-link" onClick={closeNav}>
             <i className="fas fa-code logo-icon"></i>
             <span className="logo-text">NGUYEN XUAN HAI</span>
           </a>
@@ -50,10 +56,10 @@ const Header = () => {
 
         <nav className={`nav ${isNavOpen ? 'nav-open' : ''}`}>
           <ul className="nav-links">
-            {['home', 'about', 'profile', 'contact'].map((item) => (
-              <li key={item}>
-                <a href={`#${item}`} onClick={closeNav}>
-                  {item.charAt(0).toUpperCase() + item.slice(1)}
+            {navItems.map((item) => (
+              <li key={item.id}>
+                <a href={item.href} onClick={closeNav}>
+                  {item.label}
                 </a>
               </li>
             ))}

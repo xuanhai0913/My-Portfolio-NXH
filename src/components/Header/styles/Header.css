@@ -63,7 +63,7 @@
   font-weight: 500;
   padding: 0.5rem 1rem;
   border-radius: 8px;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
 }
 
@@ -82,6 +82,7 @@
 .nav-links a:hover {
   color: #4a90e2;
   background: rgba(74, 144, 226, 0.1);
+  transform: translateY(-2px);
 }
 
 .nav-links a:hover::after {
@@ -94,6 +95,11 @@
   border: none;
   cursor: pointer;
   padding: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.nav-toggle.active {
+  transform: rotate(90deg);
 }
 
 .nav-toggle.active .hamburger {
@@ -213,7 +219,7 @@
     background: rgba(0, 0, 0, 0.95);
     backdrop-filter: blur(10px);
     padding: 6rem 2rem 2rem;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     justify-content: center;
     align-items: flex-start;
