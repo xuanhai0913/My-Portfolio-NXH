@@ -94,6 +94,24 @@
   filter: none;
 }
 
+.contact-title {
+  position: relative;
+  height: 80px;
+  margin-bottom: 4rem;
+  width: 100%;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-title canvas {
+  max-width: 100%;
+  height: auto !important;
+}
+
 @media (max-width: 768px) {
   .contact-section {
     padding: 4rem 0;
@@ -113,6 +131,18 @@
 
   .map-container iframe {
     height: 300px;
+  }
+
+  .contact-title {
+    height: 60px;
+    margin-bottom: 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-title {
+    height: 50px;
+    margin-bottom: 2.5rem;
   }
 }
 

@@ -1,16 +1,16 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import Squares from '../Squares';
 import './styles/About.css';
 
 const About = () => {
-  const contentRefs = {
+  const contentRefs = useRef({
     header: useRef(null),
     techSkills: useRef(null),
     softSkills: useRef(null),
     career: useRef(null)
-  };
+  }).current;
 
-  useEffect(() => {
+  const setupObserver = useCallback(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -26,8 +26,18 @@ const About = () => {
       if (ref.current) observer.observe(ref.current);
     });
 
-    return () => observer.disconnect();
+    return () => {
+      Object.values(contentRefs).forEach((ref) => {
+        if (ref.current) observer.unobserve(ref.current);
+      });
+      observer.disconnect();
+    };
   }, []);
+
+  useEffect(() => {
+    const cleanup = setupObserver();
+    return cleanup;
+  }, [setupObserver]);
 
   return (
     <section id="about" className="about-section">

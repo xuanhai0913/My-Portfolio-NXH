@@ -1,5 +1,6 @@
 import React from 'react';
 import Squares from '../Squares';
+import FuzzyText from '../FuzzyText';
 import './styles/Contact.css';
 
 const Contact = () => {
@@ -15,7 +16,17 @@ const Contact = () => {
         hoverFillColor='rgba(74, 144, 226, 0.2)'
       />
       <div className="contact-content">
-        <h2>Contact</h2>
+        <div className="contact-title">
+          <FuzzyText
+            fontSize="clamp(2.5rem, 5vw, 4rem)"
+            fontWeight={700}
+            color="#4a90e2"
+            baseIntensity={0.15}
+            hoverIntensity={0.4}
+          >
+            Contact
+          </FuzzyText>
+        </div>
         <div className="contact-container">
           <div className="contact-info">
             <div className="contact-item">

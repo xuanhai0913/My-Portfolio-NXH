@@ -156,6 +156,42 @@
   pointer-events: none;
 }
 
+.title-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
+  min-height: 2.5rem;
+  width: 100%;
+  text-align: center;
+}
+
+.role-prefix {
+  color: #fff;
+  font-size: 1.2rem;
+  display: inline-block;
+}
+
+.rotating-title {
+  color: #4a90e2;
+  font-weight: 700;
+  font-size: 1.2rem;
+  min-width: 200px;
+  text-align: left;
+}
+
+.title-split {
+  overflow: hidden;
+  padding-bottom: 0.25rem;
+}
+
+.emoji {
+  font-size: 1.5rem;
+  animation: wave 2s infinite;
+  transform-origin: 70% 70%;
+}
+
 @keyframes pulse {
   0% {
     transform: scale(1);
@@ -180,6 +216,17 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+@keyframes wave {
+  0% { transform: rotate(0deg); }
+  10% { transform: rotate(14deg); }
+  20% { transform: rotate(-8deg); }
+  30% { transform: rotate(14deg); }
+  40% { transform: rotate(-4deg); }
+  50% { transform: rotate(10deg); }
+  60% { transform: rotate(0deg); }
+  100% { transform: rotate(0deg); }
 }
 
 @media (max-width: 768px) {
@@ -226,6 +273,24 @@
 
   .social-links a i {
     font-size: 1rem;
+  }
+
+  .title-container {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.25rem;
+  }
+  
+  .rotating-title {
+    font-size: 1.1rem;
+    min-width: 150px;
+    text-align: center;
+  }
+
+  .role-prefix {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0.5rem;
   }
 }
 
