@@ -160,19 +160,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.8rem;
+  gap: 0.75rem;
   margin: 1.5rem 0;
 }
 
 .role-prefix {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 1.3rem;
+  color: #fff;
+  font-size: 1.25rem;
   font-weight: 500;
+  opacity: 0.95;
 }
 
 .rotating-text-wrapper {
   position: relative;
-  min-width: 280px;
+  min-width: 260px;
   display: flex;
   align-items: center;
 }
@@ -180,14 +181,14 @@
 .rotating-title {
   color: #4a90e2;
   font-weight: 700;
-  font-size: 1.3rem;
-  letter-spacing: 0.3px;
-  line-height: 1.4;
+  font-size: 1.25rem;
+  letter-spacing: 0.2px;
 }
 
 .title-split {
   display: inline-block;
-  transition: transform 0.15s ease, color 0.15s ease;
+  padding-right: 0.05em;
+  transition: all 0.2s ease;
 }
 
 .title-split:hover {
@@ -199,6 +200,27 @@
   font-size: 1.5rem;
   animation: wave 2s infinite;
   transform-origin: 70% 70%;
+}
+
+.description-container {
+  position: relative;
+  padding: 1rem 0;
+  margin: 1.5rem 0;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.variable-proximity-text {
+  font-size: 1.6rem;
+  line-height: 1.5;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  color: rgba(223, 231, 255, 0.9);
+  will-change: font-variation-settings;
+  transition: font-variation-settings 0.15s ease-out;
 }
 
 @keyframes pulse {
@@ -290,12 +312,22 @@
   }
 
   .rotating-text-wrapper {
-    min-width: 240px;
+    min-width: 220px;
   }
 
   .rotating-title,
   .role-prefix {
     font-size: 1.1rem;
+  }
+
+  .description-container {
+    padding: 0.75rem 0;
+    min-height: 50px;
+  }
+
+  .variable-proximity-text {
+    font-size: 1rem;
+    max-width: 90%;
   }
 }
 

@@ -1,10 +1,34 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import Aurora from '../Aurora';
 import RotatingText from '../RotatingText';
+import VariableProximity from '../VariableProximity';
 import profileImage from '../../images/profile.png';
 import './styles/Profile.css';
 
 const Profile = () => {
+  const containerRef = useRef(null);
+  const textRef = useRef(null);
+
+  useEffect(() => {
+    if (containerRef.current && textRef.current) {
+      const updateProximityEffect = (e) => {
+        if (!textRef.current) return;
+        const rect = textRef.current.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        textRef.current.style.setProperty('--mouse-x', `${x}px`);
+        textRef.current.style.setProperty('--mouse-y', `${y}px`);
+      };
+
+      containerRef.current.addEventListener('mousemove', updateProximityEffect);
+      return () => {
+        if (containerRef.current) {
+          containerRef.current.removeEventListener('mousemove', updateProximityEffect);
+        }
+      };
+    }
+  }, []);
+
   return (
     <section id="profile" className="profile-section">
       <Aurora
@@ -14,7 +38,7 @@ const Profile = () => {
         speed={1.5}
       />
       <div className="profile-content">
-        <div className="profile-card">
+        <div className="profile-card" ref={containerRef}>
           <div className="profile-image"> 
             <img src={profileImage} alt="Profile" />
           </div>
@@ -32,22 +56,35 @@ const Profile = () => {
                   ]}
                   mainClassName="rotating-title"
                   staggerFrom="center"
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -20, opacity: 0 }}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -15 }}
                   transition={{ 
                     type: "spring",
-                    damping: 25,
-                    stiffness: 300,
+                    damping: 30,
+                    stiffness: 200,
                     mass: 0.5
                   }}
-                  staggerDuration={0.02}
-                  rotationInterval={3500}
+                  staggerDuration={0.015}
+                  rotationInterval={3000}
                   splitLevelClassName="title-split"
                 />
               </div>
             </div>
-            <p className="description">Building digital experiences with modern web technologies</p>
+            
+            <div className="description-container" ref={textRef}>
+              <VariableProximity
+                label="Building digital experiences with modern web technologies"
+                className="variable-proximity-text"
+                fromFontVariationSettings="'wght' 300, 'opsz' 8"
+                toFontVariationSettings="'wght' 1000, 'opsz' 48"
+                radius={150}
+                falloff="exponential"
+                containerRef={containerRef}
+                sensitivity={1.5}
+                transitionSpeed={0.15}
+              />
+            </div>
             <div className="social-links">
               <ul>
                 <li>

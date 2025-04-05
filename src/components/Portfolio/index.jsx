@@ -7,22 +7,47 @@ const Portfolio = () => {
   const projects = [
     {
       title: "Portfolio Website",
-      description: "Modern React portfolio with interactive animations and responsive design",
+      description: "Modern React portfolio with interactive animations and responsive design. Using React, GSAP, and CSS3.",
       image: require("../../images/project/prj1.png"),
-      github: "https://github.com/xuanhai0913/My-Portfolio-NXH"
+      github: "https://github.com/xuanhai0913/My-Portfolio-NXH",
+      demo: "https://my-portfolio-nxh.vercel.app"
+    },
+    {
+      title: "Website education English Comunity ",
+      description: "This is a website that teaches English for free to people in difficult circumstances. Using wordpress to develop",
+      image: require("../../images/project/prj6.png"),
+      github: "https://github.com/xuanhai0913/",
+      demo: "ech.edu.vn"
     },
     {
       title: "Koi Farm Management",
       description: "This project aims to build a Koi farm management website, providing customers with comprehensive information about Koi breeds, as well as Koi-related services such as buying, selling, consignment and care.",
       image: require("../../images/project/prj2.png"),
-      github: "https://github.com/xuanhai0913/Koi-Farm-Shop_Group-H"
+      github: "https://github.com/xuanhai0913/Koi-Farm-Shop_Group-H",
+      demo: "cakoi01.vercel.app/search"
     },
     {
       title: "🚀 Flutter Team Members App",
       description: "This is a simple Flutter application that displays a team member list using PageView. The app allows navigation between members and includes an option to return to the home screen.",
       image: require("../../images/project/prj3.png"),
-      github: "https://github.com/xuanhai0913/Flutter-my-app"
-    }
+      github: "https://github.com/xuanhai0913/Flutter-my-app",
+      demo: "https://flutter-my-app-three.vercel.app"
+    },
+    {
+      title: "Management students",
+      description: "Student management application by class, supports displaying student list, allows filtering and searching for names, and provides contact information of home school.",
+      image: require("../../images/project/prj4.png"),
+      github: "https://github.com/xuanhai0913/Manage-student-grades",
+      demo: "https://grades-lovat.vercel.app/"
+    },
+    {
+      title: "Website Happy New Year",
+      description: "A simple website to wish Happy New Year, using HTML, CSS, and JavaScript.",
+      image: require("../../images/project/prj5.png"),
+      github: "https://github.com/xuanhai0913/HappyNewYear",
+      demo: "https://happy-new-year-five-olive.vercel.app/"
+    },
+
   ];
 
   const projectRefs = useRef([]);
@@ -84,11 +109,18 @@ const Portfolio = () => {
                 <img src={project.image} alt={project.title} />
               </div>
               <div className="project-content">
-                <h3>{project.title}</h3>
-                <p>{project.description}</p>
-                <a href={project.github} target="_blank" rel="noopener noreferrer">
-                  <i className="fab fa-github"></i> View Project
-                </a>
+                <div className="project-text">
+                  <h3>{project.title}</h3>
+                  <p>{project.description}</p>
+                </div>
+                <div className="project-links">
+                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="github-link">
+                    <i className="fab fa-github"></i> Source Code
+                  </a>
+                  <a href={project.demo} target="_blank" rel="noopener noreferrer" className="demo-link">
+                    <i className="fas fa-external-link-alt"></i> Live Demo
+                  </a>
+                </div>
               </div>
             </div>
           ))}
