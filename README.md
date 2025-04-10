@@ -1,70 +1,55 @@
-# Getting Started with Create React App
+# 🚀 My Portfolio - Nguyễn Xuân Hải
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+> Đây là portfolio cá nhân của mình - **Nguyễn Xuân Hải**, được xây dựng bằng ReactJS.  
+> Mục đích: giới thiệu bản thân, kỹ năng lập trình, các dự án đã thực hiện và thông tin liên hệ.
 
-In the project directory, you can run:
+🔗 **Truy cập website tại**: [https://nxhai0913.me](https://nxhai0913.me)
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🛠️ Công nghệ sử dụng
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- ⚛️ [ReactJS](https://reactjs.org/)
+- 💄 CSS3 / SCSS / Tailwind CSS (tuỳ theo cấu hình bạn dùng)
+- 🔀 [React Router DOM](https://reactrouter.com/)
+- ✨ [AOS - Animate on Scroll](https://michalsnik.github.io/aos/)
+- 🎨 [React Icons](https://react-icons.github.io/react-icons/)
+- ☁️ Hosting: [Vercel](https://vercel.com/) hoặc [Netlify](https://netlify.com/)
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Cài đặt 
+# 1. Clone repository về máy
+git clone https://github.com/xuanhai0913/My-Portfolio-NXH.git
 
-### `npm run build`
+# 2. Di chuyển vào thư mục dự án
+cd My-Portfolio-NXH
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# 3. Cài đặt dependencies
+npm install
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# 4. Chạy ứng dụng local (với Vite hoặc CRA)
+npm run dev
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# 5. Truy cập tại: http://localhost:5173/
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+✨ Tính năng chính
+	•	Trang giới thiệu bản thân (About)
+	•	Trình bày kỹ năng (Skills & Tools)
+	•	Danh sách dự án đã thực hiện (Projects)
+	•	Form liên hệ (Contact form hoặc mạng xã hội)
+	•	Responsive đầy đủ thiết bị (Mobile / Tablet / Desktop)
+	•	Animation mượt mà khi cuộn trang với AOS
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
+📬 Liên hệ
+	•	🌐 Website: nxhai0913.me
+	•	📧 Email: xuanhai0913750452@gmail.com
+	•	💼 LinkedIn: https://www.linkedin.com/in/xuanhai0913/
+	•	📱 Zalo / Facebook: 0929501116
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+Made with ❤️ by Nguyễn Xuân Hải – Cảm ơn bạn đã ghé thăm!
