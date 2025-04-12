@@ -40,10 +40,16 @@ const Profile = () => {
       <div className="profile-content">
         <div className="profile-card" ref={containerRef}>
           <div className="profile-image"> 
-            <img src={profileImage} alt="Profile" />
+            <img 
+              src={profileImage} 
+              alt="Nguyễn Xuân Hải - Frontend Developer" 
+              loading="eager"
+              width="150"
+              height="150"
+            />
           </div>
           <div className="profile-info">
-            <h2>Nguyễn Xuân Hải</h2>
+            <h1>Nguyễn Xuân Hải</h1>
             <div className="title-container">
               <span className="role-prefix">I'm a</span>
               <div className="rotating-text-wrapper">

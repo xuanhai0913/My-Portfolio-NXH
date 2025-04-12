@@ -58,10 +58,24 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://nxhai0913.me/" />
     
+    <!-- Performance optimizations -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    
+    <!-- Critical CSS -->
+    <style>
+      /* Add critical CSS here */
+      .profile-section {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+      }
+    </style>
+    
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'" />
+    
     <!-- Structured Data -->
     <script type="application/ld+json">
     {
