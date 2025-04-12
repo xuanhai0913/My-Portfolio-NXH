@@ -1,8 +1,13 @@
 User-agent: *
 Allow: /
 
-# Sitemap
+# Important pages
+Allow: /about
+Allow: /portfolio
+Allow: /contact
+
+# Sitemap location
 Sitemap: https://nxhai0913.me/sitemap.xml
 
-# Crawl-delay
+# Optimize crawling
 Crawl-delay: 10
