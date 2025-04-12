@@ -5,7 +5,7 @@
 > Mục đích: giới thiệu bản thân, kỹ năng lập trình, các dự án đã thực hiện và thông tin liên hệ.
 
 🔗 **Truy cập website tại**: [https://nxhai0913.me](https://nxhai0913.me)
-
+![Portfolio Preview](https://raw.githubusercontent.com/xuanhai0913/My-Portfolio-NXH/main/public/images/og-image.jpg)
 ---
 
 ## 🛠️ Công nghệ sử dụng
