@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+# Sitemap
 Sitemap: https://nxhai0913.me/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 10
