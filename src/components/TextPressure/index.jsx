@@ -28,6 +28,7 @@ const TextPressure = ({
 
   const mouseRef = useRef({ x: 0, y: 0 });
   const cursorRef = useRef({ x: 0, y: 0 });
+  const rafId = useRef(null);
 
   const [fontSize, setFontSize] = useState(minFontSize);
   const [scaleY, setScaleY] = useState(1);
@@ -102,46 +103,56 @@ const TextPressure = ({
   }, [scale, text]);
 
   useEffect(() => {
-    let rafId;
     const animate = () => {
-      mouseRef.current.x += (cursorRef.current.x - mouseRef.current.x) / 15;
-      mouseRef.current.y += (cursorRef.current.y - mouseRef.current.y) / 15;
+      // Add RAF throttling
+      if (!rafId.current) {
+        rafId.current = requestAnimationFrame(() => {
+          mouseRef.current.x += (cursorRef.current.x - mouseRef.current.x) / 15;
+          mouseRef.current.y += (cursorRef.current.y - mouseRef.current.y) / 15;
 
-      if (titleRef.current) {
-        const titleRect = titleRef.current.getBoundingClientRect();
-        const maxDist = titleRect.width / 2;
+          if (titleRef.current) {
+            const titleRect = titleRef.current.getBoundingClientRect();
+            const maxDist = titleRect.width / 2;
 
-        spansRef.current.forEach((span) => {
-          if (!span) return;
+            spansRef.current.forEach((span) => {
+              if (!span) return;
 
-          const rect = span.getBoundingClientRect();
-          const charCenter = {
-            x: rect.x + rect.width / 2,
-            y: rect.y + rect.height / 2,
-          };
+              const rect = span.getBoundingClientRect();
+              const charCenter = {
+                x: rect.x + rect.width / 2,
+                y: rect.y + rect.height / 2,
+              };
 
-          const d = dist(mouseRef.current, charCenter);
+              const d = dist(mouseRef.current, charCenter);
 
-          const getAttr = (distance, minVal, maxVal) => {
-            const val = maxVal - Math.abs((maxVal * distance) / maxDist);
-            return Math.max(minVal, val + minVal);
-          };
+              const getAttr = (distance, minVal, maxVal) => {
+                const val = maxVal - Math.abs((maxVal * distance) / maxDist);
+                return Math.max(minVal, val + minVal);
+              };
 
-          const wdth = width ? Math.floor(getAttr(d, 5, 200)) : 100;
-          const wght = weight ? Math.floor(getAttr(d, 100, 900)) : 400;
-          const italVal = italic ? getAttr(d, 0, 1).toFixed(2) : 0;
-          const alphaVal = alpha ? getAttr(d, 0, 1).toFixed(2) : 1;
+              const wdth = width ? Math.floor(getAttr(d, 5, 200)) : 100;
+              const wght = weight ? Math.floor(getAttr(d, 100, 900)) : 400;
+              const italVal = italic ? getAttr(d, 0, 1).toFixed(2) : 0;
+              const alphaVal = alpha ? getAttr(d, 0, 1).toFixed(2) : 1;
 
-          span.style.opacity = alphaVal;
-          span.style.fontVariationSettings = `'wght' ${wght}, 'wdth' ${wdth}, 'ital' ${italVal}`;
+              span.style.opacity = alphaVal;
+              span.style.fontVariationSettings = `'wght' ${wght}, 'wdth' ${wdth}, 'ital' ${italVal}`;
+            });
+          }
+
+          rafId.current = null;
         });
       }
+    };
 
-      rafId = requestAnimationFrame(animate);
+    const cleanup = () => {
+      if (rafId.current) {
+        cancelAnimationFrame(rafId.current);
+      }
     };
 
     animate();
-    return () => cancelAnimationFrame(rafId);
+    return cleanup;
   }, [width, weight, italic, alpha, chars.length]);
 
   const dynamicClassName = [className, flex ? 'flex' : '', stroke ? 'stroke' : '']

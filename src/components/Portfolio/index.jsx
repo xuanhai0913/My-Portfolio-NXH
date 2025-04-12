@@ -95,7 +95,7 @@ const Portfolio = () => {
             italic={true}
             textColor="#4a90e2"
             strokeColor="rgba(255, 255, 255, 0.1)"
-            minFontSize={48}
+            minFontSize={window.innerWidth < 768 ? 32 : 48}
           />
         </div>
         <div className="portfolio-grid">
