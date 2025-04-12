@@ -16,8 +16,8 @@ const App = () => {
       <About />
       <Portfolio />
       <Contact />
+      <Analytics debug={true} mode="production" />
       <SpeedInsights />
-      <Analytics />
     </div>
   );
 };
