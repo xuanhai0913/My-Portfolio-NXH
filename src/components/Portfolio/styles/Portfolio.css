@@ -25,11 +25,12 @@
 .portfolio-title {
   position: relative;
   height: 80px; /* Reduced from 120px */
-  margin-bottom: 4rem; /* Increased margin */
+  margin-bottom: 2rem; /* Updated margin */
   width: 100%;
   max-width: 800px; /* Added max-width */
   margin-left: auto;
   margin-right: auto;
+  padding: 0 20px; /* Added padding */
 }
 
 .portfolio-content h2 {
@@ -45,6 +46,10 @@
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
   margin-top: 2rem;
+  padding: 20px; /* Added padding */
+  width: 100%; /* Added width */
+  max-width: 1400px; /* Updated max-width */
+  margin: 0 auto; /* Updated margin */
 }
 
 .project-card {
@@ -56,6 +61,10 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  opacity: 0; /* Updated opacity */
+  transform: translateY(30px); /* Updated transform */
+  transition: opacity 0.5s ease, transform 0.5s ease; /* Updated transition */
+  transition-delay: var(--delay); /* Added transition-delay */
 }
 
 .project-card.hidden {
@@ -173,7 +182,7 @@
 
 @media (max-width: 768px) {
   .portfolio-section {
-    padding: 6rem 0 4rem;
+    padding: 2rem 0; /* Updated padding */
   }
 
   .portfolio-content {
@@ -186,7 +195,18 @@
 
   .portfolio-title {
     height: 60px;
-    margin-bottom: 3rem;
+    margin-bottom: 1.5rem; /* Updated margin */
+    padding: 0 10px; /* Updated padding */
+  }
+
+  .portfolio-grid {
+    grid-template-columns: 1fr; /* Updated grid-template-columns */
+    gap: 1.5rem; /* Updated gap */
+    padding: 10px; /* Updated padding */
+  }
+
+  .project-card {
+    min-height: 300px; /* Added min-height */
   }
 
   .project-links {
@@ -214,4 +234,9 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
 }

@@ -2,9 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 
 const TextPressure = ({
   text = 'Compressa',
-  fontFamily = 'Compressa VF',
-  // This font is just an example, you should not use it in commercial projects.
-  fontUrl = 'https://res.cloudinary.com/dr6lvwubh/raw/upload/v1529908256/CompressaPRO-GX.woff2',
+  fontFamily = 'Inter',
+  fontUrl = 'https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap',
 
   width = true,
   weight = true,
@@ -28,7 +27,6 @@ const TextPressure = ({
 
   const mouseRef = useRef({ x: 0, y: 0 });
   const cursorRef = useRef({ x: 0, y: 0 });
-  const rafId = useRef(null);
 
   const [fontSize, setFontSize] = useState(minFontSize);
   const [scaleY, setScaleY] = useState(1);
@@ -103,57 +101,57 @@ const TextPressure = ({
   }, [scale, text]);
 
   useEffect(() => {
+    let rafId;
+    const smoothing = 0.15; // Điều chỉnh độ mượt
+    const maxDistance = 300; // Khoảng cách tối đa để hiệu ứng hoạt động
+
     const animate = () => {
-      // Add RAF throttling
-      if (!rafId.current) {
-        rafId.current = requestAnimationFrame(() => {
-          mouseRef.current.x += (cursorRef.current.x - mouseRef.current.x) / 15;
-          mouseRef.current.y += (cursorRef.current.y - mouseRef.current.y) / 15;
+      const dx = (cursorRef.current.x - mouseRef.current.x) * smoothing;
+      const dy = (cursorRef.current.y - mouseRef.current.y) * smoothing;
+      
+      mouseRef.current.x += dx;
+      mouseRef.current.y += dy;
 
-          if (titleRef.current) {
-            const titleRect = titleRef.current.getBoundingClientRect();
-            const maxDist = titleRect.width / 2;
+      if (titleRef.current) {
+        spansRef.current.forEach((span) => {
+          if (!span) return;
 
-            spansRef.current.forEach((span) => {
-              if (!span) return;
+          const rect = span.getBoundingClientRect();
+          const charCenter = {
+            x: rect.x + rect.width / 2,
+            y: rect.y + rect.height / 2,
+          };
 
-              const rect = span.getBoundingClientRect();
-              const charCenter = {
-                x: rect.x + rect.width / 2,
-                y: rect.y + rect.height / 2,
-              };
+          const d = dist(mouseRef.current, charCenter);
+          const normalizedDist = Math.min(d / maxDistance, 1);
+          const factor = 1 - normalizedDist;
 
-              const d = dist(mouseRef.current, charCenter);
+          // Mượt hơn với easing function
+          const ease = t => t * t * (3 - 2 * t);
+          const eased = ease(factor);
 
-              const getAttr = (distance, minVal, maxVal) => {
-                const val = maxVal - Math.abs((maxVal * distance) / maxDist);
-                return Math.max(minVal, val + minVal);
-              };
+          const wdth = width ? Math.floor(100 + eased * 100) : 100;
+          const wght = weight ? Math.floor(400 + eased * 500) : 400;
+          const italVal = italic ? (eased * 0.6).toFixed(2) : 0;
+          const alphaVal = alpha ? (0.4 + eased * 0.6).toFixed(2) : 1;
 
-              const wdth = width ? Math.floor(getAttr(d, 5, 200)) : 100;
-              const wght = weight ? Math.floor(getAttr(d, 100, 900)) : 400;
-              const italVal = italic ? getAttr(d, 0, 1).toFixed(2) : 0;
-              const alphaVal = alpha ? getAttr(d, 0, 1).toFixed(2) : 1;
+          // Áp dụng transform để tối ưu performance
+          span.style.transform = `scale(${1 + eased * 0.1})`;
+          span.style.opacity = alphaVal;
+          span.style.fontVariationSettings = `"wght" ${wght}, "wdth" ${wdth}`;
+          if (italic) span.style.fontStyle = `italic ${italVal}`;
 
-              span.style.opacity = alphaVal;
-              span.style.fontVariationSettings = `'wght' ${wght}, 'wdth' ${wdth}, 'ital' ${italVal}`;
-            });
-          }
-
-          rafId.current = null;
+          // Thêm transition cho mượt
+          span.style.transition = 'transform 0.1s ease-out';
         });
       }
+
+      rafId = requestAnimationFrame(animate);
     };
 
-    const cleanup = () => {
-      if (rafId.current) {
-        cancelAnimationFrame(rafId.current);
-      }
-    };
-
-    animate();
-    return cleanup;
-  }, [width, weight, italic, alpha, chars.length]);
+    rafId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(rafId);
+  }, [width, weight, italic, alpha]);
 
   const dynamicClassName = [className, flex ? 'flex' : '', stroke ? 'stroke' : '']
     .filter(Boolean)
@@ -167,28 +165,36 @@ const TextPressure = ({
         width: '100%',
         height: '100%',
         background: 'transparent',
+        overflow: 'visible',
+        zIndex: 1,
       }}
     >
       <style>{`
-        /* Font face if needed */
         @font-face {
           font-family: '${fontFamily}';
           src: url('${fontUrl}');
-          font-style: normal;
+          font-display: swap;
         }
 
-        /* If flex=true => space out each character span */
+        .text-pressure-title span {
+          display: inline-block;
+          will-change: transform, opacity, font-variation-settings;
+          backface-visibility: hidden;
+          transform: translateZ(0);
+          perspective: 1000px;
+        }
+
         .flex {
           display: flex;
           justify-content: space-between;
+          align-items: center;
         }
 
-        /* Stroke class toggles "stroke" effect on each character */
         .stroke span {
           position: relative;
-          color: ${textColor}; /* normal text color */
+          color: ${textColor};
         }
-        /* The stroke layer sits behind with text-stroke */
+
         .stroke span::after {
           content: attr(data-char);
           position: absolute;
@@ -196,14 +202,13 @@ const TextPressure = ({
           top: 0;
           color: transparent;
           z-index: -1;
-          /* If you'd like to shift the stroke up/down, you can add transform here */
-          -webkit-text-stroke-width: 3px;
-          -webkit-text-stroke-color: ${strokeColor};
+          -webkit-text-stroke: 2px ${strokeColor};
         }
 
-        /* If stroke=false => no stroke class => normal text color */
         .text-pressure-title {
           color: ${textColor};
+          position: relative;
+          z-index: 2;
         }
       `}</style>
 

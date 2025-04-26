@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Squares from '../Squares';
 import TextPressure from '../TextPressure';
 import './styles/Portfolio.css';
@@ -13,18 +13,18 @@ const Portfolio = () => {
       demo: "https://my-portfolio-nxh.vercel.app"
     },
     {
-      title: "Website education English Comunity ",
+      title: "Website education English Comunity",
       description: "This is a website that teaches English for free to people in difficult circumstances. Using wordpress to develop",
       image: require("../../images/project/prj6.png"),
       github: "https://github.com/xuanhai0913/",
-      demo: "ech.edu.vn"
+      demo: "https://ech.edu.vn"
     },
     {
       title: "Koi Farm Management",
       description: "This project aims to build a Koi farm management website, providing customers with comprehensive information about Koi breeds, as well as Koi-related services such as buying, selling, consignment and care.",
       image: require("../../images/project/prj2.png"),
       github: "https://github.com/xuanhai0913/Koi-Farm-Shop_Group-H",
-      demo: "cakoi01.vercel.app/search"
+      demo: "https://cakoi01.vercel.app"
     },
     {
       title: "🚀 Flutter Team Members App",
@@ -51,6 +51,17 @@ const Portfolio = () => {
   ];
 
   const projectRefs = useRef([]);
+  const [fontSize, setFontSize] = useState(() => {
+    return window.innerWidth < 768 ? 28 : 48;
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setFontSize(window.innerWidth < 768 ? 28 : 48);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -78,7 +89,7 @@ const Portfolio = () => {
     <section id="portfolio" className="portfolio-section">
       <Squares 
         speed={0.4} 
-        squareSize={35}
+        squareSize={window.innerWidth < 768 ? 25 : 35}
         direction='diagonal'
         borderColor='rgba(255, 255, 255, 0.08)'
         hoverFillColor='rgba(74, 144, 226, 0.2)'
@@ -95,7 +106,7 @@ const Portfolio = () => {
             italic={true}
             textColor="#4a90e2"
             strokeColor="rgba(255, 255, 255, 0.1)"
-            minFontSize={window.innerWidth < 768 ? 32 : 48}
+            minFontSize={fontSize}
           />
         </div>
         <div className="portfolio-grid">
@@ -104,6 +115,9 @@ const Portfolio = () => {
               key={index} 
               className="project-card hidden"
               ref={el => projectRefs.current[index] = el}
+              style={{
+                '--delay': `${index * 0.1}s`
+              }}
             >
               <div className="project-image">
                 <img src={project.image} alt={project.title} />
