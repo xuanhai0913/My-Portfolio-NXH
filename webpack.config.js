@@ -24,7 +24,7 @@ module.exports = {
             options: {
               presets: [
                 '@babel/preset-env',
-                '@babel/preset-react'
+                ['@babel/preset-react', { runtime: 'automatic' }]
               ],
               plugins: [
                 process.env.NODE_ENV !== 'production' && require.resolve('react-refresh/babel')

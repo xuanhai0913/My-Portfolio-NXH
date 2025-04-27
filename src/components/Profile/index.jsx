@@ -68,6 +68,7 @@ const Profile = () => {
     } catch (error) {
       console.error('Aurora render error:', error);
       setComponentErrors(prev => ({ ...prev, aurora: true }));
+      // eslint-disable-next-line no-unreachable
       return <div className="aurora-fallback"></div>;
     }
   };
@@ -103,6 +104,7 @@ const Profile = () => {
     } catch (error) {
       console.error('RotatingText render error:', error);
       setComponentErrors(prev => ({ ...prev, rotatingText: true }));
+      // eslint-disable-next-line no-unreachable
       return <span className="rotating-title">Full-Stack Developer</span>;
     }
   };
