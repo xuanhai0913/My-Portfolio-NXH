@@ -1,61 +1,40 @@
 import React, { useRef, useEffect, useState } from 'react';
-import profileImage from '../../images/profile.png';
-import './styles/Profile.css';
-
-// Use direct imports instead of lazy loading for core components
 import Aurora from '../Aurora';
 import RotatingText from '../RotatingText';
 import VariableProximity from '../VariableProximity';
+import profileImage from '../../images/profile.png';
+import './styles/Profile.css';
 
 const Profile = () => {
   const containerRef = useRef(null);
   const textRef = useRef(null);
-  const [componentErrors, setComponentErrors] = useState({
-    aurora: false,
-    rotatingText: false,
-    proximity: false
-  });
-  const [isMounted, setIsMounted] = useState(false);
-
-  // Ensure component is mounted before rendering complex components
-  useEffect(() => {
-    setIsMounted(true);
-    return () => setIsMounted(false);
-  }, []);
+  const [auroraError, setAuroraError] = useState(false);
+  const [rotatingTextError, setRotatingTextError] = useState(false);
+  const [proximityError, setProximityError] = useState(false);
 
   useEffect(() => {
-    if (!isMounted) return;
-    
-    const container = containerRef.current;
-    const textElement = textRef.current;
-    
-    if (!container || !textElement) return;
-    
-    const updateProximityEffect = (e) => {
-      if (!textElement) return;
-      try {
-        const rect = textElement.getBoundingClientRect();
+    if (containerRef.current && textRef.current) {
+      const container = containerRef.current; // Store ref in variable for cleanup
+      
+      const updateProximityEffect = (e) => {
+        if (!textRef.current) return;
+        const rect = textRef.current.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        textElement.style.setProperty('--mouse-x', `${x}px`);
-        textElement.style.setProperty('--mouse-y', `${y}px`);
-      } catch (error) {
-        console.error('Proximity effect error:', error);
-        // Fail silently but log the error
-      }
-    };
+        textRef.current.style.setProperty('--mouse-x', `${x}px`);
+        textRef.current.style.setProperty('--mouse-y', `${y}px`);
+      };
 
-    container.addEventListener('mousemove', updateProximityEffect);
-    
-    return () => {
-      container.removeEventListener('mousemove', updateProximityEffect);
-    };
-  }, [isMounted]);
+      container.addEventListener('mousemove', updateProximityEffect);
+      
+      return () => {
+        container.removeEventListener('mousemove', updateProximityEffect);
+      };
+    }
+  }, []);
 
-  // Error-handling render functions
+  // Render Aurora with error handling
   const renderAurora = () => {
-    if (!isMounted) return <div className="aurora-fallback"></div>;
-    
     try {
       return (
         <Aurora
@@ -66,16 +45,14 @@ const Profile = () => {
         />
       );
     } catch (error) {
-      console.error('Aurora render error:', error);
-      setComponentErrors(prev => ({ ...prev, aurora: true }));
-      // eslint-disable-next-line no-unreachable
+      console.error('Aurora component failed to render:', error);
+      setAuroraError(true);
       return <div className="aurora-fallback"></div>;
     }
   };
 
+  // Render RotatingText with error handling
   const renderRotatingText = () => {
-    if (!isMounted) return <span className="rotating-title">Full-Stack Developer</span>;
-    
     try {
       return (
         <RotatingText
@@ -102,16 +79,14 @@ const Profile = () => {
         />
       );
     } catch (error) {
-      console.error('RotatingText render error:', error);
-      setComponentErrors(prev => ({ ...prev, rotatingText: true }));
-      // eslint-disable-next-line no-unreachable
-      return <span className="rotating-title">Full-Stack Developer</span>;
+      console.error('RotatingText component failed to render:', error);
+      setRotatingTextError(true);
+      return <span className="rotating-title-fallback">Full-Stack Developer</span>;
     }
   };
 
+  // Render VariableProximity with error handling
   const renderVariableProximity = () => {
-    if (!isMounted) return <p className="variable-proximity-fallback">Building digital experiences with modern web technologies</p>;
-    
     try {
       return (
         <VariableProximity
@@ -127,16 +102,15 @@ const Profile = () => {
         />
       );
     } catch (error) {
-      console.error('VariableProximity render error:', error);
-      setComponentErrors(prev => ({ ...prev, proximity: true }));
+      console.error('VariableProximity component failed to render:', error);
+      setProximityError(true);
       return <p className="variable-proximity-fallback">Building digital experiences with modern web technologies</p>;
     }
   };
 
   return (
     <section id="profile" className="profile-section">
-      {!componentErrors.aurora && renderAurora()}
-      
+      {!auroraError && renderAurora()}
       <div className="profile-content">
         <div className="profile-card" ref={containerRef}>
           <div className="profile-image"> 
@@ -153,16 +127,12 @@ const Profile = () => {
             <div className="title-container">
               <span className="role-prefix">I'm a</span>
               <div className="rotating-text-wrapper">
-                {!componentErrors.rotatingText ? renderRotatingText() : (
-                  <span className="rotating-title">Full-Stack Developer</span>
-                )}
+                {!rotatingTextError && renderRotatingText()}
               </div>
             </div>
             
             <div className="description-container" ref={textRef}>
-              {!componentErrors.proximity ? renderVariableProximity() : (
-                <p className="variable-proximity-fallback">Building digital experiences with modern web technologies</p>
-              )}
+              {!proximityError && renderVariableProximity()}
             </div>
             <div className="social-links">
               <ul>
