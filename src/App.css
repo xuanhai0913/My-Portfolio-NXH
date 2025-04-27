@@ -74,3 +74,33 @@ body {
     transform: rotate(360deg);
   }
 }
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  width: 100%;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(74, 144, 226, 0.3);
+  border-top-color: #4a90e2;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.error-fallback {
+  padding: 20px;
+  margin: 20px 0;
+  background: rgba(255, 50, 50, 0.1);
+  border-radius: 8px;
+  color: #fff;
+  text-align: center;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

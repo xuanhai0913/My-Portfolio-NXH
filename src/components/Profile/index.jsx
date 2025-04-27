@@ -1,16 +1,25 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
+import profileImage from '../../images/profile.png';
+import './styles/Profile.css';
+
+// Use direct imports instead of lazy loading for core components
 import Aurora from '../Aurora';
 import RotatingText from '../RotatingText';
 import VariableProximity from '../VariableProximity';
-import profileImage from '../../images/profile.png';
-import './styles/Profile.css';
 
 const Profile = () => {
   const containerRef = useRef(null);
   const textRef = useRef(null);
+  const [componentErrors, setComponentErrors] = useState({
+    aurora: false,
+    rotatingText: false,
+    proximity: false
+  });
 
   useEffect(() => {
     if (containerRef.current && textRef.current) {
+      const container = containerRef.current;
+      
       const updateProximityEffect = (e) => {
         if (!textRef.current) return;
         const rect = textRef.current.getBoundingClientRect();
@@ -20,23 +29,91 @@ const Profile = () => {
         textRef.current.style.setProperty('--mouse-y', `${y}px`);
       };
 
-      containerRef.current.addEventListener('mousemove', updateProximityEffect);
+      container.addEventListener('mousemove', updateProximityEffect);
+      
       return () => {
-        if (containerRef.current) {
-          containerRef.current.removeEventListener('mousemove', updateProximityEffect);
-        }
+        container.removeEventListener('mousemove', updateProximityEffect);
       };
     }
   }, []);
 
+  // Error-handling render functions
+  const renderAurora = () => {
+    try {
+      return (
+        <Aurora
+          colorStops={["#3A29FF", "#FF94B4", "#FF3232"]}
+          blend={0.2}
+          amplitude={0.8}
+          speed={1.5}
+        />
+      );
+    } catch (error) {
+      console.error('Aurora render error:', error);
+      setComponentErrors(prev => ({ ...prev, aurora: true }));
+      return <div className="aurora-fallback"></div>;
+    }
+  };
+
+  const renderRotatingText = () => {
+    try {
+      return (
+        <RotatingText
+          texts={[
+            'Full-Stack Developer',
+            'React Developer',
+            'Web Designer',
+            'Problem Solver'
+          ]}
+          mainClassName="rotating-title"
+          staggerFrom="center"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -15 }}
+          transition={{ 
+            type: "spring",
+            damping: 30,
+            stiffness: 200,
+            mass: 0.5
+          }}
+          staggerDuration={0.015}
+          rotationInterval={3000}
+          splitLevelClassName="title-split"
+        />
+      );
+    } catch (error) {
+      console.error('RotatingText render error:', error);
+      setComponentErrors(prev => ({ ...prev, rotatingText: true }));
+      return <span className="rotating-title">Full-Stack Developer</span>;
+    }
+  };
+
+  const renderVariableProximity = () => {
+    try {
+      return (
+        <VariableProximity
+          label="Building digital experiences with modern web technologies"
+          className="variable-proximity-text"
+          fromFontVariationSettings="'wght' 300, 'opsz' 8"
+          toFontVariationSettings="'wght' 1000, 'opsz' 48"
+          radius={150}
+          falloff="exponential"
+          containerRef={containerRef}
+          sensitivity={1.5}
+          transitionSpeed={0.15}
+        />
+      );
+    } catch (error) {
+      console.error('VariableProximity render error:', error);
+      setComponentErrors(prev => ({ ...prev, proximity: true }));
+      return <p className="variable-proximity-fallback">Building digital experiences with modern web technologies</p>;
+    }
+  };
+
   return (
     <section id="profile" className="profile-section">
-      <Aurora
-        colorStops={["#3A29FF", "#FF94B4", "#FF3232"]}
-        blend={0.2}
-        amplitude={0.8}
-        speed={1.5}
-      />
+      {!componentErrors.aurora && renderAurora()}
+      
       <div className="profile-content">
         <div className="profile-card" ref={containerRef}>
           <div className="profile-image"> 
@@ -53,43 +130,16 @@ const Profile = () => {
             <div className="title-container">
               <span className="role-prefix">I'm a</span>
               <div className="rotating-text-wrapper">
-                <RotatingText
-                  texts={[
-                    'Full-Stack Developer',
-                    'React Developer',
-                    'Web Designer',
-                    'Problem Solver'
-                  ]}
-                  mainClassName="rotating-title"
-                  staggerFrom="center"
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -15 }}
-                  transition={{ 
-                    type: "spring",
-                    damping: 30,
-                    stiffness: 200,
-                    mass: 0.5
-                  }}
-                  staggerDuration={0.015}
-                  rotationInterval={3000}
-                  splitLevelClassName="title-split"
-                />
+                {!componentErrors.rotatingText ? renderRotatingText() : (
+                  <span className="rotating-title">Full-Stack Developer</span>
+                )}
               </div>
             </div>
             
             <div className="description-container" ref={textRef}>
-              <VariableProximity
-                label="Building digital experiences with modern web technologies"
-                className="variable-proximity-text"
-                fromFontVariationSettings="'wght' 300, 'opsz' 8"
-                toFontVariationSettings="'wght' 1000, 'opsz' 48"
-                radius={150}
-                falloff="exponential"
-                containerRef={containerRef}
-                sensitivity={1.5}
-                transitionSpeed={0.15}
-              />
+              {!componentErrors.proximity ? renderVariableProximity() : (
+                <p className="variable-proximity-fallback">Building digital experiences with modern web technologies</p>
+              )}
             </div>
             <div className="social-links">
               <ul>

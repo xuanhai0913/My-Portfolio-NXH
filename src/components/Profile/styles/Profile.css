@@ -156,6 +156,18 @@
   pointer-events: none;
 }
 
+.aurora-fallback {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(45deg, rgba(58, 41, 255, 0.1), rgba(255, 148, 180, 0.1), rgba(255, 50, 50, 0.1));
+}
+
 .title-container {
   display: flex;
   align-items: center;
@@ -221,6 +233,16 @@
   color: rgba(223, 231, 255, 0.9);
   will-change: font-variation-settings;
   transition: font-variation-settings 0.15s ease-out;
+}
+
+.variable-proximity-fallback {
+  font-size: 1.6rem;
+  line-height: 1.5;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  color: rgba(223, 231, 255, 0.9);
+  animation: fadeIn 0.5s ease-out;
 }
 
 @keyframes pulse {
