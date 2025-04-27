@@ -2,7 +2,6 @@
   "name": "my-profile-react",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "@fortawesome/fontawesome-free": "^6.4.2",
