@@ -15,30 +15,47 @@ const Profile = () => {
     rotatingText: false,
     proximity: false
   });
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Ensure component is mounted before rendering complex components
+  useEffect(() => {
+    setIsMounted(true);
+    return () => setIsMounted(false);
+  }, []);
 
   useEffect(() => {
-    if (containerRef.current && textRef.current) {
-      const container = containerRef.current;
-      
-      const updateProximityEffect = (e) => {
-        if (!textRef.current) return;
-        const rect = textRef.current.getBoundingClientRect();
+    if (!isMounted) return;
+    
+    const container = containerRef.current;
+    const textElement = textRef.current;
+    
+    if (!container || !textElement) return;
+    
+    const updateProximityEffect = (e) => {
+      if (!textElement) return;
+      try {
+        const rect = textElement.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        textRef.current.style.setProperty('--mouse-x', `${x}px`);
-        textRef.current.style.setProperty('--mouse-y', `${y}px`);
-      };
+        textElement.style.setProperty('--mouse-x', `${x}px`);
+        textElement.style.setProperty('--mouse-y', `${y}px`);
+      } catch (error) {
+        console.error('Proximity effect error:', error);
+        // Fail silently but log the error
+      }
+    };
 
-      container.addEventListener('mousemove', updateProximityEffect);
-      
-      return () => {
-        container.removeEventListener('mousemove', updateProximityEffect);
-      };
-    }
-  }, []);
+    container.addEventListener('mousemove', updateProximityEffect);
+    
+    return () => {
+      container.removeEventListener('mousemove', updateProximityEffect);
+    };
+  }, [isMounted]);
 
   // Error-handling render functions
   const renderAurora = () => {
+    if (!isMounted) return <div className="aurora-fallback"></div>;
+    
     try {
       return (
         <Aurora
@@ -56,6 +73,8 @@ const Profile = () => {
   };
 
   const renderRotatingText = () => {
+    if (!isMounted) return <span className="rotating-title">Full-Stack Developer</span>;
+    
     try {
       return (
         <RotatingText
@@ -89,6 +108,8 @@ const Profile = () => {
   };
 
   const renderVariableProximity = () => {
+    if (!isMounted) return <p className="variable-proximity-fallback">Building digital experiences with modern web technologies</p>;
+    
     try {
       return (
         <VariableProximity
