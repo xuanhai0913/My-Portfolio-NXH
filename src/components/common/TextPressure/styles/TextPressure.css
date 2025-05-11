@@ -1,0 +1,27 @@
+// filepath: /Users/nguyenhai/Documents/GitHub/My-Portfolio/src/components/common/TextPressure/styles/TextPressure.css
+.text-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.text-container svg {
+  position: relative;
+  z-index: 1;
+}
+
+.fluid-text {
+  position: absolute;
+  overflow: hidden;
+  transform-origin: center;
+  pointer-events: none;
+}
+
+.fluid-text path {
+  fill: #4a90e2;
+  transition: all 0.3s ease;
+}

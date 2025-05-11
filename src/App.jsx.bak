@@ -1,8 +1,8 @@
+// filepath: /Users/nguyenhai/Documents/GitHub/My-Portfolio/src/App.jsx
 import React, { lazy, Suspense } from 'react';
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Analytics } from "@vercel/analytics/react";
-import { ErrorBoundary } from './components/common';
-import { ThemeProvider } from './context';
+import ErrorBoundary from './components/common/ErrorBoundary';
 import Header from './layouts/Header';
 import './App.css';
 
@@ -21,11 +21,10 @@ const LoadingFallback = () => (
 
 const App = () => {
   return (
-    <ThemeProvider>
-      <div className="app">
-        <ErrorBoundary>
-          <Header />
-        </ErrorBoundary>
+    <div className="app">
+      <ErrorBoundary>
+        <Header />
+      </ErrorBoundary>
       
       <ErrorBoundary>
         <Suspense fallback={<LoadingFallback />}>
@@ -51,10 +50,10 @@ const App = () => {
         </Suspense>
       </ErrorBoundary>
       
-      <Analytics debug={false} mode="production" />
+      {/* Vercel Analytics */}
+      <Analytics />
       <SpeedInsights />
     </div>
-    </ThemeProvider>
   );
 };
 

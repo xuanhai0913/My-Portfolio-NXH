@@ -1,0 +1,378 @@
+.profile-section {
+  position: relative;
+  min-height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 6rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.8);
+  box-sizing: border-box;
+  transform: translateX(-50%);
+  left: 50%;
+}
+
+.profile-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 2rem;
+  margin: 0 auto;
+  animation: fadeIn 1s ease-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 3rem;
+  text-align: center;
+  max-width: 800px;
+  width: 90%;
+  margin: 0 auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+}
+
+.profile-image {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 2rem;
+}
+
+.profile-image img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #4a90e2;
+  transition: transform 0.3s ease;
+  filter: brightness(1.05);
+}
+
+.profile-image::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border-radius: 50%;
+  border: 2px solid rgba(74, 144, 226, 0.3);
+  animation: pulse 2s infinite;
+}
+
+.profile-info h2 {
+  font-size: 2.5rem;
+  color: #fff;
+  margin-bottom: 0.8rem;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(45deg, #fff, #4a90e2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.profile-info .title {
+  color: #4a90e2;
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.profile-info .description {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.social-links {
+  margin-top: 2rem;
+}
+
+.social-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.social-links a {
+  color: #fff;
+  text-decoration: none;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: rgba(74, 144, 226, 0.3);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social-links a i {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.social-links a:hover {
+  background: rgba(74, 144, 226, 0.8);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+}
+
+.social-links a:hover i {
+  transform: scale(1.1);
+}
+
+.aurora-container {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.aurora-fallback {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(45deg, rgba(58, 41, 255, 0.1), rgba(255, 148, 180, 0.1), rgba(255, 50, 50, 0.1));
+}
+
+.title-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+}
+
+.role-prefix {
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 500;
+  opacity: 0.95;
+}
+
+.rotating-text-wrapper {
+  position: relative;
+  min-width: 260px;
+  display: flex;
+  align-items: center;
+}
+
+.rotating-title {
+  color: #4a90e2;
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: 0.2px;
+}
+
+.title-split {
+  display: inline-block;
+  padding-right: 0.05em;
+  transition: all 0.2s ease;
+}
+
+.title-split:hover {
+  color: #64a6f3;
+  transform: translateY(-1px);
+}
+
+.emoji {
+  font-size: 1.5rem;
+  animation: wave 2s infinite;
+  transform-origin: 70% 70%;
+}
+
+.description-container {
+  position: relative;
+  padding: 1rem 0;
+  margin: 1.5rem 0;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.variable-proximity-text {
+  font-size: 1.6rem;
+  line-height: 1.5;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  color: rgba(223, 231, 255, 0.9);
+  will-change: font-variation-settings;
+  transition: font-variation-settings 0.15s ease-out;
+}
+
+.variable-proximity-fallback {
+  font-size: 1.6rem;
+  line-height: 1.5;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  color: rgba(223, 231, 255, 0.9);
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes wave {
+  0% { transform: rotate(0deg); }
+  10% { transform: rotate(14deg); }
+  20% { transform: rotate(-8deg); }
+  30% { transform: rotate(14deg); }
+  40% { transform: rotate(-4deg); }
+  50% { transform: rotate(10deg); }
+  60% { transform: rotate(0deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@media (max-width: 768px) {
+  .profile-section {
+    padding: 4rem 1rem;
+  }
+
+  .profile-content {
+    padding: 0 1rem;
+  }
+
+  .profile-card {
+    width: 95%;
+    padding: 1.5rem;
+  }
+
+  .profile-info h2 {
+    font-size: 2rem;
+  }
+
+  .profile-info .title {
+    font-size: 1.1rem;
+  }
+
+  .social-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .social-links a {
+    width: 80%;
+    justify-content: center;
+  }
+
+  .social-links ul {
+    gap: 1rem;
+  }
+
+  .social-links a {
+    width: 40px;
+    height: 40px;
+  }
+
+  .social-links a i {
+    font-size: 1rem;
+  }
+
+  .title-container {
+    gap: 0.5rem;
+    margin: 1.2rem 0;
+  }
+
+  .rotating-text-wrapper {
+    min-width: 220px;
+  }
+
+  .rotating-title,
+  .role-prefix {
+    font-size: 1.1rem;
+  }
+
+  .description-container {
+    padding: 0.75rem 0;
+    min-height: 50px;
+  }
+
+  .variable-proximity-text {
+    font-size: 1rem;
+    max-width: 90%;
+  }
+}
+
+@media (min-width: 1440px) {
+  .profile-section {
+    padding: 6rem 2rem;
+  }
+
+  .profile-content {
+    max-width: 1400px;
+  }
+
+  .profile-card {
+    max-width: 1000px;
+  }
+}
+
+@media (min-width: 2560px) {
+  .profile-content {
+    max-width: 1800px;
+  }
+
+  .profile-card {
+    max-width: 1200px;
+  }
+}
