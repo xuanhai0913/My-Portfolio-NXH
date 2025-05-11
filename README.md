@@ -1,65 +1,55 @@
-# My Portfolio
+# 🚀 My Portfolio - Nguyễn Xuân Hải
 
-Đây là dự án portfolio cá nhân được xây dựng bằng React.
 
-## Cấu trúc dự án
+> Đây là portfolio cá nhân của mình - **Nguyễn Xuân Hải**, được xây dựng bằng ReactJS.  
+> Mục đích: giới thiệu bản thân, kỹ năng lập trình, các dự án đã thực hiện và thông tin liên hệ.
 
-```
-src/
-  ├── assets/         # Lưu trữ các tài nguyên tĩnh
-  │   ├── images/     # Hình ảnh 
-  │   └── styles/     # Global styles
-  │
-  ├── components/     # Các component dùng chung, tái sử dụng
-  │   ├── ui/         # Các component UI cơ bản (button, input, etc.)
-  │   └── common/     # Các component dùng chung
-  │
-  ├── hooks/          # Custom hooks
-  │
-  ├── layouts/        # Các layout component (Header, Footer, etc.)
-  │
-  ├── pages/          # Components tương ứng với từng trang
-  │   ├── Home/
-  │   ├── About/
-  │   ├── Portfolio/
-  │   └── Contact/
-  │
-  ├── services/       # API calls và services
-  │
-  ├── utils/          # Các hàm tiện ích
-  │
-  ├── context/        # React Context Providers
-  │
-  ├── config/         # Cấu hình ứng dụng
-  │
-  ├── App.jsx
-  └── index.js
-```
+🔗 **Truy cập website tại**: [https://nxhai0913.me](https://nxhai0913.me)
+![Portfolio Preview](https://raw.githubusercontent.com/xuanhai0913/My-Portfolio-NXH/main/public/images/og-image.jpg)
+---
 
-## Các đặc điểm
+## 🛠️ Công nghệ sử dụng
 
-- Sử dụng React Hooks và Functional Components
-- Lazy loading cho các component không quan trọng
-- Error Boundary để xử lý lỗi
-- Tối ưu hóa hiệu suất với Code Splitting và Suspense
-- Analytics và Speed Insights từ Vercel
+- ⚛️ [ReactJS](https://reactjs.org/)
+- 💄 CSS3 / SCSS / Tailwind CSS (tuỳ theo cấu hình bạn dùng)
+- 🔀 [React Router DOM](https://reactrouter.com/)
+- ✨ [AOS - Animate on Scroll](https://michalsnik.github.io/aos/)
+- 🎨 [React Icons](https://react-icons.github.io/react-icons/)
+- ☁️ Hosting: [Vercel](https://vercel.com/) hoặc [Netlify](https://netlify.com/)
 
-## Hướng dẫn cài đặt
+---
 
-```bash
-# Clone dự án
-git clone https://github.com/yourusername/My-Portfolio.git
+## Cài đặt 
+# 1. Clone repository về máy
+git clone https://github.com/xuanhai0913/My-Portfolio-NXH.git
 
-# Di chuyển vào thư mục dự án
-cd My-Portfolio
+# 2. Di chuyển vào thư mục dự án
+cd My-Portfolio-NXH
 
-# Cài đặt dependencies
+# 3. Cài đặt dependencies
 npm install
 
-# Chạy dự án
-npm start
-```
+# 4. Chạy ứng dụng local (với Vite hoặc CRA)
+npm run dev
 
-## Triển khai
+# 5. Truy cập tại: http://localhost:5173/
 
-Dự án được triển khai trên Vercel.
+---
+
+✨ Tính năng chính
+	•	Trang giới thiệu bản thân (About)
+	•	Trình bày kỹ năng (Skills & Tools)
+	•	Danh sách dự án đã thực hiện (Projects)
+	•	Form liên hệ (Contact form hoặc mạng xã hội)
+	•	Responsive đầy đủ thiết bị (Mobile / Tablet / Desktop)
+	•	Animation mượt mà khi cuộn trang với AOS
+
+---
+📬 Liên hệ
+	•	🌐 Website: nxhai0913.me
+	•	📧 Email: xuanhai0913750452@gmail.com
+	•	💼 LinkedIn: https://www.linkedin.com/in/xuanhai0913/
+	•	📱 Zalo / Facebook: 0929501116
+
+---
+Made with ❤️ by Nguyễn Xuân Hải – Cảm ơn bạn đã ghé thăm!

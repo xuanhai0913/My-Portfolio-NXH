@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useCallback } from 'react';
-import { Squares } from '../../../components/common';
-import { isInViewport } from '../../../utils';
+import { Squares } from '../../components/common';
+import { isInViewport } from '../../utils';
 import './styles/About.css';
 
 const About = () => {

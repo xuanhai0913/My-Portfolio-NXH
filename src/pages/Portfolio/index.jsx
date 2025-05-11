@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Squares, TextPressure } from '../../../components/common';
-import { isInViewport, throttle } from '../../../utils';
+import { Squares, TextPressure } from '../../components/common';
+import { isInViewport, throttle } from '../../utils';
 import './styles/Portfolio.css';
 
 const Portfolio = () => {
@@ -8,42 +8,42 @@ const Portfolio = () => {
     {
       title: "Portfolio Website",
       description: "Modern React portfolio with interactive animations and responsive design. Using React, GSAP, and CSS3.",
-      image: require("../../../assets/images/project/prj1.png"),
+      image: require("../../assets/images/project/prj1.png"),
       github: "https://github.com/xuanhai0913/My-Portfolio-NXH",
       demo: "https://my-portfolio-nxh.vercel.app"
     },
     {
       title: "Website education English Comunity",
       description: "This is a website that teaches English for free to people in difficult circumstances. Using wordpress to develop",
-      image: require("../../../assets/images/project/prj6.png"),
+      image: require("../../assets/images/project/prj6.png"),
       github: "https://github.com/xuanhai0913/",
       demo: "https://ech.edu.vn"
     },
     {
       title: "Koi Farm Management",
       description: "This project aims to build a Koi farm management website, providing customers with comprehensive information about Koi breeds, as well as Koi-related services such as buying, selling, consignment and care.",
-      image: require("../../../assets/images/project/prj2.png"),
+      image: require("../../assets/images/project/prj2.png"),
       github: "https://github.com/xuanhai0913/Koi-Farm-Shop_Group-H",
       demo: "https://cakoi01.vercel.app"
     },
     {
       title: "🚀 Flutter Team Members App",
       description: "This is a simple Flutter application that displays a team member list using PageView. The app allows navigation between members and includes an option to return to the home screen.",
-      image: require("../../../assets/images/project/prj3.png"),
+      image: require("../../assets/images/project/prj3.png"),
       github: "https://github.com/xuanhai0913/Flutter-my-app",
       demo: "https://flutter-my-app-three.vercel.app"
     },
     {
       title: "Management students",
       description: "Student management application by class, supports displaying student list, allows filtering and searching for names, and provides contact information of home school.",
-      image: require("../../../assets/images/project/prj4.png"),
+      image: require("../../assets/images/project/prj4.png"),
       github: "https://github.com/xuanhai0913/Manage-student-grades",
       demo: "https://grades-lovat.vercel.app/"
     },
     {
       title: "Website Happy New Year",
       description: "A simple website to wish Happy New Year, using HTML, CSS, and JavaScript.",
-      image: require("../../../assets/images/project/prj5.png"),
+      image: require("../../assets/images/project/prj5.png"),
       github: "https://github.com/xuanhai0913/HappyNewYear",
       demo: "https://happy-new-year-five-olive.vercel.app/"
     },

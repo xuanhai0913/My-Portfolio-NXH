@@ -1,16 +1,15 @@
 import React, { lazy, Suspense } from 'react';
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Analytics } from "@vercel/analytics/react";
-import { ErrorBoundary } from './components/common';
-import { ThemeProvider } from './context';
-import Header from './layouts/Header';
+import ErrorBoundary from './components/ErrorBoundary';
+import Header from './components/Header';
 import './App.css';
 
 // Lazy load non-critical components
-const Home = lazy(() => import('./pages/Home/Profile'));
-const About = lazy(() => import('./pages/About/About'));
-const Portfolio = lazy(() => import('./pages/Portfolio/Portfolio'));
-const Contact = lazy(() => import('./pages/Contact/Contact'));
+const Profile = lazy(() => import('./components/Profile'));
+const About = lazy(() => import('./components/About'));
+const Portfolio = lazy(() => import('./components/Portfolio'));
+const Contact = lazy(() => import('./components/Contact'));
 
 // Loading fallback
 const LoadingFallback = () => (
@@ -21,15 +20,14 @@ const LoadingFallback = () => (
 
 const App = () => {
   return (
-    <ThemeProvider>
-      <div className="app">
-        <ErrorBoundary>
-          <Header />
-        </ErrorBoundary>
+    <div className="app">
+      <ErrorBoundary>
+        <Header />
+      </ErrorBoundary>
       
       <ErrorBoundary>
         <Suspense fallback={<LoadingFallback />}>
-          <Home />
+          <Profile />
         </Suspense>
       </ErrorBoundary>
       
@@ -54,7 +52,6 @@ const App = () => {
       <Analytics debug={false} mode="production" />
       <SpeedInsights />
     </div>
-    </ThemeProvider>
   );
 };
 

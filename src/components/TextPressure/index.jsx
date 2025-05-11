@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import './styles/TextPressure.css';
 
 const TextPressure = ({
   text = 'Compressa',

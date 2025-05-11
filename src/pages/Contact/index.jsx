@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Squares, FuzzyText } from '../../../components/common';
-import { useResponsive } from '../../../hooks';
+import { Squares, FuzzyText } from '../../components/common';
+import { useResponsive } from '../../hooks';
 import './styles/Contact.css';
 
 const Contact = () => {
