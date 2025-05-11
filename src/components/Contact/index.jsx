@@ -63,10 +63,10 @@ const Contact = () => {
             <a href="https://github.com/xuanhai0913" target="_blank" rel="noopener noreferrer">
               <i className="fab fa-github"></i>
             </a>
-            <a href="https://linkedin.com/in/your-linkedin" target="_blank" rel="noopener noreferrer">
+            <a href="https://linkedin.com/in/xuanhai0913" target="_blank" rel="noopener noreferrer">
               <i className="fab fa-linkedin"></i>
             </a>
-            <a href="https://facebook.com/your-facebook" target="_blank" rel="noopener noreferrer">
+            <a href="https://facebook.com/nguyenhai0913" target="_blank" rel="noopener noreferrer">
               <i className="fab fa-facebook"></i>
             </a>
           </div>
