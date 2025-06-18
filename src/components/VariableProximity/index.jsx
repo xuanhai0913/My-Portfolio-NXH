@@ -87,6 +87,10 @@ const VariableProximity = forwardRef((props, ref) => {
     className = "",
     onClick,
     style,
+    // eslint-disable-next-line no-unused-vars
+    transitionSpeed = 0.15, // Add transitionSpeed prop
+    // eslint-disable-next-line no-unused-vars  
+    sensitivity = 1,
     ...restProps
   } = props;
 

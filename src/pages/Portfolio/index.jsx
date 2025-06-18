@@ -3,12 +3,21 @@ import { Squares, TextPressure } from '../../components/common';
 import { isInViewport, throttle } from '../../utils';
 import './styles/Portfolio.css';
 
+// Import project images
+import prj1 from '../../images/project/prj1.png';
+import prj2 from '../../images/project/prj2.png';
+import prj3 from '../../images/project/prj3.png';
+import prj4 from '../../images/project/prj4.png';
+import prj5 from '../../images/project/prj5.png';
+import prj6 from '../../images/project/prj6.png';
+import prj7 from '../../images/project/prj7.png';
+
 const Portfolio = () => {
   const projects = [
     {
       title: "Portfolio Website",
       description: "Modern React portfolio with interactive animations and responsive design. Using React, GSAP, and CSS3.",
-      image: require("../../images/project/prj1.png"),
+      image: prj1,
       github: "https://github.com/xuanhai0913/My-Portfolio-NXH",
       demo: "https://my-portfolio-nxh.vercel.app",
       technologies: ["React", "JavaScript", "CSS3", "GSAP", "HTML5"]
@@ -16,7 +25,7 @@ const Portfolio = () => {
     {
       title: "Website education English Comunity",
       description: "This is a website that teaches English for free to people in difficult circumstances. Using wordpress to develop",
-      image: require("../../images/project/prj6.png"),
+      image: prj6,
       github: "https://github.com/xuanhai0913/",
       demo: "https://ech.edu.vn",
       technologies: ["WordPress", "PHP", "MySQL", "CSS", "JavaScript"]
@@ -24,7 +33,7 @@ const Portfolio = () => {
     {
       title: "Koi Farm Management",
       description: "This project aims to build a Koi farm management website, providing customers with comprehensive information about Koi breeds, as well as Koi-related services such as buying, selling, consignment and care.",
-      image: require("../../images/project/prj2.png"),
+      image: prj2,
       github: "https://github.com/xuanhai0913/Koi-Farm-Shop_Group-H",
       demo: "https://cakoi01.vercel.app",
       technologies: ["React", "Node.js", "MongoDB", "Express", "CSS3"]
@@ -32,7 +41,7 @@ const Portfolio = () => {
     {
       title: "🚀 Flutter Team Members App",
       description: "This is a simple Flutter application that displays a team member list using PageView. The app allows navigation between members and includes an option to return to the home screen.",
-      image: require("../../images/project/prj3.png"),
+      image: prj3,
       github: "https://github.com/xuanhai0913/Flutter-my-app",
       demo: "https://flutter-my-app-three.vercel.app",
       technologies: ["Flutter", "Dart", "Android", "iOS"]
@@ -40,7 +49,7 @@ const Portfolio = () => {
     {
       title: "Management students",
       description: "Student management application by class, supports displaying student list, allows filtering and searching for names, and provides contact information of home school.",
-      image: require("../../images/project/prj4.png"),
+      image: prj4,
       github: "https://github.com/xuanhai0913/Manage-student-grades",
       demo: "https://grades-lovat.vercel.app/",
       technologies: ["React", "JavaScript", "CSS3", "HTML5", "LocalStorage"]
@@ -48,7 +57,7 @@ const Portfolio = () => {
     {
       title: "Website Happy New Year",
       description: "A simple website to wish Happy New Year, using HTML, CSS, and JavaScript.",
-      image: require("../../images/project/prj5.png"),
+      image: prj5,
       github: "https://github.com/xuanhai0913/HappyNewYear",
       demo: "https://happy-new-year-five-olive.vercel.app/",
       technologies: ["HTML5", "CSS3", "JavaScript", "Animation"]
@@ -56,7 +65,7 @@ const Portfolio = () => {
     {
       title: "SPRM - Student Performance & Resource Management",
       description: "Full-stack education management system featuring student performance tracking, resource management, and administrative tools. Technologies: React.js, C# ASP.NET Core Web API, SQL Server, JWT Authentication, responsive design.",
-      image: require("../../images/project/prj7.png"),
+      image: prj7,
       github: "https://github.com/xuanhai0913/CNPM-Fullstack-React-CSharp",
       demo: "https://cnpm-fullstack-react-csharp.onrender.com",
       technologies: ["React", "C#", "ASP.NET Core", "SQL Server", "JWT"]

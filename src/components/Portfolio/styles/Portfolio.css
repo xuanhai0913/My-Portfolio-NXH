@@ -216,6 +216,15 @@
   .project-links a {
     width: 100%;
   }
+
+  .project-technologies {
+    gap: 0.4rem;
+  }
+
+  .tech-tag {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.6rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -239,4 +248,28 @@
 /* Smooth scroll behavior */
 html {
   scroll-behavior: smooth;
+}
+
+/* Technologies styles */
+.project-technologies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.tech-tag {
+  background: rgba(74, 144, 226, 0.2);
+  color: #4a90e2;
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: 1px solid rgba(74, 144, 226, 0.3);
+  transition: all 0.3s ease;
+}
+
+.tech-tag:hover {
+  background: rgba(74, 144, 226, 0.3);
+  transform: translateY(-1px);
 }
