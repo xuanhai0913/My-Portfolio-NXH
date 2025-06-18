@@ -8,44 +8,58 @@ const Portfolio = () => {
     {
       title: "Portfolio Website",
       description: "Modern React portfolio with interactive animations and responsive design. Using React, GSAP, and CSS3.",
-      image: require("../../assets/images/project/prj1.png"),
+      image: require("../../images/project/prj1.png"),
       github: "https://github.com/xuanhai0913/My-Portfolio-NXH",
-      demo: "https://my-portfolio-nxh.vercel.app"
+      demo: "https://my-portfolio-nxh.vercel.app",
+      technologies: ["React", "JavaScript", "CSS3", "GSAP", "HTML5"]
     },
     {
       title: "Website education English Comunity",
       description: "This is a website that teaches English for free to people in difficult circumstances. Using wordpress to develop",
-      image: require("../../assets/images/project/prj6.png"),
+      image: require("../../images/project/prj6.png"),
       github: "https://github.com/xuanhai0913/",
-      demo: "https://ech.edu.vn"
+      demo: "https://ech.edu.vn",
+      technologies: ["WordPress", "PHP", "MySQL", "CSS", "JavaScript"]
     },
     {
       title: "Koi Farm Management",
       description: "This project aims to build a Koi farm management website, providing customers with comprehensive information about Koi breeds, as well as Koi-related services such as buying, selling, consignment and care.",
-      image: require("../../assets/images/project/prj2.png"),
+      image: require("../../images/project/prj2.png"),
       github: "https://github.com/xuanhai0913/Koi-Farm-Shop_Group-H",
-      demo: "https://cakoi01.vercel.app"
+      demo: "https://cakoi01.vercel.app",
+      technologies: ["React", "Node.js", "MongoDB", "Express", "CSS3"]
     },
     {
       title: "🚀 Flutter Team Members App",
       description: "This is a simple Flutter application that displays a team member list using PageView. The app allows navigation between members and includes an option to return to the home screen.",
-      image: require("../../assets/images/project/prj3.png"),
+      image: require("../../images/project/prj3.png"),
       github: "https://github.com/xuanhai0913/Flutter-my-app",
-      demo: "https://flutter-my-app-three.vercel.app"
+      demo: "https://flutter-my-app-three.vercel.app",
+      technologies: ["Flutter", "Dart", "Android", "iOS"]
     },
     {
       title: "Management students",
       description: "Student management application by class, supports displaying student list, allows filtering and searching for names, and provides contact information of home school.",
-      image: require("../../assets/images/project/prj4.png"),
+      image: require("../../images/project/prj4.png"),
       github: "https://github.com/xuanhai0913/Manage-student-grades",
-      demo: "https://grades-lovat.vercel.app/"
+      demo: "https://grades-lovat.vercel.app/",
+      technologies: ["React", "JavaScript", "CSS3", "HTML5", "LocalStorage"]
     },
     {
       title: "Website Happy New Year",
       description: "A simple website to wish Happy New Year, using HTML, CSS, and JavaScript.",
-      image: require("../../assets/images/project/prj5.png"),
+      image: require("../../images/project/prj5.png"),
       github: "https://github.com/xuanhai0913/HappyNewYear",
-      demo: "https://happy-new-year-five-olive.vercel.app/"
+      demo: "https://happy-new-year-five-olive.vercel.app/",
+      technologies: ["HTML5", "CSS3", "JavaScript", "Animation"]
+    },
+    {
+      title: "SPRM - Student Performance & Resource Management",
+      description: "Full-stack education management system featuring student performance tracking, resource management, and administrative tools. Technologies: React.js, C# ASP.NET Core Web API, SQL Server, JWT Authentication, responsive design.",
+      image: require("../../images/project/prj7.png"),
+      github: "https://github.com/xuanhai0913/CNPM-Fullstack-React-CSharp",
+      demo: "https://cnpm-fullstack-react-csharp.onrender.com",
+      technologies: ["React", "C#", "ASP.NET Core", "SQL Server", "JWT"]
     },
 
   ];
@@ -126,6 +140,15 @@ const Portfolio = () => {
                 <div className="project-text">
                   <h3>{project.title}</h3>
                   <p>{project.description}</p>
+                  {project.technologies && (
+                    <div className="project-technologies">
+                      {project.technologies.map((tech, techIndex) => (
+                        <span key={techIndex} className="tech-tag">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
                 <div className="project-links">
                   <a href={project.github} target="_blank" rel="noopener noreferrer" className="github-link">
