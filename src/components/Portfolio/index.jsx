@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Squares from '../Squares';
-import TextPressure from '../TextPressure';
+import PortfolioTitle from '../PortfolioTitle';
 import './styles/Portfolio.css';
 
 // Import project images
@@ -118,20 +118,7 @@ const Portfolio = () => {
         hoverFillColor='rgba(74, 144, 226, 0.2)'
       />
       <div className="portfolio-content">
-        <div className="portfolio-title">
-          <TextPressure
-            text="Portfolio"
-            flex={true}
-            alpha={false}
-            stroke={true}
-            width={true}
-            weight={true}
-            italic={true}
-            textColor="#4a90e2"
-            strokeColor="rgba(255, 255, 255, 0.1)"
-            minFontSize={fontSize}
-          />
-        </div>
+        <PortfolioTitle text="Portfolio" />
         <div className="portfolio-grid">
           {projects.map((project, index) => (
             <div 

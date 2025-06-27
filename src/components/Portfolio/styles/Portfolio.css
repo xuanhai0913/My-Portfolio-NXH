@@ -22,17 +22,6 @@
   padding: 0 2rem;
 }
 
-.portfolio-title {
-  position: relative;
-  height: 80px; /* Reduced from 120px */
-  margin-bottom: 2rem; /* Updated margin */
-  width: 100%;
-  max-width: 800px; /* Added max-width */
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 20px; /* Added padding */
-}
-
 .portfolio-content h2 {
   text-align: center;
   color: #4a90e2;
