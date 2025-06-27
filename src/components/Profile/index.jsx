@@ -1,37 +1,17 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Aurora from '../Aurora';
-import RotatingText from '../RotatingText';
-import VariableProximity from '../VariableProximity';
+import TrueFocus from '../TrueFocus';
+import ScrambledText from '../ScrambleText';
 import profileImage from '../../images/profile.png';
 import './styles/Profile.css';
 
 const Profile = () => {
+  console.log('👤 Profile component is rendering...');
   const containerRef = useRef(null);
   const textRef = useRef(null);
   const [auroraError, setAuroraError] = useState(false);
-  const [rotatingTextError, setRotatingTextError] = useState(false);
-  const [proximityError, setProximityError] = useState(false);
-
-  useEffect(() => {
-    if (containerRef.current && textRef.current) {
-      const container = containerRef.current; // Store ref in variable for cleanup
-      
-      const updateProximityEffect = (e) => {
-        if (!textRef.current) return;
-        const rect = textRef.current.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        textRef.current.style.setProperty('--mouse-x', `${x}px`);
-        textRef.current.style.setProperty('--mouse-y', `${y}px`);
-      };
-
-      container.addEventListener('mousemove', updateProximityEffect);
-      
-      return () => {
-        container.removeEventListener('mousemove', updateProximityEffect);
-      };
-    }
-  }, []);
+  const [trueFocusError, setTrueFocusError] = useState(false);
+  const [scrambleError, setScrambleError] = useState(false);
 
   // Render Aurora with error handling
   const renderAurora = () => {
@@ -44,6 +24,7 @@ const Profile = () => {
           speed={1.5}
         />
       );
+      // eslint-disable-next-line no-unreachable
     } catch (error) {
       console.error('Aurora component failed to render:', error);
       setAuroraError(true);
@@ -51,63 +32,51 @@ const Profile = () => {
     }
   };
 
-  // Render RotatingText with error handling
-  const renderRotatingText = () => {
+  // Render TrueFocus with error handling
+  const renderTrueFocus = () => {
     try {
       return (
-        <RotatingText
-          texts={[
-            'Full-Stack Developer',
-            'React Developer',
-            'Web Designer',
-            'Problem Solver'
-          ]}
-          mainClassName="rotating-title"
-          staggerFrom="center"
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -15 }}
-          transition={{ 
-            type: "spring",
-            damping: 30,
-            stiffness: 200,
-            mass: 0.5
-          }}
-          staggerDuration={0.015}
-          rotationInterval={3000}
-          splitLevelClassName="title-split"
+        <TrueFocus 
+          text="Full-Stack Developer"
+          sentence="Full-Stack Developer"
+
+manualMode={false}
+blurAmount={3}
+borderColor="red"
+animationDuration={1}
+pauseBetweenAnimations={1}
         />
       );
+      // eslint-disable-next-line no-unreachable
     } catch (error) {
-      console.error('RotatingText component failed to render:', error);
-      setRotatingTextError(true);
+      console.error('TrueFocus component failed to render:', error);
+      setTrueFocusError(true);
       return <span className="rotating-title-fallback">Full-Stack Developer</span>;
     }
   };
+  
 
-  // Render VariableProximity with error handling
-  const renderVariableProximity = () => {
+  // Render ScrambleText with error handling
+  const renderScrambleText = () => {
     try {
       return (
-        <VariableProximity
-          label="Building digital experiences with modern web technologies"
-          className="variable-proximity-text"
-          fromFontVariationSettings="'wght' 300, 'opsz' 8"
-          toFontVariationSettings="'wght' 1000, 'opsz' 48"
-          radius={150}
-          falloff="exponential"
-          containerRef={containerRef}
-          sensitivity={1.5}
-          transitionSpeed={0.15}
-        />
+        <ScrambledText
+          className="scrambled-text-demo"
+          radius={100}
+          duration={1.2}
+          speed={0.5}
+          scrambleChars=".:"
+        >
+          Building digital experiences with modern web technologies
+        </ScrambledText>
       );
+      // eslint-disable-next-line no-unreachable
     } catch (error) {
-      console.error('VariableProximity component failed to render:', error);
-      setProximityError(true);
+      console.error('ScrambleText component failed to render:', error);
+      setScrambleError(true);
       return <p className="variable-proximity-fallback">Building digital experiences with modern web technologies</p>;
     }
   };
-
   return (
     <section id="profile" className="profile-section">
       {!auroraError && renderAurora()}
@@ -127,12 +96,12 @@ const Profile = () => {
             <div className="title-container">
               <span className="role-prefix">I'm a</span>
               <div className="rotating-text-wrapper">
-                {!rotatingTextError && renderRotatingText()}
+                {!trueFocusError && renderTrueFocus()}
               </div>
             </div>
             
             <div className="description-container" ref={textRef}>
-              {!proximityError && renderVariableProximity()}
+              {!scrambleError && renderScrambleText()}
             </div>
             <div className="social-links">
               <ul>

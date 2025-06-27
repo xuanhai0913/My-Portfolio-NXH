@@ -50,6 +50,7 @@
 
     <!-- Mobile Meta Tags -->
     <meta name="format-detection" content="telephone=yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
@@ -59,6 +60,11 @@
     <!-- Performance optimizations -->
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap" rel="stylesheet">
     
     <!-- Preload FontAwesome -->
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style" />
@@ -71,8 +77,8 @@
       style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com;
       font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com data:;
       img-src 'self' data: blob:;
-      script-src 'self' 'unsafe-inline' 'unsafe-eval';
-      connect-src 'self' https://api.emailjs.com;
+      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com https://vercel.live;
+      connect-src 'self' https://api.emailjs.com https://va.vercel-scripts.com https://vercel.live https://vitals.vercel-insights.com;
       worker-src 'self' blob:;
     ">
     

@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 const TextPressure = ({
   text = 'Compressa',
   fontFamily = 'Inter',
-  fontUrl = 'https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap',
+  fontUrl = null, // Font already loaded in HTML head
 
   width = true,
   weight = true,
@@ -170,12 +170,6 @@ const TextPressure = ({
       }}
     >
       <style>{`
-        @font-face {
-          font-family: '${fontFamily}';
-          src: url('${fontUrl}');
-          font-display: swap;
-        }
-
         .text-pressure-title span {
           display: inline-block;
           will-change: transform, opacity, font-variation-settings;

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Waves from '../Waves';
 import './styles/Header.css';
 
 const Header = () => {
+  console.log('📋 Header component is rendering...');
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   const toggleNav = () => {
@@ -25,19 +25,6 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header-overlay"></div>
-      <Waves
-        lineColor="#fff"
-        backgroundColor="rgba(75, 65, 65, 0.31)"
-        waveSpeedX={0.02}
-        waveSpeedY={0.01}
-        waveAmpX={40}
-        waveAmpY={20}
-        friction={0.9}
-        tension={0.01}
-        maxCursorMove={120}
-        xGap={12}
-        yGap={36}
-      />
       <div className="nav-container">
         <div className="logo-container">
           <a href="#profile" className="logo-link" onClick={closeNav}>

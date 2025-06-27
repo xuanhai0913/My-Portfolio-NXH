@@ -19,6 +19,8 @@ const LoadingFallback = () => (
 );
 
 const App = () => {
+  console.log('🚀 App component is rendering...');
+  
   return (
     <div className="app">
       <ErrorBoundary>
