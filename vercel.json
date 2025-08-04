@@ -15,14 +15,8 @@
       "src": "/\\.well-known/discord$",
       "dest": "/.well-known/discord",
       "headers": {
-        "Content-Type": "text/plain; charset=utf-8"
-      }
-    },
-    {
-      "src": "/\\.well-known/discord\\.txt$",
-      "dest": "/.well-known/discord.txt",
-      "headers": {
-        "Content-Type": "text/plain; charset=utf-8"
+        "Content-Type": "text/plain; charset=utf-8",
+        "Cache-Control": "public, max-age=0, must-revalidate"
       }
     },
     {
@@ -30,7 +24,7 @@
       "dest": "/static/$1"
     },
     {
-      "src": "/(.+)\\.(js|json|css|ico|jpg|jpeg|png|svg|webp)$",
+      "src": "/(.+)\\.(js|json|css|ico|jpg|jpeg|png|svg|webp|txt)$",
       "dest": "/$1.$2"
     },
     {
