@@ -10,20 +10,28 @@
       }
     }
   ],
-  "functions": {
-    "src/app/api/**/*.js": {
-      "runtime": "nodejs18.x"
+  "rewrites": [
+    {
+      "source": "/.well-known/discord",
+      "destination": "/discord-verification.txt"
     }
-  },
+  ],
+  "headers": [
+    {
+      "source": "/discord-verification.txt",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/plain; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    }
+  ],
   "routes": [
-    {
-      "src": "/\\.well-known/discord$",
-      "dest": "/api/.well-known/discord"
-    },
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
-    },
     {
       "src": "/static/(.*)",
       "dest": "/static/$1"
