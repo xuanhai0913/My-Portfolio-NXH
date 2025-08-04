@@ -10,14 +10,19 @@
       }
     }
   ],
+  "functions": {
+    "src/app/api/**/*.js": {
+      "runtime": "nodejs18.x"
+    }
+  },
   "routes": [
     {
       "src": "/\\.well-known/discord$",
-      "dest": "/discord-verification.txt",
-      "headers": {
-        "Content-Type": "text/plain; charset=utf-8",
-        "Cache-Control": "public, max-age=0, must-revalidate"
-      }
+      "dest": "/api/.well-known/discord"
+    },
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
     },
     {
       "src": "/static/(.*)",
