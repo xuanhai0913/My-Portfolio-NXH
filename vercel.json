@@ -12,10 +12,17 @@
   ],
   "routes": [
     {
-      "src": "/\\.well-known/(.*)",
-      "dest": "/.well-known/$1",
+      "src": "/\\.well-known/discord$",
+      "dest": "/.well-known/discord",
       "headers": {
-        "Content-Type": "text/plain"
+        "Content-Type": "text/plain; charset=utf-8"
+      }
+    },
+    {
+      "src": "/\\.well-known/discord\\.txt$",
+      "dest": "/.well-known/discord.txt",
+      "headers": {
+        "Content-Type": "text/plain; charset=utf-8"
       }
     },
     {
