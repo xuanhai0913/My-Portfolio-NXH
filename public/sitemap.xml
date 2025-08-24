@@ -1,23 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+  
+  <!-- Homepage -->
   <url>
     <loc>https://nxhai0913.me/</loc>
-    <lastmod>2024-01-20</lastmod>
+    <lastmod>2025-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://nxhai0913.me/images/profile.png</image:loc>
-      <image:title>Nguyễn Xuân Hải - Frontend Developer</image:title>
-      <image:caption>Portfolio Preview Image</image:caption>
+      <image:title>Nguyễn Xuân Hải - Frontend Developer Profile</image:title>
+      <image:caption>Frontend Developer chuyên về React và UI/UX Design</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://nxhai0913.me/images/og-image.jpg</image:loc>
+      <image:title>Portfolio Preview - Nguyễn Xuân Hải</image:title>
+      <image:caption>Social media preview image for portfolio website</image:caption>
     </image:image>
   </url>
+
+  <!-- About Section -->
   <url>
     <loc>https://nxhai0913.me/#about</loc>
-    <lastmod>2024-01-20</lastmod>
+    <lastmod>2025-08-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Portfolio Section -->
+  <url>
+    <loc>https://nxhai0913.me/#portfolio</loc>
+    <lastmod>2025-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://nxhai0913.me/images/project/prj1.png</image:loc>
+      <image:title>Project 1 - Web Development</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://nxhai0913.me/images/project/prj2.png</image:loc>
+      <image:title>Project 2 - React Application</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://nxhai0913.me/images/project/prj3.png</image:loc>
+      <image:title>Project 3 - UI/UX Design</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://nxhai0913.me/images/project/prj4.png</image:loc>
+      <image:title>Project 4 - Frontend Development</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://nxhai0913.me/images/project/prj5.png</image:loc>
+      <image:title>Project 5 - Web Application</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://nxhai0913.me/images/project/prj6.png</image:loc>
+      <image:title>Project 6 - JavaScript Project</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://nxhai0913.me/images/project/prj7.png</image:loc>
+      <image:title>Project 7 - Portfolio Website</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://nxhai0913.me/images/project/prj8.png</image:loc>
+      <image:title>Project 8 - Great Link Mai House B2B Platform</image:title>
+    </image:image>
+  </url>
+
+  <!-- Contact Section -->
+  <url>
+    <loc>https://nxhai0913.me/#contact</loc>
+    <lastmod>2025-08-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+
+</urlset>
   <url>
     <loc>https://nxhai0913.me/#portfolio</loc>
     <lastmod>2024-01-20</lastmod>

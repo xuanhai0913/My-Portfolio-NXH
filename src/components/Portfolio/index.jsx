@@ -11,6 +11,9 @@ import prj4 from '../../images/project/prj4.png';
 import prj5 from '../../images/project/prj5.png';
 import prj6 from '../../images/project/prj6.png';
 import prj7 from '../../images/project/prj7.png';
+// Temporary placeholder for Great Link Mai House project
+// Replace with actual screenshot: import prj8 from '../../images/project/prj8.png';
+import prj8 from '../../images/project/prj8.png'; // Temporary using prj1 as placeholder
 
 const Portfolio = () => {
   const projects = [
@@ -69,6 +72,16 @@ const Portfolio = () => {
       github: "https://github.com/xuanhai0913/CNPM-Fullstack-React-CSharp",
       demo: "https://cnpm-fullstack-react-csharp.onrender.com",
       technologies: ["React", "C#", "ASP.NET Core", "SQL Server", "JWT"]
+    },
+    {
+      title: "Great Link Mai House - B2B Import-Export Platform",
+      description: "Corporate website for Great Link Mai House, a leading Media & B2B Import-Export company. Features include business consultation, trade connections, import-export support, and event management services.",
+      image: prj8,
+      github: "#", // Private company project
+      demo: "https://greatlinkmaihouse.com/",
+      technologies: ["ASP.NET Core", "C#", "SQL Server", "Bootstrap", "JavaScript", "HTML5", "CSS3"],
+      isCommercial: true,
+      company: "CÔNG TY TNHH ĐẦU TƯ GREATLINK MAIHOUSE"
     },
 
   ];
@@ -147,13 +160,31 @@ const Portfolio = () => {
                   )}
                 </div>
                 <div className="project-links">
-                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="github-link">
-                    <i className="fab fa-github"></i> Source Code
-                  </a>
-                  <a href={project.demo} target="_blank" rel="noopener noreferrer" className="demo-link">
-                    <i className="fas fa-external-link-alt"></i> Live Demo
-                  </a>
+                  {project.isCommercial ? (
+                    <>
+                      <div className="commercial-badge">
+                        <i className="fas fa-building"></i> Commercial Project
+                      </div>
+                      <a href={project.demo} target="_blank" rel="noopener noreferrer" className="demo-link">
+                        <i className="fas fa-external-link-alt"></i> Visit Website
+                      </a>
+                    </>
+                  ) : (
+                    <>
+                      <a href={project.github} target="_blank" rel="noopener noreferrer" className="github-link">
+                        <i className="fab fa-github"></i> Source Code
+                      </a>
+                      <a href={project.demo} target="_blank" rel="noopener noreferrer" className="demo-link">
+                        <i className="fas fa-external-link-alt"></i> Live Demo
+                      </a>
+                    </>
+                  )}
                 </div>
+                {project.company && (
+                  <div className="project-company">
+                    <i className="fas fa-building"></i> {project.company}
+                  </div>
+                )}
               </div>
             </div>
           ))}

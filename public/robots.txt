@@ -1,13 +1,47 @@
+# Robots.txt for nxhai0913.me
+# Portfolio website of Nguyễn Xuân Hải - Frontend Developer
+
 User-agent: *
 Allow: /
 
-# Important pages
-Allow: /about
-Allow: /portfolio
-Allow: /contact
+# Important sections
+Allow: /#about
+Allow: /#portfolio
+Allow: /#contact
 
-# Sitemap location
+# Allow static resources
+Allow: /images/
+Allow: /static/
+Allow: /favicon.ico
+Allow: /manifest.json
+
+# Block development and sensitive files
+Disallow: /src/
+Disallow: /node_modules/
+Disallow: /.git/
+Disallow: /.env
+Disallow: /build/
+Disallow: /*.json$
+Disallow: /*.log$
+
+# SEO optimizations
+Allow: /images/og-image.jpg
+Allow: /images/profile.png
+Allow: /images/project/
+
+# Social media verification
+Allow: /discord-verification.txt
+
+# Crawl delay (be nice to servers)
+Crawl-delay: 1
+
+# Sitemap locations
 Sitemap: https://nxhai0913.me/sitemap.xml
+Sitemap: https://nxhai0913.me/sitemap-images.xml
+
+# Contact information
+# Website: https://nxhai0913.me
+# Email: contact@nxhai0913.me
 
 # Optimize crawling
 Crawl-delay: 10

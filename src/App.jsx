@@ -1,8 +1,11 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Analytics } from "@vercel/analytics/react";
 import ErrorBoundary from './components/ErrorBoundary';
 import Header from './components/Header';
+import SocialShare from './components/SocialShare';
+import { initializeMetaTags } from './utils/metaTags';
+import { useMetaTags } from './hooks/useMetaTags';
 import './App.css';
 
 // Lazy load non-critical components
@@ -20,6 +23,14 @@ const LoadingFallback = () => (
 
 const App = () => {
   console.log('🚀 App component is rendering...');
+  
+  // Initialize meta tags for the homepage
+  useMetaTags('home');
+  
+  // Initialize meta tags on app start
+  useEffect(() => {
+    initializeMetaTags();
+  }, []);
   
   return (
     <div className="app">
@@ -49,6 +60,19 @@ const App = () => {
         <Suspense fallback={<LoadingFallback />}>
           <Contact />
         </Suspense>
+      </ErrorBoundary>
+      
+      {/* Social Share Component */}
+      <ErrorBoundary>
+        <section className="social-share-section">
+          <div className="container">
+            <SocialShare 
+              pageName="home" 
+              showText={true} 
+              size="medium" 
+            />
+          </div>
+        </section>
       </ErrorBoundary>
       
       <Analytics debug={false} mode="production" />

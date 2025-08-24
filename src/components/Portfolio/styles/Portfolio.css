@@ -123,8 +123,9 @@
 
 .project-links {
   display: flex;
-  gap: 1rem;
-  margin-top: auto;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
 }
 
 .project-links a {
@@ -141,18 +142,77 @@
 }
 
 .project-links .github-link {
-  background: rgba(74, 144, 226, 0.1);
-  color: #4a90e2;
+  background: linear-gradient(135deg, #333, #555);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  justify-content: center;
+}
+
+.project-links .github-link:hover {
+  background: linear-gradient(135deg, #555, #777);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
 .project-links .demo-link {
-  background: #4a90e2;
-  color: #fff;
+  background: linear-gradient(135deg, #4a90e2, #357abd);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  justify-content: center;
 }
 
-.project-links a:hover {
+.project-links .demo-link:hover {
+  background: linear-gradient(135deg, #357abd, #2c5f95);
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+}
+
+.project-company {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.9rem;
+  color: #ccc;
+  font-style: italic;
+}
+
+.project-company i {
+  color: #4a90e2;
+}
+
+.commercial-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #ffd700, #ff8c00);
+  color: #333;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+}
+
+.commercial-badge i {
+  font-size: 1rem;
 }
 
 @media (min-width: 1440px) {
@@ -213,6 +273,25 @@
   .tech-tag {
     font-size: 0.7rem;
     padding: 0.25rem 0.6rem;
+  }
+
+  .commercial-badge {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+  
+  .project-company {
+    font-size: 0.85rem;
+  }
+  
+  .project-links {
+    gap: 0.5rem;
+  }
+  
+  .project-links .demo-link,
+  .project-links .github-link {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
   }
 }
 
