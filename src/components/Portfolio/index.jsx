@@ -7,7 +7,6 @@ import './styles/Portfolio.css';
 import prj1 from '../../images/project/prj1.png';
 import prj2 from '../../images/project/prj2.png';
 import prj3 from '../../images/project/prj3.png';
-import prj4 from '../../images/project/prj4.png';
 import prj5 from '../../images/project/prj5.png';
 import prj6 from '../../images/project/prj6.png';
 import prj7 from '../../images/project/prj7.png';
@@ -60,14 +59,6 @@ const Portfolio = () => {
       github: "https://github.com/xuanhai0913/Flutter-my-app",
       demo: "https://flutter-my-app-three.vercel.app",
       technologies: ["Flutter", "Dart", "Android", "iOS"]
-    },
-    {
-      title: "Management students",
-      description: "Student management application by class, supports displaying student list, allows filtering and searching for names, and provides contact information of home school.",
-      image: prj4,
-      github: "https://github.com/xuanhai0913/Manage-student-grades",
-      demo: "https://grades-lovat.vercel.app/",
-      technologies: ["React", "JavaScript", "CSS3", "HTML5", "LocalStorage"]
     },
     {
       title: "Website Happy New Year",
