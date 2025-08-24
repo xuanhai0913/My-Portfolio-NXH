@@ -18,20 +18,32 @@ import prj8 from '../../images/project/prj8.png'; // Temporary using prj1 as pla
 const Portfolio = () => {
   const projects = [
     {
+      title: "Great Link Mai House - B2B Import-Export Platform",
+      description: "Corporate website for Great Link Mai House, a leading Media & B2B Import-Export company. Features include business consultation, trade connections, import-export support, and event management services.",
+      image: prj8,
+      github: "#", // Private company project
+      demo: "https://greatlinkmaihouse.com/",
+      technologies: ["ASP.NET Core", "C#", "SQL Server", "Bootstrap", "JavaScript", "HTML5", "CSS3"],
+      isCommercial: true,
+      company: "CÔNG TY TNHH ĐẦU TƯ GREATLINK MAIHOUSE"
+    },
+    {
+      title: "Website Education English Community",
+      description: "Educational website that teaches English for free to people in difficult circumstances. Features comprehensive English learning resources, interactive lessons, and community support. Built with WordPress CMS for easy content management.",
+      image: prj6,
+      github: "#", // Private educational project
+      demo: "https://ech.edu.vn",
+      technologies: ["WordPress", "PHP", "MySQL", "CSS3", "JavaScript"],
+      isCommercial: true,
+      company: "English Community Hub (ECH)"
+    },
+    {
       title: "Portfolio Website",
       description: "Modern React portfolio with interactive animations and responsive design. Using React, GSAP, and CSS3.",
       image: prj1,
       github: "https://github.com/xuanhai0913/My-Portfolio-NXH",
       demo: "https://my-portfolio-nxh.vercel.app",
       technologies: ["React", "JavaScript", "CSS3", "GSAP", "HTML5"]
-    },
-    {
-      title: "Website education English Comunity",
-      description: "This is a website that teaches English for free to people in difficult circumstances. Using wordpress to develop",
-      image: prj6,
-      github: "https://github.com/xuanhai0913/",
-      demo: "https://ech.edu.vn",
-      technologies: ["WordPress", "PHP", "MySQL", "CSS", "JavaScript"]
     },
     {
       title: "Koi Farm Management",
@@ -72,16 +84,6 @@ const Portfolio = () => {
       github: "https://github.com/xuanhai0913/CNPM-Fullstack-React-CSharp",
       demo: "https://cnpm-fullstack-react-csharp.onrender.com",
       technologies: ["React", "C#", "ASP.NET Core", "SQL Server", "JWT"]
-    },
-    {
-      title: "Great Link Mai House - B2B Import-Export Platform",
-      description: "Corporate website for Great Link Mai House, a leading Media & B2B Import-Export company. Features include business consultation, trade connections, import-export support, and event management services.",
-      image: prj8,
-      github: "#", // Private company project
-      demo: "https://greatlinkmaihouse.com/",
-      technologies: ["ASP.NET Core", "C#", "SQL Server", "Bootstrap", "JavaScript", "HTML5", "CSS3"],
-      isCommercial: true,
-      company: "CÔNG TY TNHH ĐẦU TƯ GREATLINK MAIHOUSE"
     },
 
   ];
