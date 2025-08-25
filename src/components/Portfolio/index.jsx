@@ -34,7 +34,7 @@ const Portfolio = () => {
       demo: "https://ech.edu.vn",
       technologies: ["WordPress", "PHP", "MySQL", "CSS3", "JavaScript"],
       isCommercial: true,
-      company: "English Community Hub (ECH)"
+      company: "English Community House (ECH)"
     },
     {
       title: "Portfolio Website",
