@@ -13,6 +13,7 @@ import prj7 from '../../images/project/prj7.png';
 // Temporary placeholder for Great Link Mai House project
 // Replace with actual screenshot: import prj8 from '../../images/project/prj8.png';
 import prj8 from '../../images/project/prj8.png'; // Temporary using prj1 as placeholder
+import prj9 from '../../images/project/prj9.png';
 
 const Portfolio = () => {
   const projects = [
@@ -75,6 +76,14 @@ const Portfolio = () => {
       github: "https://github.com/xuanhai0913/CNPM-Fullstack-React-CSharp",
       demo: "https://cnpm-fullstack-react-csharp.onrender.com",
       technologies: ["React", "C#", "ASP.NET Core", "SQL Server", "JWT"]
+    },
+    {
+      title: "OTP API - Phone Number Rental Service",
+      description: "Web service for renting phone numbers to receive OTP codes. Provides temporary phone numbers for verification purposes with real-time OTP retrieval.",
+      image: prj9,
+      github: "https://github.com/xuanhai0913/OTP-API",
+      demo: "https://haikey.shop/",
+      technologies: ["API", "Node.js", "Express", "MongoDB", "SMS Gateway"]
     },
 
   ];
