@@ -1,11 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Squares from '../Squares';
 import PortfolioTitle from '../PortfolioTitle';
 import './styles/Portfolio.css';
 
 // Import project images
 import prj1 from '../../images/project/prj1.png';
-import prj2 from '../../images/project/prj2.png';
 import prj3 from '../../images/project/prj3.png';
 import prj5 from '../../images/project/prj5.png';
 import prj6 from '../../images/project/prj6.png';
@@ -14,6 +13,7 @@ import prj7 from '../../images/project/prj7.png';
 // Replace with actual screenshot: import prj8 from '../../images/project/prj8.png';
 import prj8 from '../../images/project/prj8.png'; // Temporary using prj1 as placeholder
 import prj9 from '../../images/project/prj9.png';
+import visionKey from '../../images/project/visionKey.png'; 
 
 const Portfolio = () => {
   const projects = [
@@ -38,6 +38,19 @@ const Portfolio = () => {
       company: "English Community House (ECH)"
     },
     {
+      title: "Vision Key - AI Screen Assistant",
+      description: "A native macOS menu bar application that integrates Google Gemini 2.5 Pro AI for intelligent screen capture analysis. Features include global hotkey support (⌘+⇧+.), multiple answer modes (Multiple Choice & Essay), expert role customization, secure API key storage via macOS Keychain, and full Vietnamese language support.",
+      image: visionKey, 
+      github: "https://github.com/xuanhai0913/Vision-Key",
+      technologies: ["Swift", "SwiftUI", "AppKit", "Gemini AI API", "macOS Keychain", "Carbon Framework"],
+      isCommercial: false,
+      noDemo: true,
+      category: "AI/Desktop Application",
+      year: 2025,
+      highlights: ["AI Integration", "Native macOS", "Global Hotkey", "Keychain Security"],
+      platform: "macOS 13.0+"
+    },
+    {
       title: "Portfolio Website",
       description: "Modern React portfolio with interactive animations and responsive design. Using React, GSAP, and CSS3.",
       image: prj1,
@@ -46,15 +59,7 @@ const Portfolio = () => {
       technologies: ["React", "JavaScript", "CSS3", "GSAP", "HTML5"]
     },
     {
-      title: "Koi Farm Management",
-      description: "This project aims to build a Koi farm management website, providing customers with comprehensive information about Koi breeds, as well as Koi-related services such as buying, selling, consignment and care.",
-      image: prj2,
-      github: "https://github.com/xuanhai0913/Koi-Farm-Shop_Group-H",
-      demo: "https://cakoi01.vercel.app",
-      technologies: ["React", "Node.js", "MongoDB", "Express", "CSS3"]
-    },
-    {
-      title: "🚀 Flutter Team Members App",
+      title: "Flutter Team Members App",
       description: "This is a simple Flutter application that displays a team member list using PageView. The app allows navigation between members and includes an option to return to the home screen.",
       image: prj3,
       github: "https://github.com/xuanhai0913/Flutter-my-app",
@@ -89,17 +94,6 @@ const Portfolio = () => {
   ];
 
   const projectRefs = useRef([]);
-  const [fontSize, setFontSize] = useState(() => {
-    return window.innerWidth < 768 ? 28 : 48;
-  });
-
-  useEffect(() => {
-    const handleResize = () => {
-      setFontSize(window.innerWidth < 768 ? 28 : 48);
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -176,9 +170,11 @@ const Portfolio = () => {
                       <a href={project.github} target="_blank" rel="noopener noreferrer" className="github-link">
                         <i className="fab fa-github"></i> Source Code
                       </a>
-                      <a href={project.demo} target="_blank" rel="noopener noreferrer" className="demo-link">
-                        <i className="fas fa-external-link-alt"></i> Live Demo
-                      </a>
+                      {!project.noDemo && (
+                        <a href={project.demo} target="_blank" rel="noopener noreferrer" className="demo-link">
+                          <i className="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                      )}
                     </>
                   )}
                 </div>
