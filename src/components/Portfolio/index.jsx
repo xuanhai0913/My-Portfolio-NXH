@@ -71,7 +71,7 @@ const Portfolio = () => {
       description: "A simple website to wish Happy New Year, using HTML, CSS, and JavaScript.",
       image: prj5,
       github: "https://github.com/xuanhai0913/HappyNewYear",
-      demo: "https://happy-new-year-five-olive.vercel.app/",
+      demo: "https://happynewyear.hailamdev.space/",
       technologies: ["HTML5", "CSS3", "JavaScript", "Animation"]
     },
     {
