@@ -55,16 +55,8 @@ const Portfolio = () => {
       description: "Modern React portfolio with interactive animations and responsive design. Using React, GSAP, and CSS3.",
       image: prj1,
       github: "https://github.com/xuanhai0913/My-Portfolio-NXH",
-      demo: "https://my-portfolio-nxh.vercel.app",
+      demo: "https://www.hailamdev.space/",
       technologies: ["React", "JavaScript", "CSS3", "GSAP", "HTML5"]
-    },
-    {
-      title: "Flutter Team Members App",
-      description: "This is a simple Flutter application that displays a team member list using PageView. The app allows navigation between members and includes an option to return to the home screen.",
-      image: prj3,
-      github: "https://github.com/xuanhai0913/Flutter-my-app",
-      demo: "https://flutter-my-app-three.vercel.app",
-      technologies: ["Flutter", "Dart", "Android", "iOS"]
     },
     {
       title: "Website Happy New Year",
@@ -87,7 +79,7 @@ const Portfolio = () => {
       description: "Web service for renting phone numbers to receive OTP codes. Provides temporary phone numbers for verification purposes with real-time OTP retrieval.",
       image: prj9,
       github: "https://github.com/xuanhai0913/OTP-API",
-      demo: "https://haikey.shop/",
+      demo: "https://shop.hailamdev.space/",
       technologies: ["API", "Node.js", "Express", "MongoDB", "SMS Gateway"]
     },
 
