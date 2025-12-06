@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './styles/Header.css';
 
-// Logo from Cloudinary CDN
-const logoIcon = 'https://res.cloudinary.com/dqdcqtu8m/image/upload/v1765001229/Icon_y7wrcf.png';
+// Logo from Cloudinary CDN (full logo with text)
+const logoFull = 'https://res.cloudinary.com/dqdcqtu8m/image/upload/v1765001214/Logo_st3nmr.png';
 
 const Header = () => {
   console.log('📋 Header component is rendering...');
@@ -31,8 +31,7 @@ const Header = () => {
       <div className="nav-container">
         <div className="logo-container">
           <a href="#profile" className="logo-link" onClick={closeNav}>
-            <img src={logoIcon} alt="HaiLam Dev Logo" className="logo-image" />
-            <span className="logo-text">HAILAM DEV</span>
+            <img src={logoFull} alt="HaiLam Dev" className="logo-full" />
           </a>
         </div>
 

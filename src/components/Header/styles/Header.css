@@ -162,6 +162,18 @@
   transform: translateY(-1px);
 }
 
+.logo-full {
+  height: 45px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.logo-link:hover .logo-full {
+  transform: scale(1.03);
+  filter: brightness(1.1);
+}
+
 .logo-image {
   width: 40px;
   height: 40px;
@@ -258,6 +270,10 @@
 
   .header-overlay {
     backdrop-filter: blur(5px);
+  }
+
+  .logo-full {
+    height: 35px;
   }
 
   .logo-text {
