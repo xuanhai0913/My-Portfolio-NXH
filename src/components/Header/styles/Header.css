@@ -163,7 +163,7 @@
 }
 
 .logo-full {
-  height: 45px;
+  height: 60px;
   width: auto;
   object-fit: contain;
   transition: transform 0.3s ease, filter 0.3s ease;
@@ -273,7 +273,7 @@
   }
 
   .logo-full {
-    height: 35px;
+    height: 45px;
   }
 
   .logo-text {
