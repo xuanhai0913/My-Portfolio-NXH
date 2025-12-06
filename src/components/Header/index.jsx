@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import './styles/Header.css';
 
+// Logo from Cloudinary CDN
+const logoIcon = 'https://res.cloudinary.com/dqdcqtu8m/image/upload/v1765001229/Icon_y7wrcf.png';
+
 const Header = () => {
   console.log('📋 Header component is rendering...');
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -28,8 +31,8 @@ const Header = () => {
       <div className="nav-container">
         <div className="logo-container">
           <a href="#profile" className="logo-link" onClick={closeNav}>
-            <i className="fas fa-code logo-icon"></i>
-            <span className="logo-text">NGUYEN XUAN HAI</span>
+            <img src={logoIcon} alt="HaiLam Dev Logo" className="logo-image" />
+            <span className="logo-text">HAILAM DEV</span>
           </a>
         </div>
 

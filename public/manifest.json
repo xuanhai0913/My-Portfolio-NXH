@@ -1,25 +1,21 @@
 {
-  "short_name": "NXH Portfolio",
-  "name": "Nguyễn Xuân Hải - Portfolio",
+  "short_name": "HaiLam Dev",
+  "name": "HaiLam Dev - Portfolio",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "https://res.cloudinary.com/dqdcqtu8m/image/upload/v1765001229/Icon_y7wrcf.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      "src": "logo192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512"
+      "src": "https://res.cloudinary.com/dqdcqtu8m/image/upload/v1765001214/Logo_st3nmr.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ],
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#4a90e2",
-  "background_color": "#1a1a1a"
+  "background_color": "#0a1628"
 }

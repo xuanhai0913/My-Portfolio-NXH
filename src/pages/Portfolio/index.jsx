@@ -39,14 +39,6 @@ const Portfolio = () => {
       technologies: ["React", "Node.js", "MongoDB", "Express", "CSS3"]
     },
     {
-      title: "🚀 Flutter Team Members App",
-      description: "This is a simple Flutter application that displays a team member list using PageView. The app allows navigation between members and includes an option to return to the home screen.",
-      image: prj3,
-      github: "https://github.com/xuanhai0913/Flutter-my-app",
-      demo: "https://flutter-my-app-three.vercel.app",
-      technologies: ["Flutter", "Dart", "Android", "iOS"]
-    },
-    {
       title: "Management students",
       description: "Student management application by class, supports displaying student list, allows filtering and searching for names, and provides contact information of home school.",
       image: prj4,
