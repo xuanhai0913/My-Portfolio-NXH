@@ -13,7 +13,7 @@ import prj7 from '../../images/project/prj7.png';
 // Replace with actual screenshot: import prj8 from '../../images/project/prj8.png';
 import prj8 from '../../images/project/prj8.png'; // Temporary using prj1 as placeholder
 import prj9 from '../../images/project/prj9.png';
-import visionKey from '../../images/project/visionKey.png'; 
+import visionKey from '../../images/project/visionKey.png';
 
 const Portfolio = () => {
   const projects = [
@@ -39,16 +39,27 @@ const Portfolio = () => {
     },
     {
       title: "Vision Key - AI Screen Assistant",
-      description: "A native macOS menu bar application that integrates Google Gemini 2.5 Pro AI for intelligent screen capture analysis. Features include global hotkey support (⌘+⇧+.), multiple answer modes (Multiple Choice & Essay), expert role customization, secure API key storage via macOS Keychain, and full Vietnamese language support.",
-      image: visionKey, 
-      github: "https://github.com/xuanhai0913/Vision-Key",
-      technologies: ["Swift", "SwiftUI", "AppKit", "Gemini AI API", "macOS Keychain", "Carbon Framework"],
+      description: "A multi-platform AI assistant integrating Google Gemini 2.5 Pro for intelligent screen analysis. Available as a native macOS app and Chrome Extension. Windows version is currently in development. Features include global hotkeys, multiple answer modes, and secure API key management.",
+      image: visionKey,
+      customLinks: [
+        {
+          url: "https://github.com/xuanhai0913/Vision-Key",
+          label: "macOS Core",
+          icon: "fab fa-apple"
+        },
+        {
+          url: "https://github.com/xuanhai0913/Extension-Vision-Key",
+          label: "Chrome Ext",
+          icon: "fab fa-chrome"
+        }
+      ],
+      technologies: ["Swift", "SwiftUI", "JavaScript", "Chrome API", "Gemini AI"],
       isCommercial: false,
       noDemo: true,
       category: "AI/Desktop Application",
       year: 2025,
-      highlights: ["AI Integration", "Native macOS", "Global Hotkey", "Keychain Security"],
-      platform: "macOS 13.0+"
+      highlights: ["AI Integration", "Multi-Platform", "Global Hotkey", "Secure Storage"],
+      platform: "macOS / Chrome / Windows (Dev)"
     },
     {
       title: "Portfolio Website",
@@ -111,8 +122,8 @@ const Portfolio = () => {
 
   return (
     <section id="portfolio" className="portfolio-section">
-      <Squares 
-        speed={0.4} 
+      <Squares
+        speed={0.4}
         squareSize={window.innerWidth < 768 ? 25 : 35}
         direction='diagonal'
         borderColor='rgba(255, 255, 255, 0.08)'
@@ -122,8 +133,8 @@ const Portfolio = () => {
         <PortfolioTitle text="Portfolio" />
         <div className="portfolio-grid">
           {projects.map((project, index) => (
-            <div 
-              key={index} 
+            <div
+              key={index}
               className="project-card hidden"
               ref={el => projectRefs.current[index] = el}
               style={{
@@ -157,6 +168,12 @@ const Portfolio = () => {
                         <i className="fas fa-external-link-alt"></i> Visit Website
                       </a>
                     </>
+                  ) : project.customLinks ? (
+                    project.customLinks.map((link, idx) => (
+                      <a key={idx} href={link.url} target="_blank" rel="noopener noreferrer" className="github-link">
+                        <i className={link.icon}></i> {link.label}
+                      </a>
+                    ))
                   ) : (
                     <>
                       <a href={project.github} target="_blank" rel="noopener noreferrer" className="github-link">
