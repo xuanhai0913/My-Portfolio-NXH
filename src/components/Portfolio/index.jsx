@@ -38,27 +38,32 @@ const Portfolio = () => {
       company: "English Community House (ECH)"
     },
     {
-      title: "Vision Key - AI Screen Assistant",
-      description: "A multi-platform AI assistant integrating Google Gemini 2.5 Pro for intelligent screen analysis. Available as a native macOS app and Chrome Extension. Windows version is currently in development. Features include global hotkeys, multiple answer modes, and secure API key management.",
+      title: "Vision Key Premium - AI Screen Assistant",
+      description: "A multi-platform AI assistant integrating Google Gemini 2.0 Flash for intelligent screen analysis and Auto-Click support for Quizizz/Wayground. Available as native macOS app, Chrome Extension Premium (SaaS), and Windows version in development. Features auto-answer, license key system, and secure proxy server.",
       image: visionKey,
       customLinks: [
+        {
+          url: "https://visionpremium.hailamdev.space",
+          label: "Landing Page",
+          icon: "fas fa-globe"
+        },
+        {
+          url: "https://github.com/xuanhai0913/Extension-Vision-Premium",
+          label: "Chrome Premium",
+          icon: "fab fa-chrome"
+        },
         {
           url: "https://github.com/xuanhai0913/Vision-Key",
           label: "macOS Core",
           icon: "fab fa-apple"
-        },
-        {
-          url: "https://github.com/xuanhai0913/Extension-Vision-Key",
-          label: "Chrome Ext",
-          icon: "fab fa-chrome"
         }
       ],
-      technologies: ["Swift", "SwiftUI", "JavaScript", "Chrome API", "Gemini AI"],
+      technologies: ["Swift", "SwiftUI", "JavaScript", "Next.js", "MongoDB", "Gemini AI", "SaaS"],
       isCommercial: false,
       noDemo: true,
       category: "AI/Desktop Application",
       year: 2025,
-      highlights: ["AI Integration", "Multi-Platform", "Global Hotkey", "Secure Storage"],
+      highlights: ["AI Integration", "Auto-Click Quizizz", "Multi-Platform", "SaaS License System"],
       platform: "macOS / Chrome / Windows (Dev)"
     },
     {
