@@ -14,7 +14,7 @@ const Profile = () => {
   useEffect(() => {
     if (containerRef.current && textRef.current) {
       const container = containerRef.current; // Store ref in variable for cleanup
-      
+
       const updateProximityEffect = (e) => {
         if (!textRef.current) return;
         const rect = textRef.current.getBoundingClientRect();
@@ -25,7 +25,7 @@ const Profile = () => {
       };
 
       container.addEventListener('mousemove', updateProximityEffect);
-      
+
       return () => {
         container.removeEventListener('mousemove', updateProximityEffect);
       };
@@ -66,7 +66,7 @@ const Profile = () => {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -15 }}
-          transition={{ 
+          transition={{
             type: "spring",
             damping: 30,
             stiffness: 200,
@@ -112,10 +112,10 @@ const Profile = () => {
       {!auroraError && renderAurora()}
       <div className="profile-content">
         <div className="profile-card" ref={containerRef}>
-          <div className="profile-image"> 
-            <img 
-              src={profileImage} 
-              alt="Nguyễn Xuân Hải - Frontend Developer" 
+          <div className="profile-image">
+            <img
+              src={profileImage}
+              alt="Nguyễn Xuân Hải - Frontend Developer"
               loading="eager"
               width="150"
               height="150"
@@ -129,7 +129,7 @@ const Profile = () => {
                 {!rotatingTextError && renderRotatingText()}
               </div>
             </div>
-            
+
             <div className="description-container" ref={textRef}>
               {!proximityError && renderVariableProximity()}
             </div>
@@ -143,6 +143,11 @@ const Profile = () => {
                 <li>
                   <a href="https://github.com/xuanhai0913" target="_blank" rel="noopener noreferrer">
                     <i className="fab fa-github"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.youtube.com/@xuanhai0913" target="_blank" rel="noopener noreferrer">
+                    <i className="fab fa-youtube"></i>
                   </a>
                 </li>
                 <li>

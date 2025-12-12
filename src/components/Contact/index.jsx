@@ -25,8 +25,8 @@ const Contact = () => {
 
   return (
     <section id="contact" className="contact-section">
-      <Squares 
-        speed={0.4} 
+      <Squares
+        speed={0.4}
         squareSize={window.innerWidth < 768 ? 25 : 35}
         direction='diagonal'
         borderColor='rgba(255, 255, 255, 0.08)'
@@ -62,6 +62,9 @@ const Contact = () => {
           <div className="social-links">
             <a href="https://github.com/xuanhai0913" target="_blank" rel="noopener noreferrer">
               <i className="fab fa-github"></i>
+            </a>
+            <a href="https://www.youtube.com/@xuanhai0913" target="_blank" rel="noopener noreferrer">
+              <i className="fab fa-youtube"></i>
             </a>
             <a href="https://linkedin.com/in/xuanhai0913" target="_blank" rel="noopener noreferrer">
               <i className="fab fa-linkedin"></i>
