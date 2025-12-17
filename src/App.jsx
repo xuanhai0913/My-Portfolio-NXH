@@ -10,6 +10,7 @@ const Profile = lazy(() => import('./components/Profile'));
 const About = lazy(() => import('./components/About'));
 const Portfolio = lazy(() => import('./components/Portfolio'));
 const Contact = lazy(() => import('./components/Contact'));
+const Footer = lazy(() => import('./components/Footer'));
 
 // Loading fallback
 const LoadingFallback = () => (
@@ -20,37 +21,37 @@ const LoadingFallback = () => (
 
 const App = () => {
   console.log('🚀 App component is rendering...');
-  
+
   return (
     <div className="app">
       <ErrorBoundary>
         <Header />
       </ErrorBoundary>
-      
+
       <ErrorBoundary>
         <Suspense fallback={<LoadingFallback />}>
           <Profile />
         </Suspense>
       </ErrorBoundary>
-      
+
       <ErrorBoundary>
         <Suspense fallback={<LoadingFallback />}>
           <About />
         </Suspense>
       </ErrorBoundary>
-      
+
       <ErrorBoundary>
         <Suspense fallback={<LoadingFallback />}>
           <Portfolio />
         </Suspense>
       </ErrorBoundary>
-      
+
       <ErrorBoundary>
         <Suspense fallback={<LoadingFallback />}>
           <Contact />
         </Suspense>
       </ErrorBoundary>
-      
+
       <Analytics debug={false} mode="production" />
       <SpeedInsights />
     </div>
