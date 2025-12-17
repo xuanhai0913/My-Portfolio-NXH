@@ -45,7 +45,7 @@ const Portfolio = () => {
       demo: "https://vnmediahub.com",
       technologies: ["ASP.NET Core", "C#", "React", "SQL Server", "Entity Framework", "Vite", "REST API"],
       isCommercial: true,
-      company: "VN Media Hub",
+      company: "CÔNG TY VN MEDIA HUB",
       category: "Full-Stack Web Application",
       year: 2025,
       highlights: ["Multi-Category System", "SEO Optimized", "Admin Panel", "Tag Management"]
@@ -178,14 +178,9 @@ const Portfolio = () => {
                 </div>
                 <div className="project-links">
                   {project.isCommercial ? (
-                    <>
-                      <div className="commercial-badge">
-                        <i className="fas fa-building"></i> Commercial Project
-                      </div>
-                      <a href={project.demo} target="_blank" rel="noopener noreferrer" className="demo-link">
-                        <i className="fas fa-external-link-alt"></i> Visit Website
-                      </a>
-                    </>
+                    <a href={project.demo} target="_blank" rel="noopener noreferrer" className="demo-link">
+                      <i className="fas fa-external-link-alt"></i> Visit Website
+                    </a>
                   ) : project.customLinks ? (
                     project.customLinks.map((link, idx) => (
                       <a key={idx} href={link.url} target="_blank" rel="noopener noreferrer" className="github-link">

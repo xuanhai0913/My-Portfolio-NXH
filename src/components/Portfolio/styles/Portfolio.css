@@ -182,19 +182,22 @@
 }
 
 .project-company {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  background: linear-gradient(135deg, #ffd700, #ff8c00);
+  color: #333;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
   margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  font-size: 0.9rem;
-  color: #ccc;
-  font-style: italic;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
 }
 
 .project-company i {
-  color: #4a90e2;
+  font-size: 1rem;
+  color: #333;
 }
 
 .commercial-badge {
