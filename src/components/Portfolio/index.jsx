@@ -25,7 +25,7 @@ const Portfolio = () => {
       demo: "https://greatlinkmaihouse.com/",
       technologies: ["ASP.NET Core", "C#", "SQL Server", "Bootstrap", "JavaScript", "HTML5", "CSS3"],
       isCommercial: true,
-      company: "CÔNG TY TNHH ĐẦU TƯ GREATLINK MAIHOUSE"
+      company: "CÔNG TY GREATLINK MAIHOUSE"
     },
     {
       title: "Website Education English Community",
@@ -33,9 +33,22 @@ const Portfolio = () => {
       image: prj6,
       github: "#", // Private educational project
       demo: "https://ech.edu.vn",
-      technologies: ["WordPress", "PHP", "MySQL", "CSS3", "JavaScript"],
+      technologies: ["PHP", "MySQL", "CSS3", "JavaScript"],
       isCommercial: true,
       company: "English Community House (ECH)"
+    },
+    {
+      title: "VN Media Hub - Full-Stack Blog Platform",
+      description: "Professional blog platform for VN Media Hub with ASP.NET Core backend and React frontend. Features include multi-category management, SEO-friendly URLs, post tagging system, view counter, featured posts, and responsive design. Supports content in categories like Events, Reviews, Partners, and Videos.",
+      image: prj3,
+      github: "#", // Private company project
+      demo: "https://vnmediahub.com",
+      technologies: ["ASP.NET Core", "C#", "React", "SQL Server", "Entity Framework", "Vite", "REST API"],
+      isCommercial: true,
+      company: "VN Media Hub",
+      category: "Full-Stack Web Application",
+      year: 2025,
+      highlights: ["Multi-Category System", "SEO Optimized", "Admin Panel", "Tag Management"]
     },
     {
       title: "Vision Key Premium - AI Screen Assistant",
