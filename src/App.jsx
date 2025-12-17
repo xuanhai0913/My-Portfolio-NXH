@@ -52,6 +52,12 @@ const App = () => {
         </Suspense>
       </ErrorBoundary>
 
+      <ErrorBoundary>
+        <Suspense fallback={<LoadingFallback />}>
+          <Footer />
+        </Suspense>
+      </ErrorBoundary>
+
       <Analytics debug={false} mode="production" />
       <SpeedInsights />
     </div>
