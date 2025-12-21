@@ -6,16 +6,18 @@ const Footer = () => {
 
     useEffect(() => {
         // Get current view count from localStorage
+        const baseOffset = 12588; // Base view count offset
         const currentCount = localStorage.getItem('portfolioViewCount');
 
         if (currentCount) {
             const count = parseInt(currentCount) + 1;
             localStorage.setItem('portfolioViewCount', count.toString());
-            setViewCount(count);
+            setViewCount(count + baseOffset);
         } else {
-            // First visit
-            localStorage.setItem('portfolioViewCount', '1');
-            setViewCount(1);
+            // First visit (105 existing + 12588 offset)
+            const initialCount = 105;
+            localStorage.setItem('portfolioViewCount', initialCount.toString());
+            setViewCount(initialCount + baseOffset);
         }
     }, []);
 
