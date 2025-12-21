@@ -5,20 +5,28 @@ const Footer = () => {
     const [viewCount, setViewCount] = useState(0);
 
     useEffect(() => {
-        // Get current view count from localStorage
-        const baseOffset = 12588; // Base view count offset
-        const currentCount = localStorage.getItem('portfolioViewCount');
+        // Fetch view count from API
+        const fetchViewCount = async () => {
+            try {
+                const response = await fetch('/api/views');
+                const data = await response.json();
 
-        if (currentCount) {
-            const count = parseInt(currentCount) + 1;
-            localStorage.setItem('portfolioViewCount', count.toString());
-            setViewCount(count + baseOffset);
-        } else {
-            // First visit (105 existing + 12588 offset)
-            const initialCount = 105;
-            localStorage.setItem('portfolioViewCount', initialCount.toString());
-            setViewCount(initialCount + baseOffset);
-        }
+                if (data.success) {
+                    setViewCount(data.viewCount);
+                } else {
+                    // Fallback to localStorage if API fails
+                    const localCount = localStorage.getItem('portfolioViewCount') || 12693;
+                    setViewCount(parseInt(localCount));
+                }
+            } catch (error) {
+                console.error('Error fetching view count:', error);
+                // Fallback to localStorage on error
+                const localCount = localStorage.getItem('portfolioViewCount') || 12693;
+                setViewCount(parseInt(localCount));
+            }
+        };
+
+        fetchViewCount();
     }, []);
 
     return (
