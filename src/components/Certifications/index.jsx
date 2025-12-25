@@ -100,11 +100,14 @@ const Certifications = () => {
                 '--accent-color': cert.color
               }}
             >
-              <div className="cert-thumbnail">
+              <div
+                className="cert-thumbnail"
+                onClick={() => handleViewCertificate(cert.verifyUrl)}
+                role="button"
+                tabIndex={0}
+                aria-label={`View ${cert.title} certificate`}
+              >
                 <img src={cert.thumbnail} alt={cert.title} loading="lazy" />
-                <div className="cert-overlay">
-                  <i className="fas fa-search-plus"></i>
-                </div>
               </div>
 
               <div className="cert-body">

@@ -196,46 +196,19 @@
     aspect-ratio: 4/3;
     overflow: hidden;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    cursor: pointer;
 }
 
 .cert-thumbnail img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), filter 0.3s ease;
 }
 
 .cert-card:hover .cert-thumbnail img {
     transform: scale(1.08);
-}
-
-.cert-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.6) 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.cert-overlay i {
-    font-size: 2rem;
-    color: white;
-    transform: scale(0.8);
-    transition: transform 0.3s ease;
-}
-
-.cert-card:hover .cert-overlay {
-    opacity: 1;
-}
-
-.cert-card:hover .cert-overlay i {
-    transform: scale(1);
+    filter: brightness(1.1);
 }
 
 /* Certificate Body */
