@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from 'react';
+import Squares from '../Squares';
 import './styles/Certifications.css';
 
-// Import certificate thumbnail images
+// Import certificate thumbnail images (converted from real PDFs)
 import certGoogleAI from '../../images/certs/cert-google-ai-k12.png';
 import certTalkbot from '../../images/certs/cert-talkbot.png';
 import certGemini from '../../images/certs/cert-gemini.png';
@@ -13,7 +14,6 @@ const certificates = [
     title: "Gemini Certified University Student",
     issuer: "Google",
     thumbnail: certGemini,
-    color: "#8E44AD",
     verifyUrl: "https://edu.google.accredible.com/1dd22150-1e7d-4dc6-9ad1-4fd25443e7b3#acc.Zli4Y2P5",
     description: "Certified in Google Gemini AI technologies and applications"
   },
@@ -22,7 +22,6 @@ const certificates = [
     title: "Google AI for K12 Educators",
     issuer: "Google for Education",
     thumbnail: certGoogleAI,
-    color: "#4285F4",
     verifyUrl: "https://edu.exceedlms.com/student/award/k4zuntPUoY1eRJoBF3zcecCR",
     description: "AI education methodologies for K-12 teaching environments"
   },
@@ -31,7 +30,6 @@ const certificates = [
     title: "Code a Joke-Telling Talkbot",
     issuer: "Google for Education",
     thumbnail: certTalkbot,
-    color: "#34A853",
     verifyUrl: "https://edu.exceedlms.com/student/award/T84bwoKX7qy2ghnd33FEjn77",
     description: "Conversational AI and chatbot development fundamentals"
   }
@@ -69,12 +67,13 @@ const Certifications = () => {
 
   return (
     <section id="certifications" className="certifications-section" ref={sectionRef}>
-      {/* Animated gradient mesh background */}
-      <div className="gradient-mesh">
-        <div className="gradient-orb orb-1"></div>
-        <div className="gradient-orb orb-2"></div>
-        <div className="gradient-orb orb-3"></div>
-      </div>
+      <Squares
+        speed={0.4}
+        squareSize={window.innerWidth < 768 ? 25 : 35}
+        direction='diagonal'
+        borderColor='rgba(255, 255, 255, 0.08)'
+        hoverFillColor='rgba(74, 144, 226, 0.2)'
+      />
 
       <div className="certifications-content">
         <div className="certifications-header">
@@ -95,10 +94,7 @@ const Certifications = () => {
               key={cert.id}
               className="cert-card hidden"
               ref={el => certRefs.current[index] = el}
-              style={{
-                '--delay': `${index * 0.15}s`,
-                '--accent-color': cert.color
-              }}
+              style={{ '--delay': `${index * 0.15}s` }}
             >
               <div
                 className="cert-thumbnail"
