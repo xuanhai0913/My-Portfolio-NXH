@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './styles/Certifications.css';
 
 // Import certificate thumbnail images (converted from real PDFs)
@@ -35,10 +35,53 @@ const certificates = [
   }
 ];
 
+// Rotating messages for typewriter effect
+const typingMessages = [
+  "Professional certifications from Google",
+  "Verified credentials for developers",
+  "Building AI-powered solutions",
+  "Continuous learning & growth"
+];
+
 const Certifications = () => {
   const sectionRef = useRef(null);
   const certRefs = useRef([]);
   const canvasRef = useRef(null);
+
+  // Typewriter state
+  const [displayText, setDisplayText] = useState('');
+  const [messageIndex, setMessageIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  // Typewriter effect
+  useEffect(() => {
+    const currentMessage = typingMessages[messageIndex];
+    const typeSpeed = isDeleting ? 30 : 50;
+    const pauseTime = isDeleting ? 500 : 3000;
+
+    const timeout = setTimeout(() => {
+      if (!isDeleting) {
+        // Typing
+        if (displayText.length < currentMessage.length) {
+          setDisplayText(currentMessage.slice(0, displayText.length + 1));
+        } else {
+          // Finished typing, wait then start deleting
+          setTimeout(() => setIsDeleting(true), pauseTime);
+        }
+      } else {
+        // Deleting
+        if (displayText.length > 0) {
+          setDisplayText(displayText.slice(0, -1));
+        } else {
+          // Finished deleting, move to next message
+          setIsDeleting(false);
+          setMessageIndex((prev) => (prev + 1) % typingMessages.length);
+        }
+      }
+    }, typeSpeed);
+
+    return () => clearTimeout(timeout);
+  }, [displayText, isDeleting, messageIndex]);
 
   // Matrix/Code rain animation
   useEffect(() => {
@@ -61,7 +104,7 @@ const Certifications = () => {
     const drops = Array(columns).fill(1);
 
     const draw = () => {
-      ctx.fillStyle = 'rgba(18, 18, 18, 0.05)';
+      ctx.fillStyle = 'rgba(10, 10, 15, 0.05)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       ctx.fillStyle = '#4a90e2';
@@ -130,7 +173,8 @@ const Certifications = () => {
             <span className="highlight">Verified</span> Credentials
           </h2>
           <p className="certifications-subtitle">
-            <span className="typing-cursor">_</span> Professional certifications from Google
+            <span className="typed-text">{displayText}</span>
+            <span className="cursor">|</span>
           </p>
         </div>
 

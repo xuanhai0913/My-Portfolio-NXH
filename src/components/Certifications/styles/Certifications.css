@@ -93,23 +93,34 @@
     color: rgba(255, 255, 255, 0.6);
     font-size: 1.1rem;
     font-family: 'Fira Code', monospace;
+    min-height: 1.5em;
 }
 
-.typing-cursor {
-    animation: blink 1s step-end infinite;
+.typed-text {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.cursor {
     color: #4a90e2;
+    font-weight: 300;
+    animation: cursorBlink 0.8s ease-in-out infinite;
+    margin-left: 2px;
 }
 
-@keyframes blink {
+@keyframes cursorBlink {
 
     0%,
-    50% {
+    45% {
         opacity: 1;
     }
 
-    51%,
-    100% {
+    50%,
+    95% {
         opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
     }
 }
 
