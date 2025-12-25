@@ -22,6 +22,7 @@ const Header = () => {
     { id: 'home', label: 'Home', href: '#profile' },
     { id: 'about', label: 'About', href: '#about' },
     { id: 'portfolio', label: 'Portfolio', href: '#portfolio' },
+    { id: 'certifications', label: 'Certifications', href: '#certifications' },
     { id: 'contact', label: 'Contact', href: '#contact' }
   ];
 
@@ -35,9 +36,9 @@ const Header = () => {
           </a>
         </div>
 
-        <button 
-          className={`nav-toggle ${isNavOpen ? 'active' : ''}`} 
-          onClick={toggleNav} 
+        <button
+          className={`nav-toggle ${isNavOpen ? 'active' : ''}`}
+          onClick={toggleNav}
           aria-label="Toggle navigation"
         >
           <span className="hamburger"></span>
