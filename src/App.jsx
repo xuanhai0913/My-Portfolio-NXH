@@ -9,6 +9,7 @@ import './App.css';
 const Profile = lazy(() => import('./components/Profile'));
 const About = lazy(() => import('./components/About'));
 const Portfolio = lazy(() => import('./components/Portfolio'));
+const Certifications = lazy(() => import('./components/Certifications'));
 const Contact = lazy(() => import('./components/Contact'));
 const Footer = lazy(() => import('./components/Footer'));
 
@@ -43,6 +44,12 @@ const App = () => {
       <ErrorBoundary>
         <Suspense fallback={<LoadingFallback />}>
           <Portfolio />
+        </Suspense>
+      </ErrorBoundary>
+
+      <ErrorBoundary>
+        <Suspense fallback={<LoadingFallback />}>
+          <Certifications />
         </Suspense>
       </ErrorBoundary>
 
