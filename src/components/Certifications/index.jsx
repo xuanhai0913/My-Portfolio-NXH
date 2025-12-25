@@ -1,30 +1,44 @@
 import React, { useEffect, useRef } from 'react';
-import Squares from '../Squares';
 import './styles/Certifications.css';
 
-// Certificate data - links to PDF files
+// Import certificate thumbnail images
+import certGoogleAI from '../../images/certs/cert-google-ai-k12.png';
+import certTalkbot from '../../images/certs/cert-talkbot.png';
+import certGemini from '../../images/certs/cert-gemini.png';
+
+// Certificate data with updated verification links
 const certificates = [
   {
     id: 1,
-    title: "Google AI for K12 Educators",
-    issuer: "Google for Education",
-    icon: "fas fa-robot",
-    color: "#4285F4",
-    pdfUrl: "/Cert/Google AI for K12 Educators _ Google for Education.pdf",
-    description: "Certification in AI education methodologies for K-12 teaching environments"
+    title: "Gemini Certified University Student",
+    issuer: "Google",
+    thumbnail: certGemini,
+    color: "#8E44AD",
+    verifyUrl: "https://edu.google.accredible.com/1dd22150-1e7d-4dc6-9ad1-4fd25443e7b3#acc.Zli4Y2P5",
+    description: "Certified in Google Gemini AI technologies and applications"
   },
   {
     id: 2,
-    title: "Google for Education",
-    issuer: "Google",
-    icon: "fas fa-graduation-cap",
+    title: "Google AI for K12 Educators",
+    issuer: "Google for Education",
+    thumbnail: certGoogleAI,
+    color: "#4285F4",
+    verifyUrl: "https://edu.exceedlms.com/student/award/k4zuntPUoY1eRJoBF3zcecCR",
+    description: "AI education methodologies for K-12 teaching environments"
+  },
+  {
+    id: 3,
+    title: "Code a Joke-Telling Talkbot",
+    issuer: "Google for Education",
+    thumbnail: certTalkbot,
     color: "#34A853",
-    pdfUrl: "/Cert/Google for Education.pdf",
-    description: "Certification in Google's educational tools and platforms"
+    verifyUrl: "https://edu.exceedlms.com/student/award/T84bwoKX7qy2ghnd33FEjn77",
+    description: "Conversational AI and chatbot development fundamentals"
   }
 ];
 
 const Certifications = () => {
+  const sectionRef = useRef(null);
   const certRefs = useRef([]);
 
   useEffect(() => {
@@ -49,28 +63,32 @@ const Certifications = () => {
     return () => observer.disconnect();
   }, []);
 
-  const handleViewCertificate = (pdfUrl) => {
-    window.open(pdfUrl, '_blank');
+  const handleViewCertificate = (url) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
   };
 
   return (
-    <section id="certifications" className="certifications-section">
-      <Squares
-        speed={0.4}
-        squareSize={window.innerWidth < 768 ? 25 : 35}
-        direction='diagonal'
-        borderColor='rgba(255, 255, 255, 0.08)'
-        hoverFillColor='rgba(74, 144, 226, 0.2)'
-      />
+    <section id="certifications" className="certifications-section" ref={sectionRef}>
+      {/* Animated gradient mesh background */}
+      <div className="gradient-mesh">
+        <div className="gradient-orb orb-1"></div>
+        <div className="gradient-orb orb-2"></div>
+        <div className="gradient-orb orb-3"></div>
+      </div>
+
       <div className="certifications-content">
-        <h2 className="certifications-title">
-          <i className="fas fa-certificate"></i>
-          Certifications
-        </h2>
-        <p className="certifications-subtitle">
-          Professional certifications and achievements
-        </p>
-        
+        <div className="certifications-header">
+          <span className="section-badge">
+            <i className="fas fa-award"></i>
+            Achievements
+          </span>
+          <h2 className="certifications-title">Certifications</h2>
+          <p className="certifications-subtitle">
+            <i className="fab fa-google"></i>
+            Verified by Google for Education
+          </p>
+        </div>
+
         <div className="certifications-grid">
           {certificates.map((cert, index) => (
             <div
@@ -82,23 +100,29 @@ const Certifications = () => {
                 '--accent-color': cert.color
               }}
             >
-              <div className="cert-icon" style={{ background: `linear-gradient(135deg, ${cert.color}, ${cert.color}dd)` }}>
-                <i className={cert.icon}></i>
+              <div className="cert-thumbnail">
+                <img src={cert.thumbnail} alt={cert.title} loading="lazy" />
+                <div className="cert-overlay">
+                  <i className="fas fa-search-plus"></i>
+                </div>
               </div>
-              <div className="cert-content">
-                <h3>{cert.title}</h3>
-                <span className="cert-issuer">
-                  <i className="fas fa-building"></i>
-                  {cert.issuer}
-                </span>
+
+              <div className="cert-body">
+                <h3 className="cert-title">{cert.title}</h3>
+                <div className="cert-issuer">
+                  <i className="fab fa-google"></i>
+                  <span>{cert.issuer}</span>
+                </div>
                 <p className="cert-description">{cert.description}</p>
               </div>
-              <button 
-                className="cert-view-btn"
-                onClick={() => handleViewCertificate(cert.pdfUrl)}
+
+              <button
+                className="cert-verify-btn"
+                onClick={() => handleViewCertificate(cert.verifyUrl)}
+                aria-label={`Verify ${cert.title} certificate`}
               >
                 <i className="fas fa-external-link-alt"></i>
-                View Certificate
+                <span>Verify Certificate</span>
               </button>
             </div>
           ))}
