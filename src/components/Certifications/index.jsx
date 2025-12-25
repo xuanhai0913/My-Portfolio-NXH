@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import Squares from '../Squares';
 import './styles/Certifications.css';
 
 // Import certificate thumbnail images (converted from real PDFs)
@@ -67,24 +66,17 @@ const Certifications = () => {
 
   return (
     <section id="certifications" className="certifications-section" ref={sectionRef}>
-      <Squares
-        speed={0.4}
-        squareSize={window.innerWidth < 768 ? 25 : 35}
-        direction='diagonal'
-        borderColor='rgba(255, 255, 255, 0.08)'
-        hoverFillColor='rgba(74, 144, 226, 0.2)'
-      />
+      {/* Subtle smoke/mist effect background */}
+      <div className="smoke-bg">
+        <div className="smoke-layer smoke-1"></div>
+        <div className="smoke-layer smoke-2"></div>
+      </div>
 
       <div className="certifications-content">
         <div className="certifications-header">
-          <span className="section-badge">
-            <i className="fas fa-award"></i>
-            Achievements
-          </span>
           <h2 className="certifications-title">Certifications</h2>
           <p className="certifications-subtitle">
-            <i className="fab fa-google"></i>
-            Verified by Google for Education
+            Verified credentials from Google
           </p>
         </div>
 
@@ -94,35 +86,29 @@ const Certifications = () => {
               key={cert.id}
               className="cert-card hidden"
               ref={el => certRefs.current[index] = el}
-              style={{ '--delay': `${index * 0.15}s` }}
+              style={{ '--delay': `${index * 0.12}s` }}
             >
               <div
                 className="cert-thumbnail"
                 onClick={() => handleViewCertificate(cert.verifyUrl)}
-                role="button"
-                tabIndex={0}
-                aria-label={`View ${cert.title} certificate`}
               >
                 <img src={cert.thumbnail} alt={cert.title} loading="lazy" />
               </div>
 
               <div className="cert-body">
                 <h3 className="cert-title">{cert.title}</h3>
-                <div className="cert-issuer">
-                  <i className="fab fa-google"></i>
-                  <span>{cert.issuer}</span>
-                </div>
+                <p className="cert-issuer">{cert.issuer}</p>
                 <p className="cert-description">{cert.description}</p>
               </div>
 
-              <button
-                className="cert-verify-btn"
-                onClick={() => handleViewCertificate(cert.verifyUrl)}
-                aria-label={`Verify ${cert.title} certificate`}
-              >
-                <i className="fas fa-external-link-alt"></i>
-                <span>Verify Certificate</span>
-              </button>
+              <div className="cert-actions">
+                <button
+                  className="google-btn google-btn-filled"
+                  onClick={() => handleViewCertificate(cert.verifyUrl)}
+                >
+                  Verify
+                </button>
+              </div>
             </div>
           ))}
         </div>
