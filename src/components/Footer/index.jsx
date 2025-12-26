@@ -35,7 +35,7 @@ const Footer = () => {
                 <div className="footer-view-counter">
                     <i className="fas fa-eye"></i>
                     <span className="view-count">{viewCount.toLocaleString()}</span>
-                    <span className="view-label">lượt xem</span>
+                    <span className="view-label">views</span>
                 </div>
                 <div className="footer-copyright">
                     <p>© 2025 Nguyễn Xuân Hải. All rights reserved.</p>

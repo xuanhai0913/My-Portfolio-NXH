@@ -36,15 +36,15 @@ const Profile = () => {
   const renderTrueFocus = () => {
     try {
       return (
-        <TrueFocus 
+        <TrueFocus
           text="Full-Stack Developer"
           sentence="Full-Stack Developer"
 
-manualMode={false}
-blurAmount={3}
-borderColor="red"
-animationDuration={1}
-pauseBetweenAnimations={1}
+          manualMode={false}
+          blurAmount={3}
+          borderColor="red"
+          animationDuration={1}
+          pauseBetweenAnimations={1}
         />
       );
       // eslint-disable-next-line no-unreachable
@@ -54,7 +54,7 @@ pauseBetweenAnimations={1}
       return <span className="rotating-title-fallback">Full-Stack Developer</span>;
     }
   };
-  
+
 
   // Render ScrambleText with error handling
   const renderScrambleText = () => {
@@ -82,10 +82,10 @@ pauseBetweenAnimations={1}
       {!auroraError && renderAurora()}
       <div className="profile-content">
         <div className="profile-card" ref={containerRef}>
-          <div className="profile-image"> 
-            <img 
-              src={profileImage} 
-              alt="Nguyễn Xuân Hải - Frontend Developer" 
+          <div className="profile-image">
+            <img
+              src={profileImage}
+              alt="Nguyễn Xuân Hải - Full-Stack Developer"
               loading="eager"
               width="150"
               height="150"
@@ -99,7 +99,7 @@ pauseBetweenAnimations={1}
                 {!trueFocusError && renderTrueFocus()}
               </div>
             </div>
-            
+
             <div className="description-container" ref={textRef}>
               {!scrambleError && renderScrambleText()}
             </div>
@@ -127,6 +127,14 @@ pauseBetweenAnimations={1}
                 </li>
               </ul>
             </div>
+            <a
+              href="/CV_NguyenXuanHai.pdf"
+              download="CV_NguyenXuanHai.pdf"
+              className="download-cv-btn"
+            >
+              <i className="fas fa-download"></i>
+              Download CV
+            </a>
           </div>
         </div>
       </div>

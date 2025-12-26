@@ -2,8 +2,8 @@
 // Utility functions to manage meta tags for different pages and social media platforms
 
 export const defaultMetaTags = {
-  title: "Nguyễn Xuân Hải - Frontend Developer Portfolio | React & UI/UX Expert",
-  description: "Frontend Developer chuyên về React, UI/UX và Web Development. Khám phá các dự án và kỹ năng chuyên môn của tôi trong lĩnh vực phát triển web.",
+  title: "Nguyễn Xuân Hải - Full-Stack Developer Portfolio | React & Web Expert",
+  description: "Full-Stack Developer specializing in React, Node.js, ASP.NET Core and modern web technologies. Explore my projects and professional skills.",
   image: "https://nxhai0913.me/images/og-image.jpg",
   url: "https://nxhai0913.me/",
   type: "website"
@@ -11,27 +11,27 @@ export const defaultMetaTags = {
 
 export const pageMetaTags = {
   home: {
-    title: "Nguyễn Xuân Hải - Frontend Developer Portfolio",
-    description: "Chào mừng đến với portfolio của tôi. Tôi là Frontend Developer chuyên về React, JavaScript và UI/UX Design.",
-    keywords: "Frontend Developer, React Developer, UI/UX Designer, JavaScript Expert, Portfolio",
+    title: "Nguyễn Xuân Hải - Full-Stack Developer Portfolio",
+    description: "Welcome to my portfolio. I'm a Full-Stack Developer specializing in React, Node.js, ASP.NET Core and modern web technologies.",
+    keywords: "Full-Stack Developer, React Developer, Node.js Developer, ASP.NET Core, JavaScript Expert, Portfolio",
     url: "https://nxhai0913.me/"
   },
   about: {
-    title: "Về tôi - Nguyễn Xuân Hải | Frontend Developer",
-    description: "Tìm hiểu về kinh nghiệm, kỹ năng và hành trình phát triển sự nghiệp của tôi trong lĩnh vực Frontend Development.",
-    keywords: "About, Experience, Skills, Frontend Developer Career, React Expert",
+    title: "About Me - Nguyễn Xuân Hải | Full-Stack Developer",
+    description: "Learn about my experience, skills and career journey in Full-Stack Development.",
+    keywords: "About, Experience, Skills, Full-Stack Developer Career, React Expert",
     url: "https://nxhai0913.me/#about"
   },
   portfolio: {
-    title: "Dự án - Portfolio | Nguyễn Xuân Hải",
-    description: "Khám phá các dự án web development và UI/UX design mà tôi đã thực hiện, từ ứng dụng React đến website responsive, bao gồm cả dự án thương mại cho Great Link Mai House.",
-    keywords: "Portfolio, Projects, Web Development, React Projects, UI/UX Design, Commercial Projects, B2B Platform, Import-Export",
+    title: "Projects - Portfolio | Nguyễn Xuân Hải",
+    description: "Explore my web development and UI/UX design projects, from React applications to responsive websites, including commercial projects for Great Link Mai House.",
+    keywords: "Portfolio, Projects, Web Development, React Projects, UI/UX Design, Commercial Projects, B2B Platform, Full-Stack",
     url: "https://nxhai0913.me/#portfolio"
   },
   contact: {
-    title: "Liên hệ - Nguyễn Xuân Hải | Frontend Developer",
-    description: "Hãy liên hệ với tôi để thảo luận về các dự án web development, cơ hội hợp tác hoặc tư vấn kỹ thuật.",
-    keywords: "Contact, Hire Frontend Developer, React Developer Contact, Web Development Services",
+    title: "Contact - Nguyễn Xuân Hải | Full-Stack Developer",
+    description: "Get in touch to discuss web development projects, collaboration opportunities, or technical consulting.",
+    keywords: "Contact, Hire Full-Stack Developer, React Developer Contact, Web Development Services",
     url: "https://nxhai0913.me/#contact"
   }
 };
@@ -39,24 +39,24 @@ export const pageMetaTags = {
 // Update document meta tags
 export const updateMetaTags = (pageName = 'home') => {
   const meta = pageMetaTags[pageName] || pageMetaTags.home;
-  
+
   // Update title
   document.title = meta.title;
-  
+
   // Update meta description
   updateMetaTag('name', 'description', meta.description);
   updateMetaTag('name', 'keywords', meta.keywords);
-  
+
   // Update Open Graph tags
   updateMetaTag('property', 'og:title', meta.title);
   updateMetaTag('property', 'og:description', meta.description);
   updateMetaTag('property', 'og:url', meta.url);
-  
+
   // Update Twitter tags
   updateMetaTag('name', 'twitter:title', meta.title);
   updateMetaTag('name', 'twitter:description', meta.description);
   updateMetaTag('name', 'twitter:url', meta.url);
-  
+
   // Update canonical URL
   updateCanonicalUrl(meta.url);
 };
@@ -108,7 +108,7 @@ export const generateStructuredData = (pageName, additionalData = {}) => {
     "mainEntity": {
       "@type": "Person",
       "name": "Nguyễn Xuân Hải",
-      "jobTitle": "Frontend Developer",
+      "jobTitle": "Full-Stack Developer",
       "worksFor": {
         "@type": "Organization",
         "name": "Freelancer"
@@ -170,11 +170,11 @@ export const preloadSocialAssets = () => {
 export const initializeMetaTags = () => {
   // Preload social assets
   preloadSocialAssets();
-  
+
   // Set default meta tags
   updateMetaTags('home');
   generateStructuredData('home');
-  
+
   // Add viewport meta for mobile optimization
   if (!document.querySelector('meta[name="viewport"]')) {
     const viewport = document.createElement('meta');

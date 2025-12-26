@@ -145,6 +145,46 @@
   transform: scale(1.1);
 }
 
+/* Download CV Button */
+.download-cv-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+  padding: 0.85rem 2rem;
+  background: linear-gradient(135deg, #4a90e2, #357abd);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+  border: none;
+  cursor: pointer;
+}
+
+.download-cv-btn i {
+  font-size: 0.95rem;
+  transition: transform 0.3s ease;
+}
+
+.download-cv-btn:hover {
+  background: linear-gradient(135deg, #357abd, #2c5f95);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(74, 144, 226, 0.4);
+}
+
+.download-cv-btn:hover i {
+  transform: translateY(2px);
+}
+
+.download-cv-btn:active {
+  transform: translateY(-1px);
+}
+
 .aurora-container {
   position: fixed;
   width: 100vw;
@@ -250,10 +290,12 @@
     transform: scale(1);
     opacity: 1;
   }
+
   50% {
     transform: scale(1.1);
     opacity: 0.5;
   }
+
   100% {
     transform: scale(1);
     opacity: 1;
@@ -265,6 +307,7 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -272,14 +315,37 @@
 }
 
 @keyframes wave {
-  0% { transform: rotate(0deg); }
-  10% { transform: rotate(14deg); }
-  20% { transform: rotate(-8deg); }
-  30% { transform: rotate(14deg); }
-  40% { transform: rotate(-4deg); }
-  50% { transform: rotate(10deg); }
-  60% { transform: rotate(0deg); }
-  100% { transform: rotate(0deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  10% {
+    transform: rotate(14deg);
+  }
+
+  20% {
+    transform: rotate(-8deg);
+  }
+
+  30% {
+    transform: rotate(14deg);
+  }
+
+  40% {
+    transform: rotate(-4deg);
+  }
+
+  50% {
+    transform: rotate(10deg);
+  }
+
+  60% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
 }
 
 @media (max-width: 768px) {
