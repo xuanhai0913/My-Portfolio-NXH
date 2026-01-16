@@ -115,7 +115,7 @@ const Profile = () => {
           <div className="profile-image">
             <img
               src={profileImage}
-              alt="Nguyễn Xuân Hải - Frontend Developer"
+              alt="Nguyễn Xuân Hải - Fullstack Developer"
               loading="eager"
               width="150"
               height="150"

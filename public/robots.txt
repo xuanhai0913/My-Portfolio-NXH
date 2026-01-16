@@ -1,5 +1,5 @@
 # Robots.txt for nxhai0913.me
-# Portfolio website of Nguyễn Xuân Hải - Frontend Developer
+# Portfolio website of Nguyễn Xuân Hải - Fullstack Developer
 
 User-agent: *
 Allow: /
