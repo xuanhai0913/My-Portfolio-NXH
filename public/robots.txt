@@ -1,4 +1,4 @@
-# Robots.txt for nxhai0913.me
+# Robots.txt for www.hailamdev.space
 # Portfolio website of Nguyễn Xuân Hải - Fullstack Developer
 
 User-agent: *
@@ -36,12 +36,12 @@ Allow: /discord-verification.txt
 Crawl-delay: 1
 
 # Sitemap locations
-Sitemap: https://nxhai0913.me/sitemap.xml
-Sitemap: https://nxhai0913.me/sitemap-images.xml
+Sitemap: https://www.hailamdev.space/sitemap.xml
+Sitemap: https://www.hailamdev.space/sitemap-images.xml
 
 # Contact information
-# Website: https://nxhai0913.me
-# Email: contact@nxhai0913.me
+# Website: https://www.hailamdev.space
+# Email: xuanhai0913750452@gmail.com
 
 # Optimize crawling
 Crawl-delay: 10
