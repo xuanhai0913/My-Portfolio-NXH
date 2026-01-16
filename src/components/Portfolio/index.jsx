@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import Squares from '../Squares';
 import PortfolioTitle from '../PortfolioTitle';
 import './styles/Portfolio.css';
@@ -112,6 +113,18 @@ const Portfolio = () => {
       demo: "https://shop.hailamdev.space/",
       technologies: ["API", "Node.js", "Express", "MongoDB", "SMS Gateway"]
     },
+    {
+      title: "LLM-Powered Unit Test Generator",
+      description: "Intelligent web application using Deepseek LLM to automatically generate comprehensive unit tests from source code. Supports Python, JavaScript, TypeScript with pytest, unittest, Jest, and Mocha frameworks. Features Monaco code editor and generation history.",
+      image: prj10,
+      github: "https://github.com/xuanhai0913/LLM-Unit-tests",
+      demo: "/videos",
+      technologies: ["React", "Node.js", "Deepseek AI", "Monaco Editor", "Vite", "SQLite"],
+      hasVideoDemo: true,
+      category: "AI/Web Application",
+      year: 2025,
+      highlights: ["AI-Powered", "Multi-Language", "Multiple Frameworks", "Generation History"]
+    },
 
   ];
 
@@ -194,9 +207,15 @@ const Portfolio = () => {
                         <i className="fab fa-github"></i> Source Code
                       </a>
                       {!project.noDemo && (
-                        <a href={project.demo} target="_blank" rel="noopener noreferrer" className="demo-link">
-                          <i className="fas fa-external-link-alt"></i> Live Demo
-                        </a>
+                        project.hasVideoDemo ? (
+                          <Link to={project.demo} className="demo-link">
+                            <i className="fas fa-play-circle"></i> Watch Demo
+                          </Link>
+                        ) : (
+                          <a href={project.demo} target="_blank" rel="noopener noreferrer" className="demo-link">
+                            <i className="fas fa-external-link-alt"></i> Live Demo
+                          </a>
+                        )
                       )}
                     </>
                   )}
