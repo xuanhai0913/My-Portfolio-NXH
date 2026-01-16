@@ -37,6 +37,17 @@ const Footer = () => {
                     <span className="view-count">{viewCount.toLocaleString()}</span>
                     <span className="view-label">views</span>
                 </div>
+                <div className="footer-support">
+                    <a
+                        href="https://ko-fi.com/xuanhai0913"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="kofi-button"
+                    >
+                        <i className="fas fa-coffee"></i>
+                        <span>Buy me a coffee</span>
+                    </a>
+                </div>
                 <div className="footer-copyright">
                     <p>© 2025 Nguyễn Xuân Hải. All rights reserved.</p>
                     <p className="footer-subtitle">Made with ❤️ in Vietnam</p>

@@ -5,6 +5,9 @@
 > Mục đích: giới thiệu bản thân, kỹ năng lập trình, các dự án đã thực hiện và thông tin liên hệ.
 
 🔗 **Truy cập website tại**: [https://nxhai0913.me](https://nxhai0913.me)
+
+[![Ko-fi](https://img.shields.io/badge/Buy_Me_A_Coffee-ff5e5b?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/xuanhai0913)
+
 ![Portfolio Preview](https://raw.githubusercontent.com/xuanhai0913/My-Portfolio-NXH/main/public/images/og-image.jpg)
 ---
 

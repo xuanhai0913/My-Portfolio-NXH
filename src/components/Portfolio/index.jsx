@@ -13,6 +13,7 @@ import prj7 from '../../images/project/prj7.png';
 // Replace with actual screenshot: import prj8 from '../../images/project/prj8.png';
 import prj8 from '../../images/project/prj8.png'; // Temporary using prj1 as placeholder
 import prj9 from '../../images/project/prj9.png';
+import prj10 from '../../images/project/prj10.png';
 import visionKey from '../../images/project/visionKey.png';
 
 const Portfolio = () => {
