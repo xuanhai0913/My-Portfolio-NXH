@@ -1,355 +1,383 @@
 /* ============================================
-   ROLODEX PORTFOLIO
+   SIDE WHEEL PORTFOLIO - FULL CARD STYLES
    ============================================ */
 
 .portfolio-section {
-  min-height: 500vh;
-  /* Scroll space for all 9 projects */
+  height: 450vh;
+  /* Increased for more projects */
   position: relative;
-  border-top: 4px solid var(--color-black);
+  overflow: visible;
+  background-color: transparent;
 }
 
 .portfolio-sticky {
   position: sticky;
-  top: 80px;
-  height: calc(100vh - 80px);
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  padding: 1.5rem 2rem;
-  overflow: hidden;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Title */
 .portfolio-title {
+  position: absolute;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
   font-family: var(--font-display);
-  font-size: clamp(2rem, 6vw, 4rem);
+  font-size: clamp(2rem, 5vw, 4rem);
   font-weight: 900;
-  line-height: 1;
-  letter-spacing: -0.03em;
-  margin-bottom: 0.5rem;
+  z-index: 10;
+  background: var(--color-white);
+  padding: 0.5rem 1rem;
+  border: 4px solid var(--color-black);
+  box-shadow: 6px 6px 0 0 var(--color-black);
   text-transform: uppercase;
 }
 
-/* Counter */
-.portfolio-counter {
+/* Wheels Container */
+.wheels-container {
+  position: absolute;
+  top: 55%;
+  left: 0;
+  width: 100%;
+  height: 0;
   display: flex;
-  align-items: baseline;
-  gap: 0.25rem;
-  font-family: var(--font-display);
-  margin-bottom: 1rem;
+  justify-content: space-between;
 }
 
-.portfolio-counter .current {
-  font-size: 2.5rem;
-  color: var(--color-accent);
-  -webkit-text-stroke: 1px var(--color-black);
+/* Wheel Wrappers */
+.wheel-wrapper {
+  position: absolute;
+  width: 100vh;
+  height: 100vh;
+  border-radius: 50%;
+  border: 4px dashed rgba(0, 0, 0, 0.1);
+  top: 0;
+  transition: transform 0.1s linear;
+  --radius: 420px;
+  /* Radius adjusted for larger cards */
 }
 
-.portfolio-counter .divider {
-  font-size: 1.5rem;
-  color: rgba(0, 0, 0, 0.3);
+.wheel-wrapper.left {
+  left: -300px;
 }
 
-.portfolio-counter .total {
-  font-size: 1rem;
-  color: rgba(0, 0, 0, 0.5);
+.wheel-wrapper.right {
+  right: -300px;
 }
 
-/* ============================================
-   ROLODEX CONTAINER
-   ============================================ */
-.rolodex-container {
-  flex: 1;
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  gap: 2rem;
-  align-items: center;
-  perspective: 1000px;
-}
-
-/* Wheels */
-.rolodex-wheel {
-  height: 350px;
-  position: relative;
-  perspective: 800px;
+/* Wheel Items */
+.wheel-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  will-change: transform;
 }
 
-.wheel-inner {
+/* Card Content & Variants */
+.wheel-card-content {
+  width: 360px;
+  /* Wider for full content */
+  background: var(--color-white);
+  border: 4px solid var(--color-black);
+  box-shadow: 10px 10px 0 0 var(--color-black);
+  padding: 0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.wheel-card-content:hover {
+  transform: scale(1.02);
+  box-shadow: 14px 14px 0 0 var(--color-black);
+  z-index: 100;
+}
+
+/* Variants */
+.card-dark {
+  background: var(--color-black);
+  color: var(--color-white);
+}
+
+.card-dark .project-title {
+  color: var(--color-accent);
+}
+
+.card-dark .project-desc {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.card-accent {
+  background: var(--color-accent);
+  color: var(--color-black);
+}
+
+.card-accent .wheel-card-image {
+  border-bottom-color: var(--color-black);
+}
+
+/* Card Image */
+.wheel-card-image {
+  height: 200px;
+  background: var(--color-accent);
+  border-bottom: 4px solid var(--color-black);
   position: relative;
-  width: 200px;
-  height: 150px;
-  transform-style: preserve-3d;
-  transition: transform 0.1s ease-out;
-}
-
-.wheel-left .wheel-inner {
-  transform-origin: center center;
-}
-
-.wheel-right .wheel-inner {
-  transform-origin: center center;
-}
-
-/* Wheel Cards */
-.wheel-card {
-  position: absolute;
-  width: 200px;
-  height: 140px;
-  backface-visibility: hidden;
-  transition: opacity 0.3s ease;
-}
-
-.wheel-card .card-image {
-  width: 100%;
-  height: 100%;
-  border: 3px solid var(--color-black);
-  box-shadow: 4px 4px 0 0 var(--color-black);
   overflow: hidden;
-  background-color: var(--color-accent);
-  position: relative;
 }
 
-.wheel-card .card-image img {
+.card-dark .wheel-card-image {
+  border-bottom: 4px solid var(--color-accent);
+}
+
+.wheel-card-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: grayscale(0.8) contrast(1.1);
-  mix-blend-mode: multiply;
+  filter: grayscale(1);
+  transition: filter 0.3s ease;
+}
+
+.wheel-card-content:hover .wheel-card-image img {
+  filter: grayscale(0);
+}
+
+/* Card Info */
+.wheel-card-info {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.project-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.project-company {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
   opacity: 0.7;
 }
 
-.wheel-card.active .card-image {
-  box-shadow: 6px 6px 0 0 var(--color-accent);
-  border-color: var(--color-accent);
-}
-
-.wheel-card.active .card-image img {
-  filter: none;
-  opacity: 1;
-}
-
-.wheel-card .card-badge {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  background-color: var(--color-accent);
-  color: var(--color-black);
-  font-family: var(--font-display);
-  font-size: 0.5rem;
-  padding: 0.25rem 0.5rem;
-  border: 1px solid var(--color-black);
-}
-
-/* ============================================
-   CENTER INFO PANEL
-   ============================================ */
-.rolodex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.center-card {
-  background-color: var(--color-white);
-  border: 4px solid var(--color-black);
-  box-shadow: 12px 12px 0 0 var(--color-black);
-  padding: 2rem;
-  max-width: 400px;
-  text-align: center;
-}
-
-.center-title {
-  font-family: var(--font-display);
-  font-size: 1.75rem;
-  font-weight: 900;
-  text-transform: uppercase;
-  line-height: 1.1;
-  margin-bottom: 1rem;
-}
-
-.center-description {
+.project-desc {
   font-family: var(--font-mono);
   font-size: 0.8rem;
+  line-height: 1.4;
   text-transform: uppercase;
-  line-height: 1.5;
-  margin-bottom: 1rem;
-  opacity: 0.8;
+  opacity: 0.9;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-.center-techs {
+/* Tech Tags */
+.wheel-techs {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.375rem;
-  justify-content: center;
-  margin-bottom: 1.5rem;
+  gap: 0.5rem;
 }
 
-.center-techs span {
-  background-color: var(--color-black);
+.tech-tag {
+  background: var(--color-black);
   color: var(--color-white);
   font-family: var(--font-mono);
+  font-size: 0.65rem;
   font-weight: 700;
-  font-size: 0.625rem;
   padding: 0.25rem 0.5rem;
   text-transform: uppercase;
 }
 
-.center-actions {
-  display: flex;
-  justify-content: center;
+.card-dark .tech-tag {
+  background: var(--color-white);
+  color: var(--color-black);
 }
 
-.center-btn {
+/* Actions */
+.card-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.wheel-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 1rem 2rem;
-  background-color: var(--color-accent);
+  justify-content: center;
+  background: var(--color-accent);
   color: var(--color-black);
   font-family: var(--font-display);
-  font-size: 0.875rem;
-  text-transform: uppercase;
+  font-size: 0.8rem;
+  padding: 0.5rem 1rem;
   text-decoration: none;
   border: 3px solid var(--color-black);
-  box-shadow: 4px 4px 0 0 var(--color-black);
+  text-transform: uppercase;
+  font-weight: 700;
   transition: all 0.2s ease;
+  min-width: 80px;
 }
 
-.center-btn:hover {
+.wheel-btn:hover {
   transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 0 var(--color-black);
+  box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 0.2);
 }
 
-/* ============================================
-   DOTS & HINT
-   ============================================ */
-.portfolio-dots {
-  display: flex;
-  gap: 0.5rem;
-  justify-content: center;
-  margin-top: 1rem;
+.wheel-btn.outline {
+  background: transparent;
+  border-color: var(--color-black);
 }
 
-.dot {
-  width: 8px;
-  height: 8px;
-  background-color: transparent;
+.card-dark .wheel-btn.outline {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.card-dark .wheel-btn.outline:hover {
+  background: var(--color-accent);
+  color: var(--color-black);
+}
+
+.wheel-btn.small {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.7rem;
+}
+
+/* Badge */
+.card-badge {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: var(--color-white);
   border: 2px solid var(--color-black);
-  transition: all 0.3s ease;
+  padding: 0.25rem 0.75rem;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  z-index: 5;
 }
 
-.dot.active {
-  background-color: var(--color-accent);
-  transform: scale(1.3);
-}
-
-.dot.past {
-  background-color: var(--color-black);
-}
-
+/* Scroll Hint */
 .scroll-hint {
+  position: absolute;
+  bottom: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
-  margin-top: 1rem;
-  opacity: 0.5;
-}
-
-.scroll-hint span {
   font-family: var(--font-mono);
-  font-size: 0.625rem;
+  font-size: 0.75rem;
   font-weight: 700;
+  z-index: 10;
   letter-spacing: 0.2em;
 }
 
-.scroll-line {
-  width: 1px;
-  height: 30px;
-  background-color: var(--color-black);
-  animation: scrollPulse 1.5s ease-in-out infinite;
+.scroll-icon {
+  width: 24px;
+  height: 40px;
+  border: 3px solid var(--color-black);
+  border-radius: 12px;
+  position: relative;
 }
 
-@keyframes scrollPulse {
+.scroll-icon::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 8px;
+  background: var(--color-black);
+  border-radius: 2px;
+  animation: scrollMouse 1.5s infinite;
+}
 
-  0%,
-  100% {
-    transform: scaleY(1);
-    opacity: 0.5;
-  }
-
-  50% {
-    transform: scaleY(1.3);
+@keyframes scrollMouse {
+  0% {
+    top: 6px;
     opacity: 1;
   }
+
+  100% {
+    top: 18px;
+    opacity: 0;
+  }
 }
 
-/* ============================================
-   MOBILE
-   ============================================ */
-@media (max-width: 1024px) {
-  .rolodex-container {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr auto;
-    gap: 1rem;
+/* Responsive */
+@media (max-width: 1200px) {
+  .wheel-card-content {
+    width: 320px;
   }
 
-  .rolodex-wheel {
-    height: 120px;
+  .wheel-wrapper {
+    --radius: 380px;
   }
 
-  .wheel-inner {
-    width: 150px;
-    height: 100px;
+  .wheel-wrapper.left {
+    left: -250px;
   }
 
-  .wheel-card {
-    width: 150px;
-    height: 100px;
-  }
-
-  .wheel-left {
-    order: 1;
-  }
-
-  .rolodex-center {
-    order: 2;
-  }
-
-  .wheel-right {
-    order: 3;
+  .wheel-wrapper.right {
+    right: -250px;
   }
 }
 
 @media (max-width: 768px) {
-  .portfolio-section {
-    min-height: 400vh;
+  .wheel-wrapper {
+    --radius: 280px;
+    border: none;
   }
 
-  .portfolio-sticky {
-    padding: 1rem;
+  .wheels-container {
+    flex-direction: column;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .wheel-wrapper.left {
+    left: auto;
+    right: 50%;
+    top: -120px;
+    margin-right: -140px;
+  }
+
+  .wheel-wrapper.right {
+    right: auto;
+    left: 50%;
+    top: auto;
+    bottom: -120px;
+    margin-left: -140px;
+  }
+
+  .wheel-card-content {
+    width: 280px;
+  }
+
+  .wheel-card-image {
+    height: 160px;
+  }
+
+  .project-title {
+    font-size: 1.25rem;
   }
 
   .portfolio-title {
-    font-size: 1.75rem;
-  }
-
-  .rolodex-wheel {
-    display: none;
-  }
-
-  .rolodex-container {
-    grid-template-columns: 1fr;
-  }
-
-  .center-card {
-    padding: 1.5rem;
-  }
-
-  .center-title {
-    font-size: 1.5rem;
+    top: 60px;
+    font-size: 2rem;
   }
 }

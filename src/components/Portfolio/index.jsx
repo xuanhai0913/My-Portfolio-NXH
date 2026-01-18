@@ -16,224 +16,202 @@ import visionKey from '../../images/project/visionKey.png';
 const Portfolio = () => {
   const sectionRef = useRef(null);
   const [rotation, setRotation] = useState(0);
-  const [activeIndex, setActiveIndex] = useState(0);
 
-  // All 9 projects
-  const projects = [
+  // Full detailed projects list
+  const allProjects = [
     {
       title: "Great Link Mai House",
-      description: "B2B Import-Export Platform for leading Media & B2B company.",
+      description: "Corporate website for Great Link Mai House, a leading Media & B2B Import-Export company. Features consultation, trade connections, and event services.",
       image: prj8,
       demo: "https://greatlinkmaihouse.com/",
-      technologies: ["ASP.NET Core", "SQL Server"],
-      badge: "B2B"
-    },
-    {
-      title: "VN Media Hub",
-      description: "Full-Stack Blog Platform with .NET Core and React.",
-      image: prj3,
-      demo: "https://vnmediahub.com",
-      technologies: [".NET Core", "React"]
-    },
-    {
-      title: "Vision Key AI",
-      description: "Multi-platform AI assistant with Gemini 2.0 Flash.",
-      image: visionKey,
-      demo: "https://visionpremium.hailamdev.space",
-      technologies: ["Swift", "Next.js", "AI"],
-      badge: "AI"
-    },
-    {
-      title: "LLM Unit Test Generator",
-      description: "AI-powered testing tool using Deepseek LLM.",
-      image: prj10,
-      demo: "/videos",
-      technologies: ["React", "Node.js", "AI"],
-      hasVideoDemo: true
+      technologies: ["ASP.NET Core", "SQL Server", "C#", "Bootstrap"],
+      badge: "B2B",
+      isCommercial: true,
+      company: "CÔNG TY GREATLINK MAIHOUSE"
     },
     {
       title: "Education English",
-      description: "Free English learning platform for ECH Community.",
+      description: "Educational website teaching English for free to people in difficult circumstances. Features comprehensive learning resources and community support.",
       image: prj6,
       demo: "https://ech.edu.vn",
-      technologies: ["PHP", "MySQL"]
+      technologies: ["PHP", "MySQL", "WordPress"],
+      company: "English Community House",
+      variant: "dark"
+    },
+    {
+      title: "VN Media Hub",
+      description: "Professional blog platform with ASP.NET Core backend and React frontend. Features multi-category management, SEO-friendly URLs, and view counting.",
+      image: prj3,
+      demo: "https://vnmediahub.com",
+      technologies: [".NET Core", "React", "SQL Server", "Rest API"],
+      isCommercial: true,
+      company: "CÔNG TY VN MEDIA HUB"
+    },
+    {
+      title: "Vision Key AI",
+      description: "Multi-platform AI assistant integrating Gemini 2.0 Flash. Intelligent screen analysis and Auto-Click support. Native macOS app + Chrome Extension.",
+      image: visionKey,
+      customLinks: [
+        { url: "https://visionpremium.hailamdev.space", label: "Landing" },
+        { url: "https://github.com/xuanhai0913/Extension-Vision-Premium", label: "Chrome" },
+        { url: "https://github.com/xuanhai0913/Vision-Key", label: "macOS" }
+      ],
+      technologies: ["Swift", "Next.js", "Gemini AI", "SaaS"],
+      badge: "AI",
+      variant: "accent"
+    },
+    {
+      title: "LLM Unit Test Gen",
+      description: "Intelligent web app using Deepseek LLM to automatically generate unit tests. Supports Python, JS, TS with pytest, unittest, Jest.",
+      image: prj10,
+      demo: "/videos",
+      technologies: ["React", "Node.js", "Deepseek AI", "Monaco"],
+      hasVideoDemo: true,
+      variant: "dark"
     },
     {
       title: "Portfolio Website",
-      description: "Modern React portfolio with GSAP animations.",
+      description: "Modern React portfolio with interactive animations. Brutalist design using GSAP and CSS3 custom properties.",
       image: prj1,
       demo: "https://www.hailamdev.space/",
-      technologies: ["React", "GSAP"]
+      github: "https://github.com/xuanhai0913/My-Portfolio-NXH",
+      technologies: ["React", "GSAP", "CSS3"]
     },
     {
       title: "Happy New Year",
-      description: "Animated greeting website with festive effects.",
+      description: "Animated greeting website with festive effects. Dynamic JavaScript animations for firework effects.",
       image: prj5,
       demo: "https://happynewyear.hailamdev.space/",
-      technologies: ["HTML5", "CSS3", "JS"]
+      github: "https://github.com/xuanhai0913/HappyNewYear",
+      technologies: ["HTML5", "CSS3", "JavaScript"],
+      variant: "dark"
     },
     {
-      title: "SPRM Education",
-      description: "Student performance & resource management system.",
+      title: "SPRM Management",
+      description: "Full-stack student performance & resource management system. Features tracking, JWT auth, and admin tools.",
       image: prj7,
       demo: "https://cnpm-fullstack-react-csharp.onrender.com",
-      technologies: ["React", "C#", "SQL"]
+      github: "https://github.com/xuanhai0913/CNPM-Fullstack-React-CSharp",
+      technologies: ["React", "C#", "ASP.NET Core", "SQL"],
+      variant: "default"
     },
     {
       title: "OTP API Service",
-      description: "Phone number rental service for OTP verification.",
+      description: "Web service for renting phone numbers to receive OTP codes. Real-time retrieval with SMS Gateway integration.",
       image: prj9,
       demo: "https://shop.hailamdev.space/",
-      technologies: ["Node.js", "MongoDB"],
-      badge: "API"
+      github: "https://github.com/xuanhai0913/OTP-API",
+      technologies: ["Node.js", "Express", "MongoDB"],
+      badge: "API",
+      variant: "accent"
     }
   ];
 
-  const itemCount = projects.length;
-  const anglePerItem = 360 / itemCount;
+  // Distribute to Left/Right
+  const leftProjects = allProjects.filter((_, i) => i % 2 === 0);
+  const rightProjects = allProjects.filter((_, i) => i % 2 !== 0);
+
+  const itemSpacing = 40; // Spacing for 5 items per wheel
 
   useEffect(() => {
     const handleScroll = () => {
       if (!sectionRef.current) return;
-
       const section = sectionRef.current;
       const rect = section.getBoundingClientRect();
-      const sectionHeight = section.offsetHeight;
       const viewportHeight = window.innerHeight;
-
-      // Progress through section
-      const scrolled = viewportHeight - rect.top;
-      const scrollableHeight = sectionHeight - viewportHeight;
-      const progress = Math.max(0, Math.min(1, scrolled / scrollableHeight));
-
-      // Calculate rotation (full rotation = all items)
-      const totalRotation = (itemCount - 1) * anglePerItem;
-      const currentRotation = progress * totalRotation;
-
-      setRotation(currentRotation);
-      setActiveIndex(Math.round(currentRotation / anglePerItem) % itemCount);
+      const scrolled = -rect.top + viewportHeight * 0.5;
+      const newRotation = scrolled * 0.08;
+      setRotation(newRotation);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [itemCount, anglePerItem]);
+  }, []);
+
+  const renderCard = (project, index, side) => {
+    const itemAngle = index * itemSpacing;
+    const variantClass = project.variant ? `card-${project.variant}` : 'card-default';
+
+    return (
+      <div
+        key={index}
+        className={`wheel-item ${side}`}
+        style={{
+          transform: `rotate(${itemAngle}deg) translate(var(--radius)) rotate(${-itemAngle}deg)`
+        }}
+      >
+        <div className={`wheel-card-content ${variantClass}`}>
+          <div className="wheel-card-image">
+            <img src={project.image} alt={project.title} />
+            {project.badge && <span className="card-badge">{project.badge}</span>}
+          </div>
+          <div className="wheel-card-info">
+            <h3 className="project-title">{project.title}</h3>
+            {project.company && <div className="project-company">{project.company}</div>}
+
+            <p className="project-desc">{project.description}</p>
+
+            <div className="wheel-techs">
+              {project.technologies.slice(0, 4).map((t, i) => (
+                <span key={i} className="tech-tag">{t}</span>
+              ))}
+            </div>
+
+            <div className="card-actions">
+              {project.customLinks ? (
+                project.customLinks.map((link, i) => (
+                  <a key={i} href={link.url} target="_blank" rel="noopener noreferrer" className="wheel-btn small">
+                    {link.label}
+                  </a>
+                ))
+              ) : (
+                <>
+                  {project.hasVideoDemo ? (
+                    <Link to={project.demo} className="wheel-btn">WATCH DEMO</Link>
+                  ) : (
+                    <a href={project.demo} target="_blank" rel="noopener noreferrer" className="wheel-btn">
+                      {project.isCommercial ? 'VISIT SITE' : 'LIVE DEMO'}
+                    </a>
+                  )}
+                  {project.github && (
+                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="wheel-btn outline">
+                      CODE
+                    </a>
+                  )}
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <section id="portfolio" className="portfolio-section" ref={sectionRef}>
       <div className="portfolio-sticky">
-        {/* Title */}
         <h2 className="portfolio-title">PROJECTS_</h2>
 
-        {/* Counter */}
-        <div className="portfolio-counter">
-          <span className="current">{String(activeIndex + 1).padStart(2, '0')}</span>
-          <span className="divider">/</span>
-          <span className="total">{String(itemCount).padStart(2, '0')}</span>
-        </div>
-
-        {/* Rolodex Container */}
-        <div className="rolodex-container">
-          {/* Left Wheel */}
-          <div className="rolodex-wheel wheel-left">
-            <div
-              className="wheel-inner"
-              style={{ transform: `rotateX(${rotation}deg)` }}
-            >
-              {projects.map((project, index) => {
-                const itemRotation = index * anglePerItem;
-                const isActive = index === activeIndex;
-
-                return (
-                  <div
-                    key={index}
-                    className={`wheel-card ${isActive ? 'active' : ''}`}
-                    style={{
-                      transform: `rotateX(${-itemRotation}deg) translateZ(300px)`
-                    }}
-                  >
-                    <div className="card-image">
-                      <img src={project.image} alt={project.title} />
-                      {project.badge && <span className="card-badge">{project.badge}</span>}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+        <div className="wheels-container">
+          <div
+            className="wheel-wrapper left"
+            style={{ transform: `translate(-50%, -50%) rotate(${rotation}deg)` }}
+          >
+            {leftProjects.map((p, i) => renderCard(p, i, 'left'))}
           </div>
 
-          {/* Center Info */}
-          <div className="rolodex-center">
-            <div className="center-card">
-              <h3 className="center-title">{projects[activeIndex]?.title}</h3>
-              <p className="center-description">{projects[activeIndex]?.description}</p>
-              <div className="center-techs">
-                {projects[activeIndex]?.technologies.map((tech, i) => (
-                  <span key={i}>{tech}</span>
-                ))}
-              </div>
-              <div className="center-actions">
-                {projects[activeIndex]?.hasVideoDemo ? (
-                  <Link to={projects[activeIndex].demo} className="center-btn">
-                    <i className="fas fa-play-circle"></i> WATCH DEMO
-                  </Link>
-                ) : (
-                  <a
-                    href={projects[activeIndex]?.demo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="center-btn"
-                  >
-                    VIEW PROJECT <i className="fas fa-arrow-right"></i>
-                  </a>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Right Wheel (Mirror) */}
-          <div className="rolodex-wheel wheel-right">
-            <div
-              className="wheel-inner"
-              style={{ transform: `rotateX(${-rotation}deg)` }}
-            >
-              {projects.map((project, index) => {
-                const itemRotation = index * anglePerItem;
-                const mirrorIndex = (itemCount - 1 - index + activeIndex) % itemCount;
-                const isActive = mirrorIndex === activeIndex;
-
-                return (
-                  <div
-                    key={index}
-                    className={`wheel-card ${isActive ? 'active' : ''}`}
-                    style={{
-                      transform: `rotateX(${itemRotation}deg) translateZ(300px)`
-                    }}
-                  >
-                    <div className="card-image">
-                      <img src={projects[(index + 1) % itemCount].image} alt="" />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+          <div
+            className="wheel-wrapper right"
+            style={{ transform: `translate(50%, -50%) rotate(${-rotation}deg)` }}
+          >
+            {rightProjects.map((p, i) => renderCard(p, i, 'right'))}
           </div>
         </div>
 
-        {/* Progress Dots */}
-        <div className="portfolio-dots">
-          {projects.map((_, index) => (
-            <div
-              key={index}
-              className={`dot ${index === activeIndex ? 'active' : ''} ${index < activeIndex ? 'past' : ''}`}
-            />
-          ))}
-        </div>
-
-        {/* Scroll hint */}
         <div className="scroll-hint">
+          <div className="scroll-icon"></div>
           <span>SCROLL TO EXPLORE</span>
-          <div className="scroll-line"></div>
         </div>
       </div>
     </section>
