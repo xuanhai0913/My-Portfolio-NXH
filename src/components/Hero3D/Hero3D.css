@@ -1,48 +1,53 @@
 /* ============================================
-   HERO 3D - SCROLLYTELLING STYLES
+   HERO 3D - SCROLLYTELLING
    ============================================ */
 
-.hero3d-wrapper {
-    position: relative;
-    width: 100%;
-    /* Height = 3 pages (100vh * 3) */
+.hero3d-container {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 
-/* Each Section = 1 viewport height */
-.hero3d-section {
-    min-height: 100vh;
+/* Scroll Pages */
+.scroll-page {
+    height: 100vh;
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
     padding: 0 2rem;
+    padding-top: 80px;
     position: relative;
 }
 
-/* ============================================
-   PAGE 1 - HERO
-   ============================================ */
-.hero3d-page-1 {
-    padding-top: 100px;
-}
-
-.hero3d-content {
-    max-width: 800px;
+.scroll-content {
+    max-width: 600px;
     z-index: 10;
 }
 
-.hero3d-title {
+.scroll-content.center {
+    text-align: center;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+/* Title */
+.scroll-title {
     font-family: var(--font-display);
-    font-size: clamp(3rem, 10vw, 8rem);
+    font-size: clamp(3rem, 10vw, 7rem);
     font-weight: 900;
-    line-height: 0.85;
+    line-height: 0.9;
     letter-spacing: -0.03em;
     text-transform: uppercase;
     color: var(--color-black);
     margin-bottom: 2rem;
 }
 
-.hero3d-highlight {
+.scroll-highlight {
     display: inline-block;
     background-color: var(--color-black);
     color: var(--color-accent);
@@ -50,31 +55,36 @@
     transform: rotate(-1deg);
 }
 
-.hero3d-description {
-    max-width: 500px;
-    border-left: 8px solid var(--color-black);
-    padding-left: 2rem;
-    margin-bottom: 3rem;
-}
-
-.hero3d-description p {
-    font-family: var(--font-mono);
-    font-size: 1.125rem;
-    font-weight: 700;
-    line-height: 1.4;
+.scroll-subtitle {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 900;
     text-transform: uppercase;
+    color: var(--color-black);
 }
 
-.hero3d-actions {
-    display: flex;
-    gap: 1rem;
+/* Description */
+.scroll-description {
+    border-left: 6px solid var(--color-black);
+    padding-left: 1.5rem;
+    margin-bottom: 2rem;
 }
 
-.hero3d-btn {
+.scroll-description p {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 1.5;
+    color: var(--color-black);
+}
+
+/* Buttons */
+.scroll-btn {
     display: inline-flex;
     align-items: center;
-    gap: 1rem;
-    padding: 1.5rem 2.5rem;
+    gap: 0.75rem;
+    padding: 1.25rem 2rem;
     background-color: var(--color-black);
     color: var(--color-white);
     font-family: var(--font-display);
@@ -85,130 +95,15 @@
     transition: all 0.2s ease;
 }
 
-.hero3d-btn:hover {
+.scroll-btn:hover {
     background-color: var(--color-accent);
     color: var(--color-black);
 }
 
-/* Scroll Indicator */
-.scroll-down-indicator {
-    position: absolute;
-    bottom: 3rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
-    animation: bounce 2s infinite;
-}
-
-.scroll-down-indicator span {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-}
-
-.scroll-arrow {
-    width: 20px;
-    height: 20px;
-    border-right: 3px solid var(--color-black);
-    border-bottom: 3px solid var(--color-black);
-    transform: rotate(45deg);
-}
-
-@keyframes bounce {
-
-    0%,
-    100% {
-        transform: translateX(-50%) translateY(0);
-    }
-
-    50% {
-        transform: translateX(-50%) translateY(-10px);
-    }
-}
-
-/* ============================================
-   PAGE 2 - ABOUT
-   ============================================ */
-.hero3d-page-2 {
-    background: transparent;
-}
-
-.hero3d-about-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-    text-align: center;
-}
-
-.hero3d-about-title {
-    font-family: var(--font-display);
-    font-size: 3rem;
-    font-weight: 900;
-    text-transform: uppercase;
-}
-
-.hero3d-image-container {
-    width: 200px;
-    height: 200px;
-    border: 4px solid var(--color-black);
-    box-shadow: 8px 8px 0 0 var(--color-accent);
-    overflow: hidden;
-    transform: rotate(3deg);
-}
-
-.hero3d-profile-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: grayscale(1) contrast(1.2);
-    mix-blend-mode: multiply;
-}
-
-.hero3d-skills {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    justify-content: center;
-}
-
-.hero3d-skill-tag {
-    background-color: var(--color-black);
-    color: var(--color-white);
-    font-family: var(--font-mono);
-    font-weight: 700;
-    font-size: 0.875rem;
-    padding: 0.5rem 1rem;
-    text-transform: uppercase;
-}
-
-/* ============================================
-   PAGE 3 - TRANSITION
-   ============================================ */
-.hero3d-page-3 {
-    background: transparent;
-}
-
-.hero3d-transition-content {
-    text-align: center;
-}
-
-.hero3d-transition-title {
-    font-family: var(--font-display);
-    font-size: 2.5rem;
-    font-weight: 900;
-    margin-bottom: 2rem;
-    text-transform: uppercase;
-}
-
-.hero3d-explore-btn {
+.scroll-btn-accent {
     display: inline-flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
     padding: 1.5rem 3rem;
     background-color: var(--color-accent);
     color: var(--color-black);
@@ -221,39 +116,105 @@
     transition: all 0.2s ease;
 }
 
-.hero3d-explore-btn:hover {
+.scroll-btn-accent:hover {
     transform: translate(4px, 4px);
     box-shadow: 4px 4px 0 0 var(--color-black);
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+    position: absolute;
+    bottom: 3rem;
+    left: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    animation: bounce 2s infinite;
+}
+
+.scroll-indicator span {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--color-black);
+}
+
+.scroll-arrow {
+    width: 16px;
+    height: 16px;
+    border-right: 3px solid var(--color-black);
+    border-bottom: 3px solid var(--color-black);
+    transform: rotate(45deg);
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+/* Profile Image */
+.scroll-image-box {
+    width: 180px;
+    height: 180px;
+    border: 4px solid var(--color-black);
+    box-shadow: 8px 8px 0 0 var(--color-accent);
+    overflow: hidden;
+    transform: rotate(3deg);
+}
+
+.scroll-image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(1) contrast(1.2);
+}
+
+/* Tags */
+.scroll-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.scroll-tag {
+    background-color: var(--color-black);
+    color: var(--color-white);
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    text-transform: uppercase;
 }
 
 /* ============================================
    RESPONSIVE
    ============================================ */
 @media (max-width: 768px) {
-    .hero3d-title {
-        font-size: 3rem;
+    .scroll-title {
+        font-size: 2.5rem;
     }
 
-    .hero3d-btn {
+    .scroll-btn {
         padding: 1rem 1.5rem;
         font-size: 1rem;
     }
 
-    .hero3d-description {
-        padding-left: 1rem;
-        border-left-width: 4px;
+    .scroll-subtitle {
+        font-size: 1.75rem;
     }
 
-    .hero3d-description p {
-        font-size: 0.875rem;
-    }
-
-    .hero3d-about-title {
-        font-size: 2rem;
-    }
-
-    .hero3d-image-container {
-        width: 150px;
-        height: 150px;
+    .scroll-image-box {
+        width: 140px;
+        height: 140px;
     }
 }
