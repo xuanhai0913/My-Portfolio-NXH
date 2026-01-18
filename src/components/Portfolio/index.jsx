@@ -1,5 +1,4 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import './styles/Portfolio.css';
 
 // Import project images
@@ -15,8 +14,7 @@ import visionKey from '../../images/project/visionKey.png';
 
 const Portfolio = () => {
   const sectionRef = useRef(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [progress, setProgress] = useState(0);
+  const [rotation, setRotation] = useState(0);
 
   // Full detailed projects list
   const allProjects = [
@@ -25,7 +23,7 @@ const Portfolio = () => {
       description: "Corporate website for leading Media & B2B company. Features consultation, trade connections, and event services.",
       image: prj8,
       demo: "https://greatlinkmaihouse.com/",
-      technologies: ["ASP.NET Core", "SQL Server"],
+      technologies: ["ASP.NET Core", "SQL Server", "C#", "Bootstrap"],
       badge: "B2B",
       company: "GREATLINK MAIHOUSE"
     },
@@ -34,7 +32,7 @@ const Portfolio = () => {
       description: "Free English teaching platform for community. Comprehensive learning resources and support.",
       image: prj6,
       demo: "https://ech.edu.vn",
-      technologies: ["PHP", "MySQL"],
+      technologies: ["PHP", "MySQL", "WordPress"],
       company: "ECH COMMUNITY",
       variant: "dark"
     },
@@ -101,152 +99,130 @@ const Portfolio = () => {
     }
   ];
 
+  // Distribute to Left/Right
+  const leftProjects = allProjects.filter((_, i) => i % 2 === 0);
+  const rightProjects = allProjects.filter((_, i) => i % 2 !== 0);
+
+  const itemSpacing = 45; // Spacing in degrees
+
   useEffect(() => {
     const handleScroll = () => {
       if (!sectionRef.current) return;
       const section = sectionRef.current;
       const rect = section.getBoundingClientRect();
-      const sectionHeight = section.offsetHeight;
       const viewportHeight = window.innerHeight;
+      const scrolled = -rect.top + viewportHeight * 0.5;
 
-      // Calculate scroll progress through the section
-      // We want the scroll to drive the card stack
-      const scrolled = -rect.top;
-      const totalScrollable = sectionHeight - viewportHeight;
-      const scrollProgress = Math.max(0, Math.min(1, scrolled / totalScrollable));
-
-      setProgress(scrollProgress);
-
-      // Map progress to active card index
-      // Map 0 -> length
-      const index = Math.min(
-        Math.floor(scrollProgress * allProjects.length),
-        allProjects.length - 1
-      );
-      setActiveIndex(index);
+      // Calculate rotation based on scroll
+      const newRotation = scrolled * 0.1;
+      setRotation(newRotation);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [allProjects.length]);
+  }, []);
+
+  const renderCard = (project, index, side) => {
+    const itemAngle = index * itemSpacing;
+    const variantClass = project.variant ? `card-${project.variant}` : 'card-default';
+
+    // Calculate current global angle of this item
+    // Left wheel rotates clockwise (positive), Right wheel counter-clockwise (negative) if we want standard entry?
+    // Let's standardise: Wheel rotates, Items attached.
+
+    // Left Wheel:
+    const wheelRotation = rotation;
+    const currentItemAngle = itemAngle + wheelRotation; // Global angle
+
+    // Determine visibility/falling state
+    // We want items to appear at "entry" point and "fall" at "exit" point
+    // Entry: around -90deg? Exit: around 90deg?
+    // Let's normalize angle to 0-360
+    const normAngle = ((currentItemAngle % 360) + 360) % 360;
+
+    // If side is RIGHT, the wheel rotates opposite?
+    // Let's keep logic simple: Wheel container rotates.
+    // Item container counter-rotates to stay upright.
+
+    // Counter-rotation to keep card upright:
+    // transform: rotate(-rotation)
+
+    const wrapperRotate = side === 'left' ? rotation : -rotation;
+    const counterRotate = -wrapperRotate; // Keeps card perfectly vertical
+
+    // "Gravity" Fall Effect
+    // If the card is moving "out" of the view, add 'fall' transform
+    // We can use the normalized angle to determine position in the arc
+    // But CSS transition is smoother.
+
+    return (
+      <div
+        key={index}
+        className={`wheel-item ${side}`}
+        style={{
+          transform: `rotate(${itemAngle}deg) translate(var(--radius)) rotate(${-itemAngle}deg) rotate(${counterRotate}deg)`
+        }}
+      >
+        <div className={`wheel-card-content ${variantClass}`}>
+          {/* Card Content Structure */}
+          <div className="card-header-mini">
+            <span className="mini-index">{(index + 1).toString().padStart(2, '0')}</span>
+            <span className="mini-company">{project.company || "PERSONAL"}</span>
+          </div>
+
+          <div className="wheel-card-image">
+            <img src={project.image} alt={project.title} />
+            {project.badge && <span className="card-badge">{project.badge}</span>}
+          </div>
+
+          <div className="wheel-card-info">
+            <h3 className="project-title">{project.title}</h3>
+            <p className="project-desc">{project.description}</p>
+
+            <div className="wheel-techs">
+              {project.technologies.slice(0, 4).map((t, i) => (
+                <span key={i} className="tech-tag">{t}</span>
+              ))}
+            </div>
+
+            <div className="card-actions">
+              {/* Simplified Actions for side-wheel */}
+              {project.demo && (
+                <a href={project.demo} target="_blank" rel="noopener noreferrer" className="wheel-btn">
+                  VIEW PROJECT
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <section id="portfolio" className="portfolio-section" ref={sectionRef}>
       <div className="portfolio-sticky">
         <h2 className="portfolio-title">PROJECTS_</h2>
 
-        <div className="card-stack-container">
-          {allProjects.map((project, index) => {
-            // Determine state of this card
-            // 0 -> Active/Top
-            // < 0 -> Past (Felled)
-            // > 0 -> Future (Stacked below)
+        <div className="wheels-container">
+          <div
+            className="wheel-wrapper left"
+            style={{ transform: `translate(-50%, -50%) rotate(${rotation}deg)` }}
+          >
+            {leftProjects.map((p, i) => renderCard(p, i, 'left'))}
+          </div>
 
-            // Calculate a continuous "card index" based on scroll
-            const realIndex = progress * allProjects.length;
-            const diff = index - realIndex;
-
-            // Logic for visual state:
-            // If index < realIndex (it's past): It should fall down
-            // If index is current (active): It stays
-            // If index > realIndex (future): Stacked underneath
-
-            let style = {};
-            let className = 'stack-card';
-
-            if (index < Math.floor(realIndex)) {
-              // PAST (Fallen)
-              className += ' past';
-            } else if (index === Math.floor(realIndex)) {
-              // ACTIVE
-              // As we scroll through this index (e.g. 2.0 -> 2.9)
-              // The card starts to fall
-              const exitProgress = realIndex - index; // 0 to 1
-              if (exitProgress > 0) {
-                // It's starting to fall
-                // Initial stage: slight tilt
-                // Late stage: Drop
-                style = {
-                  '--exit-progress': exitProgress,
-                  transform: `
-                     translateY(${exitProgress * 50}vh) 
-                     rotate(${exitProgress * 10}deg)
-                     scale(${1 - exitProgress * 0.1})
-                   `,
-                  opacity: 1 - exitProgress * 0.5,
-                  zIndex: 100 - index
-                };
-              } else {
-                className += ' active';
-                style = { zIndex: 100 - index };
-              }
-            } else {
-              // FUTURE (Stacked)
-              className += ' future';
-              const depth = index - Math.floor(realIndex);
-              // Stack effect: smaller and lower
-              style = {
-                transform: `
-                   translateY(${depth * 10}px) 
-                   scale(${1 - depth * 0.05})
-                 `,
-                opacity: 1 - depth * 0.2,
-                zIndex: 100 - index,
-                filter: `blur(${depth * 2}px)`
-              };
-            }
-
-            return (
-              <div key={index} className={className} style={style}>
-                <div className={`card-inner ${project.variant ? `variant-${project.variant}` : ''}`}>
-                  <div className="card-header">
-                    <span className="card-index">{(index + 1).toString().padStart(2, '0')}</span>
-                    {project.company && <span className="card-company">{project.company}</span>}
-                  </div>
-
-                  <div className="card-image-wrapper">
-                    <img src={project.image} alt={project.title} />
-                    {project.badge && <span className="card-badge">{project.badge}</span>}
-                  </div>
-
-                  <div className="card-body">
-                    <h3 className="card-title">{project.title}</h3>
-                    <p className="card-desc">{project.description}</p>
-
-                    <div className="card-techs">
-                      {project.technologies.map((t, i) => (
-                        <span key={i}>{t}</span>
-                      ))}
-                    </div>
-
-                    <div className="card-links">
-                      {project.customLinks ? (
-                        project.customLinks.map((l, i) => (
-                          <a key={i} href={l.url} target="_blank" rel="noopener" className="card-btn">{l.label}</a>
-                        ))
-                      ) : (
-                        <>
-                          {project.demo && (
-                            project.hasVideoDemo
-                              ? <Link to={project.demo} className="card-btn">DEMO</Link>
-                              : <a href={project.demo} target="_blank" rel="noopener" className="card-btn">VISIT</a>
-                          )}
-                        </>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Binding clip effect for Calendar look */}
-                <div className="card-binding"></div>
-              </div>
-            );
-          })}
+          <div
+            className="wheel-wrapper right"
+            style={{ transform: `translate(50%, -50%) rotate(${-rotation}deg)` }}
+          >
+            {rightProjects.map((p, i) => renderCard(p, i, 'right'))}
+          </div>
         </div>
 
-        <div className="portfolio-counter">
-          Scroll for Gravity
+        <div className="scroll-hint">
+          <span>SCROLL FOR GRAVITY</span>
         </div>
       </div>
     </section>
