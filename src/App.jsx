@@ -14,6 +14,7 @@ const Certifications = lazy(() => import('./components/Certifications'));
 const Contact = lazy(() => import('./components/Contact'));
 const Footer = lazy(() => import('./components/Footer'));
 const VideoDemo = lazy(() => import('./components/VideoDemo'));
+const Hero3D = lazy(() => import('./components/Hero3D'));
 
 // Loading fallback
 const LoadingFallback = () => (
@@ -77,6 +78,13 @@ const App = () => {
           <ErrorBoundary>
             <Suspense fallback={<LoadingFallback />}>
               <VideoDemo />
+            </Suspense>
+          </ErrorBoundary>
+        } />
+        <Route path="/3d" element={
+          <ErrorBoundary>
+            <Suspense fallback={<LoadingFallback />}>
+              <Hero3D />
             </Suspense>
           </ErrorBoundary>
         } />
