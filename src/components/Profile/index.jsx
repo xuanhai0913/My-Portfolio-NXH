@@ -1,9 +1,25 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect, lazy, Suspense } from 'react';
 import Aurora from '../Aurora';
 import TrueFocus from '../TrueFocus';
 import ScrambledText from '../ScrambleText';
 import profileImage from '../../images/profile.png';
 import './styles/Profile.css';
+
+// Lazy load 3D component for performance
+const Logo3D = lazy(() => import('../Logo3D'));
+
+// Check if device can handle 3D
+const canRender3D = () => {
+  try {
+    const canvas = document.createElement('canvas');
+    return !!(
+      window.WebGLRenderingContext &&
+      (canvas.getContext('webgl') || canvas.getContext('experimental-webgl'))
+    );
+  } catch (e) {
+    return false;
+  }
+};
 
 const Profile = () => {
   const containerRef = useRef(null);
@@ -11,6 +27,12 @@ const Profile = () => {
   const [auroraError, setAuroraError] = useState(false);
   const [trueFocusError, setTrueFocusError] = useState(false);
   const [scrambleError, setScrambleError] = useState(false);
+  const [use3D, setUse3D] = useState(false);
+
+  // Check WebGL support on mount
+  useEffect(() => {
+    setUse3D(canRender3D());
+  }, []);
 
   // Render Aurora with error handling
   const renderAurora = () => {
@@ -76,19 +98,34 @@ const Profile = () => {
       return <p className="variable-proximity-fallback">Building digital experiences with modern web technologies</p>;
     }
   };
+
+  // Fallback image loader
+  const ImageFallback = () => (
+    <div className="profile-image">
+      <img
+        src={profileImage}
+        alt="Nguyễn Xuân Hải - Full-Stack Developer"
+        loading="eager"
+        width="150"
+        height="150"
+      />
+    </div>
+  );
+
   return (
     <section id="profile" className="profile-section">
       {!auroraError && renderAurora()}
       <div className="profile-content">
         <div className="profile-card" ref={containerRef}>
-          <div className="profile-image">
-            <img
-              src={profileImage}
-              alt="Nguyễn Xuân Hải - Full-Stack Developer"
-              loading="eager"
-              width="150"
-              height="150"
-            />
+          {/* 3D Logo with fallback to image */}
+          <div className="profile-visual">
+            {use3D ? (
+              <Suspense fallback={<ImageFallback />}>
+                <Logo3D />
+              </Suspense>
+            ) : (
+              <ImageFallback />
+            )}
           </div>
           <div className="profile-info">
             <h1>Nguyễn Xuân Hải</h1>

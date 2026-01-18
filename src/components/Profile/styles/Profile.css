@@ -52,6 +52,17 @@
   margin: 0 auto 2rem;
 }
 
+/* 3D Logo container */
+.profile-visual {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .profile-image img {
   width: 100%;
   height: 100%;
