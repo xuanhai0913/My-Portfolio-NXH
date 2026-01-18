@@ -15,8 +15,8 @@
     --color-gray-500: #6b7280;
     --color-gray-800: #1f2937;
 
-    /* Typography */
-    --font-display: 'Archivo Black', Impact, sans-serif;
+    /* Typography - Vietnamese Support */
+    --font-display: 'Be Vietnam Pro', 'Archivo Black', Impact, sans-serif;
     --font-mono: 'Space Mono', 'Courier New', monospace;
 
     /* Borders & Shadows */

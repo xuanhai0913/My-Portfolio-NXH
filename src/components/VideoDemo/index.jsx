@@ -6,64 +6,83 @@ import './VideoDemo.css';
 import llmsVideo from '../../videos/LLMs.mp4';
 
 const VideoDemo = () => {
-    const videos = [
-        {
-            id: 1,
-            title: "LLM-Powered Unit Test Generator",
-            description: "Demo showcasing the AI-powered unit test generator that uses Deepseek LLM to automatically generate comprehensive unit tests from source code. Supports Python, JavaScript, and TypeScript with multiple testing frameworks.",
-            videoSrc: llmsVideo,
-            technologies: ["React", "Node.js", "Deepseek AI", "Monaco Editor", "Vite"],
-            github: "https://github.com/xuanhai0913/LLM-Unit-tests"
-        }
-    ];
+    const featuredProject = {
+        title: "LLM-Powered Unit Test Generator",
+        description: "An automated testing utility utilizing DeepSeek LLM to generate coverage-focused unit tests. Parses ASTs to identify edge cases and mocks external dependencies automatically.",
+        videoSrc: llmsVideo,
+        technologies: ["React", "Node.js", "DeepSeek AI", "Docker"],
+        github: "https://github.com/xuanhai0913/LLM-Unit-tests"
+    };
 
     return (
         <div className="video-demo-page">
-            <div className="video-demo-header">
-                <Link to="/" className="back-button">
-                    <i className="fas fa-arrow-left"></i>
-                    <span>Back to Portfolio</span>
-                </Link>
-                <h1>Project Demos</h1>
-                <p className="header-subtitle">Watch live demonstrations of my projects</p>
-            </div>
+            {/* Header */}
+            <header className="demo-header">
+                <div className="demo-nav">
+                    <Link to="/" className="back-link">
+                        <i className="fas fa-arrow-left"></i>
+                        <span>BACK TO PORTFOLIO</span>
+                    </Link>
+                </div>
+            </header>
 
-            <div className="video-demo-content">
-                {videos.map((video) => (
-                    <div key={video.id} className="video-card">
-                        <div className="video-container">
-                            <video
-                                controls
-                                preload="metadata"
-                                poster=""
-                            >
-                                <source src={video.videoSrc} type="video/mp4" />
-                                Your browser does not support the video tag.
-                            </video>
+            {/* Main Content */}
+            <section className="demo-section">
+                <div className="demo-container">
+                    {/* Giant Title */}
+                    <h1 className="demo-title">
+                        PROJECT <br /> DEMOS
+                    </h1>
+
+                    {/* Featured Project */}
+                    <div className="featured-grid">
+                        {/* Video Player */}
+                        <div className="video-wrapper">
+                            <div className="video-frame">
+                                <div className="live-badge">
+                                    <div className="pulse-dot"></div>
+                                    LIVE_PREVIEW
+                                </div>
+                                <div className="video-container">
+                                    <video
+                                        controls
+                                        preload="metadata"
+                                        className="video-player"
+                                    >
+                                        <source src={featuredProject.videoSrc} type="video/mp4" />
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                            </div>
                         </div>
-                        <div className="video-info">
-                            <h2>{video.title}</h2>
-                            <p>{video.description}</p>
-                            <div className="video-technologies">
-                                {video.technologies.map((tech, index) => (
-                                    <span key={index} className="tech-badge">{tech}</span>
+
+                        {/* Project Info */}
+                        <div className="project-info">
+                            <div className="project-tag">FEATURED_PROJECT_01</div>
+                            <h2 className="project-title">{featuredProject.title}</h2>
+                            <div className="project-description">
+                                {featuredProject.description}
+                            </div>
+                            <div className="tech-tags">
+                                {featuredProject.technologies.map((tech, index) => (
+                                    <span key={index} className="tech-tag">{tech}</span>
                                 ))}
                             </div>
-                            <div className="video-links">
-                                <a
-                                    href={video.github}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="github-link"
-                                >
-                                    <i className="fab fa-github"></i>
-                                    <span>View Source Code</span>
-                                </a>
-                            </div>
+                            <a
+                                href={featuredProject.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="github-btn"
+                            >
+                                <span className="btn-shadow"></span>
+                                <span className="btn-content">
+                                    <i className="fab fa-github"></i> VIEW SOURCE CODE
+                                </span>
+                            </a>
                         </div>
                     </div>
-                ))}
-            </div>
+                </div>
+            </section>
         </div>
     );
 };
