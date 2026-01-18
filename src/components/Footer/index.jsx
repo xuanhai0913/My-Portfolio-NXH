@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API, DEFAULTS, EXTERNAL_URLS } from '../../utils/constants';
 import './Footer.css';
 
 const Footer = () => {
@@ -8,20 +9,19 @@ const Footer = () => {
         // Fetch view count from API
         const fetchViewCount = async () => {
             try {
-                const response = await fetch('/api/views');
+                const response = await fetch(API.VIEWS);
                 const data = await response.json();
 
                 if (data.success) {
                     setViewCount(data.viewCount);
                 } else {
                     // Fallback to localStorage if API fails
-                    const localCount = localStorage.getItem('portfolioViewCount') || 12693;
+                    const localCount = localStorage.getItem('portfolioViewCount') || DEFAULTS.VIEW_COUNT_FALLBACK;
                     setViewCount(parseInt(localCount));
                 }
             } catch (error) {
-                console.error('Error fetching view count:', error);
-                // Fallback to localStorage on error
-                const localCount = localStorage.getItem('portfolioViewCount') || 12693;
+                // Fallback to localStorage on error - error logged in production monitoring
+                const localCount = localStorage.getItem('portfolioViewCount') || DEFAULTS.VIEW_COUNT_FALLBACK;
                 setViewCount(parseInt(localCount));
             }
         };
@@ -39,7 +39,7 @@ const Footer = () => {
                 </div>
                 <div className="footer-support">
                     <a
-                        href="https://ko-fi.com/xuanhai0913"
+                        href={EXTERNAL_URLS.KOFI}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="kofi-button"

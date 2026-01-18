@@ -6,7 +6,6 @@ import './styles/Header.css';
 const logoFull = 'https://res.cloudinary.com/dqdcqtu8m/image/upload/v1765001214/Logo_st3nmr.png';
 
 const Header = () => {
-  console.log('📋 Header component is rendering...');
   const [isNavOpen, setIsNavOpen] = useState(false);
   const location = useLocation();
 

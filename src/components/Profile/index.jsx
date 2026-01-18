@@ -6,7 +6,6 @@ import profileImage from '../../images/profile.png';
 import './styles/Profile.css';
 
 const Profile = () => {
-  console.log('👤 Profile component is rendering...');
   const containerRef = useRef(null);
   const textRef = useRef(null);
   const [auroraError, setAuroraError] = useState(false);
