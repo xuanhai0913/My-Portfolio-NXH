@@ -1,188 +1,48 @@
-import React, { useRef, useState, useEffect, lazy, Suspense } from 'react';
-import Aurora from '../Aurora';
-import TrueFocus from '../TrueFocus';
-import ScrambledText from '../ScrambleText';
+import React from 'react';
 import profileImage from '../../images/profile.png';
 import './styles/Profile.css';
 
-// Lazy load 3D component for performance
-const Logo3D = lazy(() => import('../Logo3D'));
-
-// Check if device can handle 3D
-const canRender3D = () => {
-  try {
-    const canvas = document.createElement('canvas');
-    return !!(
-      window.WebGLRenderingContext &&
-      (canvas.getContext('webgl') || canvas.getContext('experimental-webgl'))
-    );
-  } catch (e) {
-    return false;
-  }
-};
-
 const Profile = () => {
-  const containerRef = useRef(null);
-  const textRef = useRef(null);
-  const [auroraError, setAuroraError] = useState(false);
-  const [trueFocusError, setTrueFocusError] = useState(false);
-  const [scrambleError, setScrambleError] = useState(false);
-  const [use3D, setUse3D] = useState(false);
-
-  // Check WebGL support on mount
-  useEffect(() => {
-    setUse3D(canRender3D());
-  }, []);
-
-  // Render Aurora with error handling
-  const renderAurora = () => {
-    try {
-      return (
-        <Aurora
-          colorStops={["#3A29FF", "#FF94B4", "#FF3232"]}
-          blend={0.2}
-          amplitude={0.8}
-          speed={1.5}
-        />
-      );
-      // eslint-disable-next-line no-unreachable
-    } catch (error) {
-      console.error('Aurora component failed to render:', error);
-      setAuroraError(true);
-      return <div className="aurora-fallback"></div>;
-    }
-  };
-
-  // Render TrueFocus with error handling
-  const renderTrueFocus = () => {
-    try {
-      return (
-        <TrueFocus
-          text="Full-Stack Developer"
-          sentence="Full-Stack Developer"
-
-          manualMode={false}
-          blurAmount={3}
-          borderColor="red"
-          animationDuration={1}
-          pauseBetweenAnimations={1}
-        />
-      );
-      // eslint-disable-next-line no-unreachable
-    } catch (error) {
-      console.error('TrueFocus component failed to render:', error);
-      setTrueFocusError(true);
-      return <span className="rotating-title-fallback">Full-Stack Developer</span>;
-    }
-  };
-
-
-  // Render ScrambleText with error handling
-  const renderScrambleText = () => {
-    try {
-      return (
-        <ScrambledText
-          className="scrambled-text-demo"
-          radius={100}
-          duration={1.2}
-          speed={0.5}
-          scrambleChars=".:"
-        >
-          Building digital experiences with modern web technologies
-        </ScrambledText>
-      );
-      // eslint-disable-next-line no-unreachable
-    } catch (error) {
-      console.error('ScrambleText component failed to render:', error);
-      setScrambleError(true);
-      return <p className="variable-proximity-fallback">Building digital experiences with modern web technologies</p>;
-    }
-  };
-
-  // Fallback image loader
-  const ImageFallback = () => (
-    <div className="profile-image">
-      <img
-        src={profileImage}
-        alt="Nguyễn Xuân Hải - Full-Stack Developer"
-        loading="eager"
-        width="150"
-        height="150"
-      />
-    </div>
-  );
-
   return (
     <section id="profile" className="profile-section">
-      {!auroraError && renderAurora()}
-      <div className="profile-content">
-        <div className="profile-card" ref={containerRef}>
-          {/* Profile Image - Always show */}
-          <div className="profile-visual">
-            {/* 3D background behind image (optional) */}
-            {use3D && (
-              <div className="profile-3d-background">
-                <Suspense fallback={null}>
-                  <Logo3D />
-                </Suspense>
-              </div>
-            )}
-            {/* Original profile image - Always visible */}
-            <div className="profile-image">
-              <img
-                src={profileImage}
-                alt="Nguyễn Xuân Hải - Full-Stack Developer"
-                loading="eager"
-                width="150"
-                height="150"
-              />
-            </div>
-          </div>
-          <div className="profile-info">
-            <h1>Nguyễn Xuân Hải</h1>
-            <div className="title-container">
-              <span className="role-prefix">I'm a</span>
-              <div className="rotating-text-wrapper">
-                {!trueFocusError && renderTrueFocus()}
-              </div>
-            </div>
+      <div className="profile-container">
+        {/* Left Content */}
+        <div className="profile-content">
+          <h1 className="profile-title">
+            FULL-STACK <br />
+            <span className="title-highlight">DEVELOPER</span>
+          </h1>
 
-            <div className="description-container" ref={textRef}>
-              {!scrambleError && renderScrambleText()}
-            </div>
-            <div className="social-links" role="navigation" aria-label="Social media links">
-              <ul>
-                <li>
-                  <a href="https://www.facebook.com/nguyenhai0913" target="_blank" rel="noopener noreferrer" aria-label="Facebook profile">
-                    <i className="fab fa-facebook" aria-hidden="true"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="https://github.com/xuanhai0913" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
-                    <i className="fab fa-github" aria-hidden="true"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="mailto:xuanhai0913750452@gmail.com" aria-label="Send email">
-                    <i className="fab fa-google" aria-hidden="true"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="https://www.instagram.com/nguyenhai091375" target="_blank" rel="noopener noreferrer" aria-label="Instagram profile">
-                    <i className="fab fa-instagram" aria-hidden="true"></i>
-                  </a>
-                </li>
-              </ul>
-            </div>
+          <div className="profile-description">
+            <p>
+              Building digital experiences with modern web technologies.
+              Passionate about creating innovative solutions.
+            </p>
+          </div>
+
+          <div className="profile-actions">
             <a
               href="/CV_NguyenXuanHai.pdf"
               download="CV_NguyenXuanHai.pdf"
-              className="download-cv-btn"
-              aria-label="Download CV as PDF"
+              className="btn-download"
             >
-              <i className="fas fa-download" aria-hidden="true"></i>
-              Download CV
+              DOWNLOAD CV <i className="fa-solid fa-arrow-right"></i>
             </a>
+          </div>
+        </div>
+
+        {/* Right - Profile Image */}
+        <div className="profile-image-wrapper">
+          <div className="profile-image-container">
+            <img
+              src={profileImage}
+              alt="Nguyễn Xuân Hải - Full-Stack Developer"
+              className="profile-image"
+              loading="eager"
+            />
+          </div>
+          <div className="profile-badge">
+            NXH.V1
           </div>
         </div>
       </div>

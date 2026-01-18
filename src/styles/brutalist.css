@@ -1,0 +1,278 @@
+/**
+ * Brutalist Theme - Global Utilities
+ * Design: Electric Yellow (#CCFF00), Bold Borders, Uppercase
+ */
+
+/* ============================================
+   CSS CUSTOM PROPERTIES (Theme Variables)
+   ============================================ */
+:root {
+    /* Colors */
+    --color-accent: #CCFF00;
+    --color-black: #000000;
+    --color-white: #FFFFFF;
+    --color-gray-100: #f5f5f5;
+    --color-gray-500: #6b7280;
+    --color-gray-800: #1f2937;
+
+    /* Typography */
+    --font-display: 'Archivo Black', Impact, sans-serif;
+    --font-mono: 'Space Mono', 'Courier New', monospace;
+
+    /* Borders & Shadows */
+    --border-width: 4px;
+    --border-width-sm: 2px;
+    --shadow-offset: 8px;
+    --shadow-offset-sm: 4px;
+
+    /* Spacing */
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 2rem;
+    --space-lg: 4rem;
+    --space-xl: 8rem;
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-mono);
+    background-color: var(--color-white);
+    color: var(--color-black);
+    text-transform: uppercase;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+
+    /* Grid Background */
+    background-image:
+        linear-gradient(to right, #e5e5e5 1px, transparent 1px),
+        linear-gradient(to bottom, #e5e5e5 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+/* Selection */
+::selection {
+    background-color: var(--color-accent);
+    color: var(--color-black);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-white);
+    border-left: 2px solid var(--color-black);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-black);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-accent);
+}
+
+/* ============================================
+   BRUTALIST BORDERS & SHADOWS
+   ============================================ */
+.brutalist-border {
+    border: var(--border-width) solid var(--color-black);
+    box-shadow: var(--shadow-offset) var(--shadow-offset) 0 0 var(--color-black);
+}
+
+.brutalist-border-sm {
+    border: var(--border-width-sm) solid var(--color-black);
+    box-shadow: var(--shadow-offset-sm) var(--shadow-offset-sm) 0 0 var(--color-black);
+}
+
+.brutalist-border-accent {
+    border: var(--border-width) solid var(--color-black);
+    box-shadow: var(--shadow-offset) var(--shadow-offset) 0 0 var(--color-accent);
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+.font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+}
+
+.font-mono {
+    font-family: var(--font-mono);
+}
+
+.header-outline {
+    -webkit-text-stroke: 2px var(--color-black);
+    color: transparent;
+}
+
+.text-accent {
+    color: var(--color-accent);
+}
+
+/* ============================================
+   IMAGE EFFECTS
+   ============================================ */
+.desaturated-img {
+    filter: grayscale(1) contrast(1.2);
+    mix-blend-mode: multiply;
+}
+
+.duotone-box {
+    background-color: var(--color-accent);
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+.btn-brutalist {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem 2.5rem;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: var(--border-width) solid var(--color-black);
+}
+
+.btn-brutalist-primary {
+    background-color: var(--color-black);
+    color: var(--color-white);
+}
+
+.btn-brutalist-primary:hover {
+    background-color: var(--color-accent);
+    color: var(--color-black);
+}
+
+.btn-brutalist-accent {
+    background-color: var(--color-accent);
+    color: var(--color-black);
+    box-shadow: var(--shadow-offset-sm) var(--shadow-offset-sm) 0 0 var(--color-black);
+}
+
+.btn-brutalist-accent:hover {
+    transform: translate(4px, 4px);
+    box-shadow: none;
+}
+
+.btn-brutalist-outline {
+    background-color: transparent;
+    color: var(--color-black);
+}
+
+.btn-brutalist-outline:hover {
+    background-color: var(--color-black);
+    color: var(--color-white);
+}
+
+/* ============================================
+   TAGS & BADGES
+   ============================================ */
+.tag-brutalist {
+    display: inline-block;
+    padding: 0.25rem 1rem;
+    font-weight: 700;
+    font-size: 0.75rem;
+    border: 2px solid var(--color-black);
+    text-transform: uppercase;
+}
+
+.tag-filled {
+    background-color: var(--color-black);
+    color: var(--color-white);
+}
+
+.tag-accent {
+    background-color: var(--color-accent);
+    color: var(--color-black);
+}
+
+/* ============================================
+   LAYOUT UTILITIES
+   ============================================ */
+.container-brutalist {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.section-brutalist {
+    padding: var(--space-xl) 0;
+    border-top: var(--border-width) solid var(--color-black);
+}
+
+/* ============================================
+   HOVER EFFECTS
+   ============================================ */
+.hover-lift {
+    transition: transform 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-4px);
+}
+
+.hover-rotate {
+    transition: transform 0.5s ease;
+}
+
+.hover-rotate:hover {
+    transform: rotate(0deg) !important;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes brutalist-shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-2px) rotate(-1deg);
+    }
+
+    75% {
+        transform: translateX(2px) rotate(1deg);
+    }
+}
+
+@keyframes brutalist-pulse {
+
+    0%,
+    100% {
+        box-shadow: var(--shadow-offset) var(--shadow-offset) 0 0 var(--color-black);
+    }
+
+    50% {
+        box-shadow: calc(var(--shadow-offset) + 2px) calc(var(--shadow-offset) + 2px) 0 0 var(--color-black);
+    }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+    :root {
+        --shadow-offset: 4px;
+        --shadow-offset-sm: 2px;
+    }
+
+    body {
+        background-size: 20px 20px;
+    }
+}

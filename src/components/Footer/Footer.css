@@ -1,115 +1,119 @@
+/* ============================================
+   BRUTALIST FOOTER
+   ============================================ */
+
 .footer {
-    background: rgba(0, 0, 0, 0.9);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 2rem 0;
-    margin: 0;
-    width: 100%;
+    padding: 3rem 1.5rem;
+    border-top: 4px solid var(--color-black);
+    background-color: var(--color-white);
 }
 
 .footer-content {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 0 2rem;
     display: flex;
     flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+}
+
+/* View Counter & Ko-fi */
+.footer-left {
+    display: flex;
     align-items: center;
     gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .footer-view-counter {
+    background-color: var(--color-black);
+    color: var(--color-white);
+    padding: 0.75rem 1rem;
+    font-family: var(--font-display);
+    font-size: 0.875rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    background: linear-gradient(135deg, #4a90e2, #357abd);
-    padding: 0.75rem 1.5rem;
-    border-radius: 25px;
-    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+    text-transform: uppercase;
 }
 
 .footer-view-counter i {
-    font-size: 1.2rem;
-    color: white;
+    display: none;
 }
 
 .view-count {
-    font-size: 1.3rem;
     font-weight: 700;
-    color: white;
-    font-family: 'Inter', monospace;
 }
 
 .view-label {
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.9);
-    font-weight: 500;
+    opacity: 0.8;
 }
 
-.footer-copyright {
-    text-align: center;
-}
-
-.footer-copyright p {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 0.9rem;
-    margin: 0.3rem 0;
-}
-
-.footer-subtitle {
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 0.85rem;
-}
-
+/* Ko-fi Button */
 .footer-support {
-    margin: 0.5rem 0;
+    display: inline-block;
 }
 
 .kofi-button {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background: linear-gradient(135deg, #ff5e5b, #ff4040);
-    color: white;
-    padding: 0.6rem 1.2rem;
-    border-radius: 25px;
+    background-color: #FF5F5F;
+    color: var(--color-black);
+    padding: 0.75rem 1rem;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
     text-decoration: none;
-    font-weight: 600;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(255, 94, 91, 0.3);
+    border: 2px solid var(--color-black);
+    box-shadow: 4px 4px 0 0 var(--color-black);
+    transition: all 0.2s ease;
 }
 
 .kofi-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(255, 94, 91, 0.4);
-    background: linear-gradient(135deg, #ff7875, #ff5e5b);
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 0 var(--color-black);
 }
 
 .kofi-button i {
     font-size: 1rem;
 }
 
-@media (max-width: 768px) {
-    .footer {
-        padding: 1.5rem 0;
-    }
+/* Copyright */
+.footer-copyright {
+    text-align: center;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    line-height: 1.8;
+}
 
+.footer-copyright p {
+    margin: 0;
+}
+
+.footer-subtitle {
+    opacity: 0.7;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (min-width: 768px) {
     .footer-content {
-        padding: 0 1rem;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
     }
 
-    .footer-view-counter {
-        padding: 0.6rem 1.2rem;
+    .footer-left {
+        justify-content: flex-start;
     }
 
-    .view-count {
-        font-size: 1.1rem;
-    }
-
-    .view-label {
-        font-size: 0.85rem;
-    }
-
-    .footer-copyright p {
-        font-size: 0.8rem;
+    .footer-copyright {
+        text-align: right;
     }
 }
