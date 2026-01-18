@@ -35,6 +35,7 @@
 .title-highlight {
   display: inline-block;
   background-color: var(--color-accent);
+  color: var(--color-black);
   padding: 0.25rem 0.5rem;
 }
 

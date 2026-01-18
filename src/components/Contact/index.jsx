@@ -28,8 +28,8 @@ const Contact = () => {
         <div className="contact-cards">
           <div className="contact-card">
             <span className="card-label">EMAIL</span>
-            <a href="mailto:xuanhai091375@gmail.com" className="card-value">
-              xuanhai091375@gmail.com
+            <a href="mailto:xuanhai0913750452@gmail.com" className="card-value">
+              xuanhai0913750452@gmail.com
             </a>
           </div>
           <div className="contact-card">
