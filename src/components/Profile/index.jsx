@@ -42,7 +42,7 @@ const Profile = () => {
             />
           </div>
           <div className="profile-badge">
-            NXH.V1
+            Nguyễn Xuân Hải
           </div>
         </div>
       </div>
