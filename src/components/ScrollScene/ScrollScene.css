@@ -1,0 +1,136 @@
+/* ============================================
+   SCROLL SCENE - 3D SCROLLYTELLING
+   ============================================ */
+
+.scroll-scene-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.scroll-canvas {
+    width: 100% !important;
+    height: 100% !important;
+    background: transparent !important;
+}
+
+/* HTML Content Layer */
+.scroll-html-content {
+    width: 100%;
+    pointer-events: auto;
+}
+
+/* Section Styling within Scroll */
+.scroll-section {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 1.5rem;
+}
+
+.scroll-section-hero {
+    padding-top: 100px;
+}
+
+.scroll-section-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Text Reveal Animation */
+.scroll-text {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+}
+
+.scroll-text.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Giant Title */
+.scroll-title {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 12vw, 9rem);
+    font-weight: 900;
+    line-height: 0.85;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+    color: var(--color-black);
+}
+
+.scroll-title-highlight {
+    display: inline-block;
+    background-color: var(--color-black);
+    color: var(--color-accent);
+    padding: 0.25rem 0.5rem;
+    transform: rotate(-1deg);
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    animation: bounce 2s infinite;
+}
+
+.scroll-indicator-text {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.scroll-indicator-arrow {
+    width: 24px;
+    height: 24px;
+    border-right: 2px solid var(--color-black);
+    border-bottom: 2px solid var(--color-black);
+    transform: rotate(45deg);
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateX(-50%) translateY(0);
+    }
+
+    40% {
+        transform: translateX(-50%) translateY(-10px);
+    }
+
+    60% {
+        transform: translateX(-50%) translateY(-5px);
+    }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+    .scroll-scene-container {
+        /* Keep 3D but scale down */
+    }
+
+    .scroll-title {
+        font-size: 3rem;
+    }
+}

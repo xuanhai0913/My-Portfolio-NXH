@@ -5,6 +5,8 @@
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "@fortawesome/fontawesome-free": "^6.4.2",
+    "@react-three/drei": "^9.88.17",
+    "@react-three/fiber": "^8.15.19",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
