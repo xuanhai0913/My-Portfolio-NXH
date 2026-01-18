@@ -102,26 +102,26 @@ const Profile = () => {
             <div className="description-container" ref={textRef}>
               {!scrambleError && renderScrambleText()}
             </div>
-            <div className="social-links">
+            <div className="social-links" role="navigation" aria-label="Social media links">
               <ul>
                 <li>
-                  <a href="https://www.facebook.com/nguyenhai0913" target="_blank" rel="noopener noreferrer">
-                    <i className="fab fa-facebook"></i>
+                  <a href="https://www.facebook.com/nguyenhai0913" target="_blank" rel="noopener noreferrer" aria-label="Facebook profile">
+                    <i className="fab fa-facebook" aria-hidden="true"></i>
                   </a>
                 </li>
                 <li>
-                  <a href="https://github.com/xuanhai0913" target="_blank" rel="noopener noreferrer">
-                    <i className="fab fa-github"></i>
+                  <a href="https://github.com/xuanhai0913" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
+                    <i className="fab fa-github" aria-hidden="true"></i>
                   </a>
                 </li>
                 <li>
-                  <a href="mailto:xuanhai0913750452@gmail.com">
-                    <i className="fab fa-google"></i>
+                  <a href="mailto:xuanhai0913750452@gmail.com" aria-label="Send email">
+                    <i className="fab fa-google" aria-hidden="true"></i>
                   </a>
                 </li>
                 <li>
-                  <a href="https://www.instagram.com/nguyenhai091375" target="_blank" rel="noopener noreferrer">
-                    <i className="fab fa-instagram"></i>
+                  <a href="https://www.instagram.com/nguyenhai091375" target="_blank" rel="noopener noreferrer" aria-label="Instagram profile">
+                    <i className="fab fa-instagram" aria-hidden="true"></i>
                   </a>
                 </li>
               </ul>
@@ -130,8 +130,9 @@ const Profile = () => {
               href="/CV_NguyenXuanHai.pdf"
               download="CV_NguyenXuanHai.pdf"
               className="download-cv-btn"
+              aria-label="Download CV as PDF"
             >
-              <i className="fas fa-download"></i>
+              <i className="fas fa-download" aria-hidden="true"></i>
               Download CV
             </a>
           </div>
