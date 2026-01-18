@@ -117,15 +117,26 @@ const Profile = () => {
       {!auroraError && renderAurora()}
       <div className="profile-content">
         <div className="profile-card" ref={containerRef}>
-          {/* 3D Logo with fallback to image */}
+          {/* Profile Image - Always show */}
           <div className="profile-visual">
-            {use3D ? (
-              <Suspense fallback={<ImageFallback />}>
-                <Logo3D />
-              </Suspense>
-            ) : (
-              <ImageFallback />
+            {/* 3D background behind image (optional) */}
+            {use3D && (
+              <div className="profile-3d-background">
+                <Suspense fallback={null}>
+                  <Logo3D />
+                </Suspense>
+              </div>
             )}
+            {/* Original profile image - Always visible */}
+            <div className="profile-image">
+              <img
+                src={profileImage}
+                alt="Nguyễn Xuân Hải - Full-Stack Developer"
+                loading="eager"
+                width="150"
+                height="150"
+              />
+            </div>
           </div>
           <div className="profile-info">
             <h1>Nguyễn Xuân Hải</h1>
