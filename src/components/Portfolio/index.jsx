@@ -15,203 +15,238 @@ import visionKey from '../../images/project/visionKey.png';
 
 const Portfolio = () => {
   const sectionRef = useRef(null);
-  const [rotation, setRotation] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [progress, setProgress] = useState(0);
 
   // Full detailed projects list
   const allProjects = [
     {
       title: "Great Link Mai House",
-      description: "Corporate website for Great Link Mai House, a leading Media & B2B Import-Export company. Features consultation, trade connections, and event services.",
+      description: "Corporate website for leading Media & B2B company. Features consultation, trade connections, and event services.",
       image: prj8,
       demo: "https://greatlinkmaihouse.com/",
-      technologies: ["ASP.NET Core", "SQL Server", "C#", "Bootstrap"],
+      technologies: ["ASP.NET Core", "SQL Server"],
       badge: "B2B",
-      isCommercial: true,
-      company: "CÔNG TY GREATLINK MAIHOUSE"
+      company: "GREATLINK MAIHOUSE"
     },
     {
       title: "Education English",
-      description: "Educational website teaching English for free to people in difficult circumstances. Features comprehensive learning resources and community support.",
+      description: "Free English teaching platform for community. Comprehensive learning resources and support.",
       image: prj6,
       demo: "https://ech.edu.vn",
-      technologies: ["PHP", "MySQL", "WordPress"],
-      company: "English Community House",
+      technologies: ["PHP", "MySQL"],
+      company: "ECH COMMUNITY",
       variant: "dark"
     },
     {
       title: "VN Media Hub",
-      description: "Professional blog platform with ASP.NET Core backend and React frontend. Features multi-category management, SEO-friendly URLs, and view counting.",
+      description: "Professional blog platform with .NET Core backend. Multi-category, SEO-friendly.",
       image: prj3,
       demo: "https://vnmediahub.com",
-      technologies: [".NET Core", "React", "SQL Server", "Rest API"],
+      technologies: [".NET Core", "React"],
       isCommercial: true,
-      company: "CÔNG TY VN MEDIA HUB"
+      company: "VN MEDIA HUB"
     },
     {
       title: "Vision Key AI",
-      description: "Multi-platform AI assistant integrating Gemini 2.0 Flash. Intelligent screen analysis and Auto-Click support. Native macOS app + Chrome Extension.",
+      description: "Multi-platform AI assistant with Gemini 2.0. Auto-click support, screen analysis.",
       image: visionKey,
-      customLinks: [
-        { url: "https://visionpremium.hailamdev.space", label: "Landing" },
-        { url: "https://github.com/xuanhai0913/Extension-Vision-Premium", label: "Chrome" },
-        { url: "https://github.com/xuanhai0913/Vision-Key", label: "macOS" }
-      ],
-      technologies: ["Swift", "Next.js", "Gemini AI", "SaaS"],
+      technologies: ["Swift", "Next.js", "AI"],
       badge: "AI",
-      variant: "accent"
+      variant: "accent",
+      customLinks: [
+        { url: "https://visionpremium.hailamdev.space", label: "Landing" }
+      ]
     },
     {
       title: "LLM Unit Test Gen",
-      description: "Intelligent web app using Deepseek LLM to automatically generate unit tests. Supports Python, JS, TS with pytest, unittest, Jest.",
+      description: "AI tool generating unit tests using Deepseek LLM.",
       image: prj10,
       demo: "/videos",
-      technologies: ["React", "Node.js", "Deepseek AI", "Monaco"],
+      technologies: ["React", "Deepseek"],
       hasVideoDemo: true,
       variant: "dark"
     },
     {
       title: "Portfolio Website",
-      description: "Modern React portfolio with interactive animations. Brutalist design using GSAP and CSS3 custom properties.",
+      description: "Modern brutalist portfolio with GSAP animations.",
       image: prj1,
       demo: "https://www.hailamdev.space/",
-      github: "https://github.com/xuanhai0913/My-Portfolio-NXH",
-      technologies: ["React", "GSAP", "CSS3"]
+      technologies: ["React", "GSAP"]
     },
     {
       title: "Happy New Year",
-      description: "Animated greeting website with festive effects. Dynamic JavaScript animations for firework effects.",
+      description: "Animated festive greeting website.",
       image: prj5,
       demo: "https://happynewyear.hailamdev.space/",
-      github: "https://github.com/xuanhai0913/HappyNewYear",
-      technologies: ["HTML5", "CSS3", "JavaScript"],
+      technologies: ["HTML5", "JS"],
       variant: "dark"
     },
     {
       title: "SPRM Management",
-      description: "Full-stack student performance & resource management system. Features tracking, JWT auth, and admin tools.",
+      description: "Student performance tracking system.",
       image: prj7,
       demo: "https://cnpm-fullstack-react-csharp.onrender.com",
-      github: "https://github.com/xuanhai0913/CNPM-Fullstack-React-CSharp",
-      technologies: ["React", "C#", "ASP.NET Core", "SQL"],
+      technologies: ["React", "C#"],
       variant: "default"
     },
     {
       title: "OTP API Service",
-      description: "Web service for renting phone numbers to receive OTP codes. Real-time retrieval with SMS Gateway integration.",
+      description: "Phone rental service for OTP verification.",
       image: prj9,
       demo: "https://shop.hailamdev.space/",
-      github: "https://github.com/xuanhai0913/OTP-API",
-      technologies: ["Node.js", "Express", "MongoDB"],
+      technologies: ["Node.js", "Mongo"],
       badge: "API",
       variant: "accent"
     }
   ];
-
-  // Distribute to Left/Right
-  const leftProjects = allProjects.filter((_, i) => i % 2 === 0);
-  const rightProjects = allProjects.filter((_, i) => i % 2 !== 0);
-
-  const itemSpacing = 40; // Spacing for 5 items per wheel
 
   useEffect(() => {
     const handleScroll = () => {
       if (!sectionRef.current) return;
       const section = sectionRef.current;
       const rect = section.getBoundingClientRect();
+      const sectionHeight = section.offsetHeight;
       const viewportHeight = window.innerHeight;
-      const scrolled = -rect.top + viewportHeight * 0.5;
-      const newRotation = scrolled * 0.08;
-      setRotation(newRotation);
+
+      // Calculate scroll progress through the section
+      // We want the scroll to drive the card stack
+      const scrolled = -rect.top;
+      const totalScrollable = sectionHeight - viewportHeight;
+      const scrollProgress = Math.max(0, Math.min(1, scrolled / totalScrollable));
+
+      setProgress(scrollProgress);
+
+      // Map progress to active card index
+      // Map 0 -> length
+      const index = Math.min(
+        Math.floor(scrollProgress * allProjects.length),
+        allProjects.length - 1
+      );
+      setActiveIndex(index);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const renderCard = (project, index, side) => {
-    const itemAngle = index * itemSpacing;
-    const variantClass = project.variant ? `card-${project.variant}` : 'card-default';
-
-    return (
-      <div
-        key={index}
-        className={`wheel-item ${side}`}
-        style={{
-          transform: `rotate(${itemAngle}deg) translate(var(--radius)) rotate(${-itemAngle}deg)`
-        }}
-      >
-        <div className={`wheel-card-content ${variantClass}`}>
-          <div className="wheel-card-image">
-            <img src={project.image} alt={project.title} />
-            {project.badge && <span className="card-badge">{project.badge}</span>}
-          </div>
-          <div className="wheel-card-info">
-            <h3 className="project-title">{project.title}</h3>
-            {project.company && <div className="project-company">{project.company}</div>}
-
-            <p className="project-desc">{project.description}</p>
-
-            <div className="wheel-techs">
-              {project.technologies.slice(0, 4).map((t, i) => (
-                <span key={i} className="tech-tag">{t}</span>
-              ))}
-            </div>
-
-            <div className="card-actions">
-              {project.customLinks ? (
-                project.customLinks.map((link, i) => (
-                  <a key={i} href={link.url} target="_blank" rel="noopener noreferrer" className="wheel-btn small">
-                    {link.label}
-                  </a>
-                ))
-              ) : (
-                <>
-                  {project.hasVideoDemo ? (
-                    <Link to={project.demo} className="wheel-btn">WATCH DEMO</Link>
-                  ) : (
-                    <a href={project.demo} target="_blank" rel="noopener noreferrer" className="wheel-btn">
-                      {project.isCommercial ? 'VISIT SITE' : 'LIVE DEMO'}
-                    </a>
-                  )}
-                  {project.github && (
-                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="wheel-btn outline">
-                      CODE
-                    </a>
-                  )}
-                </>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
+  }, [allProjects.length]);
 
   return (
     <section id="portfolio" className="portfolio-section" ref={sectionRef}>
       <div className="portfolio-sticky">
         <h2 className="portfolio-title">PROJECTS_</h2>
 
-        <div className="wheels-container">
-          <div
-            className="wheel-wrapper left"
-            style={{ transform: `translate(-50%, -50%) rotate(${rotation}deg)` }}
-          >
-            {leftProjects.map((p, i) => renderCard(p, i, 'left'))}
-          </div>
+        <div className="card-stack-container">
+          {allProjects.map((project, index) => {
+            // Determine state of this card
+            // 0 -> Active/Top
+            // < 0 -> Past (Felled)
+            // > 0 -> Future (Stacked below)
 
-          <div
-            className="wheel-wrapper right"
-            style={{ transform: `translate(50%, -50%) rotate(${-rotation}deg)` }}
-          >
-            {rightProjects.map((p, i) => renderCard(p, i, 'right'))}
-          </div>
+            // Calculate a continuous "card index" based on scroll
+            const realIndex = progress * allProjects.length;
+            const diff = index - realIndex;
+
+            // Logic for visual state:
+            // If index < realIndex (it's past): It should fall down
+            // If index is current (active): It stays
+            // If index > realIndex (future): Stacked underneath
+
+            let style = {};
+            let className = 'stack-card';
+
+            if (index < Math.floor(realIndex)) {
+              // PAST (Fallen)
+              className += ' past';
+            } else if (index === Math.floor(realIndex)) {
+              // ACTIVE
+              // As we scroll through this index (e.g. 2.0 -> 2.9)
+              // The card starts to fall
+              const exitProgress = realIndex - index; // 0 to 1
+              if (exitProgress > 0) {
+                // It's starting to fall
+                // Initial stage: slight tilt
+                // Late stage: Drop
+                style = {
+                  '--exit-progress': exitProgress,
+                  transform: `
+                     translateY(${exitProgress * 50}vh) 
+                     rotate(${exitProgress * 10}deg)
+                     scale(${1 - exitProgress * 0.1})
+                   `,
+                  opacity: 1 - exitProgress * 0.5,
+                  zIndex: 100 - index
+                };
+              } else {
+                className += ' active';
+                style = { zIndex: 100 - index };
+              }
+            } else {
+              // FUTURE (Stacked)
+              className += ' future';
+              const depth = index - Math.floor(realIndex);
+              // Stack effect: smaller and lower
+              style = {
+                transform: `
+                   translateY(${depth * 10}px) 
+                   scale(${1 - depth * 0.05})
+                 `,
+                opacity: 1 - depth * 0.2,
+                zIndex: 100 - index,
+                filter: `blur(${depth * 2}px)`
+              };
+            }
+
+            return (
+              <div key={index} className={className} style={style}>
+                <div className={`card-inner ${project.variant ? `variant-${project.variant}` : ''}`}>
+                  <div className="card-header">
+                    <span className="card-index">{(index + 1).toString().padStart(2, '0')}</span>
+                    {project.company && <span className="card-company">{project.company}</span>}
+                  </div>
+
+                  <div className="card-image-wrapper">
+                    <img src={project.image} alt={project.title} />
+                    {project.badge && <span className="card-badge">{project.badge}</span>}
+                  </div>
+
+                  <div className="card-body">
+                    <h3 className="card-title">{project.title}</h3>
+                    <p className="card-desc">{project.description}</p>
+
+                    <div className="card-techs">
+                      {project.technologies.map((t, i) => (
+                        <span key={i}>{t}</span>
+                      ))}
+                    </div>
+
+                    <div className="card-links">
+                      {project.customLinks ? (
+                        project.customLinks.map((l, i) => (
+                          <a key={i} href={l.url} target="_blank" rel="noopener" className="card-btn">{l.label}</a>
+                        ))
+                      ) : (
+                        <>
+                          {project.demo && (
+                            project.hasVideoDemo
+                              ? <Link to={project.demo} className="card-btn">DEMO</Link>
+                              : <a href={project.demo} target="_blank" rel="noopener" className="card-btn">VISIT</a>
+                          )}
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Binding clip effect for Calendar look */}
+                <div className="card-binding"></div>
+              </div>
+            );
+          })}
         </div>
 
-        <div className="scroll-hint">
-          <div className="scroll-icon"></div>
-          <span>SCROLL TO EXPLORE</span>
+        <div className="portfolio-counter">
+          Scroll for Gravity
         </div>
       </div>
     </section>
