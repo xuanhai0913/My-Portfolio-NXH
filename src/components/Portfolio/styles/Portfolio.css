@@ -5,7 +5,7 @@
 .portfolio-section {
   padding: 8rem 1.5rem;
   border-top: 4px solid var(--color-black);
-  background-color: var(--color-white);
+  background-color: transparent;
 }
 
 .portfolio-container {
