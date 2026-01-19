@@ -1,10 +1,9 @@
 /* ============================================
-   UPRIGHT SIDE WHEEL PORTFOLIO - ENHANCED
+   UPRIGHT SIDE WHEEL PORTFOLIO - FIXED
    ============================================ */
 
 .portfolio-section {
   height: 600vh;
-  /* Increased scroll distance */
   position: relative;
   overflow: visible;
   background-color: transparent;
@@ -20,7 +19,6 @@
   justify-content: center;
   align-items: center;
   pointer-events: none;
-  /* Let scroll pass through mostly */
 }
 
 .portfolio-title {
@@ -59,17 +57,16 @@
   height: 100vh;
   top: 0;
   transition: transform 0.1s linear;
-  --radius: 750px;
-  /* Even larger radius for flatter arc */
+  --radius: 700px;
   pointer-events: none;
 }
 
 .wheel-wrapper.left {
-  left: -550px;
+  left: -500px;
 }
 
 .wheel-wrapper.right {
-  right: -550px;
+  right: -500px;
 }
 
 /* Wheel Items */
@@ -88,24 +85,18 @@
 
 /* Card Content - UNIFORM SIZE */
 .wheel-card-content {
-  width: 700px;
-  /* Fixed width */
-  height: 680px;
-  /* Fixed height for uniformity */
-  max-width: 42vw;
-  /* Responsive constraint */
+  width: 580px;
+  height: 650px;
   background: var(--color-white);
   border: 5px solid var(--color-black);
   box-shadow: 14px 14px 0 0 var(--color-black);
   padding: 0;
   pointer-events: auto;
-  /* Enable clicks */
   transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   position: relative;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  /* Clip overflow content */
 }
 
 .wheel-card-content:hover {
@@ -126,6 +117,7 @@
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
+  flex-shrink: 0;
 }
 
 .mini-index {
@@ -139,12 +131,13 @@
 
 /* Card Image */
 .wheel-card-image {
-  height: 360px;
-  /* Taller image area */
+  height: 280px;
+  min-height: 280px;
   background: var(--color-accent);
   border-bottom: 4px solid var(--color-black);
   position: relative;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .wheel-card-image img {
@@ -161,63 +154,63 @@
 
 /* Card Info */
 .wheel-card-info {
-  padding: 1.75rem;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
   flex: 1;
+  overflow: hidden;
 }
 
 .project-title {
   font-family: var(--font-display);
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 900;
   line-height: 1;
   text-transform: uppercase;
   margin-bottom: 0.25rem;
+  flex-shrink: 0;
 }
 
 .project-desc {
   font-family: var(--font-mono);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   line-height: 1.5;
   text-transform: uppercase;
   opacity: 0.85;
   margin-bottom: 0.5rem;
-  /* Limit to 3 lines for uniformity */
   display: -webkit-box;
   -webkit-line-clamp: 3;
   line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  min-height: 4.5em;
-  /* Reserve space for 3 lines */
+  flex-shrink: 0;
 }
 
 .wheel-techs {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-bottom: 1rem;
-  min-height: 2rem;
-  /* Reserve space */
+  margin-bottom: 0.75rem;
+  flex-shrink: 0;
 }
 
 .tech-tag {
   background: var(--color-black);
   color: var(--color-white);
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 700;
-  padding: 0.3rem 0.6rem;
+  padding: 0.25rem 0.5rem;
   text-transform: uppercase;
 }
 
-/* Card Actions - Multiple Buttons */
+/* Card Actions */
 .card-actions {
   display: flex;
   gap: 0.75rem;
   margin-top: auto;
+  flex-shrink: 0;
 }
 
 .card-actions .wheel-btn {
@@ -226,8 +219,8 @@
   background: var(--color-accent);
   color: var(--color-black);
   font-family: var(--font-display);
-  font-size: 0.9rem;
-  padding: 0.9rem 1rem;
+  font-size: 0.85rem;
+  padding: 0.8rem 1rem;
   text-decoration: none;
   border: 3px solid var(--color-black);
   font-weight: 700;
@@ -267,6 +260,7 @@
   font-size: 0.8rem;
   font-weight: 700;
   box-shadow: 3px 3px 0 0 var(--color-black);
+  z-index: 5;
 }
 
 /* Variants */
@@ -349,7 +343,8 @@
 /* Responsive */
 @media (max-width: 1600px) {
   .wheel-card-content {
-    width: 550px;
+    width: 480px;
+    height: 580px;
   }
 
   .wheel-wrapper {
@@ -357,21 +352,23 @@
   }
 
   .wheel-wrapper.left {
-    left: -450px;
+    left: -420px;
   }
 
   .wheel-wrapper.right {
-    right: -450px;
+    right: -420px;
   }
 
   .wheel-card-image {
-    height: 300px;
+    height: 240px;
+    min-height: 240px;
   }
 }
 
 @media (max-width: 1400px) {
   .wheel-card-content {
-    width: 480px;
+    width: 420px;
+    height: 540px;
   }
 
   .wheel-wrapper {
@@ -379,18 +376,27 @@
   }
 
   .wheel-wrapper.left {
-    left: -380px;
+    left: -360px;
   }
 
   .wheel-wrapper.right {
-    right: -380px;
+    right: -360px;
+  }
+
+  .wheel-card-image {
+    height: 200px;
+    min-height: 200px;
+  }
+
+  .project-title {
+    font-size: 1.25rem;
   }
 }
 
 @media (max-width: 1024px) {
   .wheel-card-content {
-    width: 400px;
-    max-width: 48vw;
+    width: 360px;
+    height: 500px;
   }
 
   .wheel-wrapper {
@@ -398,26 +404,30 @@
   }
 
   .wheel-wrapper.left {
-    left: -320px;
+    left: -300px;
   }
 
   .wheel-wrapper.right {
-    right: -320px;
+    right: -300px;
   }
 
   .wheel-card-image {
-    height: 240px;
+    height: 180px;
+    min-height: 180px;
   }
 
   .project-title {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
+  }
+
+  .project-desc {
+    font-size: 0.75rem;
   }
 }
 
 @media (max-width: 768px) {
   .wheel-wrapper {
     --radius: 350px;
-    border: none;
   }
 
   .wheels-container {
@@ -429,32 +439,33 @@
   .wheel-wrapper.left {
     left: auto;
     right: 50%;
-    margin-right: -200px;
-    top: -200px;
+    margin-right: -180px;
+    top: -180px;
   }
 
   .wheel-wrapper.right {
     right: auto;
     left: 50%;
-    margin-left: -200px;
+    margin-left: -180px;
     top: auto;
-    bottom: -200px;
+    bottom: -180px;
   }
 
   .wheel-card-content {
-    width: 400px;
-    max-width: 90vw;
+    width: 360px;
+    height: 480px;
   }
 
   .wheel-card-image {
-    height: 200px;
+    height: 160px;
+    min-height: 160px;
   }
 
   .project-title {
-    font-size: 1.25rem;
+    font-size: 1rem;
   }
 
   .project-desc {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
   }
 }
