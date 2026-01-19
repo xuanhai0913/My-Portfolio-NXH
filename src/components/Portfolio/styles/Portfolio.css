@@ -86,10 +86,12 @@
   transition: opacity 0.3s ease;
 }
 
-/* Card Content - WIDE & DETAILED */
+/* Card Content - UNIFORM SIZE */
 .wheel-card-content {
   width: 700px;
-  /* Much wider for full content */
+  /* Fixed width */
+  height: 680px;
+  /* Fixed height for uniformity */
   max-width: 42vw;
   /* Responsive constraint */
   background: var(--color-white);
@@ -102,6 +104,8 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  /* Clip overflow content */
 }
 
 .wheel-card-content:hover {
@@ -180,8 +184,14 @@
   text-transform: uppercase;
   opacity: 0.85;
   margin-bottom: 0.5rem;
-  /* Show full description */
-  display: block;
+  /* Limit to 3 lines for uniformity */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 4.5em;
+  /* Reserve space for 3 lines */
 }
 
 .wheel-techs {
@@ -189,6 +199,8 @@
   flex-wrap: wrap;
   gap: 0.5rem;
   margin-bottom: 1rem;
+  min-height: 2rem;
+  /* Reserve space */
 }
 
 .tech-tag {
