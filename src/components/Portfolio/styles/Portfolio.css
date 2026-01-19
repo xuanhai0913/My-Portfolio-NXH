@@ -4,7 +4,8 @@
    ============================================ */
 
 .portfolio-section {
-  height: 900vh;
+  height: 1100vh;
+  /* Extended for smooth pinning animation */
   position: relative;
   overflow: visible;
   /* Grid Background Pattern */

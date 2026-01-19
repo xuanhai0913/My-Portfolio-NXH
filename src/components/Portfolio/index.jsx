@@ -16,11 +16,12 @@ const Portfolio = () => {
   const sectionRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [showEndArrow, setShowEndArrow] = useState(false);
 
   const allProjects = [
     {
       title: "Great Link Mai House",
-      description: "Corporate website for leading Media & B2B company. Features consultation, trade connections, and event services.",
+      description: "Corporate website for leading Media & B2B company.",
       image: prj8,
       demo: "https://greatlinkmaihouse.com/",
       technologies: ["ASP.NET Core", "SQL Server", "C#"],
@@ -29,7 +30,7 @@ const Portfolio = () => {
     },
     {
       title: "Education English",
-      description: "Free English teaching platform for community. Comprehensive learning resources.",
+      description: "Free English teaching platform for community.",
       image: prj6,
       demo: "https://ech.edu.vn",
       technologies: ["PHP", "MySQL", "WordPress"],
@@ -38,7 +39,7 @@ const Portfolio = () => {
     },
     {
       title: "VN Media Hub",
-      description: "Professional blog platform with .NET Core backend. Multi-category, SEO-friendly.",
+      description: "Professional blog platform with .NET Core backend.",
       image: prj3,
       demo: "https://vnmediahub.com",
       github: "https://github.com/xuanhai0913/VNMediaHub",
@@ -47,7 +48,7 @@ const Portfolio = () => {
     },
     {
       title: "Vision Key AI",
-      description: "Multi-platform AI assistant with Gemini 2.0. Auto-click support, screen analysis.",
+      description: "Multi-platform AI assistant with Gemini 2.0.",
       image: visionKey,
       technologies: ["Swift", "Next.js", "AI"],
       badge: "AI",
@@ -61,7 +62,7 @@ const Portfolio = () => {
     },
     {
       title: "LLM Unit Test Gen",
-      description: "AI tool generating unit tests using Deepseek LLM. Smart code analysis.",
+      description: "AI tool generating unit tests using Deepseek LLM.",
       image: prj10,
       demo: "/videos",
       github: "https://github.com/xuanhai0913/LLM-Unit-tests",
@@ -70,7 +71,7 @@ const Portfolio = () => {
     },
     {
       title: "Portfolio Website",
-      description: "Modern brutalist portfolio with GSAP animations and scroll effects.",
+      description: "Modern brutalist portfolio with GSAP animations.",
       image: prj1,
       demo: "https://www.hailamdev.space/",
       github: "https://github.com/xuanhai0913/My-Portfolio-NXH",
@@ -78,7 +79,7 @@ const Portfolio = () => {
     },
     {
       title: "Happy New Year",
-      description: "Animated festive greeting website with particle effects.",
+      description: "Animated festive greeting website.",
       image: prj5,
       demo: "https://happynewyear.hailamdev.space/",
       github: "https://github.com/xuanhai0913/Happy-New-Year",
@@ -87,7 +88,7 @@ const Portfolio = () => {
     },
     {
       title: "SPRM Management",
-      description: "Student performance tracking system with analytics dashboard.",
+      description: "Student performance tracking system.",
       image: prj7,
       demo: "https://cnpm-fullstack-react-csharp.onrender.com",
       github: "https://github.com/xuanhai0913/CNPM-Fullstack-React-CSharp",
@@ -95,7 +96,7 @@ const Portfolio = () => {
     },
     {
       title: "OTP API Service",
-      description: "Phone rental service for OTP verification. RESTful API.",
+      description: "Phone rental service for OTP verification.",
       image: prj9,
       demo: "https://shop.hailamdev.space/",
       technologies: ["Node.js", "MongoDB", "Express"],
@@ -104,17 +105,17 @@ const Portfolio = () => {
     }
   ];
 
-  // Pinned positions - absolute viewport positions (top%, left%)
+  // Pinned positions - spread evenly across viewport
   const pinnedPositions = [
-    { top: 12, left: 5, rotate: -5 },     // Top Left
-    { top: 8, left: 75, rotate: 4 },      // Top Right
-    { top: 35, left: 3, rotate: -3 },     // Middle Left
-    { top: 40, left: 78, rotate: 5 },     // Middle Right
-    { top: 65, left: 8, rotate: -4 },     // Bottom Left
-    { top: 60, left: 72, rotate: 3 },     // Bottom Right
-    { top: 15, left: 40, rotate: 2 },     // Top Center (behind title)
-    { top: 75, left: 25, rotate: -2 },    // Bottom Left-Center
-    { top: 70, left: 60, rotate: 4 },     // Bottom Right-Center
+    { top: 12, left: 5, rotate: -5 },
+    { top: 8, left: 75, rotate: 4 },
+    { top: 35, left: 3, rotate: -3 },
+    { top: 40, left: 78, rotate: 5 },
+    { top: 65, left: 8, rotate: -4 },
+    { top: 60, left: 72, rotate: 3 },
+    { top: 15, left: 40, rotate: 2 },
+    { top: 75, left: 25, rotate: -2 },
+    { top: 70, left: 60, rotate: 4 },
   ];
 
   useEffect(() => {
@@ -127,11 +128,16 @@ const Portfolio = () => {
 
       const scrolled = -rect.top;
       const totalScroll = sectionHeight - viewportHeight;
-      const progress = Math.max(0, Math.min(1, scrolled / totalScroll));
+      // Use 90% of scroll for projects, last 10% for end transition
+      const projectScrollEnd = totalScroll * 0.85;
+      const progress = Math.max(0, Math.min(1, scrolled / projectScrollEnd));
 
       setScrollProgress(progress);
 
-      // Active card based on progress
+      // Show arrow when all projects are pinned
+      setShowEndArrow(scrolled > projectScrollEnd * 0.95);
+
+      // Active project based on progress
       const projectIndex = Math.floor(progress * allProjects.length);
       setActiveIndex(Math.min(projectIndex, allProjects.length - 1));
     };
@@ -141,19 +147,28 @@ const Portfolio = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [allProjects.length]);
 
-  // Get card state: 'active', 'pinned', or 'waiting'
+  // Get card state
   const getCardState = (index) => {
     if (index === activeIndex) return 'active';
     if (index < activeIndex) return 'pinned';
     return 'waiting';
   };
 
-  // Get transition progress within current card (0 to 1)
+  // Get transition progress for current card
   const getCardTransitionProgress = (index) => {
     const cardDuration = 1 / allProjects.length;
     const cardStart = index * cardDuration;
     const localProgress = (scrollProgress - cardStart) / cardDuration;
     return Math.max(0, Math.min(1, localProgress));
+  };
+
+  // Calculate pinning animation progress (for cards transitioning to pinned state)
+  const getPinningProgress = (index) => {
+    const cardDuration = 1 / allProjects.length;
+    const cardEnd = (index + 1) * cardDuration;
+    const pinningStart = cardEnd - cardDuration * 0.3; // Last 30% of card duration
+    const pinningProgress = (scrollProgress - pinningStart) / (cardDuration * 0.3);
+    return Math.max(0, Math.min(1, pinningProgress));
   };
 
   return (
@@ -169,24 +184,44 @@ const Portfolio = () => {
           <span className="counter-total">{String(allProjects.length).padStart(2, '0')}</span>
         </div>
 
-        {/* Pinboard Background - shows pinned cards */}
+        {/* Pinboard with animated pinned cards */}
         <div className="pinboard">
           {allProjects.map((project, index) => {
             const state = getCardState(index);
             const pos = pinnedPositions[index];
+            const pinProgress = getPinningProgress(index);
 
-            // Only show pinned cards in the pinboard
-            if (state !== 'pinned') return null;
+            // Show during pinning animation OR when fully pinned
+            if (state !== 'pinned' && !(state === 'active' && pinProgress > 0)) return null;
+
+            // If currently animating to pinned position
+            const isAnimating = state === 'active' && pinProgress > 0 && pinProgress < 1;
+
+            let cardStyle;
+            if (isAnimating) {
+              // Smooth cubic bezier animation to pinned position
+              const eased = 1 - Math.pow(1 - pinProgress, 3); // ease-out cubic
+              cardStyle = {
+                top: `calc(50% + ${(pos.top - 50) * eased}%)`,
+                left: `calc(50% + ${(pos.left - 50) * eased}%)`,
+                transform: `translate(-50%, -50%) rotate(${pos.rotate * eased}deg) scale(${1 - eased * 0.6})`,
+                opacity: 0.9 - eased * 0.15,
+                filter: `blur(${eased * 2}px) grayscale(${eased * 0.2})`,
+              };
+            } else {
+              // Fully pinned
+              cardStyle = {
+                top: `${pos.top}%`,
+                left: `${pos.left}%`,
+                transform: `rotate(${pos.rotate}deg)`,
+              };
+            }
 
             return (
               <div
                 key={`pinned-${index}`}
-                className={`pinned-card ${project.variant ? `card-${project.variant}` : ''}`}
-                style={{
-                  top: `${pos.top}%`,
-                  left: `${pos.left}%`,
-                  transform: `rotate(${pos.rotate}deg)`,
-                }}
+                className={`pinned-card ${project.variant ? `card-${project.variant}` : ''} ${isAnimating ? 'animating' : ''}`}
+                style={cardStyle}
               >
                 <div className="pinned-card__pin">📌</div>
                 <img src={project.image} alt={project.title} />
@@ -202,62 +237,56 @@ const Portfolio = () => {
             const state = getCardState(index);
             const transitionProgress = getCardTransitionProgress(index);
             const variantClass = project.variant ? `card-${project.variant}` : '';
+            const pinProgress = getPinningProgress(index);
 
             let style = {};
             let className = `story-card ${variantClass}`;
 
             if (state === 'active') {
               className += ' active';
-              // Entrance animation (first 30%), Stay (40%-70%), Exit animation (last 30%)
-              if (transitionProgress < 0.3) {
-                // Entering
-                const enterProgress = transitionProgress / 0.3;
+
+              // When pinning starts, fade out the main card
+              if (pinProgress > 0) {
                 style = {
-                  transform: `translateY(${(1 - enterProgress) * 100}px) scale(${0.9 + enterProgress * 0.1})`,
-                  opacity: enterProgress,
+                  opacity: 1 - pinProgress,
+                  transform: `scale(${1 - pinProgress * 0.1})`,
+                  pointerEvents: 'none',
                 };
-              } else if (transitionProgress < 0.7) {
-                // Staying visible
+              } else if (transitionProgress < 0.25) {
+                // Entrance - slide up and fade in
+                const enterProgress = transitionProgress / 0.25;
+                const eased = 1 - Math.pow(1 - enterProgress, 3);
+                style = {
+                  transform: `translateY(${(1 - eased) * 80}px) scale(${0.92 + eased * 0.08})`,
+                  opacity: eased,
+                };
+              } else {
+                // Visible state
                 style = {
                   transform: 'translateY(0) scale(1)',
                   opacity: 1,
-                };
-              } else {
-                // Exiting - moving to pinboard position
-                const exitProgress = (transitionProgress - 0.7) / 0.3;
-                const pos = pinnedPositions[index];
-                style = {
-                  transform: `
-                    translate(${exitProgress * pos.x}%, ${exitProgress * pos.y}%)
-                    rotate(${exitProgress * pos.rotate}deg)
-                    scale(${1 - exitProgress * (1 - pos.scale)})
-                  `,
-                  opacity: 1 - exitProgress * 0.4,
                 };
               }
             } else if (state === 'waiting') {
               className += ' waiting';
               style = {
-                transform: 'translateY(100px) scale(0.9)',
+                transform: 'translateY(80px) scale(0.92)',
                 opacity: 0,
                 pointerEvents: 'none',
               };
             } else {
-              // Pinned - handled in pinboard layer
               return null;
             }
 
             return (
               <article key={index} className={className} style={style}>
                 <div className="story-card__inner">
-                  {/* Image Side */}
                   <div className="story-card__media">
                     <img src={project.image} alt={project.title} />
                     {project.badge && <span className="story-card__badge">{project.badge}</span>}
                     <div className="story-card__index">{String(index + 1).padStart(2, '0')}</div>
                   </div>
 
-                  {/* Content Side */}
                   <div className="story-card__content">
                     {project.company && (
                       <div className="story-card__company">{project.company}</div>
@@ -293,6 +322,15 @@ const Portfolio = () => {
               </article>
             );
           })}
+        </div>
+
+        {/* End Transition Arrow */}
+        <div className={`end-transition ${showEndArrow ? 'visible' : ''}`}>
+          <div className="end-transition__line"></div>
+          <div className="end-transition__arrow">
+            <span>↓</span>
+          </div>
+          <div className="end-transition__label">CERTIFICATIONS</div>
         </div>
 
         {/* Scroll Indicator */}
