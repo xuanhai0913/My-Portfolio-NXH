@@ -14,40 +14,40 @@ import visionKey from '../../images/project/visionKey.png';
 
 const Portfolio = () => {
   const sectionRef = useRef(null);
-  const [activeLeft, setActiveLeft] = useState(0);
-  const [activeRight, setActiveRight] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   const allProjects = [
     {
       title: "Great Link Mai House",
-      description: "Corporate website for leading Media & B2B company.",
+      description: "Corporate website for leading Media & B2B company. Features consultation, trade connections, and event services.",
       image: prj8,
       demo: "https://greatlinkmaihouse.com/",
-      technologies: ["ASP.NET Core", "SQL Server"],
+      technologies: ["ASP.NET Core", "SQL Server", "C#"],
       badge: "B2B",
       company: "GREATLINK MAIHOUSE"
     },
     {
       title: "Education English",
-      description: "Free English teaching platform for community.",
+      description: "Free English teaching platform for community. Comprehensive learning resources and support.",
       image: prj6,
       demo: "https://ech.edu.vn",
-      technologies: ["PHP", "MySQL"],
+      technologies: ["PHP", "MySQL", "WordPress"],
       company: "ECH COMMUNITY",
       variant: "dark"
     },
     {
       title: "VN Media Hub",
-      description: "Professional blog platform with .NET Core backend.",
+      description: "Professional blog platform with .NET Core backend. Multi-category, SEO-friendly.",
       image: prj3,
       demo: "https://vnmediahub.com",
       github: "https://github.com/xuanhai0913/VNMediaHub",
-      technologies: [".NET Core", "React"],
+      technologies: [".NET Core", "React", "SQL"],
       company: "VN MEDIA HUB"
     },
     {
       title: "Vision Key AI",
-      description: "Multi-platform AI assistant with Gemini 2.0.",
+      description: "Multi-platform AI assistant with Gemini 2.0. Auto-click support, screen analysis.",
       image: visionKey,
       technologies: ["Swift", "Next.js", "AI"],
       badge: "AI",
@@ -61,52 +61,48 @@ const Portfolio = () => {
     },
     {
       title: "LLM Unit Test Gen",
-      description: "AI tool generating unit tests using Deepseek LLM.",
+      description: "AI tool generating unit tests using Deepseek LLM. Smart code analysis.",
       image: prj10,
       demo: "/videos",
       github: "https://github.com/xuanhai0913/LLM-Unit-tests",
-      technologies: ["React", "Deepseek"],
+      technologies: ["React", "Deepseek", "Node.js"],
       variant: "dark"
     },
     {
       title: "Portfolio Website",
-      description: "Modern brutalist portfolio with GSAP animations.",
+      description: "Modern brutalist portfolio with GSAP animations and scroll effects.",
       image: prj1,
       demo: "https://www.hailamdev.space/",
       github: "https://github.com/xuanhai0913/My-Portfolio-NXH",
-      technologies: ["React", "GSAP"]
+      technologies: ["React", "GSAP", "CSS3"]
     },
     {
       title: "Happy New Year",
-      description: "Animated festive greeting website.",
+      description: "Animated festive greeting website with particle effects.",
       image: prj5,
       demo: "https://happynewyear.hailamdev.space/",
       github: "https://github.com/xuanhai0913/Happy-New-Year",
-      technologies: ["HTML5", "JS"],
+      technologies: ["HTML5", "JS", "Canvas"],
       variant: "dark"
     },
     {
       title: "SPRM Management",
-      description: "Student performance tracking system.",
+      description: "Student performance tracking system with analytics dashboard.",
       image: prj7,
       demo: "https://cnpm-fullstack-react-csharp.onrender.com",
       github: "https://github.com/xuanhai0913/CNPM-Fullstack-React-CSharp",
-      technologies: ["React", "C#"]
+      technologies: ["React", "C#", "EF Core"]
     },
     {
       title: "OTP API Service",
-      description: "Phone rental service for OTP verification.",
+      description: "Phone rental service for OTP verification. RESTful API.",
       image: prj9,
       demo: "https://shop.hailamdev.space/",
-      technologies: ["Node.js", "Mongo"],
+      technologies: ["Node.js", "MongoDB", "Express"],
       badge: "API",
       variant: "accent"
     }
   ];
-
-  // Split projects: odd indices left, even indices right
-  const leftProjects = allProjects.filter((_, i) => i % 2 === 0);
-  const rightProjects = allProjects.filter((_, i) => i % 2 !== 0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -116,95 +112,159 @@ const Portfolio = () => {
       const sectionHeight = section.offsetHeight;
       const viewportHeight = window.innerHeight;
 
-      // Progress through the section (0 to 1)
       const scrolled = -rect.top;
       const totalScroll = sectionHeight - viewportHeight;
       const progress = Math.max(0, Math.min(1, scrolled / totalScroll));
 
-      // Map progress to active card index
-      const leftIndex = Math.floor(progress * leftProjects.length);
-      const rightIndex = Math.floor(progress * rightProjects.length);
+      setScrollProgress(progress);
 
-      setActiveLeft(Math.min(leftIndex, leftProjects.length - 1));
-      setActiveRight(Math.min(rightIndex, rightProjects.length - 1));
+      // Calculate active project based on scroll
+      const projectIndex = Math.floor(progress * allProjects.length);
+      setActiveIndex(Math.min(projectIndex, allProjects.length - 1));
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [leftProjects.length, rightProjects.length]);
+  }, [allProjects.length]);
 
-  const renderCard = (project, index, side, activeIndex) => {
-    const variantClass = project.variant ? `card-${project.variant}` : '';
-    const isActive = index === activeIndex;
-    const isPast = index < activeIndex;
-    const isFuture = index > activeIndex;
-
-    let cardClass = 'slide-card';
-    if (isActive) cardClass += ' active';
-    if (isPast) cardClass += ' past';
-    if (isFuture) cardClass += ' future';
-    cardClass += ` ${side}`;
-
-    return (
-      <div key={index} className={`${cardClass} ${variantClass}`}>
-        <div className="slide-card__header">
-          <span>{(index * 2 + (side === 'right' ? 2 : 1)).toString().padStart(2, '0')}</span>
-          <span>{project.company || "PERSONAL"}</span>
-        </div>
-
-        <div className="slide-card__image">
-          <img src={project.image} alt={project.title} />
-          {project.badge && <span className="slide-card__badge">{project.badge}</span>}
-        </div>
-
-        <div className="slide-card__body">
-          <h3>{project.title}</h3>
-          <p>{project.description}</p>
-          <div className="slide-card__techs">
-            {project.technologies.map((tech, i) => (
-              <span key={i}>{tech}</span>
-            ))}
-          </div>
-          <div className="slide-card__actions">
-            {project.demo && (
-              <a href={project.demo} target="_blank" rel="noopener noreferrer" className="slide-card__btn">
-                VISIT
-              </a>
-            )}
-            {project.github && (
-              <a href={project.github} target="_blank" rel="noopener noreferrer" className="slide-card__btn slide-card__btn--secondary">
-                GITHUB
-              </a>
-            )}
-            {project.githubLinks && project.githubLinks.map((link, i) => (
-              <a key={i} href={link.url} target="_blank" rel="noopener noreferrer" className="slide-card__btn slide-card__btn--secondary">
-                {link.label}
-              </a>
-            ))}
-          </div>
-        </div>
-      </div>
-    );
+  // Calculate individual card progress (0-1 for each card's visibility phase)
+  const getCardProgress = (index) => {
+    const cardDuration = 1 / allProjects.length;
+    const cardStart = index * cardDuration;
+    const cardProgress = (scrollProgress - cardStart) / cardDuration;
+    return Math.max(0, Math.min(1, cardProgress));
   };
 
   return (
     <section id="portfolio" className="portfolio-section" ref={sectionRef}>
       <div className="portfolio-sticky">
-        <h2 className="portfolio-title">PROJECTS_</h2>
-
-        <div className="slide-container">
-          <div className="slide-track slide-track--left">
-            {leftProjects.map((p, i) => renderCard(p, i, 'left', activeLeft))}
-          </div>
-
-          <div className="slide-track slide-track--right">
-            {rightProjects.map((p, i) => renderCard(p, i, 'right', activeRight))}
-          </div>
+        {/* Background Elements */}
+        <div className="portfolio-bg">
+          <div className="bg-line bg-line--1"></div>
+          <div className="bg-line bg-line--2"></div>
+          <div className="bg-line bg-line--3"></div>
         </div>
 
+        {/* Title */}
+        <h2 className="portfolio-title">
+          <span className="title-label">FEATURED</span>
+          <span className="title-main">PROJECTS_</span>
+        </h2>
+
+        {/* Progress Indicator */}
+        <div className="portfolio-progress">
+          <div className="progress-bar" style={{ width: `${scrollProgress * 100}%` }}></div>
+        </div>
+
+        {/* Counter */}
         <div className="portfolio-counter">
-          {String(activeLeft + activeRight + 2).padStart(2, '0')} / {String(allProjects.length).padStart(2, '0')}
+          <span className="counter-current">{String(activeIndex + 1).padStart(2, '0')}</span>
+          <span className="counter-divider">/</span>
+          <span className="counter-total">{String(allProjects.length).padStart(2, '0')}</span>
+        </div>
+
+        {/* Project Cards - Scrollytelling Stack */}
+        <div className="project-stage">
+          {allProjects.map((project, index) => {
+            const cardProgress = getCardProgress(index);
+            const isActive = index === activeIndex;
+            const isPast = index < activeIndex;
+            const isFuture = index > activeIndex;
+
+            // Calculate transforms based on progress
+            let transform = '';
+            let opacity = 0;
+            let scale = 0.9;
+            let blur = 10;
+
+            if (isActive) {
+              // Entrance: scale up and fade in during first half of progress
+              // Stay visible during middle
+              // Exit: scale down and fade out during last half
+              const entranceProgress = Math.min(cardProgress * 2, 1);
+              const exitProgress = Math.max((cardProgress - 0.5) * 2, 0);
+
+              opacity = entranceProgress - exitProgress * 0.5;
+              scale = 0.8 + entranceProgress * 0.2 - exitProgress * 0.1;
+              blur = 10 * (1 - entranceProgress);
+              transform = `scale(${scale}) translateY(${(1 - entranceProgress) * 50 + exitProgress * -30}px)`;
+            } else if (isPast) {
+              opacity = 0;
+              transform = 'scale(0.8) translateY(-100px)';
+            } else if (isFuture) {
+              opacity = 0;
+              transform = 'scale(0.8) translateY(100px)';
+            }
+
+            const variantClass = project.variant ? `card-${project.variant}` : '';
+
+            return (
+              <article
+                key={index}
+                className={`project-card ${variantClass} ${isActive ? 'active' : ''}`}
+                style={{
+                  transform,
+                  opacity,
+                  filter: `blur(${blur}px)`,
+                  zIndex: isActive ? 10 : 1
+                }}
+              >
+                <div className="card-inner">
+                  {/* Left: Image */}
+                  <div className="card-media">
+                    <div className="media-frame">
+                      <img src={project.image} alt={project.title} />
+                      {project.badge && <span className="card-badge">{project.badge}</span>}
+                    </div>
+                    <div className="media-index">{String(index + 1).padStart(2, '0')}</div>
+                  </div>
+
+                  {/* Right: Content */}
+                  <div className="card-content">
+                    {project.company && (
+                      <div className="card-company">{project.company}</div>
+                    )}
+                    <h3 className="card-title">{project.title}</h3>
+                    <p className="card-description">{project.description}</p>
+
+                    <div className="card-techs">
+                      {project.technologies.map((tech, i) => (
+                        <span key={i} className="tech-tag">{tech}</span>
+                      ))}
+                    </div>
+
+                    <div className="card-actions">
+                      {project.demo && (
+                        <a href={project.demo} target="_blank" rel="noopener noreferrer" className="btn btn--primary">
+                          <span>Visit Site</span>
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M7 17L17 7M17 7H7M17 7V17" />
+                          </svg>
+                        </a>
+                      )}
+                      {project.github && (
+                        <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn btn--secondary">
+                          <span>GitHub</span>
+                        </a>
+                      )}
+                      {project.githubLinks && project.githubLinks.map((link, i) => (
+                        <a key={i} href={link.url} target="_blank" rel="noopener noreferrer" className="btn btn--secondary">
+                          <span>{link.label}</span>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+
+        {/* Scroll Hint */}
+        <div className="scroll-hint" style={{ opacity: scrollProgress < 0.1 ? 1 : 0 }}>
+          <span>Scroll to explore</span>
+          <div className="scroll-arrow">↓</div>
         </div>
       </div>
     </section>
