@@ -40,6 +40,7 @@ const Portfolio = () => {
       description: "Professional blog platform with .NET Core backend.",
       image: prj3,
       demo: "https://vnmediahub.com",
+      github: "https://github.com/xuanhai0913/VNMediaHub",
       technologies: [".NET Core", "React"],
       company: "VN MEDIA HUB"
     },
@@ -57,6 +58,7 @@ const Portfolio = () => {
       description: "AI tool generating unit tests using Deepseek LLM.",
       image: prj10,
       demo: "/videos",
+      github: "https://github.com/xuanhai0913/LLM-Unit-tests",
       technologies: ["React", "Deepseek"],
       variant: "dark"
     },
@@ -65,6 +67,7 @@ const Portfolio = () => {
       description: "Modern brutalist portfolio with GSAP animations.",
       image: prj1,
       demo: "https://www.hailamdev.space/",
+      github: "https://github.com/xuanhai0913/My-Portfolio-NXH",
       technologies: ["React", "GSAP"]
     },
     {
@@ -72,6 +75,7 @@ const Portfolio = () => {
       description: "Animated festive greeting website.",
       image: prj5,
       demo: "https://happynewyear.hailamdev.space/",
+      github: "https://github.com/xuanhai0913/Happy-New-Year",
       technologies: ["HTML5", "JS"],
       variant: "dark"
     },
@@ -80,6 +84,7 @@ const Portfolio = () => {
       description: "Student performance tracking system.",
       image: prj7,
       demo: "https://cnpm-fullstack-react-csharp.onrender.com",
+      github: "https://github.com/xuanhai0913/CNPM-Fullstack-React-CSharp",
       technologies: ["React", "C#"]
     },
     {
@@ -148,11 +153,18 @@ const Portfolio = () => {
                 <span key={i}>{tech}</span>
               ))}
             </div>
-            {project.demo && (
-              <a href={project.demo} target="_blank" rel="noopener noreferrer" className="wheel-card__btn">
-                VISIT
-              </a>
-            )}
+            <div className="wheel-card__actions">
+              {project.demo && (
+                <a href={project.demo} target="_blank" rel="noopener noreferrer" className="wheel-card__btn">
+                  VISIT
+                </a>
+              )}
+              {project.github && (
+                <a href={project.github} target="_blank" rel="noopener noreferrer" className="wheel-card__btn wheel-card__btn--secondary">
+                  GITHUB
+                </a>
+              )}
+            </div>
           </div>
         </div>
       </div>

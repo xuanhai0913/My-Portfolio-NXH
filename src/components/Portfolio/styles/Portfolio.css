@@ -186,16 +186,21 @@
   text-transform: uppercase;
 }
 
+/* Actions Container */
+.wheel-card__actions {
+  display: flex;
+  gap: 8px;
+}
+
 /* Button */
 .wheel-card__btn {
-  display: block;
-  width: 100%;
+  flex: 1;
   text-align: center;
   background: #d4ff00;
   color: #000000;
   font-family: var(--font-display);
-  font-size: 14px;
-  padding: 12px;
+  font-size: 13px;
+  padding: 10px 12px;
   text-decoration: none;
   border: 3px solid #000000;
   font-weight: 700;
@@ -204,6 +209,16 @@
 }
 
 .wheel-card__btn:hover {
+  background: #000000;
+  color: #ffffff;
+}
+
+.wheel-card__btn--secondary {
+  background: transparent;
+  color: #000000;
+}
+
+.wheel-card__btn--secondary:hover {
   background: #000000;
   color: #ffffff;
 }
