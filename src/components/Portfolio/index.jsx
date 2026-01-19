@@ -104,17 +104,17 @@ const Portfolio = () => {
     }
   ];
 
-  // Pinned positions - spread evenly across the whole viewport
+  // Pinned positions - absolute viewport positions (top%, left%)
   const pinnedPositions = [
-    { x: -38, y: -32, rotate: -6, scale: 0.35 },  // Top Left
-    { x: 38, y: -30, rotate: 5, scale: 0.33 },    // Top Right
-    { x: -40, y: 0, rotate: -4, scale: 0.34 },    // Middle Left
-    { x: 40, y: 5, rotate: 6, scale: 0.32 },      // Middle Right
-    { x: -35, y: 30, rotate: -5, scale: 0.33 },   // Bottom Left
-    { x: 35, y: 32, rotate: 4, scale: 0.34 },     // Bottom Right
-    { x: 0, y: -35, rotate: 3, scale: 0.32 },     // Top Center
-    { x: -20, y: 38, rotate: -3, scale: 0.31 },   // Bottom Left-Center
-    { x: 20, y: 35, rotate: 2, scale: 0.33 },     // Bottom Right-Center
+    { top: 12, left: 5, rotate: -5 },     // Top Left
+    { top: 8, left: 75, rotate: 4 },      // Top Right
+    { top: 35, left: 3, rotate: -3 },     // Middle Left
+    { top: 40, left: 78, rotate: 5 },     // Middle Right
+    { top: 65, left: 8, rotate: -4 },     // Bottom Left
+    { top: 60, left: 72, rotate: 3 },     // Bottom Right
+    { top: 15, left: 40, rotate: 2 },     // Top Center (behind title)
+    { top: 75, left: 25, rotate: -2 },    // Bottom Left-Center
+    { top: 70, left: 60, rotate: 4 },     // Bottom Right-Center
   ];
 
   useEffect(() => {
@@ -174,7 +174,6 @@ const Portfolio = () => {
           {allProjects.map((project, index) => {
             const state = getCardState(index);
             const pos = pinnedPositions[index];
-            const transitionProgress = getCardTransitionProgress(index);
 
             // Only show pinned cards in the pinboard
             if (state !== 'pinned') return null;
@@ -184,8 +183,9 @@ const Portfolio = () => {
                 key={`pinned-${index}`}
                 className={`pinned-card ${project.variant ? `card-${project.variant}` : ''}`}
                 style={{
-                  transform: `translate(${pos.x}%, ${pos.y}%) rotate(${pos.rotate}deg) scale(${pos.scale})`,
-                  opacity: 0.6,
+                  top: `${pos.top}%`,
+                  left: `${pos.left}%`,
+                  transform: `rotate(${pos.rotate}deg)`,
                 }}
               >
                 <div className="pinned-card__pin">📌</div>
