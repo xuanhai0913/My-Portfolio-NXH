@@ -412,6 +412,102 @@
 }
 
 /* ========================================
+   END TRANSITION ARROW
+   ======================================== */
+
+.end-transition {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 150;
+  pointer-events: none;
+}
+
+.end-transition.visible {
+  opacity: 1;
+}
+
+.end-transition__line {
+  width: 2px;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, #000);
+  animation: drawLine 1s ease-out forwards;
+  transform-origin: top;
+}
+
+@keyframes drawLine {
+  from {
+    transform: scaleY(0);
+  }
+
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.end-transition__arrow {
+  width: 50px;
+  height: 50px;
+  background: #d4ff00;
+  border: 3px solid #000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: arrowPulse 1.5s ease-in-out infinite;
+  box-shadow: 4px 4px 0 0 #000;
+}
+
+.end-transition__arrow span {
+  font-size: 1.5rem;
+  font-weight: 900;
+  animation: arrowBounce 1s ease infinite;
+}
+
+@keyframes arrowPulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes arrowBounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(5px);
+  }
+}
+
+.end-transition__label {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #000;
+  background: #fff;
+  padding: 8px 16px;
+  border: 2px solid #000;
+}
+
+/* ========================================
    RESPONSIVE - All Screen Sizes
    ======================================== */
 
