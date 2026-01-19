@@ -452,22 +452,36 @@
   mask-image: linear-gradient(to bottom, black 50%, transparent 50%);
   mask-size: 100% 200%;
   mask-position: 0 100%;
-  webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 50%);
-  /* For Safari */
-  webkit-mask-size: 100% 200%;
-  webkit-mask-position: 0 100%;
-  animation: drawDown 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 50%);
+  -webkit-mask-size: 100% 200%;
+  -webkit-mask-position: 0 100%;
+  animation: drawDown 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    linePulse 3s ease-in-out infinite 1.5s;
+}
+
+@keyframes linePulse {
+
+  0%,
+  100% {
+    transform: scaleY(1);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: scaleY(1.05);
+    opacity: 0.6;
+  }
 }
 
 @keyframes drawDown {
   from {
     mask-position: 0 100%;
-    webkit-mask-position: 0 100%;
+    -webkit-mask-position: 0 100%;
   }
 
   to {
     mask-position: 0 0;
-    webkit-mask-position: 0 0;
+    -webkit-mask-position: 0 0;
   }
 }
 
@@ -475,26 +489,38 @@
 .brush-arrow-container {
   margin-top: -10px;
   /* Connect with line */
+  animation: floatContainer 3s ease-in-out infinite 2s;
+  /* Gentle Float */
 }
 
-.brush-arrow {
-  width: 60px;
-  height: auto;
-  opacity: 0.9;
-  mix-blend-mode: multiply;
-  /* Drawing effect */
-  mask-image: linear-gradient(to bottom, black 50%, transparent 50%);
-  mask-size: 100% 200%;
-  mask-position: 0 100%;
-  webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 50%);
-  webkit-mask-size: 100% 200%;
-  webkit-mask-position: 0 100%;
-  animation: drawDown 1s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.8s,
-    floatBrush 3s ease-in-out infinite 2s;
-  /* Float after drawing */
+/* Organic Sketch Wiggle */
+@keyframes sketchWiggle {
+  0% {
+    transform: rotate(0deg) scale(1) skew(0deg);
+  }
+
+  20% {
+    transform: rotate(-1deg) scale(1.02) skew(1deg);
+  }
+
+  40% {
+    transform: rotate(1deg) scale(0.98) skew(-1deg);
+  }
+
+  60% {
+    transform: rotate(-0.5deg) scale(1.01) skew(0.5deg);
+  }
+
+  80% {
+    transform: rotate(0.5deg) scale(0.99) skew(-0.5deg);
+  }
+
+  100% {
+    transform: rotate(0deg) scale(1) skew(0deg);
+  }
 }
 
-@keyframes floatBrush {
+@keyframes floatContainer {
 
   0%,
   100% {
@@ -504,6 +530,25 @@
   50% {
     transform: translateY(8px);
   }
+}
+
+.brush-arrow {
+  width: 60px;
+  height: auto;
+  opacity: 0.95;
+  mix-blend-mode: multiply;
+  /* Drawing effect */
+  mask-image: linear-gradient(to bottom, black 50%, transparent 50%);
+  mask-size: 100% 200%;
+  mask-position: 0 100%;
+  -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 50%);
+  -webkit-mask-size: 100% 200%;
+  -webkit-mask-position: 0 100%;
+  /* Draw first, then wiggle */
+  animation: drawDown 1s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.8s,
+    sketchWiggle 4s ease-in-out infinite 1.8s;
+  transform-origin: center top;
+}
 }
 
 .end-transition__label {
