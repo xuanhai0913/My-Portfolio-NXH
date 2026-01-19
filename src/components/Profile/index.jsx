@@ -9,7 +9,7 @@ const Profile = () => {
         {/* Left Content */}
         <div className="profile-content">
           <h1 className="profile-title">
-            <div className="title-row">
+            <span className="title-word">
               {"FULL-STACK".split("").map((char, index) => (
                 <span
                   key={`fs-${index}`}
@@ -19,8 +19,9 @@ const Profile = () => {
                   {char}
                 </span>
               ))}
-            </div>
-            <div className="title-row">
+            </span>
+            {" "}
+            <span className="title-word">
               <span className="title-highlight">
                 {"DEVELOPER".split("").map((char, index) => (
                   <span
@@ -32,7 +33,7 @@ const Profile = () => {
                   </span>
                 ))}
               </span>
-            </div>
+            </span>
           </h1>
 
           <div className="profile-description animate-up" style={{ animationDelay: '1.2s' }}>

@@ -29,18 +29,29 @@
 /* Title */
 .profile-title {
   font-family: var(--font-display);
-  font-size: clamp(3rem, 12vw, 9rem);
-  line-height: 0.85;
+  font-size: clamp(3rem, 10vw, 8rem);
+  /* Slightly reduced to fit better */
+  line-height: 1.1;
+  /* Adjusted for inline flow */
   margin-bottom: 2rem;
   letter-spacing: -0.03em;
   text-transform: uppercase;
   color: var(--color-black);
+  /* Ensure word wrapping logic works */
+  overflow-wrap: break-word;
+  max-width: 100%;
 }
 
-.title-row {
-  display: block;
-  overflow: hidden;
-  /* For reveal effect */
+.title-word {
+  display: inline-block;
+  white-space: nowrap;
+  vertical-align: bottom;
+  margin-right: 0.3em;
+  /* Spacing between words */
+}
+
+.title-word:last-child {
+  margin-right: 0;
 }
 
 /* Character Reveal Animation */
