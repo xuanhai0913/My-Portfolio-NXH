@@ -187,11 +187,26 @@ const Portfolio = () => {
             </div>
 
             <div className="card-actions">
-              {/* Simplified Actions for side-wheel */}
-              {project.demo && (
-                <a href={project.demo} target="_blank" rel="noopener noreferrer" className="wheel-btn">
-                  VIEW PROJECT
-                </a>
+              {/* Show all available links */}
+              {project.customLinks ? (
+                project.customLinks.map((link, i) => (
+                  <a key={i} href={link.url} target="_blank" rel="noopener noreferrer" className="wheel-btn">
+                    {link.label}
+                  </a>
+                ))
+              ) : (
+                <>
+                  {project.demo && (
+                    <a href={project.demo} target="_blank" rel="noopener noreferrer" className="wheel-btn primary">
+                      {project.hasVideoDemo ? 'WATCH DEMO' : 'VISIT SITE'}
+                    </a>
+                  )}
+                  {project.github && (
+                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="wheel-btn secondary">
+                      GITHUB
+                    </a>
+                  )}
+                </>
               )}
             </div>
           </div>
