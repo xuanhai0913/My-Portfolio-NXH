@@ -11,6 +11,8 @@ import prj8 from '../../images/project/prj8.png';
 import prj9 from '../../images/project/prj9.png';
 import prj10 from '../../images/project/prj10.png';
 import visionKey from '../../images/project/visionKey.png';
+import brushArrow from '../../images/brush-arrow.png';
+import brushLine from '../../images/brush-line.png';
 
 const Portfolio = () => {
   const sectionRef = useRef(null);
@@ -326,9 +328,11 @@ const Portfolio = () => {
 
         {/* End Transition Arrow */}
         <div className={`end-transition ${showEndArrow ? 'visible' : ''}`}>
-          <div className="end-transition__line"></div>
-          <div className="end-transition__arrow">
-            <span>↓</span>
+          <div className="brush-line-container">
+            <img src={brushLine} alt="" className="brush-line" />
+          </div>
+          <div className="brush-arrow-container">
+            <img src={brushArrow} alt="Scroll Down" className="brush-arrow" />
           </div>
           <div className="end-transition__label">CERTIFICATIONS</div>
         </div>

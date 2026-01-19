@@ -412,18 +412,18 @@
 }
 
 /* ========================================
-   END TRANSITION ARROW
+   END TRANSITION ARROW (BRUSH STYLE)
    ======================================== */
 
 .end-transition {
   position: absolute;
-  bottom: 80px;
+  bottom: 60px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
   opacity: 0;
   transition: opacity 0.5s ease;
   z-index: 150;
@@ -434,56 +434,67 @@
   opacity: 1;
 }
 
-.end-transition__line {
-  width: 2px;
-  height: 60px;
-  background: linear-gradient(to bottom, transparent, #000);
-  animation: drawLine 1s ease-out forwards;
-  transform-origin: top;
+/* Brush Line Animation */
+.brush-line-container {
+  width: 4px;
+  height: 80px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
 }
 
-@keyframes drawLine {
+.brush-line {
+  height: 100%;
+  width: auto;
+  opacity: 0.8;
+  mix-blend-mode: multiply;
+  /* Drawing effect from top to bottom */
+  mask-image: linear-gradient(to bottom, black 50%, transparent 50%);
+  mask-size: 100% 200%;
+  mask-position: 0 100%;
+  webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 50%);
+  /* For Safari */
+  webkit-mask-size: 100% 200%;
+  webkit-mask-position: 0 100%;
+  animation: drawDown 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes drawDown {
   from {
-    transform: scaleY(0);
+    mask-position: 0 100%;
+    webkit-mask-position: 0 100%;
   }
 
   to {
-    transform: scaleY(1);
+    mask-position: 0 0;
+    webkit-mask-position: 0 0;
   }
 }
 
-.end-transition__arrow {
-  width: 50px;
-  height: 50px;
-  background: #d4ff00;
-  border: 3px solid #000;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: arrowPulse 1.5s ease-in-out infinite;
-  box-shadow: 4px 4px 0 0 #000;
+/* Brush Arrow Animation */
+.brush-arrow-container {
+  margin-top: -10px;
+  /* Connect with line */
 }
 
-.end-transition__arrow span {
-  font-size: 1.5rem;
-  font-weight: 900;
-  animation: arrowBounce 1s ease infinite;
+.brush-arrow {
+  width: 60px;
+  height: auto;
+  opacity: 0.9;
+  mix-blend-mode: multiply;
+  /* Drawing effect */
+  mask-image: linear-gradient(to bottom, black 50%, transparent 50%);
+  mask-size: 100% 200%;
+  mask-position: 0 100%;
+  webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 50%);
+  webkit-mask-size: 100% 200%;
+  webkit-mask-position: 0 100%;
+  animation: drawDown 1s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.8s,
+    floatBrush 3s ease-in-out infinite 2s;
+  /* Float after drawing */
 }
 
-@keyframes arrowPulse {
-
-  0%,
-  100% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.1);
-  }
-}
-
-@keyframes arrowBounce {
+@keyframes floatBrush {
 
   0%,
   100% {
@@ -491,7 +502,7 @@
   }
 
   50% {
-    transform: translateY(5px);
+    transform: translateY(8px);
   }
 }
 
@@ -505,7 +516,18 @@
   background: #fff;
   padding: 8px 16px;
   border: 2px solid #000;
+  margin-top: 15px;
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards 1.5s;
 }
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+
 
 /* ========================================
    RESPONSIVE - All Screen Sizes
