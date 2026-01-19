@@ -104,17 +104,17 @@ const Portfolio = () => {
     }
   ];
 
-  // Pinned positions for each card after being viewed
+  // Pinned positions - spread evenly across the whole viewport
   const pinnedPositions = [
-    { x: -45, y: -35, rotate: -8, scale: 0.25 },
-    { x: 40, y: -30, rotate: 5, scale: 0.22 },
-    { x: -40, y: 25, rotate: -5, scale: 0.24 },
-    { x: 45, y: 30, rotate: 8, scale: 0.23 },
-    { x: -35, y: -5, rotate: -3, scale: 0.21 },
-    { x: 35, y: 0, rotate: 4, scale: 0.22 },
-    { x: -30, y: 35, rotate: -6, scale: 0.2 },
-    { x: 30, y: -35, rotate: 7, scale: 0.21 },
-    { x: 0, y: 40, rotate: 2, scale: 0.23 },
+    { x: -38, y: -32, rotate: -6, scale: 0.35 },  // Top Left
+    { x: 38, y: -30, rotate: 5, scale: 0.33 },    // Top Right
+    { x: -40, y: 0, rotate: -4, scale: 0.34 },    // Middle Left
+    { x: 40, y: 5, rotate: 6, scale: 0.32 },      // Middle Right
+    { x: -35, y: 30, rotate: -5, scale: 0.33 },   // Bottom Left
+    { x: 35, y: 32, rotate: 4, scale: 0.34 },     // Bottom Right
+    { x: 0, y: -35, rotate: 3, scale: 0.32 },     // Top Center
+    { x: -20, y: 38, rotate: -3, scale: 0.31 },   // Bottom Left-Center
+    { x: 20, y: 35, rotate: 2, scale: 0.33 },     // Bottom Right-Center
   ];
 
   useEffect(() => {
