@@ -47,18 +47,22 @@
 }
 
 /* Title Layer */
+/* Title Layer */
 .about-title {
   position: absolute;
   top: 15%;
   left: 50%;
   transform: translateX(-50%);
   font-family: var(--font-display);
-  font-size: clamp(3rem, 8vw, 6rem);
+  font-size: clamp(2rem, 6vw, 5rem);
+  /* Reduced max size */
   white-space: nowrap;
   margin: 0;
   z-index: 10;
   text-align: center;
-  width: 100%;
+  width: 90%;
+  /* Prevent full width bleed */
+  max-width: 1200px;
 }
 
 /* Grid Layout for Content (Used inside layers) */
@@ -71,7 +75,8 @@
   padding: 0 2rem;
   /* Vertically center the grid in the viewport */
   position: absolute;
-  top: 55%;
+  top: 60%;
+  /* Moved down slightly */
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 20;
