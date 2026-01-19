@@ -107,7 +107,7 @@ const Portfolio = () => {
   const leftProjects = allProjects.filter((_, i) => i % 2 === 0);
   const rightProjects = allProjects.filter((_, i) => i % 2 !== 0);
 
-  const itemSpacing = 45;
+  const itemSpacing = 60; // Increased spacing for smoother animation
 
   useEffect(() => {
     const handleScroll = () => {
