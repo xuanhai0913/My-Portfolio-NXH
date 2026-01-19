@@ -14,7 +14,8 @@ import visionKey from '../../images/project/visionKey.png';
 
 const Portfolio = () => {
   const sectionRef = useRef(null);
-  const [rotation, setRotation] = useState(0);
+  const [activeLeft, setActiveLeft] = useState(0);
+  const [activeRight, setActiveRight] = useState(0);
 
   const allProjects = [
     {
@@ -103,14 +104,9 @@ const Portfolio = () => {
     }
   ];
 
-  // Distribute to Left/Right
+  // Split projects: odd indices left, even indices right
   const leftProjects = allProjects.filter((_, i) => i % 2 === 0);
   const rightProjects = allProjects.filter((_, i) => i % 2 !== 0);
-
-  const itemSpacing = 55; // Degrees between items
-
-  // Initial offset to start first project in view
-  const initialOffset = -30;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -120,75 +116,72 @@ const Portfolio = () => {
       const sectionHeight = section.offsetHeight;
       const viewportHeight = window.innerHeight;
 
-      // Calculate scroll progress through section (0 to 1)
+      // Progress through the section (0 to 1)
       const scrolled = -rect.top;
       const totalScroll = sectionHeight - viewportHeight;
       const progress = Math.max(0, Math.min(1, scrolled / totalScroll));
 
-      // Calculate total rotation needed to show all projects
-      // 5 projects per side × itemSpacing + buffer for first/last visibility
-      const maxRotation = (5 * itemSpacing) + 60;
+      // Map progress to active card index
+      const leftIndex = Math.floor(progress * leftProjects.length);
+      const rightIndex = Math.floor(progress * rightProjects.length);
 
-      // Apply rotation with initial offset
-      const newRotation = initialOffset + (progress * maxRotation);
-      setRotation(newRotation);
+      setActiveLeft(Math.min(leftIndex, leftProjects.length - 1));
+      setActiveRight(Math.min(rightIndex, rightProjects.length - 1));
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [leftProjects.length, rightProjects.length]);
 
-  const renderCard = (project, index, side) => {
-    const itemAngle = index * itemSpacing;
+  const renderCard = (project, index, side, activeIndex) => {
     const variantClass = project.variant ? `card-${project.variant}` : '';
-    const wrapperRotate = side === 'left' ? rotation : -rotation;
-    const counterRotate = -wrapperRotate;
+    const isActive = index === activeIndex;
+    const isPast = index < activeIndex;
+    const isFuture = index > activeIndex;
+
+    let cardClass = 'slide-card';
+    if (isActive) cardClass += ' active';
+    if (isPast) cardClass += ' past';
+    if (isFuture) cardClass += ' future';
+    cardClass += ` ${side}`;
 
     return (
-      <div
-        key={index}
-        className="wheel-item"
-        style={{
-          transform: `rotate(${itemAngle}deg) translate(var(--radius)) rotate(${-itemAngle}deg) rotate(${counterRotate}deg)`
-        }}
-      >
-        <div className={`wheel-card ${variantClass}`}>
-          <div className="wheel-card__header">
-            <span>{(index + 1).toString().padStart(2, '0')}</span>
-            <span>{project.company || "PERSONAL"}</span>
-          </div>
+      <div key={index} className={`${cardClass} ${variantClass}`}>
+        <div className="slide-card__header">
+          <span>{(index * 2 + (side === 'right' ? 2 : 1)).toString().padStart(2, '0')}</span>
+          <span>{project.company || "PERSONAL"}</span>
+        </div>
 
-          <div className="wheel-card__image">
-            <img src={project.image} alt={project.title} />
-            {project.badge && <span className="wheel-card__badge">{project.badge}</span>}
-          </div>
+        <div className="slide-card__image">
+          <img src={project.image} alt={project.title} />
+          {project.badge && <span className="slide-card__badge">{project.badge}</span>}
+        </div>
 
-          <div className="wheel-card__body">
-            <h3>{project.title}</h3>
-            <p>{project.description}</p>
-            <div className="wheel-card__techs">
-              {project.technologies.map((tech, i) => (
-                <span key={i}>{tech}</span>
-              ))}
-            </div>
-            <div className="wheel-card__actions">
-              {project.demo && (
-                <a href={project.demo} target="_blank" rel="noopener noreferrer" className="wheel-card__btn">
-                  VISIT
-                </a>
-              )}
-              {project.github && (
-                <a href={project.github} target="_blank" rel="noopener noreferrer" className="wheel-card__btn wheel-card__btn--secondary">
-                  GITHUB
-                </a>
-              )}
-              {project.githubLinks && project.githubLinks.map((link, i) => (
-                <a key={i} href={link.url} target="_blank" rel="noopener noreferrer" className="wheel-card__btn wheel-card__btn--secondary">
-                  {link.label}
-                </a>
-              ))}
-            </div>
+        <div className="slide-card__body">
+          <h3>{project.title}</h3>
+          <p>{project.description}</p>
+          <div className="slide-card__techs">
+            {project.technologies.map((tech, i) => (
+              <span key={i}>{tech}</span>
+            ))}
+          </div>
+          <div className="slide-card__actions">
+            {project.demo && (
+              <a href={project.demo} target="_blank" rel="noopener noreferrer" className="slide-card__btn">
+                VISIT
+              </a>
+            )}
+            {project.github && (
+              <a href={project.github} target="_blank" rel="noopener noreferrer" className="slide-card__btn slide-card__btn--secondary">
+                GITHUB
+              </a>
+            )}
+            {project.githubLinks && project.githubLinks.map((link, i) => (
+              <a key={i} href={link.url} target="_blank" rel="noopener noreferrer" className="slide-card__btn slide-card__btn--secondary">
+                {link.label}
+              </a>
+            ))}
           </div>
         </div>
       </div>
@@ -200,23 +193,19 @@ const Portfolio = () => {
       <div className="portfolio-sticky">
         <h2 className="portfolio-title">PROJECTS_</h2>
 
-        <div className="wheels-container">
-          <div
-            className="wheel-wrapper wheel-wrapper--left"
-            style={{ transform: `translate(-50%, -50%) rotate(${rotation}deg)` }}
-          >
-            {leftProjects.map((p, i) => renderCard(p, i, 'left'))}
+        <div className="slide-container">
+          <div className="slide-track slide-track--left">
+            {leftProjects.map((p, i) => renderCard(p, i, 'left', activeLeft))}
           </div>
 
-          <div
-            className="wheel-wrapper wheel-wrapper--right"
-            style={{ transform: `translate(50%, -50%) rotate(${-rotation}deg)` }}
-          >
-            {rightProjects.map((p, i) => renderCard(p, i, 'right'))}
+          <div className="slide-track slide-track--right">
+            {rightProjects.map((p, i) => renderCard(p, i, 'right', activeRight))}
           </div>
         </div>
 
-        <div className="scroll-hint">SCROLL FOR GRAVITY</div>
+        <div className="portfolio-counter">
+          {String(activeLeft + activeRight + 2).padStart(2, '0')} / {String(allProjects.length).padStart(2, '0')}
+        </div>
       </div>
     </section>
   );
