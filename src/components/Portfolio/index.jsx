@@ -107,16 +107,30 @@ const Portfolio = () => {
   const leftProjects = allProjects.filter((_, i) => i % 2 === 0);
   const rightProjects = allProjects.filter((_, i) => i % 2 !== 0);
 
-  const itemSpacing = 60; // Increased spacing for smoother animation
+  const itemSpacing = 55; // Degrees between items
+
+  // Initial offset to start first project in view
+  const initialOffset = -30;
 
   useEffect(() => {
     const handleScroll = () => {
       if (!sectionRef.current) return;
       const section = sectionRef.current;
       const rect = section.getBoundingClientRect();
+      const sectionHeight = section.offsetHeight;
       const viewportHeight = window.innerHeight;
-      const scrolled = -rect.top + viewportHeight * 0.5;
-      const newRotation = scrolled * 0.1;
+
+      // Calculate scroll progress through section (0 to 1)
+      const scrolled = -rect.top;
+      const totalScroll = sectionHeight - viewportHeight;
+      const progress = Math.max(0, Math.min(1, scrolled / totalScroll));
+
+      // Calculate total rotation needed to show all projects
+      // 5 projects per side × itemSpacing + buffer for first/last visibility
+      const maxRotation = (5 * itemSpacing) + 60;
+
+      // Apply rotation with initial offset
+      const newRotation = initialOffset + (progress * maxRotation);
       setRotation(newRotation);
     };
 
