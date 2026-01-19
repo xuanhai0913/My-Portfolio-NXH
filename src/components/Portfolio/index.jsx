@@ -29,7 +29,7 @@ const Portfolio = () => {
     },
     {
       title: "Education English",
-      description: "Free English teaching platform for community. Comprehensive learning resources and support.",
+      description: "Free English teaching platform for community. Comprehensive learning resources.",
       image: prj6,
       demo: "https://ech.edu.vn",
       technologies: ["PHP", "MySQL", "WordPress"],
@@ -104,6 +104,19 @@ const Portfolio = () => {
     }
   ];
 
+  // Pinned positions for each card after being viewed
+  const pinnedPositions = [
+    { x: -45, y: -35, rotate: -8, scale: 0.25 },
+    { x: 40, y: -30, rotate: 5, scale: 0.22 },
+    { x: -40, y: 25, rotate: -5, scale: 0.24 },
+    { x: 45, y: 30, rotate: 8, scale: 0.23 },
+    { x: -35, y: -5, rotate: -3, scale: 0.21 },
+    { x: 35, y: 0, rotate: 4, scale: 0.22 },
+    { x: -30, y: 35, rotate: -6, scale: 0.2 },
+    { x: 30, y: -35, rotate: 7, scale: 0.21 },
+    { x: 0, y: 40, rotate: 2, scale: 0.23 },
+  ];
+
   useEffect(() => {
     const handleScroll = () => {
       if (!sectionRef.current) return;
@@ -118,7 +131,7 @@ const Portfolio = () => {
 
       setScrollProgress(progress);
 
-      // Calculate active project based on scroll
+      // Active card based on progress
       const projectIndex = Math.floor(progress * allProjects.length);
       setActiveIndex(Math.min(projectIndex, allProjects.length - 1));
     };
@@ -128,34 +141,26 @@ const Portfolio = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [allProjects.length]);
 
-  // Calculate individual card progress (0-1 for each card's visibility phase)
-  const getCardProgress = (index) => {
+  // Get card state: 'active', 'pinned', or 'waiting'
+  const getCardState = (index) => {
+    if (index === activeIndex) return 'active';
+    if (index < activeIndex) return 'pinned';
+    return 'waiting';
+  };
+
+  // Get transition progress within current card (0 to 1)
+  const getCardTransitionProgress = (index) => {
     const cardDuration = 1 / allProjects.length;
     const cardStart = index * cardDuration;
-    const cardProgress = (scrollProgress - cardStart) / cardDuration;
-    return Math.max(0, Math.min(1, cardProgress));
+    const localProgress = (scrollProgress - cardStart) / cardDuration;
+    return Math.max(0, Math.min(1, localProgress));
   };
 
   return (
     <section id="portfolio" className="portfolio-section" ref={sectionRef}>
       <div className="portfolio-sticky">
-        {/* Background Elements */}
-        <div className="portfolio-bg">
-          <div className="bg-line bg-line--1"></div>
-          <div className="bg-line bg-line--2"></div>
-          <div className="bg-line bg-line--3"></div>
-        </div>
-
         {/* Title */}
-        <h2 className="portfolio-title">
-          <span className="title-label">FEATURED</span>
-          <span className="title-main">PROJECTS_</span>
-        </h2>
-
-        {/* Progress Indicator */}
-        <div className="portfolio-progress">
-          <div className="progress-bar" style={{ width: `${scrollProgress * 100}%` }}></div>
-        </div>
+        <h2 className="portfolio-title">PROJECTS_</h2>
 
         {/* Counter */}
         <div className="portfolio-counter">
@@ -164,93 +169,122 @@ const Portfolio = () => {
           <span className="counter-total">{String(allProjects.length).padStart(2, '0')}</span>
         </div>
 
-        {/* Project Cards - Scrollytelling Stack */}
-        <div className="project-stage">
+        {/* Pinboard Background - shows pinned cards */}
+        <div className="pinboard">
           {allProjects.map((project, index) => {
-            const cardProgress = getCardProgress(index);
-            const isActive = index === activeIndex;
-            const isPast = index < activeIndex;
-            const isFuture = index > activeIndex;
+            const state = getCardState(index);
+            const pos = pinnedPositions[index];
+            const transitionProgress = getCardTransitionProgress(index);
 
-            // Calculate transforms based on progress
-            let transform = '';
-            let opacity = 0;
-            let scale = 0.9;
-            let blur = 10;
-
-            if (isActive) {
-              // Entrance: scale up and fade in during first half of progress
-              // Stay visible during middle
-              // Exit: scale down and fade out during last half
-              const entranceProgress = Math.min(cardProgress * 2, 1);
-              const exitProgress = Math.max((cardProgress - 0.5) * 2, 0);
-
-              opacity = entranceProgress - exitProgress * 0.5;
-              scale = 0.8 + entranceProgress * 0.2 - exitProgress * 0.1;
-              blur = 10 * (1 - entranceProgress);
-              transform = `scale(${scale}) translateY(${(1 - entranceProgress) * 50 + exitProgress * -30}px)`;
-            } else if (isPast) {
-              opacity = 0;
-              transform = 'scale(0.8) translateY(-100px)';
-            } else if (isFuture) {
-              opacity = 0;
-              transform = 'scale(0.8) translateY(100px)';
-            }
-
-            const variantClass = project.variant ? `card-${project.variant}` : '';
+            // Only show pinned cards in the pinboard
+            if (state !== 'pinned') return null;
 
             return (
-              <article
-                key={index}
-                className={`project-card ${variantClass} ${isActive ? 'active' : ''}`}
+              <div
+                key={`pinned-${index}`}
+                className={`pinned-card ${project.variant ? `card-${project.variant}` : ''}`}
                 style={{
-                  transform,
-                  opacity,
-                  filter: `blur(${blur}px)`,
-                  zIndex: isActive ? 10 : 1
+                  transform: `translate(${pos.x}%, ${pos.y}%) rotate(${pos.rotate}deg) scale(${pos.scale})`,
+                  opacity: 0.6,
                 }}
               >
-                <div className="card-inner">
-                  {/* Left: Image */}
-                  <div className="card-media">
-                    <div className="media-frame">
-                      <img src={project.image} alt={project.title} />
-                      {project.badge && <span className="card-badge">{project.badge}</span>}
-                    </div>
-                    <div className="media-index">{String(index + 1).padStart(2, '0')}</div>
+                <div className="pinned-card__pin">📌</div>
+                <img src={project.image} alt={project.title} />
+                <div className="pinned-card__label">{project.title}</div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Active Card Stage */}
+        <div className="card-stage">
+          {allProjects.map((project, index) => {
+            const state = getCardState(index);
+            const transitionProgress = getCardTransitionProgress(index);
+            const variantClass = project.variant ? `card-${project.variant}` : '';
+
+            let style = {};
+            let className = `story-card ${variantClass}`;
+
+            if (state === 'active') {
+              className += ' active';
+              // Entrance animation (first 30%), Stay (40%-70%), Exit animation (last 30%)
+              if (transitionProgress < 0.3) {
+                // Entering
+                const enterProgress = transitionProgress / 0.3;
+                style = {
+                  transform: `translateY(${(1 - enterProgress) * 100}px) scale(${0.9 + enterProgress * 0.1})`,
+                  opacity: enterProgress,
+                };
+              } else if (transitionProgress < 0.7) {
+                // Staying visible
+                style = {
+                  transform: 'translateY(0) scale(1)',
+                  opacity: 1,
+                };
+              } else {
+                // Exiting - moving to pinboard position
+                const exitProgress = (transitionProgress - 0.7) / 0.3;
+                const pos = pinnedPositions[index];
+                style = {
+                  transform: `
+                    translate(${exitProgress * pos.x}%, ${exitProgress * pos.y}%)
+                    rotate(${exitProgress * pos.rotate}deg)
+                    scale(${1 - exitProgress * (1 - pos.scale)})
+                  `,
+                  opacity: 1 - exitProgress * 0.4,
+                };
+              }
+            } else if (state === 'waiting') {
+              className += ' waiting';
+              style = {
+                transform: 'translateY(100px) scale(0.9)',
+                opacity: 0,
+                pointerEvents: 'none',
+              };
+            } else {
+              // Pinned - handled in pinboard layer
+              return null;
+            }
+
+            return (
+              <article key={index} className={className} style={style}>
+                <div className="story-card__inner">
+                  {/* Image Side */}
+                  <div className="story-card__media">
+                    <img src={project.image} alt={project.title} />
+                    {project.badge && <span className="story-card__badge">{project.badge}</span>}
+                    <div className="story-card__index">{String(index + 1).padStart(2, '0')}</div>
                   </div>
 
-                  {/* Right: Content */}
-                  <div className="card-content">
+                  {/* Content Side */}
+                  <div className="story-card__content">
                     {project.company && (
-                      <div className="card-company">{project.company}</div>
+                      <div className="story-card__company">{project.company}</div>
                     )}
-                    <h3 className="card-title">{project.title}</h3>
-                    <p className="card-description">{project.description}</p>
+                    <h3 className="story-card__title">{project.title}</h3>
+                    <p className="story-card__desc">{project.description}</p>
 
-                    <div className="card-techs">
+                    <div className="story-card__techs">
                       {project.technologies.map((tech, i) => (
-                        <span key={i} className="tech-tag">{tech}</span>
+                        <span key={i}>{tech}</span>
                       ))}
                     </div>
 
-                    <div className="card-actions">
+                    <div className="story-card__actions">
                       {project.demo && (
-                        <a href={project.demo} target="_blank" rel="noopener noreferrer" className="btn btn--primary">
-                          <span>Visit Site</span>
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <path d="M7 17L17 7M17 7H7M17 7V17" />
-                          </svg>
+                        <a href={project.demo} target="_blank" rel="noopener noreferrer" className="btn-primary">
+                          Visit Site →
                         </a>
                       )}
                       {project.github && (
-                        <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn btn--secondary">
-                          <span>GitHub</span>
+                        <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn-secondary">
+                          GitHub
                         </a>
                       )}
                       {project.githubLinks && project.githubLinks.map((link, i) => (
-                        <a key={i} href={link.url} target="_blank" rel="noopener noreferrer" className="btn btn--secondary">
-                          <span>{link.label}</span>
+                        <a key={i} href={link.url} target="_blank" rel="noopener noreferrer" className="btn-secondary">
+                          {link.label}
                         </a>
                       ))}
                     </div>
@@ -261,9 +295,9 @@ const Portfolio = () => {
           })}
         </div>
 
-        {/* Scroll Hint */}
-        <div className="scroll-hint" style={{ opacity: scrollProgress < 0.1 ? 1 : 0 }}>
-          <span>Scroll to explore</span>
+        {/* Scroll Indicator */}
+        <div className="scroll-indicator" style={{ opacity: scrollProgress < 0.05 ? 1 : 0 }}>
+          <span>Scroll to explore projects</span>
           <div className="scroll-arrow">↓</div>
         </div>
       </div>
