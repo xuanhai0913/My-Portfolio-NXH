@@ -1,14 +1,18 @@
 /* ============================================
-   PINBOARD SCROLLYTELLING PORTFOLIO
-   Cards get pinned to background after viewing
+   STACKING CARDS PORTFOLIO
+   Clean, organized stacking effect
    ============================================ */
 
 .portfolio-section {
-  height: 700vh;
-  /* Long scroll for story */
+  height: 600vh;
   position: relative;
   overflow: visible;
-  background: #f5f5f5;
+  /* Grid Background Pattern */
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    #f8f8f8;
+  background-size: 50px 50px;
 }
 
 .portfolio-sticky {
@@ -20,37 +24,38 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  /* Gradient overlay */
   background:
-    radial-gradient(circle at 20% 20%, rgba(212, 255, 0, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(212, 255, 0, 0.05) 0%, transparent 50%),
-    #f5f5f5;
+    radial-gradient(ellipse at center, rgba(255, 255, 255, 0.9) 0%, transparent 70%),
+    radial-gradient(circle at 10% 90%, rgba(212, 255, 0, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 90% 10%, rgba(212, 255, 0, 0.1) 0%, transparent 40%);
 }
 
 /* Title */
 .portfolio-title {
   position: absolute;
-  top: 40px;
+  top: 30px;
   left: 50%;
   transform: translateX(-50%);
   font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
   font-weight: 900;
   z-index: 100;
   background: #fff;
-  padding: 0.5rem 1.5rem;
-  border: 4px solid #000;
-  box-shadow: 6px 6px 0 0 #000;
+  padding: 0.4rem 1.2rem;
+  border: 3px solid #000;
+  box-shadow: 5px 5px 0 0 #000;
   text-transform: uppercase;
 }
 
 /* Counter */
 .portfolio-counter {
   position: absolute;
-  bottom: 40px;
+  bottom: 25px;
   left: 50%;
   transform: translateX(-50%);
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 700;
   z-index: 100;
   display: flex;
@@ -58,11 +63,11 @@
   gap: 6px;
   background: #000;
   color: #fff;
-  padding: 10px 20px;
+  padding: 8px 16px;
 }
 
 .counter-current {
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: #d4ff00;
 }
 
@@ -75,7 +80,7 @@
 }
 
 /* ========================================
-   PINBOARD - Background with pinned cards
+   PINBOARD - Background with stacked cards
    ======================================== */
 
 .pinboard {
@@ -89,35 +94,36 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 350px;
+  width: 280px;
   background: #fff;
-  border: 3px solid #000;
-  box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.15);
-  transition: all 0.5s ease-out;
-  filter: blur(2px) grayscale(0.5);
+  border: 2px solid #000;
+  box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.12);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: blur(1px) grayscale(0.3);
+  opacity: 0.7;
 }
 
 .pinned-card__pin {
   position: absolute;
-  top: -15px;
+  top: -12px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   z-index: 10;
-  filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.3));
 }
 
 .pinned-card img {
   width: 100%;
-  height: 120px;
+  height: 100px;
   object-fit: cover;
   border-bottom: 2px solid #000;
 }
 
 .pinned-card__label {
-  padding: 10px;
+  padding: 8px 10px;
   font-family: var(--font-display);
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   font-weight: 700;
   text-transform: uppercase;
   text-align: center;
@@ -126,7 +132,6 @@
   text-overflow: ellipsis;
 }
 
-/* Dark variant for pinned */
 .pinned-card.card-dark {
   background: #222;
   color: #fff;
@@ -143,12 +148,12 @@
 .card-stage {
   position: relative;
   width: 100%;
-  max-width: 900px;
+  max-width: 850px;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 10;
-  padding: 0 30px;
+  padding: 0 20px;
 }
 
 /* Story Card - Active viewing card */
@@ -156,20 +161,20 @@
   position: absolute;
   width: 100%;
   background: #fff;
-  border: 4px solid #000;
-  box-shadow: 16px 16px 0 0 #000;
+  border: 3px solid #000;
+  box-shadow: 12px 12px 0 0 #000;
   will-change: transform, opacity;
   transition: box-shadow 0.3s ease;
 }
 
 .story-card.active:hover {
-  box-shadow: 20px 20px 0 0 #000;
+  box-shadow: 16px 16px 0 0 #000;
 }
 
 .story-card__inner {
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  min-height: 420px;
+  grid-template-columns: 1.1fr 1fr;
+  min-height: 380px;
 }
 
 /* Media Side */
@@ -192,23 +197,23 @@
 
 .story-card__badge {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 15px;
+  right: 15px;
   background: #d4ff00;
   color: #000;
   font-family: var(--font-display);
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 700;
-  padding: 6px 14px;
+  padding: 5px 12px;
   border: 2px solid #000;
 }
 
 .story-card__index {
   position: absolute;
-  bottom: 15px;
-  left: 20px;
+  bottom: 10px;
+  left: 15px;
   font-family: var(--font-display);
-  font-size: 5rem;
+  font-size: 4rem;
   font-weight: 900;
   color: rgba(255, 255, 255, 0.15);
   line-height: 1;
@@ -216,26 +221,26 @@
 
 /* Content Side */
 .story-card__content {
-  padding: 35px;
+  padding: 30px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 12px;
-  border-left: 4px solid #000;
+  gap: 10px;
+  border-left: 3px solid #000;
 }
 
 .story-card__company {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 700;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #888;
 }
 
 .story-card__title {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
   font-weight: 900;
   line-height: 1;
   text-transform: uppercase;
@@ -244,7 +249,7 @@
 
 .story-card__desc {
   font-family: var(--font-mono);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   line-height: 1.5;
   opacity: 0.8;
   margin: 0;
@@ -254,17 +259,17 @@
 .story-card__techs {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 8px;
+  gap: 5px;
+  margin-top: 6px;
 }
 
 .story-card__techs span {
   background: #000;
   color: #fff;
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: 0.55rem;
   font-weight: 700;
-  padding: 5px 10px;
+  padding: 4px 8px;
   text-transform: uppercase;
 }
 
@@ -272,19 +277,19 @@
 .story-card__actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 15px;
+  gap: 8px;
+  margin-top: 12px;
 }
 
 .btn-primary,
 .btn-secondary {
   font-family: var(--font-display);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  padding: 12px 20px;
+  padding: 10px 16px;
   text-decoration: none;
   text-transform: uppercase;
-  border: 3px solid #000;
+  border: 2px solid #000;
   transition: all 0.2s ease;
 }
 
@@ -367,24 +372,24 @@
 
 .scroll-indicator {
   position: absolute;
-  bottom: 100px;
+  bottom: 80px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  opacity: 0.6;
+  opacity: 0.5;
   transition: opacity 0.3s ease;
   z-index: 50;
 }
 
 .scroll-arrow {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   animation: bounce 2s infinite;
 }
 
@@ -399,35 +404,81 @@
   }
 
   40% {
-    transform: translateY(8px);
+    transform: translateY(6px);
   }
 
   60% {
-    transform: translateY(4px);
+    transform: translateY(3px);
   }
 }
 
 /* ========================================
-   RESPONSIVE
+   RESPONSIVE - All Screen Sizes
    ======================================== */
 
-@media (max-width: 900px) {
-  .story-card__inner {
-    grid-template-columns: 1fr;
+/* Large Desktop */
+@media (min-width: 1400px) {
+  .card-stage {
+    max-width: 1000px;
   }
 
-  .story-card__media {
-    height: 220px;
+  .story-card__inner {
+    min-height: 450px;
   }
 
   .story-card__content {
-    border-left: none;
-    border-top: 4px solid #000;
-    padding: 25px;
+    padding: 40px;
   }
 
-  .story-card__index {
-    font-size: 3rem;
+  .pinned-card {
+    width: 320px;
+  }
+
+  .pinned-card img {
+    height: 120px;
+  }
+}
+
+/* Medium Desktop */
+@media (max-width: 1200px) {
+  .card-stage {
+    max-width: 750px;
+  }
+
+  .story-card__inner {
+    min-height: 350px;
+  }
+
+  .pinned-card {
+    width: 240px;
+  }
+
+  .pinned-card img {
+    height: 85px;
+  }
+}
+
+/* Tablet Landscape */
+@media (max-width: 1024px) {
+  .card-stage {
+    max-width: 650px;
+  }
+
+  .story-card__inner {
+    min-height: 320px;
+  }
+
+  .story-card__content {
+    padding: 25px;
+    gap: 8px;
+  }
+
+  .story-card__title {
+    font-size: 1.3rem;
+  }
+
+  .story-card__desc {
+    font-size: 0.75rem;
   }
 
   .pinned-card {
@@ -435,18 +486,65 @@
   }
 
   .pinned-card img {
-    height: 80px;
+    height: 70px;
+  }
+
+  .pinned-card__label {
+    font-size: 0.55rem;
+    padding: 6px;
   }
 }
 
-@media (max-width: 600px) {
-  .portfolio-title {
-    font-size: 1.5rem;
-    padding: 0.4rem 1rem;
+/* Tablet Portrait */
+@media (max-width: 900px) {
+  .story-card__inner {
+    grid-template-columns: 1fr;
+    min-height: auto;
   }
 
-  .story-card {
-    margin: 0 15px;
+  .story-card__media {
+    height: 200px;
+  }
+
+  .story-card__content {
+    border-left: none;
+    border-top: 3px solid #000;
+    padding: 20px;
+  }
+
+  .story-card__index {
+    font-size: 3rem;
+  }
+
+  .pinned-card {
+    width: 160px;
+  }
+
+  .pinned-card img {
+    height: 55px;
+  }
+}
+
+/* Mobile Landscape */
+@media (max-width: 768px) {
+  .portfolio-title {
+    font-size: 1.2rem;
+    padding: 0.3rem 0.8rem;
+    top: 20px;
+  }
+
+  .portfolio-counter {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    bottom: 20px;
+  }
+
+  .counter-current {
+    font-size: 1.2rem;
+  }
+
+  .card-stage {
+    padding: 0 15px;
   }
 
   .story-card__media {
@@ -454,20 +552,97 @@
   }
 
   .story-card__content {
-    padding: 20px;
+    padding: 18px;
   }
 
   .story-card__title {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
   }
 
   .story-card__desc {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   .btn-primary,
   .btn-secondary {
-    padding: 10px 14px;
-    font-size: 0.7rem;
+    padding: 8px 12px;
+    font-size: 0.65rem;
+  }
+
+  .pinned-card {
+    width: 130px;
+  }
+
+  .pinned-card img {
+    height: 45px;
+  }
+
+  .pinned-card__label {
+    font-size: 0.5rem;
+    padding: 5px;
+  }
+
+  .scroll-indicator {
+    bottom: 60px;
+  }
+}
+
+/* Mobile Portrait */
+@media (max-width: 480px) {
+  .portfolio-section {
+    background-size: 30px 30px;
+  }
+
+  .portfolio-title {
+    font-size: 1rem;
+  }
+
+  .story-card__media {
+    height: 150px;
+  }
+
+  .story-card__content {
+    padding: 15px;
+    gap: 6px;
+  }
+
+  .story-card__title {
+    font-size: 1rem;
+  }
+
+  .story-card__desc {
+    font-size: 0.65rem;
+  }
+
+  .story-card__techs span {
+    font-size: 0.5rem;
+    padding: 3px 6px;
+  }
+
+  .story-card__actions {
+    gap: 6px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 7px 10px;
+    font-size: 0.6rem;
+  }
+
+  .pinned-card {
+    width: 100px;
+  }
+
+  .pinned-card img {
+    height: 35px;
+  }
+
+  .pinned-card__label {
+    font-size: 0.45rem;
+    padding: 4px;
   }
 }
