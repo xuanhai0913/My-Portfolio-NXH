@@ -51,7 +51,12 @@ const Portfolio = () => {
       technologies: ["Swift", "Next.js", "AI"],
       badge: "AI",
       variant: "accent",
-      demo: "https://visionpremium.hailamdev.space"
+      demo: "https://visionpremium.hailamdev.space",
+      githubLinks: [
+        { url: "https://github.com/xuanhai0913/Vision-Key", label: "MacOS" },
+        { url: "https://github.com/xuanhai0913/Extension-Vision-Premium", label: "Premium" },
+        { url: "https://github.com/xuanhai0913/Extension-Vision-Key", label: "Standard" }
+      ]
     },
     {
       title: "LLM Unit Test Gen",
@@ -164,6 +169,11 @@ const Portfolio = () => {
                   GITHUB
                 </a>
               )}
+              {project.githubLinks && project.githubLinks.map((link, i) => (
+                <a key={i} href={link.url} target="_blank" rel="noopener noreferrer" className="wheel-card__btn wheel-card__btn--secondary">
+                  {link.label}
+                </a>
+              ))}
             </div>
           </div>
         </div>
