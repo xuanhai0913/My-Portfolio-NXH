@@ -9,18 +9,40 @@ const Profile = () => {
         {/* Left Content */}
         <div className="profile-content">
           <h1 className="profile-title">
-            FULL-STACK <br />
-            <span className="title-highlight">DEVELOPER</span>
+            <div className="title-row">
+              {"FULL-STACK".split("").map((char, index) => (
+                <span
+                  key={`fs-${index}`}
+                  className="char-reveal"
+                  style={{ animationDelay: `${0.1 + index * 0.05}s` }}
+                >
+                  {char}
+                </span>
+              ))}
+            </div>
+            <div className="title-row">
+              <span className="title-highlight">
+                {"DEVELOPER".split("").map((char, index) => (
+                  <span
+                    key={`dev-${index}`}
+                    className="char-reveal"
+                    style={{ animationDelay: `${0.6 + index * 0.05}s` }}
+                  >
+                    {char}
+                  </span>
+                ))}
+              </span>
+            </div>
           </h1>
 
-          <div className="profile-description">
+          <div className="profile-description animate-up" style={{ animationDelay: '1.2s' }}>
             <p>
               Building digital experiences with modern web technologies.
               Passionate about creating innovative solutions.
             </p>
           </div>
 
-          <div className="profile-actions">
+          <div className="profile-actions animate-up" style={{ animationDelay: '1.4s' }}>
             <a
               href="/CV_NguyenXuanHai.pdf"
               download="CV_NguyenXuanHai.pdf"
@@ -32,7 +54,7 @@ const Profile = () => {
         </div>
 
         {/* Right - Profile Image */}
-        <div className="profile-image-wrapper">
+        <div className="profile-image-wrapper animate-reveal" style={{ animationDelay: '0.5s' }}>
           <div className="profile-image-container">
             <img
               src={profileImage}
@@ -41,7 +63,7 @@ const Profile = () => {
               loading="eager"
             />
           </div>
-          <div className="profile-badge">
+          <div className="profile-badge float-animation">
             Nguyễn Xuân Hải
           </div>
         </div>
