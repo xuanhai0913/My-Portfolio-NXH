@@ -53,6 +53,32 @@ const Certifications = () => {
   const [messageIndex, setMessageIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 
+  // Scrollytelling state
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  // Scroll progress tracking for scrollytelling
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
+
+      const rect = sectionRef.current.getBoundingClientRect();
+      const sectionHeight = sectionRef.current.offsetHeight;
+      const viewportHeight = window.innerHeight;
+
+      // Calculate progress: 0 when section enters, 1 when section exits
+      const scrolled = -rect.top;
+      const totalScrollable = sectionHeight - viewportHeight;
+      const progress = Math.max(0, Math.min(1, scrolled / totalScrollable));
+
+      setScrollProgress(progress);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial check
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   // Typewriter effect
   useEffect(() => {
     const currentMessage = typingMessages[messageIndex];
@@ -156,59 +182,108 @@ const Certifications = () => {
     return () => observer.disconnect();
   }, []);
 
-  const handleViewCertificate = (url) => {
-    window.open(url, '_blank', 'noopener,noreferrer');
+  // Calculate phase-based visibility for scrollytelling
+  const getCardProgress = (index) => {
+    // Phase mapping: 
+    // - Featured (index 0): visible from 0.2 to 1
+    // - Card 1: visible from 0.4 to 1
+    // - Card 2: visible from 0.6 to 1
+    const phases = [0.2, 0.4, 0.6];
+    const start = phases[index] || 0.6;
+    const cardProgress = Math.max(0, Math.min(1, (scrollProgress - start) / 0.2));
+    return cardProgress;
   };
+
+  const headerOpacity = Math.min(1, scrollProgress / 0.15);
+  const headerTranslateY = Math.max(0, 30 - scrollProgress * 200);
 
   return (
     <section id="certifications" className="certifications-section" ref={sectionRef}>
-      {/* Animated matrix background */}
-      <canvas ref={canvasRef} className="matrix-bg" />
-      <div className="overlay-gradient" />
+      {/* Sticky wrapper for scrollytelling */}
+      <div className="certifications-sticky">
+        {/* Animated matrix background */}
+        <canvas ref={canvasRef} className="matrix-bg" />
+        <div className="overlay-gradient" />
 
-      <div className="certifications-content">
-        <div className="certifications-header">
-          <span className="terminal-tag">&lt;certifications&gt;</span>
-          <h2 className="certifications-title">
-            <span className="highlight">Verified</span> Credentials
-          </h2>
-          <p className="certifications-subtitle">
-            <span className="typed-text">{displayText}</span>
-            <span className="cursor">|</span>
-          </p>
+        <div className="certifications-content">
+          <div
+            className="certifications-header"
+            style={{
+              opacity: headerOpacity,
+              transform: `translateY(${headerTranslateY}px)`
+            }}
+          >
+            <span className="terminal-tag">&lt;certifications&gt;</span>
+            <h2 className="certifications-title">
+              <span className="highlight">Verified</span> Credentials
+              {/* CSS-based brush underline */}
+              <span className="brush-underline" style={{
+                transform: `scaleX(${Math.min(1, scrollProgress / 0.25)})`,
+                opacity: scrollProgress > 0.1 ? 1 : 0
+              }} />
+            </h2>
+            <p className="certifications-subtitle">
+              <span className="typed-text">{displayText}</span>
+              <span className="cursor">|</span>
+            </p>
+          </div>
+
+          {/* Creative asymmetric layout with scroll-bound animations */}
+          <div className="cert-showcase">
+            {certificates.map((cert, index) => {
+              const cardProg = getCardProgress(index);
+              const isVisible = cardProg > 0;
+              const translateX = cert.featured
+                ? -100 + cardProg * 100
+                : 100 - cardProg * 100;
+              const cardOpacity = cardProg;
+              const cardScale = 0.8 + cardProg * 0.2;
+
+              return (
+                <div
+                  key={cert.id}
+                  className={`cert-card ${cert.featured ? 'featured' : ''} ${isVisible ? 'visible' : ''}`}
+                  style={{
+                    '--i': index,
+                    opacity: cardOpacity,
+                    transform: `translateX(${translateX}px) scale(${cardScale})`,
+                    pointerEvents: isVisible ? 'auto' : 'none'
+                  }}
+                  onClick={() => handleViewCertificate(cert.verifyUrl)}
+                >
+                  {cert.featured && (
+                    <div className="brush-circle" style={{
+                      opacity: cardProg > 0.5 ? (cardProg - 0.5) * 2 : 0
+                    }} />
+                  )}
+                  <div className="card-glow" />
+                  <div className="cert-image-wrapper">
+                    <img src={cert.thumbnail} alt={cert.title} loading="lazy" />
+                    <div className="scan-line" />
+                  </div>
+
+                  <div className="cert-info">
+                    <span className="cert-issuer">{cert.issuer}</span>
+                    <h3 className="cert-title">{cert.title}</h3>
+                    <p className="cert-desc">{cert.description}</p>
+
+                    <button className="verify-btn">
+                      <span className="btn-text">Verify</span>
+                      <span className="btn-icon">→</span>
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <span
+            className="terminal-tag closing"
+            style={{
+              opacity: scrollProgress > 0.85 ? (scrollProgress - 0.85) / 0.15 : 0
+            }}
+          >&lt;/certifications&gt;</span>
         </div>
-
-        {/* Creative asymmetric layout */}
-        <div className="cert-showcase">
-          {certificates.map((cert, index) => (
-            <div
-              key={cert.id}
-              className={`cert-card ${cert.featured ? 'featured' : ''} hidden`}
-              ref={el => certRefs.current[index] = el}
-              style={{ '--i': index }}
-              onClick={() => handleViewCertificate(cert.verifyUrl)}
-            >
-              <div className="card-glow" />
-              <div className="cert-image-wrapper">
-                <img src={cert.thumbnail} alt={cert.title} loading="lazy" />
-                <div className="scan-line" />
-              </div>
-
-              <div className="cert-info">
-                <span className="cert-issuer">{cert.issuer}</span>
-                <h3 className="cert-title">{cert.title}</h3>
-                <p className="cert-desc">{cert.description}</p>
-
-                <button className="verify-btn">
-                  <span className="btn-text">Verify</span>
-                  <span className="btn-icon">→</span>
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <span className="terminal-tag closing">&lt;/certifications&gt;</span>
       </div>
     </section>
   );

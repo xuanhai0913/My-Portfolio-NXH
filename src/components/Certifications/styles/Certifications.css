@@ -1,22 +1,32 @@
 /* ===================================
-   CERTIFICATIONS - IT/DEV THEME
+   CERTIFICATIONS - SCROLLYTELLING
    Matrix animation + Creative Layout
    =================================== */
 
 .certifications-section {
     position: relative;
-    min-height: 90vh;
+    min-height: 300vh;
+    /* Extended for scrollytelling */
     width: 100vw;
     margin: 0;
-    padding: 5rem 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 0;
     overflow: hidden;
     background: #0a0a0f;
     box-sizing: border-box;
     left: 50%;
     transform: translateX(-50%);
+}
+
+/* Sticky container for scrollytelling */
+.certifications-sticky {
+    position: sticky;
+    top: 0;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem 0;
 }
 
 /* Matrix Canvas Background */
@@ -134,28 +144,78 @@
     margin: 0 auto;
 }
 
-/* Card Base */
+/* Card Base - Scroll-bound visibility */
 .cert-card {
     position: relative;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(74, 144, 226, 0.2);
     border-radius: 16px;
-    overflow: hidden;
+    overflow: visible;
+    /* Allow brush decorations to overflow */
     cursor: pointer;
-    opacity: 0;
-    transform: translateY(40px) scale(0.95);
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    transition-delay: calc(var(--i) * 0.15s);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    /* Opacity and transform controlled by inline styles from JS */
 }
 
-.cert-card.hidden {
-    opacity: 0;
-    transform: translateY(40px) scale(0.95);
+.cert-card.visible {
+    /* Card is visible when scroll has reached its phase */
 }
 
-.cert-card.reveal {
-    opacity: 1;
-    transform: translateY(0) scale(1);
+/* ======================================
+   BRUSH DECORATIONS (CSS-based)
+   ====================================== */
+
+/* Brush underline for title */
+.brush-underline {
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(90deg,
+            transparent 0%,
+            #4a90e2 10%,
+            #63b3ed 50%,
+            #4a90e2 90%,
+            transparent 100%);
+    border-radius: 2px;
+    transform-origin: left center;
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    filter: blur(0.5px);
+}
+
+/* Brush circle around featured card */
+.brush-circle {
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    right: -15px;
+    bottom: -15px;
+    border: 3px solid rgba(74, 144, 226, 0.6);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10;
+    animation: pulseCircle 3s ease-in-out infinite;
+    /* Organic imperfect look */
+    border-top-width: 2px;
+    border-right-width: 4px;
+    border-bottom-width: 3px;
+    border-left-width: 2px;
+}
+
+@keyframes pulseCircle {
+
+    0%,
+    100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 0.6;
+    }
+
+    50% {
+        transform: scale(1.02) rotate(2deg);
+        opacity: 0.9;
+    }
 }
 
 /* Featured Card - Spans 2 rows */
