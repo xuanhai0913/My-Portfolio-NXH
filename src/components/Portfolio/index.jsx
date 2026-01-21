@@ -173,14 +173,33 @@ const Portfolio = () => {
     return Math.max(0, Math.min(1, pinningProgress));
   };
 
+  // Calculate intro phase (0-10% of scroll)
+  const introProgress = Math.min(1, scrollProgress * 10);
+  const titleOpacity = introProgress;
+  const titleScale = 0.8 + introProgress * 0.2;
+  const titleY = 50 - introProgress * 50;
+
   return (
     <section id="portfolio" className="portfolio-section" ref={sectionRef}>
       <div className="portfolio-sticky">
-        {/* Title */}
-        <h2 className="portfolio-title">PROJECTS_</h2>
+        {/* Animated Title with scroll-based reveal */}
+        <h2
+          className="portfolio-title"
+          style={{
+            opacity: titleOpacity,
+            transform: `translateY(${titleY}px) scale(${titleScale})`
+          }}
+        >
+          PROJECTS_
+        </h2>
 
-        {/* Counter */}
-        <div className="portfolio-counter">
+        {/* Counter - fade in after title */}
+        <div
+          className="portfolio-counter"
+          style={{
+            opacity: Math.max(0, (scrollProgress - 0.05) * 10)
+          }}
+        >
           <span className="counter-current">{String(activeIndex + 1).padStart(2, '0')}</span>
           <span className="counter-divider">/</span>
           <span className="counter-total">{String(allProjects.length).padStart(2, '0')}</span>
