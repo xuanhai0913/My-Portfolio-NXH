@@ -182,6 +182,11 @@ const Certifications = () => {
     return () => observer.disconnect();
   }, []);
 
+  // Handle certificate click
+  const handleViewCertificate = (url) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
+
   // Calculate phase-based visibility for scrollytelling
   const getCardProgress = (index) => {
     // Phase mapping: 
