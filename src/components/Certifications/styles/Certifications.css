@@ -5,8 +5,8 @@
 
 .certifications-section {
     position: relative;
-    min-height: 300vh;
-    /* Extended for scrollytelling */
+    min-height: 180vh;
+    /* Reduced for smoother scroll pacing */
     width: 100vw;
     margin: 0;
     padding: 0;

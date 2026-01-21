@@ -189,18 +189,19 @@ const Certifications = () => {
 
   // Calculate phase-based visibility for scrollytelling
   const getCardProgress = (index) => {
-    // Phase mapping: 
-    // - Featured (index 0): visible from 0.2 to 1
-    // - Card 1: visible from 0.4 to 1
-    // - Card 2: visible from 0.6 to 1
-    const phases = [0.2, 0.4, 0.6];
-    const start = phases[index] || 0.6;
-    const cardProgress = Math.max(0, Math.min(1, (scrollProgress - start) / 0.2));
+    // Phase mapping - tighter timing to avoid black voids:
+    // - Featured (index 0): visible from 0.05 to 0.35
+    // - Card 1: visible from 0.25 to 0.55
+    // - Card 2: visible from 0.45 to 0.75
+    const phases = [0.05, 0.25, 0.45];
+    const start = phases[index] || 0.45;
+    const cardProgress = Math.max(0, Math.min(1, (scrollProgress - start) / 0.3));
     return cardProgress;
   };
 
-  const headerOpacity = Math.min(1, scrollProgress / 0.15);
-  const headerTranslateY = Math.max(0, 30 - scrollProgress * 200);
+  // Header visible almost immediately
+  const headerOpacity = Math.min(1, scrollProgress / 0.05 + 0.3); // Start with 0.3 opacity
+  const headerTranslateY = Math.max(0, 20 - scrollProgress * 150);
 
   return (
     <section id="certifications" className="certifications-section" ref={sectionRef}>
@@ -238,11 +239,13 @@ const Certifications = () => {
             {certificates.map((cert, index) => {
               const cardProg = getCardProgress(index);
               const isVisible = cardProg > 0;
+              // Smaller translate for smoother animation
               const translateX = cert.featured
-                ? -100 + cardProg * 100
-                : 100 - cardProg * 100;
-              const cardOpacity = cardProg;
-              const cardScale = 0.8 + cardProg * 0.2;
+                ? -50 + cardProg * 50
+                : 50 - cardProg * 50;
+              // Minimum opacity of 0.2 so cards are visible
+              const cardOpacity = 0.2 + cardProg * 0.8;
+              const cardScale = 0.9 + cardProg * 0.1;
 
               return (
                 <div
@@ -252,7 +255,7 @@ const Certifications = () => {
                     '--i': index,
                     opacity: cardOpacity,
                     transform: `translateX(${translateX}px) scale(${cardScale})`,
-                    pointerEvents: isVisible ? 'auto' : 'none'
+                    pointerEvents: 'auto'
                   }}
                   onClick={() => handleViewCertificate(cert.verifyUrl)}
                 >
