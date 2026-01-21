@@ -1,280 +1,245 @@
 /* ===================================
-   CERTIFICATIONS - PRO SCROLLYTELLING
-   Horizontal Card Stack Design
+   CERTIFICATIONS - CLEAN SCROLLYTELLING
+   One card at a time, smooth transitions
    =================================== */
 
-/* Section - Extended height for scrollytelling */
-.cert-section {
+/* Section */
+.certs {
     position: relative;
-    min-height: 250vh;
+    min-height: 300vh;
     width: 100vw;
     margin: 0;
-    padding: 0;
     background: #0a0a0f;
     left: 50%;
     transform: translateX(-50%);
 }
 
-/* Sticky container */
-.cert-sticky {
+/* Sticky Container */
+.certs__sticky {
     position: sticky;
     top: 0;
     height: 100vh;
     width: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     overflow: hidden;
 }
 
 /* Background */
-.cert-bg {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-}
-
-.cert-bg-gradient {
+.certs__bg {
     position: absolute;
     inset: 0;
     background:
-        radial-gradient(ellipse at 20% 30%, rgba(66, 133, 244, 0.08) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 70%, rgba(52, 168, 83, 0.06) 0%, transparent 50%),
-        linear-gradient(180deg, #0a0a0f 0%, #0f0f15 50%, #0a0a0f 100%);
-}
-
-.cert-bg-grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-    background-size: 60px 60px;
-    opacity: 0.5;
-}
-
-/* Container */
-.cert-container {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 1200px;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3rem;
+        radial-gradient(ellipse at 30% 20%, rgba(66, 133, 244, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 80%, rgba(52, 168, 83, 0.04) 0%, transparent 50%),
+        linear-gradient(180deg, #0a0a0f 0%, #0f0f18 50%, #0a0a0f 100%);
 }
 
 /* Header */
-.cert-header {
+.certs__header {
+    position: relative;
+    z-index: 10;
     text-align: center;
-    transition: all 0.3s ease-out;
+    margin-bottom: 3rem;
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.cert-label {
-    display: inline-block;
+.certs__eyebrow {
+    display: block;
     font-family: 'Fira Code', monospace;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: #4a90e2;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 1rem;
-    opacity: 0.8;
+    letter-spacing: 3px;
+    margin-bottom: 0.75rem;
 }
 
-.cert-title {
+.certs__title {
     font-family: var(--font-display, 'Inter', sans-serif);
-    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-size: clamp(2rem, 5vw, 3rem);
     font-weight: 700;
     color: #fff;
     margin: 0;
-    letter-spacing: -1px;
 }
 
-.cert-title .highlight {
+.certs__title span {
     background: linear-gradient(135deg, #4285f4, #34a853);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
-/* Card Stack */
-.cert-stack {
+/* Card Display Area */
+.certs__display {
     position: relative;
     width: 100%;
-    max-width: 700px;
-    height: 420px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    perspective: 1000px;
+    max-width: 800px;
+    height: 400px;
+    padding: 0 2rem;
 }
 
 /* Card */
-.cert-card {
+.certs__card {
     position: absolute;
-    width: 100%;
-    max-width: 600px;
-    cursor: pointer;
+    inset: 0;
+    margin: auto;
+    max-width: 700px;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 0;
+    background: rgba(15, 15, 25, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     will-change: transform, opacity;
 }
 
-.cert-card-inner {
-    display: flex;
-    flex-direction: row;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    overflow: hidden;
-    backdrop-filter: blur(10px);
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.cert-card:hover .cert-card-inner {
-    border-color: rgba(255, 255, 255, 0.2);
+.certs__card.is-active {
     box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.4),
-        0 0 40px rgba(66, 133, 244, 0.1);
-}
-
-.cert-card.active .cert-card-inner {
-    border-color: rgba(66, 133, 244, 0.3);
+        0 25px 80px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
 }
 
 /* Card Image */
-.cert-card-image {
+.certs__card-img {
     position: relative;
-    width: 45%;
-    min-height: 280px;
+    width: 100%;
+    height: 100%;
+    min-height: 320px;
     overflow: hidden;
     background: linear-gradient(135deg, #1a1a2e 0%, #0f0f18 100%);
 }
 
-.cert-card-image img {
+.certs__card-img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    transition: transform 0.6s ease;
 }
 
-.cert-card:hover .cert-card-image img {
-    transform: scale(1.05);
+.certs__card.is-active .certs__card-img img {
+    transform: scale(1.02);
 }
 
-.cert-card-overlay {
-    position: absolute;
-    inset: 0;
-    opacity: 0.5;
-}
-
-/* Card Content */
-.cert-card-content {
-    flex: 1;
-    padding: 2rem;
+/* Card Body */
+.certs__card-body {
+    padding: 2.5rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 0.75rem;
+    gap: 1rem;
 }
 
-.cert-issuer {
+.certs__card-issuer {
     font-family: 'Fira Code', monospace;
     font-size: 0.75rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 2px;
 }
 
-.cert-name {
-    font-size: 1.35rem;
+.certs__card-title {
+    font-size: 1.5rem;
     font-weight: 600;
     color: #fff;
     margin: 0;
     line-height: 1.3;
 }
 
-.cert-desc {
-    font-size: 0.9rem;
+.certs__card-desc {
+    font-size: 0.95rem;
     color: rgba(255, 255, 255, 0.6);
-    line-height: 1.5;
+    line-height: 1.6;
     margin: 0;
 }
 
-.cert-verify-btn {
+.certs__card-btn {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
     margin-top: 0.5rem;
-    padding: 0.75rem 1.25rem;
+    padding: 0.875rem 1.5rem;
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 8px;
     color: #fff;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
     width: fit-content;
 }
 
-.cert-verify-btn:hover {
-    background: rgba(66, 133, 244, 0.15);
-    border-color: #4285f4;
-}
-
-.cert-verify-btn svg {
-    transition: transform 0.3s ease;
-}
-
-.cert-verify-btn:hover svg {
+.certs__card-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.3);
     transform: translateX(4px);
 }
 
-/* Counter */
-.cert-counter {
+/* Progress Dots */
+.certs__dots {
+    position: absolute;
+    bottom: 4rem;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
-    align-items: baseline;
-    gap: 0.5rem;
-    font-family: 'Fira Code', monospace;
-    transition: opacity 0.3s ease;
+    gap: 0.75rem;
+    z-index: 10;
 }
 
-.cert-counter-current {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #fff;
+.certs__dot {
+    width: 8px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transition: all 0.3s ease;
 }
 
-.cert-counter-divider {
-    font-size: 1.25rem;
-    color: rgba(255, 255, 255, 0.3);
+.certs__dot.is-active {
+    width: 32px;
+    background: #4285f4;
+    border-radius: 4px;
 }
 
-.cert-counter-total {
-    font-size: 1.25rem;
-    color: rgba(255, 255, 255, 0.5);
+.certs__dot.is-past {
+    background: rgba(66, 133, 244, 0.5);
 }
 
 /* Scroll Hint */
-.cert-scroll-hint {
+.certs__hint {
     position: absolute;
-    bottom: 3rem;
+    bottom: 2rem;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.4);
     font-family: 'Fira Code', monospace;
-    transition: opacity 0.5s ease;
+    font-size: 0.8rem;
+    animation: fadeInOut 2s ease-in-out infinite;
 }
 
-.cert-scroll-arrow {
-    font-size: 1.25rem;
+.certs__hint svg {
     animation: bounceDown 1.5s ease-in-out infinite;
+}
+
+@keyframes fadeInOut {
+
+    0%,
+    100% {
+        opacity: 0.4;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
 }
 
 @keyframes bounceDown {
@@ -285,7 +250,7 @@
     }
 
     50% {
-        transform: translateY(8px);
+        transform: translateY(6px);
     }
 }
 
@@ -293,57 +258,47 @@
    RESPONSIVE
    =================================== */
 
-@media (max-width: 768px) {
-    .cert-section {
-        min-height: 200vh;
+@media (max-width: 900px) {
+    .certs__card {
+        grid-template-columns: 1fr;
+        max-width: 400px;
     }
 
-    .cert-stack {
-        height: auto;
-        min-height: 500px;
+    .certs__card-img {
+        min-height: 200px;
     }
 
-    .cert-card {
-        max-width: 100%;
-    }
-
-    .cert-card-inner {
-        flex-direction: column;
-    }
-
-    .cert-card-image {
-        width: 100%;
-        min-height: 180px;
-    }
-
-    .cert-card-content {
-        padding: 1.5rem;
-    }
-
-    .cert-name {
-        font-size: 1.15rem;
-    }
-
-    .cert-title {
-        font-size: 2rem;
+    .certs__display {
+        height: 500px;
     }
 }
 
-@media (max-width: 480px) {
-    .cert-container {
-        padding: 1rem;
-        gap: 2rem;
+@media (max-width: 600px) {
+    .certs {
+        min-height: 250vh;
     }
 
-    .cert-label {
-        font-size: 0.75rem;
+    .certs__header {
+        margin-bottom: 2rem;
     }
 
-    .cert-card-content {
-        padding: 1.25rem;
+    .certs__title {
+        font-size: 1.75rem;
     }
 
-    .cert-counter-current {
-        font-size: 1.5rem;
+    .certs__card {
+        max-width: 90%;
+    }
+
+    .certs__card-body {
+        padding: 1.5rem;
+    }
+
+    .certs__card-title {
+        font-size: 1.25rem;
+    }
+
+    .certs__dots {
+        bottom: 3rem;
     }
 }
