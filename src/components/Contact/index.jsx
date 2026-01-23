@@ -29,23 +29,30 @@ const Contact = () => {
       API.EMAILJS_PUBLIC_KEY
     );
 
-    Promise.all([sendAdmin, sendAutoReply])
-      .then(
-        () => {
+    // Use allSettled to allow partial success (e.g., Admin mail sends but Auto-reply fails)
+    Promise.allSettled([sendAdmin, sendAutoReply])
+      .then((results) => {
+        const adminResult = results[0];
+        const autoReplyResult = results[1];
+
+        // If Admin mail sends successfully, we consider it a success for the user
+        if (adminResult.status === 'fulfilled') {
           setLoading(false);
           setStatus('success');
           form.current.reset();
           setTimeout(() => setStatus(null), 5000);
-        },
-        (error) => {
+
+          // Log warning if auto-reply failed silently
+          if (autoReplyResult.status === 'rejected') {
+            console.warn('Auto-reply failed to send:', autoReplyResult.reason);
+          }
+        } else {
+          // Only show error if Main Admin mail also failed
           setLoading(false);
-          console.error('EmailJS Error:', error);
-          // If at least one succeeds, we consider it a partial success, 
-          // but for simplicity, show success if Admin mail works.
-          // Here we default to error if Promise.all fails.
           setStatus('error');
+          console.error('Admin Email Failed:', adminResult.reason);
         }
-      );
+      });
   };
 
   return (
