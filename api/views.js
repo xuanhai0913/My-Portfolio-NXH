@@ -10,6 +10,11 @@ const pool = new Pool({
 
 module.exports = async (req, res) => {
     // Set CORS headers
+    // Set Cache-Control to prevent Vercel/Browser caching
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -46,12 +51,13 @@ module.exports = async (req, res) => {
          RETURNING view_count`
             );
 
+            const FAKE_OFFSET = 12693; // Make the site look popular
             const newCount = updateResult.rows[0].view_count;
 
             return res.status(200).json({
                 success: true,
-                viewCount: newCount,
-                previousCount: currentCount
+                viewCount: newCount + FAKE_OFFSET,
+                realCount: newCount
             });
         } finally {
             client.release();

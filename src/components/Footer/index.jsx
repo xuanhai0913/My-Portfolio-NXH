@@ -9,7 +9,8 @@ const Footer = () => {
         // Fetch view count from API
         const fetchViewCount = async () => {
             try {
-                const response = await fetch(API.VIEWS);
+                // Use POST to bypass Vercel GET cache
+                const response = await fetch(API.VIEWS, { method: 'POST' });
                 const data = await response.json();
 
                 if (data.success) {
