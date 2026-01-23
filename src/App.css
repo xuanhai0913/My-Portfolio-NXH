@@ -11,7 +11,12 @@
 body {
   margin: 0;
   padding: 0;
-  /* Brutalist theme handled in brutalist.css */
+  background-color: #000000;
+  /* Force Black Background */
+  color: #ffffff;
+  /* Force White Text */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  overflow-x: hidden;
 }
 
 .main-content {
@@ -38,8 +43,9 @@ body {
 .loading-spinner {
   width: 40px;
   height: 40px;
-  border: 3px solid rgba(0, 0, 0, 0.1);
-  border-top-color: #000;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top-color: #d4ff00;
+  /* Neon Lime Spinner */
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -48,8 +54,8 @@ body {
   padding: 20px;
   margin: 20px 0;
   background: rgba(255, 50, 50, 0.1);
-  border: 2px solid #000;
-  color: #000;
+  border: 2px solid #ff5f56;
+  color: #ff5f56;
   text-align: center;
 }
 

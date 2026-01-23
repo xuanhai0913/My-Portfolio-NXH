@@ -60,6 +60,7 @@
   font-weight: 300;
   margin-bottom: 2rem;
   max-width: 600px;
+  color: var(--text-primary);
 }
 
 .bio-sub {
