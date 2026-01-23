@@ -9,6 +9,7 @@ import './App.css';
 // Lazy load non-critical components
 const Profile = lazy(() => import('./components/Profile'));
 const About = lazy(() => import('./components/About'));
+const Experience = lazy(() => import('./components/Experience/Experience'));
 const SectionTransition = lazy(() => import('./components/SectionTransition'));
 const Portfolio = lazy(() => import('./components/Portfolio'));
 const Certifications = lazy(() => import('./components/Certifications'));
@@ -39,7 +40,20 @@ const MainPortfolio = () => (
       </Suspense>
     </ErrorBoundary>
 
-    {/* Section Transition - About to Projects */}
+    {/* Section Transition - About to Experience */}
+    <ErrorBoundary>
+      <Suspense fallback={<LoadingFallback />}>
+        <SectionTransition text="EXPERIENCE" />
+      </Suspense>
+    </ErrorBoundary>
+
+    <ErrorBoundary>
+      <Suspense fallback={<LoadingFallback />}>
+        <Experience />
+      </Suspense>
+    </ErrorBoundary>
+
+    {/* Section Transition - Experience to Projects */}
     <ErrorBoundary>
       <Suspense fallback={<LoadingFallback />}>
         <SectionTransition text="PROJECTS" />
