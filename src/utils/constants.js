@@ -44,7 +44,7 @@ export const API = {
   VIEWS: '/api/views',
   EMAILJS_SERVICE: 'service_9y7spx3',
   EMAILJS_TEMPLATE: 'template_skc0rl8',
-  EMAILJS_AUTOREPLY_TEMPLATE: 'template_autoreply', // Update this with your new ID
+  EMAILJS_AUTOREPLY_TEMPLATE: 'template_gvdfitf',
   EMAILJS_PUBLIC_KEY: 'fwFRXPgW6BPI5iCRD',
 };
 
