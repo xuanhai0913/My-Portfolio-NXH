@@ -38,9 +38,7 @@ const Contact = () => {
 
       </div>
 
-      <footer className="simple-footer">
-        <p>© 2024 NGUYEN XUAN HAI. ALL RIGHTS RESERVED.</p>
-      </footer>
+
     </section>
   );
 };
