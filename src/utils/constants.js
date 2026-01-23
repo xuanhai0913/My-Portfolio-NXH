@@ -90,8 +90,8 @@ export const WORK_EXPERIENCE = [
     company: 'Great Link Mai House – Digital Publishing Platform',
     role: 'FULLSTACK DEVELOPER',
     period: 'July 2025 - Present',
-    description: 'Contributed to the development of Great Link Mai House platform. (Please update with specific details about your role and achievements).',
-    technologies: ['JavaScript', 'HTML/CSS'],
+    description: 'Rebuilt the digital publishing platform with a modern architecture. Developed a robust API using ASP.NET Core 8.0 and a responsive React 18 frontend. Implemented real-time features, secure authentication, and integrated multiple third-party services.',
+    technologies: ['ASP.NET Core 8', 'React 18', 'SignalR', 'OpenAI API', 'SendGrid', 'Cloudinary', 'JWT', 'Google OAuth', 'SQL Server'],
     logo: 'https://res.cloudinary.com/dqdcqtu8m/image/upload/v1755441933/f7ce90e7-0068-4433-ab8f-32cab1067dc2.png',
     link: 'https://greatlinkmaihouse.com/'
   },

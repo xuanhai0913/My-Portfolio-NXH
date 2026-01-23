@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import profileImage from '../../images/profile.png';
+import ExperiencePopup from './ExperiencePopup';
 import './styles/Profile.css';
 
 const Profile = () => {
   const [loaded, setLoaded] = useState(false);
+  const [showExperience, setShowExperience] = useState(false);
 
   useEffect(() => {
     setLoaded(true);
@@ -32,9 +34,14 @@ const Profile = () => {
           </div>
 
           <div className={`hero-cta ${loaded ? 'in-view' : ''}`}>
-            <a href="/CV_NguyenXuanHai.pdf" download className="btn-brutalist">
-              DOWNLOAD CV
-              <span className="btn-icon">↓</span>
+            <a
+              href="https://www.hailamdev.space/CV_NguyenXuanHai.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-brutalist btn-view-cv"
+            >
+              VIEW CV
+              <span className="btn-icon">↗</span>
             </a>
 
             <div className="scroll-hint">
@@ -64,9 +71,14 @@ const Profile = () => {
               />
             </div>
 
-            <div className="floating-badge">
+            <div
+              className="floating-badge"
+              onClick={() => setShowExperience(true)}
+              role="button"
+              tabIndex={0}
+            >
               <span className="status-dot"></span>
-              Nguyễn Xuân Hải
+              2+ YEARS EXPERIENCE
             </div>
 
             {/* Decorative Grid Lines */}
@@ -76,6 +88,11 @@ const Profile = () => {
         </div>
 
       </div>
+
+      {/* Experience Popup */}
+      {showExperience && (
+        <ExperiencePopup onClose={() => setShowExperience(false)} />
+      )}
 
       {/* Background Ambience */}
       <div className="bg-noise"></div>
