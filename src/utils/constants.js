@@ -42,9 +42,9 @@ export const BREAKPOINTS = {
 // API Endpoints
 export const API = {
   VIEWS: '/api/views',
-  EMAILJS_SERVICE: 'service_17f4dxs',
-  EMAILJS_TEMPLATE: 'template_6p32bhr',
-  EMAILJS_PUBLIC_KEY: 'VrjXBfkMKdPd8r-Ym',
+  EMAILJS_SERVICE: 'service_9y7spx3',
+  EMAILJS_TEMPLATE: 'template_skc0rl8',
+  EMAILJS_PUBLIC_KEY: 'fwFRXPgW6BPI5iCRD',
 };
 
 // External URLs
