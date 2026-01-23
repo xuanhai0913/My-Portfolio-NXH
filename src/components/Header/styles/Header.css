@@ -1,5 +1,5 @@
 /* ============================================
-   BRUTALIST HEADER STYLES
+   BRUTALIST HEADER STYLES (DARK MODE FIX)
    ============================================ */
 
 .header {
@@ -8,8 +8,12 @@
   left: 0;
   width: 100%;
   z-index: 50;
-  background-color: var(--color-white);
-  border-bottom: 4px solid var(--color-black);
+  background-color: rgba(0, 0, 0, 0.85);
+  /* Dark Translucent */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  /* Subtle border */
 }
 
 .header-overlay {
@@ -43,7 +47,6 @@
   height: 50px;
   width: auto;
   display: none;
-  /* Hide image logo */
 }
 
 /* Text-based logo */
@@ -51,7 +54,8 @@
   content: 'NGUYỄN ';
   font-family: var(--font-display);
   font-size: 1.5rem;
-  color: var(--color-black);
+  color: var(--text-primary);
+  /* White */
   letter-spacing: -0.02em;
 }
 
@@ -59,9 +63,12 @@
   content: 'XUÂN HẢI';
   font-family: var(--font-display);
   font-size: 1.5rem;
-  background-color: var(--color-black);
-  color: var(--color-white);
-  padding: 0.25rem 0.5rem;
+  background-color: transparent;
+  color: var(--color-accent);
+  /* Neon Lime */
+  padding: 0 0.25rem;
+  border: 1px solid var(--color-accent);
+  /* Outline style */
 }
 
 /* Navigation */
@@ -82,37 +89,36 @@
   font-family: var(--font-mono);
   font-weight: 700;
   font-size: 0.875rem;
-  color: var(--color-black);
+  color: var(--text-secondary);
+  /* Grey */
   text-decoration: none;
   text-transform: uppercase;
   transition: all 0.2s ease;
 }
 
-.nav-links li a:hover {
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  text-decoration-thickness: 4px;
-}
-
+.nav-links li a:hover,
 .nav-links li a.active {
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  text-decoration-thickness: 4px;
+  color: var(--text-primary);
+  /* White */
+  text-decoration: none;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
 /* Contact button (last item) */
 .nav-links li:last-child a {
-  background-color: var(--color-accent);
-  border: 2px solid var(--color-black);
+  background-color: transparent;
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
   padding: 0.75rem 1.25rem;
-  box-shadow: 4px 4px 0 0 var(--color-black);
+  box-shadow: none;
   transition: all 0.2s ease;
 }
 
 .nav-links li:last-child a:hover {
-  text-decoration: none;
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 0 var(--color-black);
+  background-color: var(--color-accent);
+  color: #000;
+  box-shadow: 0 0 15px var(--color-accent);
+  transform: translateY(-2px);
 }
 
 /* Hamburger menu */
@@ -123,8 +129,8 @@
   align-items: center;
   width: 48px;
   height: 48px;
-  background: var(--color-black);
-  border: 2px solid var(--color-black);
+  background: transparent;
+  border: 1px solid var(--text-primary);
   cursor: pointer;
   padding: 0;
   z-index: 60;
@@ -132,8 +138,8 @@
 
 .hamburger {
   width: 24px;
-  height: 3px;
-  background: var(--color-white);
+  height: 2px;
+  background: var(--text-primary);
   position: relative;
   transition: all 0.3s ease;
 }
@@ -143,8 +149,8 @@
   content: '';
   position: absolute;
   width: 24px;
-  height: 3px;
-  background: var(--color-white);
+  height: 2px;
+  background: var(--text-primary);
   left: 0;
   transition: all 0.3s ease;
 }
@@ -157,6 +163,10 @@
   top: 8px;
 }
 
+.nav-toggle.active {
+  border-color: var(--color-accent);
+}
+
 .nav-toggle.active .hamburger {
   background: transparent;
 }
@@ -164,11 +174,13 @@
 .nav-toggle.active .hamburger::before {
   transform: rotate(45deg);
   top: 0;
+  background: var(--color-accent);
 }
 
 .nav-toggle.active .hamburger::after {
   transform: rotate(-45deg);
   top: 0;
+  background: var(--color-accent);
 }
 
 /* ============================================
@@ -198,9 +210,11 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: var(--color-white);
-  border-top: 4px solid var(--color-black);
+  background: rgba(0, 0, 0, 0.95);
+  /* Deep Black */
+  border-top: 1px solid var(--color-accent);
   z-index: 40;
+  backdrop-filter: blur(10px);
 }
 
 .nav-open .nav-links {
@@ -214,19 +228,20 @@
 
 .nav-open .nav-links li {
   width: 100%;
-  border-bottom: 2px solid var(--color-black);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .nav-open .nav-links li a {
   display: block;
   padding: 1.5rem 0;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
+  color: var(--text-primary);
 }
 
 .nav-open .nav-links li:last-child a {
   background: var(--color-accent);
+  color: #000;
   margin-top: 1rem;
-  padding: 1.5rem;
   text-align: center;
-  box-shadow: none;
+  border: none;
 }

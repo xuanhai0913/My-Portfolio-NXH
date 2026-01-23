@@ -1,4 +1,4 @@
-/* Portfolio.css - Premium Brutalist */
+/* Portfolio.css - Premium Brutalist (Refined) */
 
 .portfolio-section {
   height: 400vh;
@@ -16,12 +16,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-top: 80px;
+  /* Account for fixed header */
 }
 
 /* Header */
 .portfolio-header {
   position: absolute;
-  top: 100px;
+  top: 120px;
+  /* Increased offset from top */
   left: 5vw;
   z-index: 20;
 }
@@ -59,11 +62,13 @@
 .cards-container {
   width: 90%;
   max-width: 1200px;
-  height: 70vh;
+  height: 65vh;
+  /* Reduced height to fit better */
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 40px;
 }
 
 .project-card {
@@ -73,7 +78,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Smoother */
 }
 
 .card-glass {
@@ -81,12 +87,13 @@
   height: 100%;
   max-height: 600px;
   display: flex;
-  background: rgba(20, 20, 20, 0.6);
+  background: rgba(20, 20, 20, 0.85);
+  /* Darker for better contrast */
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 4px;
-  /* Slight roundness */
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
 }
 
 /* Card Visual (Image) */
@@ -175,36 +182,48 @@
 
 .card-actions {
   display: flex;
-  gap: 1.5rem;
+  gap: 1rem;
   margin-top: auto;
+  flex-wrap: wrap;
 }
 
 .action-btn {
   font-family: var(--font-mono);
   text-decoration: none;
   font-weight: 700;
+  font-size: 0.9rem;
+  padding: 1rem 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   transition: all 0.2s;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .action-btn.primary {
   background: var(--text-primary);
+  /* White */
   color: #000;
-  padding: 1rem 2rem;
+  border: 1px solid var(--text-primary);
 }
 
 .action-btn.primary:hover {
   background: var(--color-accent);
+  border-color: var(--color-accent);
 }
 
+/* Secondary Button Upgrade */
 .action-btn.secondary {
+  background: transparent;
   color: var(--text-primary);
-  padding: 1rem 0;
-  border-bottom: 1px solid transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .action-btn.secondary:hover {
+  border-color: var(--color-accent);
   color: var(--color-accent);
-  border-bottom-color: var(--color-accent);
+  background: rgba(212, 255, 0, 0.1);
 }
 
 /* Scroll Progress */
