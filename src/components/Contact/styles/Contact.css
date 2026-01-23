@@ -39,6 +39,7 @@
   max-width: 600px;
   margin: 0 auto;
   width: 100%;
+  grid-column: 2;
 }
 
 .contact-intro {
@@ -79,6 +80,12 @@
   padding-left: 10px;
 }
 
+.form-group input:disabled,
+.form-group textarea:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .btn-submit {
   background: transparent;
   border: 1px solid var(--color-accent);
@@ -91,9 +98,34 @@
   transition: all 0.3s ease;
 }
 
-.btn-submit:hover {
+.btn-submit:hover:not(:disabled) {
   background: var(--color-accent);
   color: #000;
+}
+
+.btn-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.status-msg {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  padding: 1rem;
+  margin-top: -1rem;
+  border-radius: 4px;
+}
+
+.status-msg.success {
+  color: #27c93f;
+  background: rgba(39, 201, 63, 0.1);
+  border: 1px solid #27c93f;
+}
+
+.status-msg.error {
+  color: #ff5f56;
+  background: rgba(255, 95, 86, 0.1);
+  border: 1px solid #ff5f56;
 }
 
 /* Socials */
@@ -116,14 +148,8 @@
   color: var(--text-primary);
 }
 
-/* Footer UI */
-.simple-footer {
-  text-align: center;
-  padding-top: 4rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: #555;
+.footer-placeholder {
+  height: 1px;
 }
 
 @media (min-width: 1024px) {
@@ -138,7 +164,6 @@
   }
 
   .contact-content {
-    grid-column: 2;
     margin: 0;
   }
 }

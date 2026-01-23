@@ -1,7 +1,41 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
+import emailjs from '@emailjs/browser';
+import { API } from '../../utils/constants';
 import './styles/Contact.css';
 
 const Contact = () => {
+  const form = useRef();
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState(null); // 'success' or 'error'
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setStatus(null);
+
+    emailjs
+      .sendForm(
+        API.EMAILJS_SERVICE,
+        API.EMAILJS_TEMPLATE,
+        form.current,
+        API.EMAILJS_PUBLIC_KEY
+      )
+      .then(
+        (result) => {
+          setLoading(false);
+          setStatus('success');
+          form.current.reset();
+          // Auto clear success message after 5 seconds
+          setTimeout(() => setStatus(null), 5000);
+        },
+        (error) => {
+          setLoading(false);
+          setStatus('error');
+          console.error('EmailJS Error:', error.text);
+        }
+      );
+  };
+
   return (
     <section id="contact" className="contact-section">
       <div className="contact-container">
@@ -13,20 +47,53 @@ const Contact = () => {
             Have an idea or project? Let's collaborate and build something <span className="neon">extraordinary</span>.
           </p>
 
-          <form className="minimal-form">
+          <form ref={form} onSubmit={sendEmail} className="minimal-form">
             <div className="form-group">
-              <input type="text" placeholder="NAME" required />
+              <input
+                type="text"
+                name="user_name"
+                placeholder="NAME"
+                required
+                disabled={loading}
+              />
             </div>
             <div className="form-group">
-              <input type="email" placeholder="EMAIL" required />
+              <input
+                type="email"
+                name="user_email"
+                placeholder="EMAIL"
+                required
+                disabled={loading}
+              />
             </div>
             <div className="form-group">
-              <textarea placeholder="MESSAGE" rows="4" required></textarea>
+              <textarea
+                name="message"
+                placeholder="MESSAGE"
+                rows="4"
+                required
+                disabled={loading}
+              ></textarea>
             </div>
 
-            <button type="submit" className="btn-submit">
-              SEND MESSAGE →
+            <button
+              type="submit"
+              className={`btn-submit ${loading ? 'loading' : ''}`}
+              disabled={loading}
+            >
+              {loading ? 'SENDING...' : 'SEND MESSAGE →'}
             </button>
+
+            {status === 'success' && (
+              <p className="status-msg success">
+                ✅ Message sent! I'll get back to you soon.
+              </p>
+            )}
+            {status === 'error' && (
+              <p className="status-msg error">
+                ❌ Failed to send. Please verify the keys or try again later.
+              </p>
+            )}
           </form>
 
           <div className="social-links">
@@ -38,7 +105,7 @@ const Contact = () => {
 
       </div>
 
-
+      <footer className="footer-placeholder"></footer>
     </section>
   );
 };
