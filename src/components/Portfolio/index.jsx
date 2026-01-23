@@ -11,14 +11,11 @@ import prj8 from '../../images/project/prj8.png';
 import prj9 from '../../images/project/prj9.png';
 import prj10 from '../../images/project/prj10.png';
 import visionKey from '../../images/project/visionKey.png';
-import brushArrow from '../../images/brush-arrow.png';
-import brushLine from '../../images/brush-line.png';
 
 const Portfolio = () => {
   const sectionRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [showEndArrow, setShowEndArrow] = useState(false);
 
   const allProjects = [
     {
@@ -37,7 +34,6 @@ const Portfolio = () => {
       demo: "https://ech.edu.vn",
       technologies: ["PHP", "MySQL", "WordPress"],
       company: "ECH COMMUNITY",
-      variant: "dark"
     },
     {
       title: "VN Media Hub",
@@ -54,7 +50,6 @@ const Portfolio = () => {
       image: visionKey,
       technologies: ["Swift", "Next.js", "AI"],
       badge: "AI",
-      variant: "accent",
       demo: "https://visionpremium.hailamdev.space",
       githubLinks: [
         { url: "https://github.com/xuanhai0913/Vision-Key", label: "MacOS" },
@@ -69,7 +64,7 @@ const Portfolio = () => {
       demo: "/videos",
       github: "https://github.com/xuanhai0913/LLM-Unit-tests",
       technologies: ["React", "Deepseek", "Node.js"],
-      variant: "dark"
+      badge: "FEATURED"
     },
     {
       title: "Portfolio Website",
@@ -86,7 +81,6 @@ const Portfolio = () => {
       demo: "https://happynewyear.hailamdev.space/",
       github: "https://github.com/xuanhai0913/Happy-New-Year",
       technologies: ["HTML5", "JS", "Canvas"],
-      variant: "dark"
     },
     {
       title: "SPRM Management",
@@ -103,45 +97,28 @@ const Portfolio = () => {
       demo: "https://shop.hailamdev.space/",
       technologies: ["Node.js", "MongoDB", "Express"],
       badge: "API",
-      variant: "accent"
     }
-  ];
-
-  // Pinned positions - spread evenly across viewport
-  const pinnedPositions = [
-    { top: 12, left: 5, rotate: -5 },
-    { top: 8, left: 75, rotate: 4 },
-    { top: 35, left: 3, rotate: -3 },
-    { top: 40, left: 78, rotate: 5 },
-    { top: 65, left: 8, rotate: -4 },
-    { top: 60, left: 72, rotate: 3 },
-    { top: 15, left: 40, rotate: 2 },
-    { top: 75, left: 25, rotate: -2 },
-    { top: 70, left: 60, rotate: 4 },
   ];
 
   useEffect(() => {
     const handleScroll = () => {
       if (!sectionRef.current) return;
-      const section = sectionRef.current;
-      const rect = section.getBoundingClientRect();
-      const sectionHeight = section.offsetHeight;
+      const rect = sectionRef.current.getBoundingClientRect();
+      const sectionHeight = sectionRef.current.offsetHeight;
       const viewportHeight = window.innerHeight;
 
       const scrolled = -rect.top;
-      const totalScroll = sectionHeight - viewportHeight;
-      // Use 90% of scroll for projects, last 10% for end transition
-      const projectScrollEnd = totalScroll * 0.85;
-      const progress = Math.max(0, Math.min(1, scrolled / projectScrollEnd));
+      const totalScrollable = sectionHeight - viewportHeight;
+      const progress = Math.max(0, Math.min(1, scrolled / totalScrollable));
 
       setScrollProgress(progress);
 
-      // Show arrow when all projects are pinned
-      setShowEndArrow(scrolled > projectScrollEnd * 0.95);
-
-      // Active project based on progress
-      const projectIndex = Math.floor(progress * allProjects.length);
-      setActiveIndex(Math.min(projectIndex, allProjects.length - 1));
+      // Determine active index based on scroll progress
+      const newIndex = Math.min(
+        allProjects.length - 1,
+        Math.floor(progress * allProjects.length)
+      );
+      setActiveIndex(newIndex);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -149,218 +126,122 @@ const Portfolio = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [allProjects.length]);
 
-  // Get card state
-  const getCardState = (index) => {
-    if (index === activeIndex) return 'active';
-    if (index < activeIndex) return 'pinned';
-    return 'waiting';
-  };
+  // Calculate layout state for each card
+  const getCardStyle = (index) => {
+    // Only render nearby cards
+    if (Math.abs(index - activeIndex) > 1) return { display: 'none' };
 
-  // Get transition progress for current card
-  const getCardTransitionProgress = (index) => {
-    const cardDuration = 1 / allProjects.length;
-    const cardStart = index * cardDuration;
-    const localProgress = (scrollProgress - cardStart) / cardDuration;
-    return Math.max(0, Math.min(1, localProgress));
-  };
+    const isPast = index < activeIndex;
+    const isActive = index === activeIndex;
+    const isFuture = index > activeIndex;
 
-  // Calculate pinning animation progress (for cards transitioning to pinned state)
-  const getPinningProgress = (index) => {
-    const cardDuration = 1 / allProjects.length;
-    const cardEnd = (index + 1) * cardDuration;
-    const pinningStart = cardEnd - cardDuration * 0.3; // Last 30% of card duration
-    const pinningProgress = (scrollProgress - pinningStart) / (cardDuration * 0.3);
-    return Math.max(0, Math.min(1, pinningProgress));
-  };
+    let style = {};
 
-  // Calculate intro phase (0-10% of scroll)
-  const introProgress = Math.min(1, scrollProgress * 10);
-  const titleOpacity = introProgress;
-  const titleScale = 0.8 + introProgress * 0.2;
-  const titleY = 50 - introProgress * 50;
+    if (isActive) {
+      style = {
+        opacity: 1,
+        transform: 'scale(1) translateY(0)',
+        zIndex: 10,
+        filter: 'blur(0px)'
+      };
+    } else if (isPast) {
+      style = {
+        opacity: 0,
+        transform: 'scale(0.9) translateY(-50px)',
+        zIndex: 5,
+        filter: 'blur(10px)',
+        pointerEvents: 'none'
+      };
+    } else if (isFuture) {
+      style = {
+        opacity: 0,
+        transform: 'scale(1.1) translateY(100px)',
+        zIndex: 5,
+        filter: 'blur(10px)',
+        pointerEvents: 'none'
+      };
+    }
+
+    return style;
+  };
 
   return (
     <section id="portfolio" className="portfolio-section" ref={sectionRef}>
       <div className="portfolio-sticky">
-        {/* Animated Title with scroll-based reveal */}
-        <h2
-          className="portfolio-title"
-          style={{
-            opacity: titleOpacity,
-            transform: `translateY(${titleY}px) scale(${titleScale})`
-          }}
-        >
-          PROJECTS_
-        </h2>
 
-        {/* Counter - fade in after title */}
-        <div
-          className="portfolio-counter"
-          style={{
-            opacity: Math.max(0, (scrollProgress - 0.05) * 10)
-          }}
-        >
-          <span className="counter-current">{String(activeIndex + 1).padStart(2, '0')}</span>
-          <span className="counter-divider">/</span>
-          <span className="counter-total">{String(allProjects.length).padStart(2, '0')}</span>
+        {/* Fixed Header */}
+        <div className="portfolio-header">
+          <h2 className="section-title">PROJECTS_</h2>
+          <div className="project-counter">
+            <span className="current">{String(activeIndex + 1).padStart(2, '0')}</span>
+            <span className="divider">/</span>
+            <span className="total">{String(allProjects.length).padStart(2, '0')}</span>
+          </div>
         </div>
 
-        {/* Pinboard with animated pinned cards */}
-        <div className="pinboard">
-          {allProjects.map((project, index) => {
-            const state = getCardState(index);
-            const pos = pinnedPositions[index];
-            const pinProgress = getPinningProgress(index);
+        {/* Cards Container */}
+        <div className="cards-container">
+          {allProjects.map((project, index) => (
+            <article
+              key={index}
+              className={`project-card ${activeIndex === index ? 'active' : ''}`}
+              style={getCardStyle(index)}
+            >
+              <div className="card-glass">
+                <div className="card-visual">
+                  <img src={project.image} alt={project.title} />
+                  {project.badge && (
+                    <div className="card-badge">{project.badge}</div>
+                  )}
+                </div>
 
-            // Show during pinning animation OR when fully pinned
-            if (state !== 'pinned' && !(state === 'active' && pinProgress > 0)) return null;
-
-            // If currently animating to pinned position
-            const isAnimating = state === 'active' && pinProgress > 0 && pinProgress < 1;
-
-            let cardStyle;
-            if (isAnimating) {
-              // Smooth cubic bezier animation to pinned position
-              const eased = 1 - Math.pow(1 - pinProgress, 3); // ease-out cubic
-              cardStyle = {
-                top: `calc(50% + ${(pos.top - 50) * eased}%)`,
-                left: `calc(50% + ${(pos.left - 50) * eased}%)`,
-                transform: `translate(-50%, -50%) rotate(${pos.rotate * eased}deg) scale(${1 - eased * 0.6})`,
-                opacity: 0.9 - eased * 0.15,
-                filter: `blur(${eased * 2}px) grayscale(${eased * 0.2})`,
-              };
-            } else {
-              // Fully pinned
-              cardStyle = {
-                top: `${pos.top}%`,
-                left: `${pos.left}%`,
-                transform: `rotate(${pos.rotate}deg)`,
-              };
-            }
-
-            return (
-              <div
-                key={`pinned-${index}`}
-                className={`pinned-card ${project.variant ? `card-${project.variant}` : ''} ${isAnimating ? 'animating' : ''}`}
-                style={cardStyle}
-              >
-                <div className="pinned-card__pin">📌</div>
-                <img src={project.image} alt={project.title} />
-                <div className="pinned-card__label">{project.title}</div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Active Card Stage */}
-        <div className="card-stage">
-          {allProjects.map((project, index) => {
-            const state = getCardState(index);
-            const transitionProgress = getCardTransitionProgress(index);
-            const variantClass = project.variant ? `card-${project.variant}` : '';
-            const pinProgress = getPinningProgress(index);
-
-            let style = {};
-            let className = `story-card ${variantClass}`;
-
-            if (state === 'active') {
-              className += ' active';
-
-              // When pinning starts, fade out the main card
-              if (pinProgress > 0) {
-                style = {
-                  opacity: 1 - pinProgress,
-                  transform: `scale(${1 - pinProgress * 0.1})`,
-                  pointerEvents: 'none',
-                };
-              } else if (transitionProgress < 0.25) {
-                // Entrance - slide up and fade in
-                const enterProgress = transitionProgress / 0.25;
-                const eased = 1 - Math.pow(1 - enterProgress, 3);
-                style = {
-                  transform: `translateY(${(1 - eased) * 80}px) scale(${0.92 + eased * 0.08})`,
-                  opacity: eased,
-                };
-              } else {
-                // Visible state
-                style = {
-                  transform: 'translateY(0) scale(1)',
-                  opacity: 1,
-                };
-              }
-            } else if (state === 'waiting') {
-              className += ' waiting';
-              style = {
-                transform: 'translateY(80px) scale(0.92)',
-                opacity: 0,
-                pointerEvents: 'none',
-              };
-            } else {
-              return null;
-            }
-
-            return (
-              <article key={index} className={className} style={style}>
-                <div className="story-card__inner">
-                  <div className="story-card__media">
-                    <img src={project.image} alt={project.title} />
-                    {project.badge && <span className="story-card__badge">{project.badge}</span>}
-                    <div className="story-card__index">{String(index + 1).padStart(2, '0')}</div>
+                <div className="card-content">
+                  <div className="content-header">
+                    {project.company && (
+                      <span className="company-label">{project.company}</span>
+                    )}
+                    <h3 className="project-title">{project.title}</h3>
                   </div>
 
-                  <div className="story-card__content">
-                    {project.company && (
-                      <div className="story-card__company">{project.company}</div>
+                  <p className="project-desc">{project.description}</p>
+
+                  <div className="tech-stack">
+                    {project.technologies.map((tech, i) => (
+                      <span key={i} className="tech-tag">{tech}</span>
+                    ))}
+                  </div>
+
+                  <div className="card-actions">
+                    {project.demo && (
+                      <a href={project.demo} target={project.demo.startsWith('/') ? '_self' : '_blank'} rel="noopener noreferrer" className="action-btn primary">
+                        VISIT SITE ↗
+                      </a>
                     )}
-                    <h3 className="story-card__title">{project.title}</h3>
-                    <p className="story-card__desc">{project.description}</p>
-
-                    <div className="story-card__techs">
-                      {project.technologies.map((tech, i) => (
-                        <span key={i}>{tech}</span>
-                      ))}
-                    </div>
-
-                    <div className="story-card__actions">
-                      {project.demo && (
-                        <a href={project.demo} target="_blank" rel="noopener noreferrer" className="btn-primary">
-                          Visit Site →
-                        </a>
-                      )}
-                      {project.github && (
-                        <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn-secondary">
-                          GitHub
-                        </a>
-                      )}
-                      {project.githubLinks && project.githubLinks.map((link, i) => (
-                        <a key={i} href={link.url} target="_blank" rel="noopener noreferrer" className="btn-secondary">
-                          {link.label}
-                        </a>
-                      ))}
-                    </div>
+                    {project.github && (
+                      <a href={project.github} target="_blank" rel="noopener noreferrer" className="action-btn secondary">
+                        GITHUB_
+                      </a>
+                    )}
+                    {project.githubLinks && project.githubLinks.map((link, i) => (
+                      <a key={i} href={link.url} target="_blank" rel="noopener noreferrer" className="action-btn secondary">
+                        {link.label}
+                      </a>
+                    ))}
                   </div>
                 </div>
-              </article>
-            );
-          })}
+              </div>
+            </article>
+          ))}
         </div>
 
-        {/* End Transition Arrow */}
-        <div className={`end-transition ${showEndArrow ? 'visible' : ''}`}>
-          <div className="brush-line-container">
-            <img src={brushLine} alt="" className="brush-line" />
-          </div>
-          <div className="brush-arrow-container">
-            <img src={brushArrow} alt="Scroll Down" className="brush-arrow" />
-          </div>
-          <div className="end-transition__label">CERTIFICATIONS</div>
+        {/* Progress Bar */}
+        <div className="scroll-progress">
+          <div
+            className="progress-bar"
+            style={{ height: `${scrollProgress * 100}%` }}
+          ></div>
         </div>
 
-        {/* Scroll Indicator */}
-        <div className="scroll-indicator" style={{ opacity: scrollProgress < 0.05 ? 1 : 0 }}>
-          <span>Scroll to explore projects</span>
-          <div className="scroll-arrow">↓</div>
-        </div>
       </div>
     </section>
   );

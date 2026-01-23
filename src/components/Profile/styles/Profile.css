@@ -1,304 +1,298 @@
-/* ============================================
-   BRUTALIST PROFILE/HERO SECTION
-   ============================================ */
+/* Profile.css - Premium Brutalist */
 
 .profile-section {
   min-height: 100vh;
+  position: relative;
   display: flex;
   align-items: center;
-  position: relative;
-  padding-top: 80px;
-  /* Account for fixed header */
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+  justify-content: center;
+  padding: 80px 2rem 2rem;
   overflow: hidden;
-  /* Transparent to show grid from body */
-  background-color: transparent;
+  background-color: var(--bg-dark);
 }
 
-.profile-container {
-  max-width: 1400px;
-  margin: 0 auto;
-  width: 100%;
+.profile-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 3rem;
-  align-items: end;
+  gap: 4rem;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  z-index: 2;
 }
 
-/* Title */
-.profile-title {
+/* ================= HERO TYPOGRAPHY ================= */
+.hero-title {
   font-family: var(--font-display);
-  font-size: clamp(3rem, 10vw, 8rem);
-  /* Slightly reduced to fit better */
-  line-height: 1.1;
-  /* Adjusted for inline flow */
-  margin-bottom: 2rem;
-  letter-spacing: -0.03em;
+  font-weight: 700;
+  line-height: 0.9;
   text-transform: uppercase;
-  color: var(--color-black);
-  /* Ensure word wrapping logic works */
-  overflow-wrap: break-word;
-  max-width: 100%;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
 }
 
-.title-word {
-  display: inline-block;
-  white-space: nowrap;
-  vertical-align: bottom;
-  margin-right: 0.3em;
-  /* Spacing between words */
-}
-
-.title-word:last-child {
-  margin-right: 0;
-}
-
-/* Character Reveal Animation */
-.char-reveal {
-  display: inline-block;
+.hero-line {
+  display: block;
   opacity: 0;
-  transform: translateY(100%);
-  animation: charSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform: translateY(100px);
+  transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@keyframes charSlideUp {
-  from {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.title-highlight {
-  display: inline-block;
-  background-color: var(--color-black);
+.hero-line.line-1 {
+  font-size: clamp(3.5rem, 10vw, 9rem);
   color: var(--color-accent);
-  padding: 0.25rem 0.5rem;
-  transform: rotate(-1deg);
-  /* Expand animation */
-  clip-path: inset(0 100% 0 0);
-  animation: expandWidth 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  animation-delay: 0.4s;
+  margin-left: -5px;
+  /* Optical alignment */
 }
 
-@keyframes expandWidth {
-  from {
-    clip-path: inset(0 100% 0 0);
-  }
-
-  to {
-    clip-path: inset(0 0 0 0);
-  }
+.hero-line.line-2 {
+  font-size: clamp(3.5rem, 10vw, 9rem);
+  align-self: flex-start;
+  margin-left: 10%;
+  /* Stagger effect */
+  transition-delay: 0.1s;
 }
 
-/* Description */
-.profile-description {
+.hero-line.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hollow-text {
+  color: transparent;
+  -webkit-text-stroke: 2px #ffffff;
+  position: relative;
+}
+
+/* ================= SUBTEXT & CTA ================= */
+.hero-sub {
   max-width: 600px;
-  border-left: 8px solid var(--color-black);
-  padding-left: 2rem;
+  margin-left: 5px;
   margin-bottom: 3rem;
   opacity: 0;
-  /* Initial state for animation */
+  transform: translateY(20px);
+  transition: all 0.8s ease 0.4s;
 }
 
-.profile-description p {
+.hero-sub.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-sub p {
   font-family: var(--font-mono);
-  font-size: 1.25rem;
-  font-weight: 700;
-  line-height: 1.4;
-  text-transform: uppercase;
-  color: var(--color-black);
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
 }
 
-/* Actions */
-.profile-actions {
+.neon-highlight {
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--color-accent);
+}
+
+.hero-cta {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+  align-items: center;
+  gap: 2rem;
   opacity: 0;
-  /* Initial state for animation */
+  transform: translateY(20px);
+  transition: all 0.8s ease 0.6s;
 }
 
-/* General Slide Up Animation */
-.animate-up {
-  animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.hero-cta.in-view {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-@keyframes slideUpFade {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.btn-download {
+.btn-brutalist {
+  background: var(--color-accent);
+  color: #000;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 1rem 2rem;
+  text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: 1rem;
-  padding: 1.5rem 2.5rem;
-  background-color: var(--color-black);
-  color: var(--color-white);
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  border: 4px solid var(--color-black);
+  gap: 0.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.btn-download:hover {
-  background-color: var(--color-accent);
-  color: var(--color-black);
+.btn-brutalist:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 4px 4px 0 rgba(255, 255, 255, 0.2);
 }
 
-.btn-download i {
-  transition: transform 0.2s ease;
+.scroll-hint {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  letter-spacing: 2px;
 }
 
-.btn-download:hover i {
-  transform: translateX(4px);
-}
-
-/* Profile Image */
-.profile-image-wrapper {
+/* ================= GLITCH PROFILE IMAGE ================= */
+.profile-visual {
   position: relative;
-  margin-bottom: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   opacity: 0;
+  transition: opacity 1s ease 0.2s;
 }
 
-.animate-reveal {
-  animation: imageReveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.profile-visual.in-view {
+  opacity: 1;
 }
 
-@keyframes imageReveal {
-  from {
-    opacity: 0;
-    transform: scale(0.9) rotate(5deg);
-  }
-
-  to {
-    opacity: 1;
-    transform: scale(1) rotate(0deg);
-  }
+.glitch-frame {
+  position: relative;
+  width: 100%;
+  max-width: 450px;
+  aspect-ratio: 4/5;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.profile-image-container {
-  aspect-ratio: 1;
+.glitch-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
-  background-color: var(--color-white);
-  border: 4px solid var(--color-black);
-  box-shadow: 8px 8px 0 0 #000;
-  transform: rotate(3deg);
-  transition: transform 0.5s ease, box-shadow 0.3s ease;
+  background: #111;
 }
 
-.profile-image-container:hover {
-  transform: rotate(0deg) translate(-4px, -4px);
-  box-shadow: 12px 12px 0 0 #000;
-}
-
-.profile-image {
+.profile-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: grayscale(1) contrast(1.2);
-  mix-blend-mode: multiply;
-  transform: scale(1.1);
-  transition: transform 0.5s ease, filter 0.5s ease;
+  filter: grayscale(100%) contrast(1.1);
+  transition: filter 0.5s ease;
 }
 
-.profile-image-container:hover .profile-image {
-  transform: scale(1.15);
-  filter: grayscale(0) contrast(1.1);
+.glitch-frame:hover .profile-img.main-img {
+  filter: grayscale(0%) contrast(1);
 }
 
-/* Badge */
-.profile-badge {
+/* Glitch Layers (Simplified CSS-only glitch) */
+.glitch-layer {
   position: absolute;
-  top: -1rem;
-  right: -1rem;
-  background-color: var(--color-accent);
-  border: 2px solid var(--color-black);
-  padding: 1rem;
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  z-index: 20;
-  box-shadow: 4px 4px 0 0 #000;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  mix-blend-mode: hard-light;
 }
 
-.float-animation {
-  animation: floatBadge 3s ease-in-out infinite;
+.glitch-frame:hover .layer-1 {
+  opacity: 0.5;
+  animation: glitch-anim-1 2.5s infinite linear alternate-reverse;
 }
 
-@keyframes floatBadge {
+.glitch-frame:hover .layer-2 {
+  opacity: 0.5;
+  animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
 
-  0%,
+@keyframes glitch-anim-1 {
+  0% {
+    clip-path: inset(20% 0 80% 0);
+    transform: translate(-2px, 1px);
+  }
+
   100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-10px);
+    clip-path: inset(60% 0 10% 0);
+    transform: translate(2px, -1px);
   }
 }
 
-/* ============================================
-   RESPONSIVE
-   ============================================ */
-@media (min-width: 1024px) {
-  .profile-container {
-    grid-template-columns: 7fr 5fr;
+@keyframes glitch-anim-2 {
+  0% {
+    clip-path: inset(10% 0 50% 0);
+    transform: translate(2px, 2px);
   }
 
-  .profile-image-wrapper {
-    margin-bottom: 0;
+  100% {
+    clip-path: inset(80% 0 5% 0);
+    transform: translate(-2px, -2px);
+  }
+}
+
+/* Floating Badge */
+.floating-badge {
+  position: absolute;
+  bottom: 2rem;
+  right: -2rem;
+  background: #000;
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+  padding: 0.8rem 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  animation: float 4s ease-in-out infinite;
+  z-index: 10;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--color-accent);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--color-accent);
+}
+
+/* Grid Deco */
+.grid-deco {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-style: solid;
+  border-color: var(--color-accent);
+  opacity: 0.8;
+}
+
+.grid-deco.top-left {
+  top: -1px;
+  left: -1px;
+  border-width: 2px 0 0 2px;
+}
+
+.grid-deco.bottom-right {
+  bottom: -1px;
+  right: -1px;
+  border-width: 0 2px 2px 0;
+}
+
+/* ================= BACKGROUND NOISE ================= */
+.bg-noise {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (min-width: 1024px) {
+  .profile-grid {
+    grid-template-columns: 1.2fr 0.8fr;
+    align-items: center;
   }
 }
 
 @media (max-width: 768px) {
-  .profile-title {
-    font-size: 3.5rem;
+  .hero-line.line-2 {
+    margin-left: 0;
   }
 
-  .btn-download {
-    padding: 1rem 1.5rem;
-    font-size: 1rem;
-  }
-
-  .char-reveal {
-    transform: translateY(0);
-    animation: none;
-    opacity: 1;
-  }
-
-  .title-highlight {
-    animation: none;
-    clip-path: none;
-  }
-
-  .profile-description,
-  .profile-actions,
-  .profile-image-wrapper {
-    opacity: 1;
-    animation: none;
-  }
-
-  .profile-description {
-    padding-left: 1.5rem;
-    border-left-width: 4px;
-  }
-
-  .profile-description p {
-    font-size: 1rem;
+  .floating-badge {
+    right: 0;
+    bottom: -1.5rem;
   }
 }

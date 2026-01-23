@@ -2,7 +2,6 @@ import React, { Suspense, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { ScrollControls, Scroll, useScroll } from '@react-three/drei';
 import { Link } from 'react-router-dom';
-import * as THREE from 'three';
 import profileImage from '../../images/profile.png';
 import './Hero3D.css';
 
@@ -16,11 +15,11 @@ const AnimatedLogo = () => {
 
         const offset = scroll.offset;
 
-        // Rotation: 0° → 360°
+        // Rotation
         meshRef.current.rotation.y = offset * Math.PI * 2;
         meshRef.current.rotation.x = Math.sin(offset * Math.PI) * 0.3;
 
-        // Scale: 1 → 1.5 → 0.8
+        // Scale
         const scale = offset < 0.5
             ? 1 + offset * 1
             : 1.5 - (offset - 0.5) * 1.4;
@@ -35,11 +34,11 @@ const AnimatedLogo = () => {
         <mesh ref={meshRef}>
             <torusKnotGeometry args={[1, 0.35, 128, 32]} />
             <meshStandardMaterial
-                color="#CCFF00"
+                color="#d4ff00" /* Neon Lime */
                 metalness={0.9}
                 roughness={0.1}
-                emissive="#CCFF00"
-                emissiveIntensity={0.15}
+                emissive="#d4ff00"
+                emissiveIntensity={0.2}
             />
         </mesh>
     );
@@ -50,7 +49,7 @@ const Scene = () => (
     <>
         <AnimatedLogo />
         <ambientLight intensity={0.3} />
-        <pointLight position={[5, 5, 5]} intensity={1} color="#CCFF00" />
+        <pointLight position={[5, 5, 5]} intensity={1} color="#d4ff00" />
         <pointLight position={[-5, -5, -5]} intensity={0.5} color="#ffffff" />
     </>
 );
@@ -58,6 +57,8 @@ const Scene = () => (
 const Hero3D = () => {
     return (
         <div className="hero3d-container">
+            <Link to="/" className="close-3d">×</Link>
+
             <Canvas
                 camera={{ position: [0, 0, 6], fov: 50 }}
                 gl={{ antialias: true, alpha: true }}
@@ -84,9 +85,6 @@ const Hero3D = () => {
                                             Building digital experiences with modern web technologies.
                                         </p>
                                     </div>
-                                    <a href="/CV_NguyenXuanHai.pdf" download className="scroll-btn">
-                                        DOWNLOAD CV <i className="fa-solid fa-arrow-right"></i>
-                                    </a>
                                 </div>
                                 <div className="scroll-indicator">
                                     <span>SCROLL DOWN</span>
@@ -114,7 +112,7 @@ const Hero3D = () => {
                                 <div className="scroll-content center">
                                     <h2 className="scroll-subtitle">EXPLORE MY WORK</h2>
                                     <Link to="/" className="scroll-btn-accent">
-                                        VIEW PORTFOLIO <i className="fa-solid fa-arrow-down"></i>
+                                        ENTER PORTFOLIO <i className="fa-solid fa-arrow-down"></i>
                                     </Link>
                                 </div>
                             </div>

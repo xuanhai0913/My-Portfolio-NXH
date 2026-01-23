@@ -1,74 +1,84 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import profileImage from '../../images/profile.png';
 import './styles/Profile.css';
 
 const Profile = () => {
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
+
   return (
     <section id="profile" className="profile-section">
-      <div className="profile-container">
-        {/* Left Content */}
+      <div className="profile-grid">
+
+        {/* Left: Typography */}
         <div className="profile-content">
-          <h1 className="profile-title">
-            <span className="title-word">
-              {"FULL-STACK".split("").map((char, index) => (
-                <span
-                  key={`fs-${index}`}
-                  className="char-reveal"
-                  style={{ animationDelay: `${0.1 + index * 0.05}s` }}
-                >
-                  {char}
-                </span>
-              ))}
+          <h1 className="hero-title">
+            <span className={`hero-line line-1 ${loaded ? 'in-view' : ''}`}>
+              FULL-STACK
             </span>
-            {" "}
-            <span className="title-word">
-              <span className="title-highlight">
-                {"DEVELOPER".split("").map((char, index) => (
-                  <span
-                    key={`dev-${index}`}
-                    className="char-reveal"
-                    style={{ animationDelay: `${0.6 + index * 0.05}s` }}
-                  >
-                    {char}
-                  </span>
-                ))}
-              </span>
+            <span className={`hero-line line-2 ${loaded ? 'in-view' : ''}`}>
+              <span className="hollow-text">DEVELOPER</span>
             </span>
           </h1>
 
-          <div className="profile-description animate-up" style={{ animationDelay: '1.2s' }}>
+          <div className={`hero-sub ${loaded ? 'in-view' : ''}`}>
             <p>
-              Building digital experiences with modern web technologies.
-              Passionate about creating innovative solutions.
+              Building digital experiences with <span className="neon-highlight">modern web technologies</span>.
+              <br />Passionate about creating innovative solutions.
             </p>
           </div>
 
-          <div className="profile-actions animate-up" style={{ animationDelay: '1.4s' }}>
-            <a
-              href="/CV_NguyenXuanHai.pdf"
-              download="CV_NguyenXuanHai.pdf"
-              className="btn-download"
-            >
-              DOWNLOAD CV <i className="fa-solid fa-arrow-right"></i>
+          <div className={`hero-cta ${loaded ? 'in-view' : ''}`}>
+            <a href="/CV_NguyenXuanHai.pdf" download className="btn-brutalist">
+              DOWNLOAD CV
+              <span className="btn-icon">↓</span>
             </a>
+
+            <div className="scroll-hint">
+              <span>SCROLL TO EXPLORE</span>
+            </div>
           </div>
         </div>
 
-        {/* Right - Profile Image */}
-        <div className="profile-image-wrapper animate-reveal" style={{ animationDelay: '0.5s' }}>
-          <div className="profile-image-container">
-            <img
-              src={profileImage}
-              alt="Nguyễn Xuân Hải - Full-Stack Developer"
-              className="profile-image"
-              loading="eager"
-            />
-          </div>
-          <div className="profile-badge float-animation">
-            Nguyễn Xuân Hải
+        {/* Right: Glitch Image */}
+        <div className={`profile-visual ${loaded ? 'in-view' : ''}`}>
+          <div className="glitch-frame">
+            <div className="glitch-image-wrapper">
+              <img
+                src={profileImage}
+                alt="Nguyễn Xuân Hải"
+                className="profile-img main-img"
+              />
+              <img
+                src={profileImage}
+                alt="Glitch Layer 1"
+                className="profile-img glitch-layer layer-1"
+              />
+              <img
+                src={profileImage}
+                alt="Glitch Layer 2"
+                className="profile-img glitch-layer layer-2"
+              />
+            </div>
+
+            <div className="floating-badge">
+              <span className="status-dot"></span>
+              Nguyễn Xuân Hải
+            </div>
+
+            {/* Decorative Grid Lines */}
+            <div className="grid-deco top-left"></div>
+            <div className="grid-deco bottom-right"></div>
           </div>
         </div>
+
       </div>
+
+      {/* Background Ambience */}
+      <div className="bg-noise"></div>
     </section>
   );
 };

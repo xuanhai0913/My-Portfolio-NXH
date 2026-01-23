@@ -1,812 +1,257 @@
-/* ============================================
-   STACKING CARDS PORTFOLIO
-   Clean, organized stacking effect
-   ============================================ */
+/* Portfolio.css - Premium Brutalist */
 
 .portfolio-section {
-  height: 1100vh;
-  /* Extended for smooth pinning animation */
+  height: 400vh;
+  /* Scrollytelling Height */
   position: relative;
-  overflow: visible;
-  /* Grid Background Pattern */
-  background:
-    linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
-    linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
-    #f8f8f8;
-  background-size: 50px 50px;
+  background-color: var(--bg-dark);
 }
 
 .portfolio-sticky {
   position: sticky;
   top: 0;
   height: 100vh;
+  width: 100%;
   overflow: hidden;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* Gradient overlay */
-  background:
-    radial-gradient(ellipse at center, rgba(255, 255, 255, 0.9) 0%, transparent 70%),
-    radial-gradient(circle at 10% 90%, rgba(212, 255, 0, 0.15) 0%, transparent 40%),
-    radial-gradient(circle at 90% 10%, rgba(212, 255, 0, 0.1) 0%, transparent 40%);
 }
 
-/* Title - Scroll animated */
-.portfolio-title {
+/* Header */
+.portfolio-header {
   position: absolute;
   top: 100px;
-  left: 50%;
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
-  font-weight: 900;
-  z-index: 200;
-  background: #d4ff00;
-  padding: 0.5rem 1.5rem;
-  border: 4px solid #000;
-  box-shadow: 6px 6px 0 0 #000;
-  text-transform: uppercase;
-  will-change: transform, opacity;
-  transition: none;
-  /* JS controls animation */
+  left: 5vw;
+  z-index: 20;
 }
 
-/* Counter */
-.portfolio-counter {
-  position: absolute;
-  bottom: 25px;
-  left: 50%;
-  transform: translateX(-50%);
+.section-title {
   font-family: var(--font-display);
-  font-size: 1rem;
-  font-weight: 700;
-  z-index: 100;
-  display: flex;
-  align-items: baseline;
-  gap: 6px;
-  background: #000;
-  color: #fff;
-  padding: 8px 16px;
-}
-
-.counter-current {
   font-size: 1.5rem;
-  color: #d4ff00;
+  color: var(--text-secondary);
+  letter-spacing: 2px;
+  margin: 0;
 }
 
-.counter-divider {
-  opacity: 0.5;
-}
-
-.counter-total {
-  opacity: 0.7;
-}
-
-/* ========================================
-   PINBOARD - Background with stacked cards
-   ======================================== */
-
-.pinboard {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.pinned-card {
-  position: absolute;
-  width: 220px;
-  background: #fff;
-  border: 3px solid #000;
-  box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.18);
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  filter: blur(1px) grayscale(0.15);
-  opacity: 0.75;
-}
-
-.pinned-card__pin {
-  position: absolute;
-  top: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 1.5rem;
-  z-index: 10;
-  filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.4));
-}
-
-.pinned-card img {
-  width: 100%;
-  height: 140px;
-  object-fit: cover;
-  border-bottom: 2px solid #000;
-}
-
-.pinned-card__label {
-  padding: 12px;
-  font-family: var(--font-display);
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.pinned-card.card-dark {
-  background: #222;
-  color: #fff;
-}
-
-.pinned-card.card-accent {
-  background: #d4ff00;
-}
-
-/* ========================================
-   CARD STAGE - Active card display
-   ======================================== */
-
-.card-stage {
-  position: relative;
-  width: 100%;
-  max-width: 850px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
-  padding: 0 20px;
-}
-
-/* Story Card - Active viewing card */
-.story-card {
-  position: absolute;
-  width: 100%;
-  background: #fff;
-  border: 3px solid #000;
-  box-shadow: 12px 12px 0 0 #000;
-  will-change: transform, opacity;
-  transition: box-shadow 0.3s ease;
-}
-
-.story-card.active:hover {
-  box-shadow: 16px 16px 0 0 #000;
-}
-
-.story-card__inner {
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  min-height: 380px;
-}
-
-/* Media Side */
-.story-card__media {
-  position: relative;
-  background: #000;
-  overflow: hidden;
-}
-
-.story-card__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.story-card.active:hover .story-card__media img {
-  transform: scale(1.05);
-}
-
-.story-card__badge {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background: #d4ff00;
-  color: #000;
-  font-family: var(--font-display);
-  font-size: 0.7rem;
-  font-weight: 700;
-  padding: 5px 12px;
-  border: 2px solid #000;
-}
-
-.story-card__index {
-  position: absolute;
-  bottom: 10px;
-  left: 15px;
-  font-family: var(--font-display);
+.project-counter {
+  font-family: var(--font-mono);
   font-size: 4rem;
-  font-weight: 900;
-  color: rgba(255, 255, 255, 0.15);
+  font-weight: 700;
+  color: var(--color-accent);
   line-height: 1;
 }
 
-/* Content Side */
-.story-card__content {
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 10px;
-  border-left: 3px solid #000;
+.project-counter .divider {
+  color: #444;
+  margin: 0 10px;
+  font-size: 2rem;
+  vertical-align: middle;
 }
 
-.story-card__company {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #888;
+.project-counter .total {
+  font-size: 1.5rem;
+  color: #444;
+  vertical-align: middle;
 }
 
-.story-card__title {
-  font-family: var(--font-display);
-  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
-  font-weight: 900;
-  line-height: 1;
-  text-transform: uppercase;
-  margin: 0;
-}
-
-.story-card__desc {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  line-height: 1.5;
-  opacity: 0.8;
-  margin: 0;
-}
-
-/* Tech Tags */
-.story-card__techs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  margin-top: 6px;
-}
-
-.story-card__techs span {
-  background: #000;
-  color: #fff;
-  font-family: var(--font-mono);
-  font-size: 0.55rem;
-  font-weight: 700;
-  padding: 4px 8px;
-  text-transform: uppercase;
-}
-
-/* Action Buttons */
-.story-card__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 12px;
-}
-
-.btn-primary,
-.btn-secondary {
-  font-family: var(--font-display);
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 10px 16px;
-  text-decoration: none;
-  text-transform: uppercase;
-  border: 2px solid #000;
-  transition: all 0.2s ease;
-}
-
-.btn-primary {
-  background: #d4ff00;
-  color: #000;
-}
-
-.btn-primary:hover {
-  background: #000;
-  color: #d4ff00;
-}
-
-.btn-secondary {
-  background: transparent;
-  color: #000;
-}
-
-.btn-secondary:hover {
-  background: #000;
-  color: #fff;
-}
-
-/* ========================================
-   VARIANTS
-   ======================================== */
-
-.story-card.card-dark {
-  background: #111;
-  color: #fff;
-}
-
-.story-card.card-dark .story-card__content {
-  border-left-color: #333;
-}
-
-.story-card.card-dark .story-card__company {
-  color: #666;
-}
-
-.story-card.card-dark .story-card__title {
-  color: #d4ff00;
-}
-
-.story-card.card-dark .story-card__desc {
-  color: #aaa;
-}
-
-.story-card.card-dark .story-card__techs span {
-  background: #d4ff00;
-  color: #000;
-}
-
-.story-card.card-dark .btn-secondary {
-  color: #fff;
-  border-color: #fff;
-}
-
-.story-card.card-dark .btn-secondary:hover {
-  background: #fff;
-  color: #000;
-}
-
-.story-card.card-accent {
-  background: #d4ff00;
-}
-
-.story-card.card-accent .story-card__content {
-  border-left-color: #000;
-}
-
-.story-card.card-accent .btn-primary {
-  background: #000;
-  color: #d4ff00;
-}
-
-/* ========================================
-   SCROLL INDICATOR
-   ======================================== */
-
-.scroll-indicator {
-  position: absolute;
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  opacity: 0.5;
-  transition: opacity 0.3s ease;
-  z-index: 50;
-}
-
-.scroll-arrow {
-  font-size: 1.2rem;
-  animation: bounce 2s infinite;
-}
-
-@keyframes bounce {
-
-  0%,
-  20%,
-  50%,
-  80%,
-  100% {
-    transform: translateY(0);
-  }
-
-  40% {
-    transform: translateY(6px);
-  }
-
-  60% {
-    transform: translateY(3px);
-  }
-}
-
-/* ========================================
-   END TRANSITION ARROW (BRUSH STYLE)
-   ======================================== */
-
-.end-transition {
-  position: absolute;
-  bottom: 60px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  z-index: 150;
-  pointer-events: none;
-}
-
-.end-transition.visible {
-  opacity: 1;
-}
-
-/* Brush Line Animation */
-.brush-line-container {
-  width: 4px;
-  height: 80px;
-  overflow: hidden;
+/* Cards Container */
+.cards-container {
+  width: 90%;
+  max-width: 1200px;
+  height: 70vh;
+  position: relative;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
-.brush-line {
+.project-card {
+  position: absolute;
+  width: 100%;
   height: 100%;
-  width: auto;
-  opacity: 0.8;
-  mix-blend-mode: multiply;
-  /* Drawing effect from top to bottom */
-  mask-image: linear-gradient(to bottom, black 50%, transparent 50%);
-  mask-size: 100% 200%;
-  mask-position: 0 100%;
-  -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 50%);
-  -webkit-mask-size: 100% 200%;
-  -webkit-mask-position: 0 100%;
-  animation: drawDown 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards,
-    linePulse 3s ease-in-out infinite 1.5s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@keyframes linePulse {
-
-  0%,
-  100% {
-    transform: scaleY(1);
-    opacity: 0.8;
-  }
-
-  50% {
-    transform: scaleY(1.05);
-    opacity: 0.6;
-  }
+.card-glass {
+  width: 100%;
+  height: 100%;
+  max-height: 600px;
+  display: flex;
+  background: rgba(20, 20, 20, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  /* Slight roundness */
 }
 
-@keyframes drawDown {
-  from {
-    mask-position: 0 100%;
-    -webkit-mask-position: 0 100%;
-  }
-
-  to {
-    mask-position: 0 0;
-    -webkit-mask-position: 0 0;
-  }
+/* Card Visual (Image) */
+.card-visual {
+  flex: 1.2;
+  position: relative;
+  overflow: hidden;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Brush Arrow Animation */
-.brush-arrow-container {
-  margin-top: -10px;
-  /* Connect with line */
-  animation: floatContainer 3s ease-in-out infinite 2s;
-  /* Gentle Float */
+.card-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s ease;
+  filter: grayscale(0.5);
 }
 
-/* Organic Sketch Wiggle */
-@keyframes sketchWiggle {
-  0% {
-    transform: rotate(0deg) scale(1) skew(0deg);
-  }
-
-  20% {
-    transform: rotate(-1deg) scale(1.02) skew(1deg);
-  }
-
-  40% {
-    transform: rotate(1deg) scale(0.98) skew(-1deg);
-  }
-
-  60% {
-    transform: rotate(-0.5deg) scale(1.01) skew(0.5deg);
-  }
-
-  80% {
-    transform: rotate(0.5deg) scale(0.99) skew(-0.5deg);
-  }
-
-  100% {
-    transform: rotate(0deg) scale(1) skew(0deg);
-  }
+.project-card:hover .card-visual img {
+  transform: scale(1.05);
+  filter: grayscale(0);
 }
 
-@keyframes floatContainer {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(8px);
-  }
-}
-
-.brush-arrow {
-  width: 60px;
-  height: auto;
-  opacity: 0.95;
-  mix-blend-mode: multiply;
-  /* Drawing effect */
-  mask-image: linear-gradient(to bottom, black 50%, transparent 50%);
-  mask-size: 100% 200%;
-  mask-position: 0 100%;
-  -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 50%);
-  -webkit-mask-size: 100% 200%;
-  -webkit-mask-position: 0 100%;
-  /* Draw first, then wiggle */
-  animation: drawDown 1s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.8s,
-    sketchWiggle 4s ease-in-out infinite 1.8s;
-  transform-origin: center top;
-}
-
-
-.end-transition__label {
-  font-family: var(--font-display);
-  font-size: 0.9rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
+.card-badge {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: var(--color-accent);
   color: #000;
-  background: #fff;
-  padding: 8px 16px;
-  border: 2px solid #000;
-  margin-top: 15px;
-  opacity: 0;
-  animation: fadeIn 0.5s ease forwards 1.5s;
+  padding: 5px 10px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.8rem;
+  z-index: 5;
 }
 
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-  }
+/* Card Content */
+.card-content {
+  flex: 1;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
 }
 
-
-
-/* ========================================
-   RESPONSIVE - All Screen Sizes
-   ======================================== */
-
-/* Large Desktop */
-@media (min-width: 1400px) {
-  .card-stage {
-    max-width: 1000px;
-  }
-
-  .story-card__inner {
-    min-height: 450px;
-  }
-
-  .story-card__content {
-    padding: 40px;
-  }
-
-  .pinned-card {
-    width: 320px;
-  }
-
-  .pinned-card img {
-    height: 120px;
-  }
+.company-label {
+  font-family: var(--font-mono);
+  color: var(--color-accent);
+  font-size: 0.9rem;
+  display: block;
+  margin-bottom: 0.5rem;
 }
 
-/* Medium Desktop */
-@media (max-width: 1200px) {
-  .card-stage {
-    max-width: 750px;
-  }
-
-  .story-card__inner {
-    min-height: 350px;
-  }
-
-  .pinned-card {
-    width: 240px;
-  }
-
-  .pinned-card img {
-    height: 85px;
-  }
+.project-title {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  line-height: 1;
+  margin: 0 0 1.5rem;
+  color: var(--text-primary);
+  text-transform: uppercase;
 }
 
-/* Tablet Landscape */
+.project-desc {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  max-width: 400px;
+}
+
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 3rem;
+}
+
+.tech-tag {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 5px 12px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: #ccc;
+}
+
+.card-actions {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: auto;
+}
+
+.action-btn {
+  font-family: var(--font-mono);
+  text-decoration: none;
+  font-weight: 700;
+  transition: all 0.2s;
+}
+
+.action-btn.primary {
+  background: var(--text-primary);
+  color: #000;
+  padding: 1rem 2rem;
+}
+
+.action-btn.primary:hover {
+  background: var(--color-accent);
+}
+
+.action-btn.secondary {
+  color: var(--text-primary);
+  padding: 1rem 0;
+  border-bottom: 1px solid transparent;
+}
+
+.action-btn.secondary:hover {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+}
+
+/* Scroll Progress */
+.scroll-progress {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 4px;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.progress-bar {
+  width: 100%;
+  background: var(--color-accent);
+  transition: height 0.1s linear;
+}
+
+/* Responsive */
 @media (max-width: 1024px) {
-  .card-stage {
-    max-width: 650px;
+  .card-glass {
+    flex-direction: column;
+    max-height: 80vh;
   }
 
-  .story-card__inner {
-    min-height: 320px;
+  .card-visual {
+    flex: 1;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  .story-card__content {
-    padding: 25px;
-    gap: 8px;
+  .card-content {
+    flex: 1;
+    padding: 1.5rem;
   }
 
-  .story-card__title {
-    font-size: 1.3rem;
+  .project-title {
+    font-size: 2rem;
   }
 
-  .story-card__desc {
-    font-size: 0.75rem;
-  }
-
-  .pinned-card {
-    width: 200px;
-  }
-
-  .pinned-card img {
-    height: 70px;
-  }
-
-  .pinned-card__label {
-    font-size: 0.55rem;
-    padding: 6px;
-  }
-}
-
-/* Tablet Portrait */
-@media (max-width: 900px) {
-  .story-card__inner {
-    grid-template-columns: 1fr;
-    min-height: auto;
-  }
-
-  .story-card__media {
-    height: 200px;
-  }
-
-  .story-card__content {
-    border-left: none;
-    border-top: 3px solid #000;
-    padding: 20px;
-  }
-
-  .story-card__index {
-    font-size: 3rem;
-  }
-
-  .pinned-card {
-    width: 160px;
-  }
-
-  .pinned-card img {
-    height: 55px;
-  }
-}
-
-/* Mobile Landscape */
-@media (max-width: 768px) {
-  .portfolio-title {
-    font-size: 1.2rem;
-    padding: 0.3rem 0.8rem;
-    top: 20px;
-  }
-
-  .portfolio-counter {
-    padding: 6px 12px;
-    font-size: 0.85rem;
-    bottom: 20px;
-  }
-
-  .counter-current {
-    font-size: 1.2rem;
-  }
-
-  .card-stage {
-    padding: 0 15px;
-  }
-
-  .story-card__media {
-    height: 180px;
-  }
-
-  .story-card__content {
-    padding: 18px;
-  }
-
-  .story-card__title {
-    font-size: 1.1rem;
-  }
-
-  .story-card__desc {
-    font-size: 0.7rem;
-    -webkit-line-clamp: 2;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .btn-primary,
-  .btn-secondary {
-    padding: 8px 12px;
-    font-size: 0.65rem;
-  }
-
-  .pinned-card {
-    width: 130px;
-  }
-
-  .pinned-card img {
-    height: 45px;
-  }
-
-  .pinned-card__label {
-    font-size: 0.5rem;
-    padding: 5px;
-  }
-
-  .scroll-indicator {
-    bottom: 60px;
-  }
-}
-
-/* Mobile Portrait */
-@media (max-width: 480px) {
-  .portfolio-section {
-    background-size: 30px 30px;
-  }
-
-  .portfolio-title {
+  .project-desc {
     font-size: 1rem;
+    margin-bottom: 1.5rem;
   }
 
-  .story-card__media {
-    height: 150px;
-  }
-
-  .story-card__content {
-    padding: 15px;
-    gap: 6px;
-  }
-
-  .story-card__title {
-    font-size: 1rem;
-  }
-
-  .story-card__desc {
-    font-size: 0.65rem;
-  }
-
-  .story-card__techs span {
-    font-size: 0.5rem;
-    padding: 3px 6px;
-  }
-
-  .story-card__actions {
-    gap: 6px;
-  }
-
-  .btn-primary,
-  .btn-secondary {
-    padding: 7px 10px;
-    font-size: 0.6rem;
-  }
-
-  .pinned-card {
-    width: 100px;
-  }
-
-  .pinned-card img {
-    height: 35px;
-  }
-
-  .pinned-card__label {
-    font-size: 0.45rem;
-    padding: 4px;
+  .cards-container {
+    width: 95%;
+    height: 80vh;
   }
 }

@@ -16,73 +16,46 @@ const VideoDemo = () => {
 
     return (
         <div className="video-demo-page">
-            {/* Header */}
-            <header className="demo-header">
-                <div className="demo-nav">
-                    <Link to="/" className="back-link">
-                        <i className="fas fa-arrow-left"></i>
-                        <span>BACK TO PORTFOLIO</span>
-                    </Link>
-                </div>
-            </header>
+            <Link to="/" className="back-btn">
+                ← BACK TO PORTFOLIO
+            </Link>
 
-            {/* Main Content */}
-            <section className="demo-section">
-                <div className="demo-container">
-                    {/* Giant Title */}
-                    <h1 className="demo-title">
-                        PROJECT <br /> DEMOS
-                    </h1>
-
-                    {/* Featured Project */}
-                    <div className="featured-grid">
-                        {/* Video Player */}
-                        <div className="video-wrapper">
-                            <div className="video-frame">
-                                <div className="live-badge">
-                                    <div className="pulse-dot"></div>
-                                    LIVE_PREVIEW
-                                </div>
-                                <div className="video-container">
-                                    <video
-                                        controls
-                                        preload="metadata"
-                                        className="video-player"
-                                    >
-                                        <source src={featuredProject.videoSrc} type="video/mp4" />
-                                        Your browser does not support the video tag.
-                                    </video>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Project Info */}
-                        <div className="project-info">
-                            <div className="project-tag">FEATURED_PROJECT_01</div>
-                            <h2 className="project-title">{featuredProject.title}</h2>
-                            <div className="project-description">
-                                {featuredProject.description}
-                            </div>
-                            <div className="tech-tags">
-                                {featuredProject.technologies.map((tech, index) => (
-                                    <span key={index} className="tech-tag">{tech}</span>
-                                ))}
-                            </div>
-                            <a
-                                href={featuredProject.github}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="github-btn"
-                            >
-                                <span className="btn-shadow"></span>
-                                <span className="btn-content">
-                                    <i className="fab fa-github"></i> VIEW SOURCE CODE
-                                </span>
-                            </a>
+            <div className="cinema-container">
+                {/* Left: Video Player */}
+                <div className="player-section">
+                    <div className="monitor-frame">
+                        <div className="screen-content">
+                            <video controls className="cinema-video">
+                                <source src={featuredProject.videoSrc} type="video/mp4" />
+                                Your browser does not support the video tag.
+                            </video>
+                            <div className="live-tag">LIVE_PREVIEW</div>
                         </div>
                     </div>
                 </div>
-            </section>
+
+                {/* Right: Info Panel */}
+                <div className="info-panel">
+                    <div className="project-meta">FEATURED_PROJECT_01</div>
+                    <h1 className="project-hero-title">{featuredProject.title}</h1>
+                    <p className="project-detail">{featuredProject.description}</p>
+
+                    <div className="tech-row">
+                        {featuredProject.technologies.map((t, i) => (
+                            <span key={i} className="tech-pill">{t}</span>
+                        ))}
+                    </div>
+
+                    <a
+                        href={featuredProject.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-github-cinema"
+                    >
+                        VIEW SOURCE CODE ↗
+                    </a>
+                </div>
+            </div>
         </div>
     );
 };
