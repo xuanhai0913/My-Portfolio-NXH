@@ -9,15 +9,10 @@
     max-width: 1000px;
     margin: 0 auto;
     position: relative;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
-.experience-container.in-view {
-    opacity: 1;
-    transform: translateY(0);
-}
+/* Remove manual transitions as Framer Motion handles it */
+/* .experience-container.in-view { ... } */
 
 .section-title {
     font-size: 3rem;
@@ -31,32 +26,54 @@
 .experience-timeline {
     position: relative;
     padding-left: 30px;
-    border-left: 2px solid rgba(255, 255, 255, 0.1);
+    /* Removed static border-left to implement dynamic progress bar */
+}
+
+/* Dynamic Progress Bar */
+.timeline-progress-bar {
+    position: absolute;
+    left: 29px;
+    /* Aligned with padding-left minus stroke width */
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #00ff88;
+    transform-origin: top;
+    box-shadow: 0 0 10px #00ff88;
+    z-index: 0;
+}
+
+/* Add a background track for the progress bar */
+.experience-timeline::before {
+    content: '';
+    position: absolute;
+    left: 29px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 0;
 }
 
 .experience-item {
     position: relative;
     margin-bottom: 60px;
     padding-left: 30px;
-    opacity: 0;
-    transform: translateX(-20px);
-    transition: all 0.6s ease-out;
-    transition-delay: var(--delay);
-}
-
-.experience-container.in-view .experience-item {
-    opacity: 1;
-    transform: translateX(0);
+    /* Removed CSS opacity/transform/transition properties */
 }
 
 .experience-marker {
     position: absolute;
     left: -36px;
-    top: 0;
+    top: 25px;
+    /* Adjust to align with the card, not absolute top */
     width: 14px;
     height: 14px;
-    background: #00ff88;
+    background: #000;
+    /* Dark center */
+    border: 2px solid #00ff88;
     border-radius: 50%;
+    z-index: 1;
     box-shadow: 0 0 10px #00ff88;
 }
 
