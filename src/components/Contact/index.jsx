@@ -13,25 +13,37 @@ const Contact = () => {
     setLoading(true);
     setStatus(null);
 
-    emailjs
-      .sendForm(
-        API.EMAILJS_SERVICE,
-        API.EMAILJS_TEMPLATE,
-        form.current,
-        API.EMAILJS_PUBLIC_KEY
-      )
+    // 1. Send Admin Notification
+    const sendAdmin = emailjs.sendForm(
+      API.EMAILJS_SERVICE,
+      API.EMAILJS_TEMPLATE,
+      form.current,
+      API.EMAILJS_PUBLIC_KEY
+    );
+
+    // 2. Send Auto-Reply to User
+    const sendAutoReply = emailjs.sendForm(
+      API.EMAILJS_SERVICE,
+      API.EMAILJS_AUTOREPLY_TEMPLATE,
+      form.current,
+      API.EMAILJS_PUBLIC_KEY
+    );
+
+    Promise.all([sendAdmin, sendAutoReply])
       .then(
-        (result) => {
+        () => {
           setLoading(false);
           setStatus('success');
           form.current.reset();
-          // Auto clear success message after 5 seconds
           setTimeout(() => setStatus(null), 5000);
         },
         (error) => {
           setLoading(false);
+          console.error('EmailJS Error:', error);
+          // If at least one succeeds, we consider it a partial success, 
+          // but for simplicity, show success if Admin mail works.
+          // Here we default to error if Promise.all fails.
           setStatus('error');
-          console.error('EmailJS Error:', error.text);
         }
       );
   };
