@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import profileImage from '../../images/profile.png';
 import ExperiencePopup from './ExperiencePopup';
+import CVPreview from './CVPreview';
 import './styles/Profile.css';
 
 const Profile = () => {
   const [loaded, setLoaded] = useState(false);
   const [showExperience, setShowExperience] = useState(false);
+  const [showCV, setShowCV] = useState(false);
 
   useEffect(() => {
     setLoaded(true);
@@ -34,15 +36,13 @@ const Profile = () => {
           </div>
 
           <div className={`hero-cta ${loaded ? 'in-view' : ''}`}>
-            <a
-              href="https://www.hailamdev.space/CV_NguyenXuanHai.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={() => setShowCV(true)}
               className="btn-brutalist btn-view-cv"
             >
               VIEW CV
               <span className="btn-icon">↗</span>
-            </a>
+            </button>
 
             <div className="scroll-hint">
               <span>SCROLL TO EXPLORE</span>
@@ -94,10 +94,16 @@ const Profile = () => {
         <ExperiencePopup onClose={() => setShowExperience(false)} />
       )}
 
+      {/* CV Preview Modal */}
+      {showCV && (
+        <CVPreview onClose={() => setShowCV(false)} />
+      )}
+
       {/* Background Ambience */}
       <div className="bg-noise"></div>
     </section>
   );
 };
 
+export default Profile;
 export default Profile;
