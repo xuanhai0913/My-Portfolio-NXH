@@ -66,41 +66,42 @@ export const DEFAULTS = {
 };
 
 // Work Experience Data
+// Work Experience Data
 export const WORK_EXPERIENCE = [
   {
-    company: 'ECH - English Community House',
-    role: 'Full Stack Developer',
-    period: '2024 - Present',
+    company: 'ECH (English Community House) - Learning Management System',
+    role: 'FULLSTACK DEVELOPER',
+    period: 'October 2024 - Present',
     description: 'Built a comprehensive Learning Management System (LMS) with ASP.NET Core 8.0 and SQL Server. Implemented a Certificate Generation System using QuestPDF and integrated Cloudinary for media management. Developed secure authentication flows with Identity and JWT.',
     technologies: ['ASP.NET Core 8', 'Entity Framework', 'SQL Server', 'QuestPDF', 'Cloudinary', 'MailKit', 'Bootstrap 5'],
     logo: 'https://res.cloudinary.com/dqdcqtu8m/image/upload/v1755441982/8a7636ad-a18c-4c4d-9da4-cd2cad07f8c3.png',
     link: 'https://ech.edu.vn/'
   },
   {
-    company: 'VN Media Hub',
-    role: 'Full Stack Developer',
-    period: '2024',
+    company: 'VN Media Hub (CMS & Media Platform)',
+    role: 'FULLSTACK DEVELOPER',
+    period: 'October 2024 - January 2026',
     description: 'Developed a high-performance Content Management System (CMS) and media platform using React 18 and ASP.NET Core 8 Web API. Implemented dual authentication (JWT + Google OAuth2), advanced content management, and automated reporting with QuestPDF.',
     technologies: ['React 18', 'Vite', 'ASP.NET Core 8', 'JWT', 'Google OAuth2', 'Redis', 'Serilog'],
     logo: 'https://res.cloudinary.com/dqdcqtu8m/image/upload/v1755441948/1b725dc6-8cdb-4da9-a6b9-b0bc2a34fb3b.png',
     link: 'https://vnmediahub.com/'
   },
   {
-    company: 'B2B GoSell',
-    role: 'Frontend Developer',
-    period: '2023 - 2024',
-    description: 'Contributed to the development of the B2B e-commerce platform. (Please update with specific details about your role and achievements at B2B GoSell).',
-    technologies: ['React', 'Redux', 'REST API', 'Agile/Scrum', 'Ant Design'],
-    logo: 'https://res.cloudinary.com/dqdcqtu8m/image/upload/v1755442033/f29959fd-0bcb-4383-84e3-28696d85caf2.png',
-    link: 'https://b2bgosell.com/'
-  },
-  {
-    company: 'Great Link Mai House',
-    role: 'Software Developer',
-    period: '2023',
+    company: 'Great Link Mai House – Digital Publishing Platform',
+    role: 'FULLSTACK DEVELOPER',
+    period: 'July 2025 - Present',
     description: 'Contributed to the development of Great Link Mai House platform. (Please update with specific details about your role and achievements).',
     technologies: ['JavaScript', 'HTML/CSS'],
     logo: 'https://res.cloudinary.com/dqdcqtu8m/image/upload/v1755441933/f7ce90e7-0068-4433-ab8f-32cab1067dc2.png',
     link: 'https://greatlinkmaihouse.com/'
+  },
+  {
+    company: 'B2B GoSell',
+    role: 'FULLSTACK DEVELOPER',
+    period: 'Coming Soon',
+    description: 'Contributed to the development of the B2B e-commerce platform. (Please update with specific details about your role and achievements at B2B GoSell).',
+    technologies: ['React', 'Redux', 'REST API', 'Agile/Scrum', 'Ant Design'],
+    logo: 'https://res.cloudinary.com/dqdcqtu8m/image/upload/v1755442033/f29959fd-0bcb-4383-84e3-28696d85caf2.png',
+    link: 'https://b2bgosell.com/'
   }
 ];
