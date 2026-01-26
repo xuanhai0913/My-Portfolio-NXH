@@ -35,19 +35,15 @@ const SectionTransition = () => {
 
             const updateVideo = () => {
                 if (!video || !video.duration) return;
-                // If the video is currently seeking, skipping update might reduce stutter but can cause 'slip'
-                // For scrollytelling, we usually force it. 
-                // However, standard currentTime setting IS blocking. 
 
                 const targetTime = videoProgress.frame;
 
-                if (Number.isFinite(targetTime)) {
-                    // Use fastSeek if supported (Safari/Firefox) for smoother scrubbing
-                    if (video.fastSeek) {
-                        video.fastSeek(targetTime);
-                    } else {
-                        video.currentTime = targetTime;
-                    }
+                // Throttle updates to prevent crashing on heavy videos
+                // Only update if difference is significant (> 0.05s) to avoid micro-stutters consuming CPU
+                if (Math.abs(video.currentTime - targetTime) > 0.05) {
+                    // Try standard currentTime first as it's more accurate for scrollytelling than fastSeek
+                    // (fastSeek can be too "snappy" / jagged on some browsers)
+                    video.currentTime = targetTime;
                 }
             };
 
