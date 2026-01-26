@@ -38,11 +38,8 @@ const SectionTransition = () => {
 
                 const targetTime = videoProgress.frame;
 
-                // Throttle updates to prevent crashing on heavy videos
-                // Only update if difference is significant (> 0.05s) to avoid micro-stutters consuming CPU
-                if (Math.abs(video.currentTime - targetTime) > 0.05) {
-                    // Try standard currentTime first as it's more accurate for scrollytelling than fastSeek
-                    // (fastSeek can be too "snappy" / jagged on some browsers)
+                // With optimized video (Keyint=1), we can update more frequently for smoothness
+                if (Math.abs(video.currentTime - targetTime) > 0.01) {
                     video.currentTime = targetTime;
                 }
             };
@@ -80,7 +77,7 @@ const SectionTransition = () => {
             <video
                 ref={videoRef}
                 className="transition-video"
-                src="/Neon_Projects.webm"
+                src="/Neon_Projects_Optimized.mp4"
                 muted
                 playsInline
                 loop={false}
