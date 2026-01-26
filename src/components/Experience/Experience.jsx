@@ -11,7 +11,7 @@ const Experience = () => {
     const videoRef = useRef(null);
     const [inView, setInView] = useState(false);
 
-    useEffect(() => {
+    React.useLayoutEffect(() => {
         // Intersection Observer for Text Animation
         const observer = new IntersectionObserver(
             ([entry]) => {

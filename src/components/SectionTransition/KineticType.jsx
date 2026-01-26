@@ -11,7 +11,8 @@ const KineticType = ({ text }) => {
     const linesRef = useRef([]);
     const circlesRef = useRef([]);
 
-    useEffect(() => {
+    // useLayoutEffect prevents layout thrashing with ScrollTrigger
+    React.useLayoutEffect(() => {
         const container = containerRef.current;
         const textEl = textRef.current;
 
