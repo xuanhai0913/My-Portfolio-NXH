@@ -5,7 +5,7 @@ import './SectionTransition.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const SectionTransition = () => {
+const SectionTransition = ({ videoSrc = "/Neon_Projects_Optimized.mp4" }) => {
     const sectionRef = useRef(null);
     const videoRef = useRef(null);
 
@@ -77,7 +77,7 @@ const SectionTransition = () => {
             <video
                 ref={videoRef}
                 className="transition-video"
-                src="/Neon_Projects_Optimized.mp4"
+                src={videoSrc}
                 muted
                 playsInline
                 loop={false}

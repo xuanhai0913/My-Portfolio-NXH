@@ -43,7 +43,7 @@ const MainPortfolio = () => (
     {/* Section Transition - About to Experience */}
     <ErrorBoundary>
       <Suspense fallback={<LoadingFallback />}>
-        <SectionTransition text="EXPERIENCE" />
+        <SectionTransition text="EXPERIENCE" videoSrc="/Neon_History_Optimized.mp4" />
       </Suspense>
     </ErrorBoundary>
 
@@ -56,7 +56,7 @@ const MainPortfolio = () => (
     {/* Section Transition - Experience to Projects */}
     <ErrorBoundary>
       <Suspense fallback={<LoadingFallback />}>
-        <SectionTransition text="PROJECTS" />
+        <SectionTransition text="PROJECTS" videoSrc="/Neon_Projects_Optimized.mp4" />
       </Suspense>
     </ErrorBoundary>
 
