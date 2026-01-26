@@ -7,81 +7,58 @@ import Header from './components/Header';
 import './App.css';
 
 // Lazy load non-critical components
-const Profile = lazy(() => import('./components/Profile'));
-const About = lazy(() => import('./components/About'));
-const Experience = lazy(() => import('./components/Experience/Experience'));
-const SectionTransition = lazy(() => import('./components/SectionTransition'));
-const Portfolio = lazy(() => import('./components/Portfolio'));
-const Certifications = lazy(() => import('./components/Certifications'));
-const Contact = lazy(() => import('./components/Contact'));
-const Footer = lazy(() => import('./components/Footer'));
+import Profile from './components/Profile';
+import About from './components/About';
+import Experience from './components/Experience/Experience';
+import SectionTransition from './components/SectionTransition';
+import Portfolio from './components/Portfolio';
+import Certifications from './components/Certifications';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
+
+// Lazy load actual heavy/optional pages only
 const VideoDemo = lazy(() => import('./components/VideoDemo'));
 const Hero3D = lazy(() => import('./components/Hero3D'));
-
-// Loading fallback
-const LoadingFallback = () => (
-  <div className="loading-container">
-    <div className="loading-spinner"></div>
-  </div>
-);
 
 // Main Portfolio Page Component
 const MainPortfolio = () => (
   <>
     <ErrorBoundary>
-      <Suspense fallback={<LoadingFallback />}>
-        <Profile />
-      </Suspense>
+      <Profile />
     </ErrorBoundary>
 
     <ErrorBoundary>
-      <Suspense fallback={<LoadingFallback />}>
-        <About />
-      </Suspense>
+      <About />
     </ErrorBoundary>
 
     {/* Section Transition - About to Experience */}
     <ErrorBoundary>
-      <Suspense fallback={<LoadingFallback />}>
-        <SectionTransition text="EXPERIENCE" videoSrc="/Neon_History_Optimized.mp4" />
-      </Suspense>
+      <SectionTransition text="EXPERIENCE" videoSrc="/Neon_History_Optimized.mp4" />
     </ErrorBoundary>
 
     <ErrorBoundary>
-      <Suspense fallback={<LoadingFallback />}>
-        <Experience />
-      </Suspense>
+      <Experience />
     </ErrorBoundary>
 
     {/* Section Transition - Experience to Projects */}
     <ErrorBoundary>
-      <Suspense fallback={<LoadingFallback />}>
-        <SectionTransition text="PROJECTS" videoSrc="/Neon_Projects_Optimized.mp4" />
-      </Suspense>
+      <SectionTransition text="PROJECTS" videoSrc="/Neon_Projects_Optimized.mp4" />
     </ErrorBoundary>
 
     <ErrorBoundary>
-      <Suspense fallback={<LoadingFallback />}>
-        <Portfolio />
-      </Suspense>
+      <Portfolio />
     </ErrorBoundary>
 
     <ErrorBoundary>
-      <Suspense fallback={<LoadingFallback />}>
-        <Certifications />
-      </Suspense>
+      <Certifications />
     </ErrorBoundary>
 
     <ErrorBoundary>
-      <Suspense fallback={<LoadingFallback />}>
-        <Contact />
-      </Suspense>
+      <Contact />
     </ErrorBoundary>
 
     <ErrorBoundary>
-      <Suspense fallback={<LoadingFallback />}>
-        <Footer />
-      </Suspense>
+      <Footer />
     </ErrorBoundary>
   </>
 );
