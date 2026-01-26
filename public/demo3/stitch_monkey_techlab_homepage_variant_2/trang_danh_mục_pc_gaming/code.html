@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Danh Mục PC Gaming - Monkey Techlab</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0da6f2",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#111618", 
+                        "surface-dark": "#1a2228",
+                        "surface-highlight": "#283339",
+                        "text-secondary": "#9cb0ba",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: "Space Grotesk", "Noto Sans", sans-serif; }
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #111618; }
+        ::-webkit-scrollbar-thumb { background: #283339; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #0da6f2; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen flex flex-col overflow-x-hidden text-white">
+<!-- Header -->
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#283339] bg-[#111618]/95 backdrop-blur-md px-4 lg:px-10 py-3">
+<div class="flex items-center gap-4 lg:gap-8 w-full max-w-[1440px] mx-auto">
+<div class="flex items-center gap-4 text-white shrink-0">
+<div class="size-8 text-primary">
+<svg class="w-full h-full" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-white text-xl font-bold leading-tight tracking-[-0.015em] hidden sm:block">Monkey Techlab</h2>
+</div>
+<label class="hidden md:flex flex-col min-w-40 !h-10 max-w-64 lg:max-w-96 flex-1">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full group focus-within:ring-2 focus-within:ring-primary/50 transition-all">
+<div class="text-text-secondary flex border-none bg-surface-highlight items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-0 border-none bg-surface-highlight focus:border-none h-full placeholder:text-text-secondary px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Tìm kiếm PC, Linh kiện..." value=""/>
+</div>
+</label>
+<div class="flex flex-1 justify-end gap-4 lg:gap-8 items-center">
+<div class="hidden xl:flex items-center gap-6">
+<a class="text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Trang chủ</a>
+<a class="text-primary text-sm font-bold leading-normal" href="#">PC Gaming</a>
+<a class="text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Linh kiện</a>
+<a class="text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Tin tức</a>
+</div>
+<div class="flex gap-3">
+<button class="hidden sm:flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary hover:bg-sky-500 text-white text-sm font-bold leading-normal tracking-[0.015em] transition-colors shadow-[0_0_15px_rgba(13,166,242,0.3)]">
+<span class="truncate">Đăng nhập</span>
+</button>
+<button class="relative flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 w-10 bg-surface-highlight hover:bg-[#34424a] text-white transition-colors">
+<span class="material-symbols-outlined text-[20px]">shopping_cart</span>
+<span class="absolute top-1.5 right-1.5 size-2 bg-red-500 rounded-full"></span>
+</button>
+<button class="flex md:hidden cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 w-10 bg-surface-highlight hover:bg-[#34424a] text-white transition-colors">
+<span class="material-symbols-outlined text-[20px]">menu</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<div class="flex flex-1 justify-center w-full">
+<div class="layout-content-container flex flex-col w-full max-w-[1440px] px-4 lg:px-10 pb-10">
+<!-- Breadcrumbs -->
+<div class="flex flex-wrap gap-2 py-6">
+<a class="text-text-secondary text-sm font-medium leading-normal hover:text-white transition-colors" href="#">Trang chủ</a>
+<span class="text-text-secondary text-sm font-medium leading-normal">/</span>
+<span class="text-white text-sm font-medium leading-normal">PC Gaming</span>
+</div>
+<!-- Main Layout Grid -->
+<div class="flex flex-col lg:flex-row gap-8">
+<!-- Sidebar Filters -->
+<aside class="w-full lg:w-64 shrink-0 flex flex-col gap-6">
+<div class="p-4 rounded-xl bg-surface-dark border border-surface-highlight">
+<h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">filter_alt</span>
+                            Bộ Lọc
+                        </h3>
+<!-- Filter Groups -->
+<div class="flex flex-col gap-6">
+<!-- Price Range -->
+<div class="flex flex-col gap-3">
+<h4 class="text-sm font-bold text-white uppercase tracking-wider">Khoảng Giá</h4>
+<div class="flex items-center gap-2 text-sm text-text-secondary">
+<input class="w-full bg-surface-highlight rounded border-none px-2 py-1 text-center text-white text-xs" type="text" value="0₫"/>
+<span>-</span>
+<input class="w-full bg-surface-highlight rounded border-none px-2 py-1 text-center text-white text-xs" type="text" value="50tr₫"/>
+</div>
+<div class="relative h-1.5 w-full bg-surface-highlight rounded-full mt-2">
+<div class="absolute h-full w-2/3 bg-primary rounded-full left-0"></div>
+<div class="absolute size-3.5 bg-white border-2 border-primary rounded-full -top-1 left-[66%] cursor-pointer"></div>
+</div>
+</div>
+<hr class="border-surface-highlight"/>
+<!-- Brand -->
+<div class="flex flex-col gap-2">
+<h4 class="text-sm font-bold text-white uppercase tracking-wider mb-1">Thương Hiệu</h4>
+<label class="flex items-center gap-3 cursor-pointer group">
+<div class="relative flex items-center">
+<input class="peer size-4 appearance-none rounded border border-text-secondary bg-surface-highlight checked:bg-primary checked:border-primary transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-0 top-0 text-white opacity-0 peer-checked:opacity-100 text-[16px] pointer-events-none">check</span>
+</div>
+<span class="text-sm text-text-secondary group-hover:text-white transition-colors">Monkey Custom</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<div class="relative flex items-center">
+<input class="peer size-4 appearance-none rounded border border-text-secondary bg-surface-highlight checked:bg-primary checked:border-primary transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-0 top-0 text-white opacity-0 peer-checked:opacity-100 text-[16px] pointer-events-none">check</span>
+</div>
+<span class="text-sm text-text-secondary group-hover:text-white transition-colors">ASUS ROG</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<div class="relative flex items-center">
+<input class="peer size-4 appearance-none rounded border border-text-secondary bg-surface-highlight checked:bg-primary checked:border-primary transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-0 top-0 text-white opacity-0 peer-checked:opacity-100 text-[16px] pointer-events-none">check</span>
+</div>
+<span class="text-sm text-text-secondary group-hover:text-white transition-colors">MSI Gaming</span>
+</label>
+</div>
+<hr class="border-surface-highlight"/>
+<!-- CPU -->
+<div class="flex flex-col gap-2">
+<h4 class="text-sm font-bold text-white uppercase tracking-wider mb-1">Vi xử lý (CPU)</h4>
+<label class="flex items-center gap-3 cursor-pointer group">
+<div class="relative flex items-center">
+<input class="peer size-4 appearance-none rounded border border-text-secondary bg-surface-highlight checked:bg-primary checked:border-primary transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-0 top-0 text-white opacity-0 peer-checked:opacity-100 text-[16px] pointer-events-none">check</span>
+</div>
+<span class="text-sm text-text-secondary group-hover:text-white transition-colors">Intel Core i5</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<div class="relative flex items-center">
+<input class="peer size-4 appearance-none rounded border border-text-secondary bg-surface-highlight checked:bg-primary checked:border-primary transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-0 top-0 text-white opacity-0 peer-checked:opacity-100 text-[16px] pointer-events-none">check</span>
+</div>
+<span class="text-sm text-text-secondary group-hover:text-white transition-colors">Intel Core i7</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<div class="relative flex items-center">
+<input class="peer size-4 appearance-none rounded border border-text-secondary bg-surface-highlight checked:bg-primary checked:border-primary transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-0 top-0 text-white opacity-0 peer-checked:opacity-100 text-[16px] pointer-events-none">check</span>
+</div>
+<span class="text-sm text-text-secondary group-hover:text-white transition-colors">AMD Ryzen 5</span>
+</label>
+</div>
+<hr class="border-surface-highlight"/>
+<!-- GPU -->
+<div class="flex flex-col gap-2">
+<h4 class="text-sm font-bold text-white uppercase tracking-wider mb-1">Card Đồ Họa (GPU)</h4>
+<label class="flex items-center gap-3 cursor-pointer group">
+<div class="relative flex items-center">
+<input class="peer size-4 appearance-none rounded border border-text-secondary bg-surface-highlight checked:bg-primary checked:border-primary transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-0 top-0 text-white opacity-0 peer-checked:opacity-100 text-[16px] pointer-events-none">check</span>
+</div>
+<span class="text-sm text-text-secondary group-hover:text-white transition-colors">NVIDIA RTX 3060</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<div class="relative flex items-center">
+<input class="peer size-4 appearance-none rounded border border-text-secondary bg-surface-highlight checked:bg-primary checked:border-primary transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-0 top-0 text-white opacity-0 peer-checked:opacity-100 text-[16px] pointer-events-none">check</span>
+</div>
+<span class="text-sm text-text-secondary group-hover:text-white transition-colors">NVIDIA RTX 4060 Ti</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<div class="relative flex items-center">
+<input class="peer size-4 appearance-none rounded border border-text-secondary bg-surface-highlight checked:bg-primary checked:border-primary transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-0 top-0 text-white opacity-0 peer-checked:opacity-100 text-[16px] pointer-events-none">check</span>
+</div>
+<span class="text-sm text-text-secondary group-hover:text-white transition-colors">NVIDIA RTX 4070</span>
+</label>
+</div>
+</div>
+</div>
+</aside>
+<!-- Product Content -->
+<main class="flex-1 flex flex-col gap-6">
+<!-- Hero Banner -->
+<div class="relative rounded-xl overflow-hidden min-h-[200px] md:min-h-[280px] flex items-center bg-cover bg-center" data-alt="Dark futuristic cyber background with neon blue grid lines" style="background-image: linear-gradient(to right, rgba(16, 28, 34, 0.95) 0%, rgba(16, 28, 34, 0.4) 100%), url('https://lh3.googleusercontent.com/aida-public/AB6AXuBqfFEVpGRugim10_bRSydLC3arh-CL5NnMM-lmkr4UrexG1ZOZAnJ5TjOLrGiQQiwAA-O5aSWQ1V2wutRpjSmcrZJ3mLb3EuxPFuRK_DhMhfs_2rPEfhXUjGugUHjbvRHrvZ3ozbc4TmhWWtZbSBGAgebjMw-xVgEon0Hg_Tx3PuP8OT1Ya3uRxy9pTYPNGftQ5TJ53QTxCpyvzufUnvfH2oQJffRxdNSCXZYeuC216pXGN3Qs4079JSx2PupOg-6Qs1b5IPVCfk4');">
+<div class="px-8 md:px-12 flex flex-col gap-3 max-w-2xl">
+<span class="text-primary font-bold tracking-widest uppercase text-sm">Ưu đãi mùa hè</span>
+<h1 class="text-3xl md:text-5xl font-black text-white leading-tight">
+                                PC Gaming High-End <br/>
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-white">Chiến Game Mượt Mà</span>
+</h1>
+<p class="text-text-secondary text-sm md:text-base max-w-lg mt-2">
+                                Giảm giá lên đến 20% cho các cấu hình sử dụng RTX 40-Series. Bảo hành tận nơi 36 tháng.
+                            </p>
+</div>
+</div>
+<!-- Filter Chips & Sorting -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<h2 class="text-2xl font-bold text-white">Danh Sách Sản Phẩm</h2>
+<div class="flex flex-wrap gap-2">
+<div class="flex h-9 cursor-pointer items-center justify-center gap-x-2 rounded-lg bg-surface-highlight hover:bg-[#34424a] px-3 transition-colors border border-transparent hover:border-primary/50">
+<span class="material-symbols-outlined text-white text-[18px]">sort</span>
+<p class="text-white text-sm font-medium">Mới nhất</p>
+</div>
+<div class="flex h-9 cursor-pointer items-center justify-center gap-x-2 rounded-lg bg-surface-highlight hover:bg-[#34424a] px-3 transition-colors border border-transparent hover:border-primary/50">
+<span class="material-symbols-outlined text-white text-[18px]">trending_up</span>
+<p class="text-white text-sm font-medium">Bán chạy</p>
+</div>
+<div class="flex h-9 cursor-pointer items-center justify-center gap-x-2 rounded-lg bg-surface-highlight hover:bg-[#34424a] px-3 transition-colors border border-transparent hover:border-primary/50">
+<span class="material-symbols-outlined text-white text-[18px]">arrow_upward</span>
+<p class="text-white text-sm font-medium">Giá thấp</p>
+</div>
+</div>
+</div>
+<!-- Product Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+<!-- Product Card 1 -->
+<div class="group relative flex flex-col bg-surface-dark rounded-xl border border-surface-highlight overflow-hidden hover:border-primary transition-all hover:shadow-[0_0_20px_rgba(13,166,242,0.15)] hover:-translate-y-1 duration-300">
+<div class="absolute top-3 left-3 z-10 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">-15%</div>
+<div class="relative pt-[100%] overflow-hidden bg-[#222]">
+<img alt="PC Gaming Image" class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Gaming PC with RGB lights in a dark room" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPJEix61ZFF69l4bVi1K8kt39g2Gyx7yBvBSEf9uxD8YPxt-8-86N12h69udxUXNT5H7SCWYbx7kFmTgdqzxuiyLQlp3VXNYYf3ChThFMyUys_3Ygav98r6E0Y4Zq0xpFP-r4X5NHDKBT1QEgBVLm1RbR3LUupn2CRpr2yqnprvVoG3UjYeStIf9QJjZS2NPdAHivM5cQjGF1uhP8_if70QAspWzyfdcJlcS8TRKgJOMQZPS9CRrxSbUvSi-Qg0TH5v8V75DcVdm4"/>
+</div>
+<div class="flex flex-col flex-1 p-5 gap-3">
+<div class="flex-1">
+<h3 class="text-lg font-bold text-white group-hover:text-primary transition-colors line-clamp-2 leading-tight mb-2">PC Monkey Gladiator i5 - RTX 3060</h3>
+<ul class="space-y-1.5 mb-4">
+<li class="flex items-center gap-2 text-sm text-text-secondary">
+<span class="material-symbols-outlined text-[16px]">memory</span>
+                                            Intel Core i5 12400F
+                                        </li>
+<li class="flex items-center gap-2 text-sm text-text-secondary">
+<span class="material-symbols-outlined text-[16px]">videogame_asset</span>
+                                            NVIDIA RTX 3060 12GB
+                                        </li>
+<li class="flex items-center gap-2 text-sm text-text-secondary">
+<span class="material-symbols-outlined text-[16px]">sd_card</span>
+                                            16GB DDR4 3200MHz
+                                        </li>
+</ul>
+</div>
+<div class="mt-auto">
+<div class="flex items-baseline gap-2 mb-3">
+<span class="text-xl font-bold text-primary">15.990.000₫</span>
+<span class="text-sm text-text-secondary line-through">18.500.000₫</span>
+</div>
+<button class="w-full h-10 bg-primary hover:bg-sky-500 text-white text-sm font-bold rounded-lg flex items-center justify-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[18px]">shopping_cart</span>
+                                        Mua Ngay
+                                    </button>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="group relative flex flex-col bg-surface-dark rounded-xl border border-surface-highlight overflow-hidden hover:border-primary transition-all hover:shadow-[0_0_20px_rgba(13,166,242,0.15)] hover:-translate-y-1 duration-300">
+<div class="absolute top-3 left-3 z-10 bg-primary text-white text-xs font-bold px-2 py-1 rounded">HOT</div>
+<div class="relative pt-[100%] overflow-hidden bg-[#222]">
+<img alt="PC Gaming Image" class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="High end gaming setup with white case and blue lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJzXz_0TpZqsJsbpRRITSKd5HlwQMWhwR3kGfPtFn-rD9LWaja1Llo8MAZwgWJW8LFCU3waaS9Mitpoc7Lgx95vXVxcviRxF94qN5ybWwR_vev4gh3rHZfjif_v0flm9-ffefwdGkssrvrfmY8CB5cXI9PqVuk_Hz-jZ__c3gC0KwVOcstnYN8A2YXcF8O8B18vTabCGmZSTJd6jPta3ahg2cVr85J1eXfr9zpwRRhSWXo4VppKPfrAO9wwPGQVvsPH6-zSbXoO28"/>
+</div>
+<div class="flex flex-col flex-1 p-5 gap-3">
+<div class="flex-1">
+<h3 class="text-lg font-bold text-white group-hover:text-primary transition-colors line-clamp-2 leading-tight mb-2">PC Monkey Streamer Elite - RTX 4060</h3>
+<ul class="space-y-1.5 mb-4">
+<li class="flex items-center gap-2 text-sm text-text-secondary">
+<span class="material-symbols-outlined text-[16px]">memory</span>
+                                            Intel Core i7 13700K
+                                        </li>
+<li class="flex items-center gap-2 text-sm text-text-secondary">
+<span class="material-symbols-outlined text-[16px]">videogame_asset</span>
+                                            NVIDIA RTX 4060 Ti 8GB
+                                        </li>
+<li class="flex items-center gap-2 text-sm text-text-secondary">
+<span class="material-symbols-outlined text-[16px]">sd_card</span>
+                                            32GB DDR5 5600MHz
+                                        </li>
+</ul>
+</div>
+<div class="mt-auto">
+<div class="flex items-baseline gap-2 mb-3">
+<span class="text-xl font-bold text-primary">28.990.000₫</span>
+</div>
+<button class="w-full h-10 bg-primary hover:bg-sky-500 text-white text-sm font-bold rounded-lg flex items-center justify-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[18px]">shopping_cart</span>
+                                        Mua Ngay
+                                    </button>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="group relative flex flex-col bg-surface-dark rounded-xl border border-surface-highlight overflow-hidden hover:border-primary transition-all hover:shadow-[0_0_20px_rgba(13,166,242,0.15)] hover:-translate-y-1 duration-300">
+<div class="relative pt-[100%] overflow-hidden bg-[#222]">
+<img alt="PC Gaming Image" class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Computer interior with RGB fans spinning" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsFgaUEifthCYlT73dITzBfoTK3v24EHwPG_aCSBDGLdRAKxbXo_Ca57t-wPYj_3EACO8_WcKvRyhfAiHrmfz1813RWQS7zwhbljSucn-vidXqKzindBUykf_rMaKqsgPI5MW_89rRW3j02IUvuyENA5zO26bkKPGoErPg5wFdCotS4C00n7uVXXRKpQZc98I-Sxv5M8g66F-ztHR7R-gLib6-TBZe-uBFr_dGW9nyJfWE31vqovgCoFtk5lDWCwK4D6ON04UQcEw"/>
+</div>
+<div class="flex flex-col flex-1 p-5 gap-3">
+<div class="flex-1">
+<h3 class="text-lg font-bold text-white group-hover:text-primary transition-colors line-clamp-2 leading-tight mb-2">PC Budget Warrior - Ryzen 5</h3>
+<ul class="space-y-1.5 mb-4">
+<li class="flex items-center gap-2 text-sm text-text-secondary">
+<span class="material-symbols-outlined text-[16px]">memory</span>
+                                            AMD Ryzen 5 5600X
+                                        </li>
+<li class="flex items-center gap-2 text-sm text-text-secondary">
+<span class="material-symbols-outlined text-[16px]">videogame_asset</span>
+                                            Radeon RX 6600 8GB
+                                        </li>
+<li class="flex items-center gap-2 text-sm text-text-secondary">
+<span class="material-symbols-outlined text-[16px]">sd_card</span>
+                                            16GB DDR4 3200MHz
+                                        </li>
+</ul>
+</div>
+<div class="mt-auto">
+<div class="flex items-baseline gap-2 mb-3">
+<span class="text-xl font-bold text-primary">12.500.000₫</span>
+<span class="text-sm text-text-secondary line-through">14.000.000₫</span>
+</div>
+<button class="w-full h-10 bg-primary hover:bg-sky-500 text-white text-sm font-bold rounded-lg flex items-center justify-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[18px]">shopping_cart</span>
+                                        Mua Ngay
+                                    </button>
+</div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="group relative flex flex-col bg-surface-dark rounded-xl border border-surface-highlight overflow-hidden hover:border-primary transition-all hover:shadow-[0_0_20px_rgba(13,166,242,0.15)] hover:-translate-y-1 duration-300">
+<div class="absolute top-3 left-3 z-10 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">-5%</div>
+<div class="relative pt-[100%] overflow-hidden bg-[#222]">
+<img alt="PC Gaming Image" class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Futuristic gaming PC case with glass panel" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUyMkfaFy9p9U4Ag8Jp_gksOn2kgHsPTKfuOc-X11nS8D6OOR3ksrUZs-r2RqHG0Qrqs2wiPSRxqcPJp-542CtAH-8-rOLgHDc_aEeW3bvphbYy8Z2cr4cg1HzlCbLrfcLPFGZ4zOQhjgOQOZ_JvvgmaBSCm15p0sAieaKfs7m4-hzXD0JQfjIDt4r99k6ZQtHcFPjD6NBC4Dt1iXKWoWWfkYvPYbvUgtDh4icmCdr4_ypztfH8qxe-ISn05irlXeiHtatjVMg1OQ"/>
+</div>
+<div class="flex flex-col flex-1 p-5 gap-3">
+<div class="flex-1">
+<h3 class="text-lg font-bold text-white group-hover:text-primary transition-colors line-clamp-2 leading-tight mb-2">PC Ultra Monster - RTX 4090</h3>
+<ul class="space-y-1.5 mb-4">
+<li class="flex items-center gap-2 text-sm text-text-secondary">
+<span class="material-symbols-outlined text-[16px]">memory</span>
+                                            Intel Core i9 14900K
+                                        </li>
+<li class="flex items-center gap-2 text-sm text-text-secondary">
+<span class="material-symbols-outlined text-[16px]">videogame_asset</span>
+                                            NVIDIA RTX 4090 24GB
+                                        </li>
+<li class="flex items-center gap-2 text-sm text-text-secondary">
+<span class="material-symbols-outlined text-[16px]">sd_card</span>
+                                            64GB DDR5 6000MHz
+                                        </li>
+</ul>
+</div>
+<div class="mt-auto">
+<div class="flex items-baseline gap-2 mb-3">
+<span class="text-xl font-bold text-primary">85.000.000₫</span>
+<span class="text-sm text-text-secondary line-through">89.990.000₫</span>
+</div>
+<button class="w-full h-10 bg-primary hover:bg-sky-500 text-white text-sm font-bold rounded-lg flex items-center justify-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[18px]">shopping_cart</span>
+                                        Mua Ngay
+                                    </button>
+</div>
+</div>
+</div>
+<!-- Product Card 5 -->
+<div class="group relative flex flex-col bg-surface-dark rounded-xl border border-surface-highlight overflow-hidden hover:border-primary transition-all hover:shadow-[0_0_20px_rgba(13,166,242,0.15)] hover:-translate-y-1 duration-300">
+<div class="relative pt-[100%] overflow-hidden bg-[#222]">
+<img alt="PC Gaming Image" class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="RGB graphics card close up inside a PC" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtS6rKldXe9sIXuZWjT2DBPy4b5D9cCU9FimEQyMiisiPy72ghJI-d9M_63Z4zBp0ATmvmEciIzh0uAUTYxIjiGG60Q0C64nlQxc0VGdnb8oBKPgC5alCsGZqnWP565oXjQEvo8tvxi46pDvHBQSF3Z4aFAkK_UvU2SgFOfyMr6U_CRjmS7Kpeyk5YhMQShByu_WUuRknHNsmc6Yf7XDr83oAs3XhYdWf_nbvRTLXCkBjZ5k4q8oQPwgBrOvFyZ1hHuIeugpqVoVU"/>
+</div>
+<div class="flex flex-col flex-1 p-5 gap-3">
+<div class="flex-1">
+<h3 class="text-lg font-bold text-white group-hover:text-primary transition-colors line-clamp-2 leading-tight mb-2">PC Creator Studio Pro</h3>
+<ul class="space-y-1.5 mb-4">
+<li class="flex items-center gap-2 text-sm text-text-secondary">
+<span class="material-symbols-outlined text-[16px]">memory</span>
+                                            AMD Ryzen 9 7900X
+                                        </li>
+<li class="flex items-center gap-2 text-sm text-text-secondary">
+<span class="material-symbols-outlined text-[16px]">videogame_asset</span>
+                                            NVIDIA RTX 4070 12GB
+                                        </li>
+<li class="flex items-center gap-2 text-sm text-text-secondary">
+<span class="material-symbols-outlined text-[16px]">sd_card</span>
+                                            32GB DDR5 5600MHz
+                                        </li>
+</ul>
+</div>
+<div class="mt-auto">
+<div class="flex items-baseline gap-2 mb-3">
+<span class="text-xl font-bold text-primary">42.500.000₫</span>
+</div>
+<button class="w-full h-10 bg-primary hover:bg-sky-500 text-white text-sm font-bold rounded-lg flex items-center justify-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[18px]">shopping_cart</span>
+                                        Mua Ngay
+                                    </button>
+</div>
+</div>
+</div>
+<!-- Product Card 6 -->
+<div class="group relative flex flex-col bg-surface-dark rounded-xl border border-surface-highlight overflow-hidden hover:border-primary transition-all hover:shadow-[0_0_20px_rgba(13,166,242,0.15)] hover:-translate-y-1 duration-300">
+<div class="absolute top-3 left-3 z-10 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">-10%</div>
+<div class="relative pt-[100%] overflow-hidden bg-[#222]">
+<img alt="PC Gaming Image" class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Minimalist dark gaming PC setup" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsGWtaB9GDP9W37J1HNrqJ2p1QUGvR7_QmodXpu_2w6eM29twTtukXp4ChZiRSOYtqbGL_meErJb9ZubRJaPGeST8ZW7lC_8kcvAeTEPb_LI-6_0Ld_CTr7lJfbxKSDGmGS4RLY8kjuOwwcEJhH3wKxSdk5QZjS5FwEAQ9Wi2n2-FleJEzF6XJXzWAjEQS-F2teG0OUzn0Zx2QeHfX0ZhZuz72n3GNOGLpzVlqOgk3n_YwwHE-XFT4eu9yPnV2gxcjj5D181hnRa4"/>
+</div>
+<div class="flex flex-col flex-1 p-5 gap-3">
+<div class="flex-1">
+<h3 class="text-lg font-bold text-white group-hover:text-primary transition-colors line-clamp-2 leading-tight mb-2">PC Starter Pack 2024</h3>
+<ul class="space-y-1.5 mb-4">
+<li class="flex items-center gap-2 text-sm text-text-secondary">
+<span class="material-symbols-outlined text-[16px]">memory</span>
+                                            Intel Core i3 12100F
+                                        </li>
+<li class="flex items-center gap-2 text-sm text-text-secondary">
+<span class="material-symbols-outlined text-[16px]">videogame_asset</span>
+                                            NVIDIA GTX 1660S 6GB
+                                        </li>
+<li class="flex items-center gap-2 text-sm text-text-secondary">
+<span class="material-symbols-outlined text-[16px]">sd_card</span>
+                                            8GB DDR4 3200MHz
+                                        </li>
+</ul>
+</div>
+<div class="mt-auto">
+<div class="flex items-baseline gap-2 mb-3">
+<span class="text-xl font-bold text-primary">10.990.000₫</span>
+<span class="text-sm text-text-secondary line-through">12.200.000₫</span>
+</div>
+<button class="w-full h-10 bg-primary hover:bg-sky-500 text-white text-sm font-bold rounded-lg flex items-center justify-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[18px]">shopping_cart</span>
+                                        Mua Ngay
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="flex justify-center mt-6">
+<div class="flex gap-2">
+<button class="size-10 flex items-center justify-center rounded-lg border border-surface-highlight bg-surface-dark text-text-secondary hover:text-white hover:border-primary transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="size-10 flex items-center justify-center rounded-lg bg-primary text-white font-bold">1</button>
+<button class="size-10 flex items-center justify-center rounded-lg border border-surface-highlight bg-surface-dark text-text-secondary hover:text-white hover:border-primary transition-colors">2</button>
+<button class="size-10 flex items-center justify-center rounded-lg border border-surface-highlight bg-surface-dark text-text-secondary hover:text-white hover:border-primary transition-colors">3</button>
+<button class="size-10 flex items-center justify-center rounded-lg border border-surface-highlight bg-surface-dark text-text-secondary hover:text-white hover:border-primary transition-colors">...</button>
+<button class="size-10 flex items-center justify-center rounded-lg border border-surface-highlight bg-surface-dark text-text-secondary hover:text-white hover:border-primary transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</main>
+</div>
+</div>
+</div>
+</body></html>

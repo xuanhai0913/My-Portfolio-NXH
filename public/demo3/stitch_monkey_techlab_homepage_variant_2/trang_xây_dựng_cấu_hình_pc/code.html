@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Trang Xây Dựng Cấu Hình PC - Monkey Techlab</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0da6f2",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#101c22",
+                        "card-dark": "#18252b",
+                        "border-dark": "#283339",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Space Grotesk", sans-serif;
+        }
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #101c22; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #283339; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b4c54; 
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen text-slate-900 dark:text-white flex flex-col font-display selection:bg-primary selection:text-white">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 w-full border-b border-border-dark bg-background-dark/95 backdrop-blur supports-[backdrop-filter]:bg-background-dark/60">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex h-16 items-center justify-between">
+<!-- Logo & Nav -->
+<div class="flex items-center gap-8">
+<a class="flex items-center gap-2 text-white hover:opacity-80 transition-opacity" href="#">
+<div class="flex items-center justify-center size-8 bg-primary rounded-lg text-white">
+<span class="material-symbols-outlined text-xl">deployed_code</span>
+</div>
+<h2 class="text-xl font-bold tracking-tight">Monkey Techlab</h2>
+</a>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-sm font-medium text-white hover:text-primary transition-colors" href="#">Trang chủ</a>
+<a class="text-sm font-medium text-white hover:text-primary transition-colors" href="#">Linh kiện PC</a>
+<a class="text-sm font-medium text-white hover:text-primary transition-colors" href="#">Laptop</a>
+<a class="text-sm font-medium text-primary" href="#">Xây cấu hình</a>
+<a class="text-sm font-medium text-white hover:text-primary transition-colors" href="#">Khuyến mãi</a>
+</nav>
+</div>
+<!-- Search & Actions -->
+<div class="flex items-center gap-4">
+<div class="hidden lg:flex relative w-64">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-2 border border-border-dark rounded-lg leading-5 bg-card-dark text-white placeholder-slate-400 focus:outline-none focus:bg-[#1f2e36] focus:border-primary sm:text-sm transition duration-150 ease-in-out" placeholder="Tìm kiếm linh kiện..." type="text"/>
+</div>
+<button class="relative p-2 text-slate-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="absolute top-1 right-0 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white">2</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div class="flex flex-col lg:flex-row gap-8">
+<!-- LEFT COLUMN: Builder Interface -->
+<div class="flex-1 min-w-0">
+<!-- Page Header -->
+<div class="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+<div>
+<h1 class="text-3xl md:text-4xl font-bold text-white mb-2">Xây Dựng Cấu Hình</h1>
+<p class="text-slate-400">Chọn linh kiện để xây dựng bộ máy tính tối ưu nhất cho nhu cầu của bạn.</p>
+</div>
+<button class="flex items-center gap-2 px-4 py-2 bg-card-dark border border-border-dark rounded-lg text-sm font-bold text-slate-300 hover:text-white hover:border-slate-500 transition-all">
+<span class="material-symbols-outlined text-[18px]">restart_alt</span>
+                        Làm mới
+                    </button>
+</div>
+<!-- Progress Bar -->
+<div class="bg-card-dark border border-border-dark rounded-xl p-6 mb-6">
+<div class="flex justify-between items-center mb-3">
+<span class="text-sm font-semibold text-white">Tiến độ hoàn thành</span>
+<span class="text-sm font-medium text-primary">2/8 linh kiện</span>
+</div>
+<div class="w-full bg-background-dark rounded-full h-2.5 overflow-hidden">
+<div class="bg-primary h-2.5 rounded-full transition-all duration-500 ease-out" style="width: 25%"></div>
+</div>
+<div class="mt-4 flex gap-4 text-xs text-slate-400">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-green-500">check_circle</span>
+                            Tương thích tốt
+                        </div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">bolt</span>
+                            Công suất dự tính: 185W
+                        </div>
+</div>
+</div>
+<!-- Component List -->
+<div class="space-y-4">
+<!-- Filled Item: CPU -->
+<div class="group relative bg-card-dark border border-primary/30 rounded-xl overflow-hidden hover:border-primary transition-colors">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary"></div>
+<div class="p-4 sm:p-5 flex flex-col sm:flex-row gap-5 items-start sm:items-center">
+<div class="shrink-0 relative">
+<div class="w-20 h-20 rounded-lg bg-white/5 flex items-center justify-center overflow-hidden border border-border-dark">
+<img alt="CPU Image" class="w-full h-full object-cover mix-blend-overlay opacity-80" data-alt="Intel Core i5 Processor chip detail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDa4dm2cVTy7gpjkFGlt0w1PlAGDgAADWOM7XMuRXOU4DVC1GbB-Lo55anjiJ90oAxIoMoLI5rkMj5U6NmmMsuuPWA3AEPdTTNGCKonIFoe3EphGUqKoh0RXAwvFQP65kDUpZNjgQZpklZincoc5W4BuhCk_ysLfLc88ECOsZ3KQEnzuELlzdDZrZBAt_4GF2Bwm8_NFIMwFIr398NlO-v9KBD1zmMVLgYwNDYOrUoNMynwAeYM71XKt_z445EQLarnWaqlUON3CL8"/>
+</div>
+<div class="absolute -bottom-2 -right-2 bg-background-dark border border-border-dark rounded-full p-1 text-slate-400">
+<span class="material-symbols-outlined text-[16px] block">memory</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h3 class="text-lg font-bold text-white group-hover:text-primary transition-colors truncate pr-4">Intel Core i5-13600K</h3>
+<span class="text-primary font-bold whitespace-nowrap">7.990.000₫</span>
+</div>
+<p class="text-sm text-slate-400 mt-1 line-clamp-1">Socket 1700, 3.5GHz, 14 Cores, 20 Threads, Raptor Lake</p>
+<div class="flex items-center gap-4 mt-3">
+<div class="flex items-center border border-border-dark rounded bg-background-dark">
+<button class="px-2 py-0.5 text-slate-400 hover:text-white">-</button>
+<span class="px-2 text-sm text-white font-medium">1</span>
+<button class="px-2 py-0.5 text-slate-400 hover:text-white">+</button>
+</div>
+<button class="text-xs font-medium text-slate-400 hover:text-white underline decoration-slate-600 hover:decoration-white underline-offset-4">Chi tiết</button>
+</div>
+</div>
+<div class="flex sm:flex-col gap-2 w-full sm:w-auto mt-2 sm:mt-0">
+<button class="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-[#283339] hover:bg-[#34424a] text-white text-sm font-medium rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[18px]">sync_alt</span>
+<span class="sm:hidden">Đổi</span>
+</button>
+<button class="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-500 text-sm font-medium rounded-lg transition-colors border border-red-500/20">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+<span class="sm:hidden">Xóa</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Filled Item: Mainboard -->
+<div class="group relative bg-card-dark border border-primary/30 rounded-xl overflow-hidden hover:border-primary transition-colors">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary"></div>
+<div class="p-4 sm:p-5 flex flex-col sm:flex-row gap-5 items-start sm:items-center">
+<div class="shrink-0 relative">
+<div class="w-20 h-20 rounded-lg bg-white/5 flex items-center justify-center overflow-hidden border border-border-dark">
+<img alt="Mainboard Image" class="w-full h-full object-cover mix-blend-overlay opacity-80" data-alt="Modern motherboard close up with circuits" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDV27j7RWpleLq8tZ0B-oEqf2bMyOa4DvTlsXtE0rIZyboBddjQRg_nBbbtGOXI2vVC5y18DPacicqdD5dUEBtwxMQP4AEWLJkEV-J0I-Aa_GefQXK7sfjD7DSw44Vs2gRS9l2KUqw_hEJnoQ7l8BdA8i8Ds68IYtxVouiPAvfv1_qHs3V7fO-XIvlajTDf-iLZz2K31M4kC2C34xdbX19yPvCq8chqC3L3-qzKwcFQIBr49wHKXaOQfLQmA9b8mZBuSJ5xDzaYxqs"/>
+</div>
+<div class="absolute -bottom-2 -right-2 bg-background-dark border border-border-dark rounded-full p-1 text-slate-400">
+<span class="material-symbols-outlined text-[16px] block">developer_board</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h3 class="text-lg font-bold text-white group-hover:text-primary transition-colors truncate pr-4">ASUS ROG STRIX B760-A GAMING WIFI</h3>
+<span class="text-primary font-bold whitespace-nowrap">5.490.000₫</span>
+</div>
+<p class="text-sm text-slate-400 mt-1 line-clamp-1">Socket 1700, Chipset B760, DDR5, ATX, Wifi 6E</p>
+<div class="flex items-center gap-4 mt-3">
+<div class="flex items-center border border-border-dark rounded bg-background-dark">
+<button class="px-2 py-0.5 text-slate-400 hover:text-white">-</button>
+<span class="px-2 text-sm text-white font-medium">1</span>
+<button class="px-2 py-0.5 text-slate-400 hover:text-white">+</button>
+</div>
+<button class="text-xs font-medium text-slate-400 hover:text-white underline decoration-slate-600 hover:decoration-white underline-offset-4">Chi tiết</button>
+</div>
+</div>
+<div class="flex sm:flex-col gap-2 w-full sm:w-auto mt-2 sm:mt-0">
+<button class="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-[#283339] hover:bg-[#34424a] text-white text-sm font-medium rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[18px]">sync_alt</span>
+<span class="sm:hidden">Đổi</span>
+</button>
+<button class="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-500 text-sm font-medium rounded-lg transition-colors border border-red-500/20">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+<span class="sm:hidden">Xóa</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Empty Item: RAM -->
+<div class="group bg-card-dark border border-border-dark border-dashed rounded-xl p-4 sm:p-5 flex flex-col sm:flex-row gap-4 items-center justify-between hover:bg-[#1e2e36] transition-all">
+<div class="flex items-center gap-4 w-full sm:w-auto">
+<div class="w-12 h-12 rounded-lg bg-background-dark flex items-center justify-center text-slate-500 group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-2xl">memory_alt</span>
+</div>
+<div class="flex flex-col">
+<span class="text-base font-bold text-white">Bộ nhớ trong (RAM)</span>
+<span class="text-sm text-slate-500">Chưa chọn linh kiện</span>
+</div>
+</div>
+<button class="w-full sm:w-auto px-6 py-2.5 bg-primary hover:bg-sky-400 text-white text-sm font-bold rounded-lg shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2">
+                            Chọn RAM
+                            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+<!-- Empty Item: VGA -->
+<div class="group bg-card-dark border border-border-dark border-dashed rounded-xl p-4 sm:p-5 flex flex-col sm:flex-row gap-4 items-center justify-between hover:bg-[#1e2e36] transition-all">
+<div class="flex items-center gap-4 w-full sm:w-auto">
+<div class="w-12 h-12 rounded-lg bg-background-dark flex items-center justify-center text-slate-500 group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-2xl">videogame_asset</span>
+</div>
+<div class="flex flex-col">
+<span class="text-base font-bold text-white">Card màn hình (VGA)</span>
+<span class="text-sm text-slate-500">Chưa chọn linh kiện</span>
+</div>
+</div>
+<button class="w-full sm:w-auto px-6 py-2.5 bg-card-dark border border-slate-600 hover:border-primary text-white hover:text-primary text-sm font-bold rounded-lg transition-all flex items-center justify-center gap-2">
+                            Chọn VGA
+                            <span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+<!-- Empty Item: SSD -->
+<div class="group bg-card-dark border border-border-dark border-dashed rounded-xl p-4 sm:p-5 flex flex-col sm:flex-row gap-4 items-center justify-between hover:bg-[#1e2e36] transition-all">
+<div class="flex items-center gap-4 w-full sm:w-auto">
+<div class="w-12 h-12 rounded-lg bg-background-dark flex items-center justify-center text-slate-500 group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-2xl">hard_drive</span>
+</div>
+<div class="flex flex-col">
+<span class="text-base font-bold text-white">Ổ cứng (SSD/HDD)</span>
+<span class="text-sm text-slate-500">Chưa chọn linh kiện</span>
+</div>
+</div>
+<button class="w-full sm:w-auto px-6 py-2.5 bg-card-dark border border-slate-600 hover:border-primary text-white hover:text-primary text-sm font-bold rounded-lg transition-all flex items-center justify-center gap-2">
+                            Chọn SSD
+                            <span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+<!-- Empty Item: PSU -->
+<div class="group bg-card-dark border border-border-dark border-dashed rounded-xl p-4 sm:p-5 flex flex-col sm:flex-row gap-4 items-center justify-between hover:bg-[#1e2e36] transition-all">
+<div class="flex items-center gap-4 w-full sm:w-auto">
+<div class="w-12 h-12 rounded-lg bg-background-dark flex items-center justify-center text-slate-500 group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-2xl">power</span>
+</div>
+<div class="flex flex-col">
+<span class="text-base font-bold text-white">Nguồn máy tính (PSU)</span>
+<span class="text-sm text-slate-500">Chưa chọn linh kiện</span>
+</div>
+</div>
+<button class="w-full sm:w-auto px-6 py-2.5 bg-card-dark border border-slate-600 hover:border-primary text-white hover:text-primary text-sm font-bold rounded-lg transition-all flex items-center justify-center gap-2">
+                            Chọn Nguồn
+                            <span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+<!-- Empty Item: Case -->
+<div class="group bg-card-dark border border-border-dark border-dashed rounded-xl p-4 sm:p-5 flex flex-col sm:flex-row gap-4 items-center justify-between hover:bg-[#1e2e36] transition-all">
+<div class="flex items-center gap-4 w-full sm:w-auto">
+<div class="w-12 h-12 rounded-lg bg-background-dark flex items-center justify-center text-slate-500 group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-2xl">computer</span>
+</div>
+<div class="flex flex-col">
+<span class="text-base font-bold text-white">Vỏ máy tính (Case)</span>
+<span class="text-sm text-slate-500">Chưa chọn linh kiện</span>
+</div>
+</div>
+<button class="w-full sm:w-auto px-6 py-2.5 bg-card-dark border border-slate-600 hover:border-primary text-white hover:text-primary text-sm font-bold rounded-lg transition-all flex items-center justify-center gap-2">
+                            Chọn Vỏ Case
+                            <span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+<!-- Empty Item: Cooling -->
+<div class="group bg-card-dark border border-border-dark border-dashed rounded-xl p-4 sm:p-5 flex flex-col sm:flex-row gap-4 items-center justify-between hover:bg-[#1e2e36] transition-all">
+<div class="flex items-center gap-4 w-full sm:w-auto">
+<div class="w-12 h-12 rounded-lg bg-background-dark flex items-center justify-center text-slate-500 group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-2xl">mode_fan</span>
+</div>
+<div class="flex flex-col">
+<span class="text-base font-bold text-white">Tản nhiệt (Cooling)</span>
+<span class="text-sm text-slate-500">Chưa chọn linh kiện</span>
+</div>
+</div>
+<button class="w-full sm:w-auto px-6 py-2.5 bg-card-dark border border-slate-600 hover:border-primary text-white hover:text-primary text-sm font-bold rounded-lg transition-all flex items-center justify-center gap-2">
+                            Chọn Tản nhiệt
+                            <span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Sticky Sidebar -->
+<div class="lg:w-96 shrink-0 mt-8 lg:mt-0">
+<div class="sticky top-24 space-y-4">
+<!-- Summary Card -->
+<div class="bg-card-dark border border-border-dark rounded-xl overflow-hidden shadow-2xl">
+<div class="p-6 border-b border-border-dark bg-[#1a2c34]">
+<h3 class="text-lg font-bold text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">receipt_long</span>
+                                Chi phí dự tính
+                            </h3>
+</div>
+<div class="p-6">
+<!-- Selected List (Summary) -->
+<div class="space-y-3 mb-6">
+<div class="flex justify-between text-sm">
+<span class="text-slate-300 truncate pr-2">CPU Intel Core i5-13600K</span>
+<span class="text-white font-medium">7.990.000₫</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-slate-300 truncate pr-2">Mainboard ASUS ROG STRIX</span>
+<span class="text-white font-medium">5.490.000₫</span>
+</div>
+<div class="h-px bg-border-dark my-2"></div>
+<div class="flex justify-between text-sm text-slate-400 italic">
+<span>RAM</span>
+<span>0₫</span>
+</div>
+<div class="flex justify-between text-sm text-slate-400 italic">
+<span>VGA</span>
+<span>0₫</span>
+</div>
+</div>
+<!-- Total -->
+<div class="flex flex-col gap-1 mb-6">
+<span class="text-sm font-medium text-slate-400">Tổng tiền thanh toán</span>
+<span class="text-3xl font-bold text-primary tracking-tight">13.480.000₫</span>
+<span class="text-xs text-slate-500">(Đã bao gồm VAT)</span>
+</div>
+<!-- Actions -->
+<div class="space-y-3">
+<button class="w-full flex items-center justify-center gap-2 py-3 px-4 bg-primary hover:bg-sky-400 text-white font-bold rounded-lg shadow-lg shadow-primary/25 transition-all transform active:scale-[0.98]">
+<span class="material-symbols-outlined">shopping_cart_checkout</span>
+                                    Thêm vào giỏ hàng
+                                </button>
+<div class="grid grid-cols-2 gap-3">
+<button class="flex items-center justify-center gap-2 py-2.5 px-4 bg-[#283339] hover:bg-[#34424a] text-slate-200 font-medium rounded-lg transition-colors text-sm">
+<span class="material-symbols-outlined text-[18px]">print</span>
+                                        In đơn
+                                    </button>
+<button class="flex items-center justify-center gap-2 py-2.5 px-4 bg-[#283339] hover:bg-[#34424a] text-slate-200 font-medium rounded-lg transition-colors text-sm">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                                        Excel
+                                    </button>
+</div>
+</div>
+</div>
+<!-- Contact / Support strip -->
+<div class="bg-[#11191d] p-4 text-center border-t border-border-dark">
+<p class="text-xs text-slate-500">Cần tư vấn? Gọi ngay <span class="text-primary font-bold">1900 1234</span></p>
+</div>
+</div>
+<!-- Promo Box (Optional) -->
+<div class="bg-gradient-to-br from-primary/20 to-transparent border border-primary/20 rounded-xl p-4">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-0.5">verified</span>
+<div>
+<h4 class="text-sm font-bold text-white">Miễn phí lắp đặt</h4>
+<p class="text-xs text-slate-400 mt-1">Khi xây dựng cấu hình trọn bộ tại Monkey Techlab.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

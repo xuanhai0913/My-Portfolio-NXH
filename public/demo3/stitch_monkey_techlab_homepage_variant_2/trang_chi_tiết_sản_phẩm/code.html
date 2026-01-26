@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Chi Tiết Sản Phẩm - Monkey Techlab</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0da6f2",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#111618",
+                        "surface-dark": "#1c252b",
+                        "border-dark": "#283339",
+                        "text-secondary": "#9cb0ba"
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.375rem", 
+                        "lg": "0.5rem", 
+                        "xl": "0.75rem", 
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for gallery thumbnails */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-white overflow-x-hidden antialiased">
+<!-- Header -->
+<header class="sticky top-0 z-50 bg-[#111618]/90 backdrop-blur-md border-b border-[#283339]">
+<div class="px-4 md:px-10 lg:px-40 flex justify-center py-0">
+<div class="flex flex-col max-w-[960px] flex-1">
+<div class="flex items-center justify-between whitespace-nowrap py-3">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-white">
+<div class="size-8 text-primary">
+<span class="material-symbols-outlined text-3xl">token</span>
+</div>
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">Monkey Techlab</h2>
+</div>
+<label class="hidden md:flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-[#9cb0ba] flex border-none bg-[#283339] items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined text-[24px]">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-0 border-none bg-[#283339] focus:border-none h-full placeholder:text-[#9cb0ba] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Tìm kiếm" value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<div class="hidden lg:flex items-center gap-9">
+<a class="text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Sản phẩm</a>
+<a class="text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Build PC</a>
+<a class="text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Khuyến mãi</a>
+</div>
+<div class="flex gap-2">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary hover:bg-primary/90 transition-colors text-white text-sm font-bold leading-normal tracking-[0.015em]">
+<span class="truncate">Đăng nhập</span>
+</button>
+<button class="flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-[#283339] hover:bg-[#334048] transition-colors text-white gap-2 px-2.5">
+<span class="material-symbols-outlined text-[20px]">shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</header>
+<main class="flex flex-col items-center">
+<!-- Breadcrumbs -->
+<div class="w-full px-4 md:px-10 lg:px-40 flex justify-center py-5">
+<div class="flex flex-col max-w-[960px] flex-1">
+<div class="flex flex-wrap gap-2 items-center text-sm">
+<a class="text-[#9cb0ba] hover:text-white transition-colors font-medium leading-normal" href="#">Trang chủ</a>
+<span class="material-symbols-outlined text-[#9cb0ba] text-[16px]">chevron_right</span>
+<a class="text-[#9cb0ba] hover:text-white transition-colors font-medium leading-normal" href="#">PC Gaming</a>
+<span class="material-symbols-outlined text-[#9cb0ba] text-[16px]">chevron_right</span>
+<span class="text-white font-medium leading-normal truncate">Monkey Xtreme - i9 13900K</span>
+</div>
+</div>
+</div>
+<!-- Product Hero Section -->
+<div class="w-full px-4 md:px-10 lg:px-40 flex justify-center pb-10">
+<div class="flex flex-col lg:flex-row gap-10 max-w-[960px] flex-1">
+<!-- Left: Media Gallery -->
+<div class="w-full lg:w-7/12 flex flex-col gap-4">
+<div class="relative w-full aspect-[4/3] bg-surface-dark rounded-xl overflow-hidden group border border-border-dark">
+<div class="absolute inset-0 bg-center bg-no-repeat bg-cover transition-transform duration-500 group-hover:scale-105" data-alt="High performance gaming PC case with RGB lighting effects in purple and blue" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDBYIJ99PVG3TcOR8omuX5ANXLAlqdtRod_PIf9dXonu-JPsGsG-JCCJBprNrjw8J1-VgUvqDZrP-BSekCeZvc6va2No-lRxUfkmIn2ztyz8iFtQ6IE5ty389AY2WE5WzXFafdXew6RHG0zVsoyl2SvYL8ASPtSocaJRMJn8InSgHAAWICilPh55v_pNOJFS_dzXc6TNquHu0U0egZ-v_rYWtSrbl2EfY1R2CFJctEN1eamIxiKdRn0pEiRR5bmbhEZ2gRcJLxHEvE");'>
+</div>
+<div class="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-lg shadow-primary/20">
+                            Best Seller
+                        </div>
+</div>
+<div class="flex gap-3 overflow-x-auto no-scrollbar pb-1">
+<!-- Active Thumbnail -->
+<button class="relative w-24 aspect-square shrink-0 rounded-lg overflow-hidden border-2 border-primary">
+<div class="w-full h-full bg-center bg-no-repeat bg-cover" data-alt="Thumbnail of gaming PC front view" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuClHmpDVqBCJ3Uu3-aOx3HcP0YCuHEfRLlk1eqZ8fcq5gseBstysPJYfEzeIwVvaZwlk_t38UaNLOxrcgiUqQQ2Yj4hL8mgXwNEeX_DByo1IQYMEfLKoE-lT_-aHiGTE1_4R8vTHnd7EQ5J2PN7MLRY8lnU6618ddeAlxUQZQPCOQ1ZMLgkVVXGHfj7MIwlFVTLN65L4RUXKc01-ByRNLY6M73FsdTa3lL7sQ2d5qRDgV8AfweLXnpz8F_4n_X1qAOpg1T-nyfNzGw");'></div>
+</button>
+<!-- Thumbnails -->
+<button class="relative w-24 aspect-square shrink-0 rounded-lg overflow-hidden border border-border-dark opacity-70 hover:opacity-100 hover:border-white/50 transition-all">
+<div class="w-full h-full bg-center bg-no-repeat bg-cover" data-alt="Thumbnail of gaming PC internal components" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBzGA5slC1LurBneFh_HcnGJgVRcmy1o8gA82AGfXkH8dLSj_u0hlh0Hb5Od_wbj9ybxQnicaeJ_M00-HySv1rZab0Wb9wogP7d5VSQAaijLB5HO__OkQESqxme_Cz98zE-XfREoCKGKDhbNZ_ZinUHKY-Ggf6YF848Qzt5Cw_Q-btgjjJDEBpdpT7Ml4n5mvud5c4bmm0Q7UvD6SQaEW9ZV13k7rQIrPNhl6yhVjAJUl6ILlACgD8DCeJdhpvfO8jj9IAG2MtRBJ0");'></div>
+</button>
+<button class="relative w-24 aspect-square shrink-0 rounded-lg overflow-hidden border border-border-dark opacity-70 hover:opacity-100 hover:border-white/50 transition-all">
+<div class="w-full h-full bg-center bg-no-repeat bg-cover" data-alt="Thumbnail of gaming PC side panel view" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDH0-woWvBVawstmcgZ5mcJyxfSK0Lh_0T8HFhYHRJjzq-Hpl4A-xrt-bFFXDNKTOCdYjBoMp7u7cgtjgB5hUi0N69PQcbDSka1dmbAbuYxEVmwVIWQ-hW4Ngjc_hNg2EpUrliJsiN1olU0oJIA5oun9eRKOuKno3oe7Knjswq-qHn8SmGIPSscjn_KKHs6Yj_Rb7UWQI5ZnJmHnhgcBEeoytF0Ks3a6ef6e2rbh2_tbFXqlT0tFxSHeVD8xwG8JfgT9tJ5XTRRBMM");'></div>
+</button>
+<button class="relative w-24 aspect-square shrink-0 rounded-lg overflow-hidden border border-border-dark opacity-70 hover:opacity-100 hover:border-white/50 transition-all">
+<div class="w-full h-full bg-center bg-no-repeat bg-cover" data-alt="Thumbnail of gaming PC ports and rear view" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDybFz1p2PkEu_SyMNeyfhIg_dEBCXzOPwgmjhRBZz1xVZZUFFt2sfl79GTyCpvMCcwdZO-vvhh7RhgOq6JAsHK2bwCZGQxt2rkkxFY2IDQldRKRkJvy7KVuXUDq-Dc1pY1SpuLqH05G5Z7iZprZ3xJ377-6zmUxiwdDUJl4P4UY_T7G4OTRVzf1GzSSA4P4kfrv33Ni8MLrzqMeCft0FmUTVyNqlARwTqnORLvEfc-YTAw-B_DY_yH_iQF1qIaeYnjg30Oxu1KbB4");'></div>
+</button>
+</div>
+</div>
+<!-- Right: Product Info -->
+<div class="w-full lg:w-5/12 flex flex-col gap-6">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="text-primary text-sm font-bold tracking-wide">MONKEY EXTREME SERIES</span>
+<div class="flex items-center text-yellow-500 gap-0.5">
+<span class="material-symbols-outlined text-[16px] fill-current">star</span>
+<span class="material-symbols-outlined text-[16px] fill-current">star</span>
+<span class="material-symbols-outlined text-[16px] fill-current">star</span>
+<span class="material-symbols-outlined text-[16px] fill-current">star</span>
+<span class="material-symbols-outlined text-[16px] fill-current">star_half</span>
+<span class="text-text-secondary text-xs ml-1">(42)</span>
+</div>
+</div>
+<h1 class="text-3xl font-bold leading-tight text-white mb-2">PC Gaming Monkey Xtreme - i9 13900K / RTX 4090</h1>
+<div class="flex items-center gap-2 text-sm text-text-secondary">
+<span>Mã SP: <span class="text-white">MK-XT-001</span></span>
+<span>|</span>
+<div class="flex items-center gap-1.5 text-[#4ade80]">
+<div class="size-2 rounded-full bg-[#4ade80]"></div>
+<span class="font-medium">Còn hàng</span>
+</div>
+</div>
+</div>
+<div class="p-4 rounded-xl bg-surface-dark border border-border-dark">
+<div class="flex flex-col gap-1">
+<div class="flex items-baseline gap-3">
+<span class="text-3xl font-bold text-primary">95.000.000₫</span>
+<span class="text-lg text-text-secondary line-through decoration-slate-500">105.000.000₫</span>
+<span class="px-2 py-0.5 rounded text-xs font-bold bg-red-500/20 text-red-500">-10%</span>
+</div>
+<p class="text-xs text-text-secondary">*Giá đã bao gồm VAT</p>
+</div>
+</div>
+<!-- Specs Summary Grid -->
+<div class="grid grid-cols-2 gap-3">
+<div class="flex items-start gap-3 p-3 rounded-lg bg-[#283339]/50 border border-border-dark">
+<span class="material-symbols-outlined text-primary text-2xl mt-0.5">developer_board</span>
+<div class="flex flex-col">
+<span class="text-xs text-text-secondary uppercase">CPU</span>
+<span class="text-sm font-bold">Core i9 13900K</span>
+</div>
+</div>
+<div class="flex items-start gap-3 p-3 rounded-lg bg-[#283339]/50 border border-border-dark">
+<span class="material-symbols-outlined text-primary text-2xl mt-0.5">videogame_asset</span>
+<div class="flex flex-col">
+<span class="text-xs text-text-secondary uppercase">VGA</span>
+<span class="text-sm font-bold">RTX 4090 24GB</span>
+</div>
+</div>
+<div class="flex items-start gap-3 p-3 rounded-lg bg-[#283339]/50 border border-border-dark">
+<span class="material-symbols-outlined text-primary text-2xl mt-0.5">memory</span>
+<div class="flex flex-col">
+<span class="text-xs text-text-secondary uppercase">RAM</span>
+<span class="text-sm font-bold">64GB DDR5</span>
+</div>
+</div>
+<div class="flex items-start gap-3 p-3 rounded-lg bg-[#283339]/50 border border-border-dark">
+<span class="material-symbols-outlined text-primary text-2xl mt-0.5">hard_drive</span>
+<div class="flex flex-col">
+<span class="text-xs text-text-secondary uppercase">SSD</span>
+<span class="text-sm font-bold">2TB NVMe Gen4</span>
+</div>
+</div>
+</div>
+<!-- Promotion Box -->
+<div class="p-4 rounded-lg border border-dashed border-primary/50 bg-primary/5">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary text-xl">card_giftcard</span>
+<span class="text-sm font-bold text-white uppercase">Quà tặng ưu đãi</span>
+</div>
+<ul class="text-sm text-text-secondary space-y-1 list-disc list-inside">
+<li>Tặng kèm bàn phím cơ <span class="text-white">Monkey Mech Pro</span></li>
+<li>Chuột gaming <span class="text-white">Logitech G Pro</span> khi mua trọn bộ</li>
+<li>Gói vệ sinh PC miễn phí trọn đời</li>
+</ul>
+</div>
+<!-- Actions -->
+<div class="flex flex-col gap-3 mt-2">
+<button class="flex w-full items-center justify-center gap-2 rounded-lg bg-primary hover:bg-primary/90 text-white h-12 text-base font-bold uppercase tracking-wide transition-all shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined">shopping_cart</span>
+                            Thêm vào giỏ hàng
+                        </button>
+<div class="grid grid-cols-2 gap-3">
+<button class="flex items-center justify-center rounded-lg border border-border-dark bg-[#283339] hover:bg-[#334048] text-white h-10 text-sm font-medium transition-all">
+                                Mua trả góp 0%
+                            </button>
+<button class="flex items-center justify-center rounded-lg border border-border-dark bg-[#283339] hover:bg-[#334048] text-white h-10 text-sm font-medium transition-all">
+                                Tư vấn: 1900 1234
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Details Section -->
+<div class="w-full px-4 md:px-10 lg:px-40 flex justify-center pb-16">
+<div class="flex flex-col max-w-[960px] flex-1">
+<!-- Tabs Header -->
+<div class="flex border-b border-border-dark mb-8 overflow-x-auto no-scrollbar">
+<button class="px-6 py-4 text-sm font-bold text-primary border-b-2 border-primary whitespace-nowrap">
+                        Thông tin chi tiết
+                    </button>
+<button class="px-6 py-4 text-sm font-medium text-text-secondary hover:text-white transition-colors whitespace-nowrap">
+                        Thông số kỹ thuật
+                    </button>
+<button class="px-6 py-4 text-sm font-medium text-text-secondary hover:text-white transition-colors whitespace-nowrap">
+                        Đánh giá &amp; Hỏi đáp
+                    </button>
+</div>
+<!-- Tab Content -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+<!-- Left: Description (2/3) -->
+<div class="md:col-span-2 text-text-secondary space-y-6 text-base leading-relaxed">
+<h3 class="text-xl font-bold text-white">Sức mạnh thống trị mọi tựa game</h3>
+<p>
+                            PC Monkey Xtreme được thiết kế dành riêng cho những game thủ chuyên nghiệp và những nhà sáng tạo nội dung đòi hỏi hiệu năng đỉnh cao. Với trái tim là bộ vi xử lý <strong class="text-white">Intel Core i9-13900K</strong> 24 nhân 32 luồng, xung nhịp boost lên đến 5.8GHz, mọi tác vụ từ gaming 4K, streaming đến render 3D đều được xử lý mượt mà.
+                        </p>
+<div class="w-full rounded-xl overflow-hidden my-6">
+<div class="w-full bg-center bg-no-repeat bg-cover aspect-video" data-alt="Close up of RTX 4090 graphics card installed in the system with RGB lighting" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBu2ohLjwVy4_Nm0qTMZVQPVdEJu5mqZ_CG5fY5KY-7REbepwp8NHexD8gSFqx65HWIUzGzTXXYhqGnW430s0ktH6SjtKiB6L1wkYRmiQ6fWcNS_CXdpV0MBJqZcvbjdUaBwOfhq1ABsXrLmvfwnyf_q5HoDm3PCaFg8zExvkRUEAi7NrVC-rwtQmzN_16LIX56Jezq37tCYW8ykBMHe3edyWlKBlaqR1e8VXc4ea8EnlxPkzmPiITLz-TDjYqvxL4HWyOLB6NhxLs");'></div>
+</div>
+<h3 class="text-xl font-bold text-white">Đồ họa đỉnh cao với RTX 4090</h3>
+<p>
+                            Trang bị "quái vật" đồ họa <strong class="text-white">NVIDIA GeForce RTX 4090 24GB</strong>, Monkey Xtreme mang đến trải nghiệm hình ảnh chân thực nhất với công nghệ Ray Tracing thế hệ 3 và DLSS 3.0. Sẵn sàng chinh phục mọi tựa game AAA ở độ phân giải 4K Ultra Settings với FPS cao ngất ngưởng.
+                        </p>
+</div>
+<!-- Right: Technical Specs Table (1/3) -->
+<div class="md:col-span-1">
+<div class="bg-surface-dark rounded-xl border border-border-dark overflow-hidden">
+<div class="p-4 bg-[#283339] border-b border-border-dark">
+<h4 class="font-bold text-white">Cấu hình chi tiết</h4>
+</div>
+<div class="divide-y divide-border-dark text-sm">
+<div class="grid grid-cols-3 p-3 hover:bg-white/5">
+<span class="text-text-secondary col-span-1">Mainboard</span>
+<span class="text-white col-span-2 font-medium">Z790 Aorus Master</span>
+</div>
+<div class="grid grid-cols-3 p-3 hover:bg-white/5">
+<span class="text-text-secondary col-span-1">CPU</span>
+<span class="text-white col-span-2 font-medium">Intel Core i9-13900K</span>
+</div>
+<div class="grid grid-cols-3 p-3 hover:bg-white/5">
+<span class="text-text-secondary col-span-1">RAM</span>
+<span class="text-white col-span-2 font-medium">64GB (2x32) DDR5 6000MHz RGB</span>
+</div>
+<div class="grid grid-cols-3 p-3 hover:bg-white/5">
+<span class="text-text-secondary col-span-1">VGA</span>
+<span class="text-white col-span-2 font-medium">RTX 4090 Gaming OC 24GB</span>
+</div>
+<div class="grid grid-cols-3 p-3 hover:bg-white/5">
+<span class="text-text-secondary col-span-1">SSD</span>
+<span class="text-white col-span-2 font-medium">Samsung 990 Pro 2TB NVMe</span>
+</div>
+<div class="grid grid-cols-3 p-3 hover:bg-white/5">
+<span class="text-text-secondary col-span-1">Nguồn</span>
+<span class="text-white col-span-2 font-medium">Thor 1200W Platinum II</span>
+</div>
+<div class="grid grid-cols-3 p-3 hover:bg-white/5">
+<span class="text-text-secondary col-span-1">Vỏ case</span>
+<span class="text-white col-span-2 font-medium">Hyte Y60 Red/Black</span>
+</div>
+<div class="grid grid-cols-3 p-3 hover:bg-white/5">
+<span class="text-text-secondary col-span-1">Tản nhiệt</span>
+<span class="text-white col-span-2 font-medium">Kraken Z73 RGB 360mm</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Related Products -->
+<div class="w-full bg-[#1c252b]/50 border-t border-border-dark py-12 px-4 md:px-10 lg:px-40 flex justify-center">
+<div class="flex flex-col max-w-[960px] flex-1">
+<div class="flex items-center justify-between mb-8">
+<h2 class="text-2xl font-bold text-white">Sản phẩm liên quan</h2>
+<a class="text-primary text-sm font-medium hover:underline flex items-center gap-1" href="#">
+                        Xem tất cả <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Product Card 1 -->
+<div class="group flex flex-col bg-background-dark rounded-lg overflow-hidden border border-border-dark hover:border-primary/50 transition-all hover:shadow-lg hover:shadow-primary/10">
+<div class="relative w-full aspect-square overflow-hidden bg-[#1c252b]">
+<div class="w-full h-full bg-center bg-no-repeat bg-cover transition-transform duration-500 group-hover:scale-110" data-alt="Monkey Pro Gaming PC with blue LED fans" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDAFfQBvHkjXmd0WU5zyqGpXyN6KIqet93keE0C3DKIteyGH4Jqe2VfYIS9Fp6tgZtSVYQjZBhx7kXWkNLtikxNjKTNqb5jjrPR0Pw9t2HVh5CHlBowXKwk4E5WRsdXApChh3RgHZdLfhFZSjKHOvAEy1wdqgEtuneZsEcxWG5dVyrbwOZpPgCpQR0xc7Iebq6chplvUgzVX9b5-pDugBZflGK3bYerRibx0bkx8ws-vPUCWcYG_UU76GAm3olFHs5Gb0L1l3ikdnQ");'></div>
+<div class="absolute top-2 right-2 bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded">-5%</div>
+</div>
+<div class="p-4 flex flex-col gap-2 flex-1">
+<h3 class="text-white font-bold text-sm line-clamp-2 group-hover:text-primary transition-colors">Monkey Pro - i7 13700K / RTX 4080</h3>
+<div class="mt-auto">
+<div class="flex items-center gap-2 mb-3">
+<span class="text-primary font-bold">65.000.000₫</span>
+<span class="text-xs text-text-secondary line-through">68.5tr</span>
+</div>
+<button class="w-full h-9 rounded bg-[#283339] hover:bg-primary hover:text-white text-white text-xs font-bold uppercase transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]">add_shopping_cart</span>
+                                    Thêm vào giỏ
+                                </button>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="group flex flex-col bg-background-dark rounded-lg overflow-hidden border border-border-dark hover:border-primary/50 transition-all hover:shadow-lg hover:shadow-primary/10">
+<div class="relative w-full aspect-square overflow-hidden bg-[#1c252b]">
+<div class="w-full h-full bg-center bg-no-repeat bg-cover transition-transform duration-500 group-hover:scale-110" data-alt="Monkey Elite Gaming PC white case edition" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBaGFTww8qub7pIT5SAN9DMLQogdW-2R0Jhe1ZnWFvguQtE9Jy83dIq7yAX0MjcQM2FtTiQ2TlloyLfhzI4dSEZVBjLMn0yvbCQZRZJ-shofeJ58xxUdJvbxioe6u5zQQrrWXi9JGEQGM7HEAjQofY4OtJFP-x4jU3qLMjjNOA43FFqL2E12yrYNOX_wgrm7WmHK-4XqvXMdZkEdJyNVwIgqctZwg-BAiZPt13PVHIR315mXF65HQpfKNflBXIlOuxPUIdHlNa-Fl8");'></div>
+</div>
+<div class="p-4 flex flex-col gap-2 flex-1">
+<h3 class="text-white font-bold text-sm line-clamp-2 group-hover:text-primary transition-colors">Monkey Elite - i5 13600K / RTX 4070 Ti</h3>
+<div class="mt-auto">
+<div class="flex items-center gap-2 mb-3">
+<span class="text-primary font-bold">45.000.000₫</span>
+</div>
+<button class="w-full h-9 rounded bg-[#283339] hover:bg-primary hover:text-white text-white text-xs font-bold uppercase transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]">add_shopping_cart</span>
+                                    Thêm vào giỏ
+                                </button>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="group flex flex-col bg-background-dark rounded-lg overflow-hidden border border-border-dark hover:border-primary/50 transition-all hover:shadow-lg hover:shadow-primary/10">
+<div class="relative w-full aspect-square overflow-hidden bg-[#1c252b]">
+<div class="w-full h-full bg-center bg-no-repeat bg-cover transition-transform duration-500 group-hover:scale-110" data-alt="Monkey Streamer PC setup with dual glass panels" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBDG8EPpkmLI-IwGqTzKCZzMuMU6J932v-mgkoIj6gibRkR4cirdaSBKPXnPu6Yqa7LEJt-7hK0CscVFlTj598a0pkcfp3wo7hHebr6aVFQu27OaAaNrJDk_rTR9FEvaUWoaOe9pYy5PYz75V7_8FSylyDmV9TjA4Kw51unOxADC6r5TVWgUhzRyFG3_MAapvRq3fjekjUzf6luvs5uZqbZcDblfn-5UQrDp2LvoEe-Ho2IkrL93FIJ6el0AYUydjo_Bpzz7nhRY94");'></div>
+<div class="absolute top-2 right-2 bg-primary text-white text-[10px] font-bold px-2 py-0.5 rounded">New</div>
+</div>
+<div class="p-4 flex flex-col gap-2 flex-1">
+<h3 class="text-white font-bold text-sm line-clamp-2 group-hover:text-primary transition-colors">Monkey Streamer - R9 7950X / RTX 4080</h3>
+<div class="mt-auto">
+<div class="flex items-center gap-2 mb-3">
+<span class="text-primary font-bold">72.000.000₫</span>
+</div>
+<button class="w-full h-9 rounded bg-[#283339] hover:bg-primary hover:text-white text-white text-xs font-bold uppercase transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]">add_shopping_cart</span>
+                                    Thêm vào giỏ
+                                </button>
+</div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="group flex flex-col bg-background-dark rounded-lg overflow-hidden border border-border-dark hover:border-primary/50 transition-all hover:shadow-lg hover:shadow-primary/10">
+<div class="relative w-full aspect-square overflow-hidden bg-[#1c252b]">
+<div class="w-full h-full bg-center bg-no-repeat bg-cover transition-transform duration-500 group-hover:scale-110" data-alt="Monkey Creator Workstation minimal black case" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDmJAgO8lGbmh4AbQp0PDkWPEZJHKJez7mGUTUmdfMhiPhoCXziV-mnwYI-4SysYRFhiglEN3V1QXj9JAqZ_LfftR76lz1LiYDiWaP_gmZC4YxBtp56WFFyhOeA2cuGSohpAj21e4XXx-pxbFD59eVrVl6MN7WrPRKxTKYff0rBffPBId2XVBTeDv5zPndaBlUwhK6-VkV92n1z4UWX5j_pZsI7soKHWoqo-eSNXuAKDBHX5ollU28-2G1W6ZQ0OIBvdOPO1HC-d2Y");'></div>
+</div>
+<div class="p-4 flex flex-col gap-2 flex-1">
+<h3 class="text-white font-bold text-sm line-clamp-2 group-hover:text-primary transition-colors">Monkey Creator - i9 14900K / RTX 4090</h3>
+<div class="mt-auto">
+<div class="flex items-center gap-2 mb-3">
+<span class="text-primary font-bold">110.000.000₫</span>
+</div>
+<button class="w-full h-9 rounded bg-[#283339] hover:bg-primary hover:text-white text-white text-xs font-bold uppercase transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]">add_shopping_cart</span>
+                                    Thêm vào giỏ
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="bg-background-dark border-t border-border-dark py-8 text-center text-text-secondary text-sm">
+<p>© 2024 Monkey Techlab. All rights reserved.</p>
+</footer>
+</body></html>
