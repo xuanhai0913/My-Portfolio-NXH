@@ -21,6 +21,8 @@ const Experience = () => {
         );
         if (sectionRef.current) observer.observe(sectionRef.current);
 
+        let tl;
+
         // GSAP ScrollTrigger for Video Background
         const video = videoRef.current;
         if (video) {
@@ -31,7 +33,7 @@ const Experience = () => {
                     const objectUrl = URL.createObjectURL(blob);
                     video.src = objectUrl;
                     video.onloadedmetadata = () => {
-                        const tl = gsap.timeline({
+                        tl = gsap.timeline({
                             scrollTrigger: {
                                 trigger: sectionRef.current,
                                 start: "top bottom",
@@ -46,7 +48,6 @@ const Experience = () => {
                     };
                 })
                 .catch(() => {
-                    // Fallback
                     video.src = "/Nhan_Gai_Optimized.mp4";
                 });
         }
@@ -54,7 +55,11 @@ const Experience = () => {
 
         return () => {
             observer.disconnect();
-            ScrollTrigger.getAll().forEach(t => t.kill());
+            // Only kill the local timeline/trigger
+            if (tl) {
+                if (tl.scrollTrigger) tl.scrollTrigger.kill();
+                tl.kill();
+            }
         };
     }, []);
 

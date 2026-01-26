@@ -83,7 +83,7 @@ const SectionTransition = ({ videoSrc = "/Neon_Projects_Optimized.mp4" }) => {
             video.removeEventListener('loadedmetadata', onLoaded);
             if (cleanupGsap) cleanupGsap();
             if (objectUrl) URL.revokeObjectURL(objectUrl);
-            ScrollTrigger.getAll().forEach(t => t.kill());
+            // Do NOT kill all scrolltriggers
         };
     }, [videoSrc]);
 
