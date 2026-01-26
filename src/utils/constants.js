@@ -99,7 +99,7 @@ export const WORK_EXPERIENCE = [
     company: 'B2B GoSell',
     role: 'FULLSTACK DEVELOPER',
     period: 'Coming Soon',
-    description: 'Contributed to the development of the B2B e-commerce platform. (Please update with specific details about your role and achievements at B2B GoSell).',
+    description: 'Contributed to the development of the B2B e-commerce platform. Focused on frontend optimization and component reusability.',
     technologies: ['React', 'Redux', 'REST API', 'Agile/Scrum', 'Ant Design'],
     logo: 'https://res.cloudinary.com/dqdcqtu8m/image/upload/v1755442033/f29959fd-0bcb-4383-84e3-28696d85caf2.png',
     link: 'https://b2bgosell.com/'
