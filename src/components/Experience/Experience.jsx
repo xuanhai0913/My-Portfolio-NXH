@@ -4,9 +4,11 @@ import { WORK_EXPERIENCE } from '../../utils/constants';
 
 const Experience = () => {
     const sectionRef = useRef(null);
+    const videoRef = useRef(null);
     const [inView, setInView] = useState(false);
 
     useEffect(() => {
+        // Intersection Observer for Text Animation
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) setInView(true);
@@ -14,15 +16,63 @@ const Experience = () => {
             { threshold: 0.1 }
         );
         if (sectionRef.current) observer.observe(sectionRef.current);
-        return () => observer.disconnect();
+
+        // GSAP ScrollTrigger for Video Background
+        const video = videoRef.current;
+        if (video) {
+            // Wait for metadata to ensure duration is available
+            const initVideoScroll = () => {
+                if (!video.duration) return;
+
+                const tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top bottom", // Start when section enters viewport
+                        end: "bottom top",   // End when section leaves viewport
+                        scrub: true,         // Sync with scroll
+                    }
+                });
+
+                // Scrub video from 0 to end
+                tl.fromTo(video,
+                    { currentTime: 0 },
+                    { currentTime: video.duration, ease: "none" }
+                );
+            };
+
+            if (video.readyState >= 1) {
+                initVideoScroll();
+            } else {
+                video.addEventListener('loadedmetadata', initVideoScroll);
+            }
+        }
+
+        return () => {
+            observer.disconnect();
+            ScrollTrigger.getAll().forEach(t => t.kill());
+        };
     }, []);
 
     return (
         <section id="experience" className="experience-section" ref={sectionRef}>
+            {/* Scrollytelling Background Video */}
+            <div className="experience-bg-video-container">
+                <video
+                    ref={videoRef}
+                    className="experience-bg-video"
+                    src="/Nhan_Gai_Optimized.mp4"
+                    muted
+                    playsInline
+                    loop={false}
+                />
+                <div className="experience-bg-overlay"></div>
+            </div>
+
             <div className={`experience-container ${inView ? 'in-view' : ''}`}>
                 <h2 className="section-title">
                     <span className="hollow-text">WORK</span>_HISTORY
                 </h2>
+                {/* ... rest of the content ... */}
 
                 <div className="experience-timeline">
                     {WORK_EXPERIENCE.map((job, index) => (

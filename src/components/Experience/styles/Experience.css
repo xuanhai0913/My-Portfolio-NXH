@@ -1,3 +1,4 @@
+/* Existing Styles ... */
 .experience-section {
     position: relative;
     padding: 100px 20px;
@@ -5,10 +6,41 @@
     overflow: hidden;
 }
 
+.experience-bg-video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.experience-bg-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.6;
+    /* Slight dim to make text pop */
+}
+
+.experience-bg-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    /* Dark overlay */
+    z-index: 1;
+}
+
 .experience-container {
     max-width: 900px;
     margin: 0 auto;
     position: relative;
+    z-index: 2;
+    /* Put content above video */
 }
 
 .section-title {
@@ -18,20 +50,21 @@
     color: #fff;
     text-transform: uppercase;
     letter-spacing: -2px;
-    opacity: 0.8;
+    opacity: 0.9;
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
 }
 
 .hollow-text {
     -webkit-text-stroke: 1px #fff;
     color: transparent;
-    opacity: 0.5;
+    opacity: 0.7;
 }
 
 /* Minimal Timeline */
 .experience-timeline {
     position: relative;
     padding-left: 50px;
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .experience-item {
@@ -46,7 +79,7 @@
 /* Dot on Timeline */
 .experience-marker {
     position: absolute;
-    left: -56px; /* -50px padding - 6px half width */
+    left: -56px;
     top: 5px;
     width: 12px;
     height: 12px;
@@ -62,12 +95,11 @@
     box-shadow: 0 0 15px var(--color-accent);
 }
 
-/* Content - No Card Style */
+/* Content */
 .experience-content {
     background: transparent;
     border: none;
     padding: 0;
-    /* Pure text layout */
 }
 
 /* Header Info */
@@ -87,14 +119,7 @@
 }
 
 .company-logo-link {
-    display: none; /* Hide logo for minimal list style, or keep it optional */
-}
-
-/* If you want to keep logo but smaller/inline */
-.company-logo {
-    width: 30px;
-    height: 30px;
-    border-radius: 4px;
+    display: none;
 }
 
 .company-name {
@@ -103,6 +128,7 @@
     color: #fff;
     margin: 0;
     line-height: 1;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .job-role {
@@ -111,26 +137,29 @@
     color: var(--color-accent);
     margin: 0 0 20px 0;
     display: block;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .job-period {
     font-family: var(--font-mono);
     font-size: 0.9rem;
-    color: #666;
-    border: 1px solid #333;
+    color: #ccc;
+    border: 1px solid rgba(255, 255, 255, 0.3);
     padding: 4px 10px;
     border-radius: 20px;
+    background: rgba(0, 0, 0, 0.5);
 }
 
 .job-description {
-    color: #999;
+    color: #ccc;
     line-height: 1.7;
     margin-bottom: 25px;
     font-size: 1rem;
     max-width: 90%;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
-/* Tech Stack - Minimal Tags */
+/* Tech Stack */
 .tech-stack-mini {
     display: flex;
     flex-wrap: wrap;
@@ -140,10 +169,11 @@
 .tech-badge {
     font-family: var(--font-mono);
     font-size: 0.75rem;
-    color: #888;
-    background: transparent;
-    padding: 0;
-    border: none;
+    color: #bbb;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     position: relative;
 }
 
@@ -151,7 +181,7 @@
     content: '#';
     color: var(--color-accent);
     margin-right: 2px;
-    opacity: 0.7;
+    opacity: 0.8;
 }
 
 .tech-badge.more {
@@ -163,12 +193,12 @@
         font-size: 2.5rem;
         letter-spacing: normal;
     }
-    
+
     .experience-timeline {
         padding-left: 20px;
-        border-left: 1px solid rgba(255,255,255,0.1);
+        border-left: 1px solid rgba(255, 255, 255, 0.2);
     }
-    
+
     .experience-marker {
         left: -27px;
     }
