@@ -6,98 +6,78 @@
 }
 
 .experience-container {
-    max-width: 1000px;
+    max-width: 900px;
     margin: 0 auto;
     position: relative;
 }
 
-/* Remove manual transitions as Framer Motion handles it */
-/* .experience-container.in-view { ... } */
-
 .section-title {
-    font-size: 3rem;
-    font-weight: 800;
-    margin-bottom: 60px;
+    font-size: 4rem;
+    font-weight: 900;
+    margin-bottom: 80px;
     color: #fff;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: -2px;
+    opacity: 0.8;
 }
 
+.hollow-text {
+    -webkit-text-stroke: 1px #fff;
+    color: transparent;
+    opacity: 0.5;
+}
+
+/* Minimal Timeline */
 .experience-timeline {
     position: relative;
-    padding-left: 30px;
-    /* Removed static border-left to implement dynamic progress bar */
-}
-
-/* Dynamic Progress Bar */
-.timeline-progress-bar {
-    position: absolute;
-    left: 29px;
-    /* Aligned with padding-left minus stroke width */
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: #00ff88;
-    transform-origin: top;
-    box-shadow: 0 0 10px #00ff88;
-    z-index: 0;
-}
-
-/* Add a background track for the progress bar */
-.experience-timeline::before {
-    content: '';
-    position: absolute;
-    left: 29px;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: rgba(255, 255, 255, 0.1);
-    z-index: 0;
+    padding-left: 50px;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .experience-item {
     position: relative;
-    margin-bottom: 60px;
-    padding-left: 30px;
-    /* Removed CSS opacity/transform/transition properties */
+    margin-bottom: 80px;
 }
 
+.experience-item:last-child {
+    margin-bottom: 0;
+}
+
+/* Dot on Timeline */
 .experience-marker {
     position: absolute;
-    left: -36px;
-    top: 25px;
-    /* Adjust to align with the card, not absolute top */
-    width: 14px;
-    height: 14px;
+    left: -56px; /* -50px padding - 6px half width */
+    top: 5px;
+    width: 12px;
+    height: 12px;
     background: #000;
-    /* Dark center */
-    border: 2px solid #00ff88;
+    border: 2px solid var(--color-accent);
     border-radius: 50%;
-    z-index: 1;
-    box-shadow: 0 0 10px #00ff88;
+    z-index: 2;
+    transition: all 0.3s ease;
 }
 
+.experience-item:hover .experience-marker {
+    background: var(--color-accent);
+    box-shadow: 0 0 15px var(--color-accent);
+}
+
+/* Content - No Card Style */
 .experience-content {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 25px;
-    border-radius: 8px;
-    backdrop-filter: blur(10px);
-    transition: transform 0.3s ease, border-color 0.3s ease;
+    background: transparent;
+    border: none;
+    padding: 0;
+    /* Pure text layout */
 }
 
-.experience-content:hover {
-    transform: translateX(10px);
-    border-color: rgba(0, 255, 136, 0.3);
-}
-
+/* Header Info */
 .experience-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 20px;
+    align-items: baseline;
+    margin-bottom: 15px;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 15px;
 }
 
 .company-info {
@@ -107,109 +87,93 @@
 }
 
 .company-logo-link {
-    display: block;
-    width: 60px;
-    height: 60px;
-    border-radius: 12px;
-    padding: 0;
-    overflow: hidden;
-    flex-shrink: 0;
-    transition: transform 0.3s ease;
+    display: none; /* Hide logo for minimal list style, or keep it optional */
 }
 
-.company-logo-link:hover {
-    transform: scale(1.1);
-}
-
+/* If you want to keep logo but smaller/inline */
 .company-logo {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.company-name-link {
-    text-decoration: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
 }
 
 .company-name {
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: 700;
     color: #fff;
     margin: 0;
-    transition: color 0.3s ease;
-}
-
-.company-name-link:hover .company-name {
-    color: #00ff88;
-}
-
-.job-period {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.9rem;
-    color: #888;
-    background: rgba(0, 0, 0, 0.3);
-    padding: 6px 12px;
-    border-radius: 4px;
-    white-space: nowrap;
-    align-self: flex-start;
+    line-height: 1;
 }
 
 .job-role {
+    font-family: var(--font-mono);
     font-size: 1.1rem;
-    color: #00ff88;
-    margin: 0 0 15px 0;
-    font-weight: 500;
+    color: var(--color-accent);
+    margin: 0 0 20px 0;
+    display: block;
+}
+
+.job-period {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: #666;
+    border: 1px solid #333;
+    padding: 4px 10px;
+    border-radius: 20px;
 }
 
 .job-description {
-    color: #aaa;
-    line-height: 1.6;
-    margin-bottom: 20px;
-    font-size: 0.95rem;
+    color: #999;
+    line-height: 1.7;
+    margin-bottom: 25px;
+    font-size: 1rem;
+    max-width: 90%;
 }
 
+/* Tech Stack - Minimal Tags */
 .tech-stack-mini {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 10px;
 }
 
 .tech-badge {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.8);
-    background: rgba(255, 255, 255, 0.05);
-    padding: 4px 10px;
-    border-radius: 4px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: #888;
+    background: transparent;
+    padding: 0;
+    border: none;
+    position: relative;
+}
+
+.tech-badge::before {
+    content: '#';
+    color: var(--color-accent);
+    margin-right: 2px;
+    opacity: 0.7;
 }
 
 .tech-badge.more {
-    background: rgba(0, 255, 136, 0.1);
-    color: #00ff88;
-    border-color: rgba(0, 255, 136, 0.2);
+    color: var(--color-accent);
 }
 
 @media (max-width: 768px) {
     .section-title {
-        font-size: 2rem;
+        font-size: 2.5rem;
+        letter-spacing: normal;
     }
-
-    .experience-header {
-        flex-direction: column;
-    }
-
-    .experience-item {
-        padding-left: 0;
-        margin-left: 20px;
-    }
-
+    
     .experience-timeline {
-        padding-left: 0;
-        margin-left: 10px;
+        padding-left: 20px;
+        border-left: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .experience-marker {
+        left: -27px;
     }
 
-    .experience-marker {
-        left: -17px;
+    .company-name {
+        font-size: 1.5rem;
     }
 }

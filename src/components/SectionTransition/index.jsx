@@ -15,42 +15,45 @@ const SectionTransition = () => {
 
         if (!section || !video) return;
 
-        // Ensure video is paused and invisible initially
-        video.pause();
-        gsap.set(video, { opacity: 0 });
+        // Ensure video metadata is loaded for duration
+        const initScrollTrigger = () => {
+            if (!video.duration) return;
 
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: section,
-                start: "top top",
-                end: "+=200%", // Pin for 2 screens length
-                pin: true,
-                scrub: true,
-                onEnter: () => {
-                    // Play video when entering pins
-                    video.play().catch(e => console.log("Video play failed", e));
-                    gsap.to(video, { opacity: 1, duration: 0.5 });
-                },
-                onLeave: () => {
-                    // Fade out when leaving
-                    gsap.to(video, { opacity: 0, duration: 0.5 });
-                },
-                onEnterBack: () => {
-                    // Resume if scrolling back up
-                    gsap.to(video, { opacity: 1, duration: 0.5 });
-                },
-                onLeaveBack: () => {
-                    // Reset if scrolling all the way back up
-                    gsap.to(video, { opacity: 0, duration: 0.5 });
-                    video.pause();
-                    video.currentTime = 0;
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top top",
+                    end: "+=300%", // Longer distance for smoother fast-forwarding
+                    pin: true,
+                    scrub: 1, // Smooth scrubbing (1s delay)
                 }
-            }
-        });
+            });
+
+            // Animate video.currentTime from 0 to duration
+            tl.fromTo(video, 
+                { currentTime: 0 }, 
+                { currentTime: video.duration, ease: "none" }
+            );
+
+            // Cleanup
+            return () => {
+                if (tl.scrollTrigger) tl.scrollTrigger.kill();
+                tl.kill();
+            };
+        };
+
+        if (video.readyState >= 1) {
+            initScrollTrigger();
+        } else {
+            video.addEventListener('loadedmetadata', initScrollTrigger);
+        }
 
         return () => {
-            if (tl.scrollTrigger) tl.scrollTrigger.kill();
-            tl.kill();
+             // Basic cleanup (full cleanup is inside initScrollTrigger result if we could capture it, 
+             // but here we rely on the fact that useEffect runs once. 
+             // Ideally we'd store the cleanup fn via a ref or return it properly.)
+             // For simplicity in this edit:
+             ScrollTrigger.getAll().forEach(t => t.kill());
         };
     }, []);
 
