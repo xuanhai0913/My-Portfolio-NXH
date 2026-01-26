@@ -56,46 +56,36 @@ const KineticType = ({ text }) => {
     );
 };
 
-const SectionTransition = ({ text, videoSrc }) => {
+const VideoMode = ({ videoSrc }) => {
     const sectionRef = useRef(null);
     const videoRef = useRef(null);
     const [isLoaded, setIsLoaded] = useState(false);
 
-    // If NO videoSrc -> Render Manual Kinetic Effect
-    if (!videoSrc) {
-        return <KineticType text={text} />;
-    }
-
-    // ... Existing Video Logic ...
     useEffect(() => {
         const video = videoRef.current;
         if (!video) return;
 
-        // 1. Fetch Video as Blob for instant scrubbing (No network lag)
         let objectUrl = null;
-        let tl = null; // Declared here to be accessible in cleanup
+        let tl = null;
 
         const loadVideo = async () => {
             try {
                 const response = await fetch(videoSrc);
                 const blob = await response.blob();
                 objectUrl = URL.createObjectURL(blob);
-
                 video.src = objectUrl;
-                // Once source is set via blob, we wait for 'loadedmetadata'
-                // But since it's local blob, it should be instant.
             } catch (error) {
                 console.error("Video load failed, falling back to stream", error);
-                video.src = videoSrc; // Fallback
+                video.src = videoSrc;
             }
         };
 
         loadVideo();
 
-        // 2. Initialize GSAP only when we have metadata
+        // Initialize GSAP
         const initScrollTrigger = () => {
             if (!video.duration) return;
-            setIsLoaded(true); // Fade in video
+            setIsLoaded(true);
 
             tl = gsap.timeline({
                 scrollTrigger: {
@@ -108,7 +98,6 @@ const SectionTransition = ({ text, videoSrc }) => {
             });
 
             let videoProgress = { frame: 0 };
-
             const updateVideo = () => {
                 if (!video.duration) return;
                 const targetTime = videoProgress.frame;
@@ -139,7 +128,6 @@ const SectionTransition = ({ text, videoSrc }) => {
                 tl.kill();
             }
             if (objectUrl) URL.revokeObjectURL(objectUrl);
-            // Do NOT kill all scrolltriggers
         };
     }, [videoSrc]);
 
@@ -149,16 +137,21 @@ const SectionTransition = ({ text, videoSrc }) => {
             <video
                 ref={videoRef}
                 className={`transition-video ${isLoaded ? 'visible' : ''}`}
-                // src is set via JS
                 muted
                 playsInline
                 loop={false}
                 preload="auto"
             />
-            {/* Text Overlay for Video Mode (Optional, if we want text on top of video too) */}
-            {/* But usually the video has text burned in. If Manual mode, KineticType handles text. */}
         </div>
     );
+};
+
+const SectionTransition = ({ text, videoSrc }) => {
+    // Branching at Route level component, avoiding conditional hooks
+    if (!videoSrc) {
+        return <KineticType text={text} />;
+    }
+    return <VideoMode videoSrc={videoSrc} />;
 };
 
 export default SectionTransition;
