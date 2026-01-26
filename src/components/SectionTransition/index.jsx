@@ -1,64 +1,69 @@
 import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './SectionTransition.css';
 
-const SectionTransition = ({ text = "PROJECTS", fromSection, toSection }) => {
-    const containerRef = useRef(null);
-    const lettersRef = useRef([]);
+gsap.registerPlugin(ScrollTrigger);
+
+const SectionTransition = () => {
+    const sectionRef = useRef(null);
+    const videoRef = useRef(null);
 
     useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animate');
-                    }
-                });
-            },
-            { threshold: 0.5 }
-        );
+        const section = sectionRef.current;
+        const video = videoRef.current;
 
-        if (containerRef.current) {
-            observer.observe(containerRef.current);
-        }
+        if (!section || !video) return;
 
-        return () => observer.disconnect();
+        // Ensure video is paused and invisible initially
+        video.pause();
+        gsap.set(video, { opacity: 0 });
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: section,
+                start: "top top",
+                end: "+=200%", // Pin for 2 screens length
+                pin: true,
+                scrub: true,
+                onEnter: () => {
+                    // Play video when entering pins
+                    video.play().catch(e => console.log("Video play failed", e));
+                    gsap.to(video, { opacity: 1, duration: 0.5 });
+                },
+                onLeave: () => {
+                    // Fade out when leaving
+                    gsap.to(video, { opacity: 0, duration: 0.5 });
+                },
+                onEnterBack: () => {
+                    // Resume if scrolling back up
+                    gsap.to(video, { opacity: 1, duration: 0.5 });
+                },
+                onLeaveBack: () => {
+                    // Reset if scrolling all the way back up
+                    gsap.to(video, { opacity: 0, duration: 0.5 });
+                    video.pause();
+                    video.currentTime = 0;
+                }
+            }
+        });
+
+        return () => {
+            if (tl.scrollTrigger) tl.scrollTrigger.kill();
+            tl.kill();
+        };
     }, []);
 
-    const letters = text.split('');
-
     return (
-        <div className="section-transition" ref={containerRef}>
-            <div className="transition-bg">
-                <div className="bg-circle bg-circle-1"></div>
-                <div className="bg-circle bg-circle-2"></div>
-                <div className="bg-line bg-line-1"></div>
-                <div className="bg-line bg-line-2"></div>
-                <div className="bg-line bg-line-3"></div>
-            </div>
-
-            <div className="transition-content">
-                <div className="falling-text">
-                    {letters.map((letter, index) => (
-                        <span
-                            key={index}
-                            ref={(el) => (lettersRef.current[index] = el)}
-                            className="falling-letter"
-                            style={{
-                                animationDelay: `${index * 0.08}s`,
-                                '--random-x': `${(Math.random() - 0.5) * 100}px`,
-                                '--random-rotate': `${(Math.random() - 0.5) * 60}deg`
-                            }}
-                        >
-                            {letter === ' ' ? '\u00A0' : letter}
-                        </span>
-                    ))}
-                </div>
-
-                <div className="transition-arrow">
-                    <div className="arrow-line"></div>
-                    <div className="arrow-head"></div>
-                </div>
-            </div>
+        <div className="transition-container" ref={sectionRef}>
+            <video
+                ref={videoRef}
+                className="transition-video"
+                src="/Neon_Projects.webm"
+                muted
+                playsInline
+                loop={false}
+            />
         </div>
     );
 };
