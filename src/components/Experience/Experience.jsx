@@ -24,32 +24,33 @@ const Experience = () => {
         // GSAP ScrollTrigger for Video Background
         const video = videoRef.current;
         if (video) {
-            // Wait for metadata to ensure duration is available
-            const initVideoScroll = () => {
-                if (!video.duration) return;
-
-                const tl = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: sectionRef.current,
-                        start: "top bottom", // Start when section enters viewport
-                        end: "bottom top",   // End when section leaves viewport
-                        scrub: true,         // Sync with scroll
-                    }
+            // Fetch blob for smooth scrubbing
+            fetch("/Nhan_Gai_Optimized.mp4")
+                .then(res => res.blob())
+                .then(blob => {
+                    const objectUrl = URL.createObjectURL(blob);
+                    video.src = objectUrl;
+                    video.onloadedmetadata = () => {
+                        const tl = gsap.timeline({
+                            scrollTrigger: {
+                                trigger: sectionRef.current,
+                                start: "top bottom",
+                                end: "bottom top",
+                                scrub: true,
+                            }
+                        });
+                        tl.fromTo(video,
+                            { currentTime: 0 },
+                            { currentTime: video.duration, ease: "none" }
+                        );
+                    };
+                })
+                .catch(() => {
+                    // Fallback
+                    video.src = "/Nhan_Gai_Optimized.mp4";
                 });
-
-                // Scrub video from 0 to end
-                tl.fromTo(video,
-                    { currentTime: 0 },
-                    { currentTime: video.duration, ease: "none" }
-                );
-            };
-
-            if (video.readyState >= 1) {
-                initVideoScroll();
-            } else {
-                video.addEventListener('loadedmetadata', initVideoScroll);
-            }
         }
+
 
         return () => {
             observer.disconnect();

@@ -8,24 +8,40 @@ gsap.registerPlugin(ScrollTrigger);
 const SectionTransition = ({ videoSrc = "/Neon_Projects_Optimized.mp4" }) => {
     const sectionRef = useRef(null);
     const videoRef = useRef(null);
+    const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
-        const section = sectionRef.current;
         const video = videoRef.current;
+        if (!video) return;
 
-        if (!section || !video) return;
+        // 1. Fetch Video as Blob for instant scrubbing (No network lag)
+        let objectUrl = null;
 
-        // Ensure video metadata is loaded for duration
+        const loadVideo = async () => {
+            try {
+                const response = await fetch(videoSrc);
+                const blob = await response.blob();
+                objectUrl = URL.createObjectURL(blob);
+
+                video.src = objectUrl;
+                // Once source is set via blob, we wait for 'loadedmetadata'
+                // But since it's local blob, it should be instant.
+            } catch (error) {
+                console.error("Video load failed, falling back to stream", error);
+                video.src = videoSrc; // Fallback
+            }
+        };
+
+        loadVideo();
+
+        // 2. Initialize GSAP only when we have metadata
         const initScrollTrigger = () => {
             if (!video.duration) return;
-
-            // Animate video.currentTime using a proxy object for smoothness
-            // We use a custom updater to handle fastSeek if available
-            let videoProgress = { frame: 0 };
+            setIsLoaded(true); // Fade in video
 
             const tl = gsap.timeline({
                 scrollTrigger: {
-                    trigger: section,
+                    trigger: sectionRef.current,
                     start: "top top",
                     end: "+=300%",
                     pin: true,
@@ -33,12 +49,11 @@ const SectionTransition = ({ videoSrc = "/Neon_Projects_Optimized.mp4" }) => {
                 }
             });
 
+            let videoProgress = { frame: 0 };
+
             const updateVideo = () => {
-                if (!video || !video.duration) return;
-
+                if (!video.duration) return;
                 const targetTime = videoProgress.frame;
-
-                // With optimized video (Keyint=1), we can update more frequently for smoothness
                 if (Math.abs(video.currentTime - targetTime) > 0.01) {
                     video.currentTime = targetTime;
                 }
@@ -50,37 +65,39 @@ const SectionTransition = ({ videoSrc = "/Neon_Projects_Optimized.mp4" }) => {
                 onUpdate: updateVideo
             });
 
-            // Cleanup
             return () => {
                 if (tl.scrollTrigger) tl.scrollTrigger.kill();
                 tl.kill();
             };
         };
 
-        if (video.readyState >= 1) {
-            initScrollTrigger();
-        } else {
-            video.addEventListener('loadedmetadata', initScrollTrigger);
-        }
+        let cleanupGsap = null;
+
+        const onLoaded = () => {
+            cleanupGsap = initScrollTrigger();
+        };
+
+        video.addEventListener('loadedmetadata', onLoaded);
 
         return () => {
-            // Basic cleanup (full cleanup is inside initScrollTrigger result if we could capture it, 
-            // but here we rely on the fact that useEffect runs once. 
-            // Ideally we'd store the cleanup fn via a ref or return it properly.)
-            // For simplicity in this edit:
+            video.removeEventListener('loadedmetadata', onLoaded);
+            if (cleanupGsap) cleanupGsap();
+            if (objectUrl) URL.revokeObjectURL(objectUrl);
             ScrollTrigger.getAll().forEach(t => t.kill());
         };
-    }, []);
+    }, [videoSrc]);
 
     return (
         <div className="transition-container" ref={sectionRef}>
+            <div className={`video-loader ${isLoaded ? 'hidden' : ''}`}>Loading...</div>
             <video
                 ref={videoRef}
-                className="transition-video"
-                src={videoSrc}
+                className={`transition-video ${isLoaded ? 'visible' : ''}`}
+                // src is set via JS
                 muted
                 playsInline
                 loop={false}
+                preload="auto"
             />
         </div>
     );
