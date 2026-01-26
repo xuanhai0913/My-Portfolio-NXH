@@ -45,6 +45,8 @@ const Experience = () => {
                             { currentTime: 0 },
                             { currentTime: video.duration, ease: "none" }
                         );
+                        // Force recalculation of start/end positions after video load
+                        ScrollTrigger.refresh();
                     };
                 })
                 .catch(() => {
