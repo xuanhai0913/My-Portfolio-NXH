@@ -1,6 +1,10 @@
 import React, { useRef, useEffect, useState } from 'react';
 import './styles/Experience.css';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { WORK_EXPERIENCE } from '../../utils/constants';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Experience = () => {
     const sectionRef = useRef(null);
