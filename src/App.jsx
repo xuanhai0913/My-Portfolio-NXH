@@ -84,37 +84,38 @@ const MainPortfolio = () => {
       </ErrorBoundary>
     </>
   );
+};
 
-  const App = () => {
+const App = () => {
 
-    return (
-      <div className="app">
-        <ErrorBoundary>
-          <Header />
-        </ErrorBoundary>
+  return (
+    <div className="app">
+      <ErrorBoundary>
+        <Header />
+      </ErrorBoundary>
 
-        <Routes>
-          <Route path="/" element={<MainPortfolio />} />
-          <Route path="/videos" element={
-            <ErrorBoundary>
-              <Suspense fallback={<LoadingFallback />}>
-                <VideoDemo />
-              </Suspense>
-            </ErrorBoundary>
-          } />
-          <Route path="/3d" element={
-            <ErrorBoundary>
-              <Suspense fallback={<LoadingFallback />}>
-                <Hero3D />
-              </Suspense>
-            </ErrorBoundary>
-          } />
-        </Routes>
+      <Routes>
+        <Route path="/" element={<MainPortfolio />} />
+        <Route path="/videos" element={
+          <ErrorBoundary>
+            <Suspense fallback={<LoadingFallback />}>
+              <VideoDemo />
+            </Suspense>
+          </ErrorBoundary>
+        } />
+        <Route path="/3d" element={
+          <ErrorBoundary>
+            <Suspense fallback={<LoadingFallback />}>
+              <Hero3D />
+            </Suspense>
+          </ErrorBoundary>
+        } />
+      </Routes>
 
-        <Analytics debug={false} mode="production" />
-        <SpeedInsights />
-      </div>
-    );
-  };
+      <Analytics debug={false} mode="production" />
+      <SpeedInsights />
+    </div>
+  );
+};
 
-  export default App;
+export default App;
