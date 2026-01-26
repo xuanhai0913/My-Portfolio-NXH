@@ -64,7 +64,7 @@ const MainPortfolio = () => {
 
       {/* Section Transition - Experience to Projects */}
       <ErrorBoundary>
-        <SectionTransition text="PROJECTS" videoSrc="/Neon_Projects_Optimized.mp4" />
+        <SectionTransition text="PROJECTS" />
       </ErrorBoundary>
 
       <ErrorBoundary>

@@ -5,17 +5,75 @@ import './SectionTransition.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const SectionTransition = ({ videoSrc = "/Neon_Projects_Optimized.mp4" }) => {
+// Kinetic Typography Component (Manual Effect)
+const KineticType = ({ text }) => {
+    const containerRef = useRef(null);
+    const textRef = useRef(null);
+
+    useEffect(() => {
+        const container = containerRef.current;
+        const textEl = textRef.current;
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: container,
+                start: "top top",
+                end: "+=150%", // Pin for 1.5 screens
+                pin: true,
+                scrub: 1,
+            }
+        });
+
+        // Effect: Text Scales Up hugely + Opacity shift
+        tl.fromTo(textEl,
+            { scale: 1, opacity: 0.2, filter: 'blur(10px)' },
+            { scale: 15, opacity: 1, filter: 'blur(0px)', ease: "power2.inOut" }
+        );
+
+        // Background Grid Animation (Simulated forward movement)
+        gsap.to(container, {
+            backgroundPosition: "0% 100%",
+            ease: "none",
+            scrollTrigger: {
+                trigger: container,
+                start: "top top",
+                end: "+=150%",
+                scrub: true
+            }
+        });
+
+        return () => {
+            if (tl.scrollTrigger) tl.scrollTrigger.kill();
+            tl.kill();
+        };
+    }, []);
+
+    return (
+        <div className="kinetic-container" ref={containerRef}>
+            <div className="neon-grid-bg"></div>
+            <h2 className="kinetic-text" ref={textRef} data-text={text}>{text}</h2>
+        </div>
+    );
+};
+
+const SectionTransition = ({ text, videoSrc }) => {
     const sectionRef = useRef(null);
     const videoRef = useRef(null);
     const [isLoaded, setIsLoaded] = useState(false);
 
+    // If NO videoSrc -> Render Manual Kinetic Effect
+    if (!videoSrc) {
+        return <KineticType text={text} />;
+    }
+
+    // ... Existing Video Logic ...
     useEffect(() => {
         const video = videoRef.current;
         if (!video) return;
 
         // 1. Fetch Video as Blob for instant scrubbing (No network lag)
         let objectUrl = null;
+        let tl = null; // Declared here to be accessible in cleanup
 
         const loadVideo = async () => {
             try {
@@ -39,7 +97,7 @@ const SectionTransition = ({ videoSrc = "/Neon_Projects_Optimized.mp4" }) => {
             if (!video.duration) return;
             setIsLoaded(true); // Fade in video
 
-            const tl = gsap.timeline({
+            tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: sectionRef.current,
                     start: "top top",
@@ -65,23 +123,21 @@ const SectionTransition = ({ videoSrc = "/Neon_Projects_Optimized.mp4" }) => {
                 onUpdate: updateVideo
             });
 
-            return () => {
-                if (tl.scrollTrigger) tl.scrollTrigger.kill();
-                tl.kill();
-            };
+            ScrollTrigger.refresh();
         };
 
-        let cleanupGsap = null;
-
         const onLoaded = () => {
-            cleanupGsap = initScrollTrigger();
+            initScrollTrigger();
         };
 
         video.addEventListener('loadedmetadata', onLoaded);
 
         return () => {
             video.removeEventListener('loadedmetadata', onLoaded);
-            if (cleanupGsap) cleanupGsap();
+            if (tl) {
+                if (tl.scrollTrigger) tl.scrollTrigger.kill();
+                tl.kill();
+            }
             if (objectUrl) URL.revokeObjectURL(objectUrl);
             // Do NOT kill all scrolltriggers
         };
@@ -99,6 +155,8 @@ const SectionTransition = ({ videoSrc = "/Neon_Projects_Optimized.mp4" }) => {
                 loop={false}
                 preload="auto"
             />
+            {/* Text Overlay for Video Mode (Optional, if we want text on top of video too) */}
+            {/* But usually the video has text burned in. If Manual mode, KineticType handles text. */}
         </div>
     );
 };
