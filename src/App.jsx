@@ -20,6 +20,13 @@ import Footer from './components/Footer';
 const VideoDemo = lazy(() => import('./components/VideoDemo'));
 const Hero3D = lazy(() => import('./components/Hero3D'));
 
+// Loading fallback
+const LoadingFallback = () => (
+  <div className="loading-container">
+    <div className="loading-spinner"></div>
+  </div>
+);
+
 // Main Portfolio Page Component
 const MainPortfolio = () => (
   <>
