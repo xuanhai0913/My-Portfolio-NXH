@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Aurora, RotatingText, VariableProximity } from '../../components/common';
 import { useResponsive } from '../../hooks';
-import profileImage from '../../assets/images/profile.png';
+const profileImage = '/images/og-image.jpg';
 import './styles/Profile.css';
 
 const Profile = () => {
