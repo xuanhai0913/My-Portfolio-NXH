@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-const profileImage = '/images/og-image.jpg';
 import ExperiencePopup from './ExperiencePopup';
 import CVPreview from './CVPreview';
 import './styles/Profile.css';
+
+const profileImage = '/images/og-image.jpg';
 
 const Profile = () => {
   const [loaded, setLoaded] = useState(false);

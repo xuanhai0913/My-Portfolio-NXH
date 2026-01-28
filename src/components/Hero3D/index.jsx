@@ -2,8 +2,9 @@ import React, { Suspense, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { ScrollControls, Scroll, useScroll } from '@react-three/drei';
 import { Link } from 'react-router-dom';
-const profileImage = '/images/og-image.jpg';
 import './Hero3D.css';
+
+const profileImage = '/images/og-image.jpg';
 
 // Animated 3D Logo
 const AnimatedLogo = () => {

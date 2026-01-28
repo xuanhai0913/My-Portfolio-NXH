@@ -1,8 +1,9 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Aurora, RotatingText, VariableProximity } from '../../components/common';
 import { useResponsive } from '../../hooks';
-const profileImage = '/images/og-image.jpg';
 import './styles/Profile.css';
+
+const profileImage = '/images/og-image.jpg';
 
 const Profile = () => {
   const containerRef = useRef(null);
