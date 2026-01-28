@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import profileImage from '../../images/profile.png';
+const profileImage = '/images/og-image.jpg';
 import ExperiencePopup from './ExperiencePopup';
 import CVPreview from './CVPreview';
 import './styles/Profile.css';

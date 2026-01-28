@@ -14,11 +14,9 @@ import visionKey from '../../images/project/visionKey.png';
 
 const Portfolio = () => {
   const sectionRef = useRef(null);
-  const videoRef = useRef(null);
   const projectListRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
   const allProjects = [
     {
@@ -131,12 +129,6 @@ const Portfolio = () => {
         Math.floor(progress * allProjects.length)
       );
       setActiveIndex(newIndex);
-
-      // Parallax effect for video
-      if (videoRef.current) {
-        const parallaxOffset = scrolled * 0.3;
-        videoRef.current.style.transform = `translateY(${parallaxOffset}px) scale(1.1)`;
-      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -162,22 +154,6 @@ const Portfolio = () => {
 
   return (
     <section id="portfolio" className="portfolio-section portfolio-scrollytelling" ref={sectionRef}>
-      {/* Video Background */}
-      <div className="video-background">
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          loop
-          playsInline
-          onLoadedData={() => setIsVideoLoaded(true)}
-          className={`bg-video ${isVideoLoaded ? 'loaded' : ''}`}
-        >
-          <source src="/Nhan_Gai_Optimized.mp4" type="video/mp4" />
-        </video>
-        <div className="video-overlay"></div>
-        <div className="video-grain"></div>
-      </div>
 
       <div className="portfolio-sticky">
         {/* Fixed Header */}
