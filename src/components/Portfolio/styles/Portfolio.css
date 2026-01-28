@@ -48,12 +48,10 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    135deg,
-    rgba(0, 0, 0, 0.85) 0%,
-    rgba(0, 0, 0, 0.6) 50%,
-    rgba(0, 0, 0, 0.85) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba(0, 0, 0, 0.85) 0%,
+      rgba(0, 0, 0, 0.6) 50%,
+      rgba(0, 0, 0, 0.85) 100%);
 }
 
 .video-grain {
@@ -122,19 +120,51 @@
 }
 
 @keyframes glitch-1 {
-  0%, 100% { transform: translate(0); }
-  20% { transform: translate(-3px, 2px); }
-  40% { transform: translate(3px, -2px); }
-  60% { transform: translate(-3px, -2px); }
-  80% { transform: translate(3px, 2px); }
+
+  0%,
+  100% {
+    transform: translate(0);
+  }
+
+  20% {
+    transform: translate(-3px, 2px);
+  }
+
+  40% {
+    transform: translate(3px, -2px);
+  }
+
+  60% {
+    transform: translate(-3px, -2px);
+  }
+
+  80% {
+    transform: translate(3px, 2px);
+  }
 }
 
 @keyframes glitch-2 {
-  0%, 100% { transform: translate(0); }
-  20% { transform: translate(3px, -2px); }
-  40% { transform: translate(-3px, 2px); }
-  60% { transform: translate(3px, 2px); }
-  80% { transform: translate(-3px, -2px); }
+
+  0%,
+  100% {
+    transform: translate(0);
+  }
+
+  20% {
+    transform: translate(3px, -2px);
+  }
+
+  40% {
+    transform: translate(-3px, 2px);
+  }
+
+  60% {
+    transform: translate(3px, 2px);
+  }
+
+  80% {
+    transform: translate(-3px, -2px);
+  }
 }
 
 .portfolio-scrollytelling .project-counter {
@@ -333,7 +363,7 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 0;
   padding: 2.5rem;
-  box-shadow: 
+  box-shadow:
     0 30px 80px rgba(0, 0, 0, 0.6),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
   animation: cardReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1);
@@ -344,6 +374,7 @@
     opacity: 0;
     transform: translateY(30px) scale(0.98);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -383,12 +414,10 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    45deg,
-    transparent 40%,
-    rgba(212, 255, 0, 0.03) 50%,
-    transparent 60%
-  );
+  background: linear-gradient(45deg,
+      transparent 40%,
+      rgba(212, 255, 0, 0.03) 50%,
+      transparent 60%);
   pointer-events: none;
 }
 
@@ -489,7 +518,7 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
   transition: left 0.5s ease;
 }
 
@@ -620,12 +649,19 @@
 }
 
 @keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
+
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
     transform: translateY(0);
   }
+
   40% {
     transform: translateY(8px);
   }
+
   60% {
     transform: translateY(4px);
   }
@@ -636,85 +672,203 @@
    ============================ */
 @media (max-width: 1200px) {
   .scrollytelling-grid {
-    grid-template-columns: 320px 1fr;
+    grid-template-columns: 280px 1fr;
     gap: 2rem;
     padding: 100px 3vw 40px;
   }
-  
+
   .showcase-card {
     grid-template-columns: 1fr;
     gap: 1.5rem;
     padding: 1.5rem;
   }
-  
+
   .showcase-title {
     font-size: 2rem;
+  }
+
+  .project-list-item {
+    padding: 1rem 0.8rem;
   }
 }
 
 @media (max-width: 900px) {
   .portfolio-section.portfolio-scrollytelling {
-    height: 600vh;
+    height: auto;
+    min-height: 100vh;
+    padding-bottom: 60px;
   }
-  
+
+  .portfolio-scrollytelling .portfolio-sticky {
+    position: relative;
+    height: auto;
+    min-height: 100vh;
+  }
+
   .scrollytelling-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    padding: 100px 4vw 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 120px 4vw 40px;
   }
-  
+
   .project-list {
-    max-height: 30vh;
-    overflow-y: auto;
-    margin-top: 80px;
+    order: 2;
+    max-height: none;
+    overflow-y: visible;
+    margin-top: 0;
   }
-  
+
+  .list-inner {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  .project-list-item {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding: 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+  }
+
+  .project-list-item::before {
+    display: none;
+  }
+
+  .item-index {
+    display: none;
+  }
+
+  .item-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+
+  .item-title {
+    font-size: 0.85rem;
+  }
+
+  .item-badge {
+    font-size: 0.6rem;
+    padding: 2px 6px;
+  }
+
+  .item-year {
+    font-size: 0.7rem;
+    display: block;
+  }
+
   .project-showcase {
-    padding-right: 20px;
+    order: 1;
+    padding-right: 0;
   }
-  
+
+  .showcase-card {
+    padding: 1.5rem;
+  }
+
   .portfolio-scrollytelling .scroll-progress {
-    right: 10px;
-    height: 200px;
+    display: none;
   }
-  
+
+  .scroll-hint {
+    display: none;
+  }
+
   .scrolly-header {
-    top: 80px;
+    position: relative;
+    top: 0;
+    left: 0;
+    padding: 0 4vw;
+    margin-bottom: 1rem;
   }
-  
+
   .portfolio-scrollytelling .project-counter {
     font-size: 3rem;
   }
 }
 
 @media (max-width: 600px) {
+  .portfolio-section.portfolio-scrollytelling {
+    padding-bottom: 40px;
+  }
+
+  .scrollytelling-grid {
+    padding: 100px 3vw 30px;
+    gap: 1.5rem;
+  }
+
+  .list-inner {
+    grid-template-columns: 1fr;
+  }
+
   .project-list-item {
-    grid-template-columns: 30px 1fr;
-    padding: 1rem 0.5rem;
+    padding: 0.7rem;
   }
-  
-  .item-year {
-    display: none;
-  }
-  
+
   .item-title {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
-  
+
+  .showcase-card {
+    padding: 1rem;
+  }
+
+  .visual-frame {
+    aspect-ratio: 16/9;
+  }
+
   .showcase-title {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
-  
+
   .showcase-desc {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
   }
-  
+
+  .showcase-tech {
+    gap: 6px;
+  }
+
+  .tech-pill {
+    padding: 4px 10px;
+    font-size: 0.7rem;
+  }
+
   .showcase-actions {
     flex-direction: column;
+    gap: 0.75rem;
   }
-  
+
   .portfolio-scrollytelling .action-btn {
     width: 100%;
     justify-content: center;
+    padding: 0.9rem 1.2rem;
+    font-size: 0.75rem;
+  }
+
+  .scrolly-header {
+    padding: 0 3vw;
+  }
+
+  .glitch-text {
+    font-size: 1rem;
+  }
+
+  .portfolio-scrollytelling .project-counter {
+    font-size: 2.5rem;
+  }
+
+  .portfolio-scrollytelling .project-counter .divider {
+    font-size: 1.5rem;
+    margin: 0 5px;
+  }
+
+  .portfolio-scrollytelling .project-counter .total {
+    font-size: 1.2rem;
   }
 }
