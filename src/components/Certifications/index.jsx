@@ -15,7 +15,7 @@ const certificates = [
     issuer: "Google",
     thumbnail: certGeminiFaculty,
     pdfUrl: "/Cert/Gemini Certified Faculty.pdf",
-    verifyUrl: "https://www.credential.net/c89eb0a1-3dd6-4595-a6f0-6e1eb5f69b43",
+    verifyUrl: "https://edu.google.accredible.com/b72948bf-9762-446f-b771-5eaadd88ccf9?key=8346ffe5eeaa608d615483a398c1a29a43f53ad92dcd7f8a4a5986d28124ead9",
     description: "Certified Faculty in Google Gemini AI",
     accent: "#8e44ad",
     date: "2025"
