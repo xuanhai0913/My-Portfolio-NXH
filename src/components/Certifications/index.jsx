@@ -5,11 +5,23 @@ import './styles/Certifications.css';
 import certGoogleAI from '../../images/certs/cert-google-ai-k12.png';
 import certTalkbot from '../../images/certs/cert-talkbot.png';
 import certGemini from '../../images/certs/cert-gemini.png';
+import certGeminiFaculty from '../../images/certs/cert-gemini-faculty.png';
 
 // Certificate data
 const certificates = [
   {
     id: 1,
+    title: "Gemini Certified Faculty",
+    issuer: "Google",
+    thumbnail: certGeminiFaculty,
+    pdfUrl: "/Cert/Gemini Certified Faculty.pdf",
+    verifyUrl: "https://www.credential.net/c89eb0a1-3dd6-4595-a6f0-6e1eb5f69b43",
+    description: "Certified Faculty in Google Gemini AI",
+    accent: "#8e44ad",
+    date: "2025"
+  },
+  {
+    id: 2,
     title: "Gemini Certified University Student",
     issuer: "Google",
     thumbnail: certGemini,
@@ -19,7 +31,7 @@ const certificates = [
     date: "2024"
   },
   {
-    id: 2,
+    id: 3,
     title: "Google AI for K12 Educators",
     issuer: "Google for Education",
     thumbnail: certGoogleAI,
@@ -29,7 +41,7 @@ const certificates = [
     date: "2023"
   },
   {
-    id: 3,
+    id: 4,
     title: "Code a Joke-Telling Talkbot",
     issuer: "Google for Education",
     thumbnail: certTalkbot,
