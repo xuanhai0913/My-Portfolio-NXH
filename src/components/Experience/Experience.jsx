@@ -12,8 +12,14 @@ const Experience = () => {
     const audioRef = useRef(null);
     const [inView, setInView] = useState(false);
     const [isMuted, setIsMuted] = useState(false);
+    const isMutedRef = useRef(false);
+    const inViewRef = useRef(false);
     const [audioReady, setAudioReady] = useState(false);
     const fadeIntervalRef = useRef(null);
+
+    // Keep refs in sync with state
+    React.useEffect(() => { isMutedRef.current = isMuted; }, [isMuted]);
+    React.useEffect(() => { inViewRef.current = inView; }, [inView]);
 
     // Fade audio volume smoothly
     const fadeAudio = useCallback((audio, targetVol, duration = 800) => {
@@ -34,24 +40,40 @@ const Experience = () => {
         }, stepTime);
     }, []);
 
+    // Try to play audio (handles autoplay policy)
+    const tryPlayAudio = useCallback(() => {
+        const audio = audioRef.current;
+        if (!audio || isMutedRef.current || !inViewRef.current) return;
+        audio.volume = 0;
+        audio.play().then(() => {
+            setAudioReady(true);
+            fadeAudio(audio, 0.4, 1200);
+        }).catch(() => {
+            // Autoplay blocked – will retry on user interaction
+        });
+    }, [fadeAudio]);
+
     React.useLayoutEffect(() => {
+        // Unlock audio on first user interaction (browser autoplay policy)
+        const unlockAudio = () => {
+            tryPlayAudio();
+            document.removeEventListener('click', unlockAudio);
+            document.removeEventListener('touchstart', unlockAudio);
+            document.removeEventListener('scroll', unlockAudio);
+        };
+        document.addEventListener('click', unlockAudio, { once: true });
+        document.addEventListener('touchstart', unlockAudio, { once: true });
+        document.addEventListener('scroll', unlockAudio, { once: true });
+
         // Intersection Observer for Text Animation + Audio
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
                     setInView(true);
-                    // Play audio when entering section
-                    const audio = audioRef.current;
-                    if (audio && !isMuted) {
-                        audio.volume = 0;
-                        audio.play().then(() => {
-                            setAudioReady(true);
-                            fadeAudio(audio, 0.4, 1200);
-                        }).catch(() => {
-                            // Autoplay blocked by browser – ignore
-                        });
-                    }
+                    inViewRef.current = true;
+                    tryPlayAudio();
                 } else {
+                    inViewRef.current = false;
                     // Fade out when leaving section
                     const audio = audioRef.current;
                     if (audio && !audio.paused) {
@@ -96,6 +118,9 @@ const Experience = () => {
 
         return () => {
             observer.disconnect();
+            document.removeEventListener('click', unlockAudio);
+            document.removeEventListener('touchstart', unlockAudio);
+            document.removeEventListener('scroll', unlockAudio);
             if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
             if (tl) {
                 if (tl.scrollTrigger) tl.scrollTrigger.kill();
