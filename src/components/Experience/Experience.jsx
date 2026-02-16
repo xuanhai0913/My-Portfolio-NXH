@@ -14,13 +14,10 @@ const Experience = () => {
     const [isMuted, setIsMuted] = useState(false);
     const isMutedRef = useRef(false);
     const inViewRef = useRef(false);
-    const audioUnlockedRef = useRef(false);
-    const [audioReady, setAudioReady] = useState(false);
+    const pendingPlayRef = useRef(false);
     const fadeIntervalRef = useRef(null);
 
-    // Keep refs in sync with state
     React.useEffect(() => { isMutedRef.current = isMuted; }, [isMuted]);
-    React.useEffect(() => { inViewRef.current = inView; }, [inView]);
 
     // Fade audio volume smoothly
     const fadeAudio = useCallback((audio, targetVol, duration = 800) => {
@@ -41,57 +38,51 @@ const Experience = () => {
         }, stepTime);
     }, []);
 
-    // Try to play audio (handles autoplay policy)
-    const tryPlayAudio = useCallback(() => {
+    // Play audio — must be called from user-activation context (click/touch)
+    const playAudio = useCallback(() => {
         const audio = audioRef.current;
         if (!audio || isMutedRef.current || !inViewRef.current) return;
-        if (!audio.paused) return; // Already playing
-        audio.volume = 0;
+        if (!audio.paused) return;
+        audio.volume = 0.1;
         audio.play().then(() => {
-            audioUnlockedRef.current = true;
-            setAudioReady(true);
-            fadeAudio(audio, 0.4, 1200);
+            pendingPlayRef.current = false;
+            fadeAudio(audio, 0.4, 400);
         }).catch(() => {
-            // Autoplay blocked – will retry on user interaction
+            // Still blocked — mark pending for next user click
+            pendingPlayRef.current = true;
         });
     }, [fadeAudio]);
 
     React.useLayoutEffect(() => {
-        // Unlock audio on user interaction (browser autoplay policy)
-        // Keep listeners active until audio actually plays
-        const unlockAudio = () => {
-            if (audioUnlockedRef.current) {
-                removeListeners();
-                return;
+        // On click/touch anywhere: if audio is pending, play it
+        // (click/touchstart ARE valid user-activation events for autoplay)
+        const onUserAction = () => {
+            if (pendingPlayRef.current && inViewRef.current && !isMutedRef.current) {
+                playAudio();
             }
-            tryPlayAudio();
         };
-        const removeListeners = () => {
-            document.removeEventListener('click', unlockAudio);
-            document.removeEventListener('touchstart', unlockAudio);
-            document.removeEventListener('scroll', unlockAudio);
-        };
-        document.addEventListener('click', unlockAudio);
-        document.addEventListener('touchstart', unlockAudio);
-        document.addEventListener('scroll', unlockAudio);
+        document.addEventListener('click', onUserAction);
+        document.addEventListener('touchstart', onUserAction);
 
-        // Intersection Observer for Text Animation + Audio
+        // Intersection Observer
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
                     setInView(true);
                     inViewRef.current = true;
-                    tryPlayAudio();
+                    // Try to play — if blocked, pendingPlayRef becomes true
+                    playAudio();
                 } else {
+                    setInView(false);
                     inViewRef.current = false;
-                    // Fade out when leaving section
+                    pendingPlayRef.current = false;
                     const audio = audioRef.current;
                     if (audio && !audio.paused) {
                         fadeAudio(audio, 0, 600);
                     }
                 }
             },
-            { threshold: 0.15 }
+            { threshold: 0.1 }
         );
         if (sectionRef.current) observer.observe(sectionRef.current);
 
@@ -128,15 +119,13 @@ const Experience = () => {
 
         return () => {
             observer.disconnect();
-            document.removeEventListener('click', unlockAudio);
-            document.removeEventListener('touchstart', unlockAudio);
-            document.removeEventListener('scroll', unlockAudio);
+            document.removeEventListener('click', onUserAction);
+            document.removeEventListener('touchstart', onUserAction);
             if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
             if (tl) {
                 if (tl.scrollTrigger) tl.scrollTrigger.kill();
                 tl.kill();
             }
-            // Stop audio on unmount
             const audio = audioRef.current;
             if (audio) { audio.pause(); audio.currentTime = 0; }
         };
@@ -148,15 +137,15 @@ const Experience = () => {
         if (!audio) return;
 
         if (isMuted) {
-            // Unmute – resume playing if section is in view
             setIsMuted(false);
-            audio.volume = 0;
+            isMutedRef.current = false;
+            audio.volume = 0.1;
             audio.play().then(() => {
-                fadeAudio(audio, 0.4, 600);
+                fadeAudio(audio, 0.4, 400);
             }).catch(() => { });
         } else {
-            // Mute – fade out
             setIsMuted(true);
+            isMutedRef.current = true;
             fadeAudio(audio, 0, 400);
         }
     };
@@ -166,8 +155,8 @@ const Experience = () => {
             {/* Background Audio */}
             <audio ref={audioRef} src="/audio/EXPERIENCE.mp3" loop preload="auto" />
 
-            {/* Mute/Unmute Toggle */}
-            {audioReady && (
+            {/* Mute/Unmute Toggle — show when section is in view */}
+            {inView && (
                 <button
                     className={`audio-toggle ${isMuted ? 'muted' : ''}`}
                     onClick={toggleMute}
