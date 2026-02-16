@@ -4,6 +4,7 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Analytics } from "@vercel/analytics/react";
 import ErrorBoundary from './components/ErrorBoundary';
 import Header from './components/Header';
+import AudioActivator from './components/AudioActivator/AudioActivator';
 import './App.css';
 
 // Lazy load non-critical components
@@ -93,6 +94,8 @@ const App = () => {
       <ErrorBoundary>
         <Header />
       </ErrorBoundary>
+
+      <AudioActivator />
 
       <Routes>
         <Route path="/" element={<MainPortfolio />} />

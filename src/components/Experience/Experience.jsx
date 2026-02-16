@@ -50,25 +50,13 @@ const Experience = () => {
     }, [fadeAudio]);
 
     React.useLayoutEffect(() => {
-        // Pre-unlock audio on first click/touch ANYWHERE on the page
-        // This is invisible to the user — any natural click (navbar, etc.) will unlock it
-        const unlockAudio = () => {
-            const audio = audioRef.current;
-            if (!audio || audioUnlockedRef.current) return;
-            // Silently play at volume 0 to unlock, then immediately pause
-            const origVolume = audio.volume;
-            audio.volume = 0;
-            audio.play().then(() => {
-                audio.pause();
-                audio.currentTime = 0;
-                audio.volume = origVolume;
-                audioUnlockedRef.current = true;
-                // If section is already in view, start playing now
-                startAudio();
-            }).catch(() => { });
+        // Listen for global audio activation from AudioActivator component
+        const onAudioActivated = () => {
+            audioUnlockedRef.current = true;
+            // If section is already in view, start playing now
+            startAudio();
         };
-        document.addEventListener('click', unlockAudio, { capture: true });
-        document.addEventListener('touchstart', unlockAudio, { capture: true });
+        window.addEventListener('audioActivated', onAudioActivated);
 
         // Intersection Observer
         const observer = new IntersectionObserver(
@@ -76,7 +64,7 @@ const Experience = () => {
                 if (entry.isIntersecting) {
                     setInView(true);
                     inViewRef.current = true;
-                    // Auto-play if audio was already unlocked by a prior click
+                    // Auto-play if audio was already activated
                     startAudio();
                 } else {
                     setInView(false);
@@ -124,8 +112,7 @@ const Experience = () => {
 
         return () => {
             observer.disconnect();
-            document.removeEventListener('click', unlockAudio, { capture: true });
-            document.removeEventListener('touchstart', unlockAudio, { capture: true });
+            window.removeEventListener('audioActivated', onAudioActivated);
             if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
             if (tl) {
                 if (tl.scrollTrigger) tl.scrollTrigger.kill();
