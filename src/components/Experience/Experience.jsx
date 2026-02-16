@@ -14,6 +14,7 @@ const Experience = () => {
     const [isMuted, setIsMuted] = useState(false);
     const isMutedRef = useRef(false);
     const inViewRef = useRef(false);
+    const audioUnlockedRef = useRef(false);
     const [audioReady, setAudioReady] = useState(false);
     const fadeIntervalRef = useRef(null);
 
@@ -44,8 +45,10 @@ const Experience = () => {
     const tryPlayAudio = useCallback(() => {
         const audio = audioRef.current;
         if (!audio || isMutedRef.current || !inViewRef.current) return;
+        if (!audio.paused) return; // Already playing
         audio.volume = 0;
         audio.play().then(() => {
+            audioUnlockedRef.current = true;
             setAudioReady(true);
             fadeAudio(audio, 0.4, 1200);
         }).catch(() => {
@@ -54,16 +57,23 @@ const Experience = () => {
     }, [fadeAudio]);
 
     React.useLayoutEffect(() => {
-        // Unlock audio on first user interaction (browser autoplay policy)
+        // Unlock audio on user interaction (browser autoplay policy)
+        // Keep listeners active until audio actually plays
         const unlockAudio = () => {
+            if (audioUnlockedRef.current) {
+                removeListeners();
+                return;
+            }
             tryPlayAudio();
+        };
+        const removeListeners = () => {
             document.removeEventListener('click', unlockAudio);
             document.removeEventListener('touchstart', unlockAudio);
             document.removeEventListener('scroll', unlockAudio);
         };
-        document.addEventListener('click', unlockAudio, { once: true });
-        document.addEventListener('touchstart', unlockAudio, { once: true });
-        document.addEventListener('scroll', unlockAudio, { once: true });
+        document.addEventListener('click', unlockAudio);
+        document.addEventListener('touchstart', unlockAudio);
+        document.addEventListener('scroll', unlockAudio);
 
         // Intersection Observer for Text Animation + Audio
         const observer = new IntersectionObserver(
