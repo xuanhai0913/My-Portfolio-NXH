@@ -14,7 +14,7 @@ const Experience = () => {
     const [isMuted, setIsMuted] = useState(false);
     const isMutedRef = useRef(false);
     const inViewRef = useRef(false);
-    const pendingPlayRef = useRef(false);
+    const audioUnlockedRef = useRef(false);
     const fadeIntervalRef = useRef(null);
 
     React.useEffect(() => { isMutedRef.current = isMuted; }, [isMuted]);
@@ -38,31 +38,37 @@ const Experience = () => {
         }, stepTime);
     }, []);
 
-    // Play audio — must be called from user-activation context (click/touch)
-    const playAudio = useCallback(() => {
+    // Start playing audio (only works after audio is unlocked)
+    const startAudio = useCallback(() => {
         const audio = audioRef.current;
-        if (!audio || isMutedRef.current || !inViewRef.current) return;
+        if (!audio || isMutedRef.current || !inViewRef.current || !audioUnlockedRef.current) return;
         if (!audio.paused) return;
         audio.volume = 0.1;
         audio.play().then(() => {
-            pendingPlayRef.current = false;
             fadeAudio(audio, 0.4, 400);
-        }).catch(() => {
-            // Still blocked — mark pending for next user click
-            pendingPlayRef.current = true;
-        });
+        }).catch(() => { });
     }, [fadeAudio]);
 
     React.useLayoutEffect(() => {
-        // On click/touch anywhere: if audio is pending, play it
-        // (click/touchstart ARE valid user-activation events for autoplay)
-        const onUserAction = () => {
-            if (pendingPlayRef.current && inViewRef.current && !isMutedRef.current) {
-                playAudio();
-            }
+        // Pre-unlock audio on first click/touch ANYWHERE on the page
+        // This is invisible to the user — any natural click (navbar, etc.) will unlock it
+        const unlockAudio = () => {
+            const audio = audioRef.current;
+            if (!audio || audioUnlockedRef.current) return;
+            // Silently play at volume 0 to unlock, then immediately pause
+            const origVolume = audio.volume;
+            audio.volume = 0;
+            audio.play().then(() => {
+                audio.pause();
+                audio.currentTime = 0;
+                audio.volume = origVolume;
+                audioUnlockedRef.current = true;
+                // If section is already in view, start playing now
+                startAudio();
+            }).catch(() => { });
         };
-        document.addEventListener('click', onUserAction);
-        document.addEventListener('touchstart', onUserAction);
+        document.addEventListener('click', unlockAudio, { capture: true });
+        document.addEventListener('touchstart', unlockAudio, { capture: true });
 
         // Intersection Observer
         const observer = new IntersectionObserver(
