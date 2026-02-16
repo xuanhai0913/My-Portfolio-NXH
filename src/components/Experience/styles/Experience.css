@@ -194,6 +194,43 @@
     color: var(--color-accent);
 }
 
+/* Audio Toggle */
+.audio-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--color-accent);
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.audio-toggle:hover {
+    background: rgba(212, 255, 0, 0.15);
+    border-color: var(--color-accent);
+    transform: scale(1.1);
+}
+
+.audio-toggle.muted {
+    color: rgba(255, 255, 255, 0.4);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.audio-toggle.muted:hover {
+    color: var(--color-accent);
+}
+
 @media (max-width: 768px) {
     .section-title {
         font-size: 2.5rem;
@@ -211,5 +248,13 @@
 
     .company-name {
         font-size: 1.5rem;
+    }
+
+    .audio-toggle {
+        top: 15px;
+        right: 15px;
+        width: 38px;
+        height: 38px;
+        font-size: 0.9rem;
     }
 }

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 import './styles/Portfolio.css';
 
 // Import project images
@@ -15,8 +15,19 @@ import visionKey from '../../images/project/visionKey.png';
 const Portfolio = () => {
   const sectionRef = useRef(null);
   const projectListRef = useRef(null);
+  const popAudioRef = useRef(null);
+  const prevIndexRef = useRef(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
+
+  // Play pop sound on project change
+  const playPop = useCallback(() => {
+    const audio = popAudioRef.current;
+    if (!audio) return;
+    audio.currentTime = 0;
+    audio.volume = 0.5;
+    audio.play().catch(() => { });
+  }, []);
 
   const allProjects = [
     {
@@ -128,7 +139,11 @@ const Portfolio = () => {
         allProjects.length - 1,
         Math.floor(progress * allProjects.length)
       );
-      setActiveIndex(newIndex);
+      if (newIndex !== prevIndexRef.current) {
+        prevIndexRef.current = newIndex;
+        setActiveIndex(newIndex);
+        playPop();
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -139,6 +154,8 @@ const Portfolio = () => {
   // Handle project click from list
   const handleProjectClick = (index) => {
     setActiveIndex(index);
+    prevIndexRef.current = index;
+    playPop();
     // Scroll to appropriate position
     if (sectionRef.current) {
       const sectionTop = sectionRef.current.offsetTop;
@@ -154,6 +171,8 @@ const Portfolio = () => {
 
   return (
     <section id="portfolio" className="portfolio-section portfolio-scrollytelling" ref={sectionRef}>
+      {/* Pop sound for project transitions */}
+      <audio ref={popAudioRef} src="/audio/PROJECTS.mp3" preload="auto" />
 
       <div className="portfolio-sticky">
         {/* Fixed Header */}

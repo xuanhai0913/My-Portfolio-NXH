@@ -25,3 +25,6 @@ yarn-error.log*
 
 # Vercel
 .vercel
+
+# Large video files
+src/videos/LLMs_original.mp4
