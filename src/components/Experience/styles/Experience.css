@@ -21,8 +21,7 @@
     height: 100%;
     object-fit: cover;
     object-position: center center;
-    opacity: 0.5;
-    /* Slight dim to make text pop */
+    opacity: 0.8;
 }
 
 .experience-bg-overlay {
@@ -33,9 +32,9 @@
     height: 100%;
     background: linear-gradient(
         to bottom,
-        rgba(0, 0, 0, 0.8) 0%,
-        rgba(0, 0, 0, 0.5) 50%,
-        rgba(0, 0, 0, 0.8) 100%
+        rgba(0, 0, 0, 0.4) 0%,
+        rgba(0, 0, 0, 0.2) 50%,
+        rgba(0, 0, 0, 0.4) 100%
     );
     /* Dark overlay */
     z-index: 1;
