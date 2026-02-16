@@ -45,7 +45,7 @@ const Experience = () => {
         if (!audio.paused) return;
         audio.volume = 0.1;
         audio.play().then(() => {
-            fadeAudio(audio, 0.4, 400);
+            fadeAudio(audio, 0.4, 1000);
         }).catch(() => { });
     }, [fadeAudio]);
 
@@ -76,12 +76,11 @@ const Experience = () => {
                 if (entry.isIntersecting) {
                     setInView(true);
                     inViewRef.current = true;
-                    // Try to play — if blocked, pendingPlayRef becomes true
-                    playAudio();
+                    // Auto-play if audio was already unlocked by a prior click
+                    startAudio();
                 } else {
                     setInView(false);
                     inViewRef.current = false;
-                    pendingPlayRef.current = false;
                     const audio = audioRef.current;
                     if (audio && !audio.paused) {
                         fadeAudio(audio, 0, 600);
@@ -125,8 +124,8 @@ const Experience = () => {
 
         return () => {
             observer.disconnect();
-            document.removeEventListener('click', onUserAction);
-            document.removeEventListener('touchstart', onUserAction);
+            document.removeEventListener('click', unlockAudio, { capture: true });
+            document.removeEventListener('touchstart', unlockAudio, { capture: true });
             if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
             if (tl) {
                 if (tl.scrollTrigger) tl.scrollTrigger.kill();
