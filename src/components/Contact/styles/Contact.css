@@ -1,4 +1,4 @@
-/* Contact.css - Premium Brutalist */
+/* Contact.css - Premium Brutalist + 3D */
 
 .contact-section {
   min-height: 100vh;
@@ -15,37 +15,116 @@
   width: 100%;
   margin: 0 auto;
   display: grid;
-  gap: 4rem;
+  grid-template-columns: 1fr;
+  gap: 2rem;
   flex: 1;
+  align-items: center;
 }
 
-/* Vertical Header (Desktop) */
-.vertical-header {
-  font-family: var(--font-display);
-  font-size: 6rem;
-  line-height: 1;
-  color: rgba(255, 255, 255, 0.1);
-  margin: 0;
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  transform: rotate(180deg);
+/* ===== 3D Model Column ===== */
+.contact-model-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.icecream-3d-container {
+  width: 100%;
+  height: 350px;
+  position: relative;
+  cursor: grab;
+}
+
+.icecream-3d-container:active {
+  cursor: grabbing;
+}
+
+.icecream-3d-container canvas {
+  border-radius: 20px;
+}
+
+/* Neon glow ring behind model */
+.icecream-glow {
   position: absolute;
-  left: 2rem;
-  top: 20%;
-  display: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(212, 255, 0, 0.12) 0%,
+    rgba(212, 255, 0, 0.04) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+  animation: glowPulse 3s ease-in-out infinite;
 }
 
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+}
+
+.model-caption {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.35);
+  text-align: center;
+  margin-top: 0.5rem;
+  transition: color 0.3s;
+}
+
+.contact-model-col:hover .model-caption {
+  color: rgba(212, 255, 0, 0.6);
+}
+
+/* Loading state */
+.model-loading {
+  width: 100%;
+  height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 20px;
+}
+
+.model-loading-icon {
+  font-size: 3rem;
+  animation: loadBounce 1s ease-in-out infinite;
+}
+
+@keyframes loadBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+/* ===== Right Column: Content ===== */
 .contact-content {
   max-width: 600px;
   margin: 0 auto;
   width: 100%;
-  grid-column: 2;
+}
+
+.contact-heading {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  margin: 0 0 1rem 0;
+  line-height: 1.1;
 }
 
 .contact-intro {
-  font-size: 1.5rem;
-  color: var(--text-primary);
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.6);
   margin-bottom: 3rem;
+  line-height: 1.6;
 }
 
 .neon {
@@ -152,18 +231,46 @@
   height: 1px;
 }
 
+/* ===== Desktop: 2 columns ===== */
 @media (min-width: 1024px) {
   .contact-container {
     grid-template-columns: 1fr 1fr;
-    padding-left: 100px;
-    /* Space for vertical header */
+    gap: 4rem;
   }
 
-  .vertical-header {
-    display: block;
+  .icecream-3d-container {
+    height: 500px;
   }
 
   .contact-content {
     margin: 0;
+  }
+
+  .contact-heading {
+    font-size: 3.5rem;
+  }
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 768px) {
+  .contact-section {
+    padding: 4rem 1rem;
+  }
+
+  .icecream-3d-container {
+    height: 280px;
+  }
+
+  .contact-heading {
+    font-size: 2.2rem;
+  }
+
+  .contact-intro {
+    font-size: 1rem;
+  }
+
+  .icecream-glow {
+    width: 160px;
+    height: 160px;
   }
 }

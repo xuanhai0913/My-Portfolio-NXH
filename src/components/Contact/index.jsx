@@ -1,7 +1,9 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, Suspense, lazy } from 'react';
 import emailjs from '@emailjs/browser';
 import { API } from '../../utils/constants';
 import './styles/Contact.css';
+
+const IceCreamModel = lazy(() => import('./IceCreamModel'));
 
 const Contact = () => {
   const form = useRef();
@@ -59,9 +61,23 @@ const Contact = () => {
     <section id="contact" className="contact-section">
       <div className="contact-container">
 
-        <h2 className="vertical-header">CONTACT</h2>
+        {/* Left Column: 3D Ice Cream */}
+        <div className="contact-model-col">
+          <Suspense fallback={
+            <div className="model-loading">
+              <span className="model-loading-icon">🍦</span>
+            </div>
+          }>
+            <IceCreamModel />
+          </Suspense>
+          <p className="model-caption">Move your cursor around me! 🍦</p>
+        </div>
 
+        {/* Right Column: Form */}
         <div className="contact-content">
+          <h2 className="contact-heading">
+            Let's <span className="neon">Connect</span>
+          </h2>
           <p className="contact-intro">
             Have an idea or project? Let's collaborate and build something <span className="neon">extraordinary</span>.
           </p>
