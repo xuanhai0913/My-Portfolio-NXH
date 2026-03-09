@@ -6,6 +6,7 @@ import certGoogleAI from '../../images/certs/cert-google-ai-k12.png';
 import certTalkbot from '../../images/certs/cert-talkbot.png';
 import certGemini from '../../images/certs/cert-gemini.png';
 import certGeminiFaculty from '../../images/certs/cert-gemini-faculty.png';
+import certECH from '../../images/certs/cert-ech-2025.jpeg';
 
 // Certificate data
 const certificates = [
@@ -49,6 +50,16 @@ const certificates = [
     description: "Conversational AI development",
     accent: "#ea4335",
     date: "2023"
+  },
+  {
+    id: 5,
+    title: "Volunteer Participation Certificate",
+    issuer: "ECH - English Community House",
+    thumbnail: certECH,
+    verifyUrl: "https://ech.edu.vn/",
+    description: "Certificate of volunteer participation at ECH",
+    accent: "#e67e22",
+    date: "2025"
   }
 ];
 
