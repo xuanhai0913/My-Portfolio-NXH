@@ -1,17 +1,28 @@
 import React, { useRef, useState, Suspense, lazy } from 'react';
 import emailjs from '@emailjs/browser';
 import { API } from '../../utils/constants';
+import SlateEditor from './SlateEditor';
 import './styles/Contact.css';
 
 const IceCreamModel = lazy(() => import('./IceCreamModel'));
 
 const Contact = () => {
   const form = useRef();
+  const hiddenMessageRef = useRef();
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null); // 'success' or 'error'
+  const [editorKey, setEditorKey] = useState(0);
 
   const sendEmail = (e) => {
     e.preventDefault();
+
+    // Manual validation: hidden inputs don't support `required`
+    if (!hiddenMessageRef.current || !hiddenMessageRef.current.value.trim()) {
+      setStatus('empty');
+      setTimeout(() => setStatus(null), 3000);
+      return;
+    }
+
     setLoading(true);
     setStatus(null);
 
@@ -42,6 +53,7 @@ const Contact = () => {
           setLoading(false);
           setStatus('success');
           form.current.reset();
+          setEditorKey((k) => k + 1); // remount SlateEditor to reset
           setTimeout(() => setStatus(null), 5000);
 
           // Log warning if auto-reply failed silently
@@ -101,14 +113,17 @@ const Contact = () => {
                 disabled={loading}
               />
             </div>
-            <div className="form-group">
-              <textarea
+            <div className="form-group form-group--editor">
+              <input
+                type="hidden"
                 name="message"
-                placeholder="MESSAGE"
-                rows="4"
-                required
+                ref={hiddenMessageRef}
+              />
+              <SlateEditor
+                key={editorKey}
+                hiddenInputRef={hiddenMessageRef}
                 disabled={loading}
-              ></textarea>
+              />
             </div>
 
             <button
@@ -121,12 +136,17 @@ const Contact = () => {
 
             {status === 'success' && (
               <p className="status-msg success">
-                ✅ Message sent! I'll get back to you soon.
+                Message sent! I'll get back to you soon.
               </p>
             )}
             {status === 'error' && (
               <p className="status-msg error">
-                ❌ Failed to send. Please verify the keys or try again later.
+                Failed to send. Please verify the keys or try again later.
+              </p>
+            )}
+            {status === 'empty' && (
+              <p className="status-msg error">
+                Please type a message before sending.
               </p>
             )}
           </form>

@@ -165,6 +165,11 @@
   cursor: not-allowed;
 }
 
+/* Editor form group needs left padding for drag handles */
+.form-group--editor {
+  padding-left: 0;
+}
+
 .btn-submit {
   background: transparent;
   border: 1px solid var(--color-accent);
