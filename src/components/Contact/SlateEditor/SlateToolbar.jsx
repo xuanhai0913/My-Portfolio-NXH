@@ -83,7 +83,23 @@ const DividerButton = () => {
   );
 };
 
-const SlateToolbar = () => (
+const ImageButton = ({ onRequestImage }) => {
+  return (
+    <button
+      type="button"
+      className="slate-toolbar-btn"
+      onMouseDown={(e) => {
+        e.preventDefault();
+        if (onRequestImage) onRequestImage();
+      }}
+      title="Image"
+    >
+      {'\uD83D\uDDBC'}
+    </button>
+  );
+};
+
+const SlateToolbar = ({ onRequestImage }) => (
   <div className="slate-toolbar">
     <div className="slate-toolbar-group">
       <MarkButton format={MARK_TYPES.BOLD} icon="B" />
@@ -104,6 +120,7 @@ const SlateToolbar = () => (
       <BlockButton format={BLOCK_TYPES.CODE_BLOCK} icon="{}" />
       <BlockButton format={BLOCK_TYPES.CALLOUT} icon={'\u26A1'} />
       <DividerButton />
+      <ImageButton onRequestImage={onRequestImage} />
     </div>
   </div>
 );

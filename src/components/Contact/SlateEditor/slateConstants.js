@@ -42,7 +42,7 @@ export const SLASH_MENU_ITEMS = [
   { label: 'Bulleted List', type: BLOCK_TYPES.BULLETED_LIST, icon: '\u2022', description: 'Unordered list' },
   { label: 'Numbered List', type: BLOCK_TYPES.NUMBERED_LIST, icon: '1.', description: 'Ordered list' },
   { label: 'Code Block', type: BLOCK_TYPES.CODE_BLOCK, icon: '</>', description: 'Code snippet' },
-  { label: 'Image', type: BLOCK_TYPES.IMAGE, icon: '\uD83D\uDDBC', description: 'Embed an image via URL', action: 'prompt-image' },
+  { label: 'Image', type: BLOCK_TYPES.IMAGE, icon: '\uD83D\uDDBC', description: 'Search Unsplash or paste URL', action: 'prompt-image' },
   { label: 'Divider', type: BLOCK_TYPES.DIVIDER, icon: '\u2014', description: 'Horizontal separator', action: 'insert-void' },
   { label: 'Callout', type: BLOCK_TYPES.CALLOUT, icon: '\u26A1', description: 'Highlighted tip or note' },
 ];

@@ -365,6 +365,252 @@
   opacity: 0.6;
 }
 
+/* ── Unsplash Picker ── */
+.unsplash-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: unsplashFadeIn 0.15s ease;
+}
+
+@keyframes unsplashFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.unsplash-picker {
+  background: #0d0d0d;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  width: 90vw;
+  max-width: 640px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 16px 60px rgba(0, 0, 0, 0.8);
+}
+
+.unsplash-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.unsplash-title {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.unsplash-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.unsplash-toggle-mode {
+  background: transparent;
+  border: 1px solid rgba(212, 255, 0, 0.3);
+  color: var(--color-accent, #d4ff00);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.65rem;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.unsplash-toggle-mode:hover {
+  background: rgba(212, 255, 0, 0.1);
+}
+
+.unsplash-close {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.2rem 0.4rem;
+  line-height: 1;
+  transition: color 0.15s ease;
+}
+
+.unsplash-close:hover {
+  color: #fff;
+}
+
+.unsplash-search-form,
+.unsplash-url-form {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.unsplash-search-input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-primary, #fff);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.85rem;
+  padding: 0.5rem 0.75rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.unsplash-search-input:focus {
+  border-color: var(--color-accent, #d4ff00);
+}
+
+.unsplash-search-input::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.unsplash-search-btn {
+  background: rgba(212, 255, 0, 0.08);
+  border: 1px solid var(--color-accent, #d4ff00);
+  color: var(--color-accent, #d4ff00);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.unsplash-search-btn:hover:not(:disabled) {
+  background: rgba(212, 255, 0, 0.15);
+}
+
+.unsplash-search-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.unsplash-error {
+  padding: 0.5rem 1rem;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.75rem;
+  color: #ff6b6b;
+}
+
+.unsplash-empty {
+  padding: 2rem 1rem;
+  text-align: center;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.unsplash-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.4rem;
+  padding: 0.75rem;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+}
+
+.unsplash-grid-item {
+  position: relative;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.unsplash-grid-item:hover {
+  border-color: var(--color-accent, #d4ff00);
+  transform: scale(1.02);
+}
+
+.unsplash-grid-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.unsplash-photo-credit {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.3rem 0.4rem;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.55rem;
+  color: rgba(255, 255, 255, 0.6);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.unsplash-grid-item:hover .unsplash-photo-credit {
+  opacity: 1;
+}
+
+.unsplash-load-more {
+  display: block;
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--color-accent, #d4ff00);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.75rem;
+  padding: 0.6rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: background 0.15s ease;
+}
+
+.unsplash-load-more:hover:not(:disabled) {
+  background: rgba(212, 255, 0, 0.05);
+}
+
+.unsplash-load-more:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.unsplash-attribution {
+  padding: 0.4rem 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.3);
+  text-align: center;
+}
+
+.unsplash-attribution a {
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: underline;
+}
+
+.unsplash-attribution a:hover {
+  color: var(--color-accent, #d4ff00);
+}
+
 /* ── Responsive ── */
 @media (max-width: 768px) {
   .slate-editable {
@@ -400,5 +646,14 @@
   }
   .slate-h3 {
     font-size: 1rem;
+  }
+
+  .unsplash-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .unsplash-picker {
+    width: 95vw;
+    max-height: 70vh;
   }
 }

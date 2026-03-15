@@ -10,9 +10,9 @@ import ReactDOM from 'react-dom';
 import { Editor, Transforms, Range } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { SLASH_MENU_ITEMS } from './slateConstants';
-import { toggleBlock, insertImage, insertDivider } from './slateHelpers';
+import { toggleBlock, insertDivider } from './slateHelpers';
 
-const SlashMenu = forwardRef(({ editor }, ref) => {
+const SlashMenu = forwardRef(({ editor, onRequestImage }, ref) => {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -35,9 +35,8 @@ const SlashMenu = forwardRef(({ editor }, ref) => {
 
       switch (action) {
         case 'prompt-image': {
-          const url = window.prompt('Enter image URL:');
-          if (url) {
-            insertImage(editor, url);
+          if (onRequestImage) {
+            onRequestImage();
           }
           break;
         }

@@ -16,17 +16,29 @@ import {
 import useSlateEditor from './useSlateEditor';
 import SlateToolbar from './SlateToolbar';
 import SlashMenu from './SlashMenu';
+import UnsplashPicker from './UnsplashPicker';
 import DraggableBlock from './DraggableBlock';
 import SlateElement from './SlateElement';
 import SlateLeaf from './SlateLeaf';
 import { INITIAL_VALUE } from './slateConstants';
-import { serializeToPlainText } from './slateHelpers';
+import { serializeToPlainText, insertImage } from './slateHelpers';
 import '../styles/SlateEditor.css';
 
 const SlateEditor = ({ hiddenInputRef, disabled }) => {
   const { editor, handleHotkeys } = useSlateEditor();
   const [value, setValue] = useState(INITIAL_VALUE);
   const slashMenuRef = useRef(null);
+  const [unsplashOpen, setUnsplashOpen] = useState(false);
+
+  const openUnsplash = useCallback(() => setUnsplashOpen(true), []);
+  const closeUnsplash = useCallback(() => setUnsplashOpen(false), []);
+
+  const handleUnsplashSelect = useCallback(
+    (url) => {
+      insertImage(editor, url);
+    },
+    [editor]
+  );
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -100,7 +112,7 @@ const SlateEditor = ({ hiddenInputRef, disabled }) => {
   return (
     <div className={`slate-editor-wrapper ${disabled ? 'disabled' : ''}`}>
       <Slate editor={editor} initialValue={INITIAL_VALUE} onChange={handleChange}>
-        <SlateToolbar />
+        <SlateToolbar onRequestImage={openUnsplash} />
         <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}
@@ -123,8 +135,13 @@ const SlateEditor = ({ hiddenInputRef, disabled }) => {
           </SortableContext>
           <DragOverlay />
         </DndContext>
-        <SlashMenu ref={slashMenuRef} editor={editor} />
+        <SlashMenu ref={slashMenuRef} editor={editor} onRequestImage={openUnsplash} />
       </Slate>
+      <UnsplashPicker
+        isOpen={unsplashOpen}
+        onSelect={handleUnsplashSelect}
+        onClose={closeUnsplash}
+      />
     </div>
   );
 };
