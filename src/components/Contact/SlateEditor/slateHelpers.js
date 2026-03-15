@@ -1,5 +1,5 @@
 import { Editor, Transforms, Element as SlateElement } from 'slate';
-import { BLOCK_TYPES, LIST_TYPES, generateId } from './slateConstants';
+import { BLOCK_TYPES, LIST_TYPES, VOID_TYPES, generateId } from './slateConstants';
 
 // ── Mark helpers ──
 
@@ -13,6 +13,23 @@ export const toggleMark = (editor, format) => {
     Editor.removeMark(editor, format);
   } else {
     Editor.addMark(editor, format, true);
+  }
+};
+
+// ── Link helpers (mark-based) ──
+
+export const isLinkActive = (editor) => {
+  const marks = Editor.marks(editor);
+  return marks ? marks.link === true : false;
+};
+
+export const insertLink = (editor, url) => {
+  if (isLinkActive(editor)) {
+    Editor.removeMark(editor, 'link');
+    Editor.removeMark(editor, 'linkUrl');
+  } else {
+    Editor.addMark(editor, 'link', true);
+    Editor.addMark(editor, 'linkUrl', url);
   }
 };
 
@@ -59,7 +76,38 @@ export const toggleBlock = (editor, format) => {
   }
 };
 
-// ── Slate plugin: auto-assign IDs to new element nodes ──
+// ── Void insert helpers ──
+
+export const insertImage = (editor, url) => {
+  const imageNode = {
+    id: generateId(),
+    type: BLOCK_TYPES.IMAGE,
+    url,
+    children: [{ text: '' }],
+  };
+  Transforms.insertNodes(editor, imageNode);
+  Transforms.insertNodes(editor, {
+    id: generateId(),
+    type: BLOCK_TYPES.PARAGRAPH,
+    children: [{ text: '' }],
+  });
+};
+
+export const insertDivider = (editor) => {
+  const dividerNode = {
+    id: generateId(),
+    type: BLOCK_TYPES.DIVIDER,
+    children: [{ text: '' }],
+  };
+  Transforms.insertNodes(editor, dividerNode);
+  Transforms.insertNodes(editor, {
+    id: generateId(),
+    type: BLOCK_TYPES.PARAGRAPH,
+    children: [{ text: '' }],
+  });
+};
+
+// ── Slate plugins ──
 
 export const withNodeId = (editor) => {
   const { apply } = editor;
@@ -82,15 +130,24 @@ export const withNodeId = (editor) => {
   return editor;
 };
 
+export const withVoids = (editor) => {
+  const { isVoid } = editor;
+  editor.isVoid = (element) =>
+    VOID_TYPES.includes(element.type) ? true : isVoid(element);
+  return editor;
+};
+
 // ── Serialization (Markdown-like plain text for EmailJS) ──
 
 const serializeNode = (node) => {
   if ('text' in node) {
     let text = node.text;
-    if (!text) return '';
+    if (!text && !node.link) return '';
     if (node.bold) text = `**${text}**`;
     if (node.italic) text = `_${text}_`;
     if (node.code) text = `\`${text}\``;
+    if (node.strikethrough) text = `~~${text}~~`;
+    if (node.link && node.linkUrl) text = `[${text}](${node.linkUrl})`;
     return text;
   }
 
@@ -112,6 +169,12 @@ const serializeNode = (node) => {
       return `- ${children}`;
     case BLOCK_TYPES.CODE_BLOCK:
       return `\`\`\`\n${children}\n\`\`\``;
+    case BLOCK_TYPES.IMAGE:
+      return `[Image: ${node.url || ''}]`;
+    case BLOCK_TYPES.DIVIDER:
+      return '---';
+    case BLOCK_TYPES.CALLOUT:
+      return `> \u26A1 ${children}`;
     default:
       return children;
   }

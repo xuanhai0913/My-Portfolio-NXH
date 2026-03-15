@@ -10,7 +10,7 @@ import ReactDOM from 'react-dom';
 import { Editor, Transforms, Range } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { SLASH_MENU_ITEMS } from './slateConstants';
-import { toggleBlock } from './slateHelpers';
+import { toggleBlock, insertImage, insertDivider } from './slateHelpers';
 
 const SlashMenu = forwardRef(({ editor }, ref) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,7 +30,28 @@ const SlashMenu = forwardRef(({ editor }, ref) => {
         Transforms.select(editor, targetRange);
         Transforms.delete(editor);
       }
-      toggleBlock(editor, item.type);
+
+      const action = item.action || 'toggle-block';
+
+      switch (action) {
+        case 'prompt-image': {
+          const url = window.prompt('Enter image URL:');
+          if (url) {
+            insertImage(editor, url);
+          }
+          break;
+        }
+        case 'insert-void': {
+          insertDivider(editor);
+          break;
+        }
+        case 'toggle-block':
+        default: {
+          toggleBlock(editor, item.type);
+          break;
+        }
+      }
+
       setIsOpen(false);
       ReactEditor.focus(editor);
     },

@@ -285,6 +285,86 @@
   min-width: 0;
 }
 
+/* ── Image Block ── */
+.slate-image-block {
+  margin: 0.5rem 0;
+  user-select: none;
+}
+
+.slate-image {
+  max-width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  display: block;
+}
+
+.slate-image-url {
+  display: block;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.25);
+  margin-top: 0.25rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Divider ── */
+.slate-divider-wrapper {
+  padding: 0.6rem 0;
+  user-select: none;
+}
+
+.slate-divider {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  margin: 0;
+}
+
+/* ── Callout ── */
+.slate-callout {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.6rem 0.8rem;
+  margin: 0.4rem 0;
+  background: rgba(212, 255, 0, 0.04);
+  border: 1px solid rgba(212, 255, 0, 0.15);
+  border-radius: 2px;
+}
+
+.slate-callout-icon {
+  flex-shrink: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.slate-callout-content {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── Inline: Link ── */
+.slate-link {
+  color: var(--color-accent, #d4ff00);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.slate-link:hover {
+  opacity: 0.75;
+}
+
+/* ── Inline: Strikethrough ── */
+.slate-strikethrough {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
 /* ── Responsive ── */
 @media (max-width: 768px) {
   .slate-editable {

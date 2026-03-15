@@ -18,6 +18,33 @@ const SlateElement = ({ attributes, children, element }) => {
       return <li {...attributes} className="slate-li">{children}</li>;
     case 'code-block':
       return <pre {...attributes} className="slate-code-block"><code>{children}</code></pre>;
+    case 'image':
+      return (
+        <div {...attributes} className="slate-image-block" contentEditable={false}>
+          <img
+            src={element.url}
+            alt=""
+            className="slate-image"
+            onError={(e) => { e.target.style.display = 'none'; }}
+          />
+          <span className="slate-image-url">{element.url}</span>
+          {children}
+        </div>
+      );
+    case 'divider':
+      return (
+        <div {...attributes} contentEditable={false} className="slate-divider-wrapper">
+          <hr className="slate-divider" />
+          {children}
+        </div>
+      );
+    case 'callout':
+      return (
+        <div {...attributes} className="slate-callout">
+          <span className="slate-callout-icon" contentEditable={false}>{'\u26A1'}</span>
+          <div className="slate-callout-content">{children}</div>
+        </div>
+      );
     default:
       return <p {...attributes} className="slate-paragraph">{children}</p>;
   }

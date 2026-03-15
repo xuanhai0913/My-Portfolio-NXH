@@ -4,11 +4,11 @@ import { withReact } from 'slate-react';
 import { withHistory } from 'slate-history';
 import isHotkey from 'is-hotkey';
 import { HOTKEYS } from './slateConstants';
-import { toggleMark, withNodeId } from './slateHelpers';
+import { toggleMark, withNodeId, withVoids } from './slateHelpers';
 
 const useSlateEditor = () => {
   const editor = useMemo(
-    () => withNodeId(withHistory(withReact(createEditor()))),
+    () => withVoids(withNodeId(withHistory(withReact(createEditor())))),
     []
   );
 

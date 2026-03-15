@@ -1,12 +1,17 @@
-import React, { useRef, useMemo } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import React, { useRef, useMemo, useState, useEffect } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF, Float, ContactShadows } from '@react-three/drei';
 import * as THREE from 'three';
 
-function IceCream({ mousePos }) {
+const CELEBRATE_DURATION = 3; // seconds
+
+function IceCream({ mousePos, celebrate }) {
   const { scene } = useGLTF('/3d/CONTACT.glb');
   const meshRef = useRef();
   const targetRotation = useRef({ x: 0, y: 0 });
+  const celebrateTimer = useRef(0);
+  const prevCelebrate = useRef(false);
+  const baseScale = 2.5;
 
   // Clone scene to avoid shared state issues
   const clonedScene = useMemo(() => scene.clone(), [scene]);
@@ -14,31 +19,60 @@ function IceCream({ mousePos }) {
   useFrame((state, delta) => {
     if (!meshRef.current) return;
 
-    // Mouse tracking rotation (subtle)
-    targetRotation.current.y = mousePos.current.x * 0.4;
-    targetRotation.current.x = -mousePos.current.y * 0.2;
+    // Detect rising edge of celebrate prop
+    if (celebrate && !prevCelebrate.current) {
+      celebrateTimer.current = CELEBRATE_DURATION;
+    }
+    prevCelebrate.current = celebrate;
 
-    // Smooth lerp to target
-    meshRef.current.rotation.y = THREE.MathUtils.lerp(
-      meshRef.current.rotation.y,
-      targetRotation.current.y,
-      delta * 3
-    );
-    meshRef.current.rotation.x = THREE.MathUtils.lerp(
-      meshRef.current.rotation.x,
-      targetRotation.current.x,
-      delta * 3
-    );
+    if (celebrateTimer.current > 0) {
+      // Celebration mode
+      celebrateTimer.current -= delta;
+      const t = 1 - celebrateTimer.current / CELEBRATE_DURATION; // 0 -> 1
+
+      // 2 full Y-axis rotations with ease-out
+      const easeOut = 1 - Math.pow(1 - t, 3);
+      meshRef.current.rotation.y = easeOut * Math.PI * 4;
+      meshRef.current.rotation.x = 0;
+
+      // Scale bounce: 1.0 -> 1.3 -> 1.0 via sin curve
+      const scaleFactor = 1 + 0.3 * Math.sin(t * Math.PI);
+      const s = baseScale * scaleFactor;
+      meshRef.current.children[0].scale.set(s, s, s);
+    } else {
+      // Normal mouse tracking
+      targetRotation.current.y = mousePos.current.x * 0.4;
+      targetRotation.current.x = -mousePos.current.y * 0.2;
+
+      meshRef.current.rotation.y = THREE.MathUtils.lerp(
+        meshRef.current.rotation.y,
+        targetRotation.current.y,
+        delta * 3
+      );
+      meshRef.current.rotation.x = THREE.MathUtils.lerp(
+        meshRef.current.rotation.x,
+        targetRotation.current.x,
+        delta * 3
+      );
+
+      // Reset scale smoothly
+      const child = meshRef.current.children[0];
+      if (child) {
+        child.scale.x = THREE.MathUtils.lerp(child.scale.x, baseScale, delta * 4);
+        child.scale.y = THREE.MathUtils.lerp(child.scale.y, baseScale, delta * 4);
+        child.scale.z = THREE.MathUtils.lerp(child.scale.z, baseScale, delta * 4);
+      }
+    }
   });
 
   return (
     <group ref={meshRef}>
-      <primitive object={clonedScene} scale={2.5} position={[0, -0.5, 0]} />
+      <primitive object={clonedScene} scale={baseScale} position={[0, -0.5, 0]} />
     </group>
   );
 }
 
-function Scene({ mousePos }) {
+function Scene({ mousePos, celebrate }) {
   return (
     <>
       {/* Lighting */}
@@ -58,7 +92,7 @@ function Scene({ mousePos }) {
         floatIntensity={0.8}
         floatingRange={[-0.15, 0.15]}
       >
-        <IceCream mousePos={mousePos} />
+        <IceCream mousePos={mousePos} celebrate={celebrate} />
       </Float>
 
       {/* Shadow beneath */}
@@ -73,9 +107,19 @@ function Scene({ mousePos }) {
   );
 }
 
-const IceCreamModel = () => {
+const IceCreamModel = ({ celebrate = false }) => {
   const containerRef = useRef(null);
   const mousePos = useRef({ x: 0, y: 0 });
+  const [showThankYou, setShowThankYou] = useState(false);
+
+  // Show "Thank you!" overlay during celebration
+  useEffect(() => {
+    if (celebrate) {
+      setShowThankYou(true);
+      const timer = setTimeout(() => setShowThankYou(false), CELEBRATE_DURATION * 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [celebrate]);
 
   const handleMouseMove = (e) => {
     if (!containerRef.current) return;
@@ -97,11 +141,16 @@ const IceCreamModel = () => {
         gl={{ antialias: true, alpha: true }}
         style={{ background: 'transparent' }}
       >
-        <Scene mousePos={mousePos} />
+        <Scene mousePos={mousePos} celebrate={celebrate} />
       </Canvas>
 
       {/* Neon glow ring behind the model */}
-      <div className="icecream-glow" />
+      <div className={`icecream-glow ${celebrate ? 'celebrating' : ''}`} />
+
+      {/* Thank you overlay */}
+      {showThankYou && (
+        <div className="icecream-thankyou">Thank you!</div>
+      )}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useRef, useState, Suspense, lazy } from 'react';
+import React, { useRef, useState, useMemo, Suspense, lazy } from 'react';
 import emailjs from '@emailjs/browser';
 import { API } from '../../utils/constants';
 import SlateEditor from './SlateEditor';
@@ -6,12 +6,37 @@ import './styles/Contact.css';
 
 const IceCreamModel = lazy(() => import('./IceCreamModel'));
 
+const DOMAIN_SUGGESTIONS = [
+  '@gmail.com',
+  '@yahoo.com',
+  '@outlook.com',
+  '@hotmail.com',
+  '@icloud.com',
+];
+
 const Contact = () => {
   const form = useRef();
   const hiddenMessageRef = useRef();
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null); // 'success' or 'error'
   const [editorKey, setEditorKey] = useState(0);
+  const [email, setEmail] = useState('');
+
+  // Show domain chips when user typed '@' but hasn't completed a known domain
+  const domainChips = useMemo(() => {
+    const atIndex = email.indexOf('@');
+    if (atIndex === -1 || atIndex === 0) return [];
+    const typed = email.slice(atIndex).toLowerCase();
+    // Hide if user already typed a full domain from the list
+    if (DOMAIN_SUGGESTIONS.includes(typed)) return [];
+    return DOMAIN_SUGGESTIONS.filter((d) => d.startsWith(typed));
+  }, [email]);
+
+  const handleDomainClick = (domain) => {
+    const atIndex = email.indexOf('@');
+    if (atIndex === -1) return;
+    setEmail(email.slice(0, atIndex) + domain);
+  };
 
   const sendEmail = (e) => {
     e.preventDefault();
@@ -53,6 +78,7 @@ const Contact = () => {
           setLoading(false);
           setStatus('success');
           form.current.reset();
+          setEmail('');
           setEditorKey((k) => k + 1); // remount SlateEditor to reset
           setTimeout(() => setStatus(null), 5000);
 
@@ -80,7 +106,7 @@ const Contact = () => {
               <span className="model-loading-icon">🍦</span>
             </div>
           }>
-            <IceCreamModel />
+            <IceCreamModel celebrate={status === 'success'} />
           </Suspense>
           <p className="model-caption">Move your cursor around me! 🍦</p>
         </div>
@@ -104,14 +130,30 @@ const Contact = () => {
                 disabled={loading}
               />
             </div>
-            <div className="form-group">
+            <div className="form-group form-group--email">
               <input
                 type="email"
                 name="user_email"
                 placeholder="EMAIL"
                 required
                 disabled={loading}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
+              {domainChips.length > 0 && (
+                <div className="email-domain-suggestions">
+                  {domainChips.map((domain) => (
+                    <button
+                      key={domain}
+                      type="button"
+                      className="email-domain-chip"
+                      onClick={() => handleDomainClick(domain)}
+                    >
+                      {domain}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
             <div className="form-group form-group--editor">
               <input

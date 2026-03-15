@@ -165,6 +165,41 @@
   cursor: not-allowed;
 }
 
+/* Email domain suggestions */
+.form-group--email {
+  position: relative;
+}
+
+.email-domain-suggestions {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+  animation: chipsFadeIn 0.2s ease;
+}
+
+@keyframes chipsFadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.email-domain-chip {
+  background: rgba(212, 255, 0, 0.06);
+  border: 1px solid rgba(212, 255, 0, 0.2);
+  color: var(--color-accent, #d4ff00);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.75rem;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  letter-spacing: 0.02em;
+}
+
+.email-domain-chip:hover {
+  background: rgba(212, 255, 0, 0.15);
+  border-color: var(--color-accent, #d4ff00);
+}
+
 /* Editor form group needs left padding for drag handles */
 .form-group--editor {
   padding-left: 0;
@@ -278,4 +313,46 @@
     width: 160px;
     height: 160px;
   }
+}
+
+/* ===== Celebration Animation ===== */
+.icecream-glow.celebrating {
+  animation: glowCelebrate 0.4s ease-in-out infinite alternate;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(
+    circle,
+    rgba(212, 255, 0, 0.3) 0%,
+    rgba(212, 255, 0, 0.1) 40%,
+    transparent 70%
+  );
+}
+
+@keyframes glowCelebrate {
+  0% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1.3); }
+}
+
+.icecream-thankyou {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--color-accent, #d4ff00);
+  text-shadow: 0 0 20px rgba(212, 255, 0, 0.5), 0 0 40px rgba(212, 255, 0, 0.2);
+  pointer-events: none;
+  z-index: 10;
+  animation: thankYouFade 3s ease-in-out forwards;
+  white-space: nowrap;
+}
+
+@keyframes thankYouFade {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+  15% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+  25% { transform: translate(-50%, -50%) scale(1); }
+  75% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
 }
