@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef, useMemo } from 'react';
+import React, { useState, useCallback, useRef, useMemo, useEffect } from 'react';
 import { Slate, Editable } from 'slate-react';
 import { Transforms } from 'slate';
 import {
@@ -24,9 +24,33 @@ import { INITIAL_VALUE } from './slateConstants';
 import { serializeToEmailHtml, insertImage } from './slateHelpers';
 import '../styles/SlateEditor.css';
 
+export const SLATE_DRAFT_STORAGE_KEY = 'contact_slate_editor_draft_v1';
+
+const isValidSlateValue = (maybeValue) => {
+  return (
+    Array.isArray(maybeValue) &&
+    maybeValue.length > 0 &&
+    maybeValue.every((node) => node && typeof node === 'object' && Array.isArray(node.children))
+  );
+};
+
+const loadDraftValue = () => {
+  if (typeof window === 'undefined') return INITIAL_VALUE;
+
+  try {
+    const raw = window.localStorage.getItem(SLATE_DRAFT_STORAGE_KEY);
+    if (!raw) return INITIAL_VALUE;
+
+    const parsed = JSON.parse(raw);
+    return isValidSlateValue(parsed) ? parsed : INITIAL_VALUE;
+  } catch {
+    return INITIAL_VALUE;
+  }
+};
+
 const SlateEditor = ({ hiddenInputRef, disabled }) => {
   const { editor, handleHotkeys } = useSlateEditor();
-  const [value, setValue] = useState(INITIAL_VALUE);
+  const [value, setValue] = useState(() => loadDraftValue());
   const slashMenuRef = useRef(null);
   const [unsplashOpen, setUnsplashOpen] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
@@ -111,9 +135,30 @@ const SlateEditor = ({ hiddenInputRef, disabled }) => {
   const blockIds = value.filter((n) => n.id).map((n) => n.id);
   const previewHtml = useMemo(() => serializeToEmailHtml(value), [value]);
 
+  useEffect(() => {
+    if (hiddenInputRef?.current) {
+      hiddenInputRef.current.value = previewHtml;
+    }
+  }, [hiddenInputRef, previewHtml]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    try {
+      if (!previewHtml.trim()) {
+        window.localStorage.removeItem(SLATE_DRAFT_STORAGE_KEY);
+        return;
+      }
+
+      window.localStorage.setItem(SLATE_DRAFT_STORAGE_KEY, JSON.stringify(value));
+    } catch {
+      // Ignore quota/private mode issues; editor should still work without autosave.
+    }
+  }, [value, previewHtml]);
+
   return (
     <div className={`slate-editor-wrapper ${disabled ? 'disabled' : ''}`}>
-      <Slate editor={editor} initialValue={INITIAL_VALUE} onChange={handleChange}>
+      <Slate editor={editor} initialValue={value} onChange={handleChange}>
         <SlateToolbar onRequestImage={openUnsplash} />
         <div className="slate-preview-toolbar">
           <button

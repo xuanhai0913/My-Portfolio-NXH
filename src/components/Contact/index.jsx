@@ -1,7 +1,7 @@
 import React, { useRef, useState, useMemo, Suspense, lazy } from 'react';
 import emailjs from '@emailjs/browser';
 import { API } from '../../utils/constants';
-import SlateEditor from './SlateEditor';
+import SlateEditor, { SLATE_DRAFT_STORAGE_KEY } from './SlateEditor';
 import './styles/Contact.css';
 
 const IceCreamModel = lazy(() => import('./IceCreamModel'));
@@ -79,6 +79,9 @@ const Contact = () => {
           setStatus('success');
           form.current.reset();
           setEmail('');
+          if (typeof window !== 'undefined') {
+            window.localStorage.removeItem(SLATE_DRAFT_STORAGE_KEY);
+          }
           setEditorKey((k) => k + 1); // remount SlateEditor to reset
           setTimeout(() => setStatus(null), 5000);
 
