@@ -21,7 +21,7 @@ import DraggableBlock from './DraggableBlock';
 import SlateElement from './SlateElement';
 import SlateLeaf from './SlateLeaf';
 import { INITIAL_VALUE } from './slateConstants';
-import { serializeToPlainText, insertImage } from './slateHelpers';
+import { serializeToEmailHtml, insertImage } from './slateHelpers';
 import '../styles/SlateEditor.css';
 
 const SlateEditor = ({ hiddenInputRef, disabled }) => {
@@ -67,7 +67,7 @@ const SlateEditor = ({ hiddenInputRef, disabled }) => {
     (newValue) => {
       setValue(newValue);
       if (hiddenInputRef?.current) {
-        hiddenInputRef.current.value = serializeToPlainText(newValue);
+        hiddenInputRef.current.value = serializeToEmailHtml(newValue);
       }
       if (slashMenuRef.current) {
         slashMenuRef.current.checkForSlashCommand();
