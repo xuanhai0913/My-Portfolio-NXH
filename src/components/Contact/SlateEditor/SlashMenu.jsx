@@ -10,7 +10,13 @@ import ReactDOM from 'react-dom';
 import { Editor, Transforms, Range } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { SLASH_MENU_ITEMS } from './slateConstants';
-import { toggleBlock, insertDivider } from './slateHelpers';
+import {
+  toggleBlock,
+  insertDivider,
+  insertChecklistItem,
+  insertCtaButton,
+  insertTwoColumns,
+} from './slateHelpers';
 
 const SlashMenu = forwardRef(({ editor, onRequestImage }, ref) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,6 +48,22 @@ const SlashMenu = forwardRef(({ editor, onRequestImage }, ref) => {
         }
         case 'insert-void': {
           insertDivider(editor);
+          break;
+        }
+        case 'insert-checklist': {
+          insertChecklistItem(editor);
+          break;
+        }
+        case 'insert-cta': {
+          const label = window.prompt('Button text:', 'Reply now');
+          if (label === null) break;
+          const url = window.prompt('Button URL:', 'https://');
+          if (!url) break;
+          insertCtaButton(editor, label, url);
+          break;
+        }
+        case 'insert-two-columns': {
+          insertTwoColumns(editor);
           break;
         }
         case 'toggle-block':

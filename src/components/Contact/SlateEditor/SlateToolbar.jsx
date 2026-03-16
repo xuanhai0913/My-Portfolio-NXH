@@ -1,7 +1,18 @@
 import React from 'react';
 import { Editor } from 'slate';
 import { useSlate } from 'slate-react';
-import { isMarkActive, toggleMark, isBlockActive, toggleBlock, insertDivider, insertLink, isLinkActive } from './slateHelpers';
+import {
+  isMarkActive,
+  toggleMark,
+  isBlockActive,
+  toggleBlock,
+  insertDivider,
+  insertLink,
+  isLinkActive,
+  insertChecklistItem,
+  insertCtaButton,
+  insertTwoColumns,
+} from './slateHelpers';
 import { MARK_TYPES, BLOCK_TYPES } from './slateConstants';
 
 const MarkButton = ({ format, icon }) => {
@@ -99,6 +110,61 @@ const ImageButton = ({ onRequestImage }) => {
   );
 };
 
+const ChecklistButton = () => {
+  const editor = useSlate();
+  return (
+    <button
+      type="button"
+      className="slate-toolbar-btn"
+      onMouseDown={(e) => {
+        e.preventDefault();
+        insertChecklistItem(editor);
+      }}
+      title="Checklist"
+    >
+      {'\u2611'}
+    </button>
+  );
+};
+
+const CtaButton = () => {
+  const editor = useSlate();
+  return (
+    <button
+      type="button"
+      className="slate-toolbar-btn"
+      onMouseDown={(e) => {
+        e.preventDefault();
+        const label = window.prompt('Button text:', 'Reply now');
+        if (label === null) return;
+        const url = window.prompt('Button URL:', 'https://');
+        if (!url) return;
+        insertCtaButton(editor, label, url);
+      }}
+      title="Button CTA"
+    >
+      CTA
+    </button>
+  );
+};
+
+const TwoColumnsButton = () => {
+  const editor = useSlate();
+  return (
+    <button
+      type="button"
+      className="slate-toolbar-btn"
+      onMouseDown={(e) => {
+        e.preventDefault();
+        insertTwoColumns(editor);
+      }}
+      title="Two Columns"
+    >
+      2C
+    </button>
+  );
+};
+
 const SlateToolbar = ({ onRequestImage }) => (
   <div className="slate-toolbar">
     <div className="slate-toolbar-group">
@@ -119,6 +185,9 @@ const SlateToolbar = ({ onRequestImage }) => (
       <BlockButton format={BLOCK_TYPES.NUMBERED_LIST} icon="OL" />
       <BlockButton format={BLOCK_TYPES.CODE_BLOCK} icon="{}" />
       <BlockButton format={BLOCK_TYPES.CALLOUT} icon={'\u26A1'} />
+      <ChecklistButton />
+      <TwoColumnsButton />
+      <CtaButton />
       <DividerButton />
       <ImageButton onRequestImage={onRequestImage} />
     </div>

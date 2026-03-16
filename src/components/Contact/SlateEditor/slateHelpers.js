@@ -107,6 +107,62 @@ export const insertDivider = (editor) => {
   });
 };
 
+export const insertChecklistItem = (editor) => {
+  const checklistNode = {
+    id: generateId(),
+    type: BLOCK_TYPES.CHECKLIST_ITEM,
+    checked: false,
+    children: [{ text: 'New checklist item' }],
+  };
+  Transforms.insertNodes(editor, checklistNode);
+};
+
+export const insertCtaButton = (editor, label, url) => {
+  const safeLabel = String(label || '').trim() || 'View details';
+  const safeUrl = String(url || '').trim();
+
+  const buttonNode = {
+    id: generateId(),
+    type: BLOCK_TYPES.CTA_BUTTON,
+    label: safeLabel,
+    url: safeUrl,
+    children: [{ text: '' }],
+  };
+
+  Transforms.insertNodes(editor, buttonNode);
+  Transforms.insertNodes(editor, {
+    id: generateId(),
+    type: BLOCK_TYPES.PARAGRAPH,
+    children: [{ text: '' }],
+  });
+};
+
+export const insertTwoColumns = (editor) => {
+  const twoColumnsNode = {
+    id: generateId(),
+    type: BLOCK_TYPES.TWO_COLUMNS,
+    children: [
+      {
+        id: generateId(),
+        type: BLOCK_TYPES.COLUMN,
+        children: [{ text: 'Left column content...' }],
+      },
+      {
+        id: generateId(),
+        type: BLOCK_TYPES.COLUMN,
+        children: [{ text: 'Right column content...' }],
+      },
+    ],
+  };
+
+  Transforms.insertNodes(editor, twoColumnsNode);
+  Transforms.insertNodes(editor, {
+    id: generateId(),
+    type: BLOCK_TYPES.PARAGRAPH,
+    children: [{ text: '' }],
+  });
+};
+
 // ── Slate plugins ──
 
 export const withNodeId = (editor) => {
@@ -212,6 +268,36 @@ const serializeNodeToHtml = (node) => {
       return children
         ? `<blockquote><strong>&#9889; Note:</strong> ${children}</blockquote>`
         : '';
+    case BLOCK_TYPES.CHECKLIST_ITEM: {
+      const marker = node.checked ? '&#9745;' : '&#9744;';
+      return children ? `<p>${marker} ${children}</p>` : '';
+    }
+    case BLOCK_TYPES.CTA_BUTTON: {
+      const href = sanitizeUrl(node.url);
+      if (!href) return '';
+      const label = escapeHtml(node.label || 'View details');
+      return `<p><a href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:12px 18px;background:#d4ff00;color:#111111;text-decoration:none;font-weight:700;font-family:Arial,sans-serif;">${label}</a></p>`;
+    }
+    case BLOCK_TYPES.TWO_COLUMNS: {
+      const columns = (node.children || [])
+        .filter((child) => child.type === BLOCK_TYPES.COLUMN)
+        .slice(0, 2);
+
+      if (columns.length === 0) return '';
+
+      const cells = columns
+        .map((col) => {
+          const content = (col.children || [])
+            .map((colChild) => serializeNodeToHtml(colChild))
+            .join('');
+          return `<td valign="top" style="width:${100 / columns.length}%;padding:8px;">${content || '&nbsp;'}</td>`;
+        })
+        .join('');
+
+      return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>${cells}</tr></table>`;
+    }
+    case BLOCK_TYPES.COLUMN:
+      return children;
     default:
       return children ? `<p>${children}</p>` : '';
   }

@@ -11,6 +11,10 @@ export const BLOCK_TYPES = {
   IMAGE: 'image',
   DIVIDER: 'divider',
   CALLOUT: 'callout',
+  CHECKLIST_ITEM: 'checklist-item',
+  CTA_BUTTON: 'cta-button',
+  TWO_COLUMNS: 'two-columns',
+  COLUMN: 'column',
 };
 
 export const MARK_TYPES = {
@@ -31,7 +35,11 @@ export const HOTKEYS = {
 
 export const LIST_TYPES = [BLOCK_TYPES.BULLETED_LIST, BLOCK_TYPES.NUMBERED_LIST];
 
-export const VOID_TYPES = [BLOCK_TYPES.IMAGE, BLOCK_TYPES.DIVIDER];
+export const VOID_TYPES = [
+  BLOCK_TYPES.IMAGE,
+  BLOCK_TYPES.DIVIDER,
+  BLOCK_TYPES.CTA_BUTTON,
+];
 
 export const SLASH_MENU_ITEMS = [
   { label: 'Paragraph', type: BLOCK_TYPES.PARAGRAPH, icon: 'P', description: 'Plain text' },
@@ -45,6 +53,9 @@ export const SLASH_MENU_ITEMS = [
   { label: 'Image', type: BLOCK_TYPES.IMAGE, icon: '\uD83D\uDDBC', description: 'Search Unsplash or paste URL', action: 'prompt-image' },
   { label: 'Divider', type: BLOCK_TYPES.DIVIDER, icon: '\u2014', description: 'Horizontal separator', action: 'insert-void' },
   { label: 'Callout', type: BLOCK_TYPES.CALLOUT, icon: '\u26A1', description: 'Highlighted tip or note' },
+  { label: 'Checklist', type: BLOCK_TYPES.CHECKLIST_ITEM, icon: '\u2611', description: 'Task list item', action: 'insert-checklist' },
+  { label: 'Button CTA', type: BLOCK_TYPES.CTA_BUTTON, icon: 'CTA', description: 'Stylish call-to-action button', action: 'insert-cta' },
+  { label: 'Two Columns', type: BLOCK_TYPES.TWO_COLUMNS, icon: '2C', description: 'Side-by-side content blocks', action: 'insert-two-columns' },
 ];
 
 let _nextId = 0;
