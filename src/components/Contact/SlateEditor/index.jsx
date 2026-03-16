@@ -1,6 +1,6 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef, useMemo } from 'react';
 import { Slate, Editable } from 'slate-react';
-import { Transforms, Node } from 'slate';
+import { Transforms } from 'slate';
 import {
   DndContext,
   closestCenter,
@@ -29,6 +29,7 @@ const SlateEditor = ({ hiddenInputRef, disabled }) => {
   const [value, setValue] = useState(INITIAL_VALUE);
   const slashMenuRef = useRef(null);
   const [unsplashOpen, setUnsplashOpen] = useState(false);
+  const [previewOpen, setPreviewOpen] = useState(false);
 
   const openUnsplash = useCallback(() => setUnsplashOpen(true), []);
   const closeUnsplash = useCallback(() => setUnsplashOpen(false), []);
@@ -108,11 +109,21 @@ const SlateEditor = ({ hiddenInputRef, disabled }) => {
   );
 
   const blockIds = value.filter((n) => n.id).map((n) => n.id);
+  const previewHtml = useMemo(() => serializeToEmailHtml(value), [value]);
 
   return (
     <div className={`slate-editor-wrapper ${disabled ? 'disabled' : ''}`}>
       <Slate editor={editor} initialValue={INITIAL_VALUE} onChange={handleChange}>
         <SlateToolbar onRequestImage={openUnsplash} />
+        <div className="slate-preview-toolbar">
+          <button
+            type="button"
+            className={`slate-preview-toggle ${previewOpen ? 'active' : ''}`}
+            onClick={() => setPreviewOpen((v) => !v)}
+          >
+            {previewOpen ? 'Hide Email Preview' : 'Show Email Preview'}
+          </button>
+        </div>
         <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}
@@ -135,6 +146,17 @@ const SlateEditor = ({ hiddenInputRef, disabled }) => {
           </SortableContext>
           <DragOverlay />
         </DndContext>
+        {previewOpen && (
+          <div className="slate-email-preview">
+            <div className="slate-email-preview-header">Email Preview</div>
+            <div
+              className="slate-email-preview-body"
+              dangerouslySetInnerHTML={{
+                __html: previewHtml || '<p><em>No content yet.</em></p>',
+              }}
+            />
+          </div>
+        )}
         <SlashMenu ref={slashMenuRef} editor={editor} onRequestImage={openUnsplash} />
       </Slate>
       <UnsplashPicker

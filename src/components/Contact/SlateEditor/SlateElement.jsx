@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Transforms } from 'slate';
 import { useSlateStatic, ReactEditor } from 'slate-react';
 
 const SlateElement = ({ attributes, children, element }) => {
   const editor = useSlateStatic();
+  const [isCtaEditorOpen, setIsCtaEditorOpen] = useState(false);
+  const [ctaLabel, setCtaLabel] = useState(element.label || 'View details');
+  const [ctaUrl, setCtaUrl] = useState(element.url || 'https://');
+
+  const normalizeCtaUrl = (value) => {
+    const trimmed = String(value || '').trim();
+    if (!trimmed) return '';
+    if (/^(https?:|mailto:)/i.test(trimmed)) return trimmed;
+    return `https://${trimmed}`;
+  };
 
   const toggleChecklist = (e) => {
     e.preventDefault();
@@ -13,6 +23,22 @@ const SlateElement = ({ attributes, children, element }) => {
       { checked: !element.checked },
       { at: path }
     );
+  };
+
+  const saveCtaChanges = (e) => {
+    e.preventDefault();
+    const path = ReactEditor.findPath(editor, element);
+    const nextLabel = String(ctaLabel || '').trim() || 'View details';
+    const nextUrl = normalizeCtaUrl(ctaUrl);
+
+    Transforms.setNodes(
+      editor,
+      { label: nextLabel, url: nextUrl },
+      { at: path }
+    );
+    setCtaLabel(nextLabel);
+    setCtaUrl(nextUrl || 'https://');
+    setIsCtaEditorOpen(false);
   };
 
   switch (element.type) {
@@ -78,14 +104,52 @@ const SlateElement = ({ attributes, children, element }) => {
       const label = element.label || 'View details';
       return (
         <div {...attributes} contentEditable={false} className="slate-cta-wrapper">
-          <a
-            href={element.url}
-            className="slate-cta-button"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {label}
-          </a>
+          <div className="slate-cta-row">
+            <a
+              href={element.url}
+              className="slate-cta-button"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {label}
+            </a>
+            <button
+              type="button"
+              className="slate-cta-edit-btn"
+              onMouseDown={(e) => {
+                e.preventDefault();
+                setCtaLabel(element.label || 'View details');
+                setCtaUrl(element.url || 'https://');
+                setIsCtaEditorOpen((v) => !v);
+              }}
+            >
+              Edit
+            </button>
+          </div>
+          {isCtaEditorOpen && (
+            <form className="slate-cta-editor" onSubmit={saveCtaChanges}>
+              <input
+                className="slate-cta-input"
+                value={ctaLabel}
+                onChange={(e) => setCtaLabel(e.target.value)}
+                placeholder="Button text"
+              />
+              <input
+                className="slate-cta-input"
+                value={ctaUrl}
+                onChange={(e) => setCtaUrl(e.target.value)}
+                placeholder="https://example.com"
+              />
+              <div className="slate-cta-editor-actions">
+                <button type="button" className="slate-cta-cancel" onMouseDown={(e) => { e.preventDefault(); setIsCtaEditorOpen(false); }}>
+                  Cancel
+                </button>
+                <button type="submit" className="slate-cta-save">
+                  Save
+                </button>
+              </div>
+            </form>
+          )}
           {children}
         </div>
       );
