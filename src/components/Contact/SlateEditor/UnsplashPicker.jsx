@@ -11,15 +11,25 @@ const UnsplashPicker = ({ isOpen, onSelect, onClose }) => {
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(false);
-  const [urlMode, setUrlMode] = useState(!UNSPLASH_ACCESS_KEY);
+  const [urlMode, setUrlMode] = useState(false);
   const [manualUrl, setManualUrl] = useState('');
+  const [isSearchMode, setIsSearchMode] = useState(false);
   const inputRef = useRef(null);
   const overlayRef = useRef(null);
+  const hasFetchedInitial = useRef(false);
 
   // Focus input when opened
   useEffect(() => {
     if (isOpen && inputRef.current) {
       inputRef.current.focus();
+    }
+  }, [isOpen, urlMode]);
+
+  // Load curated/trending photos when picker opens
+  useEffect(() => {
+    if (isOpen && UNSPLASH_ACCESS_KEY && !urlMode && !hasFetchedInitial.current) {
+      hasFetchedInitial.current = true;
+      fetchCurated(1);
     }
   }, [isOpen, urlMode]);
 
@@ -33,11 +43,42 @@ const UnsplashPicker = ({ isOpen, onSelect, onClose }) => {
     return () => document.removeEventListener('keydown', handleKey);
   }, [isOpen, onClose]);
 
+  const fetchCurated = async (pageNum = 1) => {
+    if (!UNSPLASH_ACCESS_KEY) return;
+    setLoading(true);
+    setError(null);
+    setIsSearchMode(false);
+
+    try {
+      const res = await fetch(
+        `https://api.unsplash.com/photos?page=${pageNum}&per_page=${PER_PAGE}&order_by=popular`,
+        {
+          headers: { Authorization: `Client-ID ${UNSPLASH_ACCESS_KEY}` },
+        }
+      );
+      if (!res.ok) throw new Error(`Unsplash API error: ${res.status}`);
+      const data = await res.json();
+
+      if (pageNum === 1) {
+        setResults(data);
+      } else {
+        setResults((prev) => [...prev, ...data]);
+      }
+      setHasMore(data.length === PER_PAGE);
+      setPage(pageNum);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const searchUnsplash = useCallback(
     async (searchQuery, pageNum = 1) => {
       if (!UNSPLASH_ACCESS_KEY || !searchQuery.trim()) return;
       setLoading(true);
       setError(null);
+      setIsSearchMode(true);
 
       try {
         const res = await fetch(
@@ -75,7 +116,11 @@ const UnsplashPicker = ({ isOpen, onSelect, onClose }) => {
   };
 
   const handleLoadMore = () => {
-    searchUnsplash(query, page + 1);
+    if (isSearchMode) {
+      searchUnsplash(query, page + 1);
+    } else {
+      fetchCurated(page + 1);
+    }
   };
 
   const handleSelectImage = (photo) => {
@@ -100,6 +145,8 @@ const UnsplashPicker = ({ isOpen, onSelect, onClose }) => {
     setError(null);
     setPage(1);
     setHasMore(false);
+    setIsSearchMode(false);
+    hasFetchedInitial.current = false;
   };
 
   const handleOverlayClick = (e) => {
@@ -121,7 +168,7 @@ const UnsplashPicker = ({ isOpen, onSelect, onClose }) => {
         {/* Header */}
         <div className="unsplash-header">
           <span className="unsplash-title">
-            {urlMode ? 'Insert Image URL' : 'Search Unsplash'}
+            {urlMode ? 'Insert Image URL' : 'Unsplash Photos'}
           </span>
           <div className="unsplash-header-actions">
             <button
@@ -129,7 +176,7 @@ const UnsplashPicker = ({ isOpen, onSelect, onClose }) => {
               className="unsplash-toggle-mode"
               onClick={() => setUrlMode(!urlMode)}
             >
-              {urlMode ? 'Search Unsplash' : 'Paste URL'}
+              {urlMode ? 'Browse Unsplash' : 'Paste URL'}
             </button>
             <button
               type="button"
@@ -180,20 +227,21 @@ const UnsplashPicker = ({ isOpen, onSelect, onClose }) => {
                 className="unsplash-search-btn"
                 disabled={loading || !query.trim()}
               >
-                {loading ? '...' : 'SEARCH'}
+                {loading && results.length === 0 ? '...' : 'SEARCH'}
               </button>
             </form>
 
             {error && <div className="unsplash-error">{error}</div>}
 
-            {!UNSPLASH_ACCESS_KEY && (
-              <div className="unsplash-error">
-                Set REACT_APP_UNSPLASH_ACCESS_KEY in .env to enable search.
-              </div>
+            {loading && results.length === 0 && (
+              <div className="unsplash-loading">Loading photos...</div>
             )}
 
             {results.length > 0 && (
               <>
+                {!isSearchMode && !query && (
+                  <div className="unsplash-section-label">Trending photos</div>
+                )}
                 <div className="unsplash-grid">
                   {results.map((photo) => (
                     <div
@@ -226,7 +274,7 @@ const UnsplashPicker = ({ isOpen, onSelect, onClose }) => {
               </>
             )}
 
-            {!loading && results.length === 0 && query && (
+            {!loading && results.length === 0 && isSearchMode && (
               <div className="unsplash-empty">
                 No results. Try a different search term.
               </div>

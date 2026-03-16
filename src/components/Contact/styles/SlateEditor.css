@@ -508,6 +508,30 @@
   color: #ff6b6b;
 }
 
+.unsplash-loading {
+  padding: 2rem 1rem;
+  text-align: center;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.4);
+  animation: unsplashPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes unsplashPulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+.unsplash-section-label {
+  padding: 0.4rem 0.75rem 0;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.25);
+}
+
 .unsplash-empty {
   padding: 2rem 1rem;
   text-align: center;
