@@ -623,6 +623,20 @@
   gap: 1rem;
 }
 
+.mobile-project-stage {
+  touch-action: pan-y;
+}
+
+.mobile-swipe-hint {
+  margin: -0.2rem 0 0;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
 .mobile-project-controls {
   display: flex;
   justify-content: space-between;
@@ -893,6 +907,10 @@
   .portfolio-mobile {
     padding: 100px 3vw 24px;
     gap: 0.85rem;
+  }
+
+  .mobile-swipe-hint {
+    font-size: 0.58rem;
   }
 
   .list-inner {

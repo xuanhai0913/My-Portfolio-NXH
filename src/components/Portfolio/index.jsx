@@ -15,6 +15,8 @@ import visionKey from '../../images/project/visionKey.png';
 const Portfolio = () => {
   const sectionRef = useRef(null);
   const projectListRef = useRef(null);
+  const touchStartXRef = useRef(null);
+  const touchStartYRef = useRef(null);
   const prevIndexRef = useRef(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -181,6 +183,36 @@ const Portfolio = () => {
     setActiveIndex((prev) => (prev + 1) % allProjects.length);
   };
 
+  const handleStageTouchStart = (event) => {
+    if (!isMobile) return;
+    const firstTouch = event.touches[0];
+    touchStartXRef.current = firstTouch.clientX;
+    touchStartYRef.current = firstTouch.clientY;
+  };
+
+  const handleStageTouchEnd = (event) => {
+    if (!isMobile || touchStartXRef.current === null || touchStartYRef.current === null) {
+      return;
+    }
+
+    const endTouch = event.changedTouches[0];
+    const deltaX = endTouch.clientX - touchStartXRef.current;
+    const deltaY = endTouch.clientY - touchStartYRef.current;
+
+    touchStartXRef.current = null;
+    touchStartYRef.current = null;
+
+    // Ignore mostly vertical gestures so natural page scrolling still works.
+    if (Math.abs(deltaX) < Math.abs(deltaY)) return;
+
+    const SWIPE_THRESHOLD = 45;
+    if (deltaX <= -SWIPE_THRESHOLD) {
+      handleNextProject();
+    } else if (deltaX >= SWIPE_THRESHOLD) {
+      handlePrevProject();
+    }
+  };
+
   const activeProject = allProjects[activeIndex];
 
   const renderShowcaseCard = (project, keyValue) => (
@@ -281,9 +313,15 @@ const Portfolio = () => {
               ))}
             </div>
 
-            <div className="mobile-project-stage">
+            <div
+              className="mobile-project-stage"
+              onTouchStart={handleStageTouchStart}
+              onTouchEnd={handleStageTouchEnd}
+            >
               {renderShowcaseCard(activeProject, `mobile-${activeIndex}`)}
             </div>
+
+            <p className="mobile-swipe-hint">Swipe left or right to change project</p>
 
             <div className="mobile-project-controls">
               <button type="button" className="mobile-control-btn" onClick={handlePrevProject}>
