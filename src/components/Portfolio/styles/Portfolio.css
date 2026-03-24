@@ -560,6 +560,100 @@
 }
 
 /* ============================
+   MOBILE MODE
+   ============================ */
+.portfolio-mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 120px 4vw 36px;
+}
+
+.mobile-project-nav {
+  display: flex;
+  gap: 0.55rem;
+  overflow-x: auto;
+  padding-bottom: 0.2rem;
+  scrollbar-width: thin;
+}
+
+.mobile-project-nav::-webkit-scrollbar {
+  height: 4px;
+}
+
+.mobile-project-nav::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.mobile-nav-item {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(255, 255, 255, 0.75);
+  padding: 0.5rem 0.6rem;
+  min-width: 150px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+  cursor: pointer;
+}
+
+.mobile-nav-item.active {
+  border-color: var(--color-accent);
+  background: rgba(212, 255, 0, 0.08);
+}
+
+.mobile-nav-index {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.mobile-nav-title {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  line-height: 1.25;
+}
+
+.mobile-project-stage .showcase-card {
+  grid-template-columns: 1fr;
+  max-width: none;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.mobile-project-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.mobile-control-btn {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 0.55rem 0.8rem;
+  cursor: pointer;
+}
+
+.mobile-control-btn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.mobile-control-counter {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* ============================
    SCROLL PROGRESS
    ============================ */
 .portfolio-scrollytelling .scroll-progress {
@@ -783,7 +877,7 @@
     top: 0;
     left: 0;
     padding: 0 4vw;
-    margin-bottom: 1rem;
+    margin-bottom: 0.6rem;
   }
 
   .portfolio-scrollytelling .project-counter {
@@ -796,9 +890,9 @@
     padding-bottom: 40px;
   }
 
-  .scrollytelling-grid {
-    padding: 100px 3vw 30px;
-    gap: 1.5rem;
+  .portfolio-mobile {
+    padding: 100px 3vw 24px;
+    gap: 0.85rem;
   }
 
   .list-inner {

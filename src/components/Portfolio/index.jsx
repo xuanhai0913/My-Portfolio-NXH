@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useCallback } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import './styles/Portfolio.css';
 
 // Import project images
@@ -15,19 +15,10 @@ import visionKey from '../../images/project/visionKey.png';
 const Portfolio = () => {
   const sectionRef = useRef(null);
   const projectListRef = useRef(null);
-  const popAudioRef = useRef(null);
   const prevIndexRef = useRef(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
-
-  // Play pop sound on project change
-  const playPop = useCallback(() => {
-    const audio = popAudioRef.current;
-    if (!audio) return;
-    audio.currentTime = 0;
-    audio.volume = 0.5;
-    audio.play().catch(() => { });
-  }, []);
+  const [isMobile, setIsMobile] = useState(false);
 
   const allProjects = [
     {
@@ -122,6 +113,20 @@ const Portfolio = () => {
   ];
 
   useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 900px)');
+    const updateMode = () => setIsMobile(mediaQuery.matches);
+
+    updateMode();
+    mediaQuery.addEventListener('change', updateMode);
+    return () => mediaQuery.removeEventListener('change', updateMode);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) {
+      setScrollProgress((activeIndex + 1) / allProjects.length);
+      return undefined;
+    }
+
     const handleScroll = () => {
       if (!sectionRef.current) return;
       const rect = sectionRef.current.getBoundingClientRect();
@@ -142,20 +147,21 @@ const Portfolio = () => {
       if (newIndex !== prevIndexRef.current) {
         prevIndexRef.current = newIndex;
         setActiveIndex(newIndex);
-        playPop();
       }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [allProjects.length]);
+  }, [allProjects.length, activeIndex, isMobile]);
 
   // Handle project click from list
   const handleProjectClick = (index) => {
     setActiveIndex(index);
     prevIndexRef.current = index;
-    playPop();
+
+    if (isMobile) return;
+
     // Scroll to appropriate position
     if (sectionRef.current) {
       const sectionTop = sectionRef.current.offsetTop;
@@ -167,13 +173,86 @@ const Portfolio = () => {
     }
   };
 
+  const handlePrevProject = () => {
+    setActiveIndex((prev) => (prev - 1 + allProjects.length) % allProjects.length);
+  };
+
+  const handleNextProject = () => {
+    setActiveIndex((prev) => (prev + 1) % allProjects.length);
+  };
+
   const activeProject = allProjects[activeIndex];
+
+  const renderShowcaseCard = (project, keyValue) => (
+    <article className="showcase-card" key={keyValue}>
+      <div className="showcase-visual">
+        <div className="visual-frame">
+          <img
+            src={project.image}
+            alt={project.title}
+            className="showcase-image"
+            loading="lazy"
+          />
+          <div className="visual-glitch"></div>
+        </div>
+        {project.badge && (
+          <div className="showcase-badge">{project.badge}</div>
+        )}
+      </div>
+
+      <div className="showcase-info">
+        {project.company && (
+          <span className="showcase-company">{project.company}</span>
+        )}
+        <h3 className="showcase-title">{project.title}</h3>
+        <p className="showcase-desc">{project.description}</p>
+
+        <div className="showcase-tech">
+          {project.technologies.map((tech, i) => (
+            <span key={i} className="tech-pill">{tech}</span>
+          ))}
+        </div>
+
+        <div className="showcase-actions">
+          {project.demo && (
+            <a
+              href={project.demo}
+              target={project.demo.startsWith('/') ? '_self' : '_blank'}
+              rel="noopener noreferrer"
+              className="action-btn primary"
+            >
+              <span className="btn-text">VISIT SITE</span>
+              <span className="btn-icon">↗</span>
+            </a>
+          )}
+          {project.github && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="action-btn secondary"
+            >
+              <span className="btn-text">GITHUB_</span>
+            </a>
+          )}
+          {project.githubLinks && project.githubLinks.map((link, i) => (
+            <a
+              key={i}
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="action-btn secondary"
+            >
+              <span className="btn-text">{link.label}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </article>
+  );
 
   return (
     <section id="portfolio" className="portfolio-section portfolio-scrollytelling" ref={sectionRef}>
-      {/* Pop sound for project transitions */}
-      <audio ref={popAudioRef} src="/audio/PROJECTS.mp3" preload="auto" />
-
       <div className="portfolio-sticky">
         {/* Fixed Header */}
         <div className="portfolio-header scrolly-header">
@@ -185,124 +264,98 @@ const Portfolio = () => {
           </div>
         </div>
 
-        {/* Main Content Grid */}
-        <div className="scrollytelling-grid">
-          {/* Project List (Left Side) */}
-          <div className="project-list" ref={projectListRef}>
-            <div className="list-inner">
+        {isMobile ? (
+          <div className="portfolio-mobile">
+            <div className="mobile-project-nav" role="tablist" aria-label="Project navigation">
               {allProjects.map((project, index) => (
                 <button
                   key={index}
-                  className={`project-list-item ${activeIndex === index ? 'active' : ''} ${index < activeIndex ? 'passed' : ''}`}
+                  role="tab"
+                  aria-selected={activeIndex === index}
+                  className={`mobile-nav-item ${activeIndex === index ? 'active' : ''}`}
                   onClick={() => handleProjectClick(index)}
                 >
-                  <span className="item-index">{String(index + 1).padStart(2, '0')}</span>
-                  <div className="item-content">
-                    <span className="item-title">{project.title}</span>
-                    {project.badge && <span className="item-badge">{project.badge}</span>}
-                  </div>
-                  <span className="item-year">{project.year}</span>
-                  <div className="item-progress">
-                    <div
-                      className="progress-fill"
-                      style={{
-                        transform: `scaleX(${activeIndex === index ? 1 : activeIndex > index ? 1 : 0})`,
-                      }}
-                    ></div>
-                  </div>
+                  <span className="mobile-nav-index">{String(index + 1).padStart(2, '0')}</span>
+                  <span className="mobile-nav-title">{project.title}</span>
                 </button>
               ))}
             </div>
+
+            <div className="mobile-project-stage">
+              {renderShowcaseCard(activeProject, `mobile-${activeIndex}`)}
+            </div>
+
+            <div className="mobile-project-controls">
+              <button type="button" className="mobile-control-btn" onClick={handlePrevProject}>
+                PREV
+              </button>
+              <span className="mobile-control-counter">
+                {String(activeIndex + 1).padStart(2, '0')} / {String(allProjects.length).padStart(2, '0')}
+              </span>
+              <button type="button" className="mobile-control-btn" onClick={handleNextProject}>
+                NEXT
+              </button>
+            </div>
           </div>
-
-          {/* Project Detail (Right Side) */}
-          <div className="project-showcase">
-            <article className="showcase-card" key={activeIndex}>
-              <div className="showcase-visual">
-                <div className="visual-frame">
-                  <img
-                    src={activeProject.image}
-                    alt={activeProject.title}
-                    className="showcase-image"
-                  />
-                  <div className="visual-glitch"></div>
-                </div>
-                {activeProject.badge && (
-                  <div className="showcase-badge">{activeProject.badge}</div>
-                )}
-              </div>
-
-              <div className="showcase-info">
-                {activeProject.company && (
-                  <span className="showcase-company">{activeProject.company}</span>
-                )}
-                <h3 className="showcase-title">{activeProject.title}</h3>
-                <p className="showcase-desc">{activeProject.description}</p>
-
-                <div className="showcase-tech">
-                  {activeProject.technologies.map((tech, i) => (
-                    <span key={i} className="tech-pill">{tech}</span>
-                  ))}
-                </div>
-
-                <div className="showcase-actions">
-                  {activeProject.demo && (
-                    <a
-                      href={activeProject.demo}
-                      target={activeProject.demo.startsWith('/') ? '_self' : '_blank'}
-                      rel="noopener noreferrer"
-                      className="action-btn primary"
+        ) : (
+          <>
+            {/* Main Content Grid */}
+            <div className="scrollytelling-grid">
+              {/* Project List (Left Side) */}
+              <div className="project-list" ref={projectListRef}>
+                <div className="list-inner">
+                  {allProjects.map((project, index) => (
+                    <button
+                      key={index}
+                      className={`project-list-item ${activeIndex === index ? 'active' : ''} ${index < activeIndex ? 'passed' : ''}`}
+                      onClick={() => handleProjectClick(index)}
                     >
-                      <span className="btn-text">VISIT SITE</span>
-                      <span className="btn-icon">↗</span>
-                    </a>
-                  )}
-                  {activeProject.github && (
-                    <a
-                      href={activeProject.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="action-btn secondary"
-                    >
-                      <span className="btn-text">GITHUB_</span>
-                    </a>
-                  )}
-                  {activeProject.githubLinks && activeProject.githubLinks.map((link, i) => (
-                    <a
-                      key={i}
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="action-btn secondary"
-                    >
-                      <span className="btn-text">{link.label}</span>
-                    </a>
+                      <span className="item-index">{String(index + 1).padStart(2, '0')}</span>
+                      <div className="item-content">
+                        <span className="item-title">{project.title}</span>
+                        {project.badge && <span className="item-badge">{project.badge}</span>}
+                      </div>
+                      <span className="item-year">{project.year}</span>
+                      <div className="item-progress">
+                        <div
+                          className="progress-fill"
+                          style={{
+                            transform: `scaleX(${activeIndex === index ? 1 : activeIndex > index ? 1 : 0})`,
+                          }}
+                        ></div>
+                      </div>
+                    </button>
                   ))}
                 </div>
               </div>
-            </article>
-          </div>
-        </div>
 
-        {/* Vertical Progress Indicator */}
-        <div className="scroll-progress">
-          <div
-            className="progress-bar"
-            style={{ height: `${scrollProgress * 100}%` }}
-          ></div>
-          <div className="progress-dots">
-            {allProjects.map((_, index) => (
+              {/* Project Detail (Right Side) */}
+              <div className="project-showcase">
+                {renderShowcaseCard(activeProject, activeIndex)}
+              </div>
+            </div>
+
+            {/* Vertical Progress Indicator */}
+            <div className="scroll-progress">
               <div
-                key={index}
-                className={`progress-dot ${activeIndex >= index ? 'active' : ''}`}
-                onClick={() => handleProjectClick(index)}
+                className="progress-bar"
+                style={{ height: `${scrollProgress * 100}%` }}
               ></div>
-            ))}
-          </div>
-        </div>
+              <div className="progress-dots">
+                {allProjects.map((_, index) => (
+                  <div
+                    key={index}
+                    className={`progress-dot ${activeIndex >= index ? 'active' : ''}`}
+                    onClick={() => handleProjectClick(index)}
+                  ></div>
+                ))}
+              </div>
+            </div>
+          </>
+        )}
 
         {/* Scroll Hint */}
-        <div className={`scroll-hint ${scrollProgress > 0.1 ? 'hidden' : ''}`}>
+        <div className={`scroll-hint ${scrollProgress > 0.1 || isMobile ? 'hidden' : ''}`}>
           <span className="hint-text">SCROLL TO EXPLORE</span>
           <div className="hint-arrow">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
