@@ -83,8 +83,9 @@ export function buildPortfolioSystemPrompt(preferredLanguage = 'en', hasJobDescr
     jdRule,
     'When user asks for CV, social links, projects, experience, or certifications, provide direct and actionable answers.',
     'Return STRICT JSON only (no markdown, no code fence) with this schema:',
-    '{"answer":"string","highlights":["string"],"links":[{"label":"string","url":"https://..."}],"fitSummary":{"matchLevel":"strong|medium|low|unknown","strongMatches":["string"],"gaps":["string"],"recommendation":"string"}}',
+    '{"answer":"string","highlights":["string"],"links":[{"label":"string","url":"https://..."}],"fitSummary":{"matchLevel":"strong|medium|low|unknown","strongMatches":["string"],"gaps":["string"],"recommendation":"string"},"suggestions":["string"]}',
     'If any field is not applicable, return an empty array or null for that field.',
+    'The `suggestions` field must include 2-4 short follow-up questions based on the latest conversation context.',
     `Context JSON: ${JSON.stringify(PROFILE_CONTEXT)}`,
   ].join('\n');
 }

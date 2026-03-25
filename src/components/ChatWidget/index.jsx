@@ -154,6 +154,7 @@ const ChatWidget = () => {
   const [showIntroSpotlight, setShowIntroSpotlight] = useState(() => !sessionStorage.getItem(CHAT_INTRO_DISMISSED_KEY));
   const [jobDescription, setJobDescription] = useState('');
   const [jobDescriptionFile, setJobDescriptionFile] = useState('');
+  const [aiSuggestions, setAiSuggestions] = useState([]);
   const chatBodyRef = useRef(null);
   const inputRef = useRef(null);
   const fileInputRef = useRef(null);
@@ -184,11 +185,13 @@ const ChatWidget = () => {
 
   const language = preferredLanguage || 'en';
 
-  const suggestions = useMemo(() => suggestionsByIntent(language), [language]);
+  const fallbackSuggestions = useMemo(() => suggestionsByIntent(language), [language]);
+  const suggestions = aiSuggestions.length > 0 ? aiSuggestions : fallbackSuggestions;
 
   const handleClear = () => {
     clearSession(initialMessages);
     setLastModelUsed(null);
+    setAiSuggestions([]);
   };
 
   const handleOpenChat = () => {
@@ -298,6 +301,7 @@ const ChatWidget = () => {
           ...payload.structuredResponse,
         }
         : null,
+      suggestions: payload?.structuredResponse?.suggestions || [],
     };
   };
 
@@ -322,6 +326,7 @@ const ChatWidget = () => {
     try {
       const modelReply = await sendToModel(trimmed);
       setLastModelUsed(modelReply.modelUsed || null);
+      setAiSuggestions(Array.isArray(modelReply.suggestions) ? modelReply.suggestions : []);
       appendMessage(createMessage('assistant', modelReply.content, {
         modelUsed: modelReply.modelUsed,
         action: modelReply.action,

@@ -141,7 +141,14 @@ function normalizeStructuredResponse(parsed) {
     }
     : null;
 
-  if (!answer && highlights.length === 0 && links.length === 0 && !fitSummary) {
+  const suggestions = Array.isArray(parsed.suggestions)
+    ? parsed.suggestions
+      .filter((item) => typeof item === 'string' && item.trim())
+      .map((item) => item.trim())
+      .slice(0, 4)
+    : [];
+
+  if (!answer && highlights.length === 0 && links.length === 0 && !fitSummary && suggestions.length === 0) {
     return null;
   }
 
@@ -150,6 +157,7 @@ function normalizeStructuredResponse(parsed) {
     highlights,
     links,
     fitSummary,
+    suggestions,
   };
 }
 
