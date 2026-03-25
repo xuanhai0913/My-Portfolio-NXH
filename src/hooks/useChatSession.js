@@ -7,13 +7,14 @@ const TTL_MS = TTL_DAYS * 24 * 60 * 60 * 1000;
 const MAX_STORED_MESSAGES = 120;
 const MAX_STORED_CHARACTERS = 120000;
 const FALLBACK_STORED_MESSAGES = 40;
+const ALLOWED_ROLES = new Set(['user', 'assistant', 'system']);
 
 const now = () => Date.now();
 
 function normalizeMessages(messages) {
   if (!Array.isArray(messages)) return [];
   return messages
-    .filter((item) => item && typeof item.content === 'string' && item.role)
+    .filter((item) => item && typeof item.content === 'string' && typeof item.role === 'string' && ALLOWED_ROLES.has(item.role))
     .map((item) => ({
       id: item.id || `${item.role}-${Math.random().toString(36).slice(2)}`,
       role: item.role,
@@ -111,26 +112,67 @@ function writeSession(messages) {
   }
 }
 
-export default function useChatSession(initialMessages) {
-  const [sessionState, setSessionState] = useState(() => {
-    const restored = readSession();
-    if (restored) return restored;
+function buildSeedState(initialMessages) {
+  return {
+    schemaVersion: CHAT_SESSION_SCHEMA_VERSION,
+    messages: boundedMessages(initialMessages),
+    lastUpdatedAt: now(),
+    expiresAt: now() + TTL_MS,
+  };
+}
 
-    const seeded = {
-      schemaVersion: CHAT_SESSION_SCHEMA_VERSION,
-      messages: boundedMessages(initialMessages),
-      lastUpdatedAt: now(),
-      expiresAt: now() + TTL_MS,
-    };
-    writeSession(seeded.messages);
-    return seeded;
-  });
+function restoreOrSeed(initialMessages) {
+  const restored = readSession();
+  if (restored) return restored;
+
+  const seeded = buildSeedState(initialMessages);
+  writeSession(seeded.messages);
+  return seeded;
+}
+
+export default function useChatSession(initialMessages) {
+  const [sessionState, setSessionState] = useState(() => restoreOrSeed(initialMessages));
+  const [persistHealthy, setPersistHealthy] = useState(true);
 
   useEffect(() => {
-    writeSession(sessionState.messages);
+    const persisted = writeSession(sessionState.messages);
+    setPersistHealthy(Boolean(persisted));
+
+    // If we had to trim messages for storage constraints, sync state to persisted payload.
+    if (persisted && persisted.messages.length !== sessionState.messages.length) {
+      setSessionState((prev) => ({
+        ...prev,
+        schemaVersion: persisted.schemaVersion || CHAT_SESSION_SCHEMA_VERSION,
+        messages: persisted.messages,
+        lastUpdatedAt: persisted.lastUpdatedAt,
+        expiresAt: persisted.expiresAt,
+      }));
+    }
   }, [sessionState.messages]);
 
+  useEffect(() => {
+    const handleStorageSync = (event) => {
+      if (event.key !== CHAT_SESSION_KEY) return;
+
+      if (!event.newValue) {
+        setSessionState(buildSeedState(initialMessages));
+        setPersistHealthy(true);
+        return;
+      }
+
+      const restored = readSession();
+      if (!restored) return;
+
+      setSessionState(restored);
+      setPersistHealthy(true);
+    };
+
+    window.addEventListener('storage', handleStorageSync);
+    return () => window.removeEventListener('storage', handleStorageSync);
+  }, [initialMessages]);
+
   const setMessages = useCallback((updater) => {
+    setPersistHealthy(true);
     setSessionState((prev) => {
       const nextMessages = typeof updater === 'function' ? updater(prev.messages) : updater;
       return {
@@ -151,14 +193,17 @@ export default function useChatSession(initialMessages) {
     };
     localStorage.removeItem(CHAT_SESSION_KEY);
     writeSession(next.messages);
+    setPersistHealthy(true);
     setSessionState(next);
   }, []);
 
   const meta = useMemo(() => ({
+    schemaVersion: sessionState.schemaVersion || CHAT_SESSION_SCHEMA_VERSION,
     expiresAt: sessionState.expiresAt,
     lastUpdatedAt: sessionState.lastUpdatedAt,
     ttlDays: TTL_DAYS,
-  }), [sessionState.expiresAt, sessionState.lastUpdatedAt]);
+    persistHealthy,
+  }), [persistHealthy, sessionState.expiresAt, sessionState.lastUpdatedAt, sessionState.schemaVersion]);
 
   return {
     messages: sessionState.messages,

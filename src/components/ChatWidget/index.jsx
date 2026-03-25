@@ -216,7 +216,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
     []
   );
 
-  const { messages, setMessages, clearSession } = useChatSession(initialMessages);
+  const { messages, setMessages, clearSession, meta } = useChatSession(initialMessages);
   const [open, setOpen] = useState(isStandalonePage);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -280,6 +280,16 @@ const ChatWidget = ({ mode = 'floating' }) => {
     if (!open || !chatBodyRef.current) return;
     chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
   }, [messages, loading, open]);
+
+  useEffect(() => {
+    if (meta.persistHealthy) return;
+    showToast(
+      language === 'vi'
+        ? 'Cảnh báo: phiên chat có thể không lưu được trên trình duyệt này.'
+        : 'Warning: chat session may not persist in this browser.',
+      'error'
+    );
+  }, [language, meta.persistHealthy]);
 
   useEffect(() => {
     toastRef.current = toast;
