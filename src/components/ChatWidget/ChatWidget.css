@@ -103,12 +103,35 @@
   border: 1px solid rgba(212, 255, 0, 0.45);
   color: #f7f9e8;
   border-radius: 999px;
-  padding: 7px 12px;
+  padding: 6px 8px 6px 12px;
   font-size: 0.72rem;
   line-height: 1.2;
   max-width: min(88%, 440px);
-  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   animation: toastAppear 0.18s ease-out;
+}
+
+.chat-toast span {
+  text-align: left;
+}
+
+.chat-toast button {
+  border: none;
+  background: transparent;
+  color: inherit;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  line-height: 1;
+  padding: 0;
+}
+
+.chat-toast button:hover {
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .chat-toast.error {

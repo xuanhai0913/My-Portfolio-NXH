@@ -18,6 +18,7 @@ const CHAT_LANGUAGE_KEY = 'nxh_chat_language_v1';
 const CHAT_INTRO_DISMISSED_KEY = 'nxh_chat_intro_dismissed_v1';
 const CHAT_FULLSCREEN_KEY = 'nxh_chat_fullscreen_v1';
 const CHAT_RESPONSE_STYLE_KEY = 'nxh_chat_response_style_v1';
+const TOAST_DURATION_MS = 2600;
 const SUPPORTED_TEXT_TYPES = new Set(['text/plain', 'text/markdown', 'application/json']);
 const CONTACT_TRIGGER_REGEX = /(liên hệ|lien he|contact|email|mail|linkedin|cv|resume|kết nối|ket noi|phone|sđt|sdt)/i;
 
@@ -235,6 +236,8 @@ const ChatWidget = ({ mode = 'floating' }) => {
   const inputRef = useRef(null);
   const fileInputRef = useRef(null);
   const toastTimeoutRef = useRef(null);
+  const toastQueueRef = useRef([]);
+  const toastRef = useRef(null);
 
   useEffect(() => {
     if (!showIntroSpotlight) return;
@@ -277,10 +280,15 @@ const ChatWidget = ({ mode = 'floating' }) => {
     chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
   }, [messages, loading, open]);
 
+  useEffect(() => {
+    toastRef.current = toast;
+  }, [toast]);
+
   useEffect(() => () => {
     if (toastTimeoutRef.current) {
       clearTimeout(toastTimeoutRef.current);
     }
+    toastQueueRef.current = [];
   }, []);
 
   const language = preferredLanguage || 'en';
@@ -402,21 +410,59 @@ const ChatWidget = ({ mode = 'floating' }) => {
     setMessages((prev) => [...prev, msg]);
   };
 
-  const showToast = (text, type = 'info') => {
-    if (!text) return;
-    setToast({
-      id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
-      text,
-      type,
-    });
-
+  const scheduleToastDismiss = () => {
     if (toastTimeoutRef.current) {
       clearTimeout(toastTimeoutRef.current);
     }
 
     toastTimeoutRef.current = setTimeout(() => {
+      if (toastQueueRef.current.length > 0) {
+        const nextToast = toastQueueRef.current.shift();
+        toastRef.current = nextToast;
+        setToast(nextToast);
+        scheduleToastDismiss();
+        return;
+      }
+
+      toastRef.current = null;
       setToast(null);
-    }, 2600);
+    }, TOAST_DURATION_MS);
+  };
+
+  const dismissToast = () => {
+    if (toastTimeoutRef.current) {
+      clearTimeout(toastTimeoutRef.current);
+      toastTimeoutRef.current = null;
+    }
+
+    if (toastQueueRef.current.length > 0) {
+      const nextToast = toastQueueRef.current.shift();
+      toastRef.current = nextToast;
+      setToast(nextToast);
+      scheduleToastDismiss();
+      return;
+    }
+
+    toastRef.current = null;
+    setToast(null);
+  };
+
+  const showToast = (text, type = 'info') => {
+    if (!text) return;
+    const nextToast = {
+      id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+      text,
+      type,
+    };
+
+    if (!toastRef.current) {
+      toastRef.current = nextToast;
+      setToast(nextToast);
+      scheduleToastDismiss();
+      return;
+    }
+
+    toastQueueRef.current.push(nextToast);
   };
 
   const sendToModel = async (text, baseMessages = messages) => {
@@ -641,7 +687,8 @@ const ChatWidget = ({ mode = 'floating' }) => {
       <section className={`chat-panel ${open ? 'open' : ''} ${isFullscreen ? 'fullscreen' : ''} ${isStandalonePage ? 'page-mode' : ''}`} aria-hidden={!open}>
         {toast ? (
           <div className={`chat-toast ${toast.type === 'error' ? 'error' : ''}`} role="status" aria-live="polite">
-            {toast.text}
+            <span>{toast.text}</span>
+            <button type="button" onClick={dismissToast} aria-label="Dismiss notification">x</button>
           </div>
         ) : null}
 
