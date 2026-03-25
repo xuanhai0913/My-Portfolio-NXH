@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Analytics } from "@vercel/analytics/react";
 import ErrorBoundary from './components/ErrorBoundary';
@@ -89,6 +89,8 @@ const MainPortfolio = () => {
 };
 
 const App = () => {
+  const location = useLocation();
+  const isAssistantRoute = location.pathname === '/assistant';
 
   return (
     <div className="app">
@@ -96,11 +98,12 @@ const App = () => {
         <Header />
       </ErrorBoundary>
 
-      <AudioActivator />
-      <ChatWidget />
+      {!isAssistantRoute ? <AudioActivator /> : null}
+      {!isAssistantRoute ? <ChatWidget /> : null}
 
       <Routes>
         <Route path="/" element={<MainPortfolio />} />
+        <Route path="/assistant" element={<ChatWidget mode="page" />} />
         <Route path="/videos" element={
           <ErrorBoundary>
             <Suspense fallback={<LoadingFallback />}>

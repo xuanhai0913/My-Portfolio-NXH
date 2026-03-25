@@ -16,6 +16,7 @@ import './ChatWidget.css';
 const MAX_CONTEXT_MESSAGES = 16;
 const CHAT_LANGUAGE_KEY = 'nxh_chat_language_v1';
 const CHAT_INTRO_DISMISSED_KEY = 'nxh_chat_intro_dismissed_v1';
+const CHAT_FULLSCREEN_KEY = 'nxh_chat_fullscreen_v1';
 const SUPPORTED_TEXT_TYPES = new Set(['text/plain', 'text/markdown', 'application/json']);
 
 function createMessage(role, content, extra = {}) {
@@ -137,7 +138,8 @@ function ActionCard({ action }) {
   return null;
 }
 
-const ChatWidget = () => {
+const ChatWidget = ({ mode = 'floating' }) => {
+  const isStandalonePage = mode === 'page';
   const initialMessages = useMemo(
     () => [
       createMessage('assistant', WELCOME_MESSAGE),
@@ -146,9 +148,13 @@ const ChatWidget = () => {
   );
 
   const { messages, setMessages, clearSession } = useChatSession(initialMessages);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(isStandalonePage);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(() => {
+    if (isStandalonePage) return true;
+    return localStorage.getItem(CHAT_FULLSCREEN_KEY) === '1';
+  });
   const [lastModelUsed, setLastModelUsed] = useState(null);
   const [preferredLanguage, setPreferredLanguage] = useState(() => localStorage.getItem(CHAT_LANGUAGE_KEY) || '');
   const [showIntroSpotlight, setShowIntroSpotlight] = useState(() => !sessionStorage.getItem(CHAT_INTRO_DISMISSED_KEY));
@@ -166,9 +172,22 @@ const ChatWidget = () => {
   }, [showIntroSpotlight]);
 
   useEffect(() => {
+    if (isStandalonePage) {
+      setOpen(true);
+      setShowIntroSpotlight(false);
+      setIsFullscreen(true);
+    }
+  }, [isStandalonePage]);
+
+  useEffect(() => {
     if (!preferredLanguage) return;
     localStorage.setItem(CHAT_LANGUAGE_KEY, preferredLanguage);
   }, [preferredLanguage]);
+
+  useEffect(() => {
+    if (isStandalonePage) return;
+    localStorage.setItem(CHAT_FULLSCREEN_KEY, isFullscreen ? '1' : '0');
+  }, [isFullscreen, isStandalonePage]);
 
   useEffect(() => {
     if (!open) return;
@@ -198,6 +217,29 @@ const ChatWidget = () => {
     setOpen(true);
     setShowIntroSpotlight(false);
     sessionStorage.setItem(CHAT_INTRO_DISMISSED_KEY, '1');
+  };
+
+  const handleToggleFullscreen = () => {
+    if (isStandalonePage) return;
+    setIsFullscreen((prev) => !prev);
+  };
+
+  const handleOpenInNewTab = () => {
+    window.open('/assistant', '_blank', 'noopener,noreferrer');
+  };
+
+  const handleQuickMail = () => {
+    const subject = encodeURIComponent('Portfolio Inquiry - Nguyen Xuan Hai');
+    const body = encodeURIComponent('Hello Hai,\n\nI would like to discuss an opportunity.');
+    window.location.href = `mailto:${PROFILE_CONTEXT.contacts.email}?subject=${subject}&body=${body}`;
+  };
+
+  const handleQuickLinkedIn = () => {
+    window.open(PROFILE_CONTEXT.socials.linkedin, '_blank', 'noopener,noreferrer');
+  };
+
+  const handleQuickCV = () => {
+    window.open(PROFILE_CONTEXT.cvUrl, '_blank', 'noopener,noreferrer');
   };
 
   const handleSelectLanguage = (lang) => {
@@ -346,7 +388,7 @@ const ChatWidget = () => {
 
   return (
     <>
-      {!open ? (
+      {!isStandalonePage && !open ? (
         <button
           type="button"
           className="chat-launcher"
@@ -357,7 +399,7 @@ const ChatWidget = () => {
         </button>
       ) : null}
 
-      {showIntroSpotlight && !open ? (
+      {showIntroSpotlight && !open && !isStandalonePage ? (
         <button
           type="button"
           className="chat-intro-spotlight"
@@ -369,7 +411,7 @@ const ChatWidget = () => {
         </button>
       ) : null}
 
-      <section className={`chat-panel ${open ? 'open' : ''}`} aria-hidden={!open}>
+      <section className={`chat-panel ${open ? 'open' : ''} ${isFullscreen ? 'fullscreen' : ''} ${isStandalonePage ? 'page-mode' : ''}`} aria-hidden={!open}>
         <header className="chat-header">
           <div>
             <h3>Portfolio Assistant</h3>
@@ -377,8 +419,16 @@ const ChatWidget = () => {
             {lastModelUsed ? <small className="chat-model-meta">Model: {lastModelUsed}</small> : null}
           </div>
           <div className="chat-header-actions">
+            {!isStandalonePage ? (
+              <button type="button" onClick={handleToggleFullscreen}>
+                {isFullscreen ? 'Window' : 'Fullscreen'}
+              </button>
+            ) : null}
+            {!isStandalonePage ? (
+              <button type="button" onClick={handleOpenInNewTab}>Open Tab</button>
+            ) : null}
             <button type="button" onClick={handleClear}>Clear</button>
-            <button type="button" onClick={() => setOpen(false)}>Close</button>
+            {!isStandalonePage ? <button type="button" onClick={() => setOpen(false)}>Close</button> : null}
           </div>
         </header>
 
@@ -408,6 +458,12 @@ const ChatWidget = () => {
         ) : null}
 
         <div className="chat-input-wrap">
+          <div className="chat-quick-actions">
+            <button type="button" onClick={handleQuickMail}>{language === 'vi' ? 'Gửi mail nhanh' : 'Quick Email'}</button>
+            <button type="button" onClick={handleQuickLinkedIn}>LinkedIn</button>
+            <button type="button" onClick={handleQuickCV}>CV</button>
+          </div>
+
           <div className="chat-context-row">
             <button type="button" className="chat-context-btn" onClick={handleJDUploadClick}>
               {language === 'vi' ? 'Tải JD (.txt/.md)' : 'Upload JD (.txt/.md)'}
