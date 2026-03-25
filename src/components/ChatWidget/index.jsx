@@ -379,6 +379,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
   const toastTimeoutRef = useRef(null);
   const toastQueueRef = useRef([]);
   const toastRef = useRef(null);
+  const language = preferredLanguage || 'en';
 
   useEffect(() => {
     if (!showIntroSpotlight) return;
@@ -441,8 +442,6 @@ const ChatWidget = ({ mode = 'floating' }) => {
     }
     toastQueueRef.current = [];
   }, []);
-
-  const language = preferredLanguage || 'en';
 
   const fallbackSuggestions = useMemo(() => suggestionsByIntent(language), [language]);
   const suggestions = aiSuggestions.length > 0 ? aiSuggestions : fallbackSuggestions;
