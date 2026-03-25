@@ -19,6 +19,7 @@ const CHAT_INTRO_DISMISSED_KEY = 'nxh_chat_intro_dismissed_v1';
 const CHAT_FULLSCREEN_KEY = 'nxh_chat_fullscreen_v1';
 const CHAT_RESPONSE_STYLE_KEY = 'nxh_chat_response_style_v1';
 const SUPPORTED_TEXT_TYPES = new Set(['text/plain', 'text/markdown', 'application/json']);
+const CONTACT_TRIGGER_REGEX = /(liên hệ|lien he|contact|email|mail|linkedin|cv|resume|kết nối|ket noi|phone|sđt|sdt)/i;
 
 function createMessage(role, content, extra = {}) {
   return {
@@ -212,6 +213,15 @@ const ChatWidget = ({ mode = 'floating' }) => {
 
   const fallbackSuggestions = useMemo(() => suggestionsByIntent(language), [language]);
   const suggestions = aiSuggestions.length > 0 ? aiSuggestions : fallbackSuggestions;
+  const shouldShowContactActions = useMemo(() => {
+    const recentUserText = messages
+      .filter((item) => item.role === 'user')
+      .slice(-3)
+      .map((item) => item.content)
+      .join(' ');
+
+    return CONTACT_TRIGGER_REGEX.test(recentUserText);
+  }, [messages]);
 
   const handleClear = () => {
     clearSession(initialMessages);
@@ -604,11 +614,13 @@ const ChatWidget = ({ mode = 'floating' }) => {
             </div>
           </div>
 
-          <div className="chat-quick-actions">
-            <button type="button" onClick={handleQuickMail}>{language === 'vi' ? 'Gửi mail nhanh' : 'Quick Email'}</button>
-            <button type="button" onClick={handleQuickLinkedIn}>LinkedIn</button>
-            <button type="button" onClick={handleQuickCV}>CV</button>
-          </div>
+          {shouldShowContactActions ? (
+            <div className="chat-quick-actions">
+              <button type="button" onClick={handleQuickMail}>{language === 'vi' ? 'Gửi mail nhanh' : 'Quick Email'}</button>
+              <button type="button" onClick={handleQuickLinkedIn}>LinkedIn</button>
+              <button type="button" onClick={handleQuickCV}>CV</button>
+            </div>
+          ) : null}
 
           <div className="chat-context-row">
             <button type="button" className="chat-context-btn" onClick={handleJDUploadClick}>

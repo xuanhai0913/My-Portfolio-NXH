@@ -106,43 +106,88 @@ function tryParseJson(text) {
   }
 }
 
+function getFieldCaseInsensitive(obj, fieldName) {
+  if (!obj || typeof obj !== 'object') return undefined;
+  const target = String(fieldName || '').toLowerCase();
+  const key = Object.keys(obj).find((item) => item.toLowerCase() === target);
+  return key ? obj[key] : undefined;
+}
+
+function extractStructuredFromJsonLikeText(text) {
+  if (!text || typeof text !== 'string') return null;
+
+  const answerMatch = text.match(/"(?:answer|ANSWER|Answer)"\s*:\s*"([\s\S]*?)"\s*,/);
+  const rawHighlights = [];
+  const highlightRegex = /"(?:highlights|HIGHLIGHTS|Highlights)"\s*:\s*\[([\s\S]*?)\]/m;
+  const highlightsMatch = text.match(highlightRegex);
+
+  if (highlightsMatch?.[1]) {
+    const itemRegex = /"([^"]+)"/g;
+    let m;
+    while ((m = itemRegex.exec(highlightsMatch[1])) !== null) {
+      rawHighlights.push(m[1]);
+    }
+  }
+
+  const answer = answerMatch?.[1]?.trim() || '';
+  if (!answer && rawHighlights.length === 0) return null;
+
+  return {
+    answer,
+    highlights: rawHighlights,
+    links: [],
+    fitSummary: null,
+    suggestions: [],
+  };
+}
+
 function normalizeStructuredResponse(parsed) {
   if (!parsed || typeof parsed !== 'object') return null;
 
-  const answer = typeof parsed.answer === 'string' ? parsed.answer.trim() : '';
-  const highlights = Array.isArray(parsed.highlights)
-    ? parsed.highlights.filter((item) => typeof item === 'string' && item.trim())
+  const answerRaw = getFieldCaseInsensitive(parsed, 'answer');
+  const highlightsRaw = getFieldCaseInsensitive(parsed, 'highlights');
+  const linksRaw = getFieldCaseInsensitive(parsed, 'links');
+  const fitSummaryRaw = getFieldCaseInsensitive(parsed, 'fitSummary');
+  const suggestionsRaw = getFieldCaseInsensitive(parsed, 'suggestions');
+
+  const answer = typeof answerRaw === 'string' ? answerRaw.trim() : '';
+  const highlights = Array.isArray(highlightsRaw)
+    ? highlightsRaw.filter((item) => typeof item === 'string' && item.trim())
     : [];
 
-  const links = Array.isArray(parsed.links)
-    ? parsed.links
+  const links = Array.isArray(linksRaw)
+    ? linksRaw
       .filter((item) => item && typeof item === 'object')
       .map((item) => ({
-        label: typeof item.label === 'string' ? item.label.trim() : 'Link',
-        url: typeof item.url === 'string' ? item.url.trim() : '',
+        label: typeof getFieldCaseInsensitive(item, 'label') === 'string'
+          ? getFieldCaseInsensitive(item, 'label').trim()
+          : 'Link',
+        url: typeof getFieldCaseInsensitive(item, 'url') === 'string'
+          ? getFieldCaseInsensitive(item, 'url').trim()
+          : '',
       }))
       .filter((item) => /^https?:\/\//i.test(item.url))
     : [];
 
-  const fitSummary = parsed.fitSummary && typeof parsed.fitSummary === 'object'
+  const fitSummary = fitSummaryRaw && typeof fitSummaryRaw === 'object'
     ? {
-      matchLevel: typeof parsed.fitSummary.matchLevel === 'string'
-        ? parsed.fitSummary.matchLevel
+      matchLevel: typeof getFieldCaseInsensitive(fitSummaryRaw, 'matchLevel') === 'string'
+        ? getFieldCaseInsensitive(fitSummaryRaw, 'matchLevel')
         : 'unknown',
-      strongMatches: Array.isArray(parsed.fitSummary.strongMatches)
-        ? parsed.fitSummary.strongMatches.filter((item) => typeof item === 'string' && item.trim())
+      strongMatches: Array.isArray(getFieldCaseInsensitive(fitSummaryRaw, 'strongMatches'))
+        ? getFieldCaseInsensitive(fitSummaryRaw, 'strongMatches').filter((item) => typeof item === 'string' && item.trim())
         : [],
-      gaps: Array.isArray(parsed.fitSummary.gaps)
-        ? parsed.fitSummary.gaps.filter((item) => typeof item === 'string' && item.trim())
+      gaps: Array.isArray(getFieldCaseInsensitive(fitSummaryRaw, 'gaps'))
+        ? getFieldCaseInsensitive(fitSummaryRaw, 'gaps').filter((item) => typeof item === 'string' && item.trim())
         : [],
-      recommendation: typeof parsed.fitSummary.recommendation === 'string'
-        ? parsed.fitSummary.recommendation.trim()
+      recommendation: typeof getFieldCaseInsensitive(fitSummaryRaw, 'recommendation') === 'string'
+        ? getFieldCaseInsensitive(fitSummaryRaw, 'recommendation').trim()
         : '',
     }
     : null;
 
-  const suggestions = Array.isArray(parsed.suggestions)
-    ? parsed.suggestions
+  const suggestions = Array.isArray(suggestionsRaw)
+    ? suggestionsRaw
       .filter((item) => typeof item === 'string' && item.trim())
       .map((item) => item.trim())
       .slice(0, 4)
@@ -229,9 +274,11 @@ module.exports = async (req, res) => {
       const result = await callGeminiModel(model, apiKey, payload);
       const responseText = extractText(result.data);
       const parsed = tryParseJson(responseText);
-      const structuredResponse = normalizeStructuredResponse(parsed);
+      const structuredResponse = normalizeStructuredResponse(parsed) || extractStructuredFromJsonLikeText(responseText);
       const fallbackText = stripMarkdownNoise(responseText);
-      const safeText = structuredResponse?.answer || fallbackText;
+      const looksLikeRawJson = /^\s*\{[\s\S]*$/m.test(fallbackText);
+      const safeText = structuredResponse?.answer
+        || (looksLikeRawJson ? 'The response format was incomplete. Please try regenerate.' : fallbackText);
 
       if (result.ok && safeText) {
         return res.status(200).json({
