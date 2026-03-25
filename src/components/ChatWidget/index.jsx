@@ -925,11 +925,33 @@ const ChatWidget = ({ mode = 'floating' }) => {
           <div className="chat-header-actions">
             {!isStandalonePage ? (
               <div className="chat-window-controls">
-                <button type="button" onClick={handleToggleFullscreen}>
-                  {isFullscreen ? 'Window' : 'Fullscreen'}
+                <button
+                  type="button"
+                  className="chat-icon-btn"
+                  onClick={handleToggleFullscreen}
+                  aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
+                  title={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
+                >
+                  <span className={`chat-icon ${isFullscreen ? 'icon-window' : 'icon-fullscreen'}`} aria-hidden="true" />
                 </button>
-                <button type="button" onClick={handleOpenInNewTab}>Open Tab</button>
-                <button type="button" onClick={() => setOpen(false)}>Hide</button>
+                <button
+                  type="button"
+                  className="chat-icon-btn"
+                  onClick={handleOpenInNewTab}
+                  aria-label="Open in new tab"
+                  title="Open in new tab"
+                >
+                  <span className="chat-icon icon-open-tab" aria-hidden="true" />
+                </button>
+                <button
+                  type="button"
+                  className="chat-icon-btn"
+                  onClick={() => setOpen(false)}
+                  aria-label="Hide chat"
+                  title="Hide chat"
+                >
+                  <span className="chat-icon icon-hide" aria-hidden="true" />
+                </button>
               </div>
             ) : null}
 
