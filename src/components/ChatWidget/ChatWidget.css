@@ -591,3 +591,32 @@
     justify-content: flex-start;
   }
 }
+
+@media (max-width: 390px) {
+  .chat-header {
+    padding: 12px 10px 8px;
+    gap: 8px;
+  }
+
+  .chat-header h3 {
+    font-size: 0.88rem;
+  }
+
+  .chat-header p {
+    font-size: 0.7rem;
+  }
+
+  .chat-window-controls,
+  .chat-utility-controls {
+    gap: 4px;
+  }
+
+  .chat-header-actions button {
+    font-size: 0.66rem;
+    padding: 5px 7px;
+  }
+
+  .chat-toast {
+    max-width: calc(100% - 12px);
+  }
+}

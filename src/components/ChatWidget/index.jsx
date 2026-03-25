@@ -232,6 +232,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
   const [aiSuggestions, setAiSuggestions] = useState([]);
   const [responseStyle, setResponseStyle] = useState(() => localStorage.getItem(CHAT_RESPONSE_STYLE_KEY) || 'brief');
   const [toast, setToast] = useState(null);
+  const [activeHeaderAction, setActiveHeaderAction] = useState('');
   const chatBodyRef = useRef(null);
   const inputRef = useRef(null);
   const fileInputRef = useRef(null);
@@ -295,6 +296,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
 
   const fallbackSuggestions = useMemo(() => suggestionsByIntent(language), [language]);
   const suggestions = aiSuggestions.length > 0 ? aiSuggestions : fallbackSuggestions;
+  const isHeaderActionBusy = Boolean(activeHeaderAction);
   const shouldShowContactActions = useMemo(() => {
     const recentUserText = messages
       .filter((item) => item.role === 'user')
@@ -465,6 +467,18 @@ const ChatWidget = ({ mode = 'floating' }) => {
     toastQueueRef.current.push(nextToast);
   };
 
+  const runHeaderAction = async (actionKey, actionRunner) => {
+    if (!actionKey || typeof actionRunner !== 'function') return;
+    if (activeHeaderAction) return;
+
+    setActiveHeaderAction(actionKey);
+    try {
+      await actionRunner();
+    } finally {
+      setActiveHeaderAction('');
+    }
+  };
+
   const sendToModel = async (text, baseMessages = messages) => {
     const requestMessages = baseMessages
       .slice(-MAX_CONTEXT_MESSAGES)
@@ -558,49 +572,54 @@ const ChatWidget = ({ mode = 'floating' }) => {
   };
 
   const handleCopyTranscript = async () => {
-    const transcript = formatTranscript();
+    await runHeaderAction('copy', async () => {
+      const transcript = formatTranscript();
 
-    try {
-      if (navigator.clipboard?.writeText) {
-        await navigator.clipboard.writeText(transcript);
-        showToast(language === 'vi' ? 'Đã sao chép transcript.' : 'Transcript copied.');
-      } else {
-        showToast(language === 'vi' ? 'Trình duyệt không hỗ trợ clipboard API.' : 'Clipboard API is not available.', 'error');
+      try {
+        if (navigator.clipboard?.writeText) {
+          await navigator.clipboard.writeText(transcript);
+          showToast(language === 'vi' ? 'Đã sao chép transcript.' : 'Transcript copied.');
+        } else {
+          showToast(language === 'vi' ? 'Trình duyệt không hỗ trợ clipboard API.' : 'Clipboard API is not available.', 'error');
+        }
+      } catch (error) {
+        showToast(language === 'vi' ? 'Không thể sao chép transcript.' : 'Unable to copy transcript.', 'error');
       }
-    } catch (error) {
-      showToast(language === 'vi' ? 'Không thể sao chép transcript.' : 'Unable to copy transcript.', 'error');
-    }
+    });
   };
 
-  const handleExportTranscriptTxt = () => {
-    const transcript = formatTranscript();
-    const blob = new Blob([transcript], { type: 'text/plain;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
+  const handleExportTranscriptTxt = async () => {
+    await runHeaderAction('txt', async () => {
+      const transcript = formatTranscript();
+      const blob = new Blob([transcript], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
 
-    link.href = url;
-    link.download = `chat-session-${Date.now()}.txt`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-    showToast(language === 'vi' ? 'Đã xuất file TXT.' : 'TXT export completed.');
+      link.href = url;
+      link.download = `chat-session-${Date.now()}.txt`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      showToast(language === 'vi' ? 'Đã xuất file TXT.' : 'TXT export completed.');
+    });
   };
 
-  const handleExportTranscriptPdf = () => {
-    const transcript = formatTranscript();
-    const escaped = transcript
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;');
+  const handleExportTranscriptPdf = async () => {
+    await runHeaderAction('pdf', async () => {
+      const transcript = formatTranscript();
+      const escaped = transcript
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
 
-    const printWindow = window.open('', '_blank', 'noopener,noreferrer,width=900,height=700');
-    if (!printWindow) {
-      showToast(language === 'vi' ? 'Không thể mở cửa sổ in PDF.' : 'Unable to open print window for PDF.', 'error');
-      return;
-    }
+      const printWindow = window.open('', '_blank', 'noopener,noreferrer,width=900,height=700');
+      if (!printWindow) {
+        showToast(language === 'vi' ? 'Không thể mở cửa sổ in PDF.' : 'Unable to open print window for PDF.', 'error');
+        return;
+      }
 
-    printWindow.document.write(`
+      printWindow.document.write(`
       <html>
         <head>
           <title>Chat Session Export</title>
@@ -616,47 +635,50 @@ const ChatWidget = ({ mode = 'floating' }) => {
         </body>
       </html>
     `);
-    printWindow.document.close();
-    printWindow.focus();
-    printWindow.print();
-    showToast(language === 'vi' ? 'Đã mở hộp thoại in PDF.' : 'PDF print dialog opened.');
+      printWindow.document.close();
+      printWindow.focus();
+      printWindow.print();
+      showToast(language === 'vi' ? 'Đã mở hộp thoại in PDF.' : 'PDF print dialog opened.');
+    });
   };
 
   const handleRegenerateLastAnswer = async () => {
-    if (loading) return;
+    if (loading || activeHeaderAction) return;
 
-    const lastUserIndex = [...messages].map((item) => item.role).lastIndexOf('user');
-    if (lastUserIndex === -1) {
-      showToast(language === 'vi' ? 'Chưa có câu hỏi để tạo lại câu trả lời.' : 'No user question to regenerate from.', 'error');
-      return;
-    }
+    await runHeaderAction('regenerate', async () => {
+      const lastUserIndex = [...messages].map((item) => item.role).lastIndexOf('user');
+      if (lastUserIndex === -1) {
+        showToast(language === 'vi' ? 'Chưa có câu hỏi để tạo lại câu trả lời.' : 'No user question to regenerate from.', 'error');
+        return;
+      }
 
-    const lastUserMessage = messages[lastUserIndex];
-    const contextMessages = messages.slice(0, lastUserIndex + 1);
-    setMessages(contextMessages);
+      const lastUserMessage = messages[lastUserIndex];
+      const contextMessages = messages.slice(0, lastUserIndex + 1);
+      setMessages(contextMessages);
 
-    setLoading(true);
-    try {
-      const modelReply = await sendToModel(lastUserMessage.content, contextMessages);
-      setLastModelUsed(modelReply.modelUsed || null);
-      setAiSuggestions(Array.isArray(modelReply.suggestions) ? modelReply.suggestions : []);
-      appendMessage(createMessage('assistant', modelReply.content, {
-        modelUsed: modelReply.modelUsed,
-        action: modelReply.action,
-      }));
-    } catch (error) {
-      appendMessage(
-        createMessage(
-          'assistant',
-          language === 'vi'
-            ? 'Không thể tạo lại câu trả lời lúc này. Vui lòng thử lại sau.'
-            : 'Unable to regenerate the answer right now. Please try again later.',
-          { modelUsed: 'error-fallback' }
-        )
-      );
-    } finally {
-      setLoading(false);
-    }
+      setLoading(true);
+      try {
+        const modelReply = await sendToModel(lastUserMessage.content, contextMessages);
+        setLastModelUsed(modelReply.modelUsed || null);
+        setAiSuggestions(Array.isArray(modelReply.suggestions) ? modelReply.suggestions : []);
+        appendMessage(createMessage('assistant', modelReply.content, {
+          modelUsed: modelReply.modelUsed,
+          action: modelReply.action,
+        }));
+      } catch (error) {
+        appendMessage(
+          createMessage(
+            'assistant',
+            language === 'vi'
+              ? 'Không thể tạo lại câu trả lời lúc này. Vui lòng thử lại sau.'
+              : 'Unable to regenerate the answer right now. Please try again later.',
+            { modelUsed: 'error-fallback' }
+          )
+        );
+      } finally {
+        setLoading(false);
+      }
+    });
   };
 
   return (
@@ -710,11 +732,19 @@ const ChatWidget = ({ mode = 'floating' }) => {
             ) : null}
 
             <div className="chat-utility-controls">
-              <button type="button" onClick={handleCopyTranscript}>Copy</button>
-              <button type="button" onClick={handleExportTranscriptTxt}>TXT</button>
-              <button type="button" onClick={handleExportTranscriptPdf}>PDF</button>
-              <button type="button" onClick={handleRegenerateLastAnswer} disabled={loading}>Regenerate</button>
-              <button type="button" onClick={handleClear}>Clear</button>
+              <button type="button" onClick={handleCopyTranscript} disabled={isHeaderActionBusy || loading}>
+                {activeHeaderAction === 'copy' ? (language === 'vi' ? 'Đang copy...' : 'Copying...') : 'Copy'}
+              </button>
+              <button type="button" onClick={handleExportTranscriptTxt} disabled={isHeaderActionBusy || loading}>
+                {activeHeaderAction === 'txt' ? 'Exporting...' : 'TXT'}
+              </button>
+              <button type="button" onClick={handleExportTranscriptPdf} disabled={isHeaderActionBusy || loading}>
+                {activeHeaderAction === 'pdf' ? 'Preparing...' : 'PDF'}
+              </button>
+              <button type="button" onClick={handleRegenerateLastAnswer} disabled={loading || isHeaderActionBusy}>
+                {activeHeaderAction === 'regenerate' ? 'Regenerating...' : 'Regenerate'}
+              </button>
+              <button type="button" onClick={handleClear} disabled={isHeaderActionBusy || loading}>Clear</button>
             </div>
           </div>
         </header>
