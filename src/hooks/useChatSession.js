@@ -1,8 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 const CHAT_SESSION_KEY = 'nxh_portfolio_chat_session_v1';
+const CHAT_SESSION_SCHEMA_VERSION = 2;
 const TTL_DAYS = 7;
 const TTL_MS = TTL_DAYS * 24 * 60 * 60 * 1000;
+const MAX_STORED_MESSAGES = 120;
+const MAX_STORED_CHARACTERS = 120000;
+const FALLBACK_STORED_MESSAGES = 40;
 
 const now = () => Date.now();
 
@@ -20,6 +24,25 @@ function normalizeMessages(messages) {
     }));
 }
 
+function boundedMessages(messages, maxMessages = MAX_STORED_MESSAGES, maxChars = MAX_STORED_CHARACTERS) {
+  const trimmedByCount = normalizeMessages(messages).slice(-maxMessages);
+  const bounded = [];
+  let totalChars = 0;
+
+  for (let index = trimmedByCount.length - 1; index >= 0; index -= 1) {
+    const item = trimmedByCount[index];
+    const nextChars = totalChars + item.content.length;
+    if (nextChars > maxChars && bounded.length > 0) {
+      break;
+    }
+
+    bounded.unshift(item);
+    totalChars = nextChars;
+  }
+
+  return bounded;
+}
+
 function readSession() {
   try {
     const raw = localStorage.getItem(CHAT_SESSION_KEY);
@@ -35,27 +58,55 @@ function readSession() {
     }
 
     return {
-      messages: normalizeMessages(parsed.messages),
+      schemaVersion: Number(parsed.schemaVersion || 1),
+      messages: boundedMessages(parsed.messages),
       expiresAt,
       lastUpdatedAt: Number(parsed.lastUpdatedAt || now()),
     };
   } catch (error) {
     console.error('Failed to read chat session:', error);
+    localStorage.removeItem(CHAT_SESSION_KEY);
     return null;
   }
 }
 
 function writeSession(messages) {
+  const persist = (payload) => {
+    try {
+      localStorage.setItem(CHAT_SESSION_KEY, JSON.stringify(payload));
+      return true;
+    } catch (error) {
+      console.error('Failed to save chat session:', error);
+      return false;
+    }
+  };
+
   try {
+    const normalized = boundedMessages(messages);
     const payload = {
-      messages: normalizeMessages(messages),
+      schemaVersion: CHAT_SESSION_SCHEMA_VERSION,
+      messages: normalized,
       lastUpdatedAt: now(),
       expiresAt: now() + TTL_MS,
     };
-    localStorage.setItem(CHAT_SESSION_KEY, JSON.stringify(payload));
-    return payload;
+
+    if (persist(payload)) {
+      return payload;
+    }
+
+    const fallbackPayload = {
+      ...payload,
+      messages: normalized.slice(-FALLBACK_STORED_MESSAGES),
+    };
+
+    if (persist(fallbackPayload)) {
+      return fallbackPayload;
+    }
+
+    localStorage.removeItem(CHAT_SESSION_KEY);
+    return null;
   } catch (error) {
-    console.error('Failed to save chat session:', error);
+    console.error('Unexpected error while saving chat session:', error);
     return null;
   }
 }
@@ -66,7 +117,8 @@ export default function useChatSession(initialMessages) {
     if (restored) return restored;
 
     const seeded = {
-      messages: normalizeMessages(initialMessages),
+      schemaVersion: CHAT_SESSION_SCHEMA_VERSION,
+      messages: boundedMessages(initialMessages),
       lastUpdatedAt: now(),
       expiresAt: now() + TTL_MS,
     };
@@ -82,7 +134,8 @@ export default function useChatSession(initialMessages) {
     setSessionState((prev) => {
       const nextMessages = typeof updater === 'function' ? updater(prev.messages) : updater;
       return {
-        messages: normalizeMessages(nextMessages),
+        schemaVersion: CHAT_SESSION_SCHEMA_VERSION,
+        messages: boundedMessages(nextMessages),
         lastUpdatedAt: now(),
         expiresAt: now() + TTL_MS,
       };
@@ -91,7 +144,8 @@ export default function useChatSession(initialMessages) {
 
   const clearSession = useCallback((seedMessages = []) => {
     const next = {
-      messages: normalizeMessages(seedMessages),
+      schemaVersion: CHAT_SESSION_SCHEMA_VERSION,
+      messages: boundedMessages(seedMessages),
       lastUpdatedAt: now(),
       expiresAt: now() + TTL_MS,
     };
