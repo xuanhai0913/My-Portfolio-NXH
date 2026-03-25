@@ -65,17 +65,26 @@ export const PROFILE_CONTEXT = {
 export const WELCOME_MESSAGE =
   'Welcome to Nguyen Xuan Hai portfolio. You can ask me about CV, projects, experience, certifications, or contact links.';
 
-export function buildPortfolioSystemPrompt(preferredLanguage = 'en') {
+export function buildPortfolioSystemPrompt(preferredLanguage = 'en', hasJobDescription = false) {
   const languageRule = preferredLanguage === 'vi'
     ? 'Always reply in Vietnamese unless the user explicitly asks to switch language.'
     : 'Always reply in English unless the user explicitly asks to switch language.';
+
+  const jdRule = hasJobDescription
+    ? 'A recruiter provided a Job Description. If asked about fit, evaluate candidly with: strong matches, partial matches, gaps, and a short recommendation.'
+    : 'If user asks about job fit and no Job Description is provided, ask them to upload or paste JD first.';
 
   return [
     'You are a portfolio assistant for Nguyen Xuan Hai, a Fullstack Developer.',
     'Use only provided portfolio context and avoid making up facts.',
     languageRule,
     'Prefer concise, recruiter-friendly answers with bullet points when useful.',
+    'Use natural sentence case and professional tone. Avoid all-caps formatting.',
+    jdRule,
     'When user asks for CV, social links, projects, experience, or certifications, provide direct and actionable answers.',
+    'Return STRICT JSON only (no markdown, no code fence) with this schema:',
+    '{"answer":"string","highlights":["string"],"links":[{"label":"string","url":"https://..."}],"fitSummary":{"matchLevel":"strong|medium|low|unknown","strongMatches":["string"],"gaps":["string"],"recommendation":"string"}}',
+    'If any field is not applicable, return an empty array or null for that field.',
     `Context JSON: ${JSON.stringify(PROFILE_CONTEXT)}`,
   ].join('\n');
 }

@@ -177,6 +177,28 @@
   gap: 7px;
 }
 
+.chat-rich-card ul {
+  list-style: disc;
+  margin: 0;
+  padding-left: 18px;
+}
+
+.chat-rich-card li {
+  margin: 2px 0;
+}
+
+.chat-fit-summary {
+  margin-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 8px;
+}
+
+.chat-fit-summary p {
+  margin: 6px 0;
+  font-size: 0.78rem;
+  color: var(--text-primary);
+}
+
 .chat-item-title {
   font-weight: 600;
 }
@@ -200,6 +222,54 @@
   flex-direction: column;
   gap: 8px;
   background: rgba(0, 0, 0, 0.7);
+}
+
+.chat-context-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chat-context-btn {
+  border: 1px solid rgba(212, 255, 0, 0.45);
+  background: rgba(212, 255, 0, 0.08);
+  color: var(--color-accent);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 0.7rem;
+  cursor: pointer;
+}
+
+.chat-jd-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  padding: 4px 9px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.chat-jd-pill span {
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.7rem;
+  color: var(--text-primary);
+}
+
+.chat-jd-pill button {
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 0.72rem;
+}
+
+.chat-file-input {
+  display: none;
 }
 
 .chat-language-gate {
@@ -333,5 +403,13 @@
 
   .chat-message {
     max-width: 95%;
+  }
+
+  .chat-context-row {
+    flex-wrap: wrap;
+  }
+
+  .chat-jd-pill span {
+    max-width: 130px;
   }
 }

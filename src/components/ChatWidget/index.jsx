@@ -16,6 +16,7 @@ import './ChatWidget.css';
 const MAX_CONTEXT_MESSAGES = 16;
 const CHAT_LANGUAGE_KEY = 'nxh_chat_language_v1';
 const CHAT_INTRO_DISMISSED_KEY = 'nxh_chat_intro_dismissed_v1';
+const SUPPORTED_TEXT_TYPES = new Set(['text/plain', 'text/markdown', 'application/json']);
 
 function createMessage(role, content, extra = {}) {
   return {
@@ -30,6 +31,62 @@ function createMessage(role, content, extra = {}) {
 
 function ActionCard({ action }) {
   if (!action) return null;
+
+  if (action.type === 'rich') {
+    return (
+      <div className="chat-action-card chat-rich-card">
+        {Array.isArray(action.highlights) && action.highlights.length > 0 ? (
+          <ul>
+            {action.highlights.map((item, index) => (
+              <li key={`highlight-${index}`}>{item}</li>
+            ))}
+          </ul>
+        ) : null}
+
+        {Array.isArray(action.links) && action.links.length > 0 ? (
+          <div className="chat-action-list">
+            {action.links.map((item, index) => (
+              <a key={`${item.url}-${index}`} href={item.url} target="_blank" rel="noopener noreferrer">
+                {item.label}
+              </a>
+            ))}
+          </div>
+        ) : null}
+
+        {action.fitSummary ? (
+          <div className="chat-fit-summary">
+            <p><strong>Match:</strong> {action.fitSummary.matchLevel || 'unknown'}</p>
+
+            {Array.isArray(action.fitSummary.strongMatches) && action.fitSummary.strongMatches.length > 0 ? (
+              <>
+                <p><strong>Strong matches</strong></p>
+                <ul>
+                  {action.fitSummary.strongMatches.map((item, index) => (
+                    <li key={`strong-${index}`}>{item}</li>
+                  ))}
+                </ul>
+              </>
+            ) : null}
+
+            {Array.isArray(action.fitSummary.gaps) && action.fitSummary.gaps.length > 0 ? (
+              <>
+                <p><strong>Gaps</strong></p>
+                <ul>
+                  {action.fitSummary.gaps.map((item, index) => (
+                    <li key={`gap-${index}`}>{item}</li>
+                  ))}
+                </ul>
+              </>
+            ) : null}
+
+            {action.fitSummary.recommendation ? (
+              <p><strong>Recommendation:</strong> {action.fitSummary.recommendation}</p>
+            ) : null}
+          </div>
+        ) : null}
+      </div>
+    );
+  }
 
   if (action.type === 'cv') {
     return (
@@ -95,8 +152,11 @@ const ChatWidget = () => {
   const [lastModelUsed, setLastModelUsed] = useState(null);
   const [preferredLanguage, setPreferredLanguage] = useState(() => localStorage.getItem(CHAT_LANGUAGE_KEY) || '');
   const [showIntroSpotlight, setShowIntroSpotlight] = useState(() => !sessionStorage.getItem(CHAT_INTRO_DISMISSED_KEY));
+  const [jobDescription, setJobDescription] = useState('');
+  const [jobDescriptionFile, setJobDescriptionFile] = useState('');
   const chatBodyRef = useRef(null);
   const inputRef = useRef(null);
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     if (!showIntroSpotlight) return;
@@ -122,18 +182,9 @@ const ChatWidget = () => {
     chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
   }, [messages, loading, open]);
 
-  const lastIntent = useMemo(() => {
-    for (let i = messages.length - 1; i >= 0; i -= 1) {
-      const text = messages[i]?.content || '';
-      const intent = detectIntent(text);
-      if (intent) return intent;
-    }
-    return null;
-  }, [messages]);
-
   const language = preferredLanguage || 'en';
 
-  const suggestions = useMemo(() => suggestionsByIntent(lastIntent, language), [lastIntent, language]);
+  const suggestions = useMemo(() => suggestionsByIntent(language), [language]);
 
   const handleClear = () => {
     clearSession(initialMessages);
@@ -149,9 +200,60 @@ const ChatWidget = () => {
   const handleSelectLanguage = (lang) => {
     setPreferredLanguage(lang);
     appendMessage(createMessage('assistant', lang === 'vi'
-      ? 'Da chon tieng Viet. Ban co the hoi ve CV, du an, kinh nghiem hoac lien he.'
+      ? 'Đã chọn tiếng Việt. Bạn có thể hỏi về CV, dự án, kinh nghiệm hoặc liên hệ.'
       : 'English selected. You can ask about CV, projects, experience, or contact links.',
     { modelUsed: 'local-onboarding' }));
+  };
+
+  const handleJDUploadClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const appendSystemNotice = (text) => {
+    appendMessage(createMessage('assistant', text, { modelUsed: 'local-system' }));
+  };
+
+  const handleJDFileChange = async (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const isTextByType = SUPPORTED_TEXT_TYPES.has(file.type);
+    const isTextByExtension = /\.(txt|md|json)$/i.test(file.name);
+
+    if (!isTextByType && !isTextByExtension) {
+      appendSystemNotice(
+        language === 'vi'
+          ? 'Hiện tại chỉ hỗ trợ đọc file JD dạng text (.txt, .md). Bạn có thể dán nội dung JD trực tiếp vào chat.'
+          : 'Currently only text JD files (.txt, .md) are supported. Please paste JD content directly in chat.'
+      );
+      event.target.value = '';
+      return;
+    }
+
+    try {
+      const content = await file.text();
+      const normalized = content.trim().slice(0, 7000);
+      if (!normalized) {
+        appendSystemNotice(language === 'vi' ? 'File JD trong.' : 'The uploaded JD file is empty.');
+      } else {
+        setJobDescription(normalized);
+        setJobDescriptionFile(file.name);
+        appendSystemNotice(
+          language === 'vi'
+            ? `Đã nạp JD: ${file.name}. Bây giờ bạn có thể hỏi độ phù hợp với vị trí.`
+            : `JD loaded: ${file.name}. You can now ask about role fit.`
+        );
+      }
+    } catch (error) {
+      appendSystemNotice(language === 'vi' ? 'Không thể đọc file JD.' : 'Unable to read the JD file.');
+    }
+
+    event.target.value = '';
+  };
+
+  const clearJDContext = () => {
+    setJobDescription('');
+    setJobDescriptionFile('');
   };
 
   const appendMessage = (msg) => {
@@ -172,7 +274,8 @@ const ChatWidget = () => {
         message: text,
         history: requestMessages,
         profileContext: PROFILE_CONTEXT,
-        systemPrompt: buildPortfolioSystemPrompt(language),
+        systemPrompt: buildPortfolioSystemPrompt(language, Boolean(jobDescription)),
+        jobDescription,
       }),
     });
 
@@ -189,6 +292,12 @@ const ChatWidget = () => {
     return {
       content: payload.responseText || 'The assistant returned an empty response. Please try asking again.',
       modelUsed: payload.modelUsed,
+      action: payload.structuredResponse
+        ? {
+          type: 'rich',
+          ...payload.structuredResponse,
+        }
+        : null,
     };
   };
 
@@ -213,7 +322,10 @@ const ChatWidget = () => {
     try {
       const modelReply = await sendToModel(trimmed);
       setLastModelUsed(modelReply.modelUsed || null);
-      appendMessage(createMessage('assistant', modelReply.content, { modelUsed: modelReply.modelUsed }));
+      appendMessage(createMessage('assistant', modelReply.content, {
+        modelUsed: modelReply.modelUsed,
+        action: modelReply.action,
+      }));
     } catch (error) {
       appendMessage(
         createMessage(
@@ -282,15 +394,34 @@ const ChatWidget = () => {
 
         {!preferredLanguage ? (
           <div className="chat-language-gate">
-            <p>Choose your chat language / Chon ngon ngu tro chuyen</p>
+            <p>Choose your chat language / Chọn ngôn ngữ trò chuyện</p>
             <div className="chat-language-actions">
-              <button type="button" onClick={() => handleSelectLanguage('vi')}>Tieng Viet</button>
+              <button type="button" onClick={() => handleSelectLanguage('vi')}>Tiếng Việt</button>
               <button type="button" onClick={() => handleSelectLanguage('en')}>English</button>
             </div>
           </div>
         ) : null}
 
         <div className="chat-input-wrap">
+          <div className="chat-context-row">
+            <button type="button" className="chat-context-btn" onClick={handleJDUploadClick}>
+              {language === 'vi' ? 'Tải JD (.txt/.md)' : 'Upload JD (.txt/.md)'}
+            </button>
+            {jobDescription ? (
+              <div className="chat-jd-pill" role="status" aria-live="polite">
+                <span>{jobDescriptionFile || (language === 'vi' ? 'JD đã nạp' : 'JD loaded')}</span>
+                <button type="button" onClick={clearJDContext}>x</button>
+              </div>
+            ) : null}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept=".txt,.md,.json"
+              onChange={handleJDFileChange}
+              className="chat-file-input"
+            />
+          </div>
+
           <div className="chat-suggestions" aria-label="Suggested follow-up questions">
             {suggestions.map((item) => (
               <button key={item} type="button" onClick={() => handleSend(item)}>
@@ -311,7 +442,7 @@ const ChatWidget = () => {
               type="text"
               value={input}
               onChange={(event) => setInput(event.target.value)}
-              placeholder={language === 'vi' ? 'Dat cau hoi cho Nguyen Xuan Hai...' : 'Ask about Nguyen Xuan Hai...'}
+              placeholder={language === 'vi' ? 'Đặt câu hỏi cho Nguyễn Xuân Hải...' : 'Ask about Nguyen Xuan Hai...'}
               maxLength={600}
               disabled={!preferredLanguage}
             />

@@ -33,11 +33,16 @@ function sanitizeHistory(history) {
     }));
 }
 
-function buildUserMessage(systemPrompt, profileContext, userMessage) {
+function buildUserMessage(systemPrompt, profileContext, userMessage, jobDescription) {
   const contextBlock = JSON.stringify(profileContext || {});
+  const jdBlock = typeof jobDescription === 'string' && jobDescription.trim()
+    ? `Job Description: ${jobDescription.trim().slice(0, 6000)}`
+    : 'Job Description: (not provided)';
+
   return [
     systemPrompt || '',
     `Context: ${contextBlock}`,
+    jdBlock,
     `User question: ${userMessage}`,
   ].join('\n\n');
 }
@@ -71,6 +76,83 @@ function extractText(data) {
     .trim();
 }
 
+function stripMarkdownNoise(text) {
+  if (!text) return '';
+  return text
+    .replace(/```json|```/gi, '')
+    .replace(/\*\*/g, '')
+    .replace(/__([^_]+)__/g, '$1')
+    .replace(/^#{1,6}\s*/gm, '')
+    .trim();
+}
+
+function tryParseJson(text) {
+  if (!text || typeof text !== 'string') return null;
+
+  const cleaned = text.trim();
+  try {
+    return JSON.parse(cleaned);
+  } catch (error) {
+    // Continue with fallback extraction.
+  }
+
+  const match = cleaned.match(/\{[\s\S]*\}/);
+  if (!match) return null;
+
+  try {
+    return JSON.parse(match[0]);
+  } catch (error) {
+    return null;
+  }
+}
+
+function normalizeStructuredResponse(parsed) {
+  if (!parsed || typeof parsed !== 'object') return null;
+
+  const answer = typeof parsed.answer === 'string' ? parsed.answer.trim() : '';
+  const highlights = Array.isArray(parsed.highlights)
+    ? parsed.highlights.filter((item) => typeof item === 'string' && item.trim())
+    : [];
+
+  const links = Array.isArray(parsed.links)
+    ? parsed.links
+      .filter((item) => item && typeof item === 'object')
+      .map((item) => ({
+        label: typeof item.label === 'string' ? item.label.trim() : 'Link',
+        url: typeof item.url === 'string' ? item.url.trim() : '',
+      }))
+      .filter((item) => /^https?:\/\//i.test(item.url))
+    : [];
+
+  const fitSummary = parsed.fitSummary && typeof parsed.fitSummary === 'object'
+    ? {
+      matchLevel: typeof parsed.fitSummary.matchLevel === 'string'
+        ? parsed.fitSummary.matchLevel
+        : 'unknown',
+      strongMatches: Array.isArray(parsed.fitSummary.strongMatches)
+        ? parsed.fitSummary.strongMatches.filter((item) => typeof item === 'string' && item.trim())
+        : [],
+      gaps: Array.isArray(parsed.fitSummary.gaps)
+        ? parsed.fitSummary.gaps.filter((item) => typeof item === 'string' && item.trim())
+        : [],
+      recommendation: typeof parsed.fitSummary.recommendation === 'string'
+        ? parsed.fitSummary.recommendation.trim()
+        : '',
+    }
+    : null;
+
+  if (!answer && highlights.length === 0 && links.length === 0 && !fitSummary) {
+    return null;
+  }
+
+  return {
+    answer,
+    highlights,
+    links,
+    fitSummary,
+  };
+}
+
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', process.env.GEMINI_ALLOWED_ORIGIN || '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -98,7 +180,7 @@ module.exports = async (req, res) => {
     });
   }
 
-  const { message, history, profileContext, systemPrompt } = req.body || {};
+  const { message, history, profileContext, systemPrompt, jobDescription } = req.body || {};
 
   if (!message || typeof message !== 'string') {
     return res.status(400).json({
@@ -118,7 +200,7 @@ module.exports = async (req, res) => {
         role: 'user',
         parts: [
           {
-            text: buildUserMessage(systemPrompt, profileContext, message.slice(0, 2000)),
+            text: buildUserMessage(systemPrompt, profileContext, message.slice(0, 2000), jobDescription),
           },
         ],
       },
@@ -127,6 +209,7 @@ module.exports = async (req, res) => {
       temperature: 0.65,
       maxOutputTokens: 1024,
       topP: 0.9,
+      responseMimeType: 'application/json',
     },
   };
 
@@ -137,13 +220,18 @@ module.exports = async (req, res) => {
     try {
       const result = await callGeminiModel(model, apiKey, payload);
       const responseText = extractText(result.data);
+      const parsed = tryParseJson(responseText);
+      const structuredResponse = normalizeStructuredResponse(parsed);
+      const fallbackText = stripMarkdownNoise(responseText);
+      const safeText = structuredResponse?.answer || fallbackText;
 
-      if (result.ok && responseText) {
+      if (result.ok && safeText) {
         return res.status(200).json({
           success: true,
           modelUsed: model,
           fallbackTried: triedModels.length - 1,
-          responseText,
+          responseText: safeText,
+          structuredResponse,
         });
       }
 
