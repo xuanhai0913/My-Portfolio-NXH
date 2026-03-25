@@ -32,6 +32,72 @@ function createMessage(role, content, extra = {}) {
   };
 }
 
+function getCaseInsensitiveField(obj, fieldName) {
+  if (!obj || typeof obj !== 'object') return undefined;
+  const target = String(fieldName || '').toLowerCase();
+  const key = Object.keys(obj).find((item) => item.toLowerCase() === target);
+  return key ? obj[key] : undefined;
+}
+
+function parseJsonLikeAssistantContent(content) {
+  if (!content || typeof content !== 'string') return null;
+  const trimmed = content.trim();
+  if (!trimmed.startsWith('{')) return null;
+
+  let parsed = null;
+  try {
+    parsed = JSON.parse(trimmed);
+  } catch (error) {
+    const answerMatch = trimmed.match(/"(?:answer|ANSWER|Answer)"\s*:\s*"([\s\S]*?)"\s*,/);
+    const highlightsMatch = trimmed.match(/"(?:highlights|HIGHLIGHTS|Highlights)"\s*:\s*\[([\s\S]*?)\]/m);
+    const fallbackHighlights = [];
+
+    if (highlightsMatch?.[1]) {
+      const itemRegex = /"([^"]+)"/g;
+      let m;
+      while ((m = itemRegex.exec(highlightsMatch[1])) !== null) {
+        fallbackHighlights.push(m[1]);
+      }
+    }
+
+    const answer = answerMatch?.[1]?.trim();
+    if (!answer && fallbackHighlights.length === 0) return null;
+
+    return {
+      displayText: answer || 'Structured response parsed from fallback.',
+      action: {
+        type: 'rich',
+        answer: answer || '',
+        highlights: fallbackHighlights,
+        links: [],
+        fitSummary: null,
+        suggestions: [],
+      },
+    };
+  }
+
+  const answer = getCaseInsensitiveField(parsed, 'answer');
+  const highlights = getCaseInsensitiveField(parsed, 'highlights');
+  const links = getCaseInsensitiveField(parsed, 'links');
+  const fitSummary = getCaseInsensitiveField(parsed, 'fitSummary');
+
+  if (!answer && !Array.isArray(highlights) && !Array.isArray(links) && !fitSummary) {
+    return null;
+  }
+
+  return {
+    displayText: typeof answer === 'string' ? answer : 'Structured response',
+    action: {
+      type: 'rich',
+      answer: typeof answer === 'string' ? answer : '',
+      highlights: Array.isArray(highlights) ? highlights : [],
+      links: Array.isArray(links) ? links : [],
+      fitSummary: fitSummary && typeof fitSummary === 'object' ? fitSummary : null,
+      suggestions: [],
+    },
+  };
+}
+
 function ActionCard({ action }) {
   if (!action) return null;
 
@@ -573,12 +639,21 @@ const ChatWidget = ({ mode = 'floating' }) => {
         </header>
 
         <div className="chat-body" role="log" aria-live="polite" ref={chatBodyRef}>
-          {messages.map((message) => (
-            <article key={message.id} className={`chat-message ${message.role}`}>
-              <p>{message.content}</p>
-              {message.action ? <ActionCard action={message.action} /> : null}
-            </article>
-          ))}
+          {messages.map((message) => {
+            const parsedAssistantContent = message.role === 'assistant' && !message.action
+              ? parseJsonLikeAssistantContent(message.content)
+              : null;
+
+            const displayText = parsedAssistantContent?.displayText || message.content;
+            const displayAction = message.action || parsedAssistantContent?.action || null;
+
+            return (
+              <article key={message.id} className={`chat-message ${message.role}`}>
+                <p>{displayText}</p>
+                {displayAction ? <ActionCard action={displayAction} /> : null}
+              </article>
+            );
+          })}
 
           {loading ? (
             <article className="chat-message assistant">
