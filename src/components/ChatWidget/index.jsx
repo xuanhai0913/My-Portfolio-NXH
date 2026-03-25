@@ -230,9 +230,11 @@ const ChatWidget = ({ mode = 'floating' }) => {
   const [jobDescriptionFile, setJobDescriptionFile] = useState('');
   const [aiSuggestions, setAiSuggestions] = useState([]);
   const [responseStyle, setResponseStyle] = useState(() => localStorage.getItem(CHAT_RESPONSE_STYLE_KEY) || 'brief');
+  const [toast, setToast] = useState(null);
   const chatBodyRef = useRef(null);
   const inputRef = useRef(null);
   const fileInputRef = useRef(null);
+  const toastTimeoutRef = useRef(null);
 
   useEffect(() => {
     if (!showIntroSpotlight) return;
@@ -274,6 +276,12 @@ const ChatWidget = ({ mode = 'floating' }) => {
     if (!open || !chatBodyRef.current) return;
     chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
   }, [messages, loading, open]);
+
+  useEffect(() => () => {
+    if (toastTimeoutRef.current) {
+      clearTimeout(toastTimeoutRef.current);
+    }
+  }, []);
 
   const language = preferredLanguage || 'en';
 
@@ -326,7 +334,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
 
   const handleChangeResponseStyle = (nextStyle) => {
     setResponseStyle(nextStyle);
-    appendSystemNotice(
+    showToast(
       language === 'vi'
         ? `Đã chuyển style trả lời: ${nextStyle}.`
         : `Response style switched to: ${nextStyle}.`
@@ -345,10 +353,6 @@ const ChatWidget = ({ mode = 'floating' }) => {
     fileInputRef.current?.click();
   };
 
-  const appendSystemNotice = (text) => {
-    appendMessage(createMessage('assistant', text, { modelUsed: 'local-system' }));
-  };
-
   const handleJDFileChange = async (event) => {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -357,10 +361,11 @@ const ChatWidget = ({ mode = 'floating' }) => {
     const isTextByExtension = /\.(txt|md|json)$/i.test(file.name);
 
     if (!isTextByType && !isTextByExtension) {
-      appendSystemNotice(
+      showToast(
         language === 'vi'
           ? 'Hiện tại chỉ hỗ trợ đọc file JD dạng text (.txt, .md). Bạn có thể dán nội dung JD trực tiếp vào chat.'
-          : 'Currently only text JD files (.txt, .md) are supported. Please paste JD content directly in chat.'
+          : 'Currently only text JD files (.txt, .md) are supported. Please paste JD content directly in chat.',
+        'error'
       );
       event.target.value = '';
       return;
@@ -370,18 +375,18 @@ const ChatWidget = ({ mode = 'floating' }) => {
       const content = await file.text();
       const normalized = content.trim().slice(0, 7000);
       if (!normalized) {
-        appendSystemNotice(language === 'vi' ? 'File JD trong.' : 'The uploaded JD file is empty.');
+        showToast(language === 'vi' ? 'File JD trống.' : 'The uploaded JD file is empty.', 'error');
       } else {
         setJobDescription(normalized);
         setJobDescriptionFile(file.name);
-        appendSystemNotice(
+        showToast(
           language === 'vi'
             ? `Đã nạp JD: ${file.name}. Bây giờ bạn có thể hỏi độ phù hợp với vị trí.`
             : `JD loaded: ${file.name}. You can now ask about role fit.`
         );
       }
     } catch (error) {
-      appendSystemNotice(language === 'vi' ? 'Không thể đọc file JD.' : 'Unable to read the JD file.');
+      showToast(language === 'vi' ? 'Không thể đọc file JD.' : 'Unable to read the JD file.', 'error');
     }
 
     event.target.value = '';
@@ -390,10 +395,28 @@ const ChatWidget = ({ mode = 'floating' }) => {
   const clearJDContext = () => {
     setJobDescription('');
     setJobDescriptionFile('');
+    showToast(language === 'vi' ? 'Đã xoá ngữ cảnh JD.' : 'JD context removed.');
   };
 
   const appendMessage = (msg) => {
     setMessages((prev) => [...prev, msg]);
+  };
+
+  const showToast = (text, type = 'info') => {
+    if (!text) return;
+    setToast({
+      id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+      text,
+      type,
+    });
+
+    if (toastTimeoutRef.current) {
+      clearTimeout(toastTimeoutRef.current);
+    }
+
+    toastTimeoutRef.current = setTimeout(() => {
+      setToast(null);
+    }, 2600);
   };
 
   const sendToModel = async (text, baseMessages = messages) => {
@@ -494,12 +517,12 @@ const ChatWidget = ({ mode = 'floating' }) => {
     try {
       if (navigator.clipboard?.writeText) {
         await navigator.clipboard.writeText(transcript);
-        appendSystemNotice(language === 'vi' ? 'Đã sao chép transcript.' : 'Transcript copied.');
+        showToast(language === 'vi' ? 'Đã sao chép transcript.' : 'Transcript copied.');
       } else {
-        appendSystemNotice(language === 'vi' ? 'Trình duyệt không hỗ trợ clipboard API.' : 'Clipboard API is not available.');
+        showToast(language === 'vi' ? 'Trình duyệt không hỗ trợ clipboard API.' : 'Clipboard API is not available.', 'error');
       }
     } catch (error) {
-      appendSystemNotice(language === 'vi' ? 'Không thể sao chép transcript.' : 'Unable to copy transcript.');
+      showToast(language === 'vi' ? 'Không thể sao chép transcript.' : 'Unable to copy transcript.', 'error');
     }
   };
 
@@ -515,6 +538,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
+    showToast(language === 'vi' ? 'Đã xuất file TXT.' : 'TXT export completed.');
   };
 
   const handleExportTranscriptPdf = () => {
@@ -526,7 +550,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
 
     const printWindow = window.open('', '_blank', 'noopener,noreferrer,width=900,height=700');
     if (!printWindow) {
-      appendSystemNotice(language === 'vi' ? 'Không thể mở cửa sổ in PDF.' : 'Unable to open print window for PDF.');
+      showToast(language === 'vi' ? 'Không thể mở cửa sổ in PDF.' : 'Unable to open print window for PDF.', 'error');
       return;
     }
 
@@ -549,6 +573,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
     printWindow.document.close();
     printWindow.focus();
     printWindow.print();
+    showToast(language === 'vi' ? 'Đã mở hộp thoại in PDF.' : 'PDF print dialog opened.');
   };
 
   const handleRegenerateLastAnswer = async () => {
@@ -556,7 +581,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
 
     const lastUserIndex = [...messages].map((item) => item.role).lastIndexOf('user');
     if (lastUserIndex === -1) {
-      appendSystemNotice(language === 'vi' ? 'Chưa có câu hỏi để tạo lại câu trả lời.' : 'No user question to regenerate from.');
+      showToast(language === 'vi' ? 'Chưa có câu hỏi để tạo lại câu trả lời.' : 'No user question to regenerate from.', 'error');
       return;
     }
 
@@ -614,6 +639,12 @@ const ChatWidget = ({ mode = 'floating' }) => {
       ) : null}
 
       <section className={`chat-panel ${open ? 'open' : ''} ${isFullscreen ? 'fullscreen' : ''} ${isStandalonePage ? 'page-mode' : ''}`} aria-hidden={!open}>
+        {toast ? (
+          <div className={`chat-toast ${toast.type === 'error' ? 'error' : ''}`} role="status" aria-live="polite">
+            {toast.text}
+          </div>
+        ) : null}
+
         <header className="chat-header">
           <div>
             <h3>Portfolio Assistant</h3>

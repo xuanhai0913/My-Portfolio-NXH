@@ -93,6 +93,29 @@
   z-index: 4;
 }
 
+.chat-toast {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  background: rgba(15, 18, 6, 0.94);
+  border: 1px solid rgba(212, 255, 0, 0.45);
+  color: #f7f9e8;
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-size: 0.72rem;
+  line-height: 1.2;
+  max-width: min(88%, 440px);
+  text-align: center;
+  animation: toastAppear 0.18s ease-out;
+}
+
+.chat-toast.error {
+  border-color: rgba(255, 93, 93, 0.6);
+  background: rgba(34, 8, 8, 0.96);
+}
+
 .chat-header {
   display: flex;
   align-items: flex-start;
@@ -385,6 +408,17 @@
   }
   50% {
     box-shadow: 0 12px 34px rgba(212, 255, 0, 0.24);
+  }
+}
+
+@keyframes toastAppear {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
   }
 }
 
