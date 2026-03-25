@@ -71,6 +71,14 @@ function parseJsonLikeAssistantContent(content) {
         answer: answer || '',
         highlights: fallbackHighlights,
         links: [],
+        quickFacts: [],
+        insights: [],
+        timeline: [],
+        skillsMatrix: [],
+        hrSummary: null,
+        riskFlags: [],
+        interviewQuestions: [],
+        nextActions: [],
         fitSummary: null,
         suggestions: [],
       },
@@ -80,9 +88,30 @@ function parseJsonLikeAssistantContent(content) {
   const answer = getCaseInsensitiveField(parsed, 'answer');
   const highlights = getCaseInsensitiveField(parsed, 'highlights');
   const links = getCaseInsensitiveField(parsed, 'links');
+  const quickFacts = getCaseInsensitiveField(parsed, 'quickFacts');
+  const insights = getCaseInsensitiveField(parsed, 'insights');
+  const timeline = getCaseInsensitiveField(parsed, 'timeline');
+  const skillsMatrix = getCaseInsensitiveField(parsed, 'skillsMatrix');
+  const hrSummary = getCaseInsensitiveField(parsed, 'hrSummary');
+  const riskFlags = getCaseInsensitiveField(parsed, 'riskFlags');
+  const interviewQuestions = getCaseInsensitiveField(parsed, 'interviewQuestions');
+  const nextActions = getCaseInsensitiveField(parsed, 'nextActions');
   const fitSummary = getCaseInsensitiveField(parsed, 'fitSummary');
 
-  if (!answer && !Array.isArray(highlights) && !Array.isArray(links) && !fitSummary) {
+  if (
+    !answer
+    && !Array.isArray(highlights)
+    && !Array.isArray(links)
+    && !Array.isArray(quickFacts)
+    && !Array.isArray(insights)
+    && !Array.isArray(timeline)
+    && !Array.isArray(skillsMatrix)
+    && !hrSummary
+    && !Array.isArray(riskFlags)
+    && !Array.isArray(interviewQuestions)
+    && !Array.isArray(nextActions)
+    && !fitSummary
+  ) {
     return null;
   }
 
@@ -93,24 +122,135 @@ function parseJsonLikeAssistantContent(content) {
       answer: typeof answer === 'string' ? answer : '',
       highlights: Array.isArray(highlights) ? highlights : [],
       links: Array.isArray(links) ? links : [],
+      quickFacts: Array.isArray(quickFacts) ? quickFacts : [],
+      insights: Array.isArray(insights) ? insights : [],
+      timeline: Array.isArray(timeline) ? timeline : [],
+      skillsMatrix: Array.isArray(skillsMatrix) ? skillsMatrix : [],
+      hrSummary: hrSummary && typeof hrSummary === 'object' ? hrSummary : null,
+      riskFlags: Array.isArray(riskFlags) ? riskFlags : [],
+      interviewQuestions: Array.isArray(interviewQuestions) ? interviewQuestions : [],
+      nextActions: Array.isArray(nextActions) ? nextActions : [],
       fitSummary: fitSummary && typeof fitSummary === 'object' ? fitSummary : null,
       suggestions: [],
     },
   };
 }
 
-function ActionCard({ action }) {
+function ActionCard({ action, onRunNextAction, onAskInterviewQuestion }) {
   if (!action) return null;
 
   if (action.type === 'rich') {
+    const hasQuickFacts = Array.isArray(action.quickFacts) && action.quickFacts.length > 0;
+    const hasInsights = Array.isArray(action.insights) && action.insights.length > 0;
+    const hasTimeline = Array.isArray(action.timeline) && action.timeline.length > 0;
+    const hasSkillsMatrix = Array.isArray(action.skillsMatrix) && action.skillsMatrix.length > 0;
+    const hasRiskFlags = Array.isArray(action.riskFlags) && action.riskFlags.length > 0;
+    const hasInterviewQuestions = Array.isArray(action.interviewQuestions) && action.interviewQuestions.length > 0;
+    const hasNextActions = Array.isArray(action.nextActions) && action.nextActions.length > 0;
+
     return (
       <div className="chat-action-card chat-rich-card">
+        {hasQuickFacts ? (
+          <div className="chat-facts-grid">
+            {action.quickFacts.map((item, index) => (
+              <div key={`fact-${index}`} className="chat-fact-item">
+                <span>{item.label}</span>
+                <strong>{item.value}</strong>
+              </div>
+            ))}
+          </div>
+        ) : null}
+
         {Array.isArray(action.highlights) && action.highlights.length > 0 ? (
           <ul>
             {action.highlights.map((item, index) => (
               <li key={`highlight-${index}`}>{item}</li>
             ))}
           </ul>
+        ) : null}
+
+        {hasInsights ? (
+          <div className="chat-insights-list">
+            {action.insights.map((item, index) => (
+              <article key={`insight-${index}`} className={`chat-insight-item priority-${item.priority || 'medium'}`}>
+                {item.title ? <h5>{item.title}</h5> : null}
+                {item.detail ? <p>{item.detail}</p> : null}
+              </article>
+            ))}
+          </div>
+        ) : null}
+
+        {hasTimeline ? (
+          <div className="chat-timeline">
+            {action.timeline.map((item, index) => (
+              <div key={`timeline-${index}`} className="chat-timeline-item">
+                <strong>{item.phase || `Step ${index + 1}`}</strong>
+                <span>{item.detail}</span>
+              </div>
+            ))}
+          </div>
+        ) : null}
+
+        {hasSkillsMatrix ? (
+          <div className="chat-skills-matrix">
+            {action.skillsMatrix.map((item, index) => (
+              <div key={`skill-${index}`} className="chat-skill-row">
+                <span className="chat-skill-name">{item.skill}</span>
+                <span className={`chat-skill-level level-${item.level || 'medium'}`}>{item.level || 'medium'}</span>
+                {item.evidence ? <small>{item.evidence}</small> : null}
+              </div>
+            ))}
+          </div>
+        ) : null}
+
+        {action.hrSummary ? (
+          <div className="chat-hr-summary">
+            {action.hrSummary.fit ? <p><strong>Fit:</strong> {action.hrSummary.fit}</p> : null}
+            {action.hrSummary.seniority ? <p><strong>Seniority:</strong> {action.hrSummary.seniority}</p> : null}
+            {action.hrSummary.noticePeriod ? <p><strong>Notice:</strong> {action.hrSummary.noticePeriod}</p> : null}
+            {action.hrSummary.salaryRange ? <p><strong>Salary:</strong> {action.hrSummary.salaryRange}</p> : null}
+            {action.hrSummary.workMode ? <p><strong>Work Mode:</strong> {action.hrSummary.workMode}</p> : null}
+          </div>
+        ) : null}
+
+        {hasRiskFlags ? (
+          <div className="chat-risk-flags">
+            {action.riskFlags.map((item, index) => (
+              <article key={`risk-${index}`} className={`chat-risk-item severity-${item.severity || 'medium'}`}>
+                <h6>{item.title || 'Risk'}</h6>
+                {item.detail ? <p>{item.detail}</p> : null}
+              </article>
+            ))}
+          </div>
+        ) : null}
+
+        {hasInterviewQuestions ? (
+          <div className="chat-interview-questions">
+            <p><strong>Interview Questions</strong></p>
+            <ol>
+              {action.interviewQuestions.map((item, index) => (
+                <li key={`question-${index}`}>
+                  <button type="button" onClick={() => onAskInterviewQuestion?.(item)}>{item}</button>
+                </li>
+              ))}
+            </ol>
+          </div>
+        ) : null}
+
+        {hasNextActions ? (
+          <div className="chat-next-actions">
+            {action.nextActions.map((item, index) => {
+              return (
+                <button
+                  key={`next-${index}`}
+                  type="button"
+                  onClick={() => onRunNextAction?.(item)}
+                >
+                  {item?.label || 'Action'}
+                </button>
+              );
+            })}
+          </div>
         ) : null}
 
         {Array.isArray(action.links) && action.links.length > 0 ? (
@@ -359,6 +499,59 @@ const ChatWidget = ({ mode = 'floating' }) => {
         ? `Đã chuyển style trả lời: ${nextStyle}.`
         : `Response style switched to: ${nextStyle}.`
     );
+  };
+
+  const handleRunStructuredAction = (item) => {
+    if (!item) return;
+    const actionId = typeof item.actionId === 'string' ? item.actionId.toLowerCase() : '';
+    const question = typeof item.question === 'string' ? item.question.trim() : '';
+    const url = typeof item.url === 'string' ? item.url.trim() : '';
+
+    if (actionId === 'open_cv') {
+      handleQuickCV();
+      return;
+    }
+
+    if (actionId === 'open_linkedin') {
+      handleQuickLinkedIn();
+      return;
+    }
+
+    if (actionId === 'send_email') {
+      handleQuickMail();
+      return;
+    }
+
+    if (actionId === 'open_assistant_tab') {
+      handleOpenInNewTab();
+      return;
+    }
+
+    if (actionId === 'ask_fit') {
+      if (question) {
+        handleSend(question);
+      } else {
+        handleSend(language === 'vi' ? 'Đánh giá mức độ phù hợp với JD hiện tại.' : 'Evaluate fit against the current job description.');
+      }
+      return;
+    }
+
+    if (question) {
+      handleSend(question);
+      return;
+    }
+
+    if (url) {
+      window.open(url, '_blank', 'noopener,noreferrer');
+      return;
+    }
+
+    showToast(language === 'vi' ? 'Không có hành động khả dụng cho mục này.' : 'No available action for this item.', 'error');
+  };
+
+  const handleAskInterviewQuestion = (question) => {
+    if (!question) return;
+    handleSend(question);
   };
 
   const handleSelectLanguage = (lang) => {
@@ -771,7 +964,13 @@ const ChatWidget = ({ mode = 'floating' }) => {
             return (
               <article key={message.id} className={`chat-message ${message.role}`}>
                 <p>{displayText}</p>
-                {displayAction ? <ActionCard action={displayAction} /> : null}
+                {displayAction ? (
+                  <ActionCard
+                    action={displayAction}
+                    onRunNextAction={handleRunStructuredAction}
+                    onAskInterviewQuestion={handleAskInterviewQuestion}
+                  />
+                ) : null}
               </article>
             );
           })}

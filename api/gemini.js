@@ -136,6 +136,14 @@ function extractStructuredFromJsonLikeText(text) {
     answer,
     highlights: rawHighlights,
     links: [],
+    quickFacts: [],
+    insights: [],
+    timeline: [],
+    skillsMatrix: [],
+    hrSummary: null,
+    riskFlags: [],
+    interviewQuestions: [],
+    nextActions: [],
     fitSummary: null,
     suggestions: [],
   };
@@ -147,6 +155,14 @@ function normalizeStructuredResponse(parsed) {
   const answerRaw = getFieldCaseInsensitive(parsed, 'answer');
   const highlightsRaw = getFieldCaseInsensitive(parsed, 'highlights');
   const linksRaw = getFieldCaseInsensitive(parsed, 'links');
+  const quickFactsRaw = getFieldCaseInsensitive(parsed, 'quickFacts');
+  const insightsRaw = getFieldCaseInsensitive(parsed, 'insights');
+  const timelineRaw = getFieldCaseInsensitive(parsed, 'timeline');
+  const skillsMatrixRaw = getFieldCaseInsensitive(parsed, 'skillsMatrix');
+  const hrSummaryRaw = getFieldCaseInsensitive(parsed, 'hrSummary');
+  const riskFlagsRaw = getFieldCaseInsensitive(parsed, 'riskFlags');
+  const interviewQuestionsRaw = getFieldCaseInsensitive(parsed, 'interviewQuestions');
+  const nextActionsRaw = getFieldCaseInsensitive(parsed, 'nextActions');
   const fitSummaryRaw = getFieldCaseInsensitive(parsed, 'fitSummary');
   const suggestionsRaw = getFieldCaseInsensitive(parsed, 'suggestions');
 
@@ -167,6 +183,138 @@ function normalizeStructuredResponse(parsed) {
           : '',
       }))
       .filter((item) => /^https?:\/\//i.test(item.url))
+    : [];
+
+  const quickFacts = Array.isArray(quickFactsRaw)
+    ? quickFactsRaw
+      .filter((item) => item && typeof item === 'object')
+      .map((item) => ({
+        label: typeof getFieldCaseInsensitive(item, 'label') === 'string'
+          ? getFieldCaseInsensitive(item, 'label').trim()
+          : '',
+        value: typeof getFieldCaseInsensitive(item, 'value') === 'string'
+          ? getFieldCaseInsensitive(item, 'value').trim()
+          : '',
+      }))
+      .filter((item) => item.label && item.value)
+      .slice(0, 8)
+    : [];
+
+  const insights = Array.isArray(insightsRaw)
+    ? insightsRaw
+      .filter((item) => item && typeof item === 'object')
+      .map((item) => ({
+        title: typeof getFieldCaseInsensitive(item, 'title') === 'string'
+          ? getFieldCaseInsensitive(item, 'title').trim()
+          : '',
+        detail: typeof getFieldCaseInsensitive(item, 'detail') === 'string'
+          ? getFieldCaseInsensitive(item, 'detail').trim()
+          : '',
+        priority: typeof getFieldCaseInsensitive(item, 'priority') === 'string'
+          ? getFieldCaseInsensitive(item, 'priority').trim().toLowerCase()
+          : 'medium',
+      }))
+      .filter((item) => item.title || item.detail)
+      .slice(0, 6)
+    : [];
+
+  const timeline = Array.isArray(timelineRaw)
+    ? timelineRaw
+      .filter((item) => item && typeof item === 'object')
+      .map((item) => ({
+        phase: typeof getFieldCaseInsensitive(item, 'phase') === 'string'
+          ? getFieldCaseInsensitive(item, 'phase').trim()
+          : '',
+        detail: typeof getFieldCaseInsensitive(item, 'detail') === 'string'
+          ? getFieldCaseInsensitive(item, 'detail').trim()
+          : '',
+      }))
+      .filter((item) => item.phase || item.detail)
+      .slice(0, 6)
+    : [];
+
+  const skillsMatrix = Array.isArray(skillsMatrixRaw)
+    ? skillsMatrixRaw
+      .filter((item) => item && typeof item === 'object')
+      .map((item) => ({
+        skill: typeof getFieldCaseInsensitive(item, 'skill') === 'string'
+          ? getFieldCaseInsensitive(item, 'skill').trim()
+          : '',
+        level: typeof getFieldCaseInsensitive(item, 'level') === 'string'
+          ? getFieldCaseInsensitive(item, 'level').trim().toLowerCase()
+          : 'medium',
+        evidence: typeof getFieldCaseInsensitive(item, 'evidence') === 'string'
+          ? getFieldCaseInsensitive(item, 'evidence').trim()
+          : '',
+      }))
+      .filter((item) => item.skill)
+      .slice(0, 8)
+    : [];
+
+  const hrSummary = hrSummaryRaw && typeof hrSummaryRaw === 'object'
+    ? {
+      fit: typeof getFieldCaseInsensitive(hrSummaryRaw, 'fit') === 'string'
+        ? getFieldCaseInsensitive(hrSummaryRaw, 'fit').trim()
+        : '',
+      seniority: typeof getFieldCaseInsensitive(hrSummaryRaw, 'seniority') === 'string'
+        ? getFieldCaseInsensitive(hrSummaryRaw, 'seniority').trim()
+        : '',
+      noticePeriod: typeof getFieldCaseInsensitive(hrSummaryRaw, 'noticePeriod') === 'string'
+        ? getFieldCaseInsensitive(hrSummaryRaw, 'noticePeriod').trim()
+        : '',
+      salaryRange: typeof getFieldCaseInsensitive(hrSummaryRaw, 'salaryRange') === 'string'
+        ? getFieldCaseInsensitive(hrSummaryRaw, 'salaryRange').trim()
+        : '',
+      workMode: typeof getFieldCaseInsensitive(hrSummaryRaw, 'workMode') === 'string'
+        ? getFieldCaseInsensitive(hrSummaryRaw, 'workMode').trim()
+        : '',
+    }
+    : null;
+
+  const riskFlags = Array.isArray(riskFlagsRaw)
+    ? riskFlagsRaw
+      .filter((item) => item && typeof item === 'object')
+      .map((item) => ({
+        title: typeof getFieldCaseInsensitive(item, 'title') === 'string'
+          ? getFieldCaseInsensitive(item, 'title').trim()
+          : '',
+        detail: typeof getFieldCaseInsensitive(item, 'detail') === 'string'
+          ? getFieldCaseInsensitive(item, 'detail').trim()
+          : '',
+        severity: typeof getFieldCaseInsensitive(item, 'severity') === 'string'
+          ? getFieldCaseInsensitive(item, 'severity').trim().toLowerCase()
+          : 'medium',
+      }))
+      .filter((item) => item.title || item.detail)
+      .slice(0, 6)
+    : [];
+
+  const interviewQuestions = Array.isArray(interviewQuestionsRaw)
+    ? interviewQuestionsRaw
+      .filter((item) => typeof item === 'string' && item.trim())
+      .map((item) => item.trim())
+      .slice(0, 6)
+    : [];
+
+  const nextActions = Array.isArray(nextActionsRaw)
+    ? nextActionsRaw
+      .filter((item) => item && typeof item === 'object')
+      .map((item) => ({
+        label: typeof getFieldCaseInsensitive(item, 'label') === 'string'
+          ? getFieldCaseInsensitive(item, 'label').trim()
+          : '',
+        actionId: typeof getFieldCaseInsensitive(item, 'actionId') === 'string'
+          ? getFieldCaseInsensitive(item, 'actionId').trim().toLowerCase()
+          : '',
+        url: typeof getFieldCaseInsensitive(item, 'url') === 'string'
+          ? getFieldCaseInsensitive(item, 'url').trim()
+          : '',
+        question: typeof getFieldCaseInsensitive(item, 'question') === 'string'
+          ? getFieldCaseInsensitive(item, 'question').trim()
+          : '',
+      }))
+      .filter((item) => item.label && (item.actionId || item.url || item.question))
+      .slice(0, 5)
     : [];
 
   const fitSummary = fitSummaryRaw && typeof fitSummaryRaw === 'object'
@@ -193,7 +341,21 @@ function normalizeStructuredResponse(parsed) {
       .slice(0, 4)
     : [];
 
-  if (!answer && highlights.length === 0 && links.length === 0 && !fitSummary && suggestions.length === 0) {
+  if (
+    !answer
+    && highlights.length === 0
+    && links.length === 0
+    && quickFacts.length === 0
+    && insights.length === 0
+    && timeline.length === 0
+    && skillsMatrix.length === 0
+    && !hrSummary
+    && riskFlags.length === 0
+    && interviewQuestions.length === 0
+    && nextActions.length === 0
+    && !fitSummary
+    && suggestions.length === 0
+  ) {
     return null;
   }
 
@@ -201,6 +363,14 @@ function normalizeStructuredResponse(parsed) {
     answer,
     highlights,
     links,
+    quickFacts,
+    insights,
+    timeline,
+    skillsMatrix,
+    hrSummary,
+    riskFlags,
+    interviewQuestions,
+    nextActions,
     fitSummary,
     suggestions,
   };
