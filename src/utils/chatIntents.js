@@ -6,8 +6,6 @@ const experienceKeywords = /(experience|kinh nghiem|kinh nghiệm|work history|l
 const certKeywords = /(cert|certificate|chung chi|chứng chỉ|credential)/i;
 const socialKeywords = /(linkedin|facebook|github|zalo|contact link|social)/i;
 
-const isVietnamese = (text) => /[ăâđêôơưáàảãạấầẩẫậắằẳẵặéèẻẽẹếềểễệíìỉĩịóòỏõọốồổỗộớờởỡợúùủũụứừửữựýỳỷỹỵ]/i.test(text);
-
 export function detectIntent(input) {
   const text = (input || '').trim();
   if (!text) return null;
@@ -60,8 +58,8 @@ export function suggestionsByIntent(intent, lang = 'en') {
   return map[intent] || base;
 }
 
-export function buildIntentResponse(intent, userText) {
-  const vi = isVietnamese(userText);
+export function buildIntentResponse(intent, preferredLanguage = 'en') {
+  const vi = preferredLanguage === 'vi';
 
   switch (intent) {
     case 'show_cv':

@@ -14,6 +14,8 @@ import {
 import './ChatWidget.css';
 
 const MAX_CONTEXT_MESSAGES = 16;
+const CHAT_LANGUAGE_KEY = 'nxh_chat_language_v1';
+const CHAT_INTRO_DISMISSED_KEY = 'nxh_chat_intro_dismissed_v1';
 
 function createMessage(role, content, extra = {}) {
   return {
@@ -91,8 +93,21 @@ const ChatWidget = () => {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [lastModelUsed, setLastModelUsed] = useState(null);
+  const [preferredLanguage, setPreferredLanguage] = useState(() => localStorage.getItem(CHAT_LANGUAGE_KEY) || '');
+  const [showIntroSpotlight, setShowIntroSpotlight] = useState(() => !sessionStorage.getItem(CHAT_INTRO_DISMISSED_KEY));
   const chatBodyRef = useRef(null);
   const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (!showIntroSpotlight) return;
+    const timer = setTimeout(() => setShowIntroSpotlight(false), 12000);
+    return () => clearTimeout(timer);
+  }, [showIntroSpotlight]);
+
+  useEffect(() => {
+    if (!preferredLanguage) return;
+    localStorage.setItem(CHAT_LANGUAGE_KEY, preferredLanguage);
+  }, [preferredLanguage]);
 
   useEffect(() => {
     if (!open) return;
@@ -116,18 +131,27 @@ const ChatWidget = () => {
     return null;
   }, [messages]);
 
-  const language = useMemo(() => {
-    const latestUser = [...messages].reverse().find((msg) => msg.role === 'user');
-    const sample = latestUser?.content || '';
-    return /[ăâđêôơưáàảãạấầẩẫậắằẳẵặéèẻẽẹếềểễệíìỉĩịóòỏõọốồổỗộớờởỡợúùủũụứừửữựýỳỷỹỵ]/i.test(sample)
-      ? 'vi'
-      : 'en';
-  }, [messages]);
+  const language = preferredLanguage || 'en';
 
   const suggestions = useMemo(() => suggestionsByIntent(lastIntent, language), [lastIntent, language]);
 
   const handleClear = () => {
     clearSession(initialMessages);
+    setLastModelUsed(null);
+  };
+
+  const handleOpenChat = () => {
+    setOpen(true);
+    setShowIntroSpotlight(false);
+    sessionStorage.setItem(CHAT_INTRO_DISMISSED_KEY, '1');
+  };
+
+  const handleSelectLanguage = (lang) => {
+    setPreferredLanguage(lang);
+    appendMessage(createMessage('assistant', lang === 'vi'
+      ? 'Da chon tieng Viet. Ban co the hoi ve CV, du an, kinh nghiem hoac lien he.'
+      : 'English selected. You can ask about CV, projects, experience, or contact links.',
+    { modelUsed: 'local-onboarding' }));
   };
 
   const appendMessage = (msg) => {
@@ -148,7 +172,7 @@ const ChatWidget = () => {
         message: text,
         history: requestMessages,
         profileContext: PROFILE_CONTEXT,
-        systemPrompt: buildPortfolioSystemPrompt(),
+        systemPrompt: buildPortfolioSystemPrompt(language),
       }),
     });
 
@@ -178,7 +202,7 @@ const ChatWidget = () => {
 
     const intent = detectIntent(trimmed);
     if (intent) {
-      const deterministic = buildIntentResponse(intent, trimmed);
+      const deterministic = buildIntentResponse(intent, language);
       if (deterministic) {
         appendMessage(createMessage('assistant', deterministic.text, { action: deterministic.action, modelUsed: 'local-intent' }));
         return;
@@ -209,10 +233,22 @@ const ChatWidget = () => {
         <button
           type="button"
           className="chat-launcher"
-          onClick={() => setOpen(true)}
+          onClick={handleOpenChat}
           aria-label="Open AI portfolio assistant"
         >
           <span>AI Assistant</span>
+        </button>
+      ) : null}
+
+      {showIntroSpotlight && !open ? (
+        <button
+          type="button"
+          className="chat-intro-spotlight"
+          onClick={handleOpenChat}
+          aria-label="Open chat intro"
+        >
+          <strong>Hello, welcome to Hai portfolio.</strong>
+          <span>Click AI Assistant to ask quickly about CV, projects, and contact info.</span>
         </button>
       ) : null}
 
@@ -244,6 +280,16 @@ const ChatWidget = () => {
           ) : null}
         </div>
 
+        {!preferredLanguage ? (
+          <div className="chat-language-gate">
+            <p>Choose your chat language / Chon ngon ngu tro chuyen</p>
+            <div className="chat-language-actions">
+              <button type="button" onClick={() => handleSelectLanguage('vi')}>Tieng Viet</button>
+              <button type="button" onClick={() => handleSelectLanguage('en')}>English</button>
+            </div>
+          </div>
+        ) : null}
+
         <div className="chat-input-wrap">
           <div className="chat-suggestions" aria-label="Suggested follow-up questions">
             {suggestions.map((item) => (
@@ -267,8 +313,9 @@ const ChatWidget = () => {
               onChange={(event) => setInput(event.target.value)}
               placeholder={language === 'vi' ? 'Dat cau hoi cho Nguyen Xuan Hai...' : 'Ask about Nguyen Xuan Hai...'}
               maxLength={600}
+              disabled={!preferredLanguage}
             />
-            <button type="submit" disabled={loading || !input.trim()}>
+            <button type="submit" disabled={loading || !input.trim() || !preferredLanguage}>
               Send
             </button>
           </form>

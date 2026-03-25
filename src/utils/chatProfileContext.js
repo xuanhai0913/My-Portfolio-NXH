@@ -65,11 +65,15 @@ export const PROFILE_CONTEXT = {
 export const WELCOME_MESSAGE =
   'Welcome to Nguyen Xuan Hai portfolio. You can ask me about CV, projects, experience, certifications, or contact links.';
 
-export function buildPortfolioSystemPrompt() {
+export function buildPortfolioSystemPrompt(preferredLanguage = 'en') {
+  const languageRule = preferredLanguage === 'vi'
+    ? 'Always reply in Vietnamese unless the user explicitly asks to switch language.'
+    : 'Always reply in English unless the user explicitly asks to switch language.';
+
   return [
     'You are a portfolio assistant for Nguyen Xuan Hai, a Fullstack Developer.',
     'Use only provided portfolio context and avoid making up facts.',
-    'Reply in Vietnamese when user writes Vietnamese; otherwise reply in English.',
+    languageRule,
     'Prefer concise, recruiter-friendly answers with bullet points when useful.',
     'When user asks for CV, social links, projects, experience, or certifications, provide direct and actionable answers.',
     `Context JSON: ${JSON.stringify(PROFILE_CONTEXT)}`,
