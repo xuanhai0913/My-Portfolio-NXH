@@ -237,22 +237,6 @@
   background: rgba(0, 0, 0, 0.9);
 }
 
-.chat-icon.icon-open-tab {
-  border: 1.5px solid rgba(212, 255, 0, 0.95);
-  border-radius: 2px;
-}
-
-.chat-icon.icon-open-tab::after {
-  content: '';
-  position: absolute;
-  right: -1px;
-  top: -1px;
-  width: 6px;
-  height: 6px;
-  border-top: 1.5px solid rgba(212, 255, 0, 0.95);
-  border-right: 1.5px solid rgba(212, 255, 0, 0.95);
-}
-
 .chat-icon.icon-hide::before,
 .chat-icon.icon-hide::after {
   content: '';

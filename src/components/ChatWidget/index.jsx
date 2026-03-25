@@ -473,10 +473,6 @@ const ChatWidget = ({ mode = 'floating' }) => {
     setIsFullscreen((prev) => !prev);
   };
 
-  const handleOpenInNewTab = () => {
-    window.open('/assistant', '_blank', 'noopener,noreferrer');
-  };
-
   const handleQuickMail = () => {
     const subject = encodeURIComponent('Portfolio Inquiry - Nguyen Xuan Hai');
     const body = encodeURIComponent('Hello Hai,\n\nI would like to discuss an opportunity.');
@@ -518,11 +514,6 @@ const ChatWidget = ({ mode = 'floating' }) => {
 
     if (actionId === 'send_email') {
       handleQuickMail();
-      return;
-    }
-
-    if (actionId === 'open_assistant_tab') {
-      handleOpenInNewTab();
       return;
     }
 
@@ -933,15 +924,6 @@ const ChatWidget = ({ mode = 'floating' }) => {
                   title={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
                 >
                   <span className={`chat-icon ${isFullscreen ? 'icon-window' : 'icon-fullscreen'}`} aria-hidden="true" />
-                </button>
-                <button
-                  type="button"
-                  className="chat-icon-btn"
-                  onClick={handleOpenInNewTab}
-                  aria-label="Open in new tab"
-                  title="Open in new tab"
-                >
-                  <span className="chat-icon icon-open-tab" aria-hidden="true" />
                 </button>
                 <button
                   type="button"
