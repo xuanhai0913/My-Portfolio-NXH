@@ -17,6 +17,7 @@ const MAX_CONTEXT_MESSAGES = 16;
 const CHAT_LANGUAGE_KEY = 'nxh_chat_language_v1';
 const CHAT_INTRO_DISMISSED_KEY = 'nxh_chat_intro_dismissed_v1';
 const CHAT_FULLSCREEN_KEY = 'nxh_chat_fullscreen_v1';
+const CHAT_RESPONSE_STYLE_KEY = 'nxh_chat_response_style_v1';
 const SUPPORTED_TEXT_TYPES = new Set(['text/plain', 'text/markdown', 'application/json']);
 
 function createMessage(role, content, extra = {}) {
@@ -161,6 +162,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
   const [jobDescription, setJobDescription] = useState('');
   const [jobDescriptionFile, setJobDescriptionFile] = useState('');
   const [aiSuggestions, setAiSuggestions] = useState([]);
+  const [responseStyle, setResponseStyle] = useState(() => localStorage.getItem(CHAT_RESPONSE_STYLE_KEY) || 'brief');
   const chatBodyRef = useRef(null);
   const inputRef = useRef(null);
   const fileInputRef = useRef(null);
@@ -183,6 +185,10 @@ const ChatWidget = ({ mode = 'floating' }) => {
     if (!preferredLanguage) return;
     localStorage.setItem(CHAT_LANGUAGE_KEY, preferredLanguage);
   }, [preferredLanguage]);
+
+  useEffect(() => {
+    localStorage.setItem(CHAT_RESPONSE_STYLE_KEY, responseStyle);
+  }, [responseStyle]);
 
   useEffect(() => {
     if (isStandalonePage) return;
@@ -240,6 +246,15 @@ const ChatWidget = ({ mode = 'floating' }) => {
 
   const handleQuickCV = () => {
     window.open(PROFILE_CONTEXT.cvUrl, '_blank', 'noopener,noreferrer');
+  };
+
+  const handleChangeResponseStyle = (nextStyle) => {
+    setResponseStyle(nextStyle);
+    appendSystemNotice(
+      language === 'vi'
+        ? `Đã chuyển style trả lời: ${nextStyle}.`
+        : `Response style switched to: ${nextStyle}.`
+    );
   };
 
   const handleSelectLanguage = (lang) => {
@@ -319,7 +334,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
         message: text,
         history: requestMessages,
         profileContext: PROFILE_CONTEXT,
-        systemPrompt: buildPortfolioSystemPrompt(language, Boolean(jobDescription)),
+        systemPrompt: buildPortfolioSystemPrompt(language, Boolean(jobDescription), responseStyle),
         jobDescription,
       }),
     });
@@ -426,6 +441,40 @@ const ChatWidget = ({ mode = 'floating' }) => {
     URL.revokeObjectURL(url);
   };
 
+  const handleExportTranscriptPdf = () => {
+    const transcript = formatTranscript();
+    const escaped = transcript
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+
+    const printWindow = window.open('', '_blank', 'noopener,noreferrer,width=900,height=700');
+    if (!printWindow) {
+      appendSystemNotice(language === 'vi' ? 'Không thể mở cửa sổ in PDF.' : 'Unable to open print window for PDF.');
+      return;
+    }
+
+    printWindow.document.write(`
+      <html>
+        <head>
+          <title>Chat Session Export</title>
+          <style>
+            body { font-family: Arial, sans-serif; margin: 24px; line-height: 1.5; }
+            h1 { font-size: 20px; margin-bottom: 16px; }
+            pre { white-space: pre-wrap; word-break: break-word; border: 1px solid #ddd; padding: 16px; border-radius: 8px; }
+          </style>
+        </head>
+        <body>
+          <h1>Portfolio Assistant Session</h1>
+          <pre>${escaped}</pre>
+        </body>
+      </html>
+    `);
+    printWindow.document.close();
+    printWindow.focus();
+    printWindow.print();
+  };
+
   const handleRegenerateLastAnswer = async () => {
     if (loading) return;
 
@@ -506,6 +555,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
             ) : null}
             <button type="button" onClick={handleCopyTranscript}>Copy</button>
             <button type="button" onClick={handleExportTranscriptTxt}>TXT</button>
+            <button type="button" onClick={handleExportTranscriptPdf}>PDF</button>
             <button type="button" onClick={handleRegenerateLastAnswer} disabled={loading}>Regenerate</button>
             <button type="button" onClick={handleClear}>Clear</button>
             {!isStandalonePage ? <button type="button" onClick={() => setOpen(false)}>Close</button> : null}
@@ -538,6 +588,22 @@ const ChatWidget = ({ mode = 'floating' }) => {
         ) : null}
 
         <div className="chat-input-wrap">
+          <div className="chat-style-row">
+            <span>{language === 'vi' ? 'Style:' : 'Style:'}</span>
+            <div className="chat-style-actions">
+              {['brief', 'detailed', 'fit'].map((item) => (
+                <button
+                  key={item}
+                  type="button"
+                  className={responseStyle === item ? 'active' : ''}
+                  onClick={() => handleChangeResponseStyle(item)}
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
+          </div>
+
           <div className="chat-quick-actions">
             <button type="button" onClick={handleQuickMail}>{language === 'vi' ? 'Gửi mail nhanh' : 'Quick Email'}</button>
             <button type="button" onClick={handleQuickLinkedIn}>LinkedIn</button>

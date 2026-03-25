@@ -65,7 +65,7 @@ export const PROFILE_CONTEXT = {
 export const WELCOME_MESSAGE =
   'Welcome to Nguyen Xuan Hai portfolio. You can ask me about CV, projects, experience, certifications, or contact links.';
 
-export function buildPortfolioSystemPrompt(preferredLanguage = 'en', hasJobDescription = false) {
+export function buildPortfolioSystemPrompt(preferredLanguage = 'en', hasJobDescription = false, responseStyle = 'brief') {
   const languageRule = preferredLanguage === 'vi'
     ? 'Always reply in Vietnamese unless the user explicitly asks to switch language.'
     : 'Always reply in English unless the user explicitly asks to switch language.';
@@ -74,12 +74,21 @@ export function buildPortfolioSystemPrompt(preferredLanguage = 'en', hasJobDescr
     ? 'A recruiter provided a Job Description. If asked about fit, evaluate candidly with: strong matches, partial matches, gaps, and a short recommendation.'
     : 'If user asks about job fit and no Job Description is provided, ask them to upload or paste JD first.';
 
+  const styleRuleMap = {
+    brief: 'Keep answers concise: 3-5 lines maximum unless user asks for more detail.',
+    detailed: 'Provide detailed answers with clear sections and practical examples from portfolio context.',
+    fit: 'Prioritize job-fit analysis and highlight strengths, gaps, and recommendations.',
+  };
+
+  const styleRule = styleRuleMap[responseStyle] || styleRuleMap.brief;
+
   return [
     'You are a portfolio assistant for Nguyen Xuan Hai, a Fullstack Developer.',
     'Use only provided portfolio context and avoid making up facts.',
     languageRule,
     'Prefer concise, recruiter-friendly answers with bullet points when useful.',
     'Use natural sentence case and professional tone. Avoid all-caps formatting.',
+    styleRule,
     jdRule,
     'When user asks for CV, social links, projects, experience, or certifications, provide direct and actionable answers.',
     'Return STRICT JSON only (no markdown, no code fence) with this schema:',
