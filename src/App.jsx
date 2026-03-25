@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/react";
 import ErrorBoundary from './components/ErrorBoundary';
 import Header from './components/Header';
 import AudioActivator from './components/AudioActivator/AudioActivator';
+import ChatWidget from './components/ChatWidget';
 import './App.css';
 
 // Lazy load non-critical components
@@ -96,6 +97,7 @@ const App = () => {
       </ErrorBoundary>
 
       <AudioActivator />
+      <ChatWidget />
 
       <Routes>
         <Route path="/" element={<MainPortfolio />} />

@@ -42,6 +42,7 @@ export const BREAKPOINTS = {
 // API Endpoints
 export const API = {
   VIEWS: '/api/views',
+  GEMINI: '/api/gemini',
   EMAILJS_SERVICE: 'service_9y7spx3',
   EMAILJS_TEMPLATE: 'template_skc0rl8',
   EMAILJS_AUTOREPLY_TEMPLATE: 'template_gvdfitf',
@@ -54,6 +55,7 @@ export const EXTERNAL_URLS = {
   GITHUB: 'https://github.com/xuanhai0913',
   LINKEDIN: 'https://www.linkedin.com/in/xuanhai0913/',
   FACEBOOK: 'https://www.facebook.com/nguyenhai0913',
+  ZALO: 'https://zalo.me/84929501116',
   INSTAGRAM: 'https://www.instagram.com/nguyenhai091375',
   KOFI: 'https://ko-fi.com/xuanhai0913',
 };
