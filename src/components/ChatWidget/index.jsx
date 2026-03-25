@@ -305,8 +305,8 @@ const ChatWidget = ({ mode = 'floating' }) => {
     setMessages((prev) => [...prev, msg]);
   };
 
-  const sendToModel = async (text) => {
-    const requestMessages = messages
+  const sendToModel = async (text, baseMessages = messages) => {
+    const requestMessages = baseMessages
       .slice(-MAX_CONTEXT_MESSAGES)
       .map((item) => ({ role: item.role, content: item.content }));
 
@@ -386,6 +386,83 @@ const ChatWidget = ({ mode = 'floating' }) => {
     }
   };
 
+  const formatTranscript = () => {
+    const header = `Portfolio Assistant Transcript\nGenerated: ${new Date().toLocaleString()}\n\n`;
+    const body = messages
+      .map((message) => {
+        const role = message.role === 'user' ? 'User' : 'Assistant';
+        return `[${role}] ${message.content}`;
+      })
+      .join('\n\n');
+    return `${header}${body}`;
+  };
+
+  const handleCopyTranscript = async () => {
+    const transcript = formatTranscript();
+
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(transcript);
+        appendSystemNotice(language === 'vi' ? 'Đã sao chép transcript.' : 'Transcript copied.');
+      } else {
+        appendSystemNotice(language === 'vi' ? 'Trình duyệt không hỗ trợ clipboard API.' : 'Clipboard API is not available.');
+      }
+    } catch (error) {
+      appendSystemNotice(language === 'vi' ? 'Không thể sao chép transcript.' : 'Unable to copy transcript.');
+    }
+  };
+
+  const handleExportTranscriptTxt = () => {
+    const transcript = formatTranscript();
+    const blob = new Blob([transcript], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+
+    link.href = url;
+    link.download = `chat-session-${Date.now()}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  const handleRegenerateLastAnswer = async () => {
+    if (loading) return;
+
+    const lastUserIndex = [...messages].map((item) => item.role).lastIndexOf('user');
+    if (lastUserIndex === -1) {
+      appendSystemNotice(language === 'vi' ? 'Chưa có câu hỏi để tạo lại câu trả lời.' : 'No user question to regenerate from.');
+      return;
+    }
+
+    const lastUserMessage = messages[lastUserIndex];
+    const contextMessages = messages.slice(0, lastUserIndex + 1);
+    setMessages(contextMessages);
+
+    setLoading(true);
+    try {
+      const modelReply = await sendToModel(lastUserMessage.content, contextMessages);
+      setLastModelUsed(modelReply.modelUsed || null);
+      setAiSuggestions(Array.isArray(modelReply.suggestions) ? modelReply.suggestions : []);
+      appendMessage(createMessage('assistant', modelReply.content, {
+        modelUsed: modelReply.modelUsed,
+        action: modelReply.action,
+      }));
+    } catch (error) {
+      appendMessage(
+        createMessage(
+          'assistant',
+          language === 'vi'
+            ? 'Không thể tạo lại câu trả lời lúc này. Vui lòng thử lại sau.'
+            : 'Unable to regenerate the answer right now. Please try again later.',
+          { modelUsed: 'error-fallback' }
+        )
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       {!isStandalonePage && !open ? (
@@ -427,6 +504,9 @@ const ChatWidget = ({ mode = 'floating' }) => {
             {!isStandalonePage ? (
               <button type="button" onClick={handleOpenInNewTab}>Open Tab</button>
             ) : null}
+            <button type="button" onClick={handleCopyTranscript}>Copy</button>
+            <button type="button" onClick={handleExportTranscriptTxt}>TXT</button>
+            <button type="button" onClick={handleRegenerateLastAnswer} disabled={loading}>Regenerate</button>
             <button type="button" onClick={handleClear}>Clear</button>
             {!isStandalonePage ? <button type="button" onClick={() => setOpen(false)}>Close</button> : null}
           </div>
