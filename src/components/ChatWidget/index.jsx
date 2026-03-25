@@ -653,19 +653,22 @@ const ChatWidget = ({ mode = 'floating' }) => {
           </div>
           <div className="chat-header-actions">
             {!isStandalonePage ? (
-              <button type="button" onClick={handleToggleFullscreen}>
-                {isFullscreen ? 'Window' : 'Fullscreen'}
-              </button>
+              <div className="chat-window-controls">
+                <button type="button" onClick={handleToggleFullscreen}>
+                  {isFullscreen ? 'Window' : 'Fullscreen'}
+                </button>
+                <button type="button" onClick={handleOpenInNewTab}>Open Tab</button>
+                <button type="button" onClick={() => setOpen(false)}>Hide</button>
+              </div>
             ) : null}
-            {!isStandalonePage ? (
-              <button type="button" onClick={handleOpenInNewTab}>Open Tab</button>
-            ) : null}
-            <button type="button" onClick={handleCopyTranscript}>Copy</button>
-            <button type="button" onClick={handleExportTranscriptTxt}>TXT</button>
-            <button type="button" onClick={handleExportTranscriptPdf}>PDF</button>
-            <button type="button" onClick={handleRegenerateLastAnswer} disabled={loading}>Regenerate</button>
-            <button type="button" onClick={handleClear}>Clear</button>
-            {!isStandalonePage ? <button type="button" onClick={() => setOpen(false)}>Close</button> : null}
+
+            <div className="chat-utility-controls">
+              <button type="button" onClick={handleCopyTranscript}>Copy</button>
+              <button type="button" onClick={handleExportTranscriptTxt}>TXT</button>
+              <button type="button" onClick={handleExportTranscriptPdf}>PDF</button>
+              <button type="button" onClick={handleRegenerateLastAnswer} disabled={loading}>Regenerate</button>
+              <button type="button" onClick={handleClear}>Clear</button>
+            </div>
           </div>
         </header>
 

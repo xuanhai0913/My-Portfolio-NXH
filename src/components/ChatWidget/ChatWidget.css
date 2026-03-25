@@ -147,7 +147,18 @@
 
 .chat-header-actions {
   display: flex;
+  flex-direction: column;
+  align-items: flex-end;
   gap: 6px;
+  min-width: 0;
+}
+
+.chat-window-controls,
+.chat-utility-controls {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .chat-header-actions button {
@@ -158,6 +169,10 @@
   padding: 6px 8px;
   font-size: 0.72rem;
   cursor: pointer;
+}
+
+.chat-window-controls button {
+  border-color: rgba(212, 255, 0, 0.45);
 }
 
 .chat-header-actions button:disabled {
@@ -537,5 +552,19 @@
 
   .chat-jd-pill span {
     max-width: 130px;
+  }
+
+  .chat-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .chat-header-actions {
+    align-items: flex-start;
+  }
+
+  .chat-window-controls,
+  .chat-utility-controls {
+    justify-content: flex-start;
   }
 }
