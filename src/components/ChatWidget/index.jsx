@@ -11,6 +11,11 @@ import {
   detectIntent,
   suggestionsByIntent,
 } from '../../utils/chatIntents';
+import {
+  ensureStructuredActionDefaults,
+  resolveStructuredAction,
+} from '../../utils/chatActions';
+import { trackChatEvent } from '../../utils/chatTelemetry';
 import './ChatWidget.css';
 
 const MAX_CONTEXT_MESSAGES = 16;
@@ -497,50 +502,63 @@ const ChatWidget = ({ mode = 'floating' }) => {
   };
 
   const handleRunStructuredAction = (item) => {
-    if (!item) return;
-    const actionId = typeof item.actionId === 'string' ? item.actionId.toLowerCase() : '';
-    const question = typeof item.question === 'string' ? item.question.trim() : '';
-    const url = typeof item.url === 'string' ? item.url.trim() : '';
+    trackChatEvent('structured_action_clicked', {
+      label: item?.label || '',
+      actionId: item?.actionId || '',
+      hasQuestion: Boolean(item?.question),
+      hasUrl: Boolean(item?.url),
+    });
 
-    if (actionId === 'open_cv') {
+    const resolved = resolveStructuredAction(item, {
+      language,
+      hasJobDescription: Boolean(jobDescription),
+    });
+
+    if (resolved.type === 'open_cv') {
       handleQuickCV();
+      trackChatEvent('structured_action_executed', { type: 'open_cv' });
       return;
     }
 
-    if (actionId === 'open_linkedin') {
+    if (resolved.type === 'open_linkedin') {
       handleQuickLinkedIn();
+      trackChatEvent('structured_action_executed', { type: 'open_linkedin' });
       return;
     }
 
-    if (actionId === 'send_email') {
+    if (resolved.type === 'send_email') {
       handleQuickMail();
+      trackChatEvent('structured_action_executed', { type: 'send_email' });
       return;
     }
 
-    if (actionId === 'ask_fit') {
-      if (question) {
-        handleSend(question);
-      } else {
-        handleSend(language === 'vi' ? 'Đánh giá mức độ phù hợp với JD hiện tại.' : 'Evaluate fit against the current job description.');
-      }
+    if (resolved.type === 'question') {
+      trackChatEvent('structured_action_executed', {
+        type: 'question',
+        source: item?.actionId || 'inline_question',
+      });
+      handleSend(resolved.question);
       return;
     }
 
-    if (question) {
-      handleSend(question);
+    if (resolved.type === 'url') {
+      window.open(resolved.url, '_blank', 'noopener,noreferrer');
+      trackChatEvent('structured_action_executed', { type: 'url' });
       return;
     }
 
-    if (url) {
-      window.open(url, '_blank', 'noopener,noreferrer');
-      return;
-    }
-
-    showToast(language === 'vi' ? 'Không có hành động khả dụng cho mục này.' : 'No available action for this item.', 'error');
+    trackChatEvent('structured_action_failed', {
+      actionId: item?.actionId || '',
+      reason: 'no_available_resolution',
+    });
+    showToast(resolved.message, 'error');
   };
 
   const handleAskInterviewQuestion = (question) => {
     if (!question) return;
+    trackChatEvent('interview_question_clicked', {
+      questionLength: question.length,
+    });
     handleSend(question);
   };
 
@@ -701,15 +719,37 @@ const ChatWidget = ({ mode = 'floating' }) => {
       };
     }
 
+    const rawAction = payload.structuredResponse
+      ? {
+        type: 'rich',
+        ...payload.structuredResponse,
+      }
+      : null;
+
+    const ensuredAction = ensureStructuredActionDefaults(rawAction, {
+      language,
+      hasJobDescription: Boolean(jobDescription),
+    });
+
+    const rawActionCount = Array.isArray(rawAction?.nextActions) ? rawAction.nextActions.length : 0;
+    const ensuredActionCount = Array.isArray(ensuredAction?.nextActions) ? ensuredAction.nextActions.length : 0;
+    const usedDefaultActions = rawActionCount === 0 && ensuredActionCount > 0;
+
+    trackChatEvent('model_response_received', {
+      modelUsed: payload.modelUsed || null,
+      hasStructured: Boolean(payload.structuredResponse),
+      rawActionCount,
+      ensuredActionCount,
+      usedDefaultActions,
+      suggestionsCount: Array.isArray(payload?.structuredResponse?.suggestions)
+        ? payload.structuredResponse.suggestions.length
+        : 0,
+    });
+
     return {
       content: payload.responseText || 'The assistant returned an empty response. Please try asking again.',
       modelUsed: payload.modelUsed,
-      action: payload.structuredResponse
-        ? {
-          type: 'rich',
-          ...payload.structuredResponse,
-        }
-        : null,
+      action: ensuredAction,
       suggestions: payload?.structuredResponse?.suggestions || [],
     };
   };
@@ -717,6 +757,12 @@ const ChatWidget = ({ mode = 'floating' }) => {
   const handleSend = async (text) => {
     const trimmed = (text || '').trim();
     if (!trimmed || loading) return;
+
+    trackChatEvent('message_send', {
+      length: trimmed.length,
+      hasJobDescription: Boolean(jobDescription),
+      responseStyle,
+    });
 
     setInput('');
     const userMessage = createMessage('user', trimmed);
@@ -741,6 +787,9 @@ const ChatWidget = ({ mode = 'floating' }) => {
         action: modelReply.action,
       }));
     } catch (error) {
+      trackChatEvent('message_send_failed', {
+        reason: 'model_request_failed',
+      });
       appendMessage(
         createMessage(
           'assistant',
@@ -962,7 +1011,13 @@ const ChatWidget = ({ mode = 'floating' }) => {
               : null;
 
             const displayText = parsedAssistantContent?.displayText || message.content;
-            const displayAction = message.action || parsedAssistantContent?.action || null;
+            const displayAction = ensureStructuredActionDefaults(
+              message.action || parsedAssistantContent?.action || null,
+              {
+                language,
+                hasJobDescription: Boolean(jobDescription),
+              }
+            );
 
             return (
               <article key={message.id} className={`chat-message ${message.role}`}>
