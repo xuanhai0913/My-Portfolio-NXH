@@ -1065,13 +1065,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;');
 
-      const printWindow = window.open('', '_blank', 'noopener,noreferrer,width=900,height=700');
-      if (!printWindow) {
-        showToast(language === 'vi' ? 'Không thể mở cửa sổ in PDF.' : 'Unable to open print window for PDF.', 'error');
-        return;
-      }
-
-      printWindow.document.write(`
+      const printHtml = `
       <html>
         <head>
           <title>Chat Session Export</title>
@@ -1086,11 +1080,74 @@ const ChatWidget = ({ mode = 'floating' }) => {
           <pre>${escaped}</pre>
         </body>
       </html>
-    `);
-      printWindow.document.close();
-      printWindow.focus();
-      printWindow.print();
-      showToast(language === 'vi' ? 'Đã mở hộp thoại in PDF.' : 'PDF print dialog opened.');
+    `;
+
+      const printViaIframe = () => new Promise((resolve, reject) => {
+        const iframe = document.createElement('iframe');
+        iframe.style.position = 'fixed';
+        iframe.style.right = '0';
+        iframe.style.bottom = '0';
+        iframe.style.width = '0';
+        iframe.style.height = '0';
+        iframe.style.border = '0';
+        iframe.setAttribute('aria-hidden', 'true');
+
+        const cleanup = () => {
+          setTimeout(() => {
+            if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
+          }, 1200);
+        };
+
+        iframe.onload = () => {
+          try {
+            const targetWindow = iframe.contentWindow;
+            if (!targetWindow) {
+              cleanup();
+              reject(new Error('IFRAME_WINDOW_UNAVAILABLE'));
+              return;
+            }
+
+            targetWindow.focus();
+            targetWindow.print();
+            cleanup();
+            resolve();
+          } catch (error) {
+            cleanup();
+            reject(error);
+          }
+        };
+
+        document.body.appendChild(iframe);
+        const doc = iframe.contentDocument || iframe.contentWindow?.document;
+        if (!doc) {
+          cleanup();
+          reject(new Error('IFRAME_DOCUMENT_UNAVAILABLE'));
+          return;
+        }
+
+        doc.open();
+        doc.write(printHtml);
+        doc.close();
+      });
+
+      try {
+        await printViaIframe();
+        showToast(language === 'vi' ? 'Đã mở hộp thoại in PDF.' : 'PDF print dialog opened.');
+      } catch (error) {
+        const popup = window.open('', '_blank', 'width=900,height=700');
+        if (!popup) {
+          showToast(language === 'vi' ? 'Không thể mở hộp thoại in PDF.' : 'Unable to open print dialog for PDF.', 'error');
+          return;
+        }
+
+        popup.document.write(printHtml);
+        popup.document.close();
+        setTimeout(() => {
+          popup.focus();
+          popup.print();
+        }, 120);
+        showToast(language === 'vi' ? 'Đã mở hộp thoại in PDF.' : 'PDF print dialog opened.');
+      }
     });
   };
 
