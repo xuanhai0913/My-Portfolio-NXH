@@ -382,6 +382,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
   const [showActionsMenu, setShowActionsMenu] = useState(false);
   const [showTelemetryPanel, setShowTelemetryPanel] = useState(false);
   const [telemetryEvents, setTelemetryEvents] = useState([]);
+  const [activeCommandIndex, setActiveCommandIndex] = useState(0);
   const chatBodyRef = useRef(null);
   const inputRef = useRef(null);
   const fileInputRef = useRef(null);
@@ -792,6 +793,14 @@ const ChatWidget = ({ mode = 'floating' }) => {
       return true;
     }
 
+    if (command === 'help') {
+      const helpText = language === 'vi'
+        ? 'Lệnh nhanh: /copy, /txt, /pdf, /regen, /clear, /jd, /style brief|detailed|fit, /help'
+        : 'Quick commands: /copy, /txt, /pdf, /regen, /clear, /jd, /style brief|detailed|fit, /help';
+      appendMessage(createMessage('assistant', helpText, { modelUsed: 'slash-help' }));
+      return true;
+    }
+
     showToast(language === 'vi' ? `Không hỗ trợ lệnh /${command}.` : `Unsupported command /${command}.`, 'error');
     return true;
   };
@@ -807,6 +816,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
       { key: '/style brief', hint: language === 'vi' ? 'Đổi style ngắn' : 'Set brief style' },
       { key: '/style detailed', hint: language === 'vi' ? 'Đổi style chi tiết' : 'Set detailed style' },
       { key: '/style fit', hint: language === 'vi' ? 'Đổi style fit' : 'Set fit style' },
+      { key: '/help', hint: language === 'vi' ? 'Hiện danh sách lệnh nhanh' : 'Show quick command list' },
     ];
 
     if (isDevMode) {
@@ -823,6 +833,57 @@ const ChatWidget = ({ mode = 'floating' }) => {
 
     return slashCommands.filter((item) => item.key.slice(1).toLowerCase().includes(query));
   }, [commandPrefixInput, isCommandMode, slashCommands]);
+
+  useEffect(() => {
+    if (!isCommandMode || filteredSlashCommands.length === 0) {
+      setActiveCommandIndex(0);
+      return;
+    }
+
+    setActiveCommandIndex((prev) => {
+      if (prev < filteredSlashCommands.length) return prev;
+      return 0;
+    });
+  }, [filteredSlashCommands, isCommandMode]);
+
+  const runCommandAtIndex = (index) => {
+    if (!filteredSlashCommands[index]) return false;
+    const commandText = filteredSlashCommands[index].key;
+    const executed = executeSlashCommand(commandText);
+    if (executed) {
+      setInput('');
+      setActiveCommandIndex(0);
+    }
+    return executed;
+  };
+
+  const handleInputKeyDown = (event) => {
+    if (!isCommandMode || filteredSlashCommands.length === 0) return;
+
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      setActiveCommandIndex((prev) => (prev + 1) % filteredSlashCommands.length);
+      return;
+    }
+
+    if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      setActiveCommandIndex((prev) => (prev - 1 + filteredSlashCommands.length) % filteredSlashCommands.length);
+      return;
+    }
+
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      setInput('');
+      setActiveCommandIndex(0);
+      return;
+    }
+
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      runCommandAtIndex(activeCommandIndex);
+    }
+  };
 
   const sendToModel = async (text, baseMessages = messages) => {
     const requestMessages = baseMessages
@@ -1276,13 +1337,15 @@ const ChatWidget = ({ mode = 'floating' }) => {
 
           {filteredSlashCommands.length > 0 ? (
             <div className="chat-command-palette" aria-label="Slash commands">
-              {filteredSlashCommands.map((item) => (
+              {filteredSlashCommands.map((item, index) => (
                 <button
                   key={item.key}
                   type="button"
+                  className={index === activeCommandIndex ? 'active' : ''}
                   onClick={() => {
                     executeSlashCommand(item.key);
                     setInput('');
+                    setActiveCommandIndex(0);
                   }}
                 >
                   <strong>{item.key}</strong>
@@ -1308,6 +1371,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
               type="text"
               value={input}
               onChange={(event) => setInput(event.target.value)}
+              onKeyDown={handleInputKeyDown}
               placeholder={language === 'vi' ? 'Đặt câu hỏi cho Nguyễn Xuân Hải...' : 'Ask about Nguyen Xuan Hai...'}
               maxLength={600}
               disabled={!preferredLanguage}

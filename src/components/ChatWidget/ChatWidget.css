@@ -931,6 +931,12 @@
   border-color: rgba(212, 255, 0, 0.46);
 }
 
+.chat-command-palette button.active {
+  background: rgba(212, 255, 0, 0.18);
+  border-color: rgba(212, 255, 0, 0.58);
+  box-shadow: 0 0 0 1px rgba(212, 255, 0, 0.24);
+}
+
 .chat-command-palette strong {
   color: var(--color-accent);
   font-size: 0.75rem;
