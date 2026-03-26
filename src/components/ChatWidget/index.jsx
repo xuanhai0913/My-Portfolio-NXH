@@ -486,6 +486,8 @@ const ChatWidget = ({ mode = 'floating' }) => {
   const fallbackSuggestions = useMemo(() => suggestionsByIntent(language), [language]);
   const suggestions = aiSuggestions.length > 0 ? aiSuggestions : fallbackSuggestions;
   const isHeaderActionBusy = Boolean(activeHeaderAction);
+  const commandPrefixInput = input.trimStart();
+  const isCommandMode = commandPrefixInput.startsWith('/');
   const shouldShowContactActions = useMemo(() => {
     const recentUserText = messages
       .filter((item) => item.role === 'user')
@@ -729,6 +731,98 @@ const ChatWidget = ({ mode = 'floating' }) => {
     setShowActionsMenu(false);
     runner();
   };
+
+  const executeSlashCommand = (rawInput) => {
+    const normalized = (rawInput || '').trim();
+    if (!normalized.startsWith('/')) return false;
+
+    const parts = normalized.slice(1).split(/\s+/).filter(Boolean);
+    const command = (parts[0] || '').toLowerCase();
+    const args = parts.slice(1);
+
+    if (!command) {
+      showToast(language === 'vi' ? 'Hãy nhập lệnh sau dấu /' : 'Please enter a command after /.', 'error');
+      return true;
+    }
+
+    trackChatEvent('slash_command_used', { command, argsCount: args.length });
+
+    if (command === 'copy') {
+      handleCopyTranscript();
+      return true;
+    }
+
+    if (command === 'txt') {
+      handleExportTranscriptTxt();
+      return true;
+    }
+
+    if (command === 'pdf') {
+      handleExportTranscriptPdf();
+      return true;
+    }
+
+    if (command === 'clear') {
+      handleClear();
+      return true;
+    }
+
+    if (command === 'regen' || command === 'regenerate') {
+      handleRegenerateLastAnswer();
+      return true;
+    }
+
+    if (command === 'jd') {
+      handleJDUploadClick();
+      return true;
+    }
+
+    if (command === 'style') {
+      const nextStyle = (args[0] || '').toLowerCase();
+      if (['brief', 'detailed', 'fit'].includes(nextStyle)) {
+        handleChangeResponseStyle(nextStyle);
+      } else {
+        showToast(language === 'vi' ? 'Style hợp lệ: brief | detailed | fit.' : 'Valid styles: brief | detailed | fit.', 'error');
+      }
+      return true;
+    }
+
+    if (command === 'debug' && isDevMode) {
+      setShowTelemetryPanel((prev) => !prev);
+      return true;
+    }
+
+    showToast(language === 'vi' ? `Không hỗ trợ lệnh /${command}.` : `Unsupported command /${command}.`, 'error');
+    return true;
+  };
+
+  const slashCommands = useMemo(() => {
+    const base = [
+      { key: '/copy', hint: language === 'vi' ? 'Sao chép transcript' : 'Copy transcript' },
+      { key: '/txt', hint: language === 'vi' ? 'Xuất TXT' : 'Export TXT' },
+      { key: '/pdf', hint: language === 'vi' ? 'Xuất PDF' : 'Export PDF' },
+      { key: '/regen', hint: language === 'vi' ? 'Tạo lại câu trả lời' : 'Regenerate last answer' },
+      { key: '/clear', hint: language === 'vi' ? 'Xoá session chat' : 'Clear chat session' },
+      { key: '/jd', hint: language === 'vi' ? 'Tải JD file' : 'Upload JD file' },
+      { key: '/style brief', hint: language === 'vi' ? 'Đổi style ngắn' : 'Set brief style' },
+      { key: '/style detailed', hint: language === 'vi' ? 'Đổi style chi tiết' : 'Set detailed style' },
+      { key: '/style fit', hint: language === 'vi' ? 'Đổi style fit' : 'Set fit style' },
+    ];
+
+    if (isDevMode) {
+      base.push({ key: '/debug', hint: showTelemetryPanel ? 'Hide debug panel' : 'Show debug panel' });
+    }
+
+    return base;
+  }, [isDevMode, language, showTelemetryPanel]);
+
+  const filteredSlashCommands = useMemo(() => {
+    if (!isCommandMode) return [];
+    const query = commandPrefixInput.slice(1).toLowerCase();
+    if (!query) return slashCommands;
+
+    return slashCommands.filter((item) => item.key.slice(1).toLowerCase().includes(query));
+  }, [commandPrefixInput, isCommandMode, slashCommands]);
 
   const sendToModel = async (text, baseMessages = messages) => {
     const requestMessages = baseMessages
@@ -1180,10 +1274,32 @@ const ChatWidget = ({ mode = 'floating' }) => {
             ))}
           </div>
 
+          {filteredSlashCommands.length > 0 ? (
+            <div className="chat-command-palette" aria-label="Slash commands">
+              {filteredSlashCommands.map((item) => (
+                <button
+                  key={item.key}
+                  type="button"
+                  onClick={() => {
+                    executeSlashCommand(item.key);
+                    setInput('');
+                  }}
+                >
+                  <strong>{item.key}</strong>
+                  <span>{item.hint}</span>
+                </button>
+              ))}
+            </div>
+          ) : null}
+
           <form
             className="chat-input-row"
             onSubmit={(event) => {
               event.preventDefault();
+              if (executeSlashCommand(input)) {
+                setInput('');
+                return;
+              }
               handleSend(input);
             }}
           >
