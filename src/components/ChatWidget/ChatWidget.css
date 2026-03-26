@@ -184,6 +184,47 @@
   justify-content: flex-end;
 }
 
+.chat-utility-controls {
+  position: relative;
+}
+
+.chat-actions-toggle {
+  border-color: rgba(172, 211, 255, 0.45) !important;
+  color: rgba(209, 232, 255, 0.95) !important;
+  background: rgba(172, 211, 255, 0.08) !important;
+  min-width: 74px;
+}
+
+.chat-actions-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 176px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 6px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(6, 9, 12, 0.96);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.45);
+  z-index: 7;
+}
+
+.chat-actions-menu button {
+  width: 100%;
+  text-align: left;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 6px 8px;
+  font-size: 0.71rem;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.chat-actions-menu button:hover {
+  border-color: rgba(212, 255, 0, 0.5);
+}
+
 .chat-header-actions button {
   border: 1px solid rgba(255, 255, 255, 0.2);
   background: transparent;
@@ -976,6 +1017,12 @@
   .chat-window-controls,
   .chat-utility-controls {
     justify-content: flex-start;
+  }
+
+  .chat-actions-menu {
+    left: 0;
+    right: auto;
+    min-width: 168px;
   }
 }
 

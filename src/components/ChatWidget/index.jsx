@@ -379,6 +379,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
   const [responseStyle, setResponseStyle] = useState(() => localStorage.getItem(CHAT_RESPONSE_STYLE_KEY) || 'brief');
   const [toast, setToast] = useState(null);
   const [activeHeaderAction, setActiveHeaderAction] = useState('');
+  const [showActionsMenu, setShowActionsMenu] = useState(false);
   const [showTelemetryPanel, setShowTelemetryPanel] = useState(false);
   const [telemetryEvents, setTelemetryEvents] = useState([]);
   const chatBodyRef = useRef(null);
@@ -387,6 +388,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
   const toastTimeoutRef = useRef(null);
   const toastQueueRef = useRef([]);
   const toastRef = useRef(null);
+  const actionsMenuRef = useRef(null);
   const language = preferredLanguage || 'en';
   const isDevMode = process.env.NODE_ENV !== 'production';
 
@@ -430,6 +432,19 @@ const ChatWidget = ({ mode = 'floating' }) => {
     if (!open || !chatBodyRef.current) return;
     chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
   }, [messages, loading, open]);
+
+  useEffect(() => {
+    if (!showActionsMenu) return undefined;
+
+    const onOutsideClick = (event) => {
+      if (!actionsMenuRef.current?.contains(event.target)) {
+        setShowActionsMenu(false);
+      }
+    };
+
+    document.addEventListener('mousedown', onOutsideClick);
+    return () => document.removeEventListener('mousedown', onOutsideClick);
+  }, [showActionsMenu]);
 
   useEffect(() => {
     if (meta.persistHealthy) return;
@@ -708,6 +723,11 @@ const ChatWidget = ({ mode = 'floating' }) => {
     } finally {
       setActiveHeaderAction('');
     }
+  };
+
+  const handleMenuAction = (runner) => {
+    setShowActionsMenu(false);
+    runner();
   };
 
   const sendToModel = async (text, baseMessages = messages) => {
@@ -1006,24 +1026,40 @@ const ChatWidget = ({ mode = 'floating' }) => {
               </div>
             ) : null}
 
-            <div className="chat-utility-controls">
-              <button type="button" onClick={handleCopyTranscript} disabled={isHeaderActionBusy || loading}>
-                {activeHeaderAction === 'copy' ? (language === 'vi' ? 'Đang copy...' : 'Copying...') : 'Copy'}
+            <div className="chat-utility-controls" ref={actionsMenuRef}>
+              <button
+                type="button"
+                className="chat-actions-toggle"
+                onClick={() => setShowActionsMenu((prev) => !prev)}
+                aria-label="Open actions menu"
+                aria-expanded={showActionsMenu}
+              >
+                Actions
               </button>
-              <button type="button" onClick={handleExportTranscriptTxt} disabled={isHeaderActionBusy || loading}>
-                {activeHeaderAction === 'txt' ? 'Exporting...' : 'TXT'}
-              </button>
-              <button type="button" onClick={handleExportTranscriptPdf} disabled={isHeaderActionBusy || loading}>
-                {activeHeaderAction === 'pdf' ? 'Preparing...' : 'PDF'}
-              </button>
-              <button type="button" onClick={handleRegenerateLastAnswer} disabled={loading || isHeaderActionBusy}>
-                {activeHeaderAction === 'regenerate' ? 'Regenerating...' : 'Regenerate'}
-              </button>
-              <button type="button" onClick={handleClear} disabled={isHeaderActionBusy || loading}>Clear</button>
-              {isDevMode ? (
-                <button type="button" onClick={() => setShowTelemetryPanel((prev) => !prev)}>
-                  {showTelemetryPanel ? 'Debug Off' : 'Debug On'}
-                </button>
+
+              {showActionsMenu ? (
+                <div className="chat-actions-menu" role="menu" aria-label="Chat actions">
+                  <button type="button" role="menuitem" onClick={() => handleMenuAction(handleCopyTranscript)} disabled={isHeaderActionBusy || loading}>
+                    {activeHeaderAction === 'copy' ? (language === 'vi' ? 'Đang copy...' : 'Copying...') : 'Copy transcript'}
+                  </button>
+                  <button type="button" role="menuitem" onClick={() => handleMenuAction(handleExportTranscriptTxt)} disabled={isHeaderActionBusy || loading}>
+                    {activeHeaderAction === 'txt' ? 'Exporting...' : 'Export TXT'}
+                  </button>
+                  <button type="button" role="menuitem" onClick={() => handleMenuAction(handleExportTranscriptPdf)} disabled={isHeaderActionBusy || loading}>
+                    {activeHeaderAction === 'pdf' ? 'Preparing...' : 'Export PDF'}
+                  </button>
+                  <button type="button" role="menuitem" onClick={() => handleMenuAction(handleRegenerateLastAnswer)} disabled={loading || isHeaderActionBusy}>
+                    {activeHeaderAction === 'regenerate' ? 'Regenerating...' : 'Regenerate answer'}
+                  </button>
+                  <button type="button" role="menuitem" onClick={() => handleMenuAction(handleClear)} disabled={isHeaderActionBusy || loading}>
+                    Clear session
+                  </button>
+                  {isDevMode ? (
+                    <button type="button" role="menuitem" onClick={() => handleMenuAction(() => setShowTelemetryPanel((prev) => !prev))}>
+                      {showTelemetryPanel ? 'Debug Off' : 'Debug On'}
+                    </button>
+                  ) : null}
+                </div>
               ) : null}
             </div>
           </div>
