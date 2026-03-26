@@ -517,9 +517,24 @@ const ChatWidget = ({ mode = 'floating' }) => {
   };
 
   const handleQuickMail = () => {
-    const subject = encodeURIComponent('Portfolio Inquiry - Nguyen Xuan Hai');
-    const body = encodeURIComponent('Hello Hai,\n\nI would like to discuss an opportunity.');
-    window.location.href = `mailto:${PROFILE_CONTEXT.contacts.email}?subject=${subject}&body=${body}`;
+    const recipient = PROFILE_CONTEXT.contacts.email;
+    if (!recipient) {
+      showToast(language === 'vi' ? 'Thiếu email liên hệ.' : 'Contact email is missing.', 'error');
+      return;
+    }
+
+    const subjectRaw = 'Portfolio Inquiry - Nguyen Xuan Hai';
+    const bodyRaw = 'Hello Hai,\n\nI would like to discuss an opportunity.';
+    const encodedRecipient = encodeURIComponent(recipient);
+    const encodedSubject = encodeURIComponent(subjectRaw);
+    const encodedBody = encodeURIComponent(bodyRaw);
+    const gmailComposeUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodedRecipient}&su=${encodedSubject}&body=${encodedBody}`;
+    const mailtoUrl = `mailto:${recipient}?subject=${encodedSubject}&body=${encodedBody}`;
+
+    const popup = window.open(gmailComposeUrl, '_blank', 'noopener,noreferrer');
+    if (!popup) {
+      window.location.href = mailtoUrl;
+    }
   };
 
   const handleQuickLinkedIn = () => {
