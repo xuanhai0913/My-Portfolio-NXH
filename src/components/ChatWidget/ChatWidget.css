@@ -261,6 +261,64 @@
   cursor: not-allowed;
 }
 
+.chat-telemetry-panel {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(5, 8, 11, 0.92);
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.chat-telemetry-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chat-telemetry-head strong {
+  font-size: 0.7rem;
+  color: rgba(172, 211, 255, 0.95);
+}
+
+.chat-telemetry-head button {
+  border: 1px solid rgba(172, 211, 255, 0.45);
+  color: rgba(172, 211, 255, 0.92);
+  background: rgba(172, 211, 255, 0.07);
+  border-radius: 999px;
+  font-size: 0.66rem;
+  padding: 3px 8px;
+  cursor: pointer;
+}
+
+.chat-telemetry-body {
+  max-height: 114px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.chat-telemetry-body article {
+  border: 1px solid rgba(172, 211, 255, 0.2);
+  border-radius: 6px;
+  padding: 5px 7px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.chat-telemetry-body p {
+  margin: 0;
+  font-size: 0.68rem;
+  color: rgba(219, 236, 255, 0.95);
+}
+
+.chat-telemetry-body small {
+  display: block;
+  margin-top: 2px;
+  color: rgba(168, 185, 204, 0.9);
+  font-size: 0.62rem;
+}
+
 .chat-body {
   flex: 1;
   overflow-y: auto;

@@ -15,7 +15,7 @@ import {
   ensureStructuredActionDefaults,
   resolveStructuredAction,
 } from '../../utils/chatActions';
-import { trackChatEvent } from '../../utils/chatTelemetry';
+import { getTrackedChatEvents, trackChatEvent } from '../../utils/chatTelemetry';
 import './ChatWidget.css';
 
 const MAX_CONTEXT_MESSAGES = 16;
@@ -24,6 +24,7 @@ const CHAT_INTRO_DISMISSED_KEY = 'nxh_chat_intro_dismissed_v1';
 const CHAT_FULLSCREEN_KEY = 'nxh_chat_fullscreen_v1';
 const CHAT_RESPONSE_STYLE_KEY = 'nxh_chat_response_style_v1';
 const TOAST_DURATION_MS = 2600;
+const TELEMETRY_EVENT_LIMIT = 30;
 const SUPPORTED_TEXT_TYPES = new Set(['text/plain', 'text/markdown', 'application/json']);
 const CONTACT_TRIGGER_REGEX = /(liên hệ|lien he|contact|email|mail|linkedin|cv|resume|kết nối|ket noi|phone|sđt|sdt)/i;
 
@@ -378,6 +379,8 @@ const ChatWidget = ({ mode = 'floating' }) => {
   const [responseStyle, setResponseStyle] = useState(() => localStorage.getItem(CHAT_RESPONSE_STYLE_KEY) || 'brief');
   const [toast, setToast] = useState(null);
   const [activeHeaderAction, setActiveHeaderAction] = useState('');
+  const [showTelemetryPanel, setShowTelemetryPanel] = useState(false);
+  const [telemetryEvents, setTelemetryEvents] = useState([]);
   const chatBodyRef = useRef(null);
   const inputRef = useRef(null);
   const fileInputRef = useRef(null);
@@ -385,6 +388,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
   const toastQueueRef = useRef([]);
   const toastRef = useRef(null);
   const language = preferredLanguage || 'en';
+  const isDevMode = process.env.NODE_ENV !== 'production';
 
   useEffect(() => {
     if (!showIntroSpotlight) return;
@@ -436,6 +440,22 @@ const ChatWidget = ({ mode = 'floating' }) => {
       'error'
     );
   }, [language, meta.persistHealthy]);
+
+  useEffect(() => {
+    if (!isDevMode || typeof window === 'undefined') return undefined;
+
+    const prime = getTrackedChatEvents().slice(-TELEMETRY_EVENT_LIMIT).reverse();
+    setTelemetryEvents(prime);
+
+    const onTelemetryEvent = (event) => {
+      const latest = event?.detail;
+      if (!latest) return;
+      setTelemetryEvents((prev) => [latest, ...prev].slice(0, TELEMETRY_EVENT_LIMIT));
+    };
+
+    window.addEventListener('nxh-assistant-event', onTelemetryEvent);
+    return () => window.removeEventListener('nxh-assistant-event', onTelemetryEvent);
+  }, [isDevMode]);
 
   useEffect(() => {
     toastRef.current = toast;
@@ -1000,9 +1020,31 @@ const ChatWidget = ({ mode = 'floating' }) => {
                 {activeHeaderAction === 'regenerate' ? 'Regenerating...' : 'Regenerate'}
               </button>
               <button type="button" onClick={handleClear} disabled={isHeaderActionBusy || loading}>Clear</button>
+              {isDevMode ? (
+                <button type="button" onClick={() => setShowTelemetryPanel((prev) => !prev)}>
+                  {showTelemetryPanel ? 'Debug Off' : 'Debug On'}
+                </button>
+              ) : null}
             </div>
           </div>
         </header>
+
+        {isDevMode && showTelemetryPanel ? (
+          <div className="chat-telemetry-panel" role="status" aria-live="polite">
+            <div className="chat-telemetry-head">
+              <strong>Telemetry (latest {TELEMETRY_EVENT_LIMIT})</strong>
+              <button type="button" onClick={() => setTelemetryEvents([])}>Clear Log</button>
+            </div>
+            <div className="chat-telemetry-body">
+              {telemetryEvents.map((item, index) => (
+                <article key={`${item.event}-${item.timestamp}-${index}`}>
+                  <p>{item.event}</p>
+                  <small>{new Date(item.timestamp).toLocaleTimeString()}</small>
+                </article>
+              ))}
+            </div>
+          </div>
+        ) : null}
 
         <div className="chat-body" role="log" aria-live="polite" ref={chatBodyRef}>
           {messages.map((message) => {
