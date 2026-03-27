@@ -205,16 +205,17 @@
    ============================================ */
 .nav-open {
   display: flex;
+  flex-direction: column;
   position: fixed;
   top: 80px;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.95);
-  /* Deep Black */
+  background: #000;
   border-top: 1px solid var(--color-accent);
-  z-index: 40;
-  backdrop-filter: blur(10px);
+  z-index: 55;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .nav-open .nav-links {
