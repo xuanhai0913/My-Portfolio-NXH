@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { API } from '../../utils/constants';
 import useChatSession from '../../hooks/useChatSession';
+import { trackAssistantOpen } from '../../utils/analytics';
 import {
   buildPortfolioSystemPrompt,
   PROFILE_CONTEXT,
@@ -511,7 +512,6 @@ const ChatWidget = ({ mode = 'floating' }) => {
     sessionStorage.setItem(CHAT_INTRO_DISMISSED_KEY, '1');
     // GA4 analytics tracking
     try {
-      const { trackAssistantOpen } = require('../../utils/analytics');
       trackAssistantOpen('widget');
     } catch { /* analytics not critical */ }
   };

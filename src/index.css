@@ -80,23 +80,7 @@ code {
 
 /* Performance: removed content-visibility as it conflicts with GSAP ScrollTrigger causing infinite layout loop */
 
-/* Accessibility: respect prefers-reduced-motion (animate skill) */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
-/* Accessibility: visible keyboard focus indicator (WCAG 2.4.7) */
-*:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 3px;
-}
+/* Accessibility: focus-visible removed */
 
 /* Skip link for keyboard users */
 .skip-link {
