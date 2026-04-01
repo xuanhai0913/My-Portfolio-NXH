@@ -74,9 +74,11 @@ const PortfolioTitle = ({ text = "Portfolio" }) => {
       });
     });
 
+    const hoverHandlers = [];
+
     // Add hover effects
     letters.forEach((letter) => {
-      letter.addEventListener('mouseenter', () => {
+      const onMouseEnter = () => {
         gsap.to(letter, {
           scale: 1.3,
           color: '#ffffff',
@@ -84,9 +86,9 @@ const PortfolioTitle = ({ text = "Portfolio" }) => {
           duration: 0.3,
           ease: 'back.out(1.7)'
         });
-      });
+      };
 
-      letter.addEventListener('mouseleave', () => {
+      const onMouseLeave = () => {
         gsap.to(letter, {
           scale: 1,
           color: '#4a90e2',
@@ -94,14 +96,27 @@ const PortfolioTitle = ({ text = "Portfolio" }) => {
           duration: 0.3,
           ease: 'back.out(1.7)'
         });
-      });
+      };
+
+      letter.addEventListener('mouseenter', onMouseEnter);
+      letter.addEventListener('mouseleave', onMouseLeave);
+      hoverHandlers.push({ letter, onMouseEnter, onMouseLeave });
     });
 
     return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      if (tl.scrollTrigger) tl.scrollTrigger.kill();
+      tl.kill();
+
+      hoverHandlers.forEach(({ letter, onMouseEnter, onMouseLeave }) => {
+        letter.removeEventListener('mouseenter', onMouseEnter);
+        letter.removeEventListener('mouseleave', onMouseLeave);
+      });
+
       letters.forEach((letter) => {
         gsap.killTweensOf(letter);
       });
+
+      lettersRef.current = [];
     };
   }, [text]);
 

@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useEffect, useState } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import ErrorBoundary from './components/ErrorBoundary';
 import Header from './components/Header';
@@ -12,12 +12,12 @@ import Profile from './components/Profile';
 import About from './components/About';
 import SectionTransition from './components/SectionTransition';
 
-// Lazy load below-fold heavy components (bundle-dynamic-imports)
-const Experience = lazy(() => import('./components/Experience/Experience'));
-const Portfolio = lazy(() => import('./components/Portfolio'));
-const Certifications = lazy(() => import('./components/Certifications'));
-const Contact = lazy(() => import('./components/Contact'));
-const Footer = lazy(() => import('./components/Footer'));
+// Core sections are loaded eagerly to avoid runtime chunk stalls on production.
+import Experience from './components/Experience/Experience';
+import Portfolio from './components/Portfolio';
+import Certifications from './components/Certifications';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
 
 // Lazy load optional route pages
 const VideoDemo = lazy(() => import('./components/VideoDemo'));
@@ -34,13 +34,6 @@ const Analytics = lazy(() =>
 // Hoisted loading fallback (rerender-no-inline-components)
 const LoadingFallback = () => (
   <div className="loading-container">
-    <div className="loading-spinner"></div>
-  </div>
-);
-
-// Section fallback — minimal height to prevent CLS
-const SectionFallback = () => (
-  <div className="loading-container" style={{ minHeight: '400px' }}>
     <div className="loading-spinner"></div>
   </div>
 );
@@ -77,15 +70,13 @@ const MainPortfolio = () => {
         <About />
       </ErrorBoundary>
 
-      {/* Below-fold — lazy loaded with Suspense (async-suspense-boundaries) */}
+      {/* Below-fold core sections — eager render for reliability */}
       <ErrorBoundary>
         <SectionTransition text="EXPERIENCE" />
       </ErrorBoundary>
 
       <ErrorBoundary>
-        <Suspense fallback={<SectionFallback />}>
-          <Experience />
-        </Suspense>
+        <Experience />
       </ErrorBoundary>
 
       <ErrorBoundary>
@@ -93,27 +84,19 @@ const MainPortfolio = () => {
       </ErrorBoundary>
 
       <ErrorBoundary>
-        <Suspense fallback={<SectionFallback />}>
-          <Portfolio />
-        </Suspense>
+        <Portfolio />
       </ErrorBoundary>
 
       <ErrorBoundary>
-        <Suspense fallback={<SectionFallback />}>
-          <Certifications />
-        </Suspense>
+        <Certifications />
       </ErrorBoundary>
 
       <ErrorBoundary>
-        <Suspense fallback={<SectionFallback />}>
-          <Contact />
-        </Suspense>
+        <Contact />
       </ErrorBoundary>
 
       <ErrorBoundary>
-        <Suspense fallback={<SectionFallback />}>
-          <Footer />
-        </Suspense>
+        <Footer />
       </ErrorBoundary>
     </>
   );
