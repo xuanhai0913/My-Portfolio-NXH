@@ -88,7 +88,7 @@ const SocialShare = ({ pageName = 'home', showText = true, size = 'medium' }) =>
           url: window.location.href
         });
       } catch (error) {
-        console.log('Error sharing:', error);
+        // User cancelled or share failed — no action needed
       }
     }
   };

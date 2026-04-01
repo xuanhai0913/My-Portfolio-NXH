@@ -33,6 +33,24 @@ export const pageMetaTags = {
     description: "Get in touch to discuss web development projects, collaboration opportunities, or technical consulting.",
     keywords: "Contact, Hire Full-Stack Developer, React Developer Contact, Web Development Services",
     url: "https://www.hailamdev.space/#contact"
+  },
+  assistant: {
+    title: "AI Assistant - Nguyễn Xuân Hải Portfolio",
+    description: "Chat with an AI assistant powered by Gemini to learn about Nguyễn Xuân Hải's skills, projects, experience, and availability. Get instant answers about hiring and collaboration.",
+    keywords: "AI Assistant, Portfolio Chatbot, Gemini AI, Developer Skills, Hire Developer, Interactive CV",
+    url: "https://www.hailamdev.space/assistant"
+  },
+  videos: {
+    title: "Project Demos - Nguyễn Xuân Hải Portfolio",
+    description: "Watch video demonstrations of projects including LLM Unit Test Generator, AI integrations, and web application showcases.",
+    keywords: "Project Demos, Video Portfolio, LLM Unit Test Generator, AI Development, Code Demos",
+    url: "https://www.hailamdev.space/videos"
+  },
+  "3d": {
+    title: "3D Experience - Nguyễn Xuân Hải Portfolio",
+    description: "Interactive 3D experience built with Three.js showcasing creative web development and WebGL capabilities.",
+    keywords: "Three.js, 3D Web, WebGL, Interactive Experience, Creative Development, 3D Portfolio",
+    url: "https://www.hailamdev.space/3d"
   }
 };
 
