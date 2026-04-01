@@ -1,6 +1,7 @@
 import React, { useRef, useState, useMemo, Suspense, lazy } from 'react';
 import emailjs from '@emailjs/browser';
 import { API } from '../../utils/constants';
+import { trackContactSubmit, trackSocialClick } from '../../utils/analytics';
 import SlateEditor, { SLATE_DRAFT_STORAGE_KEY } from './SlateEditor';
 import './styles/Contact.css';
 
@@ -77,6 +78,7 @@ const Contact = () => {
         if (adminResult.status === 'fulfilled') {
           setLoading(false);
           setStatus('success');
+          trackContactSubmit('email_form');
           form.current.reset();
           setEmail('');
           if (typeof window !== 'undefined') {
@@ -197,9 +199,9 @@ const Contact = () => {
           </form>
 
           <div className="social-links">
-            <a href="https://github.com/xuanhai0913" target="_blank" rel="noreferrer" className="social-icon">GITHUB</a>
-            <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="social-icon">LINKEDIN</a>
-            <a href="mailto:contact@hailamdev.space" className="social-icon">EMAIL</a>
+            <a href="https://github.com/xuanhai0913" target="_blank" rel="noreferrer" className="social-icon" aria-label="GitHub profile" onClick={() => trackSocialClick('github')}>GITHUB</a>
+            <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="social-icon" aria-label="LinkedIn profile" onClick={() => trackSocialClick('linkedin')}>LINKEDIN</a>
+            <a href="mailto:contact@hailamdev.space" className="social-icon" aria-label="Send email" onClick={() => trackSocialClick('email')}>EMAIL</a>
           </div>
         </div>
 

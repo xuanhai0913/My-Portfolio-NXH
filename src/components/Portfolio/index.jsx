@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { trackProjectClick } from '../../utils/analytics';
 import './styles/Portfolio.css';
 
 // Import project images
@@ -252,6 +253,7 @@ const Portfolio = () => {
               target={project.demo.startsWith('/') ? '_self' : '_blank'}
               rel="noopener noreferrer"
               className="action-btn primary"
+              onClick={() => trackProjectClick(project.title, 'demo')}
             >
               <span className="btn-text">VISIT SITE</span>
               <span className="btn-icon">↗</span>
@@ -263,6 +265,7 @@ const Portfolio = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="action-btn secondary"
+              onClick={() => trackProjectClick(project.title, 'github')}
             >
               <span className="btn-text">GITHUB_</span>
             </a>
@@ -274,6 +277,7 @@ const Portfolio = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="action-btn secondary"
+              onClick={() => trackProjectClick(project.title, `github-${link.label}`)}
             >
               <span className="btn-text">{link.label}</span>
             </a>
