@@ -35,18 +35,21 @@ const About = () => {
           <h2 className="about-header">ABOUT_ME</h2>
           <div className="bio-container">
             <p className="bio-text">
-              Passionate Full-Stack Developer with a knack for building
-              <span className="highlight"> robust digital ecosystems</span>.
+              Full-Stack Developer who ships
+              <span className="highlight"> production-grade web apps</span> —
+              from B2B platforms handling real business operations
+              to AI assistants powered by Gemini.
             </p>
             <p className="bio-sub">
-              I bridge the gap between complex backend logic and immersive frontend experiences.
-              Currently exploring the intersection of Web Development and Generative AI.
+              I work across the full stack: React frontends, .NET Core backends,
+              and AI integrations. 5+ commercial projects delivered,
+              including platforms serving thousands of users in Vietnam.
             </p>
 
             <div className="code-quote">
-              <span className="comment">{'/* Vision */'}</span>
+              <span className="comment">{'/* Currently */'}</span>
               <br />
-              <span className="keyword">return</span> <span className="string">"Seeking opportunities to create impactful web solutions."</span>;
+              <span className="keyword">building</span> <span className="string">"AI-powered tools with Gemini & Deepseek"</span>;
             </div>
           </div>
         </div>

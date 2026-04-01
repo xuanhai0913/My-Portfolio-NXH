@@ -114,6 +114,10 @@ const Certifications = () => {
               className={`cert-item ${inView ? 'in-view' : ''}`}
               style={{ transitionDelay: `${index * 0.2}s` }}
               onClick={(e) => handleVerify(cert.verifyUrl, e)}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleVerify(cert.verifyUrl, e); } }}
+              tabIndex={0}
+              role="button"
+              aria-label={`Verify ${cert.title} certificate from ${cert.issuer}`}
             >
               <div className="cert-inner">
                 <div className="cert-thumb">

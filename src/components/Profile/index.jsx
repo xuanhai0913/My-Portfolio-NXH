@@ -31,8 +31,10 @@ const Profile = () => {
 
           <div className={`hero-sub ${loaded ? 'in-view' : ''}`}>
             <p>
-              Building digital experiences with <span className="neon-highlight">modern web technologies</span>.
-              <br />Passionate about creating innovative solutions.
+              I'm <span className="neon-highlight">Nguyễn Xuân Hải</span> — I build
+              production web apps with React, .NET Core & AI.
+              <br />From B2B platforms to AI-powered tools,
+              shipped for real clients in Vietnam.
             </p>
           </div>
 
@@ -40,9 +42,10 @@ const Profile = () => {
             <button
               onClick={() => setShowCV(true)}
               className="btn-brutalist btn-view-cv"
+              aria-label="View CV / Resume"
             >
               VIEW CV
-              <span className="btn-icon">↗</span>
+              <span className="btn-icon" aria-hidden="true">↗</span>
             </button>
 
             <div className="scroll-hint">
@@ -64,21 +67,25 @@ const Profile = () => {
                 src={profileImage}
                 alt="Glitch Layer 1"
                 className="profile-img glitch-layer layer-1"
+                aria-hidden="true"
               />
               <img
                 src={profileImage}
                 alt="Glitch Layer 2"
                 className="profile-img glitch-layer layer-2"
+                aria-hidden="true"
               />
             </div>
 
             <div
               className="floating-badge"
               onClick={() => setShowExperience(true)}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setShowExperience(true); } }}
               role="button"
               tabIndex={0}
+              aria-label="View work experience details"
             >
-              <span className="status-dot"></span>
+              <span className="status-dot" aria-hidden="true"></span>
               2+ YEARS EXPERIENCE
             </div>
 

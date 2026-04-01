@@ -125,6 +125,9 @@ const App = () => {
 
   return (
     <div className="app">
+      {/* Skip to content — WCAG 2.4.1 */}
+      <a href="#profile" className="skip-link">Skip to main content</a>
+
       <ErrorBoundary>
         <Header />
       </ErrorBoundary>
