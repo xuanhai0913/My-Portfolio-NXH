@@ -78,15 +78,7 @@ code {
   color: var(--bg-dark);
 }
 
-/* Performance: content-visibility for below-fold sections (rendering-content-visibility) */
-.experience-section,
-.portfolio-section,
-.certifications-section,
-.contact-section,
-.footer {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 600px;
-}
+/* Performance: removed content-visibility as it conflicts with GSAP ScrollTrigger causing infinite layout loop */
 
 /* Accessibility: respect prefers-reduced-motion (animate skill) */
 @media (prefers-reduced-motion: reduce) {
