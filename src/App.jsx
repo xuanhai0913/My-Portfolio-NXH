@@ -4,6 +4,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 import Header from './components/Header';
 import AudioActivator from './components/AudioActivator/AudioActivator';
 import ChatWidget from './components/ChatWidget';
+import { initSectionTracking, initScrollDepthTracking } from './utils/analytics';
 import './App.css';
 
 // Critical above-fold components — load eagerly
@@ -51,7 +52,18 @@ const MainPortfolio = () => {
     const timer = setTimeout(() => {
       window.dispatchEvent(new Event('resize'));
     }, 1000);
-    return () => clearTimeout(timer);
+
+    // Initialize analytics tracking (analytics-tracking skill)
+    const analyticsTimer = setTimeout(() => {
+      initSectionTracking();
+    }, 2000);
+    const cleanupScroll = initScrollDepthTracking();
+
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(analyticsTimer);
+      if (cleanupScroll) cleanupScroll();
+    };
   }, []);
 
   return (

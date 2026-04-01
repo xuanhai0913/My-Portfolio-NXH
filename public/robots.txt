@@ -32,6 +32,28 @@ Allow: /images/project/
 # Social media verification
 Allow: /discord-verification.txt
 
+# AI Search Bots - Allow for citation (ai-seo skill)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
 # Crawl delay (be nice to servers)
 Crawl-delay: 5
 
