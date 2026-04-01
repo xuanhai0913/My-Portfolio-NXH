@@ -33,15 +33,11 @@ Allow: /images/project/
 Allow: /discord-verification.txt
 
 # Crawl delay (be nice to servers)
-Crawl-delay: 1
+Crawl-delay: 5
 
-# Sitemap locations
+# Sitemap location
 Sitemap: https://www.hailamdev.space/sitemap.xml
-Sitemap: https://www.hailamdev.space/sitemap-images.xml
 
 # Contact information
 # Website: https://www.hailamdev.space
 # Email: xuanhai0913750452@gmail.com
-
-# Optimize crawling
-Crawl-delay: 10

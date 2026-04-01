@@ -4,8 +4,8 @@
 export const defaultMetaTags = {
   title: "Nguyễn Xuân Hải - Full-Stack Developer Portfolio | React & Web Expert",
   description: "Full-Stack Developer specializing in React, Node.js, ASP.NET Core and modern web technologies. Explore my projects and professional skills.",
-  image: "https://nxhai0913.me/images/og-image.jpg",
-  url: "https://nxhai0913.me/",
+  image: "https://www.hailamdev.space/images/og-image.jpg",
+  url: "https://www.hailamdev.space/",
   type: "website"
 };
 
@@ -14,25 +14,25 @@ export const pageMetaTags = {
     title: "Nguyễn Xuân Hải - Full-Stack Developer Portfolio",
     description: "Welcome to my portfolio. I'm a Full-Stack Developer specializing in React, Node.js, ASP.NET Core and modern web technologies.",
     keywords: "Full-Stack Developer, React Developer, Node.js Developer, ASP.NET Core, JavaScript Expert, Portfolio",
-    url: "https://nxhai0913.me/"
+    url: "https://www.hailamdev.space/"
   },
   about: {
     title: "About Me - Nguyễn Xuân Hải | Full-Stack Developer",
     description: "Learn about my experience, skills and career journey in Full-Stack Development.",
     keywords: "About, Experience, Skills, Full-Stack Developer Career, React Expert",
-    url: "https://nxhai0913.me/#about"
+    url: "https://www.hailamdev.space/#about"
   },
   portfolio: {
     title: "Projects - Portfolio | Nguyễn Xuân Hải",
     description: "Explore my web development and UI/UX design projects, from React applications to responsive websites, including commercial projects for Great Link Mai House.",
     keywords: "Portfolio, Projects, Web Development, React Projects, UI/UX Design, Commercial Projects, B2B Platform, Full-Stack",
-    url: "https://nxhai0913.me/#portfolio"
+    url: "https://www.hailamdev.space/#portfolio"
   },
   contact: {
     title: "Contact - Nguyễn Xuân Hải | Full-Stack Developer",
     description: "Get in touch to discuss web development projects, collaboration opportunities, or technical consulting.",
     keywords: "Contact, Hire Full-Stack Developer, React Developer Contact, Web Development Services",
-    url: "https://nxhai0913.me/#contact"
+    url: "https://www.hailamdev.space/#contact"
   }
 };
 
@@ -99,7 +99,7 @@ export const generateStructuredData = (pageName, additionalData = {}) => {
     "author": {
       "@type": "Person",
       "name": "Nguyễn Xuân Hải",
-      "url": "https://nxhai0913.me"
+      "url": "https://www.hailamdev.space"
     },
     "publisher": {
       "@type": "Person",
