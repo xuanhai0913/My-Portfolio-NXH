@@ -1,45 +1,54 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { SpeedInsights } from "@vercel/speed-insights/react";
-import { Analytics } from "@vercel/analytics/react";
 import ErrorBoundary from './components/ErrorBoundary';
 import Header from './components/Header';
 import AudioActivator from './components/AudioActivator/AudioActivator';
 import ChatWidget from './components/ChatWidget';
 import './App.css';
 
-// Lazy load non-critical components
+// Critical above-fold components — load eagerly
 import Profile from './components/Profile';
 import About from './components/About';
-import Experience from './components/Experience/Experience';
 import SectionTransition from './components/SectionTransition';
-import Portfolio from './components/Portfolio';
-import Certifications from './components/Certifications';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
 
-// Lazy load actual heavy/optional pages only
+// Lazy load below-fold heavy components (bundle-dynamic-imports)
+const Experience = lazy(() => import('./components/Experience/Experience'));
+const Portfolio = lazy(() => import('./components/Portfolio'));
+const Certifications = lazy(() => import('./components/Certifications'));
+const Contact = lazy(() => import('./components/Contact'));
+const Footer = lazy(() => import('./components/Footer'));
+
+// Lazy load optional route pages
 const VideoDemo = lazy(() => import('./components/VideoDemo'));
 const Hero3D = lazy(() => import('./components/Hero3D'));
 
-// Loading fallback
+// Defer third-party analytics (bundle-defer-third-party)
+const SpeedInsights = lazy(() =>
+  import('@vercel/speed-insights/react').then(m => ({ default: m.SpeedInsights }))
+);
+const Analytics = lazy(() =>
+  import('@vercel/analytics/react').then(m => ({ default: m.Analytics }))
+);
+
+// Hoisted loading fallback (rerender-no-inline-components)
 const LoadingFallback = () => (
   <div className="loading-container">
     <div className="loading-spinner"></div>
   </div>
 );
 
-// Main Portfolio Page Component
-const MainPortfolio = () => {
-  // Force ScrollTrigger refresh on mount to handle layout shifts (images/fonts)
-  const [mounted, setMounted] = React.useState(false);
+// Section fallback — minimal height to prevent CLS
+const SectionFallback = () => (
+  <div className="loading-container" style={{ minHeight: '400px' }}>
+    <div className="loading-spinner"></div>
+  </div>
+);
 
-  React.useEffect(() => {
-    setMounted(true);
-    // Refresh after a small delay to allow initial renders
+// Hoisted Main Portfolio Page (rerender-no-inline-components)
+const MainPortfolio = () => {
+  useEffect(() => {
+    // Force ScrollTrigger refresh after lazy components mount
     const timer = setTimeout(() => {
-      // We need to import ScrollTrigger if we use it here, or trust the components do it.
-      // But components register it. We can trigger a window resize event which forces refresh
       window.dispatchEvent(new Event('resize'));
     }, 1000);
     return () => clearTimeout(timer);
@@ -47,6 +56,7 @@ const MainPortfolio = () => {
 
   return (
     <>
+      {/* Above-fold — loaded eagerly */}
       <ErrorBoundary>
         <Profile />
       </ErrorBoundary>
@@ -55,34 +65,43 @@ const MainPortfolio = () => {
         <About />
       </ErrorBoundary>
 
-      {/* Section Transition - About to Experience */}
+      {/* Below-fold — lazy loaded with Suspense (async-suspense-boundaries) */}
       <ErrorBoundary>
         <SectionTransition text="EXPERIENCE" />
       </ErrorBoundary>
 
       <ErrorBoundary>
-        <Experience />
+        <Suspense fallback={<SectionFallback />}>
+          <Experience />
+        </Suspense>
       </ErrorBoundary>
 
-      {/* Section Transition - Experience to Projects */}
       <ErrorBoundary>
         <SectionTransition text="PROJECTS" />
       </ErrorBoundary>
 
       <ErrorBoundary>
-        <Portfolio />
+        <Suspense fallback={<SectionFallback />}>
+          <Portfolio />
+        </Suspense>
       </ErrorBoundary>
 
       <ErrorBoundary>
-        <Certifications />
+        <Suspense fallback={<SectionFallback />}>
+          <Certifications />
+        </Suspense>
       </ErrorBoundary>
 
       <ErrorBoundary>
-        <Contact />
+        <Suspense fallback={<SectionFallback />}>
+          <Contact />
+        </Suspense>
       </ErrorBoundary>
 
       <ErrorBoundary>
-        <Footer />
+        <Suspense fallback={<SectionFallback />}>
+          <Footer />
+        </Suspense>
       </ErrorBoundary>
     </>
   );
@@ -120,8 +139,11 @@ const App = () => {
         } />
       </Routes>
 
-      <Analytics debug={false} mode="production" />
-      <SpeedInsights />
+      {/* Deferred third-party analytics — loads after main content */}
+      <Suspense fallback={null}>
+        <Analytics debug={false} mode="production" />
+        <SpeedInsights />
+      </Suspense>
     </div>
   );
 };
