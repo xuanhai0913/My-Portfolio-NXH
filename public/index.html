@@ -141,14 +141,14 @@
   <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/webfonts/fa-brands-400.woff2"
     as="font" crossorigin />
 
-  <!-- Updated Content-Security-Policy -->
+  <!-- Updated Content-Security-Policy (GA4 ready) -->
   <meta http-equiv="Content-Security-Policy" content="
       default-src 'self';
       style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com;
       font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com data:;
-      img-src 'self' data: blob: https://res.cloudinary.com https://images.unsplash.com;
-      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com https://vercel.live;
-      connect-src 'self' https://api.emailjs.com https://va.vercel-scripts.com https://vercel.live https://vitals.vercel-insights.com https://res.cloudinary.com https://api.unsplash.com;
+      img-src 'self' data: blob: https://res.cloudinary.com https://images.unsplash.com https://www.googletagmanager.com https://www.google-analytics.com;
+      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com https://vercel.live https://www.googletagmanager.com https://www.google-analytics.com;
+      connect-src 'self' https://api.emailjs.com https://va.vercel-scripts.com https://vercel.live https://vitals.vercel-insights.com https://res.cloudinary.com https://api.unsplash.com https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com;
       worker-src 'self' blob:;
       media-src 'self' blob: data:;
     ">
@@ -274,10 +274,268 @@
       ]
     }
     </script>
+
+  <!-- ProfilePage Schema -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfilePage",
+      "mainEntity": {
+        "@type": "Person",
+        "@id": "https://www.hailamdev.space/#person",
+        "name": "Nguyễn Xuân Hải",
+        "alternateName": "Hai Lam Dev",
+        "url": "https://www.hailamdev.space",
+        "jobTitle": "Full-Stack Developer",
+        "description": "Passionate Full-Stack Developer specializing in React, ASP.NET Core, and AI integration. Based in Ho Chi Minh City, Vietnam.",
+        "knowsAbout": ["React.js", "Next.js", "ASP.NET Core", "Node.js", "JavaScript", "TypeScript", "UI/UX Design", "SQL Server", "MongoDB", "DeepSeek AI", "Three.js"],
+        "sameAs": [
+          "https://github.com/xuanhai0913",
+          "https://www.linkedin.com/in/xuanhai0913/",
+          "https://www.facebook.com/nguyenhai0913"
+        ]
+      },
+      "dateCreated": "2024-01-01",
+      "dateModified": "2026-04-01"
+    }
+    </script>
+
+  <!-- Portfolio ItemList Schema -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "Portfolio Projects by Nguyễn Xuân Hải",
+      "description": "A collection of commercial and personal web development projects showcasing Full-Stack expertise.",
+      "numberOfItems": 9,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "CreativeWork",
+            "name": "Great Link Mai House",
+            "description": "Corporate website for leading Media & B2B company. Built with enterprise-grade security and scalability.",
+            "url": "https://greatlinkmaihouse.com/",
+            "author": {"@type": "Person", "name": "Nguyễn Xuân Hải"},
+            "dateCreated": "2024",
+            "keywords": ["ASP.NET Core", "SQL Server", "C#", "B2B Platform"]
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@type": "CreativeWork",
+            "name": "Education English Hub (ECH)",
+            "description": "Free English teaching platform for community education, empowering students with accessible learning.",
+            "url": "https://ech.edu.vn",
+            "author": {"@type": "Person", "name": "Nguyễn Xuân Hải"},
+            "dateCreated": "2024",
+            "keywords": ["PHP", "MySQL", "WordPress", "Education"]
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "item": {
+            "@type": "CreativeWork",
+            "name": "VN Media Hub",
+            "description": "Professional blog platform with .NET Core backend, modern CMS with SEO optimization.",
+            "url": "https://vnmediahub.com",
+            "author": {"@type": "Person", "name": "Nguyễn Xuân Hải"},
+            "dateCreated": "2024",
+            "keywords": [".NET Core", "React", "SQL", "Blog Platform"]
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "Vision Key AI",
+            "description": "Multi-platform AI assistant powered by Gemini 2.0, available on MacOS and Chrome Extension.",
+            "url": "https://visionpremium.hailamdev.space",
+            "author": {"@type": "Person", "name": "Nguyễn Xuân Hải"},
+            "dateCreated": "2025",
+            "applicationCategory": "AI Assistant",
+            "operatingSystem": "macOS, Chrome",
+            "keywords": ["Swift", "Next.js", "AI", "Gemini 2.0"]
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "LLM Unit Test Generator",
+            "description": "AI-powered tool generating unit tests using Deepseek LLM to boost development productivity.",
+            "url": "https://github.com/xuanhai0913/LLM-Unit-tests",
+            "author": {"@type": "Person", "name": "Nguyễn Xuân Hải"},
+            "dateCreated": "2025",
+            "applicationCategory": "Developer Tools",
+            "keywords": ["React", "Deepseek", "Node.js", "AI Testing"]
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "item": {
+            "@type": "CreativeWork",
+            "name": "Portfolio Website",
+            "description": "Modern brutalist portfolio with GSAP animations and AI Assistant integration.",
+            "url": "https://www.hailamdev.space/",
+            "author": {"@type": "Person", "name": "Nguyễn Xuân Hải"},
+            "dateCreated": "2024",
+            "keywords": ["React", "GSAP", "CSS3", "Three.js", "AI"]
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "item": {
+            "@type": "CreativeWork",
+            "name": "Happy New Year",
+            "description": "Animated festive greeting website with interactive canvas animations and particle effects.",
+            "url": "https://happynewyear.hailamdev.space/",
+            "author": {"@type": "Person", "name": "Nguyễn Xuân Hải"},
+            "dateCreated": "2024",
+            "keywords": ["HTML5", "JavaScript", "Canvas", "Animation"]
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 8,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "SPRM Management System",
+            "description": "Student performance tracking system with comprehensive dashboard for educators and students.",
+            "url": "https://cnpm-fullstack-react-csharp.onrender.com",
+            "author": {"@type": "Person", "name": "Nguyễn Xuân Hải"},
+            "dateCreated": "2023",
+            "applicationCategory": "Education Management",
+            "keywords": ["React", "C#", "EF Core"]
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 9,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "OTP API Service",
+            "description": "Phone rental service for OTP verification with secure and reliable API infrastructure.",
+            "url": "https://shop.hailamdev.space/",
+            "author": {"@type": "Person", "name": "Nguyễn Xuân Hải"},
+            "dateCreated": "2023",
+            "keywords": ["Node.js", "MongoDB", "Express"]
+          }
+        }
+      ]
+    }
+    </script>
+
 </head>
 
 <body>
-  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <noscript>
+    <!-- Comprehensive fallback for search engines and no-JS browsers -->
+    <header>
+      <h1>Nguyễn Xuân Hải — Full-Stack Developer</h1>
+      <nav>
+        <a href="#about">About</a> |
+        <a href="#portfolio">Portfolio</a> |
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="hero">
+        <h2>Full-Stack Developer</h2>
+        <p>Building digital experiences with modern web technologies. Passionate about creating innovative solutions.</p>
+        <a href="/CV_NguyenXuanHai.pdf">View CV (PDF)</a>
+      </section>
+
+      <section id="about">
+        <h2>About Me</h2>
+        <p>Passionate Full-Stack Developer with a knack for building robust digital ecosystems. I bridge the gap between complex backend logic and immersive frontend experiences. Currently exploring the intersection of Web Development and Generative AI.</p>
+        <h3>Technical Skills</h3>
+        <ul>
+          <li>React / Next.js — 90%</li>
+          <li>Node.js / Express — 85%</li>
+          <li>ASP.NET Core — 80%</li>
+          <li>SQL / MongoDB — 75%</li>
+          <li>DeepSeek / AI — 70%</li>
+        </ul>
+      </section>
+
+      <section id="portfolio">
+        <h2>Projects</h2>
+        <article>
+          <h3>Great Link Mai House</h3>
+          <p>Corporate website for leading Media &amp; B2B company. Built with enterprise-grade security and scalability in mind.</p>
+          <p>Technologies: ASP.NET Core, SQL Server, C#</p>
+          <a href="https://greatlinkmaihouse.com/">Visit Site</a>
+        </article>
+        <article>
+          <h3>Education English (ECH)</h3>
+          <p>Free English teaching platform for community. Empowering students with accessible education.</p>
+          <p>Technologies: PHP, MySQL, WordPress</p>
+          <a href="https://ech.edu.vn">Visit Site</a>
+        </article>
+        <article>
+          <h3>VN Media Hub</h3>
+          <p>Professional blog platform with .NET Core backend. Modern CMS with SEO optimization.</p>
+          <p>Technologies: .NET Core, React, SQL</p>
+          <a href="https://vnmediahub.com">Visit Site</a>
+        </article>
+        <article>
+          <h3>Vision Key AI</h3>
+          <p>Multi-platform AI assistant powered by Gemini 2.0. Available on MacOS, Chrome Extension.</p>
+          <p>Technologies: Swift, Next.js, AI</p>
+          <a href="https://visionpremium.hailamdev.space">Visit Site</a>
+        </article>
+        <article>
+          <h3>LLM Unit Test Gen</h3>
+          <p>AI-powered tool generating unit tests using Deepseek LLM. Boost your development productivity.</p>
+          <p>Technologies: React, Deepseek, Node.js</p>
+          <a href="https://github.com/xuanhai0913/LLM-Unit-tests">GitHub</a>
+        </article>
+        <article>
+          <h3>Portfolio Website</h3>
+          <p>Modern brutalist portfolio with GSAP animations. Showcasing creative design and development skills.</p>
+          <p>Technologies: React, GSAP, CSS3</p>
+          <a href="https://www.hailamdev.space/">Visit Site</a>
+        </article>
+        <article>
+          <h3>SPRM Management</h3>
+          <p>Student performance tracking system. Comprehensive dashboard for educators and students.</p>
+          <p>Technologies: React, C#, EF Core</p>
+        </article>
+        <article>
+          <h3>OTP API Service</h3>
+          <p>Phone rental service for OTP verification. Secure and reliable API infrastructure.</p>
+          <p>Technologies: Node.js, MongoDB, Express</p>
+        </article>
+      </section>
+
+      <section id="contact">
+        <h2>Contact</h2>
+        <p>Get in touch to discuss web development projects, collaboration opportunities, or technical consulting.</p>
+        <ul>
+          <li>Email: <a href="mailto:xuanhai0913750452@gmail.com">xuanhai0913750452@gmail.com</a></li>
+          <li>LinkedIn: <a href="https://www.linkedin.com/in/xuanhai0913/">linkedin.com/in/xuanhai0913</a></li>
+          <li>GitHub: <a href="https://github.com/xuanhai0913">github.com/xuanhai0913</a></li>
+          <li>Facebook: <a href="https://www.facebook.com/nguyenhai0913">facebook.com/nguyenhai0913</a></li>
+        </ul>
+        <p>Located in Ho Chi Minh City, Vietnam</p>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2025-2026 Nguyễn Xuân Hải. All rights reserved.</p>
+    </footer>
+  </noscript>
+
   <div id="root"></div>
 </body>
 
