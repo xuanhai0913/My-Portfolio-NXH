@@ -256,15 +256,33 @@
 
 .social-icon {
   font-family: var(--font-display);
-  font-size: 2rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: #555;
   text-decoration: none;
-  transition: color 0.3s;
+  letter-spacing: 0.08em;
+  padding: 8px 0;
+  position: relative;
+  transition: color 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.social-icon::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-accent, #CCFF00);
+  transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .social-icon:hover {
-  color: var(--text-primary);
+  color: var(--color-accent, #CCFF00);
+}
+
+.social-icon:hover::after {
+  width: 100%;
 }
 
 .footer-placeholder {

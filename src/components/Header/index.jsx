@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './styles/Header.css';
 
@@ -8,6 +8,13 @@ const logoFull = 'https://res.cloudinary.com/dqdcqtu8m/image/upload/v1765001214/
 const Header = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const location = useLocation();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
@@ -33,7 +40,7 @@ const Header = () => {
   const isSubRoute = location.pathname !== '/';
 
   return (
-    <header className="header">
+    <header className={`header ${scrolled ? 'header--scrolled' : ''}`}>
       <div className="header-overlay"></div>
       <div className="nav-container">
         <div className="logo-container">

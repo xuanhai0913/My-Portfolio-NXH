@@ -4,6 +4,13 @@ import './Blog.css';
 
 const DEVTO_API = 'https://dev.to/api/articles?username=xuanhai0913&per_page=20';
 
+// Dev.to API returns HTML entities in descriptions
+const decodeEntities = (str) => {
+  const el = document.createElement('textarea');
+  el.innerHTML = str;
+  return el.value;
+};
+
 const Blog = () => {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -95,7 +102,7 @@ const Blog = () => {
 
               <h2 className="blog-card-title">{article.title}</h2>
 
-              <p className="blog-card-desc">{article.description}</p>
+              <p className="blog-card-desc">{decodeEntities(article.description)}</p>
 
               <div className="blog-card-tags">
                 {article.tag_list.map(tag => (

@@ -9,11 +9,20 @@
   width: 100%;
   z-index: 50;
   background-color: rgba(0, 0, 0, 0.85);
-  /* Dark Translucent */
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  /* Subtle border */
+  transition: background-color 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+              border-color 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.header--scrolled {
+  background-color: rgba(0, 0, 0, 0.95);
+  border-bottom-color: rgba(204, 255, 0, 0.15);
+}
+
+.header--scrolled .nav-container {
+  height: 64px;
 }
 
 .header-overlay {
@@ -28,6 +37,7 @@
   justify-content: space-between;
   height: 80px;
   padding: 0 1.5rem;
+  transition: height 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 /* Logo */
