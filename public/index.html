@@ -148,12 +148,10 @@
   <link rel="dns-prefetch" href="https://www.googletagmanager.com">
   <link rel="dns-prefetch" href="https://www.google-analytics.com">
 
-  <!-- Preload LCP hero image -->
-  <link rel="preload" as="image" href="/images/og-image.jpg">
+  <!-- Hero image (not LCP — text is LCP) -->
+  <link rel="prefetch" as="image" href="/images/og-image.jpg">
 
-  <!-- Google Fonts — NON-BLOCKING (saves ~1.36s render-blocking) -->
-  <link rel="preload" as="style"
-    href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap">
+  <!-- Google Fonts — NON-BLOCKING (media=print onload trick) -->
   <link
     href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap"
     rel="stylesheet" media="print" onload="this.media='all'">
