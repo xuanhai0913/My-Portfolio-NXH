@@ -222,7 +222,7 @@ const Portfolio = () => {
         <div className="visual-frame">
           <img
             src={project.image}
-            alt={project.title}
+            alt={`${project.title} — ${project.technologies.join(', ')} project screenshot`}
             className="showcase-image"
             loading="lazy"
           />
