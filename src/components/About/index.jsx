@@ -34,16 +34,20 @@ const About = () => {
         <div className="about-left">
           <h2 className="about-header">ABOUT_ME</h2>
           <div className="bio-container">
+            {/* AI-extractable definition block (40-60 words, self-contained) */}
             <p className="bio-text">
-              Full-Stack Developer who ships
-              <span className="highlight"> production-grade web apps</span> —
+              Nguyễn Xuân Hải is a <span className="highlight">Full-Stack Developer</span> based
+              in Ho Chi Minh City, Vietnam, specializing in React, .NET Core,
+              and AI integration. He builds production web applications —
               from B2B platforms handling real business operations
-              to AI assistants powered by Gemini.
+              to AI assistants powered by Google Gemini.
             </p>
+            {/* AI-extractable stats block (+37% citation boost per GEO study) */}
             <p className="bio-sub">
-              I work across the full stack: React frontends, .NET Core backends,
-              and AI integrations. 5+ commercial projects delivered,
-              including platforms serving thousands of users in Vietnam.
+              9+ projects shipped to production, including 3 commercial platforms
+              serving real users in Vietnam. Tech stack spans React frontends,
+              .NET Core backends, Node.js APIs, and AI integrations
+              with Gemini 2.0 and Deepseek LLM.
             </p>
 
             <div className="code-quote">

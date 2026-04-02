@@ -50,3 +50,19 @@
 3. AI Assistant interaction
 4. Project demo visits
 5. Social media follows (GitHub, LinkedIn)
+
+## Published Content & External Presence
+- **Dev.to**: https://dev.to/xuanhai0913 — Technical articles about AI integration and React development
+- **LinkedIn**: https://www.linkedin.com/in/xuanhai0913/ — Professional profile and thought leadership posts
+- **GitHub**: https://github.com/xuanhai0913 — Open source projects and portfolio source code
+- **Dev.to Article**: "How I Built an AI-Powered Portfolio Assistant with Google Gemini" (April 2026)
+
+## Third-Party Mentions
+*(Update this section as mentions appear on external sites)*
+- Dev.to community engagement via technical articles
+- LinkedIn developer community presence
+
+## AI Search Optimization
+- FAQPage schema with 8 questions targeting: developer skills, commercial projects, location, contact, AI experience, React portfolio, .NET vs React, AI chatbot integration
+- robots.txt allows 7 AI bots: GPTBot, ChatGPT-User, Google-Extended, PerplexityBot, ClaudeBot, anthropic-ai, Bingbot
+- Entity consistency: "Nguyễn Xuân Hải" / "Hai Lam Dev" across all platforms
