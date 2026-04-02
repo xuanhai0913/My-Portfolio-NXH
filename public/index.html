@@ -138,23 +138,25 @@
   <link rel="alternate" hreflang="vi" href="https://www.hailamdev.space/" />
   <link rel="alternate" hreflang="x-default" href="https://www.hailamdev.space/" />
 
-  <!-- Performance optimizations: preconnect & dns-prefetch -->
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-  <link rel="preconnect" href="https://res.cloudinary.com">
+  <!-- Performance: preconnect only critical origins (max 3-4) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://www.googletagmanager.com">
-  <link rel="preconnect" href="https://www.google-analytics.com">
+  <link rel="preconnect" href="https://res.cloudinary.com">
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
   <link rel="dns-prefetch" href="https://va.vercel-scripts.com">
   <link rel="dns-prefetch" href="https://vitals.vercel-insights.com">
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+  <link rel="dns-prefetch" href="https://www.google-analytics.com">
 
-  <!-- Preload hero image for LCP -->
-  <link rel="prefetch" as="image" href="https://res.cloudinary.com/dqdcqtu8m/image/upload/v1765003310/favicon_hwohfv.png">
+  <!-- Preload LCP hero image -->
+  <link rel="preload" as="image" href="/images/og-image.jpg">
 
-  <!-- Google Fonts - Brutalist Theme (Vietnamese Support) -->
+  <!-- Google Fonts — NON-BLOCKING (saves ~1.36s render-blocking) -->
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap">
   <link
     href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap"
-    rel="stylesheet">
+    rel="stylesheet" media="print" onload="this.media='all'">
 
   <!-- Preload FontAwesome -->
   <link rel="prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style" />
@@ -183,7 +185,18 @@
       display: flex;
       align-items: center;
     }
+    /* Font fallback stack — instant text display while fonts load */
+    body {
+      font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
   </style>
+
+  <!-- noscript fallback for non-blocking fonts -->
+  <noscript>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet">
+  </noscript>
 
   <link rel="apple-touch-icon" href="https://res.cloudinary.com/dqdcqtu8m/image/upload/v1765001214/Logo_st3nmr.png" />
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
