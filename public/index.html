@@ -157,10 +157,10 @@
     rel="stylesheet">
 
   <!-- Preload FontAwesome -->
-  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style" />
-  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/webfonts/fa-solid-900.woff2"
+  <link rel="prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style" />
+  <link rel="prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/webfonts/fa-solid-900.woff2"
     as="font" crossorigin />
-  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/webfonts/fa-brands-400.woff2"
+  <link rel="prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/webfonts/fa-brands-400.woff2"
     as="font" crossorigin />
 
   <!-- Updated Content-Security-Policy (GA4 ready) -->
@@ -170,7 +170,7 @@
       font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com data:;
       img-src 'self' data: blob: https://res.cloudinary.com https://images.unsplash.com https://www.googletagmanager.com https://www.google-analytics.com;
       script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com https://vercel.live https://www.googletagmanager.com https://www.google-analytics.com;
-      connect-src 'self' https://api.emailjs.com https://va.vercel-scripts.com https://vercel.live https://vitals.vercel-insights.com https://res.cloudinary.com https://api.unsplash.com https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com;
+      connect-src 'self' https://api.emailjs.com https://va.vercel-scripts.com https://vercel.live https://vitals.vercel-insights.com https://res.cloudinary.com https://api.unsplash.com https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://dev.to;
       worker-src 'self' blob:;
       media-src 'self' blob: data:;
     ">
