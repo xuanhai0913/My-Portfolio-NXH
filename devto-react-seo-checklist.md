@@ -15,7 +15,7 @@ I audited my portfolio at [hailamdev.space](https://www.hailamdev.space) and wen
 
 ## The Complete Checklist
 
-### ✅ 1. Meta Tags (index.html)
+### 1. Meta Tags (index.html)
 
 Every React SPA needs these in `public/index.html`:
 
@@ -47,7 +47,7 @@ Every React SPA needs these in `public/index.html`:
 
 **Pro tip:** Keep your title under 60 characters and description under 155 characters. Google truncates anything longer in SERPs.
 
-### ✅ 2. Structured Data (JSON-LD) — The #1 Thing Most Portfolios Miss
+### 2. Structured Data (JSON-LD) — The #1 Thing Most Portfolios Miss
 
 Structured data tells Google exactly what your page is about. Without it, Google is guessing:
 
@@ -90,7 +90,7 @@ For my portfolio at [hailamdev.space](https://www.hailamdev.space), I added **6 
 | `ItemList` | Project listings structured as an ordered list |
 | `FAQPage` | Common questions about my work (AI search gold mine) |
 
-### ✅ 3. FAQPage Schema — The AI Search Secret Weapon
+### 3. FAQPage Schema — The AI Search Secret Weapon
 
 This is the most underrated SEO technique for 2025. AI search engines (ChatGPT, Perplexity, Google AI Overviews) extract FAQ content at **3x the rate** of regular paragraphs.
 
@@ -133,7 +133,7 @@ Why? Because FAQ format is already structured as question→answer pairs — exa
 
 **The key insight:** Write each answer as a **self-contained, 40-60 word block**. This is the optimal length for AI citation according to the [Princeton GEO Study (KDD 2024)](https://arxiv.org/abs/2311.09735).
 
-### ✅ 4. robots.txt — Don't Forget AI Bots
+### 4. robots.txt — Don't Forget AI Bots
 
 Most robots.txt files only handle Googlebot. In 2025, you need to explicitly allow AI search bots — otherwise they literally **cannot cite your work**:
 
@@ -178,7 +178,7 @@ Sitemap: https://yourdomain.com/sitemap.xml
 
 Many developers don't realize: if your `robots.txt` blocks `GPTBot` (some default configs do), then **ChatGPT will never cite your portfolio** — no matter how great your content is.
 
-### ✅ 5. XML Sitemap
+### 5. XML Sitemap
 
 For a React SPA with few routes, keep it simple:
 
@@ -212,7 +212,7 @@ For a React SPA with few routes, keep it simple:
 
 Submit this through [Google Search Console](https://search.google.com/search-console) for fastest indexing.
 
-### ✅ 6. Noscript Fallback — Your SEO Safety Net
+### 6. Noscript Fallback — Your SEO Safety Net
 
 Google can render JavaScript… *usually*. But it uses a two-phase indexing process: crawl → render queue → index. The render queue can take **days**.
 
@@ -261,16 +261,16 @@ A `<noscript>` fallback gives crawlers your **full content immediately**:
 
 **Important:** This must contain your **complete portfolio content** — not just "Enable JavaScript to view this site." Every section, every project, every link.
 
-### ✅ 7. Image Alt Texts — Small Change, Big Impact
+### 7. Image Alt Texts — Small Change, Big Impact
 
 Every `<img>` tag needs a **descriptive** alt text. Not just the filename or project name:
 
 ```text
-// ❌ Bad — meaningless to search engines
+// Bad — meaningless to search engines
 <img src="screenshot.png" alt="screenshot" />
 <img src="project-img.png" alt="Project Title" />
 
-// ✅ Good — descriptive, includes technology keywords
+// Good — descriptive, includes technology keywords
 <img 
   src="project-img.png" 
   alt="Great Link Mai House — ASP.NET Core, SQL Server, C# project screenshot" 
@@ -289,7 +289,7 @@ This small change has **two benefits**:
 1. Google Image Search can now index your project screenshots
 2. Visually impaired users using screen readers get useful descriptions
 
-### ✅ 8. Performance: Preload & Preconnect
+### 8. Performance: Preload & Preconnect
 
 Slow sites rank lower. These `<link>` tags in `<head>` make critical resources load faster:
 
@@ -311,7 +311,7 @@ Slow sites rank lower. These `<link>` tags in `<head>` make critical resources l
 
 The `media="print" onload="this.media='all'"` trick defers CSS loading without blocking the initial render. This technique alone improved my LCP by **0.8 seconds**.
 
-### ✅ 9. Bilingual hreflang Tags
+### 9. Bilingual hreflang Tags
 
 If your portfolio targets multiple language audiences (like mine — Vietnamese + English):
 
@@ -323,15 +323,15 @@ If your portfolio targets multiple language audiences (like mine — Vietnamese 
 
 This tells Google: "This page serves both English and Vietnamese speakers." Without it, Google might only index your page for one language.
 
-### ✅ 10. AI-Extractable Content Blocks
+### 10. AI-Extractable Content Blocks
 
 This is my personal addition based on the [Princeton GEO study](https://arxiv.org/abs/2311.09735). Write key content blocks in **third person** and **self-contained**:
 
 ```text
-❌ First person — AI can't extract without context:
+Bad — First person, AI can't extract without context:
 "I build production web apps with React and .NET Core."
 
-✅ Third person + self-contained — AI can cite this standalone:
+Good — Third person, self-contained, AI can cite this standalone:
 "Nguyễn Xuân Hải is a Full-Stack Developer based in Ho Chi Minh City, 
 Vietnam, specializing in React, .NET Core, and AI integration. 
 He has shipped 9+ production projects, including 3 commercial platforms."
@@ -343,13 +343,13 @@ Why third person? When ChatGPT or Perplexity extracts your content, they need te
 
 | Test | Before | After |
 |------|--------|-------|
-| Google Rich Results Test | ❌ Fail | ✅ 6 schemas valid |
+| Google Rich Results Test | Fail | 6 schemas valid |
 | Lighthouse SEO Score | 82 | 100 |
 | Structured Data Schemas | 0 | 6 (Person, WebSite, FAQ, etc.) |
 | AI Bot Access (robots.txt) | 0 bots | 7 bots explicitly allowed |
 | Noscript Fallback | None | Full content (8 projects, bio, contact) |
 | Image Alt Coverage | ~60% | 100% |
-| OG/Twitter Preview | Broken | ✅ Rich preview on all platforms |
+| OG/Twitter Preview | Broken | Rich preview on all platforms |
 | hreflang Tags | None | 3 (en, vi, x-default) |
 
 ## The Order Matters
@@ -408,7 +408,7 @@ A: The noscript fallback serves three purposes: faster initial indexing (no rend
 *I'm Nguyễn Xuân Hải, a Fullstack Developer building production web apps with React, .NET Core & AI in Ho Chi Minh City.  
 Check out my [portfolio](https://www.hailamdev.space) or connect on [LinkedIn](https://www.linkedin.com/in/xuanhai0913/).*
 
-🔗 **See this checklist in action:** [hailamdev.space](https://www.hailamdev.space)  
-🔗 **My other articles:**
+**See this checklist in action:** [hailamdev.space](https://www.hailamdev.space)  
+**My other articles:**
 - [How I Architected a B2B Real Estate Platform with .NET Core + React](https://dev.to/xuanhai0913)
 - [I Built an AI Portfolio Assistant with Google Gemini 2.0](https://dev.to/xuanhai0913)
