@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import ErrorBoundary from './components/ErrorBoundary';
 import Header from './components/Header';
 import AudioActivator from './components/AudioActivator/AudioActivator';
@@ -22,6 +22,7 @@ import Footer from './components/Footer';
 // Lazy load optional route pages
 const VideoDemo = lazy(() => import('./components/VideoDemo'));
 const Hero3D = lazy(() => import('./components/Hero3D'));
+const Blog = lazy(() => import('./components/Blog'));
 
 // Defer third-party analytics (bundle-defer-third-party)
 const SpeedInsights = lazy(() =>
@@ -135,6 +136,16 @@ const App = () => {
             </Suspense>
           </ErrorBoundary>
         } />
+        <Route path="/blog" element={
+          <ErrorBoundary>
+            <Suspense fallback={<LoadingFallback />}>
+              <Blog />
+            </Suspense>
+          </ErrorBoundary>
+        } />
+        {/* Redirect /home and /Home to root — fix Google indexing ghost page */}
+        <Route path="/home" element={<Navigate to="/" replace />} />
+        <Route path="/Home" element={<Navigate to="/" replace />} />
       </Routes>
 
       {/* Deferred third-party analytics — loads after main content */}

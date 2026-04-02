@@ -1,0 +1,253 @@
+.blog-page {
+  min-height: 100vh;
+  background: #000;
+  color: #fff;
+  padding: 120px 5vw 80px;
+}
+
+/* Header */
+.blog-header {
+  max-width: 800px;
+  margin: 0 auto 60px;
+}
+
+.blog-back {
+  display: inline-block;
+  color: #888;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  letter-spacing: 0.05em;
+  margin-bottom: 24px;
+  transition: color 0.2s;
+}
+
+.blog-back:hover {
+  color: #CCFF00;
+}
+
+.blog-title {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  margin: 0 0 12px;
+  color: #fff;
+}
+
+.blog-subtitle {
+  font-size: 1.05rem;
+  color: #888;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 540px;
+}
+
+/* Grid */
+.blog-grid {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* Card */
+.blog-card {
+  display: block;
+  text-decoration: none;
+  color: #fff;
+  background: #0a0a0a;
+  border: 1px solid #1a1a1a;
+  transition: border-color 0.3s, transform 0.3s;
+  animation: blogFadeIn 0.5s ease-out backwards;
+}
+
+.blog-card:hover {
+  border-color: #CCFF00;
+  transform: translateY(-2px);
+}
+
+@keyframes blogFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Cover */
+.blog-card-cover {
+  width: 100%;
+  aspect-ratio: 2.4 / 1;
+  overflow: hidden;
+  background: #111;
+}
+
+.blog-card-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s;
+}
+
+.blog-card:hover .blog-card-cover img {
+  transform: scale(1.03);
+}
+
+/* Body */
+.blog-card-body {
+  padding: 24px 28px 28px;
+}
+
+.blog-card-meta {
+  display: flex;
+  gap: 16px;
+  font-size: 0.78rem;
+  color: #666;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.blog-card-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.35;
+  margin: 0 0 10px;
+  letter-spacing: -0.02em;
+}
+
+.blog-card:hover .blog-card-title {
+  color: #CCFF00;
+}
+
+.blog-card-desc {
+  font-size: 0.9rem;
+  color: #888;
+  line-height: 1.55;
+  margin: 0 0 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Tags */
+.blog-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.blog-tag {
+  font-size: 0.7rem;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  color: #CCFF00;
+  background: rgba(204, 255, 0, 0.08);
+  padding: 3px 10px;
+  border: 1px solid rgba(204, 255, 0, 0.15);
+  letter-spacing: 0.04em;
+}
+
+/* Stats */
+.blog-card-stats {
+  display: flex;
+  gap: 20px;
+  font-size: 0.75rem;
+  color: #555;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+}
+
+/* Footer */
+.blog-footer {
+  max-width: 800px;
+  margin: 48px auto 0;
+  text-align: center;
+}
+
+.blog-devto-link {
+  display: inline-block;
+  color: #CCFF00;
+  text-decoration: none;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  padding: 12px 28px;
+  border: 1px solid rgba(204, 255, 0, 0.3);
+  transition: all 0.3s;
+}
+
+.blog-devto-link:hover {
+  background: rgba(204, 255, 0, 0.08);
+  border-color: #CCFF00;
+}
+
+/* Loading */
+.blog-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 20px;
+  color: #555;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.85rem;
+}
+
+.blog-loading-bar {
+  width: 120px;
+  height: 2px;
+  background: #1a1a1a;
+  position: relative;
+  overflow: hidden;
+}
+
+.blog-loading-bar::after {
+  content: '';
+  position: absolute;
+  left: -40px;
+  width: 40px;
+  height: 100%;
+  background: #CCFF00;
+  animation: loadSlide 0.8s ease-in-out infinite;
+}
+
+@keyframes loadSlide {
+  to { left: 120px; }
+}
+
+/* Error */
+.blog-error {
+  text-align: center;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+}
+
+.blog-error a {
+  color: #CCFF00;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .blog-page {
+    padding: 100px 16px 60px;
+  }
+
+  .blog-card-body {
+    padding: 18px 20px 22px;
+  }
+
+  .blog-card-title {
+    font-size: 1.1rem;
+  }
+}

@@ -25,11 +25,12 @@ const Header = () => {
     { id: 'portfolio', label: 'Portfolio', href: '#portfolio' },
     { id: 'certifications', label: 'Certifications', href: '#certifications' },
     { id: 'videos', label: 'Videos', href: '/videos', isRoute: true },
+    { id: 'blog', label: 'Blog', href: '/blog', isRoute: true },
     { id: 'contact', label: 'Contact', href: '#contact' }
   ];
 
-  // Check if we're on the videos page
-  const isVideosPage = location.pathname === '/videos';
+  // Check if we're on a sub-route page (not main portfolio)
+  const isSubRoute = location.pathname !== '/';
 
   return (
     <header className="header">
@@ -61,7 +62,7 @@ const Header = () => {
                   >
                     {item.label}
                   </Link>
-                ) : isVideosPage ? (
+                ) : isSubRoute ? (
                   <Link
                     to={`/${item.href}`}
                     onClick={closeNav}

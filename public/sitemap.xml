@@ -47,4 +47,12 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- Blog Page (real route) -->
+  <url>
+    <loc>https://www.hailamdev.space/blog</loc>
+    <lastmod>2026-04-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>
