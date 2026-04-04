@@ -1,9 +1,6 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './SectionTransition.css';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const KineticType = ({ text }) => {
     const containerRef = useRef(null);
@@ -11,53 +8,58 @@ const KineticType = ({ text }) => {
     const arrowRef = useRef(null);
     const linesRef = useRef([]);
     const circlesRef = useRef([]);
+    const hasAnimated = useRef(false);
 
-    // useLayoutEffect prevents layout thrashing with ScrollTrigger
     React.useLayoutEffect(() => {
         const container = containerRef.current;
         const textEl = textRef.current;
         const lines = linesRef.current;
         const circles = circlesRef.current;
+        const arrow = arrowRef.current;
 
-        // Hide everything initially (prevents bleed-through before pin)
-        gsap.set([textEl, ...lines, ...circles, arrowRef.current], { opacity: 0 });
+        // Hide everything initially
+        gsap.set([textEl, ...lines, ...circles, arrow], { opacity: 0 });
+        gsap.set(textEl, { scale: 0.8, y: 50 });
+        gsap.set(lines, { height: "0%" });
+        gsap.set(circles, { rotation: 0 });
 
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: container,
-                start: "top top",
-                end: "+=100%",
-                pin: true,
-                scrub: 1,
-            }
-        });
+        // IntersectionObserver — no GSAP pin, no pin-spacer
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting && !hasAnimated.current) {
+                    hasAnimated.current = true;
 
-        // 1. Lines grow from top + fade in
-        tl.fromTo(lines,
-            { height: "0%", opacity: 0 },
-            { height: "100%", opacity: 1, duration: 1, ease: "power2.out", stagger: 0.2 }
+                    const tl = gsap.timeline();
+
+                    // 1. Lines grow + fade in
+                    tl.to(lines, {
+                        height: "100%", opacity: 1,
+                        duration: 0.8, ease: "power2.out", stagger: 0.1
+                    });
+
+                    // 2. Text reveal
+                    tl.to(textEl, {
+                        scale: 1, opacity: 1, y: 0,
+                        duration: 0.8, ease: "back.out(1.7)"
+                    }, "<0.15");
+
+                    // 3. Circles rotate + fade in
+                    tl.to(circles, {
+                        rotation: 90, opacity: 1,
+                        duration: 0.8
+                    }, "<");
+
+                    // 4. Arrow fade in
+                    tl.to(arrow, { opacity: 1, duration: 0.4 }, "-=0.2");
+                }
+            },
+            { threshold: 0.5 }
         );
 
-        // 2. Text scales slightly and brightens
-        tl.fromTo(textEl,
-            { scale: 0.8, opacity: 0, y: 50 },
-            { scale: 1, opacity: 1, y: 0, duration: 1, ease: "back.out(1.7)" },
-            "<0.2"
-        );
-
-        // 3. Circles rotate + fade in
-        tl.fromTo(circles,
-            { rotation: 0, opacity: 0 },
-            { rotation: 90, opacity: 1, duration: 1 },
-            "<"
-        );
-
-        // 4. Arrow fade in
-        tl.to(arrowRef.current, { opacity: 1, duration: 0.5 }, "-=0.3");
+        if (container) observer.observe(container);
 
         return () => {
-            if (tl.scrollTrigger) tl.scrollTrigger.kill();
-            tl.kill();
+            observer.disconnect();
         };
     }, []);
 
