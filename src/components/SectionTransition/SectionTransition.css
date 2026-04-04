@@ -45,7 +45,6 @@
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     position: relative;
-    z-index: 2;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -57,12 +56,12 @@
     font-size: 15vw;
     font-weight: 900;
     color: #ccff00;
-    /* Neon Green */
     text-transform: uppercase;
     z-index: 10;
     margin: 0;
     line-height: 1;
     letter-spacing: -5px;
+    opacity: 0;
 }
 
 /* Geometric Lines */
@@ -71,8 +70,8 @@
     top: 0;
     width: 1px;
     background: rgba(204, 255, 0, 0.3);
-    /* Dim Neon Green */
     height: 100%;
+    opacity: 0;
 }
 
 .line-left {
@@ -96,6 +95,7 @@
     border-radius: 50%;
     top: 50%;
     transform: translateY(-50%);
+    opacity: 0;
 }
 
 .circle-left {
@@ -115,6 +115,7 @@
     color: #ccff00;
     font-size: 2rem;
     animation: bounce 2s infinite;
+    opacity: 0;
 }
 
 @keyframes bounce {

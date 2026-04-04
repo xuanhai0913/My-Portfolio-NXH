@@ -1,8 +1,7 @@
 /* Existing Styles ... */
 .experience-section {
     position: relative;
-    z-index: 5;
-    padding: 100px 20px 160px;
+    padding: 100px 20px;
     background: #000;
     overflow: hidden;
 }
