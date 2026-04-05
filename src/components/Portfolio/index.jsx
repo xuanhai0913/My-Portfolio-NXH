@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { trackProjectClick } from '../../utils/analytics';
-import ProjectCard3D from './ProjectCard3D';
 import './styles/Portfolio.css';
 
 // Import project images
@@ -23,7 +22,6 @@ const Portfolio = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const [isSectionInView, setIsSectionInView] = useState(false);
 
   const allProjects = [
     {
@@ -124,27 +122,6 @@ const Portfolio = () => {
     updateMode();
     mediaQuery.addEventListener('change', updateMode);
     return () => mediaQuery.removeEventListener('change', updateMode);
-  }, []);
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section || typeof IntersectionObserver === 'undefined') {
-      setIsSectionInView(true);
-      return undefined;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsSectionInView(entry.isIntersecting);
-      },
-      {
-        threshold: 0.08,
-        rootMargin: '200px 0px',
-      }
-    );
-
-    observer.observe(section);
-    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -263,7 +240,12 @@ const Portfolio = () => {
     <article className="showcase-card">
       <div className="showcase-visual">
         <div className="visual-frame">
-          <ProjectCard3D image={project.image} isActive={isSectionInView} enable3D={isSectionInView} />
+          <img
+            src={project.image}
+            alt={`${project.title} preview`}
+            className="showcase-image"
+            loading="lazy"
+          />
         </div>
         {project.badge && (
           <div className="showcase-badge">{project.badge}</div>
