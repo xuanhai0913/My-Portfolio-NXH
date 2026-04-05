@@ -74,9 +74,9 @@ const sculptureVertexShader = `
     vPosition = position;
 
     // Layered noise displacement
-    float noise1 = snoise(position * 1.5 + uTime * 0.3) * 0.3;
-    float noise2 = snoise(position * 3.0 - uTime * 0.5) * 0.15;
-    float noise3 = snoise(position * 6.0 + uTime * 0.2) * 0.05;
+    float noise1 = snoise(position * 1.5 + uTime * 0.3) * 0.2;
+    float noise2 = snoise(position * 3.0 - uTime * 0.5) * 0.1;
+    float noise3 = snoise(position * 6.0 + uTime * 0.2) * 0.04;
 
     float displacement = (noise1 + noise2 + noise3) * uMorph;
     vDisplacement = displacement;
@@ -169,8 +169,8 @@ const AbstractSculpture = ({ mouseRef, scrollRef }) => {
   });
 
   return (
-    <mesh ref={meshRef} position={[1.5, 0, 0]}>
-      <icosahedronGeometry args={[2, 28]} />
+    <mesh ref={meshRef} position={[3.0, 0, 0]}>
+      <icosahedronGeometry args={[1.4, 28]} />
       <shaderMaterial
         ref={materialRef}
         vertexShader={sculptureVertexShader}
@@ -198,7 +198,7 @@ const OrbitalRing = ({ radius = 3, speed = 0.3, tilt = 0 }) => {
   });
 
   return (
-    <mesh ref={ringRef} position={[1.5, 0, 0]}>
+    <mesh ref={ringRef} position={[3.0, 0, 0]}>
       <torusGeometry args={[radius, 0.008, 16, 100]} />
       <meshBasicMaterial
         color="#d4ff00"
@@ -222,7 +222,7 @@ const AuraParticles = ({ count = 200, scrollRef }) => {
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(2 * Math.random() - 1);
       const r = 2 + Math.random() * 5;
-      pos[i * 3] = r * Math.sin(phi) * Math.cos(theta) + 1.5;
+      pos[i * 3] = r * Math.sin(phi) * Math.cos(theta) + 3.0;
       pos[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
       pos[i * 3 + 2] = r * Math.cos(phi);
     }
@@ -314,9 +314,9 @@ const HeroParticles = () => {
         <AbstractSculpture mouseRef={mouseRef} scrollRef={scrollRef} />
 
         {/* Orbital rings */}
-        <OrbitalRing radius={3} speed={0.2} tilt={0.3} />
-        <OrbitalRing radius={3.5} speed={-0.15} tilt={-0.5} />
-        <OrbitalRing radius={2.8} speed={0.25} tilt={1.2} />
+        <OrbitalRing radius={2.2} speed={0.2} tilt={0.3} />
+        <OrbitalRing radius={2.5} speed={-0.15} tilt={-0.5} />
+        <OrbitalRing radius={2.0} speed={0.25} tilt={1.2} />
 
         {/* Particle aura */}
         <AuraParticles count={150} scrollRef={scrollRef} />

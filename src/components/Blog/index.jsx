@@ -21,7 +21,11 @@ const Blog = () => {
 
     const fetchArticles = async () => {
       try {
-        const res = await fetch(DEVTO_API);
+        // Cache-bust to get latest articles
+        const cacheBuster = `&_t=${Date.now()}`;
+        const res = await fetch(DEVTO_API + cacheBuster, {
+          cache: 'no-store',
+        });
         if (!res.ok) throw new Error('Failed to fetch');
         const data = await res.json();
         setArticles(data);
