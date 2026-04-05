@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { API } from '../../utils/constants';
 import useChatSession from '../../hooks/useChatSession';
 import {
@@ -448,16 +448,6 @@ const ChatWidget = ({ mode = 'floating' }) => {
   }, [showActionsMenu]);
 
   useEffect(() => {
-    if (meta.persistHealthy) return;
-    showToast(
-      language === 'vi'
-        ? 'Cảnh báo: phiên chat có thể không lưu được trên trình duyệt này.'
-        : 'Warning: chat session may not persist in this browser.',
-      'error'
-    );
-  }, [language, meta.persistHealthy]);
-
-  useEffect(() => {
     if (!isDevMode || typeof window === 'undefined') return undefined;
 
     const prime = getTrackedChatEvents().slice(-TELEMETRY_EVENT_LIMIT).reverse();
@@ -681,7 +671,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
     setMessages((prev) => [...prev, msg]);
   };
 
-  const scheduleToastDismiss = () => {
+  const scheduleToastDismiss = useCallback(() => {
     if (toastTimeoutRef.current) {
       clearTimeout(toastTimeoutRef.current);
     }
@@ -698,9 +688,9 @@ const ChatWidget = ({ mode = 'floating' }) => {
       toastRef.current = null;
       setToast(null);
     }, TOAST_DURATION_MS);
-  };
+  }, []);
 
-  const dismissToast = () => {
+  const dismissToast = useCallback(() => {
     if (toastTimeoutRef.current) {
       clearTimeout(toastTimeoutRef.current);
       toastTimeoutRef.current = null;
@@ -716,9 +706,9 @@ const ChatWidget = ({ mode = 'floating' }) => {
 
     toastRef.current = null;
     setToast(null);
-  };
+  }, [scheduleToastDismiss]);
 
-  const showToast = (text, type = 'info') => {
+  const showToast = useCallback((text, type = 'info') => {
     if (!text) return;
     const nextToast = {
       id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
@@ -734,7 +724,17 @@ const ChatWidget = ({ mode = 'floating' }) => {
     }
 
     toastQueueRef.current.push(nextToast);
-  };
+  }, [scheduleToastDismiss]);
+
+  useEffect(() => {
+    if (meta.persistHealthy) return;
+    showToast(
+      language === 'vi'
+        ? 'Cảnh báo: phiên chat có thể không lưu được trên trình duyệt này.'
+        : 'Warning: chat session may not persist in this browser.',
+      'error'
+    );
+  }, [language, meta.persistHealthy, showToast]);
 
   const runHeaderAction = async (actionKey, actionRunner) => {
     if (!actionKey || typeof actionRunner !== 'function') return;

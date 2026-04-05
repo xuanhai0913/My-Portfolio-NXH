@@ -92,7 +92,7 @@ const Blog = () => {
               {(article.cover_image || article.social_image) ? (
                 <img
                   src={article.cover_image || article.social_image}
-                  alt={`${article.title} — cover image`}
+                  alt={`${article.title} cover`}
                   loading="lazy"
                 />
               ) : (

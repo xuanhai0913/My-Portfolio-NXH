@@ -76,7 +76,7 @@ const SlashMenu = forwardRef(({ editor, onRequestImage }, ref) => {
       setIsOpen(false);
       ReactEditor.focus(editor);
     },
-    [editor, targetRange]
+    [editor, onRequestImage, targetRange]
   );
 
   const checkForSlashCommand = useCallback(() => {

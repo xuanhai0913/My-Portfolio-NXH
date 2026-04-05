@@ -50,6 +50,8 @@ const Experience = () => {
     }, [fadeAudio]);
 
     React.useLayoutEffect(() => {
+        const audioElement = audioRef.current;
+
         // Listen for global audio activation from AudioActivator component
         const onAudioActivated = () => {
             audioUnlockedRef.current = true;
@@ -69,7 +71,7 @@ const Experience = () => {
                 } else {
                     setInView(false);
                     inViewRef.current = false;
-                    const audio = audioRef.current;
+                    const audio = audioElement;
                     if (audio && !audio.paused) {
                         fadeAudio(audio, 0, 600);
                     }
@@ -118,7 +120,7 @@ const Experience = () => {
                 if (tl.scrollTrigger) tl.scrollTrigger.kill();
                 tl.kill();
             }
-            const audio = audioRef.current;
+            const audio = audioElement;
             if (audio) { audio.pause(); audio.currentTime = 0; }
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
