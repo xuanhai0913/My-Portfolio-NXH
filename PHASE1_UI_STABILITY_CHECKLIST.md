@@ -35,16 +35,16 @@ Stabilize the production page flow: Profile -> About -> Experience -> Projects -
 ### C. Profile Section Hardening
 - [x] Disable unstable bright background effect for now (done).
   - File: src/components/Profile/index.jsx
-- [ ] Reduce visual pressure from glitch layers on low-end devices.
+- [x] Reduce visual pressure from glitch layers on low-end devices.
   - File: src/components/Profile/styles/Profile.css
   - Option: disable glitch animation under reduced-motion and small viewports.
-- [ ] Normalize image and overlay contrast to prevent highlight blooming.
+- [x] Normalize image and overlay contrast to prevent highlight blooming.
   - File: src/components/Profile/styles/Profile.css
 
 ### D. Projects Section Hardening
 - [x] Replace 3D project card with static image fallback by default (done).
   - File: src/components/Portfolio/index.jsx
-- [ ] Add card-level fallback block for image load failure.
+- [x] Add card-level fallback block for image load failure.
   - File: src/components/Portfolio/index.jsx
   - Requirement: if image fails, render placeholder panel, not empty frame.
 - [ ] Keep active index always bounded and finite.
@@ -52,10 +52,10 @@ Stabilize the production page flow: Profile -> About -> Experience -> Projects -
   - Validate with rapid scroll and anchor jump.
 
 ### E. Contact Section Hardening
-- [ ] Keep 3D model optional behind capability gate.
+- [x] Keep 3D model optional behind capability gate.
   - File: src/components/Contact/index.jsx
   - Rule: on low capability or reduced-motion, use static visual.
-- [ ] Add lightweight fallback UI if model load fails.
+- [x] Add lightweight fallback UI if model load fails.
   - File: src/components/Contact/index.jsx
 
 ### F. Accessibility + UX Baseline

@@ -22,6 +22,7 @@ const Portfolio = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [brokenImages, setBrokenImages] = useState({});
 
   const allProjects = [
     {
@@ -236,24 +237,31 @@ const Portfolio = () => {
     : 0;
   const activeProject = allProjects[safeActiveIndex] || allProjects[0];
 
-  const handleProjectImageError = (event) => {
-    const nextSrc = '/images/og-image.jpg';
-    if (!event.currentTarget.src.endsWith(nextSrc)) {
-      event.currentTarget.src = nextSrc;
-    }
+  const handleProjectImageError = (projectTitle) => {
+    setBrokenImages((prev) => {
+      if (prev[projectTitle]) return prev;
+      return { ...prev, [projectTitle]: true };
+    });
   };
 
   const renderShowcaseCard = (project) => (
     <article className="showcase-card">
       <div className="showcase-visual">
         <div className="visual-frame">
-          <img
-            src={project.image}
-            alt={`${project.title} preview`}
-            className="showcase-image"
-            loading="lazy"
-            onError={handleProjectImageError}
-          />
+          {brokenImages[project.title] ? (
+            <div className="showcase-image-fallback" role="img" aria-label={`${project.title} preview unavailable`}>
+              <span className="fallback-title">Preview unavailable</span>
+              <span className="fallback-subtitle">Project: {project.title}</span>
+            </div>
+          ) : (
+            <img
+              src={project.image}
+              alt={`${project.title} preview`}
+              className="showcase-image"
+              loading="lazy"
+              onError={() => handleProjectImageError(project.title)}
+            />
+          )}
         </div>
         {project.badge && (
           <div className="showcase-badge">{project.badge}</div>

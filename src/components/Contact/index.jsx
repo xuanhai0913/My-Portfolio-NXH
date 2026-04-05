@@ -1,8 +1,9 @@
-import React, { useRef, useState, useMemo, Suspense, lazy } from 'react';
+import React, { useRef, useState, useMemo, useEffect, Suspense, lazy } from 'react';
 import emailjs from '@emailjs/browser';
 import { API } from '../../utils/constants';
 import { trackContactSubmit, trackSocialClick } from '../../utils/analytics';
 import SlateEditor, { SLATE_DRAFT_STORAGE_KEY } from './SlateEditor';
+import ErrorBoundary from '../ErrorBoundary';
 import './styles/Contact.css';
 
 const IceCreamModel = lazy(() => import('./IceCreamModel'));
@@ -15,6 +16,21 @@ const DOMAIN_SUGGESTIONS = [
   '@icloud.com',
 ];
 
+const ModelLoadingFallback = () => (
+  <div className="model-loading" role="status" aria-live="polite">
+    <span className="model-loading-icon" aria-hidden="true">🍦</span>
+    <span className="model-loading-text">Loading visual...</span>
+  </div>
+);
+
+const ModelStaticFallback = () => (
+  <div className="model-static-fallback" role="img" aria-label="Contact illustration placeholder">
+    <div className="model-static-icon" aria-hidden="true">🍦</div>
+    <p className="model-static-title">Interactive model unavailable</p>
+    <p className="model-static-copy">You can still send your message below.</p>
+  </div>
+);
+
 const Contact = () => {
   const form = useRef();
   const hiddenMessageRef = useRef();
@@ -22,6 +38,32 @@ const Contact = () => {
   const [status, setStatus] = useState(null); // 'success' or 'error'
   const [editorKey, setEditorKey] = useState(0);
   const [email, setEmail] = useState('');
+  const [allowInteractiveModel, setAllowInteractiveModel] = useState(true);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return undefined;
+
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    const updateCapability = () => {
+      const reducedMotion = mediaQuery.matches;
+      const smallViewport = window.innerWidth < 1024;
+      const lowCpu = typeof navigator !== 'undefined' && navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
+      const lowMemory = typeof navigator !== 'undefined' && navigator.deviceMemory && navigator.deviceMemory <= 4;
+
+      const shouldDisableInteractiveModel = reducedMotion || (smallViewport && (lowCpu || lowMemory));
+      setAllowInteractiveModel(!shouldDisableInteractiveModel);
+    };
+
+    updateCapability();
+    window.addEventListener('resize', updateCapability, { passive: true });
+    mediaQuery.addEventListener('change', updateCapability);
+
+    return () => {
+      window.removeEventListener('resize', updateCapability);
+      mediaQuery.removeEventListener('change', updateCapability);
+    };
+  }, []);
 
   // Show domain chips when user typed '@' but hasn't completed a known domain
   const domainChips = useMemo(() => {
@@ -106,14 +148,20 @@ const Contact = () => {
 
         {/* Left Column: 3D Ice Cream */}
         <div className="contact-model-col">
-          <Suspense fallback={
-            <div className="model-loading">
-              <span className="model-loading-icon">🍦</span>
-            </div>
-          }>
-            <IceCreamModel celebrate={status === 'success'} />
-          </Suspense>
-          <p className="model-caption">Move your cursor around me! 🍦</p>
+          {allowInteractiveModel ? (
+            <ErrorBoundary fallback={<ModelStaticFallback />}>
+              <Suspense fallback={<ModelLoadingFallback />}>
+                <IceCreamModel celebrate={status === 'success'} />
+              </Suspense>
+            </ErrorBoundary>
+          ) : (
+            <ModelStaticFallback />
+          )}
+          <p className="model-caption">
+            {allowInteractiveModel
+              ? 'Move your cursor around me! 🍦'
+              : 'Static mode enabled for smoother experience.'}
+          </p>
         </div>
 
         {/* Right Column: Form */}

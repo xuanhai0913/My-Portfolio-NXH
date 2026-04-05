@@ -99,6 +99,53 @@
   animation: loadBounce 1s ease-in-out infinite;
 }
 
+.model-loading-text {
+  margin-left: 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.55);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.model-static-fallback {
+  width: 100%;
+  height: 350px;
+  border-radius: 20px;
+  border: 1px solid rgba(212, 255, 0, 0.25);
+  background:
+    radial-gradient(circle at 50% 35%, rgba(212, 255, 0, 0.1), transparent 60%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.25rem;
+  gap: 0.5rem;
+}
+
+.model-static-icon {
+  font-size: 2.6rem;
+  filter: saturate(1.1);
+}
+
+.model-static-title {
+  font-family: var(--font-display);
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.model-static-copy {
+  font-family: var(--font-mono);
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+}
+
 @keyframes loadBounce {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-15px); }
@@ -303,6 +350,10 @@
     height: 500px;
   }
 
+  .model-static-fallback {
+    height: 500px;
+  }
+
   .contact-content {
     margin: 0;
   }
@@ -319,6 +370,10 @@
   }
 
   .icecream-3d-container {
+    height: 280px;
+  }
+
+  .model-static-fallback {
     height: 280px;
   }
 

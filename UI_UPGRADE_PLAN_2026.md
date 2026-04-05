@@ -140,3 +140,110 @@ Only ship a 3D effect when all are true:
 - It degrades gracefully to static or low-cost mode.
 - It does not block scroll/input responsiveness.
 - It passes reduced-motion and accessibility checks.
+
+## Execution Plan (6 Weeks)
+
+### Week 1 — Baseline and Instrumentation
+Goal: create measurable baseline before changing UI behavior.
+
+Actions:
+- Record current performance and UX baseline on desktop and mobile.
+- Define device matrix for testing (desktop + mid Android + iPhone).
+- Add lightweight runtime logs around section mount/unmount for risky sections.
+- Finalize issue list from PHASE1_UI_STABILITY_CHECKLIST.md.
+
+Outputs:
+- Baseline report (FPS, scroll smoothness notes, error occurrences).
+- Prioritized bug board for Phase 1.
+
+### Week 2 — Stability Hardening (Phase 1 Core)
+Goal: remove crash and blocking jank in critical scroll flow.
+
+Actions:
+- Narrow ErrorBoundary scope to widget level for risky visual blocks.
+- Finish scroll math clamping and listener cleanup in all scroll-reactive sections.
+- Keep Projects static-card mode as default stable path.
+- Add robust media fallback for all project visuals.
+
+Outputs:
+- Stable Profile -> Projects -> Contact -> Projects loop.
+- No section-wide fallback under normal usage.
+
+### Week 3 — Visual System Foundation (Phase 2 Start)
+Goal: improve consistency without increasing runtime complexity.
+
+Actions:
+- Introduce shared design tokens for spacing/type/radius/shadow/motion.
+- Normalize section spacing and heading rhythm.
+- Consolidate repeated button styles into shared variants.
+- Remove stale one-off CSS overrides causing inconsistent visuals.
+
+Outputs:
+- Unified style baseline across core sections.
+- Reduced CSS entropy and duplicate style definitions.
+
+### Week 4 — Accessibility and UX Hardening (Phase 3)
+Goal: pass practical WCAG AA baseline for key interactions.
+
+Actions:
+- Validate focus visibility and keyboard paths on all nav and CTA controls.
+- Enforce reduced-motion behavior for non-essential animation.
+- Confirm contrast for neon-on-dark text and status labels.
+- Verify touch target sizes on mobile controls.
+
+Outputs:
+- Accessibility pass report with resolved findings.
+- Updated component checklist for future regressions.
+
+### Week 5 — Controlled 3D Reintroduction Pilot (Phase 4)
+Goal: re-enable one 3D surface safely behind quality gates.
+
+Actions:
+- Select one candidate section for pilot (recommend Contact first).
+- Add capability gate (reduced-motion, low-end device fallback).
+- Apply adaptive quality tiers (dpr, shader complexity, postprocessing).
+- Pause rendering when offscreen.
+
+Outputs:
+- Pilot 3D section with measurable performance budget compliance.
+- Fallback path proven on low-capability scenarios.
+
+### Week 6 — Final Polish and Release Gate (Phase 5)
+Goal: ship with confidence and rollback safety.
+
+Actions:
+- Run web-design-guidelines + polish pass on full page flow.
+- Remove temporary logs and dead code from stabilization cycle.
+- Re-run production build and manual scenario matrix.
+- Tag release and keep rollback branch ready.
+
+Outputs:
+- Release candidate with QA checklist signed off.
+- Post-release monitoring checklist and ownership.
+
+## KPI and Go/No-Go Gates
+
+### Stability KPIs
+- 0 visible "Something went wrong" fallback in standard browsing flow.
+- 0 hard input blocks during scroll interactions.
+- No unhandled runtime exceptions in core sections.
+
+### Performance KPIs
+- Smooth scroll perception maintained on baseline devices.
+- No severe frame drops during section transitions.
+- Build size growth controlled; no unbounded visual dependency creep.
+
+### UX and Accessibility KPIs
+- Keyboard navigation works for header, section CTAs, and contact controls.
+- Focus indicators visible in all interactive states.
+- Reduced-motion mode removes non-essential motion effects.
+
+## Branch and Delivery Strategy
+
+- Working branch: feature/ui-upgrade-2026
+- Keep main untouched until each phase has acceptance notes.
+- Merge by milestone PRs instead of one big PR:
+	1. Phase 1 Stability PR
+	2. Phase 2-3 Design and Accessibility PR
+	3. Phase 4 Pilot 3D PR
+	4. Phase 5 Polish and Release PR
