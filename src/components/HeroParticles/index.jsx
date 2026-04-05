@@ -105,18 +105,18 @@ const sculptureFragmentShader = `
 
     // Color gradient based on displacement + position
     float t = vDisplacement * 2.0 + 0.5;
-    vec3 color = mix(uColor1, uColor2, smoothstep(-0.3, 0.3, t));
-    color = mix(color, uColor3, fresnel * 0.8);
+    vec3 color = mix(uColor1, uColor2, smoothstep(-0.3, 0.3, t) * 0.5);
+    color = mix(color, uColor3, fresnel * 0.4);
 
-    // Metallic sheen
-    float specular = pow(max(dot(reflect(-viewDir, vNormal), vec3(0.5, 1.0, 0.5)), 0.0), 32.0);
-    color += vec3(specular * 0.4);
+    // Metallic sheen — very subtle
+    float specular = pow(max(dot(reflect(-viewDir, vNormal), vec3(0.5, 1.0, 0.5)), 0.0), 64.0);
+    color += vec3(specular * 0.15);
 
-    // Edge glow
-    color += uColor3 * fresnel * 0.6;
+    // Edge glow — restrained neon rim
+    color += uColor3 * fresnel * 0.25;
 
-    // Pulsing alpha
-    float alpha = 0.85 + fresnel * 0.15;
+    // Much lower alpha so text shows through
+    float alpha = 0.25 + fresnel * 0.2;
 
     gl_FragColor = vec4(color, alpha);
   }
@@ -135,9 +135,9 @@ const AbstractSculpture = ({ mouseRef, scrollRef }) => {
       uTime: { value: 0 },
       uMorph: { value: 1.0 },
       uMouse: { value: new THREE.Vector2(0, 0) },
-      uColor1: { value: new THREE.Color('#0a0a0a') },     // Deep black
-      uColor2: { value: new THREE.Color('#d4ff00') },      // Neon lime
-      uColor3: { value: new THREE.Color('#ffffff') },      // White rim
+      uColor1: { value: new THREE.Color('#050505') },     // Near-black base
+      uColor2: { value: new THREE.Color('#1a2f00') },      // Very dark olive (muted neon)
+      uColor3: { value: new THREE.Color('#d4ff00') },      // Neon lime — edge glow only
     }),
     []
   );
@@ -203,7 +203,7 @@ const OrbitalRing = ({ radius = 3, speed = 0.3, tilt = 0 }) => {
       <meshBasicMaterial
         color="#d4ff00"
         transparent
-        opacity={0.25}
+        opacity={0.12}
       />
     </mesh>
   );
@@ -250,7 +250,7 @@ const AuraParticles = ({ count = 200, scrollRef }) => {
         size={0.025}
         color="#d4ff00"
         transparent
-        opacity={0.4}
+        opacity={0.2}
         sizeAttenuation
         blending={THREE.AdditiveBlending}
         depthWrite={false}
