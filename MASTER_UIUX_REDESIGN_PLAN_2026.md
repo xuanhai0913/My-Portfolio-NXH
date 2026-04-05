@@ -4,6 +4,11 @@ Updated: 2026-04-05
 Branch: feature/ui-upgrade-2026
 Program type: full frontend transformation
 
+Companion execution docs:
+- UIUX_TRANSFORMATION_EXECUTION_BOARD.md
+- UIUX_RELEASE_GATES_2026.md
+- UIUX_MANUAL_QA_SCRIPT_2026.md
+
 ## 1. Program Goal
 Build a flagship portfolio experience with a complete reset of layout, visual language, interaction model, and scroll storytelling.
 
