@@ -16,6 +16,7 @@ import * as THREE from 'three';
 const sculptureVertexShader = `
   uniform float uTime;
   uniform float uMorph;
+  uniform float uScroll;
   uniform vec2 uMouse;
   varying vec3 vNormal;
   varying vec3 vPosition;
@@ -49,11 +50,13 @@ const sculptureVertexShader = `
     vec4 j = p - 49.0 * floor(p * ns.z * ns.z);
     vec4 x_ = floor(j * ns.z);
     vec4 y_ = floor(j - 7.0 * x_);
-    vec4 x = x_ * ns.x + ns.yyyy;
-    vec4 y = y_ * ns.x + ns.yyyy;
-    vec4 h = 1.0 - abs(x) - abs(y);
-    vec4 b0 = vec4(x.xy, y.xy);
-    vec4 b1 = vec4(x.zw, y.zw);
+    vec4 x0_ = x_ * ns.x + ns.yyyy;
+    vec4 x1_ = x0_ + ns.xxxx;
+    vec4 y0_ = y_ * ns.x + ns.yyyy;
+    vec4 y1_ = y0_ + ns.xxxx;
+    vec4 h = 1.0 - abs(x0_) - abs(y0_);
+    vec4 b0 = vec4(x0_.xy, y0_.xy);
+    vec4 b1 = vec4(x0_.zw, y0_.zw);
     vec4 s0 = floor(b0) * 2.0 + 1.0;
     vec4 s1 = floor(b1) * 2.0 + 1.0;
     vec4 sh = -step(h, vec4(0.0));
@@ -71,20 +74,28 @@ const sculptureVertexShader = `
   }
 
   void main() {
-    vNormal = normal;
+    vNormal = normalize(normalMatrix * normal);
     vPosition = position;
 
-    // Layered noise displacement
-    float noise1 = snoise(position * 1.5 + uTime * 0.3) * 0.2;
-    float noise2 = snoise(position * 3.0 - uTime * 0.5) * 0.1;
-    float noise3 = snoise(position * 6.0 + uTime * 0.2) * 0.04;
+    // Scroll-driven turbulence: increases as user scrolls
+    float scrollFactor = clamp(uScroll, 0.0, 1.0);
+    float turbulence = 1.0 + scrollFactor * 2.5; // 1x → 3.5x noise
+
+    // Layered noise displacement — intensifies with scroll
+    float noise1 = snoise(position * 1.5 * turbulence + uTime * 0.3) * 0.2;
+    float noise2 = snoise(position * 3.0 - uTime * 0.5) * (0.1 + scrollFactor * 0.15);
+    float noise3 = snoise(position * 6.0 + uTime * 0.2) * (0.04 + scrollFactor * 0.08);
 
     float displacement = (noise1 + noise2 + noise3) * uMorph;
     vDisplacement = displacement;
 
+    // Scroll-driven explosion: vertices push outward
+    float explode = smoothstep(0.4, 1.0, scrollFactor) * 0.8;
+    vec3 explodeDir = normal * explode;
+
     // Mouse influence — subtle attraction
     vec3 mouseDir = vec3(uMouse.x * 0.3, uMouse.y * 0.3, 0.0);
-    vec3 displaced = position + normal * displacement + mouseDir * 0.05;
+    vec3 displaced = position + normal * displacement + mouseDir * 0.05 + explodeDir;
 
     gl_Position = projectionMatrix * modelViewMatrix * vec4(displaced, 1.0);
   }
@@ -92,6 +103,7 @@ const sculptureVertexShader = `
 
 const sculptureFragmentShader = `
   uniform float uTime;
+  uniform float uScroll;
   uniform vec3 uColor1;
   uniform vec3 uColor2;
   uniform vec3 uColor3;
@@ -99,7 +111,21 @@ const sculptureFragmentShader = `
   varying vec3 vPosition;
   varying float vDisplacement;
 
+  // Simple noise for dissolve
+  float hash(vec3 p) {
+    p = fract(p * 0.3183099 + 0.1);
+    p *= 17.0;
+    return fract(p.x * p.y * p.z * (p.x + p.y + p.z));
+  }
+
   void main() {
+    float scrollFactor = clamp(uScroll, 0.0, 1.0);
+
+    // Dissolve: discard pixels based on noise when scrolled far
+    float dissolveThreshold = smoothstep(0.5, 1.0, scrollFactor);
+    float dissolveNoise = hash(vPosition * 8.0 + uTime * 0.1);
+    if (dissolveNoise < dissolveThreshold) discard;
+
     // Fresnel-like rim lighting
     vec3 viewDir = normalize(cameraPosition - vPosition);
     float fresnel = pow(1.0 - abs(dot(viewDir, vNormal)), 3.0);
@@ -113,11 +139,13 @@ const sculptureFragmentShader = `
     float specular = pow(max(dot(reflect(-viewDir, vNormal), vec3(0.5, 1.0, 0.5)), 0.0), 64.0);
     color += vec3(specular * 0.15);
 
-    // Edge glow — restrained neon rim
-    color += uColor3 * fresnel * 0.25;
+    // Edge glow — intensifies near dissolve edges
+    float edgeGlow = smoothstep(dissolveThreshold - 0.1, dissolveThreshold, dissolveNoise);
+    color += uColor3 * fresnel * (0.25 + edgeGlow * 0.5);
 
-    // Much lower alpha so text shows through
-    float alpha = 0.25 + fresnel * 0.2;
+    // Alpha: base + fresnel + fade out on scroll
+    float scrollFade = 1.0 - smoothstep(0.3, 0.9, scrollFactor);
+    float alpha = (0.25 + fresnel * 0.2) * scrollFade;
 
     gl_FragColor = vec4(color, alpha);
   }
@@ -135,6 +163,7 @@ const AbstractSculpture = ({ mouseRef, scrollRef }) => {
     () => ({
       uTime: { value: 0 },
       uMorph: { value: 1.0 },
+      uScroll: { value: 0.0 },
       uMouse: { value: new THREE.Vector2(0, 0) },
       uColor1: { value: new THREE.Color('#050505') },     // Near-black base
       uColor2: { value: new THREE.Color('#1a2f00') },      // Very dark olive (muted neon)
@@ -165,10 +194,14 @@ const AbstractSculpture = ({ mouseRef, scrollRef }) => {
     // Gentle floating
     meshRef.current.position.y = Math.sin(t * 0.4) * 0.15;
 
-    // Scroll-driven scale pulse
+    // Scroll-driven scale pulse and shader morph
     const scrollY = scrollRef?.current || 0;
     const scrollScale = Math.max(0.6, 1.0 - scrollY * 0.0003);
     meshRef.current.scale.setScalar(scrollScale);
+
+    // Pass scroll fraction to shader (e.g. 0 at top, 1 at 1 viewport height)
+    const scrollFraction = typeof window !== 'undefined' ? scrollY / window.innerHeight : 0;
+    materialRef.current.uniforms.uScroll.value = scrollFraction;
   });
 
   return (
