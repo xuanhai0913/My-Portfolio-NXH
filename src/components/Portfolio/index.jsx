@@ -217,8 +217,8 @@ const Portfolio = () => {
 
   const activeProject = allProjects[activeIndex];
 
-  const renderShowcaseCard = (project, keyValue) => (
-    <article className="showcase-card" key={keyValue}>
+  const renderShowcaseCard = (project) => (
+    <article className="showcase-card">
       <div className="showcase-visual">
         <div className="visual-frame">
           <ProjectCard3D image={project.image} isActive={true} />
@@ -317,7 +317,7 @@ const Portfolio = () => {
               onTouchStart={handleStageTouchStart}
               onTouchEnd={handleStageTouchEnd}
             >
-              {renderShowcaseCard(activeProject, `mobile-${activeIndex}`)}
+              {renderShowcaseCard(activeProject)}
             </div>
 
             <p className="mobile-swipe-hint">Swipe left or right to change project</p>
@@ -368,7 +368,7 @@ const Portfolio = () => {
 
               {/* Project Detail (Right Side) */}
               <div className="project-showcase">
-                {renderShowcaseCard(activeProject, activeIndex)}
+                {renderShowcaseCard(activeProject)}
               </div>
             </div>
 

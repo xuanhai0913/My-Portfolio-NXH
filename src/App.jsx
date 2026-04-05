@@ -122,8 +122,8 @@ const App = () => {
         {/* Page transition iris-wipe overlay */}
         <PageTransition />
         
-        {/* Procedural 3D Background */}
-        <BackgroundWaves />
+        {/* Procedural 3D Background - DISABLED to prevent huge composite lag
+        <BackgroundWaves /> */}
 
         {/* Skip to content — WCAG 2.4.1 */}
         <a href="#profile" className="skip-link">Skip to main content</a>
