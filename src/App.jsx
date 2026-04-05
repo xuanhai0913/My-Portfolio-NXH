@@ -2,9 +2,13 @@ import React, { lazy, Suspense, useEffect } from 'react';
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import ErrorBoundary from './components/ErrorBoundary';
 import Header from './components/Header';
+import SmoothScroll from './components/SmoothScroll';
+import CustomCursor from './components/CustomCursor';
+import PageTransition from './components/PageTransition';
 import AudioActivator from './components/AudioActivator/AudioActivator';
 import ChatWidget from './components/ChatWidget';
 import { initSectionTracking, initScrollDepthTracking } from './utils/analytics';
+import useParallax from './hooks/useParallax';
 import './App.css';
 
 // Critical above-fold components — load eagerly
@@ -41,6 +45,9 @@ const LoadingFallback = () => (
 
 // Hoisted Main Portfolio Page (rerender-no-inline-components)
 const MainPortfolio = () => {
+  // Active Theory-inspired parallax depth layers
+  useParallax();
+
   useEffect(() => {
     // Force ScrollTrigger refresh after lazy components mount
     const timer = setTimeout(() => {
@@ -108,52 +115,58 @@ const App = () => {
   const isAssistantRoute = location.pathname === '/assistant';
 
   return (
-    <div className="app">
-      {/* Skip to content — WCAG 2.4.1 */}
-      <a href="#profile" className="skip-link">Skip to main content</a>
+    <SmoothScroll>
+      <CustomCursor />
+      <div className="app">
+        {/* Page transition iris-wipe overlay */}
+        <PageTransition />
 
-      <ErrorBoundary>
-        <Header />
-      </ErrorBoundary>
+        {/* Skip to content — WCAG 2.4.1 */}
+        <a href="#profile" className="skip-link">Skip to main content</a>
 
-      {!isAssistantRoute ? <AudioActivator /> : null}
-      {!isAssistantRoute ? <ChatWidget /> : null}
+        <ErrorBoundary>
+          <Header />
+        </ErrorBoundary>
 
-      <Routes>
-        <Route path="/" element={<MainPortfolio />} />
-        <Route path="/assistant" element={<ChatWidget mode="page" />} />
-        <Route path="/videos" element={
-          <ErrorBoundary>
-            <Suspense fallback={<LoadingFallback />}>
-              <VideoDemo />
-            </Suspense>
-          </ErrorBoundary>
-        } />
-        <Route path="/3d" element={
-          <ErrorBoundary>
-            <Suspense fallback={<LoadingFallback />}>
-              <Hero3D />
-            </Suspense>
-          </ErrorBoundary>
-        } />
-        <Route path="/blog" element={
-          <ErrorBoundary>
-            <Suspense fallback={<LoadingFallback />}>
-              <Blog />
-            </Suspense>
-          </ErrorBoundary>
-        } />
-        {/* Redirect /home and /Home to root — fix Google indexing ghost page */}
-        <Route path="/home" element={<Navigate to="/" replace />} />
-        <Route path="/Home" element={<Navigate to="/" replace />} />
-      </Routes>
+        {!isAssistantRoute ? <AudioActivator /> : null}
+        {!isAssistantRoute ? <ChatWidget /> : null}
 
-      {/* Deferred third-party analytics — loads after main content */}
-      <Suspense fallback={null}>
-        <Analytics debug={false} mode="production" />
-        <SpeedInsights />
-      </Suspense>
-    </div>
+        <Routes>
+          <Route path="/" element={<MainPortfolio />} />
+          <Route path="/assistant" element={<ChatWidget mode="page" />} />
+          <Route path="/videos" element={
+            <ErrorBoundary>
+              <Suspense fallback={<LoadingFallback />}>
+                <VideoDemo />
+              </Suspense>
+            </ErrorBoundary>
+          } />
+          <Route path="/3d" element={
+            <ErrorBoundary>
+              <Suspense fallback={<LoadingFallback />}>
+                <Hero3D />
+              </Suspense>
+            </ErrorBoundary>
+          } />
+          <Route path="/blog" element={
+            <ErrorBoundary>
+              <Suspense fallback={<LoadingFallback />}>
+                <Blog />
+              </Suspense>
+            </ErrorBoundary>
+          } />
+          {/* Redirect /home and /Home to root — fix Google indexing ghost page */}
+          <Route path="/home" element={<Navigate to="/" replace />} />
+          <Route path="/Home" element={<Navigate to="/" replace />} />
+        </Routes>
+
+        {/* Deferred third-party analytics — loads after main content */}
+        <Suspense fallback={null}>
+          <Analytics debug={false} mode="production" />
+          <SpeedInsights />
+        </Suspense>
+      </div>
+    </SmoothScroll>
   );
 };
 

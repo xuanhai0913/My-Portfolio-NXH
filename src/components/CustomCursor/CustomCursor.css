@@ -1,0 +1,96 @@
+/* ============================================
+   CUSTOM CURSOR — Active Theory Inspired
+   Premium dot + ring with magnetic hover effect
+   ============================================ */
+
+/* Hide default cursor on non-touch devices */
+@media (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+}
+
+/* Cursor Dot — small, precise center dot */
+.cursor-dot {
+  position: fixed;
+  top: -4px;
+  left: -4px;
+  width: 8px;
+  height: 8px;
+  background: var(--color-accent, #d4ff00);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  will-change: transform;
+  mix-blend-mode: difference;
+  transition: width 0.3s var(--ease-out-quart),
+              height 0.3s var(--ease-out-quart),
+              background 0.3s var(--ease-out-quart),
+              opacity 0.3s var(--ease-out-quart);
+}
+
+.cursor-dot.hover {
+  width: 12px;
+  height: 12px;
+  top: -6px;
+  left: -6px;
+  background: #fff;
+}
+
+.cursor-dot.click {
+  width: 6px;
+  height: 6px;
+  top: -3px;
+  left: -3px;
+}
+
+/* Cursor Ring — larger, follows with delayed lerp */
+.cursor-ring {
+  position: fixed;
+  top: -20px;
+  left: -20px;
+  width: 40px;
+  height: 40px;
+  border: 1.5px solid rgba(212, 255, 0, 0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  will-change: transform;
+  transition: width 0.4s var(--ease-out-expo),
+              height 0.4s var(--ease-out-expo),
+              border-color 0.3s var(--ease-out-quart),
+              opacity 0.3s var(--ease-out-quart);
+}
+
+.cursor-ring.hover {
+  width: 60px;
+  height: 60px;
+  top: -30px;
+  left: -30px;
+  border-color: rgba(255, 255, 255, 0.6);
+  border-width: 1px;
+}
+
+.cursor-ring.click {
+  width: 32px;
+  height: 32px;
+  top: -16px;
+  left: -16px;
+  border-color: rgba(212, 255, 0, 0.8);
+}
+
+/* Hide custom cursor on touch devices */
+@media (pointer: coarse), (hover: none) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
+  }
+}

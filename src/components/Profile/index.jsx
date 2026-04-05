@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
 import ExperiencePopup from './ExperiencePopup';
 import CVPreview from './CVPreview';
 import './styles/Profile.css';
+
+// Lazy-load 3D particles so hero text paints instantly
+const HeroParticles = lazy(() => import('../HeroParticles'));
 
 const profileImage = '/images/og-image.jpg';
 
@@ -16,6 +19,11 @@ const Profile = () => {
 
   return (
     <section id="profile" className="profile-section">
+      {/* 3D Particle Background — Active Theory inspired */}
+      <Suspense fallback={null}>
+        <HeroParticles />
+      </Suspense>
+
       <div className="profile-grid">
 
         {/* Left: Typography */}

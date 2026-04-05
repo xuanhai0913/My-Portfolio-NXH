@@ -1,0 +1,53 @@
+/* ============================================
+   PAGE TRANSITION — Cinematic iris-wipe effect
+   Inspired by Active Theory's camera transitions
+   ============================================ */
+
+.page-transition-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  pointer-events: none;
+  background: var(--bg-dark, #000);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Start fully closed (invisible) */
+  clip-path: circle(0% at 50% 50%);
+  transition: clip-path 0.5s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.page-transition-overlay.active {
+  pointer-events: all;
+  clip-path: circle(150% at 50% 50%);
+}
+
+.transition-inner {
+  text-align: center;
+}
+
+.transition-text {
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-accent, #d4ff00);
+  letter-spacing: 0.5em;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.3s ease 0.15s, transform 0.3s var(--ease-out-quart) 0.15s;
+}
+
+.page-transition-overlay.active .transition-text {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .page-transition-overlay {
+    transition: none;
+    clip-path: none;
+    display: none;
+  }
+}
