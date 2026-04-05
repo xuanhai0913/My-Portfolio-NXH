@@ -194,6 +194,8 @@
   max-width: 450px;
   aspect-ratio: 4/5;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  overflow: hidden;
 }
 
 .glitch-image-wrapper {
@@ -202,6 +204,7 @@
   height: 100%;
   overflow: hidden;
   background: #111;
+  border-radius: 16px;
 }
 
 .profile-img {
