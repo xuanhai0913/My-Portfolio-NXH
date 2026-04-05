@@ -22,7 +22,6 @@ import Portfolio from './components/Portfolio';
 import Certifications from './components/Certifications';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import BackgroundWaves from './components/BackgroundWaves';
 
 // Lazy load optional route pages
 const VideoDemo = lazy(() => import('./components/VideoDemo'));

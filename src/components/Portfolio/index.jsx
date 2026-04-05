@@ -236,6 +236,13 @@ const Portfolio = () => {
     : 0;
   const activeProject = allProjects[safeActiveIndex] || allProjects[0];
 
+  const handleProjectImageError = (event) => {
+    const nextSrc = '/images/og-image.jpg';
+    if (!event.currentTarget.src.endsWith(nextSrc)) {
+      event.currentTarget.src = nextSrc;
+    }
+  };
+
   const renderShowcaseCard = (project) => (
     <article className="showcase-card">
       <div className="showcase-visual">
@@ -245,6 +252,7 @@ const Portfolio = () => {
             alt={`${project.title} preview`}
             className="showcase-image"
             loading="lazy"
+            onError={handleProjectImageError}
           />
         </div>
         {project.badge && (
