@@ -22,6 +22,7 @@ import Portfolio from './components/Portfolio';
 import Certifications from './components/Certifications';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import BackgroundWaves from './components/BackgroundWaves';
 
 // Lazy load optional route pages
 const VideoDemo = lazy(() => import('./components/VideoDemo'));
@@ -120,6 +121,9 @@ const App = () => {
       <div className="app">
         {/* Page transition iris-wipe overlay */}
         <PageTransition />
+        
+        {/* Procedural 3D Background */}
+        <BackgroundWaves />
 
         {/* Skip to content — WCAG 2.4.1 */}
         <a href="#profile" className="skip-link">Skip to main content</a>
