@@ -9,6 +9,14 @@
   --neo-accent-2: #ffbe7a;
   --neo-text: #f8fbff;
   --neo-muted: rgba(232, 244, 255, 0.68);
+  --neo-motion-fast: 180ms;
+  --neo-motion-medium: 260ms;
+  --neo-motion-reveal-fade: 620ms;
+  --neo-motion-reveal-lift: 680ms;
+  --neo-motion-reveal-item: 520ms;
+  --neo-ease-standard: ease;
+  --neo-ease-emphasized: cubic-bezier(0.25, 1, 0.5, 1);
+  --neo-ease-reveal: cubic-bezier(0.22, 1, 0.36, 1);
   --neo-mono: 'IBM Plex Mono', monospace;
   --neo-display: 'Bebas Neue', sans-serif;
   --neo-body: 'Manrope', sans-serif;
@@ -96,7 +104,7 @@
   padding: 0.5rem 0.8rem;
   border-radius: 999px;
   border: 1px solid transparent;
-  transition: color 180ms ease, border-color 180ms ease, background 180ms ease;
+  transition: color var(--neo-motion-fast) var(--neo-ease-standard), border-color var(--neo-motion-fast) var(--neo-ease-standard), background var(--neo-motion-fast) var(--neo-ease-standard);
 }
 
 .neo-nav-links a:hover,
@@ -163,7 +171,7 @@
   transform-origin: bottom;
   background: linear-gradient(180deg, #d2f8ff 0%, var(--neo-accent) 65%, #74ffff 100%);
   box-shadow: 0 0 14px rgba(92, 244, 255, 0.45);
-  transition: transform 220ms cubic-bezier(0.25, 1, 0.5, 1);
+  transition: transform var(--neo-motion-medium) var(--neo-ease-emphasized);
 }
 
 .neo-progress-steps {
@@ -184,7 +192,7 @@
   text-transform: uppercase;
   color: rgba(235, 245, 255, 0.56);
   border: 1px solid transparent;
-  transition: color 180ms ease, border-color 180ms ease, background 180ms ease;
+  transition: color var(--neo-motion-fast) var(--neo-ease-standard), border-color var(--neo-motion-fast) var(--neo-ease-standard), background var(--neo-motion-fast) var(--neo-ease-standard);
 }
 
 .neo-progress-step.is-seen {
@@ -221,7 +229,7 @@
 .neo-scene {
   opacity: 0;
   transform: translate3d(0, 36px, 0);
-  transition: opacity 620ms cubic-bezier(0.25, 1, 0.5, 1), transform 680ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity var(--neo-motion-reveal-fade) var(--neo-ease-emphasized), transform var(--neo-motion-reveal-lift) var(--neo-ease-reveal);
 }
 
 .neo-scene.is-visible {
@@ -235,7 +243,7 @@
 .neo-scene.is-visible .neo-lab-panel,
 .neo-scene.is-visible .neo-stat-card,
 .neo-scene.is-visible .neo-manifesto-grid article {
-  animation: neoFadeRise 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: neoFadeRise var(--neo-motion-reveal-item) var(--neo-ease-reveal) both;
 }
 
 .neo-scene.is-visible .neo-project-card:nth-child(2),
@@ -338,7 +346,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, color 180ms ease;
+  transition: transform var(--neo-motion-fast) var(--neo-ease-standard), border-color var(--neo-motion-fast) var(--neo-ease-standard), background var(--neo-motion-fast) var(--neo-ease-standard), color var(--neo-motion-fast) var(--neo-ease-standard);
 }
 
 .neo-btn:hover {
@@ -514,7 +522,7 @@
   height: 100%;
   object-fit: cover;
   transform: scale(1.01);
-  transition: transform 260ms ease, filter 260ms ease;
+  transition: transform var(--neo-motion-medium) var(--neo-ease-standard), filter var(--neo-motion-medium) var(--neo-ease-standard);
   filter: saturate(0.86) contrast(1.03);
 }
 

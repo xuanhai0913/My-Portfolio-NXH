@@ -56,13 +56,22 @@ Goal: make motion expressive but predictable and testable.
 ### Tasks
 - [x] C1-T1 Implement scroll reveal contract per section.
 - [x] C1-T2 Implement progress HUD and section state transitions.
-- [ ] C1-T3 Define animation durations/easing by motion class.
+- [x] C1-T3 Define animation durations/easing by motion class.
 - [x] C2-T1 Implement reduced-motion alternatives for hero and section reveals.
 - [x] C2-T2 Validate no information loss when animations are disabled.
 
 ### Acceptance
-- [ ] Motion taxonomy table and mapping completed.
+- [x] Motion taxonomy table and mapping completed.
 - [ ] Reduced-motion walkthrough passes.
+
+### Motion Taxonomy Mapping
+| Motion Class | CSS Variables | Applied Surfaces |
+|--------------|---------------|------------------|
+| Fast interaction | `--neo-motion-fast` + `--neo-ease-standard` | nav links, progress steps, buttons |
+| Medium feedback | `--neo-motion-medium` + `--neo-ease-standard` | progress fill, project image hover |
+| Section reveal (fade) | `--neo-motion-reveal-fade` + `--neo-ease-emphasized` | section container opacity transition |
+| Section reveal (lift) | `--neo-motion-reveal-lift` + `--neo-ease-reveal` | section container translate transition |
+| Reveal item stagger | `--neo-motion-reveal-item` + `--neo-ease-reveal` | cards/rows/stats/manifesto entry animation |
 
 ## Epic D — 3D Runtime Governance (M3)
 Goal: keep 3D premium while preserving stability budgets.
