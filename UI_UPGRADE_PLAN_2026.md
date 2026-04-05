@@ -1,5 +1,12 @@
 # UI Upgrade Plan (2026)
 
+## Canonical Plan Notice
+This document is retained for historical phase tracking.
+For the current full frontend transformation strategy, use:
+- MASTER_UIUX_REDESIGN_PLAN_2026.md
+
+Updated: 2026-04-05
+
 ## Objective
 Build a stable, high-quality UI that keeps the brutalist identity, improves smoothness, and reintroduces 3D only where it is measurable and safe.
 
