@@ -1,7 +1,7 @@
 /* Existing Styles ... */
 .experience-section {
     position: relative;
-    padding: 100px 20px;
+    padding: var(--section-padding-y) var(--section-padding-x);
     background: #000;
     overflow: hidden;
 }
@@ -41,7 +41,7 @@
 }
 
 .experience-container {
-    max-width: 900px;
+    max-width: min(900px, var(--content-max-width));
     margin: 0 auto;
     position: relative;
     z-index: 2;
@@ -49,9 +49,9 @@
 }
 
 .section-title {
-    font-size: 4rem;
+    font-size: var(--type-display-lg);
     font-weight: 900;
-    margin-bottom: 80px;
+    margin-bottom: var(--space-8);
     color: #fff;
     text-transform: uppercase;
     letter-spacing: -2px;
@@ -68,13 +68,13 @@
 /* Minimal Timeline */
 .experience-timeline {
     position: relative;
-    padding-left: 50px;
+    padding-left: calc(var(--space-6) + var(--space-3));
     border-left: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .experience-item {
     position: relative;
-    margin-bottom: 80px;
+    margin-bottom: var(--space-8);
 }
 
 .experience-item:last-child {
@@ -128,7 +128,7 @@
 }
 
 .company-name {
-    font-size: 2rem;
+    font-size: var(--type-heading-md);
     font-weight: 700;
     color: #fff;
     margin: 0;
@@ -138,9 +138,9 @@
 
 .job-role {
     font-family: var(--font-mono);
-    font-size: 1.1rem;
+    font-size: var(--type-body-lg);
     color: var(--color-accent);
-    margin: 0 0 20px 0;
+    margin: 0 0 var(--space-5) 0;
     display: block;
     text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
@@ -158,8 +158,8 @@
 .job-description {
     color: #ccc;
     line-height: 1.7;
-    margin-bottom: 25px;
-    font-size: 1rem;
+    margin-bottom: var(--space-6);
+    font-size: var(--type-body-md);
     max-width: 90%;
     text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
@@ -196,11 +196,11 @@
 /* Audio Toggle */
 .audio-toggle {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: var(--space-5);
+    right: var(--space-5);
     z-index: 10;
-    width: 44px;
-    height: 44px;
+    width: var(--touch-target-min);
+    height: var(--touch-target-min);
     border-radius: 50%;
     border: 1px solid rgba(255, 255, 255, 0.2);
     background: rgba(0, 0, 0, 0.6);
@@ -232,7 +232,7 @@
 
 @media (max-width: 768px) {
     .section-title {
-        font-size: 2.5rem;
+        font-size: var(--type-display-md);
         letter-spacing: normal;
     }
 
@@ -252,8 +252,8 @@
     .audio-toggle {
         top: 15px;
         right: 15px;
-        width: 38px;
-        height: 38px;
+        width: var(--touch-target-min);
+        height: var(--touch-target-min);
         font-size: 0.9rem;
     }
 }

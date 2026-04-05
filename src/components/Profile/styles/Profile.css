@@ -6,7 +6,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 80px 2rem 2rem;
+  padding: calc(var(--header-height) + var(--space-5)) var(--section-padding-x) var(--section-padding-y);
   overflow: hidden;
   background-color: var(--bg-dark);
 }
@@ -23,8 +23,8 @@
 .profile-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 4rem;
-  max-width: 1400px;
+  gap: var(--space-8);
+  max-width: var(--content-max-width);
   width: 100%;
   margin: 0 auto;
   z-index: 2;
@@ -36,7 +36,7 @@
   font-weight: 700;
   line-height: 0.9;
   text-transform: uppercase;
-  margin-bottom: 2rem;
+  margin-bottom: var(--space-6);
   display: flex;
   flex-direction: column;
 }
@@ -78,10 +78,10 @@
 .hero-sub {
   max-width: 600px;
   margin-left: 5px;
-  margin-bottom: 3rem;
+  margin-bottom: var(--space-7);
   opacity: 0;
   transform: translateY(20px);
-  transition: all 0.8s ease 0.4s;
+  transition: all var(--motion-slow) var(--ease-standard) 0.1s;
 }
 
 .hero-sub.in-view {
@@ -91,7 +91,7 @@
 
 .hero-sub p {
   font-family: var(--font-mono);
-  font-size: 1rem;
+  font-size: var(--type-body-md);
   color: var(--text-secondary);
   line-height: 1.6;
 }
@@ -104,10 +104,10 @@
 .hero-cta {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: var(--space-6);
   opacity: 0;
   transform: translateY(20px);
-  transition: all 0.8s ease 0.6s;
+  transition: all var(--motion-slow) var(--ease-standard) 0.2s;
 }
 
 .hero-cta.in-view {
@@ -120,13 +120,15 @@
   color: #000;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 1.1rem;
-  padding: 1rem 2rem;
+  font-size: var(--type-body-lg);
+  min-height: var(--touch-target-min);
+  padding: var(--button-padding-y) var(--button-padding-x);
   text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  gap: var(--space-2);
+  border-radius: var(--radius-md);
+  transition: transform var(--motion-fast) var(--ease-standard), box-shadow var(--motion-fast) var(--ease-standard);
 }
 
 .btn-brutalist:hover {
@@ -194,7 +196,7 @@
   max-width: 450px;
   aspect-ratio: 4/5;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   overflow: hidden;
 }
 
@@ -204,7 +206,7 @@
   height: 100%;
   overflow: hidden;
   background: #111;
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
 }
 
 .profile-img {
@@ -265,18 +267,19 @@
 /* Floating Badge */
 .floating-badge {
   position: absolute;
-  bottom: 2rem;
+  bottom: var(--space-6);
   right: -2rem;
   background: #000;
   border: 1px solid var(--color-accent);
   color: var(--color-accent);
-  padding: 0.8rem 1.5rem;
+  padding: var(--space-3) var(--space-5);
   font-family: var(--font-mono);
   font-size: 0.9rem;
   display: flex;
   align-items: center;
   gap: 10px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
   animation: float 4s ease-in-out infinite;
   z-index: 10;
 }

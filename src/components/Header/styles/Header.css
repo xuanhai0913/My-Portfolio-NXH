@@ -12,8 +12,8 @@
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  transition: background-color 0.3s cubic-bezier(0.25, 1, 0.5, 1),
-              border-color 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: background-color var(--motion-base) var(--ease-standard),
+              border-color var(--motion-base) var(--ease-standard);
 }
 
 .header--scrolled {
@@ -26,12 +26,12 @@
 }
 
 .nav-container {
-  max-width: 1400px;
+  max-width: var(--content-max-width);
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 80px;
+  height: var(--header-height);
   padding: 0 1.5rem;
 }
 
@@ -98,10 +98,10 @@
   /* Grey */
   text-decoration: none;
   text-transform: uppercase;
-  min-height: 44px;
+  min-height: var(--touch-target-min);
   display: inline-flex;
   align-items: center;
-  transition: all 0.2s ease;
+  transition: all var(--motion-fast) var(--ease-standard);
 }
 
 .nav-links li a:focus-visible,
@@ -126,7 +126,7 @@
   color: var(--color-accent);
   padding: 0.75rem 1.25rem;
   box-shadow: none;
-  transition: all 0.2s ease;
+  transition: all var(--motion-fast) var(--ease-standard);
 }
 
 .nav-links li:last-child a:hover {

@@ -84,8 +84,8 @@
    ============================ */
 .scrolly-header {
   position: absolute;
-  top: 100px;
-  left: 5vw;
+  top: calc(var(--header-height) + var(--space-5));
+  left: var(--section-padding-x);
   z-index: 20;
 }
 
@@ -196,10 +196,10 @@
 .scrollytelling-grid {
   display: grid;
   grid-template-columns: 380px 1fr;
-  gap: 3rem;
+  gap: var(--space-7);
   width: 100%;
   height: 100vh;
-  padding: 120px 5vw 60px;
+  padding: calc(var(--header-height) + var(--space-6)) var(--section-padding-x) var(--space-8);
   box-sizing: border-box;
 }
 
@@ -622,7 +622,7 @@
   color: rgba(255, 255, 255, 0.75);
   padding: 0.5rem 0.6rem;
   min-width: 150px;
-  min-height: 44px;
+  min-height: var(--touch-target-min);
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -685,7 +685,7 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   padding: 0.55rem 0.8rem;
-  min-height: 44px;
+  min-height: var(--touch-target-min);
   min-width: 72px;
   cursor: pointer;
 }
@@ -824,8 +824,8 @@
 @media (max-width: 1200px) {
   .scrollytelling-grid {
     grid-template-columns: 280px 1fr;
-    gap: 2rem;
-    padding: 100px 3vw 40px;
+    gap: var(--space-6);
+    padding: calc(var(--header-height) + var(--space-4)) var(--section-padding-x) var(--space-7);
   }
 
   .showcase-card {
@@ -859,8 +859,8 @@
   .scrollytelling-grid {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    padding: 120px 4vw 40px;
+    gap: var(--space-6);
+    padding: calc(var(--header-height) + var(--space-6)) var(--section-padding-x) var(--space-7);
   }
 
   .project-list {
@@ -948,7 +948,7 @@
   }
 
   .portfolio-mobile {
-    padding: 100px 3vw 24px;
+    padding: calc(var(--header-height) + var(--space-4)) var(--section-padding-x) var(--space-5);
     gap: 0.85rem;
   }
 
@@ -1003,7 +1003,7 @@
     width: 100%;
     justify-content: center;
     padding: 0.9rem 1.2rem;
-    min-height: 44px;
+    min-height: var(--touch-target-min);
     font-size: 0.75rem;
   }
 
