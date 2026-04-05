@@ -84,15 +84,19 @@ const Blog = () => {
             className="blog-card"
             style={{ animationDelay: `${index * 0.1}s` }}
           >
-            {article.cover_image && (
-              <div className="blog-card-cover">
+            <div className="blog-card-cover">
+              {(article.cover_image || article.social_image) ? (
                 <img
-                  src={article.cover_image}
+                  src={article.cover_image || article.social_image}
                   alt={`${article.title} — cover image`}
                   loading="lazy"
                 />
-              </div>
-            )}
+              ) : (
+                <div className="blog-card-cover-fallback">
+                  <span>{article.tag_list?.[0] || '{ }'}</span>
+                </div>
+              )}
+            </div>
 
             <div className="blog-card-body">
               <div className="blog-card-meta">
@@ -111,8 +115,8 @@ const Blog = () => {
               </div>
 
               <div className="blog-card-stats">
-                <span>{article.public_reactions_count} reactions</span>
-                <span>{article.comments_count} comments</span>
+                <span>❤️ {article.public_reactions_count} reactions</span>
+                <span>💬 {article.comments_count} comments</span>
               </div>
             </div>
           </a>

@@ -11,13 +11,13 @@
   background-color: var(--bg-dark);
 }
 
-/* 3D Particle Background — Active Theory-inspired ambient canvas */
+/* 3D Abstract Sculpture — Active Theory-inspired centerpiece */
 .hero-particles-canvas {
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  opacity: 0.7;
+  opacity: 1;
 }
 
 .profile-grid {
