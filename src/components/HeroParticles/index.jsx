@@ -1,5 +1,6 @@
 import React, { useRef, useMemo, useEffect, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import * as THREE from 'three';
 
 /* ============================================================
@@ -149,14 +150,16 @@ const AbstractSculpture = ({ mouseRef, scrollRef }) => {
     // Update shader time
     materialRef.current.uniforms.uTime.value = t;
 
-    // Mouse reactivity
-    const mx = mouseRef?.current?.x || 0;
-    const my = mouseRef?.current?.y || 0;
-    materialRef.current.uniforms.uMouse.value.set(mx, my);
+    // Spring-damped mouse reactivity (smooth lerp instead of direct tracking)
+    const targetX = mouseRef?.current?.x || 0;
+    const targetY = mouseRef?.current?.y || 0;
+    const currentMouse = materialRef.current.uniforms.uMouse.value;
+    currentMouse.x += (targetX - currentMouse.x) * 0.05;
+    currentMouse.y += (targetY - currentMouse.y) * 0.05;
 
-    // Slow rotation
-    meshRef.current.rotation.y = t * 0.15;
-    meshRef.current.rotation.x = Math.sin(t * 0.1) * 0.2;
+    // Slow rotation with mouse influence (spring-damped)
+    meshRef.current.rotation.y = t * 0.15 + currentMouse.x * 0.3;
+    meshRef.current.rotation.x = Math.sin(t * 0.1) * 0.2 + currentMouse.y * 0.15;
     meshRef.current.rotation.z = Math.cos(t * 0.08) * 0.1;
 
     // Gentle floating
@@ -320,6 +323,16 @@ const HeroParticles = () => {
 
         {/* Particle aura */}
         <AuraParticles count={150} scrollRef={scrollRef} />
+
+        {/* Post-processing: subtle bloom on neon edges */}
+        <EffectComposer>
+          <Bloom
+            intensity={0.3}
+            luminanceThreshold={0.85}
+            luminanceSmoothing={0.4}
+            mipmapBlur
+          />
+        </EffectComposer>
       </Canvas>
     </div>
   );
