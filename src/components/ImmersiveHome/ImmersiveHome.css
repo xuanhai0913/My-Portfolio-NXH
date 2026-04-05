@@ -22,6 +22,7 @@
   font-family: var(--neo-body);
   text-transform: none;
   overflow-x: clip;
+  scroll-behavior: smooth;
 }
 
 .immersive-home * {
@@ -112,11 +113,158 @@
   outline-offset: 2px;
 }
 
+.neo-progress-hud {
+  position: fixed;
+  right: clamp(0.65rem, 2vw, 1.35rem);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 130;
+  width: 104px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  background: rgba(4, 8, 16, 0.78);
+  backdrop-filter: blur(10px);
+  padding: 0.55rem 0.5rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.neo-progress-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  font-family: var(--neo-mono);
+}
+
+.neo-progress-head span {
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--neo-muted);
+}
+
+.neo-progress-head strong {
+  font-size: 0.72rem;
+  color: var(--neo-accent);
+}
+
+.neo-progress-track {
+  height: 92px;
+  width: 4px;
+  margin: 0 auto;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+
+.neo-progress-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-origin: bottom;
+  background: linear-gradient(180deg, #d2f8ff 0%, var(--neo-accent) 65%, #74ffff 100%);
+  box-shadow: 0 0 14px rgba(92, 244, 255, 0.45);
+  transition: transform 220ms cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.neo-progress-steps {
+  display: grid;
+  gap: 0.26rem;
+}
+
+.neo-progress-step {
+  text-decoration: none;
+  min-height: 28px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.22rem 0.45rem;
+  font-family: var(--neo-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(235, 245, 255, 0.56);
+  border: 1px solid transparent;
+  transition: color 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.neo-progress-step.is-seen {
+  color: rgba(235, 245, 255, 0.8);
+}
+
+.neo-progress-step.is-active {
+  color: var(--neo-text);
+  border-color: rgba(117, 237, 255, 0.4);
+  background: rgba(117, 237, 255, 0.14);
+}
+
+.neo-progress-step:focus-visible {
+  outline: 2px solid var(--neo-accent);
+  outline-offset: 2px;
+}
+
 #neo-main {
   display: flex;
   flex-direction: column;
   gap: clamp(3.8rem, 12vw, 8rem);
   padding-bottom: 6rem;
+}
+
+#neo-main > section {
+  scroll-margin-top: 96px;
+}
+
+.neo-scene {
+  opacity: 0;
+  transform: translate3d(0, 36px, 0);
+  transition: opacity 620ms cubic-bezier(0.25, 1, 0.5, 1), transform 680ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.neo-scene.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.neo-scene.is-visible .neo-section-head,
+.neo-scene.is-visible .neo-project-card,
+.neo-scene.is-visible .neo-journey-item,
+.neo-scene.is-visible .neo-lab-panel,
+.neo-scene.is-visible .neo-stat-card,
+.neo-scene.is-visible .neo-manifesto-grid article {
+  animation: neoFadeRise 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.neo-scene.is-visible .neo-project-card:nth-child(2),
+.neo-scene.is-visible .neo-journey-item:nth-child(2),
+.neo-scene.is-visible .neo-lab-panel:nth-child(2),
+.neo-scene.is-visible .neo-manifesto-grid article:nth-child(2),
+.neo-scene.is-visible .neo-stat-card:nth-child(2) {
+  animation-delay: 60ms;
+}
+
+.neo-scene.is-visible .neo-project-card:nth-child(3),
+.neo-scene.is-visible .neo-journey-item:nth-child(3),
+.neo-scene.is-visible .neo-manifesto-grid article:nth-child(3),
+.neo-scene.is-visible .neo-stat-card:nth-child(3) {
+  animation-delay: 120ms;
+}
+
+.neo-scene.is-visible .neo-project-card:nth-child(4),
+.neo-scene.is-visible .neo-journey-item:nth-child(4),
+.neo-scene.is-visible .neo-stat-card:nth-child(4) {
+  animation-delay: 180ms;
+}
+
+@keyframes neoFadeRise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 .neo-hero {
@@ -216,6 +364,11 @@
   border-radius: 28px;
   overflow: hidden;
   background: linear-gradient(160deg, rgba(10, 20, 35, 0.92), rgba(6, 10, 20, 0.96));
+}
+
+.hero-canvas-shell {
+  width: 100%;
+  height: 100%;
 }
 
 .hero-canvas,
@@ -516,6 +669,11 @@
 }
 
 @media (max-width: 1024px) {
+  .neo-progress-hud {
+    right: 0.5rem;
+    width: 96px;
+  }
+
   .neo-hero {
     grid-template-columns: 1fr;
     gap: 1rem;
@@ -538,6 +696,10 @@
 }
 
 @media (max-width: 720px) {
+  .neo-progress-hud {
+    display: none;
+  }
+
   .neo-nav-shell {
     flex-direction: column;
     align-items: flex-start;
@@ -573,6 +735,25 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .neo-scene {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .neo-scene.is-visible .neo-section-head,
+  .neo-scene.is-visible .neo-project-card,
+  .neo-scene.is-visible .neo-journey-item,
+  .neo-scene.is-visible .neo-lab-panel,
+  .neo-scene.is-visible .neo-stat-card,
+  .neo-scene.is-visible .neo-manifesto-grid article {
+    animation: none !important;
+  }
+
+  .neo-progress-fill {
+    transition: none !important;
+  }
+
   .neo-project-media img,
   .neo-btn,
   .neo-nav-links a {

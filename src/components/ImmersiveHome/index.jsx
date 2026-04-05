@@ -6,13 +6,16 @@ import prj3 from '../../images/project/prj3.png';
 import prj5 from '../../images/project/prj5.png';
 import './ImmersiveHome.css';
 
-const NAV_SECTIONS = [
+const SECTION_FLOW = [
+  { id: 'hero', label: 'Entry', nav: false },
   { id: 'manifesto', label: 'Manifesto' },
   { id: 'projects', label: 'Projects' },
   { id: 'journey', label: 'Journey' },
   { id: 'lab', label: 'Lab' },
   { id: 'contact-zone', label: 'Contact' },
 ];
+
+const NAV_SECTIONS = SECTION_FLOW.filter((section) => section.nav !== false);
 
 const SHOWCASE_PROJECTS = [
   {
@@ -67,8 +70,15 @@ const HeroScene = ({ reducedMotion }) => {
 };
 
 const ImmersiveHome = () => {
-  const [activeSection, setActiveSection] = useState('manifesto');
+  const [activeSection, setActiveSection] = useState('hero');
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [revealedSections, setRevealedSections] = useState(() => (
+    SECTION_FLOW.reduce((acc, section) => {
+      acc[section.id] = section.id === 'hero';
+      return acc;
+    }, {})
+  ));
 
   useEffect(() => {
     if (typeof window === 'undefined') return undefined;
@@ -90,11 +100,21 @@ const ImmersiveHome = () => {
   useEffect(() => {
     if (typeof document === 'undefined') return undefined;
 
-    const sectionElements = NAV_SECTIONS.map((section) => document.getElementById(section.id)).filter(Boolean);
+    const sectionElements = SECTION_FLOW.map((section) => document.getElementById(section.id)).filter(Boolean);
 
     if (sectionElements.length === 0) return undefined;
 
-    const observer = new IntersectionObserver(
+    if (reducedMotion) {
+      setRevealedSections((prev) => {
+        const next = { ...prev };
+        SECTION_FLOW.forEach((section) => {
+          next[section.id] = true;
+        });
+        return next;
+      });
+    }
+
+    const activeObserver = new IntersectionObserver(
       (entries) => {
         const visible = entries
           .filter((entry) => entry.isIntersecting)
@@ -110,11 +130,66 @@ const ImmersiveHome = () => {
       }
     );
 
-    sectionElements.forEach((section) => observer.observe(section));
+    const revealObserver = reducedMotion
+      ? null
+      : new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const sectionId = entry.target.id;
+            setRevealedSections((prev) => {
+              if (prev[sectionId]) return prev;
+              return { ...prev, [sectionId]: true };
+            });
+          });
+        },
+        {
+          threshold: 0.18,
+          rootMargin: '0px 0px -12% 0px',
+        }
+      );
+
+    sectionElements.forEach((section) => {
+      activeObserver.observe(section);
+      if (revealObserver) revealObserver.observe(section);
+    });
 
     return () => {
-      sectionElements.forEach((section) => observer.unobserve(section));
-      observer.disconnect();
+      sectionElements.forEach((section) => {
+        activeObserver.unobserve(section);
+        if (revealObserver) revealObserver.unobserve(section);
+      });
+      activeObserver.disconnect();
+      if (revealObserver) revealObserver.disconnect();
+    };
+  }, [reducedMotion]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || typeof document === 'undefined') return undefined;
+
+    let rafId = 0;
+
+    const updateProgress = () => {
+      const documentElement = document.documentElement;
+      const maxScrollable = Math.max(documentElement.scrollHeight - window.innerHeight, 1);
+      const progress = Math.min(100, Math.max(0, Math.round((window.scrollY / maxScrollable) * 100)));
+      setScrollProgress(progress);
+      rafId = 0;
+    };
+
+    const onScroll = () => {
+      if (rafId !== 0) return;
+      rafId = window.requestAnimationFrame(updateProgress);
+    };
+
+    updateProgress();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+
+    return () => {
+      if (rafId !== 0) window.cancelAnimationFrame(rafId);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
     };
   }, []);
 
@@ -141,8 +216,33 @@ const ImmersiveHome = () => {
         </nav>
       </header>
 
+      <aside className="neo-progress-hud" aria-label="Page progression">
+        <div className="neo-progress-head">
+          <span>Scroll</span>
+          <strong>{scrollProgress}%</strong>
+        </div>
+        <div className="neo-progress-track" aria-hidden="true">
+          <span
+            className="neo-progress-fill"
+            style={{ transform: `scaleY(${scrollProgress / 100})` }}
+          />
+        </div>
+        <div className="neo-progress-steps">
+          {SECTION_FLOW.map((section) => (
+            <a
+              key={section.id}
+              href={`#${section.id}`}
+              className={`neo-progress-step ${activeSection === section.id ? 'is-active' : ''} ${revealedSections[section.id] ? 'is-seen' : ''}`}
+              aria-current={activeSection === section.id ? 'step' : undefined}
+            >
+              <span>{section.label}</span>
+            </a>
+          ))}
+        </div>
+      </aside>
+
       <main id="neo-main">
-        <section className="neo-hero" id="hero">
+        <section className={`neo-hero neo-scene ${revealedSections.hero ? 'is-visible' : ''}`} id="hero">
           <div className="neo-hero-text">
             <p className="neo-eyebrow">Immersive Product Frontend</p>
             <h1>
@@ -167,7 +267,7 @@ const ImmersiveHome = () => {
           </div>
         </section>
 
-        <section id="manifesto" className="neo-manifesto">
+        <section id="manifesto" className={`neo-manifesto neo-scene ${revealedSections.manifesto ? 'is-visible' : ''}`}>
           <div className="neo-section-head">
             <p>Manifesto</p>
             <h2>Not another template portfolio.</h2>
@@ -198,7 +298,7 @@ const ImmersiveHome = () => {
           </div>
         </section>
 
-        <section id="projects" className="neo-projects">
+        <section id="projects" className={`neo-projects neo-scene ${revealedSections.projects ? 'is-visible' : ''}`}>
           <div className="neo-section-head">
             <p>Projects</p>
             <h2>High-fidelity product work, rebuilt with a new visual language.</h2>
@@ -220,7 +320,7 @@ const ImmersiveHome = () => {
           </div>
         </section>
 
-        <section id="journey" className="neo-journey">
+        <section id="journey" className={`neo-journey neo-scene ${revealedSections.journey ? 'is-visible' : ''}`}>
           <div className="neo-section-head">
             <p>Journey</p>
             <h2>From LMS infrastructure to media platforms and AI product surfaces.</h2>
@@ -247,7 +347,7 @@ const ImmersiveHome = () => {
           </div>
         </section>
 
-        <section id="lab" className="neo-lab">
+        <section id="lab" className={`neo-lab neo-scene ${revealedSections.lab ? 'is-visible' : ''}`}>
           <div className="neo-section-head">
             <p>Lab</p>
             <h2>Motion-driven presentation layer inspired by digital installations.</h2>
@@ -284,7 +384,7 @@ const ImmersiveHome = () => {
           </div>
         </section>
 
-        <section id="contact-zone" className="neo-contact">
+        <section id="contact-zone" className={`neo-contact neo-scene ${revealedSections['contact-zone'] ? 'is-visible' : ''}`}>
           <p>Ready for the next visual system upgrade?</p>
           <h2>Let&apos;s build a frontend experience that people remember.</h2>
           <div className="neo-contact-actions">
