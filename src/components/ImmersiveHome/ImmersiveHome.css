@@ -1,0 +1,581 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500;700&display=swap');
+
+.immersive-home {
+  --neo-bg: #04050a;
+  --neo-bg-soft: #0b1224;
+  --neo-surface: rgba(10, 17, 34, 0.74);
+  --neo-line: rgba(117, 237, 255, 0.24);
+  --neo-accent: #5cf4ff;
+  --neo-accent-2: #ffbe7a;
+  --neo-text: #f8fbff;
+  --neo-muted: rgba(232, 244, 255, 0.68);
+  --neo-mono: 'IBM Plex Mono', monospace;
+  --neo-display: 'Bebas Neue', sans-serif;
+  --neo-body: 'Manrope', sans-serif;
+  position: relative;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(92, 244, 255, 0.2), transparent 32%),
+    radial-gradient(circle at 80% 20%, rgba(255, 190, 122, 0.16), transparent 28%),
+    linear-gradient(180deg, #04050a, #060912 45%, #070e1a 100%);
+  color: var(--neo-text);
+  font-family: var(--neo-body);
+  text-transform: none;
+  overflow-x: clip;
+}
+
+.immersive-home * {
+  box-sizing: border-box;
+}
+
+.neo-skip-link {
+  position: absolute;
+  top: -120px;
+  left: 1rem;
+  z-index: 200;
+  padding: 0.55rem 0.9rem;
+  border-radius: 999px;
+  background: var(--neo-accent);
+  color: #041018;
+  font-family: var(--neo-mono);
+  text-decoration: none;
+}
+
+.neo-skip-link:focus {
+  top: 1rem;
+}
+
+.neo-nav-shell {
+  position: sticky;
+  top: 0;
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+  padding: 0.95rem clamp(1rem, 3vw, 2.4rem);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(4, 7, 14, 0.76);
+  backdrop-filter: blur(12px);
+}
+
+.neo-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  letter-spacing: 0.08em;
+  font-size: 0.78rem;
+  font-family: var(--neo-mono);
+}
+
+.neo-brand-accent {
+  color: var(--neo-accent);
+}
+
+.neo-brand-core {
+  color: var(--neo-text);
+}
+
+.neo-nav-links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.42rem;
+}
+
+.neo-nav-links a {
+  color: var(--neo-muted);
+  text-decoration: none;
+  font-family: var(--neo-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  transition: color 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.neo-nav-links a:hover,
+.neo-nav-links a.is-active {
+  color: var(--neo-text);
+  border-color: var(--neo-line);
+  background: rgba(117, 237, 255, 0.08);
+}
+
+.neo-nav-links a:focus-visible,
+.neo-btn:focus-visible {
+  outline: 2px solid var(--neo-accent);
+  outline-offset: 2px;
+}
+
+#neo-main {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(3.8rem, 12vw, 8rem);
+  padding-bottom: 6rem;
+}
+
+.neo-hero {
+  min-height: calc(100vh - 80px);
+  display: grid;
+  grid-template-columns: minmax(280px, 1.05fr) minmax(260px, 0.95fr);
+  gap: clamp(1.2rem, 4vw, 4rem);
+  align-items: center;
+  padding: clamp(1.5rem, 4vw, 3rem) clamp(1rem, 4vw, 3rem) clamp(2rem, 4vw, 3rem);
+}
+
+.neo-hero-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.neo-eyebrow {
+  font-family: var(--neo-mono);
+  color: var(--neo-accent);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+}
+
+.neo-hero h1 {
+  margin: 0;
+  font-family: var(--neo-display);
+  font-size: clamp(3.7rem, 11vw, 9.2rem);
+  letter-spacing: 0.02em;
+  line-height: 0.82;
+  text-wrap: balance;
+}
+
+.neo-hero h1 span {
+  color: var(--neo-accent-2);
+  display: inline-block;
+  margin: 0 0.12em;
+}
+
+.neo-hero-copy {
+  margin: 0;
+  max-width: 560px;
+  color: var(--neo-muted);
+  font-size: clamp(1rem, 2vw, 1.18rem);
+  line-height: 1.7;
+}
+
+.neo-hero-actions,
+.neo-contact-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.72rem;
+  flex-wrap: wrap;
+}
+
+.neo-btn {
+  min-height: 44px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  padding: 0.6rem 1.05rem;
+  text-decoration: none;
+  font-family: var(--neo-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, color 180ms ease;
+}
+
+.neo-btn:hover {
+  transform: translateY(-1px);
+}
+
+.neo-btn-primary {
+  color: #061018;
+  background: linear-gradient(120deg, var(--neo-accent), #a8fbff);
+}
+
+.neo-btn-ghost {
+  color: var(--neo-text);
+  border-color: var(--neo-line);
+  background: rgba(9, 17, 33, 0.55);
+}
+
+.neo-btn-ghost:hover {
+  border-color: rgba(117, 237, 255, 0.55);
+  background: rgba(14, 29, 52, 0.78);
+}
+
+.neo-hero-visual {
+  position: relative;
+  min-height: clamp(280px, 50vw, 560px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 28px;
+  overflow: hidden;
+  background: linear-gradient(160deg, rgba(10, 20, 35, 0.92), rgba(6, 10, 20, 0.96));
+}
+
+.hero-canvas,
+.hero-static-sphere {
+  width: 100%;
+  height: 100%;
+}
+
+.hero-static-sphere {
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle, rgba(92, 244, 255, 0.2) 0%, rgba(4, 7, 14, 0.95) 64%);
+}
+
+.hero-static-core {
+  width: clamp(140px, 32vw, 260px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 25%, rgba(255, 190, 122, 0.95), rgba(92, 244, 255, 0.65) 44%, rgba(92, 244, 255, 0.08));
+  filter: blur(0.2px);
+  box-shadow: 0 0 100px rgba(92, 244, 255, 0.35);
+}
+
+.neo-section-head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 1.7rem;
+}
+
+.neo-section-head p {
+  margin: 0;
+  font-family: var(--neo-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.11em;
+  color: var(--neo-accent);
+  font-size: 0.72rem;
+}
+
+.neo-section-head h2 {
+  margin: 0;
+  font-size: clamp(1.75rem, 4vw, 3.1rem);
+  line-height: 1.05;
+  max-width: 20ch;
+}
+
+.neo-manifesto,
+.neo-projects,
+.neo-journey,
+.neo-lab,
+.neo-contact {
+  padding: 0 clamp(1rem, 4vw, 3rem);
+}
+
+.neo-manifesto-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.neo-manifesto-grid article {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  padding: 1rem;
+  background: linear-gradient(160deg, rgba(13, 22, 40, 0.66), rgba(8, 13, 24, 0.94));
+}
+
+.neo-manifesto-grid h3 {
+  margin: 0 0 0.7rem;
+  font-family: var(--neo-mono);
+  color: var(--neo-accent-2);
+  letter-spacing: 0.08em;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+}
+
+.neo-manifesto-grid p {
+  margin: 0;
+  color: var(--neo-muted);
+  line-height: 1.68;
+  font-size: 0.96rem;
+}
+
+.neo-stats-grid {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.neo-stat-card {
+  border: 1px solid rgba(117, 237, 255, 0.24);
+  border-radius: 14px;
+  background: rgba(7, 13, 26, 0.8);
+  padding: 0.9rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.neo-stat-card strong {
+  font-family: var(--neo-display);
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  line-height: 0.95;
+  color: var(--neo-text);
+}
+
+.neo-stat-card span {
+  font-family: var(--neo-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--neo-muted);
+}
+
+.neo-project-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.neo-project-card {
+  overflow: hidden;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(6, 10, 20, 0.88);
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.neo-project-media {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+
+.neo-project-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.01);
+  transition: transform 260ms ease, filter 260ms ease;
+  filter: saturate(0.86) contrast(1.03);
+}
+
+.neo-project-card:hover .neo-project-media img {
+  transform: scale(1.05);
+  filter: saturate(1.1) contrast(1.05);
+}
+
+.neo-project-body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.neo-project-body p {
+  margin: 0;
+  color: var(--neo-muted);
+  line-height: 1.55;
+  font-size: 0.92rem;
+}
+
+.neo-project-body p:first-child {
+  font-family: var(--neo-mono);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--neo-accent);
+  font-size: 0.68rem;
+}
+
+.neo-project-body h3 {
+  margin: 0;
+  font-size: clamp(1.2rem, 2.8vw, 1.8rem);
+}
+
+.neo-journey-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.neo-journey-item {
+  display: grid;
+  grid-template-columns: minmax(200px, 0.36fr) minmax(0, 1fr);
+  gap: 0.95rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(8, 14, 27, 0.78);
+  padding: 0.95rem;
+}
+
+.neo-journey-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.neo-journey-meta span,
+.neo-journey-meta strong {
+  font-family: var(--neo-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.neo-journey-meta span {
+  color: var(--neo-accent);
+  font-size: 0.69rem;
+}
+
+.neo-journey-meta strong {
+  color: var(--neo-muted);
+  font-size: 0.7rem;
+}
+
+.neo-journey-content h3 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.05rem, 2.8vw, 1.5rem);
+}
+
+.neo-journey-content p {
+  margin: 0;
+  color: var(--neo-muted);
+  line-height: 1.6;
+  font-size: 0.94rem;
+}
+
+.neo-chip-row {
+  margin-top: 0.8rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.neo-chip-row span {
+  border: 1px solid rgba(117, 237, 255, 0.26);
+  color: rgba(225, 243, 255, 0.84);
+  padding: 0.28rem 0.55rem;
+  border-radius: 999px;
+  font-family: var(--neo-mono);
+  font-size: 0.63rem;
+  letter-spacing: 0.06em;
+}
+
+.neo-lab-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.neo-lab-panel {
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 20px;
+  padding: 0.95rem;
+  background: linear-gradient(160deg, rgba(12, 19, 36, 0.78), rgba(7, 10, 20, 0.9));
+}
+
+.neo-lab-panel h3 {
+  margin: 0 0 0.45rem;
+  font-size: 1.2rem;
+}
+
+.neo-lab-panel p {
+  margin: 0 0 0.8rem;
+  color: var(--neo-muted);
+  line-height: 1.58;
+}
+
+.neo-lab-panel video {
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #02050b;
+}
+
+.neo-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding-bottom: 2rem;
+}
+
+.neo-contact p {
+  margin: 0;
+  font-family: var(--neo-mono);
+  color: var(--neo-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+}
+
+.neo-contact h2 {
+  margin: 0;
+  font-size: clamp(1.6rem, 3.8vw, 3rem);
+  line-height: 1.05;
+  max-width: 18ch;
+}
+
+@media (max-width: 1024px) {
+  .neo-hero {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .neo-hero-visual {
+    min-height: 320px;
+  }
+
+  .neo-manifesto-grid,
+  .neo-project-grid,
+  .neo-lab-grid,
+  .neo-stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .neo-journey-item {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .neo-nav-shell {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .neo-nav-links {
+    width: 100%;
+  }
+
+  .neo-nav-links a {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+  .neo-manifesto-grid,
+  .neo-project-grid,
+  .neo-lab-grid,
+  .neo-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .neo-hero h1 {
+    font-size: clamp(3.1rem, 23vw, 5.8rem);
+  }
+
+  .neo-hero-copy,
+  .neo-manifesto-grid p,
+  .neo-project-body p,
+  .neo-journey-content p,
+  .neo-lab-panel p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .neo-project-media img,
+  .neo-btn,
+  .neo-nav-links a {
+    transition: none !important;
+  }
+}
