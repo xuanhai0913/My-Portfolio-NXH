@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useEffect, useState } from 'react';
+import React, { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { EXTERNAL_URLS, WORK_EXPERIENCE } from '../../utils/constants';
 import prj1 from '../../images/project/prj1.png';
 import prj2 from '../../images/project/prj2.png';
@@ -69,10 +69,16 @@ const HeroScene = ({ reducedMotion }) => {
   return <HeroScene3D />;
 };
 
+const getSectionElement = (sectionId) => {
+  if (typeof document === 'undefined') return null;
+  return document.getElementById(sectionId);
+};
+
 const ImmersiveHome = () => {
   const [activeSection, setActiveSection] = useState('hero');
   const [reducedMotion, setReducedMotion] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const labVideoRefs = useRef([]);
   const [revealedSections, setRevealedSections] = useState(() => (
     SECTION_FLOW.reduce((acc, section) => {
       acc[section.id] = section.id === 'hero';
@@ -193,6 +199,105 @@ const ImmersiveHome = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (typeof document === 'undefined') return undefined;
+    if (reducedMotion || typeof IntersectionObserver === 'undefined') return undefined;
+
+    const videos = labVideoRefs.current.filter(Boolean);
+    if (videos.length === 0) return undefined;
+
+    const inViewMap = new WeakMap();
+
+    const syncVideoState = () => {
+      const isVisible = !document.hidden;
+      videos.forEach((video) => {
+        const isInView = inViewMap.get(video) ?? false;
+
+        if (isVisible && isInView) {
+          const playPromise = video.play();
+          if (playPromise && typeof playPromise.catch === 'function') {
+            playPromise.catch(() => {
+              // Ignore autoplay policy rejections.
+            });
+          }
+          return;
+        }
+
+        video.pause();
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          inViewMap.set(entry.target, entry.isIntersecting);
+        });
+        syncVideoState();
+      },
+      {
+        threshold: 0.2,
+        rootMargin: '80px 0px',
+      }
+    );
+
+    videos.forEach((video) => {
+      inViewMap.set(video, false);
+      observer.observe(video);
+    });
+
+    document.addEventListener('visibilitychange', syncVideoState);
+    syncVideoState();
+
+    return () => {
+      document.removeEventListener('visibilitychange', syncVideoState);
+      observer.disconnect();
+    };
+  }, [reducedMotion]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return undefined;
+
+    const hash = window.location.hash.replace('#', '');
+    if (!hash) return undefined;
+
+    const target = getSectionElement(hash);
+    if (!target) return undefined;
+
+    const run = window.requestAnimationFrame(() => {
+      target.scrollIntoView({
+        behavior: reducedMotion ? 'auto' : 'smooth',
+        block: 'start',
+      });
+    });
+
+    return () => window.cancelAnimationFrame(run);
+  }, [reducedMotion]);
+
+  const jumpToSection = (event, sectionId) => {
+    const target = getSectionElement(sectionId);
+    if (!target) return;
+
+    event.preventDefault();
+
+    target.scrollIntoView({
+      behavior: reducedMotion ? 'auto' : 'smooth',
+      block: 'start',
+    });
+
+    if (typeof window !== 'undefined' && window.history?.replaceState) {
+      window.history.replaceState(null, '', `#${sectionId}`);
+    }
+
+    const focusDelay = reducedMotion ? 0 : 260;
+    window.setTimeout(() => {
+      target.focus({ preventScroll: true });
+    }, focusDelay);
+  };
+
+  const registerLabVideo = (index) => (element) => {
+    labVideoRefs.current[index] = element;
+  };
+
   return (
     <div className="immersive-home">
       <a className="neo-skip-link" href="#neo-main">Skip to immersive content</a>
@@ -209,6 +314,8 @@ const ImmersiveHome = () => {
               key={section.id}
               href={`#${section.id}`}
               className={activeSection === section.id ? 'is-active' : ''}
+              aria-current={activeSection === section.id ? 'page' : undefined}
+              onClick={(event) => jumpToSection(event, section.id)}
             >
               {section.label}
             </a>
@@ -234,6 +341,8 @@ const ImmersiveHome = () => {
               href={`#${section.id}`}
               className={`neo-progress-step ${activeSection === section.id ? 'is-active' : ''} ${revealedSections[section.id] ? 'is-seen' : ''}`}
               aria-current={activeSection === section.id ? 'step' : undefined}
+              aria-label={`Jump to ${section.label} section`}
+              onClick={(event) => jumpToSection(event, section.id)}
             >
               <span>{section.label}</span>
             </a>
@@ -241,11 +350,11 @@ const ImmersiveHome = () => {
         </div>
       </aside>
 
-      <main id="neo-main">
-        <section className={`neo-hero neo-scene ${revealedSections.hero ? 'is-visible' : ''}`} id="hero">
+      <main id="neo-main" aria-label="Immersive portfolio content">
+        <section className={`neo-hero neo-scene ${revealedSections.hero ? 'is-visible' : ''}`} id="hero" tabIndex={-1} aria-labelledby="hero-title">
           <div className="neo-hero-text">
             <p className="neo-eyebrow">Immersive Product Frontend</p>
-            <h1>
+            <h1 id="hero-title">
               DIGITAL
               <span>EXPERIENCE</span>
               SYSTEMS
@@ -255,7 +364,7 @@ const ImmersiveHome = () => {
               and product storytelling designed for high-impact frontend identity.
             </p>
             <div className="neo-hero-actions">
-              <a href="#projects" className="neo-btn neo-btn-primary">Explore Projects</a>
+              <a href="#projects" onClick={(event) => jumpToSection(event, 'projects')} className="neo-btn neo-btn-primary">Explore Projects</a>
               <a href={EXTERNAL_URLS.GITHUB} target="_blank" rel="noreferrer" className="neo-btn neo-btn-ghost">Github Signal</a>
             </div>
           </div>
@@ -267,7 +376,7 @@ const ImmersiveHome = () => {
           </div>
         </section>
 
-        <section id="manifesto" className={`neo-manifesto neo-scene ${revealedSections.manifesto ? 'is-visible' : ''}`}>
+        <section id="manifesto" tabIndex={-1} className={`neo-manifesto neo-scene ${revealedSections.manifesto ? 'is-visible' : ''}`}>
           <div className="neo-section-head">
             <p>Manifesto</p>
             <h2>Not another template portfolio.</h2>
@@ -298,7 +407,7 @@ const ImmersiveHome = () => {
           </div>
         </section>
 
-        <section id="projects" className={`neo-projects neo-scene ${revealedSections.projects ? 'is-visible' : ''}`}>
+        <section id="projects" tabIndex={-1} className={`neo-projects neo-scene ${revealedSections.projects ? 'is-visible' : ''}`}>
           <div className="neo-section-head">
             <p>Projects</p>
             <h2>High-fidelity product work, rebuilt with a new visual language.</h2>
@@ -320,7 +429,7 @@ const ImmersiveHome = () => {
           </div>
         </section>
 
-        <section id="journey" className={`neo-journey neo-scene ${revealedSections.journey ? 'is-visible' : ''}`}>
+        <section id="journey" tabIndex={-1} className={`neo-journey neo-scene ${revealedSections.journey ? 'is-visible' : ''}`}>
           <div className="neo-section-head">
             <p>Journey</p>
             <h2>From LMS infrastructure to media platforms and AI product surfaces.</h2>
@@ -347,7 +456,7 @@ const ImmersiveHome = () => {
           </div>
         </section>
 
-        <section id="lab" className={`neo-lab neo-scene ${revealedSections.lab ? 'is-visible' : ''}`}>
+        <section id="lab" tabIndex={-1} className={`neo-lab neo-scene ${revealedSections.lab ? 'is-visible' : ''}`}>
           <div className="neo-section-head">
             <p>Lab</p>
             <h2>Motion-driven presentation layer inspired by digital installations.</h2>
@@ -358,6 +467,7 @@ const ImmersiveHome = () => {
               <h3>Neon History Feed</h3>
               <p>Editorial storytelling with temporal transitions and modular scene composition.</p>
               <video
+                ref={registerLabVideo(0)}
                 src="/Neon_History_Optimized.mp4"
                 autoPlay={!reducedMotion}
                 muted
@@ -372,6 +482,7 @@ const ImmersiveHome = () => {
               <h3>Neon Projects Stage</h3>
               <p>Projects rendered as cinematic cards with dense information and layered depth treatment.</p>
               <video
+                ref={registerLabVideo(1)}
                 src="/Neon_Projects_Optimized.mp4"
                 autoPlay={!reducedMotion}
                 muted
@@ -384,7 +495,7 @@ const ImmersiveHome = () => {
           </div>
         </section>
 
-        <section id="contact-zone" className={`neo-contact neo-scene ${revealedSections['contact-zone'] ? 'is-visible' : ''}`}>
+        <section id="contact-zone" tabIndex={-1} className={`neo-contact neo-scene ${revealedSections['contact-zone'] ? 'is-visible' : ''}`}>
           <p>Ready for the next visual system upgrade?</p>
           <h2>Let&apos;s build a frontend experience that people remember.</h2>
           <div className="neo-contact-actions">

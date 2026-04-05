@@ -18,15 +18,15 @@ Goal: freeze the content and interaction topology of the new homepage.
 - A2: As a keyboard user, I can navigate every primary action.
 
 ### Tasks
-- [ ] A1-T1 Define final section sequence and role per section.
-- [ ] A1-T2 Define transition contract for each section boundary.
-- [ ] A1-T3 Define navigation state model (active section, anchor behavior).
-- [ ] A2-T1 Validate heading hierarchy and landmark structure.
-- [ ] A2-T2 Validate skip-link and focus return behavior.
+- [x] A1-T1 Define final section sequence and role per section.
+- [x] A1-T2 Define transition contract for each section boundary.
+- [x] A1-T3 Define navigation state model (active section, anchor behavior).
+- [x] A2-T1 Validate heading hierarchy and landmark structure.
+- [x] A2-T2 Validate skip-link and focus return behavior.
 
 ### Acceptance
-- [ ] No ambiguous section purpose in architecture map.
-- [ ] No dead transition state between neighboring sections.
+- [x] No ambiguous section purpose in architecture map.
+- [x] No dead transition state between neighboring sections.
 
 ## Epic B — Layout and Theme System Lock (M2)
 Goal: remove visual inconsistency and ad-hoc styling from core surfaces.
@@ -54,11 +54,11 @@ Goal: make motion expressive but predictable and testable.
 - C2: As a reduced-motion user, I can consume all content without disorientation.
 
 ### Tasks
-- [ ] C1-T1 Implement scroll reveal contract per section.
-- [ ] C1-T2 Implement progress HUD and section state transitions.
+- [x] C1-T1 Implement scroll reveal contract per section.
+- [x] C1-T2 Implement progress HUD and section state transitions.
 - [ ] C1-T3 Define animation durations/easing by motion class.
-- [ ] C2-T1 Implement reduced-motion alternatives for hero and section reveals.
-- [ ] C2-T2 Validate no information loss when animations are disabled.
+- [x] C2-T1 Implement reduced-motion alternatives for hero and section reveals.
+- [x] C2-T2 Validate no information loss when animations are disabled.
 
 ### Acceptance
 - [ ] Motion taxonomy table and mapping completed.
@@ -72,9 +72,9 @@ Goal: keep 3D premium while preserving stability budgets.
 - D2: As a user on constrained devices, I get graceful fallback without breakage.
 
 ### Tasks
-- [ ] D1-T1 Apply quality tiers (high/medium/low) across all heavy 3D surfaces.
-- [ ] D1-T2 Gate effects by visibility and document focus state.
-- [ ] D2-T1 Ensure fallback parity for low tier and reduced-motion mode.
+- [x] D1-T1 Apply quality tiers (high/medium/low) across all heavy 3D surfaces.
+- [x] D1-T2 Gate effects by visibility and document focus state.
+- [x] D2-T1 Ensure fallback parity for low tier and reduced-motion mode.
 - [ ] D2-T2 Validate artifact-free behavior during rapid scroll loops.
 
 ### Acceptance
@@ -90,10 +90,10 @@ Goal: achieve AA-level practical usability for the full immersive experience.
 
 ### Tasks
 - [ ] E1-T1 Keyboard-only walkthrough: header -> projects -> lab -> contact actions.
-- [ ] E1-T2 Verify focus style consistency and visibility on all interactive elements.
+- [x] E1-T2 Verify focus style consistency and visibility on all interactive elements.
 - [ ] E2-T1 Contrast audit for neon-on-dark pairings.
-- [ ] E2-T2 Touch target audit for mobile controls.
-- [ ] E2-T3 Alt text and semantic role audit.
+- [x] E2-T2 Touch target audit for mobile controls.
+- [x] E2-T3 Alt text and semantic role audit.
 
 ### Acceptance
 - [ ] Critical WCAG AA blockers resolved.

@@ -22,7 +22,6 @@
   font-family: var(--neo-body);
   text-transform: none;
   overflow-x: clip;
-  scroll-behavior: smooth;
 }
 
 .immersive-home * {
@@ -174,7 +173,7 @@
 
 .neo-progress-step {
   text-decoration: none;
-  min-height: 28px;
+  min-height: 32px;
   display: inline-flex;
   align-items: center;
   border-radius: 999px;
@@ -212,6 +211,11 @@
 
 #neo-main > section {
   scroll-margin-top: 96px;
+}
+
+#neo-main > section:focus-visible {
+  outline: 2px solid var(--neo-accent);
+  outline-offset: 8px;
 }
 
 .neo-scene {
