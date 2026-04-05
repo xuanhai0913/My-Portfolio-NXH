@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { trackProjectClick } from '../../utils/analytics';
+import ProjectCard3D from './ProjectCard3D';
 import './styles/Portfolio.css';
 
 // Import project images
@@ -220,13 +221,7 @@ const Portfolio = () => {
     <article className="showcase-card" key={keyValue}>
       <div className="showcase-visual">
         <div className="visual-frame">
-          <img
-            src={project.image}
-            alt={`${project.title} — ${project.technologies.join(', ')} project screenshot`}
-            className="showcase-image"
-            loading="lazy"
-          />
-          <div className="visual-glitch"></div>
+          <ProjectCard3D image={project.image} isActive={true} />
         </div>
         {project.badge && (
           <div className="showcase-badge">{project.badge}</div>
