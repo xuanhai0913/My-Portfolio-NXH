@@ -2,6 +2,7 @@ import React, { useRef, useState, useMemo, useEffect, Suspense, lazy } from 'rea
 import emailjs from '@emailjs/browser';
 import { API } from '../../utils/constants';
 import { trackContactSubmit, trackSocialClick } from '../../utils/analytics';
+import { logStabilityEvent } from '../../utils/stabilityLogger';
 import SlateEditor, { SLATE_DRAFT_STORAGE_KEY } from './SlateEditor';
 import ErrorBoundary from '../ErrorBoundary';
 import './styles/Contact.css';
@@ -41,6 +42,13 @@ const Contact = () => {
   const [allowInteractiveModel, setAllowInteractiveModel] = useState(true);
 
   useEffect(() => {
+    logStabilityEvent('contact', 'mount');
+    return () => {
+      logStabilityEvent('contact', 'unmount');
+    };
+  }, []);
+
+  useEffect(() => {
     if (typeof window === 'undefined') return undefined;
 
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -64,6 +72,12 @@ const Contact = () => {
       mediaQuery.removeEventListener('change', updateCapability);
     };
   }, []);
+
+  useEffect(() => {
+    logStabilityEvent('contact', 'interactive_model_mode', {
+      allowInteractiveModel,
+    });
+  }, [allowInteractiveModel]);
 
   // Show domain chips when user typed '@' but hasn't completed a known domain
   const domainChips = useMemo(() => {
@@ -138,6 +152,9 @@ const Contact = () => {
           setLoading(false);
           setStatus('error');
           console.error('Admin Email Failed:', adminResult.reason);
+          logStabilityEvent('contact', 'send_admin_failed', {
+            reason: String(adminResult.reason || ''),
+          });
         }
       });
   };

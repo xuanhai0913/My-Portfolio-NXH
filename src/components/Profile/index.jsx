@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ExperiencePopup from './ExperiencePopup';
 import CVPreview from './CVPreview';
+import { logStabilityEvent } from '../../utils/stabilityLogger';
 import './styles/Profile.css';
 
 const profileImage = '/images/og-image.jpg';
@@ -13,6 +14,25 @@ const Profile = () => {
   useEffect(() => {
     setLoaded(true);
   }, []);
+
+  useEffect(() => {
+    logStabilityEvent('profile', 'mount');
+    return () => {
+      logStabilityEvent('profile', 'unmount');
+    };
+  }, []);
+
+  useEffect(() => {
+    if (showExperience) {
+      logStabilityEvent('profile', 'experience_popup_open');
+    }
+  }, [showExperience]);
+
+  useEffect(() => {
+    if (showCV) {
+      logStabilityEvent('profile', 'cv_popup_open');
+    }
+  }, [showCV]);
 
   return (
     <section id="profile" className="profile-section">

@@ -17,19 +17,19 @@ Stabilize the production page flow: Profile -> About -> Experience -> Projects -
 ## Task List
 
 ### A. App-level Guard Rails
-- [ ] Replace section-wide ErrorBoundary usage with narrower local boundaries for risky sub-blocks only.
+- [x] Replace section-wide ErrorBoundary usage with narrower local boundaries for risky sub-blocks only.
   - File: src/App.jsx
   - Target: avoid whole section collapse when a visual widget fails.
-- [ ] Remove unused heavy imports and stale code paths.
+- [x] Remove unused heavy imports and stale code paths.
   - File: src/App.jsx
   - Current note: BackgroundWaves import is unused.
 
 ### B. Scroll + Animation Stability
-- [ ] Verify Lenis and GSAP ticker cleanup executes exactly once per mount/unmount.
+- [x] Verify Lenis and GSAP ticker cleanup executes exactly once per mount/unmount.
   - File: src/components/SmoothScroll/index.jsx
-- [ ] Clamp and sanitize scroll math in all scroll-reactive sections.
+- [x] Clamp and sanitize scroll math in all scroll-reactive sections.
   - Files: src/components/Portfolio/index.jsx, src/components/SectionTransition/*
-- [ ] Ensure every global event listener has deterministic cleanup.
+- [x] Ensure every global event listener has deterministic cleanup.
   - Areas: mousemove, scroll, resize, media query listeners.
 
 ### C. Profile Section Hardening
@@ -47,7 +47,7 @@ Stabilize the production page flow: Profile -> About -> Experience -> Projects -
 - [x] Add card-level fallback block for image load failure.
   - File: src/components/Portfolio/index.jsx
   - Requirement: if image fails, render placeholder panel, not empty frame.
-- [ ] Keep active index always bounded and finite.
+- [x] Keep active index always bounded and finite.
   - File: src/components/Portfolio/index.jsx
   - Validate with rapid scroll and anchor jump.
 
@@ -59,23 +59,23 @@ Stabilize the production page flow: Profile -> About -> Experience -> Projects -
   - File: src/components/Contact/index.jsx
 
 ### F. Accessibility + UX Baseline
-- [ ] Confirm keyboard focus visibility on all interactive elements.
+- [x] Confirm keyboard focus visibility on all interactive elements.
   - Files: Header, Profile, Portfolio, Contact CSS
-- [ ] Verify touch targets >= 44px for mobile controls.
+- [x] Verify touch targets >= 44px for mobile controls.
   - Files: src/components/Portfolio/styles/Portfolio.css
-- [ ] Confirm reduced-motion behavior disables non-essential animations.
+- [x] Confirm reduced-motion behavior disables non-essential animations.
   - Files: Profile, Portfolio, Contact, SectionTransition
 
 ### G. Verification and Release Safety
-- [ ] Build must pass.
+- [x] Build must pass.
   - Command: npm run build
 - [ ] Manual scenario test:
   - Profile -> Contact -> Projects -> Profile
   - Fast scroll and repeated up/down loops
   - Mobile viewport 390x844 and desktop 1440x900
-- [ ] Add temporary runtime logging around risky sections for one release cycle.
+- [x] Add temporary runtime logging around risky sections for one release cycle.
   - Remove logs after stability confirmed.
-- [ ] Keep rollback branch/tag before reintroducing any 3D effect.
+- [x] Keep rollback branch/tag before reintroducing any 3D effect.
 
 ## Success Criteria (Exit Phase 1)
 - 0 visible "Something went wrong" fallback in normal browsing.

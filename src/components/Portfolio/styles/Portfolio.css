@@ -622,6 +622,7 @@
   color: rgba(255, 255, 255, 0.75);
   padding: 0.5rem 0.6rem;
   min-width: 150px;
+  min-height: 44px;
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -684,7 +685,18 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   padding: 0.55rem 0.8rem;
+  min-height: 44px;
+  min-width: 72px;
   cursor: pointer;
+}
+
+.project-list-item:focus-visible,
+.mobile-nav-item:focus-visible,
+.mobile-control-btn:focus-visible,
+.portfolio-scrollytelling .action-btn:focus-visible,
+.progress-dot:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
 }
 
 .mobile-control-btn:hover {
@@ -991,6 +1003,7 @@
     width: 100%;
     justify-content: center;
     padding: 0.9rem 1.2rem;
+    min-height: 44px;
     font-size: 0.75rem;
   }
 
@@ -1013,5 +1026,18 @@
 
   .portfolio-scrollytelling .project-counter .total {
     font-size: 1.2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .showcase-card,
+  .showcase-image,
+  .project-list-item,
+  .portfolio-scrollytelling .action-btn,
+  .hint-arrow,
+  .scroll-hint {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
   }
 }

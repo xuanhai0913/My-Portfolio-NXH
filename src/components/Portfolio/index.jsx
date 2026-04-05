@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { trackProjectClick } from '../../utils/analytics';
+import { logStabilityEvent } from '../../utils/stabilityLogger';
 import './styles/Portfolio.css';
 
 // Import project images
@@ -117,12 +118,17 @@ const Portfolio = () => {
   ];
 
   useEffect(() => {
+    logStabilityEvent('portfolio', 'mount');
+
     const mediaQuery = window.matchMedia('(max-width: 900px)');
     const updateMode = () => setIsMobile(mediaQuery.matches);
 
     updateMode();
     mediaQuery.addEventListener('change', updateMode);
-    return () => mediaQuery.removeEventListener('change', updateMode);
+    return () => {
+      mediaQuery.removeEventListener('change', updateMode);
+      logStabilityEvent('portfolio', 'unmount');
+    };
   }, []);
 
   useEffect(() => {
@@ -238,6 +244,7 @@ const Portfolio = () => {
   const activeProject = allProjects[safeActiveIndex] || allProjects[0];
 
   const handleProjectImageError = (projectTitle) => {
+    logStabilityEvent('portfolio', 'project_image_error', { projectTitle });
     setBrokenImages((prev) => {
       if (prev[projectTitle]) return prev;
       return { ...prev, [projectTitle]: true };

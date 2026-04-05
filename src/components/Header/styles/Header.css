@@ -98,7 +98,17 @@
   /* Grey */
   text-decoration: none;
   text-transform: uppercase;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
   transition: all 0.2s ease;
+}
+
+.nav-links li a:focus-visible,
+.logo-link:focus-visible,
+.nav-toggle:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
 }
 
 .nav-links li a:hover,

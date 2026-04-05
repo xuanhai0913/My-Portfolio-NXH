@@ -269,6 +269,15 @@
   color: #000;
 }
 
+.btn-submit:focus-visible,
+.social-icon:focus-visible,
+.email-domain-chip:focus-visible,
+.form-group input:focus-visible,
+.form-group textarea:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
 .btn-submit:disabled {
   opacity: 0.5;
   cursor: not-allowed;
@@ -431,4 +440,13 @@
   25% { transform: translate(-50%, -50%) scale(1); }
   75% { opacity: 1; }
   100% { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .icecream-glow,
+  .icecream-glow.celebrating,
+  .model-loading-icon,
+  .icecream-thankyou {
+    animation: none !important;
+  }
 }

@@ -233,3 +233,19 @@
         font-size: clamp(2rem, 11vw, 4rem);
     }
 }
+
+@media (prefers-reduced-motion: reduce) {
+    .scroll-arrow {
+        animation: none;
+    }
+
+    .kinetic-char,
+    .kinetic-subtitle,
+    .geo-line,
+    .geo-circle,
+    .kinetic-hline,
+    .kinetic-vline,
+    .transition-video {
+        transition: none !important;
+    }
+}

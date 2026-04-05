@@ -15,6 +15,10 @@ const VideoMode = ({ videoSrc }) => {
         const video = videoRef.current;
         if (!video) return;
 
+        const prefersReducedMotion =
+            typeof window !== 'undefined' &&
+            window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
         let objectUrl = null;
         let tl = null;
 
@@ -66,6 +70,10 @@ const VideoMode = ({ videoSrc }) => {
         };
 
         const onLoaded = () => {
+            if (prefersReducedMotion) {
+                setIsLoaded(true);
+                return;
+            }
             initScrollTrigger();
         };
 

@@ -28,6 +28,18 @@ const KineticType = ({ text }) => {
 
         if (!chars?.length) return;
 
+        const prefersReducedMotion =
+            typeof window !== 'undefined' &&
+            window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (prefersReducedMotion) {
+            gsap.set(chars, { y: 0, opacity: 1, rotateX: 0, scale: 1 });
+            gsap.set([hLine, vLine], { scaleX: 1, scaleY: 1 });
+            gsap.set([...lines, ...circles, subtitle, arrow], { opacity: 1 });
+            gsap.set(circles, { scale: 1 });
+            return undefined;
+        }
+
         // Initial hidden state
         gsap.set(chars, { y: 120, opacity: 0, rotateX: -90, scale: 0.6 });
         gsap.set([hLine, vLine], { scaleX: 0, scaleY: 0 });

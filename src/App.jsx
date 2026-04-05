@@ -70,42 +70,17 @@ const MainPortfolio = () => {
   return (
     <>
       {/* Above-fold — loaded eagerly */}
-      <ErrorBoundary>
-        <Profile />
-      </ErrorBoundary>
-
-      <ErrorBoundary>
-        <About />
-      </ErrorBoundary>
+      <Profile />
+      <About />
 
       {/* Below-fold core sections — eager render for reliability */}
-      <ErrorBoundary>
-        <SectionTransition text="EXPERIENCE" />
-      </ErrorBoundary>
-
-      <ErrorBoundary>
-        <Experience />
-      </ErrorBoundary>
-
-      <ErrorBoundary>
-        <SectionTransition text="PROJECTS" />
-      </ErrorBoundary>
-
-      <ErrorBoundary>
-        <Portfolio />
-      </ErrorBoundary>
-
-      <ErrorBoundary>
-        <Certifications />
-      </ErrorBoundary>
-
-      <ErrorBoundary>
-        <Contact />
-      </ErrorBoundary>
-
-      <ErrorBoundary>
-        <Footer />
-      </ErrorBoundary>
+      <SectionTransition text="EXPERIENCE" />
+      <Experience />
+      <SectionTransition text="PROJECTS" />
+      <Portfolio />
+      <Certifications />
+      <Contact />
+      <Footer />
     </>
   );
 };
