@@ -23,6 +23,7 @@ const Portfolio = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [isSectionInView, setIsSectionInView] = useState(false);
 
   const allProjects = [
     {
@@ -126,10 +127,36 @@ const Portfolio = () => {
   }, []);
 
   useEffect(() => {
-    if (isMobile) {
-      setScrollProgress((activeIndex + 1) / allProjects.length);
+    const section = sectionRef.current;
+    if (!section || typeof IntersectionObserver === 'undefined') {
+      setIsSectionInView(true);
       return undefined;
     }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsSectionInView(entry.isIntersecting);
+      },
+      {
+        threshold: 0.08,
+        rootMargin: '200px 0px',
+      }
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isMobile) return undefined;
+
+    const current = Number.isFinite(activeIndex) ? activeIndex : 0;
+    setScrollProgress((current + 1) / allProjects.length);
+    return undefined;
+  }, [activeIndex, allProjects.length, isMobile]);
+
+  useEffect(() => {
+    if (isMobile) return undefined;
 
     const handleScroll = () => {
       if (!sectionRef.current) return;
@@ -138,16 +165,20 @@ const Portfolio = () => {
       const viewportHeight = window.innerHeight;
 
       const scrolled = -rect.top;
-      const totalScrollable = sectionHeight - viewportHeight;
-      const progress = Math.max(0, Math.min(1, scrolled / totalScrollable));
+      const totalScrollable = Math.max(sectionHeight - viewportHeight, 1);
+      const rawProgress = scrolled / totalScrollable;
+      const progress = Number.isFinite(rawProgress)
+        ? Math.max(0, Math.min(1, rawProgress))
+        : 0;
 
       setScrollProgress(progress);
 
       // Determine active index based on scroll progress
-      const newIndex = Math.min(
-        allProjects.length - 1,
-        Math.floor(progress * allProjects.length)
-      );
+      const rawIndex = Math.floor(progress * allProjects.length);
+      const newIndex = Number.isFinite(rawIndex)
+        ? Math.min(allProjects.length - 1, Math.max(0, rawIndex))
+        : prevIndexRef.current;
+
       if (newIndex !== prevIndexRef.current) {
         prevIndexRef.current = newIndex;
         setActiveIndex(newIndex);
@@ -157,7 +188,7 @@ const Portfolio = () => {
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [allProjects.length, activeIndex, isMobile]);
+  }, [allProjects.length, isMobile]);
 
   // Handle project click from list
   const handleProjectClick = (index) => {
@@ -171,18 +202,26 @@ const Portfolio = () => {
       const sectionTop = sectionRef.current.offsetTop;
       const sectionHeight = sectionRef.current.offsetHeight;
       const viewportHeight = window.innerHeight;
-      const totalScrollable = sectionHeight - viewportHeight;
+      const totalScrollable = Math.max(sectionHeight - viewportHeight, 1);
       const targetScroll = sectionTop + (index / allProjects.length) * totalScrollable;
       window.scrollTo({ top: targetScroll, behavior: 'smooth' });
     }
   };
 
   const handlePrevProject = () => {
-    setActiveIndex((prev) => (prev - 1 + allProjects.length) % allProjects.length);
+    setActiveIndex((prev) => {
+      const next = (prev - 1 + allProjects.length) % allProjects.length;
+      prevIndexRef.current = next;
+      return next;
+    });
   };
 
   const handleNextProject = () => {
-    setActiveIndex((prev) => (prev + 1) % allProjects.length);
+    setActiveIndex((prev) => {
+      const next = (prev + 1) % allProjects.length;
+      prevIndexRef.current = next;
+      return next;
+    });
   };
 
   const handleStageTouchStart = (event) => {
@@ -215,13 +254,16 @@ const Portfolio = () => {
     }
   };
 
-  const activeProject = allProjects[activeIndex];
+  const safeActiveIndex = Number.isFinite(activeIndex)
+    ? Math.min(allProjects.length - 1, Math.max(0, activeIndex))
+    : 0;
+  const activeProject = allProjects[safeActiveIndex] || allProjects[0];
 
   const renderShowcaseCard = (project) => (
     <article className="showcase-card">
       <div className="showcase-visual">
         <div className="visual-frame">
-          <ProjectCard3D image={project.image} isActive={true} />
+          <ProjectCard3D image={project.image} isActive={isSectionInView} enable3D={isSectionInView} />
         </div>
         {project.badge && (
           <div className="showcase-badge">{project.badge}</div>
@@ -289,7 +331,7 @@ const Portfolio = () => {
         <div className="portfolio-header scrolly-header">
           <h2 className="section-title glitch-text" data-text="PROJECTS_">PROJECTS_</h2>
           <div className="project-counter">
-            <span className="current">{String(activeIndex + 1).padStart(2, '0')}</span>
+            <span className="current">{String(safeActiveIndex + 1).padStart(2, '0')}</span>
             <span className="divider">/</span>
             <span className="total">{String(allProjects.length).padStart(2, '0')}</span>
           </div>
@@ -302,8 +344,8 @@ const Portfolio = () => {
                 <button
                   key={index}
                   role="tab"
-                  aria-selected={activeIndex === index}
-                  className={`mobile-nav-item ${activeIndex === index ? 'active' : ''}`}
+                  aria-selected={safeActiveIndex === index}
+                  className={`mobile-nav-item ${safeActiveIndex === index ? 'active' : ''}`}
                   onClick={() => handleProjectClick(index)}
                 >
                   <span className="mobile-nav-index">{String(index + 1).padStart(2, '0')}</span>
@@ -327,7 +369,7 @@ const Portfolio = () => {
                 PREV
               </button>
               <span className="mobile-control-counter">
-                {String(activeIndex + 1).padStart(2, '0')} / {String(allProjects.length).padStart(2, '0')}
+                {String(safeActiveIndex + 1).padStart(2, '0')} / {String(allProjects.length).padStart(2, '0')}
               </span>
               <button type="button" className="mobile-control-btn" onClick={handleNextProject}>
                 NEXT
@@ -344,7 +386,7 @@ const Portfolio = () => {
                   {allProjects.map((project, index) => (
                     <button
                       key={index}
-                      className={`project-list-item ${activeIndex === index ? 'active' : ''} ${index < activeIndex ? 'passed' : ''}`}
+                      className={`project-list-item ${safeActiveIndex === index ? 'active' : ''} ${index < safeActiveIndex ? 'passed' : ''}`}
                       onClick={() => handleProjectClick(index)}
                     >
                       <span className="item-index">{String(index + 1).padStart(2, '0')}</span>
@@ -357,7 +399,7 @@ const Portfolio = () => {
                         <div
                           className="progress-fill"
                           style={{
-                            transform: `scaleX(${activeIndex === index ? 1 : activeIndex > index ? 1 : 0})`,
+                            transform: `scaleX(${safeActiveIndex === index ? 1 : safeActiveIndex > index ? 1 : 0})`,
                           }}
                         ></div>
                       </div>
@@ -382,7 +424,7 @@ const Portfolio = () => {
                 {allProjects.map((_, index) => (
                   <div
                     key={index}
-                    className={`progress-dot ${activeIndex >= index ? 'active' : ''}`}
+                    className={`progress-dot ${safeActiveIndex >= index ? 'active' : ''}`}
                     onClick={() => handleProjectClick(index)}
                   ></div>
                 ))}

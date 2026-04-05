@@ -38,7 +38,10 @@ function IceCream({ mousePos, celebrate }) {
       // Scale bounce: 1.0 -> 1.3 -> 1.0 via sin curve
       const scaleFactor = 1 + 0.3 * Math.sin(t * Math.PI);
       const s = baseScale * scaleFactor;
-      meshRef.current.children[0].scale.set(s, s, s);
+      const child = meshRef.current.children[0];
+      if (child) {
+        child.scale.set(s, s, s);
+      }
     } else {
       // Normal mouse tracking
       targetRotation.current.y = mousePos.current.x * 0.4;
@@ -111,6 +114,7 @@ const IceCreamModel = ({ celebrate = false }) => {
   const containerRef = useRef(null);
   const mousePos = useRef({ x: 0, y: 0 });
   const [showThankYou, setShowThankYou] = useState(false);
+  const [isInView, setIsInView] = useState(true);
 
   // Show "Thank you!" overlay during celebration
   useEffect(() => {
@@ -120,6 +124,27 @@ const IceCreamModel = ({ celebrate = false }) => {
       return () => clearTimeout(timer);
     }
   }, [celebrate]);
+
+  useEffect(() => {
+    const target = containerRef.current;
+    if (!target || typeof IntersectionObserver === 'undefined') {
+      setIsInView(true);
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '140px 0px',
+      }
+    );
+
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, []);
 
   const handleMouseMove = (e) => {
     if (!containerRef.current) return;
@@ -137,8 +162,9 @@ const IceCreamModel = ({ celebrate = false }) => {
     >
       <Canvas
         camera={{ position: [0, 0, 6], fov: 40 }}
-        dpr={[1, 2]}
-        gl={{ antialias: true, alpha: true }}
+        dpr={[1, 1.5]}
+        frameloop={isInView ? 'always' : 'never'}
+        gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
         style={{ background: 'transparent' }}
       >
         <Scene mousePos={mousePos} celebrate={celebrate} />

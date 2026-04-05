@@ -1,5 +1,5 @@
 import React, { useRef, useMemo, useEffect, useState } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import * as THREE from 'three';
 
@@ -206,7 +206,7 @@ const AbstractSculpture = ({ mouseRef, scrollRef }) => {
 
   return (
     <mesh ref={meshRef} position={[3.0, 0, 0]}>
-      <icosahedronGeometry args={[1.4, 28]} />
+      <icosahedronGeometry args={[1.35, 6]} />
       <shaderMaterial
         ref={materialRef}
         vertexShader={sculptureVertexShader}
@@ -248,7 +248,7 @@ const OrbitalRing = ({ radius = 3, speed = 0.3, tilt = 0 }) => {
 /**
  * Particles — Ambient floating dots around the sculpture
  */
-const AuraParticles = ({ count = 200, scrollRef }) => {
+const AuraParticles = ({ count = 200 }) => {
   const pointsRef = useRef();
 
   const positions = useMemo(() => {
@@ -300,8 +300,10 @@ const AuraParticles = ({ count = 200, scrollRef }) => {
  * Renders the abstract sculpture + orbital rings + particle aura.
  */
 const HeroParticles = () => {
+  const containerRef = useRef(null);
   const scrollRef = useRef(0);
   const mouseRef = useRef({ x: 0, y: 0 });
+  const [isInView, setIsInView] = useState(true);
 
   useEffect(() => {
     const onScroll = () => {
@@ -321,6 +323,29 @@ const HeroParticles = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const container = containerRef.current;
+    const target = container?.closest('.profile-section') || container;
+
+    if (!target || typeof IntersectionObserver === 'undefined') {
+      setIsInView(true);
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '140px 0px',
+      }
+    );
+
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, []);
+
   // Skip on reduced motion
   const prefersReducedMotion =
     typeof window !== 'undefined' &&
@@ -329,15 +354,16 @@ const HeroParticles = () => {
   if (prefersReducedMotion) return null;
 
   return (
-    <div className="hero-particles-canvas" aria-hidden="true">
+    <div ref={containerRef} className="hero-particles-canvas" aria-hidden="true">
       <Canvas
         camera={{ position: [0, 0, 6], fov: 50 }}
         gl={{
-          antialias: true,
+          antialias: false,
           alpha: true,
           powerPreference: 'high-performance',
         }}
-        dpr={[1, 2]}
+        dpr={[1, 1.5]}
+        frameloop={isInView ? 'always' : 'never'}
         style={{ background: 'transparent' }}
       >
         {/* Lighting */}
@@ -355,14 +381,14 @@ const HeroParticles = () => {
         <OrbitalRing radius={2.0} speed={0.25} tilt={1.2} />
 
         {/* Particle aura */}
-        <AuraParticles count={150} scrollRef={scrollRef} />
+        <AuraParticles count={90} />
 
         {/* Post-processing: subtle bloom on neon edges */}
         <EffectComposer>
           <Bloom
-            intensity={0.3}
-            luminanceThreshold={0.85}
-            luminanceSmoothing={0.4}
+            intensity={0.18}
+            luminanceThreshold={0.9}
+            luminanceSmoothing={0.5}
             mipmapBlur
           />
         </EffectComposer>

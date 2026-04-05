@@ -1,7 +1,6 @@
-import React, { useRef, useState, useMemo, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useTexture, Environment, RoundedBox } from '@react-three/drei';
-import * as THREE from 'three';
 
 const CardMesh = ({ image, isActive }) => {
   const meshRef = useRef();
@@ -92,7 +91,10 @@ const CardMesh = ({ image, isActive }) => {
   );
 };
 
-const ProjectCard3D = ({ image, isActive }) => {
+const ProjectCard3D = ({ image, isActive, enable3D = true }) => {
+  const containerRef = useRef(null);
+  const [isInView, setIsInView] = useState(true);
+
   // Check for reduced motion preference
   const prefersReducedMotion = typeof window !== 'undefined' 
     && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -100,38 +102,63 @@ const ProjectCard3D = ({ image, isActive }) => {
   // Render a standard img tag on mobile for performance, 
   // or if reduced motion is enabled to avoid expensive canvas context
   const isMobile = typeof window !== 'undefined' && window.innerWidth <= 900;
-  
-  if (isMobile || prefersReducedMotion) {
-    return (
-      <img
-        src={image}
-        alt="Project screenshot"
-        className="showcase-image"
-        loading="lazy"
-        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-      />
+
+  useEffect(() => {
+    const target = containerRef.current;
+    if (!target || typeof IntersectionObserver === 'undefined') {
+      setIsInView(true);
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      {
+        threshold: 0.05,
+        rootMargin: '180px 0px',
+      }
     );
-  }
 
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, []);
+
+  const shouldUse3D = enable3D && isInView && !isMobile && !prefersReducedMotion;
+  
   return (
-    <div className="project-card-3d-container" style={{ width: '100%', height: '100%', position: 'absolute', inset: 0 }}>
-      {/* We use frameloop="demand" conditionally but here "always" is needed for idle floating and dumping */}
-      <Canvas 
-        camera={{ position: [0, 0, 4.5], fov: 45 }}
-        gl={{ antialias: true, alpha: true }}
-        dpr={[1, 2]}
-      >
-        <ambientLight intensity={0.5} />
-        <pointLight position={[10, 10, 10]} intensity={1} color="#ffffff" />
-        <pointLight position={[-10, -10, -5]} intensity={0.5} color="#d4ff00" />
-        
-        {/* Environment gives the glass reflections */}
-        <Environment preset="city" />
+    <div
+      ref={containerRef}
+      className="project-card-3d-container"
+      style={{ width: '100%', height: '100%', position: 'absolute', inset: 0 }}
+    >
+      {shouldUse3D ? (
+        <Canvas 
+          camera={{ position: [0, 0, 4.5], fov: 45 }}
+          gl={{ antialias: false, alpha: true, powerPreference: 'high-performance' }}
+          dpr={[1, 1.5]}
+          frameloop={isInView ? 'always' : 'never'}
+        >
+          <ambientLight intensity={0.5} />
+          <pointLight position={[10, 10, 10]} intensity={1} color="#ffffff" />
+          <pointLight position={[-10, -10, -5]} intensity={0.5} color="#d4ff00" />
 
-        <React.Suspense fallback={null}>
-          <CardMesh image={image} isActive={isActive} />
-        </React.Suspense>
-      </Canvas>
+          {/* Environment gives the glass reflections */}
+          <Environment preset="city" resolution={128} />
+
+          <React.Suspense fallback={null}>
+            <CardMesh image={image} isActive={isActive} />
+          </React.Suspense>
+        </Canvas>
+      ) : (
+        <img
+          src={image}
+          alt="Project screenshot"
+          className="showcase-image"
+          loading="lazy"
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+        />
+      )}
     </div>
   );
 };
