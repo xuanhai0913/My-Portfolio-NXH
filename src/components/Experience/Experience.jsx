@@ -185,13 +185,21 @@ const Experience = () => {
                                 <div className="experience-header">
                                     <div className="company-info">
                                         {job.logo && (
-                                            <a href={job.link} target="_blank" rel="noopener noreferrer" className="company-logo-link">
+                                            job.link ? (
+                                                <a href={job.link} target="_blank" rel="noopener noreferrer" className="company-logo-link">
+                                                    <img src={job.logo} alt={`${job.company} logo`} className="company-logo" />
+                                                </a>
+                                            ) : (
                                                 <img src={job.logo} alt={`${job.company} logo`} className="company-logo" />
-                                            </a>
+                                            )
                                         )}
-                                        <a href={job.link} target="_blank" rel="noopener noreferrer" className="company-name-link">
+                                        {job.link ? (
+                                            <a href={job.link} target="_blank" rel="noopener noreferrer" className="company-name-link">
+                                                <h3 className="company-name">{job.company}</h3>
+                                            </a>
+                                        ) : (
                                             <h3 className="company-name">{job.company}</h3>
-                                        </a>
+                                        )}
                                     </div>
                                     <span className="job-period">{job.period}</span>
                                 </div>

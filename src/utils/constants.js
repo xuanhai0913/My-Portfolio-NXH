@@ -71,6 +71,15 @@ export const DEFAULTS = {
 // Work Experience Data
 export const WORK_EXPERIENCE = [
   {
+    company: 'Betodemy – Japanese Learning Platform',
+    role: 'FULLSTACK DEVELOPER',
+    period: 'February 2026 - Present',
+    description: 'Built and maintained features for Betodemy, a Japanese learning platform with student portals, teacher-led online classes, admin tools, and gamified practice. Developed interactive learning blocks, realtime classroom features, and multilingual content workflows across React/Vite frontend and NestJS/PostgreSQL backend in an Nx monorepo.',
+    technologies: ['React 19', 'Vite', 'React Router', 'Tailwind CSS', 'HeroUI', 'NestJS', 'TypeORM', 'PostgreSQL', 'Redis', 'BullMQ', 'Socket.IO', 'PlateJS', 'SlateJS', 'Nx', 'pnpm', 'GitLab CI/CD'],
+    logo: null,
+    link: null
+  },
+  {
     company: 'ECH (English Community House) - Learning Management System',
     role: 'FULLSTACK DEVELOPER',
     period: 'October 2024 - Present',
