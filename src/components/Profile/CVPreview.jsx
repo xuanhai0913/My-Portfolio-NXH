@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './styles/CVPreview.css';
 
+const CV_VISUAL_URL = 'https://www.hailamdev.space/CV_NguyenXuanHai_visual.pdf';
+
 const CVPreview = ({ onClose }) => {
     const [loading, setLoading] = useState(true);
 
@@ -23,7 +25,7 @@ const CVPreview = ({ onClose }) => {
                     <h3 className="cv-preview-title">CV_PREVIEW.PDF</h3>
                     <div className="cv-actions">
                         <a
-                            href="https://www.hailamdev.space/CV_NguyenXuanHai.pdf"
+                            href={CV_VISUAL_URL}
                             download
                             className="cv-download-btn"
                         >
@@ -41,7 +43,7 @@ const CVPreview = ({ onClose }) => {
                         </div>
                     )}
                     <iframe
-                        src="https://www.hailamdev.space/CV_NguyenXuanHai.pdf"
+                        src={CV_VISUAL_URL}
                         title="CV Preview"
                         className="cv-iframe"
                         onLoad={handleLoad}

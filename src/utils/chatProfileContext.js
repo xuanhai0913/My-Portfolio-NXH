@@ -16,7 +16,7 @@ export const PROFILE_CONTEXT = {
     facebook: EXTERNAL_URLS.FACEBOOK,
     zalo: EXTERNAL_URLS.ZALO,
   },
-  cvUrl: `${EXTERNAL_URLS.PORTFOLIO}/CV_NguyenXuanHai.pdf`,
+  cvUrl: `${EXTERNAL_URLS.PORTFOLIO}/CV_NguyenXuanHai_visual.pdf`,
   skills: [
     'React.js',
     'Node.js',
