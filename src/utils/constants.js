@@ -72,10 +72,10 @@ export const DEFAULTS = {
 export const WORK_EXPERIENCE = [
   {
     company: 'AI Power',
-    role: 'AI INTERN',
+    role: 'FULLSTACK DEVELOPER',
     period: 'May 27, 2026 - Present',
-    description: 'Currently interning at AI Power, contributing to AI-focused engineering tasks across research, integration, testing, and product implementation. Supporting LLM/API workflows, prompt iteration, and practical full-stack delivery for AI-powered features.',
-    technologies: ['AI Integration', 'LLM APIs', 'Prompt Engineering', 'React', 'Node.js', 'API Testing'],
+    description: 'Recently joined AI Power as a Fullstack Developer intern. Currently onboarding, reading project documentation, learning the existing codebase, and supporting light development tasks on AI-related product features.',
+    technologies: ['Golang', 'React', 'Node.js', 'AI'],
     logo: 'https://aipower.vn/images/logos/logo-vn.svg?ver=0.0.2',
     link: 'https://aipower.vn/vi'
   },
