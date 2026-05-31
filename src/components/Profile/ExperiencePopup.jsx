@@ -4,20 +4,52 @@ import { WORK_EXPERIENCE } from '../../utils/constants';
 const ExperiencePopup = ({ onClose }) => {
     // Simple duration calculation helper (approximate)
     const calculateDuration = (period) => {
-        if (period.includes('Present')) {
-            const startYear = parseInt(period.split(' - ')[0]);
-            const currentYear = new Date().getFullYear();
-            const years = currentYear - startYear + 1; // Inclusive
-            return `${years} Year${years > 1 ? 's' : ''}`;
+        const parsePeriodDate = (value) => {
+            const normalized = value.trim();
+            if (/^present$/i.test(normalized)) return new Date();
+
+            const exact = new Date(normalized);
+            if (!Number.isNaN(exact.getTime())) return exact;
+
+            const yearMatch = normalized.match(/\b(20\d{2}|19\d{2})\b/);
+            if (yearMatch) return new Date(Number(yearMatch[1]), 0, 1);
+
+            return null;
+        };
+
+        const [startLabel, endLabel = 'Present'] = period.split(' - ');
+        const startDate = parsePeriodDate(startLabel);
+        const endDate = parsePeriodDate(endLabel);
+
+        if (!startDate || !endDate) return 'Current';
+
+        const totalDays = Math.max(
+            1,
+            Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) + 1
+        );
+
+        if (totalDays < 31) {
+            return `${totalDays} Day${totalDays > 1 ? 's' : ''}`;
         }
-        if (period.includes(' - ')) {
-            const parts = period.split(' - ');
-            const start = parseInt(parts[0]);
-            const end = parseInt(parts[1]);
-            const years = end - start + 1; // Inclusive
-            return `${years} Year${years > 1 ? 's' : ''}`;
+
+        const totalMonths = Math.max(
+            1,
+            (endDate.getFullYear() - startDate.getFullYear()) * 12
+            + endDate.getMonth()
+            - startDate.getMonth()
+            + 1
+        );
+
+        if (totalMonths < 12) {
+            return `${totalMonths} Month${totalMonths > 1 ? 's' : ''}`;
         }
-        return '1 Year'; // Default for single year entries like '2024', '2023'
+
+        const years = Math.floor(totalMonths / 12);
+        const months = totalMonths % 12;
+
+        if (months === 0) return `${years} Year${years > 1 ? 's' : ''}`;
+
+        return `${years} Year${years > 1 ? 's' : ''} ${months} Month${months > 1 ? 's' : ''}`;
     };
 
     return (

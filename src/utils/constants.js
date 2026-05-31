@@ -71,6 +71,15 @@ export const DEFAULTS = {
 // Work Experience Data
 export const WORK_EXPERIENCE = [
   {
+    company: 'AI Power',
+    role: 'AI INTERN',
+    period: 'May 27, 2026 - Present',
+    description: 'Currently interning at AI Power, contributing to AI-focused engineering tasks across research, integration, testing, and product implementation. Supporting LLM/API workflows, prompt iteration, and practical full-stack delivery for AI-powered features.',
+    technologies: ['AI Integration', 'LLM APIs', 'Prompt Engineering', 'React', 'Node.js', 'API Testing'],
+    logo: 'https://aipower.vn/images/logos/logo-vn.svg?ver=0.0.2',
+    link: 'https://aipower.vn/vi'
+  },
+  {
     company: 'Betodemy – Japanese Learning Platform',
     role: 'FULLSTACK DEVELOPER',
     period: 'February 2026 - Present',
@@ -105,14 +114,5 @@ export const WORK_EXPERIENCE = [
     technologies: ['ASP.NET Core 8', 'React 18', 'SignalR', 'OpenAI API', 'SendGrid', 'Cloudinary', 'JWT', 'Google OAuth', 'SQL Server'],
     logo: 'https://res.cloudinary.com/dqdcqtu8m/image/upload/v1755441933/f7ce90e7-0068-4433-ab8f-32cab1067dc2.png',
     link: 'https://greatlinkmaihouse.com/'
-  },
-  {
-    company: 'B2B GoSell',
-    role: 'FULLSTACK DEVELOPER',
-    period: 'Coming Soon',
-    description: 'Contributed to the development of the B2B e-commerce platform. Focused on frontend optimization and component reusability.',
-    technologies: ['React', 'Redux', 'REST API', 'Agile/Scrum', 'Ant Design'],
-    logo: 'https://res.cloudinary.com/dqdcqtu8m/image/upload/v1755442033/f29959fd-0bcb-4383-84e3-28696d85caf2.png',
-    link: 'https://b2bgosell.com/'
   }
 ];
