@@ -28,6 +28,7 @@ import BackgroundWaves from './components/BackgroundWaves';
 const VideoDemo = lazy(() => import('./components/VideoDemo'));
 const Hero3D = lazy(() => import('./components/Hero3D'));
 const Blog = lazy(() => import('./components/Blog'));
+const Challenge = lazy(() => import('./pages/Challenge'));
 
 // Defer third-party analytics (bundle-defer-third-party)
 const SpeedInsights = lazy(() =>
@@ -156,6 +157,13 @@ const App = () => {
             <ErrorBoundary>
               <Suspense fallback={<LoadingFallback />}>
                 <Blog />
+              </Suspense>
+            </ErrorBoundary>
+          } />
+          <Route path="/challenge" element={
+            <ErrorBoundary>
+              <Suspense fallback={<LoadingFallback />}>
+                <Challenge />
               </Suspense>
             </ErrorBoundary>
           } />
