@@ -173,7 +173,7 @@ class VisualCv:
         self.c.circle(image_x + image_size / 2, image_y + image_size / 2, image_size / 2 + 10, fill=0, stroke=1)
 
         self.c.setStrokeColor(HexColor("#AEBCC5"))
-        self.c.line(MARGIN, PAGE_H - 182, PAGE_W - MARGIN, PAGE_H - 182)
+        self.c.line(MARGIN, PAGE_H - 193, PAGE_W - MARGIN, PAGE_H - 193)
 
     def section_title(self, x: float, y: float, title: str, icon_text: str = "") -> float:
         if icon_text:
@@ -198,7 +198,7 @@ class VisualCv:
         return self.text(text, x + 8, y, width - 8, "Arial", size, INK, size + 1.6) - 1
 
     def experience_timeline(self) -> None:
-        y = PAGE_H - 209
+        y = PAGE_H - 220
         y = self.section_title(LEFT_X, y, "Company Experience", "JOB")
         axis_x = LEFT_X + 62
         content_x = LEFT_X + 84
@@ -260,7 +260,7 @@ class VisualCv:
             y -= 14
 
     def skills(self) -> float:
-        y = PAGE_H - 209
+        y = PAGE_H - 220
         y = self.section_title(RIGHT_X, y, "Skills", "</>")
         skills = [
             ("React", "Frontend", "react.png"),
