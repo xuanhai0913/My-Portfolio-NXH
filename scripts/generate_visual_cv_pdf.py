@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate a polished two-page visual CV with clean spacing and accurate text."""
+"""Generate a one-page visual CV inspired by the GPT Image concept."""
 
 from __future__ import annotations
 
@@ -14,42 +14,46 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen import canvas
 
-from generate_cv_pdf import PROJECT_ENTRIES, WORK_ENTRIES
+from generate_cv_pdf import WORK_ENTRIES
 
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "public" / "CV_NguyenXuanHai_visual.pdf"
+PROFILE_IMAGE = ROOT / "scripts" / "assets" / "nguyen_xuan_hai_profile.png"
 PROFILE_IMAGE_CIRCLE = ROOT / "scripts" / "assets" / "nguyen_xuan_hai_profile_circle.png"
 STACK_ICON_DIR = ROOT / "scripts" / "assets" / "stack-icons" / "png"
 
 FONT_DIR = Path("/System/Library/Fonts/Supplemental")
 PAGE_W, PAGE_H = A4
 
-INK = HexColor("#10213A")
-MUTED = HexColor("#5B6675")
+INK = HexColor("#0F1F3A")
+MUTED = HexColor("#536072")
 PAPER = HexColor("#FFFDF8")
 TEAL = HexColor("#0C7A7A")
-TEAL_DARK = HexColor("#075C5C")
+TEAL_SOFT = HexColor("#DCEDED")
 AMBER = HexColor("#D99A22")
-LINE = HexColor("#D8E3E6")
+LINE = HexColor("#D7E0E3")
 PALE = HexColor("#F4F8F8")
 WHITE = HexColor("#FFFFFF")
 
-MARGIN = 42
-CONTENT_W = PAGE_W - MARGIN * 2
-TOP = 40
-BOTTOM = 38
+MARGIN = 38
+LEFT_X = MARGIN
+LEFT_W = 296
+RIGHT_X = 368
+RIGHT_W = PAGE_W - RIGHT_X - MARGIN
+TOP = 38
+BOTTOM = 34
 
 
 class VisualCv:
     def __init__(self, output: Path) -> None:
         self.output = output
         self.c = canvas.Canvas(str(output), pagesize=A4, pageCompression=1)
-        self.page = 1
+        self.y = PAGE_H - TOP
         self._register_fonts()
         self.c.setTitle("Nguyen Xuan Hai - Visual CV")
         self.c.setAuthor("Nguyen Xuan Hai")
-        self.c.setSubject("Two-page visual CV - company experience, skills and projects")
+        self.c.setSubject("One-page visual CV - company experience, skills and projects")
         self.c.setCreator("Codex visual CV generator")
 
     def _register_fonts(self) -> None:
@@ -83,9 +87,9 @@ class VisualCv:
         y: float,
         width: float,
         font: str = "Arial",
-        size: float = 7.6,
+        size: float = 7.5,
         color=INK,
-        leading: float = 9.4,
+        leading: float = 9.1,
     ) -> float:
         self.c.setFont(font, size)
         self.c.setFillColor(color)
@@ -94,75 +98,73 @@ class VisualCv:
             y -= leading
         return y
 
-    def link(self, x: float, y: float, text: str, url: str, font: str = "Arial", size: float = 7.2) -> None:
+    def link(self, x: float, y: float, text: str, url: str, font: str = "Arial", size: float = 7) -> None:
         self.c.linkURL(url, (x, y - 2, x + self.width(text, font, size), y + size + 1), relative=0, thickness=0)
 
-    def shell(self) -> None:
+    def background(self) -> None:
         self.c.setFillColor(PAPER)
         self.c.rect(0, 0, PAGE_W, PAGE_H, fill=1, stroke=0)
         self.c.setStrokeColor(HexColor("#D7EAF0"))
         self.c.setLineWidth(0.45)
         for i in range(6):
-            x = 16 + i * 24
+            x = 14 + i * 23
             self.c.line(x, PAGE_H - 22, x + 44, PAGE_H - 48)
             self.c.line(x + 44, PAGE_H - 48, x + 44, PAGE_H - 82)
             self.c.line(x, PAGE_H - 22, x, PAGE_H - 56)
-        self.footer()
-
-    def footer(self) -> None:
-        self.c.setStrokeColor(LINE)
-        self.c.line(MARGIN, BOTTOM - 8, PAGE_W - MARGIN, BOTTOM - 8)
-        self.c.setFillColor(MUTED)
-        self.c.setFont("Arial", 7)
-        self.c.drawString(MARGIN, BOTTOM - 22, "Nguyen Xuan Hai | Full-Stack Developer")
-        self.c.drawRightString(PAGE_W - MARGIN, BOTTOM - 22, f"Page {self.page}")
-
-    def section(self, title: str, x: float, y: float, icon_text: str | None = None, width: float | None = None) -> float:
-        if icon_text:
-            self.c.setFillColor(INK)
-            self.c.circle(x + 12, y + 3, 12, fill=1, stroke=0)
-            self.c.setFillColor(WHITE)
-            self.c.setFont("Arial-Bold", 6.8)
-            self.c.drawCentredString(x + 12, y, icon_text)
-            label_x = x + 34
-        else:
-            label_x = x
-        self.c.setFillColor(INK)
-        self.c.setFont("Arial-Bold", 11.4)
-        self.c.drawString(label_x, y, title.upper())
-        self.c.setFillColor(TEAL)
-        self.c.rect(label_x, y - 8, 34, 2, fill=1, stroke=0)
-        if width:
-            self.c.setStrokeColor(LINE)
-            self.c.line(label_x + 44, y - 7, x + width, y - 7)
-        return y - 24
+        for i in range(5):
+            x = PAGE_W - 84 + i * 14
+            y = PAGE_H - 34
+            self.c.setFillColor(HexColor("#86C5D1"))
+            self.c.circle(x, y - (i % 2) * 10, 1.25, fill=1, stroke=0)
+            self.c.circle(x, y - 23 - (i % 2) * 8, 1.25, fill=1, stroke=0)
 
     def header(self) -> None:
-        x = MARGIN
+        x = LEFT_X + 10
         y = PAGE_H - 76
         self.c.setFillColor(INK)
-        self.c.setFont("Arial-Bold", 29)
+        self.c.setFont("Arial-Bold", 30)
         self.c.drawString(x, y, "Nguyễn Xuân Hải")
-        y -= 23
+        y -= 24
         self.c.setFillColor(AMBER)
         self.c.setFont("Arial-Bold", 14)
         self.c.drawString(x, y, "Full-Stack Developer")
         y -= 18
         self.c.setFillColor(INK)
         self.c.setFont("Arial", 9.2)
-        self.c.drawString(x, y, "React | ASP.NET Core | Odoo 18 | AI Integration")
-        y -= 19
+        self.c.drawString(x, y, "React  |  ASP.NET Core  |  Odoo 18  |  AI Integration")
+        y -= 21
         self.c.setFillColor(TEAL)
-        self.c.rect(x, y + 6, 34, 2, fill=1, stroke=0)
-        summary = (
-            "Full-stack developer focused on production web apps, ERP workflows, reporting/PDF generation "
-            "and AI-assisted developer tools."
-        )
-        self.text(summary, x, y - 9, 360, "Arial", 7.7, MUTED, 9.2)
+        self.c.rect(x, y + 7, 32, 2, fill=1, stroke=0)
+        y -= 11
+        summary = "Full-stack developer focused on production web apps, ERP workflows, reporting and AI-assisted tools."
+        self.text(summary, x, y, 360, "Arial", 7.3, MUTED, 8.5)
 
-        image_size = 86
-        image_x = PAGE_W - MARGIN - image_size - 8
-        image_y = PAGE_H - 145
+        image_size = 84
+        image_x = PAGE_W - MARGIN - image_size - 18
+        image_y = PAGE_H - 144
+
+        contact = [
+            ("0929501116", None),
+            ("xuanhai0913750452@gmail.com", "mailto:xuanhai0913750452@gmail.com"),
+            ("my-portfolio-nxh.vercel.app", "https://my-portfolio-nxh.vercel.app"),
+            ("github.com/xuanhai0913", "https://github.com/xuanhai0913"),
+            ("linkedin.com/in/xuanhai0913", "https://www.linkedin.com/in/xuanhai0913/"),
+        ]
+        cx = x
+        cy = y - 21
+        for value, url in contact:
+            if cx + self.width(value, "Arial", 7.1) + 38 > image_x - 8:
+                cx = x
+                cy -= 14
+            self.c.setFillColor(TEAL)
+            self.c.circle(cx + 3, cy, 2.5, fill=1, stroke=0)
+            self.c.setFillColor(INK)
+            self.c.setFont("Arial", 7.1)
+            self.c.drawString(cx + 11, cy - 3, value)
+            if url:
+                self.link(cx + 11, cy - 3, value, url, "Arial", 7.1)
+            cx += self.width(value, "Arial", 7.1) + 27
+
         self.c.setFillColor(PALE)
         self.c.circle(image_x + image_size / 2, image_y + image_size / 2, image_size / 2 + 10, fill=1, stroke=0)
         self.c.drawImage(ImageReader(str(PROFILE_IMAGE_CIRCLE)), image_x, image_y, image_size, image_size, mask="auto")
@@ -171,48 +173,42 @@ class VisualCv:
         self.c.circle(image_x + image_size / 2, image_y + image_size / 2, image_size / 2 + 10, fill=0, stroke=1)
 
         self.c.setStrokeColor(HexColor("#AEBCC5"))
-        self.c.line(MARGIN, PAGE_H - 184, PAGE_W - MARGIN, PAGE_H - 184)
+        self.c.line(MARGIN, PAGE_H - 182, PAGE_W - MARGIN, PAGE_H - 182)
 
-        contacts = [
-            ("0929501116", None),
-            ("xuanhai0913750452@gmail.com", "mailto:xuanhai0913750452@gmail.com"),
-            ("my-portfolio-nxh.vercel.app", "https://my-portfolio-nxh.vercel.app"),
-            ("github.com/xuanhai0913", "https://github.com/xuanhai0913"),
-            ("linkedin.com/in/xuanhai0913", "https://www.linkedin.com/in/xuanhai0913/"),
-        ]
-        cx = MARGIN
-        cy = PAGE_H - 205
-        for value, url in contacts:
-            item_w = self.width(value, "Arial", 7.2) + 30
-            if cx + item_w > PAGE_W - MARGIN:
-                cx = MARGIN
-                cy -= 14
-            self.c.setFillColor(TEAL)
-            self.c.circle(cx + 3, cy, 2.5, fill=1, stroke=0)
+    def section_title(self, x: float, y: float, title: str, icon_text: str = "") -> float:
+        if icon_text:
             self.c.setFillColor(INK)
-            self.c.setFont("Arial", 7.2)
-            self.c.drawString(cx + 11, cy - 3, value)
-            if url:
-                self.link(cx + 11, cy - 3, value, url, "Arial", 7.2)
-            cx += item_w
-
-    def bullet(self, text: str, x: float, y: float, width: float, size: float = 7.2) -> float:
+            self.c.circle(x + 12, y + 3, 12, fill=1, stroke=0)
+            self.c.setFillColor(WHITE)
+            self.c.setFont("Arial-Bold", 7)
+            self.c.drawCentredString(x + 12, y, icon_text)
+            label_x = x + 34
+        else:
+            label_x = x
+        self.c.setFillColor(INK)
+        self.c.setFont("Arial-Bold", 11.2)
+        self.c.drawString(label_x, y, title.upper())
         self.c.setFillColor(TEAL)
-        self.c.circle(x + 2, y + 3, 1.15, fill=1, stroke=0)
-        return self.text(text, x + 9, y, width - 9, "Arial", size, INK, size + 1.8) - 1
+        self.c.rect(label_x, y - 8, 28, 2, fill=1, stroke=0)
+        return y - 23
+
+    def bullet(self, text: str, x: float, y: float, width: float, size: float = 7.0) -> float:
+        self.c.setFillColor(INK)
+        self.c.circle(x + 2, y + 3, 1.1, fill=1, stroke=0)
+        return self.text(text, x + 8, y, width - 8, "Arial", size, INK, size + 1.6) - 1
 
     def experience_timeline(self) -> None:
-        y = PAGE_H - 244
-        y = self.section("Company Experience", MARGIN, y, "JOB", CONTENT_W)
-        axis_x = MARGIN + 70
-        content_x = MARGIN + 95
+        y = PAGE_H - 209
+        y = self.section_title(LEFT_X, y, "Company Experience", "JOB")
+        axis_x = LEFT_X + 62
+        content_x = LEFT_X + 84
         self.c.setStrokeColor(HexColor("#8BA3AE"))
-        self.c.setLineWidth(0.9)
-        self.c.line(axis_x, y + 8, axis_x, BOTTOM + 54)
+        self.c.setLineWidth(0.8)
+        self.c.line(axis_x, y + 6, axis_x, BOTTOM + 62)
 
         summaries = {
             "Betodemy": [
-                "Built student portals, admin workflows, learning modules and realtime classroom features.",
+                "Built learning modules, admin workflows and realtime classroom features.",
                 "Worked across React, NestJS, PostgreSQL, Redis/BullMQ and Nx monorepo delivery.",
             ],
             "AI Power": [
@@ -240,29 +236,32 @@ class VisualCv:
 
             period_lines = item.period.replace("Start: ", "").replace(" | End: ", "\n-\n").splitlines()
             self.c.setFillColor(TEAL)
-            self.c.setFont("Arial-Bold", 7.4)
-            py = y - 1
+            self.c.setFont("Arial-Bold", 7.2)
+            period_y = y - 2
             for line in period_lines:
-                self.c.drawRightString(axis_x - 18, py, line)
-                py -= 8.5
+                self.c.drawRightString(axis_x - 18, period_y, line)
+                period_y -= 8
 
             self.c.setFillColor(PAPER)
             self.c.setStrokeColor(TEAL)
-            self.c.setLineWidth(1.5)
-            self.c.circle(axis_x, y - 2, 5.4, fill=1, stroke=1)
-            title = item.name.replace(" - Digital Publishing Platform", "").replace(" - CMS & Media Platform", "")
+            self.c.setLineWidth(1.4)
+            self.c.circle(axis_x, y - 2, 5, fill=1, stroke=1)
             self.c.setFillColor(INK)
-            self.c.setFont("Arial-Bold", 10)
+            self.c.setFont("Arial-Bold", 9.2)
+            title = item.name.replace(" - Digital Publishing Platform", "").replace(" - CMS & Media Platform", "")
             self.c.drawString(content_x, y, title)
+            self.c.setFillColor(TEAL)
+            self.c.circle(content_x + min(self.width(title, "Arial-Bold", 9.2) + 8, 206), y + 3, 1.6, fill=1, stroke=0)
             self.c.setStrokeColor(LINE)
-            self.c.line(content_x, y - 8, PAGE_W - MARGIN, y - 8)
-            y -= 20
+            self.c.line(content_x, y - 7, LEFT_X + LEFT_W, y - 7)
+            y -= 18
             for bullet in summaries[key]:
-                y = self.bullet(bullet, content_x, y, PAGE_W - MARGIN - content_x, 7.35)
-            y -= 22
+                y = self.bullet(bullet, content_x, y, LEFT_X + LEFT_W - content_x, 6.9)
+            y -= 14
 
-    def skill_grid(self, x: float, y: float, w: float) -> float:
-        y = self.section("Skills", x, y, "</>", w)
+    def skills(self) -> float:
+        y = PAGE_H - 209
+        y = self.section_title(RIGHT_X, y, "Skills", "</>")
         skills = [
             ("React", "Frontend", "react.png"),
             ("ASP.NET Core", "Backend", "dotnet.png"),
@@ -273,92 +272,76 @@ class VisualCv:
             ("Docker", "Infra", "docker.png"),
             ("GitLab CI", "CI/CD", "gitlab.png"),
         ]
-        col_gap = 12
-        row_h = 34
-        col_w = (w - col_gap) / 2
-        for i, (label, category, icon_name) in enumerate(skills):
-            col = i % 2
-            row = i // 2
-            cx = x + col * (col_w + col_gap)
-            cy = y - row * row_h
-            self.c.setFillColor(WHITE)
-            self.c.roundRect(cx, cy - 24, col_w, 26, 7, fill=1, stroke=0)
-            self.c.setStrokeColor(LINE)
-            self.c.roundRect(cx, cy - 24, col_w, 26, 7, fill=0, stroke=1)
+        for label, category, icon_name in skills:
             icon_path = STACK_ICON_DIR / icon_name
             self.c.setFillColor(PALE)
-            self.c.circle(cx + 14, cy - 11, 8.5, fill=1, stroke=0)
+            self.c.circle(RIGHT_X + 10, y - 2, 8.5, fill=1, stroke=0)
             if icon_path.exists():
-                self.c.drawImage(ImageReader(str(icon_path)), cx + 7, cy - 18, 14, 14, mask="auto")
+                self.c.drawImage(ImageReader(str(icon_path)), RIGHT_X + 3, y - 9, 14, 14, mask="auto")
+            else:
+                self.c.setFillColor(TEAL)
+                self.c.circle(RIGHT_X + 10, y - 2, 2.2, fill=1, stroke=0)
             self.c.setFillColor(INK)
-            self.c.setFont("Arial-Bold", 7.4)
-            self.c.drawString(cx + 28, cy - 8, label)
+            self.c.setFont("Arial-Bold", 8.2)
+            self.c.drawString(RIGHT_X + 26, y - 2, label)
             self.c.setFillColor(MUTED)
-            self.c.setFont("Arial", 5.8)
-            self.c.drawString(cx + 28, cy - 17, category.upper())
-        return y - row_h * 4 - 4
-
-    def project_cards(self, x: float, y: float, w: float) -> float:
-        y = self.section("Selected Projects", x, y, "PRJ", w)
-        for item in PROJECT_ENTRIES:
-            title = item.name.replace("English Community House - ", "").replace(" & LLM Unit Test Generator", "")
-            card_h = 66
-            self.c.setFillColor(WHITE)
-            self.c.roundRect(x, y - card_h + 6, w, card_h, 8, fill=1, stroke=0)
+            self.c.setFont("Arial", 6.4)
+            self.c.drawRightString(PAGE_W - MARGIN, y - 1.5, category.upper())
             self.c.setStrokeColor(LINE)
-            self.c.roundRect(x, y - card_h + 6, w, card_h, 8, fill=0, stroke=1)
-            self.c.setFillColor(TEAL)
-            self.c.circle(x + 18, y - 16, 13, fill=1, stroke=0)
-            self.c.setFillColor(WHITE)
-            self.c.setFont("Arial-Bold", 7.6)
-            self.c.drawCentredString(x + 18, y - 19, title[:2].upper())
-            self.c.setFillColor(INK)
-            self.c.setFont("Arial-Bold", 8.6)
-            self.c.drawString(x + 40, y - 8, title)
-            self.c.setFillColor(TEAL_DARK)
-            self.c.setFont("Arial-Bold", 6.7)
-            self.c.drawRightString(x + w - 10, y - 8, item.period.replace("Project: ", ""))
-            self.text(item.bullets[0], x + 40, y - 21, w - 52, "Arial", 7.0, MUTED, 8.3)
-            y -= card_h + 7
-        return y
+            self.c.line(RIGHT_X, y - 10, PAGE_W - MARGIN, y - 10)
+            y -= 22
+        return y - 8
 
-    def education_and_certs(self, x: float, y: float, w: float) -> float:
-        y = self.section("Education & Certifications", x, y, "EDU", w)
-        rows = [
-            ("Education", "UTH - Information Technology, 2022 - 2026"),
-            ("Certifications", "Gemini Certified Student/Faculty; Google AI for K12; Basic Office IT; Accounting & Auditing"),
-            ("Working Style", "Owns UI-to-API delivery, writes practical docs, and communicates progress clearly."),
+    def projects(self, y: float) -> float:
+        y = self.section_title(RIGHT_X, y, "Selected Projects", "PRJ")
+        project_summaries = [
+            ("ECH LMS", "Community LMS volunteer project for accessible English learning.", "Oct 2024 - Jan 2026"),
+            ("Vision Key AI", "AI screen assistant and landing page for productivity workflows.", "Dec 2025"),
+            ("Portfolio AI Assistant", "Portfolio chatbot plus LLM unit test generator project.", "Mar 2025 - May 2026"),
         ]
-        for label, body in rows:
+        for title, body, period in project_summaries:
+            self.c.setFillColor(PALE)
+            self.c.circle(RIGHT_X + 18, y - 3, 15, fill=1, stroke=0)
+            self.c.setFillColor(TEAL)
+            self.c.setFont("Arial-Bold", 9)
+            self.c.drawCentredString(RIGHT_X + 18, y - 7, title[:2].upper())
             self.c.setFillColor(INK)
-            self.c.setFont("Arial-Bold", 7.5)
-            self.c.drawString(x, y, label)
-            self.text(body, x + 82, y, w - 82, "Arial", 7.2, MUTED, 8.6)
-            y -= 19
+            self.c.setFont("Arial-Bold", 8.8)
+            self.c.drawString(RIGHT_X + 42, y + 3, title)
+            y = self.text(body, RIGHT_X + 42, y - 8, RIGHT_W - 42, "Arial", 7.0, INK, 8.4)
+            self.c.setFillColor(TEAL)
+            self.c.setFont("Arial-Bold", 6.9)
+            self.c.drawString(RIGHT_X + 42, y - 1, period)
+            y -= 24
+            self.c.setStrokeColor(LINE)
+            self.c.line(RIGHT_X, y + 12, PAGE_W - MARGIN, y + 12)
         return y
 
-    def page_one(self) -> None:
-        self.shell()
-        self.header()
-        self.experience_timeline()
-
-    def page_two(self) -> None:
-        self.c.showPage()
-        self.page = 2
-        self.shell()
-        y = PAGE_H - TOP - 20
+    def footer(self) -> None:
+        self.c.setStrokeColor(HexColor("#AEBCC5"))
+        self.c.line(MARGIN, BOTTOM + 52, PAGE_W - MARGIN, BOTTOM + 52)
         self.c.setFillColor(INK)
-        self.c.setFont("Arial-Bold", 13)
-        self.c.drawString(MARGIN, y, "Nguyễn Xuân Hải")
+        self.c.setFont("Arial-Bold", 7.3)
+        self.c.drawString(MARGIN + 4, BOTTOM + 37, "Education")
+        self.c.setFont("Arial", 7.1)
         self.c.setFillColor(MUTED)
-        self.c.setFont("Arial", 8)
-        self.c.drawRightString(PAGE_W - MARGIN, y, "Project Evidence | Skills | Education")
-        y -= 34
-        y = self.skill_grid(MARGIN, y, CONTENT_W)
-        y -= 18
-        y = self.project_cards(MARGIN, y, CONTENT_W)
-        y -= 10
-        self.education_and_certs(MARGIN, y, CONTENT_W)
+        self.c.drawString(MARGIN + 60, BOTTOM + 37, "UTH - Information Technology, 2022 - 2026")
+        self.c.setFillColor(INK)
+        self.c.setFont("Arial-Bold", 7.3)
+        self.c.drawString(MARGIN + 4, BOTTOM + 24, "Certifications")
+        self.c.setFont("Arial", 6.8)
+        self.c.setFillColor(MUTED)
+        certs = "Gemini Certified Student/Faculty, Google AI for K12, Basic Office IT, Accounting & Auditing"
+        self.c.drawString(MARGIN + 78, BOTTOM + 24, certs)
+        self.c.setFillColor(TEAL)
+        self.c.setFont("Arial-Bold", 18)
+        self.c.drawString(MARGIN + 4, BOTTOM + 2, "\"")
+        self.c.setFillColor(INK)
+        self.c.setFont("Arial", 6.8)
+        self.c.drawString(MARGIN + 28, BOTTOM + 13, "Reliable software, clean architecture and real user value.")
+        self.c.setFillColor(MUTED)
+        self.c.setFont("Arial", 6.8)
+        self.c.drawRightString(PAGE_W - MARGIN, BOTTOM + 13, "Ho Chi Minh City, Vietnam")
 
     def save(self) -> None:
         self.c.save()
@@ -375,7 +358,7 @@ def normalize_pdf(path: Path) -> None:
         {
             "/Title": "Nguyen Xuan Hai - Visual CV",
             "/Author": "Nguyen Xuan Hai",
-            "/Subject": "Two-page visual CV - company experience, skills and projects",
+            "/Subject": "One-page visual CV - company experience, skills and projects",
             "/Creator": "Codex visual CV generator",
         }
     )
@@ -389,8 +372,12 @@ def build() -> None:
         raise FileNotFoundError(f"Missing profile image: {PROFILE_IMAGE_CIRCLE}")
 
     pdf = VisualCv(OUTPUT)
-    pdf.page_one()
-    pdf.page_two()
+    pdf.background()
+    pdf.header()
+    pdf.experience_timeline()
+    y = pdf.skills()
+    pdf.projects(y)
+    pdf.footer()
     pdf.save()
 
 
