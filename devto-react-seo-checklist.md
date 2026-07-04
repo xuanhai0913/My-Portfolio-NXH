@@ -3,15 +3,15 @@ title: "My React Portfolio SEO Checklist: From 0 to Rich Results in 48 Hours"
 published: true
 description: "Complete SEO checklist for React SPAs — structured data, meta tags, robots.txt for AI bots, Core Web Vitals, and noscript fallbacks. Copy-paste ready."
 tags: seo, react, webdev, javascript
-cover_image: https://www.hailamdev.space/images/blog-seo-checklist-cover.png
-canonical_url: https://www.hailamdev.space/blog/react-seo-checklist
+cover_image: https://my-portfolio-nxh.vercel.app/images/blog-seo-checklist-cover.png
+canonical_url: https://my-portfolio-nxh.vercel.app/blog/react-seo-checklist
 ---
 
 ## The Problem with React & SEO
 
 Here's the dirty secret: **Google can render JavaScript.** But most developers still treat React SPAs as SEO-unfriendly. The real issue isn't rendering — it's the missing fundamentals.
 
-I audited my portfolio at [hailamdev.space](https://www.hailamdev.space) and went from zero structured data to **passing Google's Rich Results Test** in 48 hours. Here's my exact checklist.
+I audited my portfolio at [my-portfolio-nxh.vercel.app](https://my-portfolio-nxh.vercel.app) and went from zero structured data to **passing Google's Rich Results Test** in 48 hours. Here's my exact checklist.
 
 ## The Complete Checklist
 
@@ -79,7 +79,7 @@ Structured data tells Google exactly what your page is about. Without it, Google
 </script>
 ```
 
-For my portfolio at [hailamdev.space](https://www.hailamdev.space), I added **6 schemas total**:
+For my portfolio at [my-portfolio-nxh.vercel.app](https://my-portfolio-nxh.vercel.app), I added **6 schemas total**:
 
 | Schema | Purpose |
 |--------|---------|
@@ -115,7 +115,7 @@ Why? Because FAQ format is already structured as question→answer pairs — exa
       "name": "How to add an AI chatbot to a React portfolio website?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "I integrated a Google Gemini-powered AI assistant into my React portfolio at hailamdev.space. The implementation uses the Gemini 2.0 API with a custom system prompt containing portfolio context, enabling visitors to ask about skills, projects, and availability in real-time."
+        "text": "I integrated a Google Gemini-powered AI assistant into my React portfolio at my-portfolio-nxh.vercel.app. The implementation uses the Gemini 2.0 API with a custom system prompt containing portfolio context, enabling visitors to ask about skills, projects, and availability in real-time."
       }
     },
     {
@@ -406,9 +406,9 @@ A: The noscript fallback serves three purposes: faster initial indexing (no rend
 ---
 
 *I'm Nguyễn Xuân Hải, a Fullstack Developer building production web apps with React, .NET Core & AI in Ho Chi Minh City.  
-Check out my [portfolio](https://www.hailamdev.space) or connect on [LinkedIn](https://www.linkedin.com/in/xuanhai0913/).*
+Check out my [portfolio](https://my-portfolio-nxh.vercel.app) or connect on [LinkedIn](https://www.linkedin.com/in/xuanhai0913/).*
 
-**See this checklist in action:** [hailamdev.space](https://www.hailamdev.space)  
+**See this checklist in action:** [my-portfolio-nxh.vercel.app](https://my-portfolio-nxh.vercel.app)
 **My other articles:**
 - [How I Architected a B2B Real Estate Platform with .NET Core + React](https://dev.to/xuanhai0913)
 - [I Built an AI Portfolio Assistant with Google Gemini 2.0](https://dev.to/xuanhai0913)

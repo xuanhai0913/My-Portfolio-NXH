@@ -21,6 +21,7 @@ const About = () => {
       { name: 'React / Next.js', level: 90 },
       { name: 'Node.js / Express', level: 85 },
       { name: 'ASP.NET Core', level: 80 },
+      { name: 'Python / Odoo 18', level: 75 },
       { name: 'SQL / MongoDB', level: 75 },
       { name: 'DeepSeek / AI', level: 70 }
     ]
@@ -38,16 +39,16 @@ const About = () => {
             <p className="bio-text">
               Nguyễn Xuân Hải is a <span className="highlight">Full-Stack Developer</span> based
               in Ho Chi Minh City, Vietnam, specializing in React, .NET Core,
-              and AI integration. He builds production web applications —
-              from B2B platforms handling real business operations
+              Odoo, and AI integration. He builds production web applications —
+              from B2B platforms and automotive dealership ERP workflows
               to AI assistants powered by Google Gemini.
             </p>
             {/* AI-extractable stats block (+37% citation boost per GEO study) */}
             <p className="bio-sub">
               9+ projects shipped to production, including 3 commercial platforms
               serving real users in Vietnam. Tech stack spans React frontends,
-              .NET Core backends, Node.js APIs, and AI integrations
-              with Gemini 2.0 and Deepseek LLM.
+              .NET Core and Odoo backends, Node.js APIs, PostgreSQL,
+              and AI integrations with Gemini 2.0 and Deepseek LLM.
             </p>
 
             <div className="code-quote">

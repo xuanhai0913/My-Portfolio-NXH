@@ -7,7 +7,7 @@ export const PROFILE_CONTEXT = {
   website: EXTERNAL_URLS.PORTFOLIO,
   contacts: {
     email: 'xuanhai0913750452@gmail.com',
-    phone: '+84 929 501 116',
+    phone: '0929501116',
     zalo: EXTERNAL_URLS.ZALO,
   },
   socials: {
@@ -21,6 +21,9 @@ export const PROFILE_CONTEXT = {
     'React.js',
     'Node.js',
     'ASP.NET Core',
+    'Python 3.12',
+    'Odoo 18',
+    'PostgreSQL',
     'SQL Server',
     'JavaScript',
     'TypeScript',
@@ -40,7 +43,7 @@ export const PROFILE_CONTEXT = {
     },
     {
       name: 'Vision Key AI',
-      url: 'https://visionpremium.hailamdev.space',
+      url: 'https://landing-vision-premium.vercel.app',
       stack: ['Swift', 'Next.js', 'Gemini'],
     },
     {
@@ -58,6 +61,7 @@ export const PROFILE_CONTEXT = {
     company: item.company,
     role: item.role,
     period: item.period,
+    description: item.description,
     technologies: item.technologies,
   })),
 };

@@ -1,6 +1,6 @@
 /**
  * GA4 Analytics Utility Module
- * Track meaningful user interactions for hailamdev.space portfolio
+ * Track meaningful user interactions for my-portfolio-nxh.vercel.app portfolio
  * 
  * Skills applied: analytics-tracking
  * Events follow Object-Action naming convention

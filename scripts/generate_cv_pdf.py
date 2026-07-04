@@ -89,7 +89,7 @@ class CvPdf:
         self.c.drawString(MARGIN_X, self.y, "Nguyen Xuan Hai")
         self.c.setFont("Arial", 8)
         self.c.setFillColor(MUTED)
-        self.c.drawRightString(PAGE_W - MARGIN_X, self.y, "Full-Stack Developer | React | .NET | NestJS | AI")
+        self.c.drawRightString(PAGE_W - MARGIN_X, self.y, "Full-Stack Developer | React | .NET | Odoo | AI")
         self.y -= 18
         self.c.setStrokeColor(SOFT_RULE)
         self.c.line(MARGIN_X, self.y, PAGE_W - MARGIN_X, self.y)
@@ -156,17 +156,23 @@ class CvPdf:
         self.c.drawString(x, y, "Nguyễn Xuân Hải")
         self.c.setFont("Arial-Bold", 9.6)
         self.c.setFillColor(ACCENT_DARK)
-        self.c.drawString(x, y - 16, "Full-Stack Developer | React | ASP.NET Core | NestJS | AI Integration")
+        self.c.drawString(x, y - 16, "Full-Stack Developer | React | ASP.NET Core | Odoo 18 | AI Integration")
 
         self.c.setFont("Arial", 8.15)
         self.c.setFillColor(MUTED)
-        contact_1 = "Ho Chi Minh City, Vietnam | +84 929 501 116 | xuanhai0913750452@gmail.com"
-        contact_2 = "Portfolio: https://www.hailamdev.space | GitHub: https://github.com/xuanhai0913 | LinkedIn: https://www.linkedin.com/in/xuanhai0913/"
+        contact_1 = "Ho Chi Minh City, Vietnam | 0929501116 | xuanhai0913750452@gmail.com"
+        portfolio_text = "my-portfolio-nxh.vercel.app"
+        github_text = "github.com/xuanhai0913"
+        linkedin_text = "linkedin.com/in/xuanhai0913"
+        contact_2 = f"Portfolio: {portfolio_text} | GitHub: {github_text} | LinkedIn: {linkedin_text}"
         self.c.drawString(x, y - 32, contact_1)
         self.c.drawString(x, y - 45, contact_2)
-        self._link_text(x + 37, y - 45, "https://www.hailamdev.space", 8.15, "https://www.hailamdev.space")
-        self._link_text(x + 230, y - 45, "https://github.com/xuanhai0913", 8.15, "https://github.com/xuanhai0913")
-        self._link_text(x + 410, y - 45, "https://www.linkedin.com/in/xuanhai0913/", 8.15, "https://www.linkedin.com/in/xuanhai0913/")
+        portfolio_x = x + self.text_width("Portfolio: ", "Arial", 8.15)
+        github_x = portfolio_x + self.text_width(f"{portfolio_text} | GitHub: ", "Arial", 8.15)
+        linkedin_x = github_x + self.text_width(f"{github_text} | LinkedIn: ", "Arial", 8.15)
+        self._link_text(portfolio_x, y - 45, portfolio_text, 8.15, "https://my-portfolio-nxh.vercel.app")
+        self._link_text(github_x, y - 45, github_text, 8.15, "https://github.com/xuanhai0913")
+        self._link_text(linkedin_x, y - 45, linkedin_text, 8.15, "https://www.linkedin.com/in/xuanhai0913/")
         self.c.restoreState()
         self.y = PAGE_H - 140
 
@@ -204,22 +210,23 @@ class CvPdf:
     def summary(self) -> None:
         self.section("Professional Summary", 55)
         text = (
-            "Full-stack developer building production web apps and AI-enabled tools across React/Vite, "
-            "ASP.NET Core, NestJS, PostgreSQL/SQL Server, Redis and cloud deployment workflows. Experienced "
-            "with LMS, CMS, B2B platforms, realtime features, authentication, content workflows, reporting/PDF "
-            "generation, and recruiter-facing portfolio automation. Comfortable owning features from UI and API "
-            "design through database modeling, deployment and troubleshooting."
+            "Full-stack developer building production web apps, ERP workflows and AI-enabled tools across React/Vite, "
+            "ASP.NET Core, Python/Odoo 18, NestJS, PostgreSQL/SQL Server and cloud deployment workflows. Experienced "
+            "with automotive dealership ERP, CMS, B2B platforms, LMS/community projects, realtime features, authentication, reporting/PDF "
+            "generation and localization. Comfortable owning features from UI and API design through database modeling, "
+            "deployment and troubleshooting."
         )
         self.y = self.draw_wrapped(text, MARGIN_X, self.y, CONTENT_W, "Arial", 8.75, INK, 11.4)
         self.y -= 4
 
     def skills(self) -> None:
-        self.section("Technical Skills", 86)
+        self.section("Skills", 86)
         rows = [
             ("Frontend:", "React 18/19, Vite, JavaScript ES6+, TypeScript, React Router, Tailwind CSS, Bootstrap, HeroUI, Framer Motion, GSAP, SlateJS, PlateJS, responsive UI."),
-            ("Backend:", "ASP.NET Core 8, NestJS, Node.js/Express, RESTful APIs, Entity Framework Core, TypeORM, JWT, OAuth2, ASP.NET Identity, validation, Swagger/OpenAPI."),
-            ("Data & Infra:", "PostgreSQL, SQL Server, MySQL, Redis, BullMQ, Socket.IO, SignalR, Docker, IIS, Vercel, GitLab CI/CD, GitHub, pnpm, Nx monorepo."),
-            ("AI & Quality:", "Google Gemini API, DeepSeek API, OpenAI API, AI assistant workflows, prompt integration, pytest, pytest-cov, linting, Serilog, QuestPDF, Cloudinary, MailKit."),
+            ("Backend:", "Python 3.12, Odoo 18, ASP.NET Core 8, NestJS, Node.js/Express, RESTful APIs, Entity Framework Core, TypeORM, JWT, OAuth2, ASP.NET Identity, Swagger/OpenAPI."),
+            ("ERP & Reporting:", "Odoo ORM, QWeb/XML, wkhtmltopdf, gettext i18n, TT200 accounting workflows, PostgreSQL, SQL Server, MySQL, QuestPDF, ClosedXML."),
+            ("Data & Infra:", "PostgreSQL, SQL Server, Redis, BullMQ, Socket.IO, SignalR, Docker, IIS, Vercel, GitLab CI/CD, GitHub, pnpm, Nx monorepo."),
+            ("AI & Quality:", "Google Gemini API, DeepSeek API, OpenAI API, AI assistant workflows, pytest, pytest-cov, linting, Serilog, Cloudinary, MailKit."),
             ("Professional:", "Problem solving, communication, teamwork, time management, documentation, ownership across frontend/backend tasks."),
         ]
         for label, value in rows:
@@ -274,58 +281,74 @@ class CvPdf:
             self.key_value(label, value, 10.4)
 
 
-ENTRIES: Sequence[Entry] = [
+WORK_ENTRIES: Sequence[Entry] = [
     Entry(
         role="Full-Stack Developer",
         name="Betodemy - Japanese Learning Platform",
-        period="Feb 2026 - Present",
+        period="Start: Feb 2026 | End: Present",
         link="https://betodemy.com",
         stack="React 19, Vite, Tailwind CSS 4, HeroUI, NestJS 11, TypeORM, PostgreSQL, Redis, BullMQ, Socket.IO, Nx, pnpm, GitLab CI/CD",
         bullets=[
-            "Build and maintain modules for student portals, teacher-led online classes, admin workflows, gamified practice, and multilingual learning content.",
-            "Develop interactive exercise blocks and rich editor workflows with SlateJS/PlateJS, plus realtime classroom and background job features with Socket.IO, Redis and BullMQ.",
-            "Work across frontend, backend, database and CI/CD boundaries in an Nx monorepo, keeping features consistent with existing architecture and coding standards.",
+            "Assigned to build and maintain product modules for student portals, teacher-led online classes, admin workflows, gamified practice and multilingual learning content.",
+            "Develop interactive exercise blocks, rich editor workflows with SlateJS/PlateJS, realtime classroom features and background jobs using Socket.IO, Redis and BullMQ.",
+            "Coordinate frontend, backend, database and CI/CD changes inside an Nx monorepo, keeping new work aligned with existing architecture and code standards.",
         ],
     ),
     Entry(
-        role="Full-Stack Developer / Volunteer",
-        name="ECH English Community House - LMS",
-        period="Oct 2024 - Present",
-        link="https://ech.edu.vn",
-        stack="ASP.NET Core 8 MVC/API, Entity Framework Core, SQL Server, Bootstrap 5, JavaScript, ASP.NET Identity, JWT, Cloudinary, MailKit, QuestPDF, ClosedXML, IIS",
+        role="Full-Stack Developer Intern",
+        name="AI Power - Automotive Dealership ERP",
+        period="Start: May 2026 | End: Jul 2026",
+        link="https://aipower.vn/vi",
+        stack="Python 3.12, Odoo 18, PostgreSQL, QWeb/XML, wkhtmltopdf, Docker, GitLab CI/CD, gettext i18n",
         bullets=[
-            "Developed a learning management system for a community English program serving disabled learners and people in difficult circumstances.",
-            "Implemented course/content management, role-based access, secure authentication, media storage, email notifications, certificate generation and Excel/PDF reporting.",
-            "Supported deployment and operations on Windows IIS with Swagger/OpenAPI documentation and maintainable service integrations.",
-        ],
-    ),
-    Entry(
-        role="Full-Stack Developer",
-        name="VN Media Hub - CMS & Media Platform",
-        period="Oct 2024 - Jan 2026",
-        link="https://vnmediahub.com",
-        stack="React 18, Vite, ASP.NET Core 8 Web API, Entity Framework Core, SQL Server, JWT, Google OAuth2, reCAPTCHA v3, Redis/Memory Cache, Serilog, Docker, QuestPDF",
-        bullets=[
-            "Built a CMS/media platform covering content management, authentication, moderation, SEO-friendly publishing and automated PDF/report exports.",
-            "Improved reliability and performance with structured logging, cache layers, Brotli/Gzip compression, image optimization and API documentation.",
+            "Assigned to support an Odoo 18 ERP for automotive dealerships in Vietnam, covering sales, an 18-state after-sales service workflow, spare parts, warranty and TT200 accounting.",
+            "Implemented and adjusted business logic, data models, QWeb/XML views, localized PDF reports and gettext translations across 18 custom modules and 99+ Python files.",
+            "Used Dockerized development and GitLab CI workflows to deliver changes consistently within an established ERP codebase and reduce handoff friction with the team.",
         ],
     ),
     Entry(
         role="Full-Stack Developer",
         name="Great Link Mai House - Digital Publishing Platform",
-        period="Jul 2025 - Present",
+        period="Start: Jul 2025 | End: May 2026",
         link="https://greatlinkmaihouse.com",
         stack="ASP.NET Core 8, React 18, SignalR, SQL Server, JWT, Google OAuth, Cloudinary, SendGrid, OpenAI API",
         bullets=[
-            "Rebuilt a business publishing platform with a modern API/frontend architecture, secure authentication, realtime features and third-party service integrations.",
-            "Delivered production-facing features for a media and B2B environment with attention to scalability, maintainability and operational handoff.",
+            "Worked on a business publishing platform with a modern API/frontend architecture for media and B2B use cases.",
+            "Built production-facing features around secure authentication, realtime updates, media handling and third-party service integrations.",
+            "Supported maintainable delivery by keeping API, frontend and integration work aligned with deployment and handoff needs.",
+        ],
+    ),
+    Entry(
+        role="Full-Stack Developer",
+        name="VN Media Hub - CMS & Media Platform",
+        period="Start: Oct 2024 | End: Jan 2026",
+        link="https://vnmediahub.com",
+        stack="React 18, Vite, ASP.NET Core 8 Web API, Entity Framework Core, SQL Server, JWT, Google OAuth2, reCAPTCHA v3, Redis/Memory Cache, Serilog, Docker, QuestPDF",
+        bullets=[
+            "Assigned to build a CMS/media platform covering content management, authentication, moderation, SEO-friendly publishing and automated PDF/report exports.",
+            "Implemented frontend and backend features with React and ASP.NET Core, including auth flows, content workflows, cache layers, structured logging and report generation.",
+            "Improved operational readiness with API documentation, compression, image optimization and maintainable production-facing delivery practices.",
+        ],
+    ),
+]
+
+PROJECT_ENTRIES: Sequence[Entry] = [
+    Entry(
+        role="Full-Stack Developer / Volunteer",
+        name="ECH English Community House - LMS",
+        period="Project: Oct 2024 - Jan 2026",
+        link="https://ech.edu.vn",
+        stack="ASP.NET Core 8 MVC/API, Entity Framework Core, SQL Server, Bootstrap 5, JavaScript, ASP.NET Identity, JWT, Cloudinary, MailKit, QuestPDF, ClosedXML, IIS",
+        bullets=[
+            "Volunteered on an LMS for a community English program serving disabled learners and people in difficult circumstances.",
+            "Built course/content management, secure authentication, certificate generation, media storage, email notifications and Excel/PDF reporting.",
         ],
     ),
     Entry(
         role="macOS / AI Developer",
         name="Vision Key - AI Screen Assistant",
-        period="Dec 2025",
-        link="https://visionpremium.hailamdev.space",
+        period="Project: Dec 2025",
+        link="https://landing-vision-premium.vercel.app",
         stack="Swift 5.9+, SwiftUI, AppKit, Google Gemini 2.5 Pro API, Carbon global hotkey, macOS Keychain, Chrome extensions",
         bullets=[
             "Built a macOS AI screen assistant with secure API key storage, global hotkeys and Gemini-powered workflows for on-screen productivity.",
@@ -335,8 +358,8 @@ ENTRIES: Sequence[Entry] = [
     Entry(
         role="Frontend / Python Developer",
         name="Portfolio AI Assistant & LLM Unit Test Generator",
-        period="Mar 2025 - Present",
-        link="https://www.hailamdev.space",
+        period="Project: Mar 2025 - May 2026",
+        link="https://my-portfolio-nxh.vercel.app",
         stack="React, JavaScript, Three.js, GSAP, Gemini/DeepSeek APIs, Python 3.8+, pytest, pytest-cov, Black, Flake8, Pylint, Mypy, Vercel",
         bullets=[
             "Enhanced personal portfolio with an AI assistant that answers recruiter questions about CV, projects, contact details and job-fit context.",
@@ -345,14 +368,20 @@ ENTRIES: Sequence[Entry] = [
     ),
 ]
 
+ENTRIES: Sequence[Entry] = [*WORK_ENTRIES, *PROJECT_ENTRIES]
+
 
 def build() -> None:
     pdf = CvPdf(OUTPUT)
     pdf.header()
     pdf.summary()
     pdf.skills()
-    pdf.section("Selected Experience & Projects", 130)
-    for item in ENTRIES:
+    pdf.section("Work Experience", 130)
+    for item in WORK_ENTRIES:
+        pdf.entry(item)
+
+    pdf.section("Selected Projects", 190)
+    for item in PROJECT_ENTRIES:
         pdf.entry(item)
 
     pdf.compact_section(

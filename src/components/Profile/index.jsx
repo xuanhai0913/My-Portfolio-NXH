@@ -32,8 +32,8 @@ const Profile = () => {
           <div className={`hero-sub ${loaded ? 'in-view' : ''}`}>
             <p>
               I'm <span className="neon-highlight">Nguyễn Xuân Hải</span> — I build
-              production web apps with React, .NET Core & AI.
-              <br />From B2B platforms to AI-powered tools,
+              production web apps with React, .NET Core, Odoo & AI.
+              <br />From B2B platforms and ERP workflows to AI-powered tools,
               shipped for real clients in Vietnam.
             </p>
           </div>
@@ -86,7 +86,7 @@ const Profile = () => {
               aria-label="View work experience details"
             >
               <span className="status-dot" aria-hidden="true"></span>
-              2+ YEARS EXPERIENCE
+              4 COMPANY EXPERIENCES
             </div>
 
             {/* Decorative Grid Lines */}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './styles/CVPreview.css';
 
-const CV_VISUAL_URL = 'https://www.hailamdev.space/CV_NguyenXuanHai_visual.pdf';
+const CV_VISUAL_URL = 'https://my-portfolio-nxh.vercel.app/CV_NguyenXuanHai_visual.pdf';
 
 const CVPreview = ({ onClose }) => {
     const [loading, setLoading] = useState(true);

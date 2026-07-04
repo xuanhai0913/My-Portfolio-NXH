@@ -1,8 +1,8 @@
-# Product Marketing Context — hailamdev.space
+# Product Marketing Context — my-portfolio-nxh.vercel.app
 
 ## Product
 **Type:** Personal Portfolio Website / Developer Showcase
-**URL:** https://www.hailamdev.space
+**URL:** https://my-portfolio-nxh.vercel.app
 **Tech Stack:** React, GSAP, Three.js, CSS3 (Brutalist theme)
 
 ## Owner

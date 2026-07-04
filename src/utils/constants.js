@@ -51,7 +51,7 @@ export const API = {
 
 // External URLs
 export const EXTERNAL_URLS = {
-  PORTFOLIO: 'https://www.hailamdev.space',
+  PORTFOLIO: 'https://my-portfolio-nxh.vercel.app',
   GITHUB: 'https://github.com/xuanhai0913',
   LINKEDIN: 'https://www.linkedin.com/in/xuanhai0913/',
   FACEBOOK: 'https://www.facebook.com/nguyenhai0913',
@@ -68,51 +68,41 @@ export const DEFAULTS = {
 };
 
 // Work Experience Data
-// Work Experience Data
 export const WORK_EXPERIENCE = [
-  {
-    company: 'AI Power',
-    role: 'FULLSTACK DEVELOPER',
-    period: 'May 27, 2026 - Present',
-    description: 'Recently joined AI Power as a Fullstack Developer intern. Currently onboarding, reading project documentation, learning the existing codebase, and supporting light development tasks on AI-related product features.',
-    technologies: ['Golang', 'React', 'Node.js', 'AI'],
-    logo: 'https://aipower.vn/images/logos/logo-vn.svg?ver=0.0.2',
-    link: 'https://aipower.vn/vi'
-  },
   {
     company: 'Betodemy – Japanese Learning Platform',
     role: 'FULLSTACK DEVELOPER',
-    period: 'February 2026 - Present',
-    description: 'Built and maintained features for Betodemy, a Japanese learning platform with student portals, teacher-led online classes, admin tools, and gamified practice. Developed interactive learning blocks, realtime classroom features, and multilingual content workflows across React/Vite frontend and NestJS/PostgreSQL backend in an Nx monorepo.',
+    period: 'Start: February 2026 | End: Present',
+    description: 'Assigned to build and maintain product modules for Betodemy, a Japanese learning platform with student portals, teacher-led online classes, admin tools, and gamified practice. Developed interactive learning blocks, realtime classroom features, and multilingual content workflows across React/Vite frontend and NestJS/PostgreSQL backend in an Nx monorepo.',
     technologies: ['React 19', 'Vite', 'React Router', 'Tailwind CSS', 'HeroUI', 'NestJS', 'TypeORM', 'PostgreSQL', 'Redis', 'BullMQ', 'Socket.IO', 'PlateJS', 'SlateJS', 'Nx', 'pnpm', 'GitLab CI/CD'],
     logo: null,
     link: null
   },
   {
-    company: 'ECH (English Community House) - Learning Management System',
-    role: 'FULLSTACK DEVELOPER',
-    period: 'October 2024 - Present',
-    description: 'Built a comprehensive Learning Management System (LMS) with ASP.NET Core 8.0 and SQL Server. Implemented a Certificate Generation System using QuestPDF and integrated Cloudinary for media management. Developed secure authentication flows with Identity and JWT.',
-    technologies: ['ASP.NET Core 8', 'Entity Framework', 'SQL Server', 'QuestPDF', 'Cloudinary', 'MailKit', 'Bootstrap 5'],
-    logo: 'https://res.cloudinary.com/dqdcqtu8m/image/upload/v1755441982/8a7636ad-a18c-4c4d-9da4-cd2cad07f8c3.png',
-    link: 'https://ech.edu.vn/'
-  },
-  {
-    company: 'VN Media Hub (CMS & Media Platform)',
-    role: 'FULLSTACK DEVELOPER',
-    period: 'October 2024 - January 2026',
-    description: 'Developed a high-performance Content Management System (CMS) and media platform using React 18 and ASP.NET Core 8 Web API. Implemented dual authentication (JWT + Google OAuth2), advanced content management, and automated reporting with QuestPDF.',
-    technologies: ['React 18', 'Vite', 'ASP.NET Core 8', 'JWT', 'Google OAuth2', 'Redis', 'Serilog'],
-    logo: 'https://res.cloudinary.com/dqdcqtu8m/image/upload/v1755441948/1b725dc6-8cdb-4da9-a6b9-b0bc2a34fb3b.png',
-    link: 'https://vnmediahub.com/'
+    company: 'AI Power – Automotive Dealership ERP',
+    role: 'FULL-STACK DEVELOPER INTERN',
+    period: 'Start: May 2026 | End: July 2026',
+    description: 'Assigned to support an Odoo 18 ERP for automotive dealerships in Vietnam, covering sales, an 18-state after-sales service workflow, spare parts, warranty, and TT200 accounting. Implemented and adjusted business logic, QWeb/XML views, PDF reports, localization, Docker workflows, and GitLab CI tasks across 18 custom modules and 99+ Python files.',
+    technologies: ['Python 3.12', 'Odoo 18', 'PostgreSQL', 'QWeb/XML', 'wkhtmltopdf', 'Docker', 'GitLab CI', 'gettext i18n'],
+    logo: 'https://aipower.vn/images/logos/logo-vn.svg?ver=0.0.2',
+    link: 'https://aipower.vn/vi'
   },
   {
     company: 'Great Link Mai House – Digital Publishing Platform',
     role: 'FULLSTACK DEVELOPER',
-    period: 'July 2025 - Present',
-    description: 'Rebuilt the digital publishing platform with a modern architecture. Developed a robust API using ASP.NET Core 8.0 and a responsive React 18 frontend. Implemented real-time features, secure authentication, and integrated multiple third-party services.',
+    period: 'Start: July 2025 | End: May 2026',
+    description: 'Worked on a business publishing platform with a modern API/frontend architecture for media and B2B use cases. Built production-facing features around secure authentication, realtime updates, media handling, and third-party service integrations.',
     technologies: ['ASP.NET Core 8', 'React 18', 'SignalR', 'OpenAI API', 'SendGrid', 'Cloudinary', 'JWT', 'Google OAuth', 'SQL Server'],
     logo: 'https://res.cloudinary.com/dqdcqtu8m/image/upload/v1755441933/f7ce90e7-0068-4433-ab8f-32cab1067dc2.png',
     link: 'https://greatlinkmaihouse.com/'
+  },
+  {
+    company: 'VN Media Hub (CMS & Media Platform)',
+    role: 'FULLSTACK DEVELOPER',
+    period: 'Start: October 2024 | End: January 2026',
+    description: 'Assigned to build a CMS/media platform covering content management, authentication, moderation, SEO-friendly publishing, and automated PDF/report exports. Implemented React and ASP.NET Core features including auth flows, content workflows, cache layers, structured logging, and report generation.',
+    technologies: ['React 18', 'Vite', 'ASP.NET Core 8', 'Entity Framework Core', 'SQL Server', 'JWT', 'Google OAuth2', 'Redis', 'Serilog', 'Docker', 'QuestPDF'],
+    logo: 'https://res.cloudinary.com/dqdcqtu8m/image/upload/v1755441948/1b725dc6-8cdb-4da9-a6b9-b0bc2a34fb3b.png',
+    link: 'https://vnmediahub.com/'
   }
 ];

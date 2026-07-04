@@ -59,7 +59,7 @@ const Portfolio = () => {
       image: visionKey,
       technologies: ["Swift", "Next.js", "AI"],
       badge: "AI",
-      demo: "https://visionpremium.hailamdev.space",
+      demo: "https://landing-vision-premium.vercel.app",
       githubLinks: [
         { url: "https://github.com/xuanhai0913/Vision-Key", label: "MacOS" },
         { url: "https://github.com/xuanhai0913/Extension-Vision-Premium", label: "Premium" },
@@ -81,7 +81,7 @@ const Portfolio = () => {
       title: "Portfolio Website",
       description: "Modern brutalist portfolio with GSAP animations. Showcasing creative design and development skills.",
       image: prj1,
-      demo: "https://www.hailamdev.space/",
+      demo: "https://my-portfolio-nxh.vercel.app/",
       github: "https://github.com/xuanhai0913/My-Portfolio-NXH",
       technologies: ["React", "GSAP", "CSS3"],
       year: "2024"
@@ -90,7 +90,7 @@ const Portfolio = () => {
       title: "Happy New Year",
       description: "Animated festive greeting website with interactive canvas animations and particle effects.",
       image: prj5,
-      demo: "https://happynewyear.hailamdev.space/",
+      demo: "https://happy-new-year-five-olive.vercel.app/",
       github: "https://github.com/xuanhai0913/Happy-New-Year",
       technologies: ["HTML5", "JS", "Canvas"],
       year: "2024"
@@ -108,7 +108,7 @@ const Portfolio = () => {
       title: "OTP API Service",
       description: "Phone rental service for OTP verification. Secure and reliable API infrastructure.",
       image: prj9,
-      demo: "https://shop.hailamdev.space/",
+      demo: "https://otp-api-omega.vercel.app/",
       technologies: ["Node.js", "MongoDB", "Express"],
       badge: "API",
       year: "2023"

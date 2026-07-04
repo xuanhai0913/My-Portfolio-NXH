@@ -52,7 +52,7 @@ const Contact = () => {
             </div>
             <div className="contact-item">
               <i className="fas fa-phone"></i>
-              <p>+84 929 501 116</p>
+              <p>0929501116</p>
             </div>
             <div className="contact-item">
               <i className="fas fa-map-marker-alt"></i>

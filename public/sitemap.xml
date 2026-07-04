@@ -4,12 +4,12 @@
   
   <!-- Homepage (main entry point) -->
   <url>
-    <loc>https://www.hailamdev.space/</loc>
+    <loc>https://my-portfolio-nxh.vercel.app/</loc>
     <lastmod>2026-04-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://www.hailamdev.space/images/og-image.jpg</image:loc>
+      <image:loc>https://my-portfolio-nxh.vercel.app/images/og-image.jpg</image:loc>
       <image:title>Nguyễn Xuân Hải - Full-Stack Developer Portfolio</image:title>
       <image:caption>Portfolio website showcasing React, ASP.NET Core, and AI projects</image:caption>
     </image:image>
@@ -17,7 +17,7 @@
 
   <!-- AI Assistant Page (real route) -->
   <url>
-    <loc>https://www.hailamdev.space/assistant</loc>
+    <loc>https://my-portfolio-nxh.vercel.app/assistant</loc>
     <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -25,7 +25,7 @@
 
   <!-- Videos Page (real route) -->
   <url>
-    <loc>https://www.hailamdev.space/videos</loc>
+    <loc>https://my-portfolio-nxh.vercel.app/videos</loc>
     <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -33,7 +33,7 @@
 
   <!-- 3D Experience Page (real route) -->
   <url>
-    <loc>https://www.hailamdev.space/3d</loc>
+    <loc>https://my-portfolio-nxh.vercel.app/3d</loc>
     <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -41,7 +41,7 @@
 
   <!-- CV Download -->
   <url>
-    <loc>https://www.hailamdev.space/CV_NguyenXuanHai_visual.pdf</loc>
+    <loc>https://my-portfolio-nxh.vercel.app/CV_NguyenXuanHai_visual.pdf</loc>
     <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -49,7 +49,7 @@
 
   <!-- Blog Page (real route) -->
   <url>
-    <loc>https://www.hailamdev.space/blog</loc>
+    <loc>https://my-portfolio-nxh.vercel.app/blog</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

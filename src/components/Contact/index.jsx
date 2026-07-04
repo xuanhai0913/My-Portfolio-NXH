@@ -203,7 +203,7 @@ const Contact = () => {
             <a href="https://www.linkedin.com/in/xuanhai0913/" target="_blank" rel="noreferrer" className="social-icon" aria-label="LinkedIn profile" onClick={() => trackSocialClick('linkedin')}>LINKEDIN</a>
             <a href="https://www.youtube.com/@xuanhai0913" target="_blank" rel="noreferrer" className="social-icon" aria-label="YouTube channel" onClick={() => trackSocialClick('youtube')}>YOUTUBE</a>
             <a href="https://dev.to/xuanhai0913" target="_blank" rel="noreferrer" className="social-icon" aria-label="Dev.to blog" onClick={() => trackSocialClick('devto')}>DEV.TO</a>
-            <a href="mailto:contact@hailamdev.space" className="social-icon" aria-label="Send email" onClick={() => trackSocialClick('email')}>EMAIL</a>
+            <a href="mailto:xuanhai0913750452@gmail.com" className="social-icon" aria-label="Send email" onClick={() => trackSocialClick('email')}>EMAIL</a>
           </div>
         </div>
 

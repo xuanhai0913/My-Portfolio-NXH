@@ -2,55 +2,55 @@
 // Utility functions to manage meta tags for different pages and social media platforms
 
 export const defaultMetaTags = {
-  title: "Nguyễn Xuân Hải - Full-Stack Developer Portfolio | React & Web Expert",
-  description: "Full-Stack Developer specializing in React, Node.js, ASP.NET Core and modern web technologies. Explore my projects and professional skills.",
-  image: "https://www.hailamdev.space/images/og-image.jpg",
-  url: "https://www.hailamdev.space/",
+  title: "Nguyễn Xuân Hải - Full-Stack Developer | React, .NET & Odoo",
+  description: "Full-Stack Developer specializing in React, ASP.NET Core, Python, Odoo 18, PostgreSQL and AI integration. Explore my projects and professional experience.",
+  image: "https://my-portfolio-nxh.vercel.app/images/og-image.jpg",
+  url: "https://my-portfolio-nxh.vercel.app/",
   type: "website"
 };
 
 export const pageMetaTags = {
   home: {
     title: "Nguyễn Xuân Hải - Full-Stack Developer Portfolio",
-    description: "Welcome to my portfolio. I'm a Full-Stack Developer specializing in React, Node.js, ASP.NET Core and modern web technologies.",
-    keywords: "Full-Stack Developer, React Developer, Node.js Developer, ASP.NET Core, JavaScript Expert, Portfolio",
-    url: "https://www.hailamdev.space/"
+    description: "Welcome to my portfolio. I'm a Full-Stack Developer working with React, ASP.NET Core, Python, Odoo 18, PostgreSQL and AI integration.",
+    keywords: "Full-Stack Developer, React Developer, Odoo Developer, Python Developer, ASP.NET Core, PostgreSQL, Portfolio",
+    url: "https://my-portfolio-nxh.vercel.app/"
   },
   about: {
     title: "About Me - Nguyễn Xuân Hải | Full-Stack Developer",
-    description: "Learn about my experience, skills and career journey in Full-Stack Development.",
-    keywords: "About, Experience, Skills, Full-Stack Developer Career, React Expert",
-    url: "https://www.hailamdev.space/#about"
+    description: "Learn about my experience building web applications and automotive dealership ERP workflows with React, .NET and Odoo.",
+    keywords: "About, Experience, Skills, Full-Stack Developer, React, ASP.NET Core, Odoo 18, Python",
+    url: "https://my-portfolio-nxh.vercel.app/#about"
   },
   portfolio: {
     title: "Projects - Portfolio | Nguyễn Xuân Hải",
     description: "Explore my web development and UI/UX design projects, from React applications to responsive websites, including commercial projects for Great Link Mai House.",
     keywords: "Portfolio, Projects, Web Development, React Projects, UI/UX Design, Commercial Projects, B2B Platform, Full-Stack",
-    url: "https://www.hailamdev.space/#portfolio"
+    url: "https://my-portfolio-nxh.vercel.app/#portfolio"
   },
   contact: {
     title: "Contact - Nguyễn Xuân Hải | Full-Stack Developer",
     description: "Get in touch to discuss web development projects, collaboration opportunities, or technical consulting.",
     keywords: "Contact, Hire Full-Stack Developer, React Developer Contact, Web Development Services",
-    url: "https://www.hailamdev.space/#contact"
+    url: "https://my-portfolio-nxh.vercel.app/#contact"
   },
   assistant: {
     title: "AI Assistant - Nguyễn Xuân Hải Portfolio",
     description: "Chat with an AI assistant powered by Gemini to learn about Nguyễn Xuân Hải's skills, projects, experience, and availability. Get instant answers about hiring and collaboration.",
     keywords: "AI Assistant, Portfolio Chatbot, Gemini AI, Developer Skills, Hire Developer, Interactive CV",
-    url: "https://www.hailamdev.space/assistant"
+    url: "https://my-portfolio-nxh.vercel.app/assistant"
   },
   videos: {
     title: "Project Demos - Nguyễn Xuân Hải Portfolio",
     description: "Watch video demonstrations of projects including LLM Unit Test Generator, AI integrations, and web application showcases.",
     keywords: "Project Demos, Video Portfolio, LLM Unit Test Generator, AI Development, Code Demos",
-    url: "https://www.hailamdev.space/videos"
+    url: "https://my-portfolio-nxh.vercel.app/videos"
   },
   "3d": {
     title: "3D Experience - Nguyễn Xuân Hải Portfolio",
     description: "Interactive 3D experience built with Three.js showcasing creative web development and WebGL capabilities.",
     keywords: "Three.js, 3D Web, WebGL, Interactive Experience, Creative Development, 3D Portfolio",
-    url: "https://www.hailamdev.space/3d"
+    url: "https://my-portfolio-nxh.vercel.app/3d"
   }
 };
 
@@ -117,7 +117,7 @@ export const generateStructuredData = (pageName, additionalData = {}) => {
     "author": {
       "@type": "Person",
       "name": "Nguyễn Xuân Hải",
-      "url": "https://www.hailamdev.space"
+      "url": "https://my-portfolio-nxh.vercel.app"
     },
     "publisher": {
       "@type": "Person",

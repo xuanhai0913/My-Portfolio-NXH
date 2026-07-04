@@ -6,7 +6,7 @@
 
 A personal portfolio with Brutalist Design aesthetic and an integrated AI Assistant powered by DeepSeek LLM.
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-hailamdev.space-CCFF00?style=for-the-badge&logoColor=black)](https://www.hailamdev.space)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-my-portfolio-nxh.vercel.app-CCFF00?style=for-the-badge&logoColor=black)](https://my-portfolio-nxh.vercel.app)
 [![Ko-fi](https://img.shields.io/badge/Buy_Me_A_Coffee-ff5e5b?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/xuanhai0913)
 
 ![React](https://img.shields.io/badge/React_18-61DAFB?style=flat-square&logo=react&logoColor=black)
@@ -103,7 +103,7 @@ src/
 
 ### Let's Connect
 
-[![Website](https://img.shields.io/badge/hailamdev.space-CCFF00?style=for-the-badge&logoColor=black)](https://www.hailamdev.space)
+[![Website](https://img.shields.io/badge/my-portfolio-nxh.vercel.app-CCFF00?style=for-the-badge&logoColor=black)](https://my-portfolio-nxh.vercel.app)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/xuanhai0913/)
 [![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/xuanhai0913)
 [![Facebook](https://img.shields.io/badge/Facebook-1877F2?style=for-the-badge&logo=facebook&logoColor=white)](https://www.facebook.com/nguyenhai0913)
