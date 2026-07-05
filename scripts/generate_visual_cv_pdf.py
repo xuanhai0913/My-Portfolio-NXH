@@ -122,27 +122,27 @@ class VisualCv:
         x = LEFT_X + 10
         y = PAGE_H - 76
         self.c.setFillColor(INK)
-        self.c.setFont("Arial-Bold", 30)
+        self.c.setFont("Arial-Bold", 31)
         self.c.drawString(x, y, "Nguyễn Xuân Hải")
         y -= 24
         self.c.setFillColor(AMBER)
-        self.c.setFont("Arial-Bold", 14)
+        self.c.setFont("Arial-Bold", 14.5)
         self.c.drawString(x, y, "Full-Stack Developer")
         y -= 18
         self.c.setFillColor(INK)
-        self.c.setFont("Arial", 9.2)
+        self.c.setFont("Arial", 9.5)
         self.c.drawString(x, y, "React  |  ASP.NET Core  |  Odoo 18  |  AI Integration")
         y -= 21
         self.c.setFillColor(TEAL)
         self.c.rect(x, y + 7, 32, 2, fill=1, stroke=0)
         y -= 11
         summary = "Full-stack developer focused on production web apps, ERP workflows, reporting and AI-assisted tools."
-        y = self.text(summary, x, y, 360, "Arial", 7.3, MUTED, 8.5)
+        y = self.text(summary, x, y, 360, "Arial", 7.6, MUTED, 8.8)
         self.c.setFillColor(INK)
-        self.c.setFont("Arial-Bold", 7.0)
+        self.c.setFont("Arial-Bold", 7.4)
         self.c.drawString(x, y - 2, "Education:")
         self.c.setFillColor(MUTED)
-        self.c.setFont("Arial", 7.0)
+        self.c.setFont("Arial", 7.4)
         self.c.drawString(x + 42, y - 2, "UTH - Information Technology, 2022 - 2026")
 
         image_size = 84
@@ -166,11 +166,11 @@ class VisualCv:
             self.c.setFillColor(TEAL)
             self.c.circle(cx + 3, cy, 2.5, fill=1, stroke=0)
             self.c.setFillColor(INK)
-            self.c.setFont("Arial", 7.1)
+            self.c.setFont("Arial", 7.3)
             self.c.drawString(cx + 11, cy - 3, value)
             if url:
-                self.link(cx + 11, cy - 3, value, url, "Arial", 7.1)
-            cx += self.width(value, "Arial", 7.1) + 27
+                self.link(cx + 11, cy - 3, value, url, "Arial", 7.3)
+            cx += self.width(value, "Arial", 7.3) + 27
 
         self.c.setFillColor(PALE)
         self.c.circle(image_x + image_size / 2, image_y + image_size / 2, image_size / 2 + 10, fill=1, stroke=0)
@@ -193,7 +193,7 @@ class VisualCv:
         else:
             label_x = x
         self.c.setFillColor(INK)
-        self.c.setFont("Arial-Bold", 11.2)
+        self.c.setFont("Arial-Bold", 11.8)
         self.c.drawString(label_x, y, title.upper())
         self.c.setFillColor(TEAL)
         self.c.rect(label_x, y - 8, 28, 2, fill=1, stroke=0)
@@ -243,7 +243,7 @@ class VisualCv:
 
             period_lines = item.period.replace("Start: ", "").replace(" | End: ", "\n-\n").splitlines()
             self.c.setFillColor(TEAL)
-            self.c.setFont("Arial-Bold", 7.2)
+            self.c.setFont("Arial-Bold", 7.5)
             period_y = y - 2
             for line in period_lines:
                 self.c.drawRightString(axis_x - 18, period_y, line)
@@ -254,16 +254,16 @@ class VisualCv:
             self.c.setLineWidth(1.4)
             self.c.circle(axis_x, y - 2, 5, fill=1, stroke=1)
             self.c.setFillColor(INK)
-            self.c.setFont("Arial-Bold", 9.2)
+            self.c.setFont("Arial-Bold", 9.6)
             title = item.name.replace(" - Digital Publishing Platform", "").replace(" - CMS & Media Platform", "")
             self.c.drawString(content_x, y, title)
             self.c.setFillColor(TEAL)
-            self.c.circle(content_x + min(self.width(title, "Arial-Bold", 9.2) + 8, 206), y + 3, 1.6, fill=1, stroke=0)
+            self.c.circle(content_x + min(self.width(title, "Arial-Bold", 9.6) + 8, 206), y + 3, 1.6, fill=1, stroke=0)
             self.c.setStrokeColor(LINE)
             self.c.line(content_x, y - 7, LEFT_X + LEFT_W, y - 7)
             y -= 18
             for bullet in summaries[key]:
-                y = self.bullet(bullet, content_x, y, LEFT_X + LEFT_W - content_x, 6.9)
+                y = self.bullet(bullet, content_x, y, LEFT_X + LEFT_W - content_x, 7.1)
             y -= 14
 
     def skills(self) -> float:
@@ -289,10 +289,10 @@ class VisualCv:
                 self.c.setFillColor(TEAL)
                 self.c.circle(RIGHT_X + 10, y - 2, 2.2, fill=1, stroke=0)
             self.c.setFillColor(INK)
-            self.c.setFont("Arial-Bold", 8.2)
+            self.c.setFont("Arial-Bold", 8.6)
             self.c.drawString(RIGHT_X + 26, y - 2, label)
             self.c.setFillColor(MUTED)
-            self.c.setFont("Arial", 6.4)
+            self.c.setFont("Arial", 6.8)
             self.c.drawRightString(PAGE_W - MARGIN, y - 1.5, category.upper())
             self.c.setStrokeColor(LINE)
             self.c.line(RIGHT_X, y - 10, PAGE_W - MARGIN, y - 10)
@@ -313,11 +313,11 @@ class VisualCv:
             self.c.setFont("Arial-Bold", 9)
             self.c.drawCentredString(RIGHT_X + 18, y - 7, title[:2].upper())
             self.c.setFillColor(INK)
-            self.c.setFont("Arial-Bold", 8.8)
+            self.c.setFont("Arial-Bold", 9.1)
             self.c.drawString(RIGHT_X + 42, y + 3, title)
-            y = self.text(body, RIGHT_X + 42, y - 8, RIGHT_W - 42, "Arial", 7.0, INK, 8.4)
+            y = self.text(body, RIGHT_X + 42, y - 8, RIGHT_W - 42, "Arial", 7.2, INK, 8.6)
             self.c.setFillColor(TEAL)
-            self.c.setFont("Arial-Bold", 6.9)
+            self.c.setFont("Arial-Bold", 7.1)
             self.c.drawString(RIGHT_X + 42, y - 1, period)
             y -= 24
             self.c.setStrokeColor(LINE)
@@ -328,26 +328,23 @@ class VisualCv:
         self.c.setStrokeColor(HexColor("#AEBCC5"))
         self.c.line(MARGIN, BOTTOM + 52, PAGE_W - MARGIN, BOTTOM + 52)
         self.c.setFillColor(INK)
-        self.c.setFont("Arial-Bold", 7.3)
-        self.c.drawString(MARGIN + 4, BOTTOM + 37, "Education")
+        self.c.setFont("Arial-Bold", 7.8)
+        self.c.drawString(MARGIN + 4, BOTTOM + 38, "Certifications")
+        certs = [
+            "Gemini Certified Student/Faculty",
+            "Google AI for K12 Educators",
+            "Basic Office Information Technology",
+            "Volunteer Participation Certificate",
+        ]
+        cert_x = MARGIN + 78
+        cert_y = BOTTOM + 38
         self.c.setFont("Arial", 7.1)
+        for cert in certs:
+            self.c.setFillColor(MUTED)
+            self.c.drawString(cert_x, cert_y - 1, f"- {cert}")
+            cert_y -= 10
         self.c.setFillColor(MUTED)
-        self.c.drawString(MARGIN + 60, BOTTOM + 37, "UTH - Information Technology, 2022 - 2026")
-        self.c.setFillColor(INK)
-        self.c.setFont("Arial-Bold", 7.3)
-        self.c.drawString(MARGIN + 4, BOTTOM + 24, "Certifications")
-        self.c.setFont("Arial", 6.8)
-        self.c.setFillColor(MUTED)
-        certs = "Gemini Certified Student/Faculty, Google AI for K12, Basic Office IT, Accounting & Auditing"
-        self.c.drawString(MARGIN + 78, BOTTOM + 24, certs)
-        self.c.setFillColor(TEAL)
-        self.c.setFont("Arial-Bold", 18)
-        self.c.drawString(MARGIN + 4, BOTTOM + 2, "\"")
-        self.c.setFillColor(INK)
-        self.c.setFont("Arial", 6.8)
-        self.c.drawString(MARGIN + 28, BOTTOM + 13, "Reliable software, clean architecture and real user value.")
-        self.c.setFillColor(MUTED)
-        self.c.setFont("Arial", 6.8)
+        self.c.setFont("Arial", 7.0)
         self.c.drawRightString(PAGE_W - MARGIN, BOTTOM + 13, "Ho Chi Minh City, Vietnam")
 
     def save(self) -> None:

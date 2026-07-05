@@ -410,7 +410,7 @@ def build() -> None:
             ),
             (
                 "Additional:",
-                "Basic Office Information Technology; Certificate in Accounting and Auditing; Volunteer Participation Certificate; English Community House volunteer.",
+                "Basic Office Information Technology; Volunteer Participation Certificate; English Community House volunteer.",
             ),
         ],
     )
