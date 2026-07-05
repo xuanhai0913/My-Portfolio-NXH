@@ -160,7 +160,7 @@ class CvPdf:
 
         self.c.setFont("Arial", 8.15)
         self.c.setFillColor(MUTED)
-        contact_1 = "Ho Chi Minh City, Vietnam | 0929501116 | xuanhai0913750452@gmail.com"
+        contact_1 = "Ho Chi Minh City, Vietnam | Date of Birth: 29/11/2004 | 0929501116 | xuanhai0913750452@gmail.com"
         portfolio_text = "my-portfolio-nxh.vercel.app"
         github_text = "github.com/xuanhai0913"
         linkedin_text = "linkedin.com/in/xuanhai0913"

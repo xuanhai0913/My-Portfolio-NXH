@@ -151,6 +151,7 @@ class VisualCv:
 
         contact = [
             ("0929501116", None),
+            ("DOB: 29/11/2004", None),
             ("xuanhai0913750452@gmail.com", "mailto:xuanhai0913750452@gmail.com"),
             ("my-portfolio-nxh.vercel.app", "https://my-portfolio-nxh.vercel.app"),
             ("github.com/xuanhai0913", "https://github.com/xuanhai0913"),
