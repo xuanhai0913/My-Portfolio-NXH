@@ -137,7 +137,13 @@ class VisualCv:
         self.c.rect(x, y + 7, 32, 2, fill=1, stroke=0)
         y -= 11
         summary = "Full-stack developer focused on production web apps, ERP workflows, reporting and AI-assisted tools."
-        self.text(summary, x, y, 360, "Arial", 7.3, MUTED, 8.5)
+        y = self.text(summary, x, y, 360, "Arial", 7.3, MUTED, 8.5)
+        self.c.setFillColor(INK)
+        self.c.setFont("Arial-Bold", 7.0)
+        self.c.drawString(x, y - 2, "Education:")
+        self.c.setFillColor(MUTED)
+        self.c.setFont("Arial", 7.0)
+        self.c.drawString(x + 42, y - 2, "UTH - Information Technology, 2022 - 2026")
 
         image_size = 84
         image_x = PAGE_W - MARGIN - image_size - 18
@@ -151,7 +157,7 @@ class VisualCv:
             ("linkedin.com/in/xuanhai0913", "https://www.linkedin.com/in/xuanhai0913/"),
         ]
         cx = x
-        cy = y - 21
+        cy = y - 14
         for value, url in contact:
             if cx + self.width(value, "Arial", 7.1) + 38 > image_x - 8:
                 cx = x
@@ -295,9 +301,9 @@ class VisualCv:
     def projects(self, y: float) -> float:
         y = self.section_title(RIGHT_X, y, "Selected Projects", "PRJ")
         project_summaries = [
-            ("ECH LMS", "Community LMS volunteer project for accessible English learning.", "Oct 2024 - Jan 2026"),
-            ("Vision Key AI", "AI screen assistant and landing page for productivity workflows.", "Dec 2025"),
-            ("Portfolio AI Assistant", "Portfolio chatbot plus LLM unit test generator project.", "Mar 2025 - May 2026"),
+            ("ECH LMS", "My position: Full-Stack Developer / Volunteer. Built LMS workflows for accessible English learning.", "Start: Oct 2024 | End: Jan 2026"),
+            ("Vision Key AI", "My position: macOS / AI Developer. Built AI screen-assistant workflows and landing page.", "Start: Dec 2025 | End: Dec 2025"),
+            ("Portfolio AI Assistant", "My position: Frontend / Python Developer. Built portfolio chatbot plus LLM unit test generator.", "Start: Mar 2025 | End: May 2026"),
         ]
         for title, body, period in project_summaries:
             self.c.setFillColor(PALE)

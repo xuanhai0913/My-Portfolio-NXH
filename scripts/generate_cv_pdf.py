@@ -235,7 +235,7 @@ class CvPdf:
 
     def entry(self, item: Entry) -> None:
         estimated = (
-            78
+            88
             + max(1, len(self.wrap(f"Stack: {item.stack}", CONTENT_W, "Arial-Italic", 7.8))) * 10
             + (10 if item.link else 0)
             + sum(max(1, len(self.wrap(b, CONTENT_W - 16, "Arial", 8.35))) * 11.4 for b in item.bullets)
@@ -249,6 +249,11 @@ class CvPdf:
         self.c.setFont("Arial-Bold", 8)
         self.c.drawRightString(PAGE_W - MARGIN_X, self.y, item.period)
         self.y -= 11
+
+        self.c.setFont("Arial", 7.9)
+        self.c.setFillColor(MUTED)
+        self.c.drawString(MARGIN_X, self.y, f"My position: {item.role}")
+        self.y -= 10
 
         self.c.setFont("Arial-Italic", 7.8)
         self.c.setFillColor(ACCENT_DARK)
@@ -336,34 +341,37 @@ PROJECT_ENTRIES: Sequence[Entry] = [
     Entry(
         role="Full-Stack Developer / Volunteer",
         name="ECH English Community House - LMS",
-        period="Project: Oct 2024 - Jan 2026",
+        period="Start: Oct 2024 | End: Jan 2026",
         link="https://ech.edu.vn",
         stack="ASP.NET Core 8 MVC/API, Entity Framework Core, SQL Server, Bootstrap 5, JavaScript, ASP.NET Identity, JWT, Cloudinary, MailKit, QuestPDF, ClosedXML, IIS",
         bullets=[
-            "Volunteered on an LMS for a community English program serving disabled learners and people in difficult circumstances.",
-            "Built course/content management, secure authentication, certificate generation, media storage, email notifications and Excel/PDF reporting.",
+            "Task: support an LMS for a community English program serving disabled learners and people in difficult circumstances.",
+            "Action: built course/content management, secure authentication, certificate generation, media storage, email notifications and Excel/PDF reporting.",
+            "Result: helped create a more maintainable learning platform for volunteer teaching and community operations.",
         ],
     ),
     Entry(
         role="macOS / AI Developer",
         name="Vision Key - AI Screen Assistant",
-        period="Project: Dec 2025",
+        period="Start: Dec 2025 | End: Dec 2025",
         link="https://landing-vision-premium.vercel.app",
         stack="Swift 5.9+, SwiftUI, AppKit, Google Gemini 2.5 Pro API, Carbon global hotkey, macOS Keychain, Chrome extensions",
         bullets=[
-            "Built a macOS AI screen assistant with secure API key storage, global hotkeys and Gemini-powered workflows for on-screen productivity.",
-            "Published supporting landing page and browser extension repositories for standard and premium usage flows.",
+            "Task: prototype an AI screen assistant for on-screen productivity and quick contextual assistance.",
+            "Action: built secure API key storage, global hotkeys and Gemini-powered workflows with SwiftUI/AppKit.",
+            "Result: published the supporting landing page and browser extension repositories for product presentation.",
         ],
     ),
     Entry(
         role="Frontend / Python Developer",
         name="Portfolio AI Assistant & LLM Unit Test Generator",
-        period="Project: Mar 2025 - May 2026",
+        period="Start: Mar 2025 | End: May 2026",
         link="https://my-portfolio-nxh.vercel.app",
         stack="React, JavaScript, Three.js, GSAP, Gemini/DeepSeek APIs, Python 3.8+, pytest, pytest-cov, Black, Flake8, Pylint, Mypy, Vercel",
         bullets=[
-            "Enhanced personal portfolio with an AI assistant that answers recruiter questions about CV, projects, contact details and job-fit context.",
-            "Built an LLM-powered unit test generation project using DeepSeek API, Python tooling, coverage reporting and code-quality checks.",
+            "Task: make portfolio information easier for recruiters to explore and automate unit-test drafting for Python code.",
+            "Action: built a Gemini-powered portfolio assistant and an LLM unit-test generator using DeepSeek API, pytest and coverage tooling.",
+            "Result: improved recruiter-facing project discovery and created reusable AI-assisted testing workflows.",
         ],
     ),
 ]
@@ -375,6 +383,15 @@ def build() -> None:
     pdf = CvPdf(OUTPUT)
     pdf.header()
     pdf.summary()
+    pdf.compact_section(
+        "Education",
+        [
+            (
+                "UTH - University of Transport Ho Chi Minh City:",
+                "Information Technology major, 2022 - 2026. Higher education: University level. Coursework and projects focused on practical software development, web systems and applied programming.",
+            )
+        ],
+    )
     pdf.skills()
     pdf.section("Work Experience", 130)
     for item in WORK_ENTRIES:
@@ -384,15 +401,6 @@ def build() -> None:
     for item in PROJECT_ENTRIES:
         pdf.entry(item)
 
-    pdf.compact_section(
-        "Education",
-        [
-            (
-                "Ho Chi Minh City University of Transport:",
-                "Information Technology major, 2022 - 2026. Coursework and projects focused on practical software development, web systems and applied programming.",
-            )
-        ],
-    )
     pdf.compact_section(
         "Certifications & Activities",
         [
