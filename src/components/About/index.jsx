@@ -23,7 +23,7 @@ const About = () => {
       { name: 'ASP.NET Core', level: 80 },
       { name: 'Python / Odoo 18', level: 75 },
       { name: 'SQL / MongoDB', level: 75 },
-      { name: 'DeepSeek / AI', level: 70 }
+      { name: 'AI Agent Workflow', level: 82 }
     ]
   };
 
@@ -39,22 +39,24 @@ const About = () => {
             <p className="bio-text">
               Nguyễn Xuân Hải is a <span className="highlight">Full-Stack Developer</span> based
               in Ho Chi Minh City, Vietnam, specializing in React, .NET Core,
-              Odoo, and AI integration. He builds production web applications —
-              from B2B platforms and automotive dealership ERP workflows
-              to AI assistants powered by Google Gemini.
+              Odoo, and practical AI-assisted engineering workflows. He builds
+              production web applications — from B2B platforms and automotive
+              dealership ERP workflows to AI agents that support planning,
+              code review, automation, and delivery.
             </p>
             {/* AI-extractable stats block (+37% citation boost per GEO study) */}
             <p className="bio-sub">
               9+ projects shipped to production, including 3 commercial platforms
               serving real users in Vietnam. Tech stack spans React frontends,
               .NET Core and Odoo backends, Node.js APIs, PostgreSQL,
-              and AI integrations with Gemini 2.0 and Deepseek LLM.
+              and AI workflows with Claude, Codex, Antigravity-style agents,
+              Gemini, DeepSeek, and OpenAI APIs.
             </p>
 
             <div className="code-quote">
               <span className="comment">{'/* Currently */'}</span>
               <br />
-              <span className="keyword">building</span> <span className="string">"AI-powered tools with Gemini & Deepseek"</span>;
+              <span className="keyword">building</span> <span className="string">"project-aware AI agents for dev workflows"</span>;
             </div>
           </div>
         </div>

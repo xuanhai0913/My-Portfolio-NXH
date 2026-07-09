@@ -29,6 +29,9 @@ export const PROFILE_CONTEXT = {
     'TypeScript',
     'System Design',
     'API Integration',
+    'AI agent workflow setup',
+    'Claude / Codex / Antigravity',
+    'AI-assisted code review and CI/CD',
   ],
   projects: [
     {
@@ -49,8 +52,13 @@ export const PROFILE_CONTEXT = {
     {
       name: 'Portfolio Website',
       url: EXTERNAL_URLS.PORTFOLIO,
-      stack: ['React', 'GSAP', 'CSS3'],
+      stack: ['React', 'GSAP', 'CSS3', 'AI Assistant'],
     },
+  ],
+  aiWorkflowSummary: [
+    'Sets up project-specific AI context, rules and reusable skills for each tech stack.',
+    'Uses Claude, Codex and Antigravity-style agents to support planning, code review, automation and CI/CD handoff.',
+    'Applies AI pragmatically for issue analysis, documentation, QA support and operations without replacing engineering judgment.',
   ],
   certifications: [
     'Gemini Certified Faculty (Google, 2025)',

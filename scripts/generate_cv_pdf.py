@@ -57,7 +57,7 @@ class CvPdf:
         self._register_fonts()
         self.c.setTitle("Nguyen Xuan Hai - Full-Stack Developer CV")
         self.c.setAuthor("Nguyen Xuan Hai")
-        self.c.setSubject("Full-Stack Developer CV - React, ASP.NET Core, NestJS, AI Integration")
+        self.c.setSubject("Full-Stack Developer CV - React, ASP.NET Core, NestJS, AI Agent Workflows")
         self.c.setCreator("Codex CV generator")
 
     def _register_fonts(self) -> None:
@@ -153,7 +153,7 @@ class CvPdf:
         y = PAGE_H - 61
         self.c.setFillColor(INK)
         self.c.setFont("Arial-Bold", 20)
-        self.c.drawString(x, y, "Nguyễn Xuân Hải")
+        self.c.drawString(x, y, "Nguyen Xuan Hai")
         self.c.setFont("Arial-Bold", 9.6)
         self.c.setFillColor(ACCENT_DARK)
         self.c.drawString(x, y - 16, "Full-Stack Developer | React | ASP.NET Core | Odoo 18 | AI Integration")
@@ -210,11 +210,11 @@ class CvPdf:
     def summary(self) -> None:
         self.section("Professional Summary", 55)
         text = (
-            "Full-stack developer building production web apps, ERP workflows and AI-enabled tools across React/Vite, "
+            "Full-stack developer building production web apps, ERP workflows and AI-assisted delivery systems across React/Vite, "
             "ASP.NET Core, Python/Odoo 18, NestJS, PostgreSQL/SQL Server and cloud deployment workflows. Experienced "
             "with automotive dealership ERP, CMS, B2B platforms, LMS/community projects, realtime features, authentication, reporting/PDF "
-            "generation and localization. Comfortable owning features from UI and API design through database modeling, "
-            "deployment and troubleshooting."
+            "generation and localization. Comfortable setting up project-specific AI context, skills and agent workflows with tools "
+            "such as Claude, Codex and Antigravity to support planning, code review, CI/CD handoff, automation and operations."
         )
         self.y = self.draw_wrapped(text, MARGIN_X, self.y, CONTENT_W, "Arial", 8.75, INK, 11.4)
         self.y -= 4
@@ -226,7 +226,8 @@ class CvPdf:
             ("Backend:", "Python 3.12, Odoo 18, ASP.NET Core 8, NestJS, Node.js/Express, RESTful APIs, Entity Framework Core, TypeORM, JWT, OAuth2, ASP.NET Identity, Swagger/OpenAPI."),
             ("ERP & Reporting:", "Odoo ORM, QWeb/XML, wkhtmltopdf, gettext i18n, TT200 accounting workflows, PostgreSQL, SQL Server, MySQL, QuestPDF, ClosedXML."),
             ("Data & Infra:", "PostgreSQL, SQL Server, Redis, BullMQ, Socket.IO, SignalR, Docker, IIS, Vercel, GitLab CI/CD, GitHub, pnpm, Nx monorepo."),
-            ("AI & Quality:", "Google Gemini API, DeepSeek API, OpenAI API, AI assistant workflows, pytest, pytest-cov, linting, Serilog, Cloudinary, MailKit."),
+            ("AI & Agent Workflow:", "Claude, Codex, Antigravity-style agents, project skill/config setup, AI-assisted planning, code review, CI/CD handoff, automation, operations support, Gemini/DeepSeek/OpenAI APIs."),
+            ("Quality & Tooling:", "pytest, pytest-cov, linting, Serilog, Cloudinary, MailKit, Swagger/OpenAPI, documentation and troubleshooting workflows."),
             ("Professional:", "Problem solving, communication, teamwork, time management, documentation, ownership across frontend/backend tasks."),
         ]
         for label, value in rows:
@@ -288,51 +289,51 @@ class CvPdf:
 
 WORK_ENTRIES: Sequence[Entry] = [
     Entry(
-        role="Full-Stack Developer",
+        role="Core Full-Stack Developer",
         name="Betodemy - Japanese Learning Platform",
         period="Start: Feb 2026 | End: Present",
         link="https://betodemy.com",
         stack="React 19, Vite, Tailwind CSS 4, HeroUI, NestJS 11, TypeORM, PostgreSQL, Redis, BullMQ, Socket.IO, Nx, pnpm, GitLab CI/CD",
         bullets=[
-            "Assigned to build and maintain product modules for student portals, teacher-led online classes, admin workflows, gamified practice and multilingual learning content.",
-            "Develop interactive exercise blocks, rich editor workflows with SlateJS/PlateJS, realtime classroom features and background jobs using Socket.IO, Redis and BullMQ.",
-            "Coordinate frontend, backend, database and CI/CD changes inside an Nx monorepo, keeping new work aligned with existing architecture and code standards.",
+            "Worked as a core developer in a 5-person engineering team with Betodemy's Japan-side leadership, joining weekly meetings to discuss bugs, feature scope and release priorities.",
+            "Built and fixed product modules for student portals, teacher-led online classes, admin workflows, gamified practice and multilingual learning content.",
+            "Created/managed issues after release, supported production operations, and configured AI-assisted workflows for issue analysis, code review and CI/CD handoff inside an Nx monorepo.",
         ],
     ),
     Entry(
-        role="Full-Stack Developer Intern",
+        role="Odoo ERP Support Developer Intern",
         name="AI Power - Automotive Dealership ERP",
         period="Start: May 2026 | End: Jul 2026",
         link="https://aipower.vn/vi",
         stack="Python 3.12, Odoo 18, PostgreSQL, QWeb/XML, wkhtmltopdf, Docker, GitLab CI/CD, gettext i18n",
         bullets=[
-            "Assigned to support an Odoo 18 ERP for automotive dealerships in Vietnam, covering sales, an 18-state after-sales service workflow, spare parts, warranty and TT200 accounting.",
-            "Implemented and adjusted business logic, data models, QWeb/XML views, localized PDF reports and gettext translations across 18 custom modules and 99+ Python files.",
-            "Used Dockerized development and GitLab CI workflows to deliver changes consistently within an established ERP codebase and reduce handoff friction with the team.",
+            "Supported an Odoo 18 ERP for automotive dealerships in Vietnam, covering sales, an 18-state after-sales service workflow, spare parts, warranty and TT200 accounting.",
+            "Handled fixes and small enhancements after BA/customer discussions, adjusting business logic, data models, QWeb/XML views, localized PDF reports and translations.",
+            "Maintained module-level changes across 18 custom modules and 99+ Python files using Dockerized development and GitLab CI workflows.",
         ],
     ),
     Entry(
-        role="Full-Stack Developer",
+        role="Main Full-Stack Developer / BA-facing Owner",
         name="Great Link Mai House - Digital Publishing Platform",
         period="Start: Jul 2025 | End: May 2026",
         link="https://greatlinkmaihouse.com",
         stack="ASP.NET Core 8, React 18, SignalR, SQL Server, JWT, Google OAuth, Cloudinary, SendGrid, OpenAI API",
         bullets=[
-            "Worked on a business publishing platform with a modern API/frontend architecture for media and B2B use cases.",
-            "Built production-facing features around secure authentication, realtime updates, media handling and third-party service integrations.",
-            "Supported maintainable delivery by keeping API, frontend and integration work aligned with deployment and handoff needs.",
+            "Owned the main delivery flow for a WordPress-to-React/ASP.NET Core conversion, covering requirement clarification, solution direction and implementation handoff.",
+            "Built the platform end-to-end across React frontend, ASP.NET Core APIs, SQL Server database, authentication, realtime updates, media handling and integrations.",
+            "Worked directly in a BA-facing role to clarify scope, close implementation decisions and keep the product aligned with business publishing/B2B workflows.",
         ],
     ),
     Entry(
-        role="Full-Stack Developer",
+        role="Main Full-Stack Developer / BA-facing Owner",
         name="VN Media Hub - CMS & Media Platform",
         period="Start: Oct 2024 | End: Jan 2026",
         link="https://vnmediahub.com",
         stack="React 18, Vite, ASP.NET Core 8 Web API, Entity Framework Core, SQL Server, JWT, Google OAuth2, reCAPTCHA v3, Redis/Memory Cache, Serilog, Docker, QuestPDF",
         bullets=[
-            "Assigned to build a CMS/media platform covering content management, authentication, moderation, SEO-friendly publishing and automated PDF/report exports.",
-            "Implemented frontend and backend features with React and ASP.NET Core, including auth flows, content workflows, cache layers, structured logging and report generation.",
-            "Improved operational readiness with API documentation, compression, image optimization and maintainable production-facing delivery practices.",
+            "Led the main build and WordPress-to-React/ASP.NET Core conversion for a CMS/media platform, from requirement clarification to production-ready delivery.",
+            "Implemented content management, authentication, moderation, SEO-friendly publishing, cache layers, structured logging and automated PDF/report exports.",
+            "Acted as a BA-facing developer: clarified needs, closed feature scope and translated business workflows into frontend, API and database changes.",
         ],
     ),
 ]
@@ -371,7 +372,7 @@ PROJECT_ENTRIES: Sequence[Entry] = [
         bullets=[
             "Task: make portfolio information easier for recruiters to explore and automate unit-test drafting for Python code.",
             "Action: built a Gemini-powered portfolio assistant and an LLM unit-test generator using DeepSeek API, pytest and coverage tooling.",
-            "Result: improved recruiter-facing project discovery and created reusable AI-assisted testing workflows.",
+            "Result: improved recruiter-facing project discovery and created reusable AI-assisted testing and development workflows.",
         ],
     ),
 ]
