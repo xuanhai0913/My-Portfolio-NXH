@@ -200,88 +200,75 @@ class VisualCv:
     def contact_row(self) -> None:
         rows = [
             [
-                (LEFT_X + 10, 148, "phone.png", "0929501116", None),
-                (LEFT_X + 190, 148, "calendar.png", "29/11/2004", None),
-                (LEFT_X + 370, 148, "email.png", "xuanhai0913750452@gmail.com", "mailto:xuanhai0913750452@gmail.com"),
+                (LEFT_X + 18, 142, "phone.png", "0929501116", None),
+                (LEFT_X + 190, 142, "calendar.png", "29/11/2004", None),
+                (LEFT_X + 362, 168, "email.png", "xuanhai0913750452@gmail.com", "mailto:xuanhai0913750452@gmail.com"),
             ],
             [
-                (LEFT_X + 10, 148, "website.png", "my-portfolio-nxh.vercel.app", "https://my-portfolio-nxh.vercel.app"),
-                (LEFT_X + 190, 148, "github.png", "github.com/xuanhai0913", "https://github.com/xuanhai0913"),
-                (LEFT_X + 370, 148, "linkedin.png", "linkedin.com/in/xuanhai0913", "https://www.linkedin.com/in/xuanhai0913/"),
+                (LEFT_X + 18, 142, "website.png", "my-portfolio-nxh.vercel.app", "https://my-portfolio-nxh.vercel.app"),
+                (LEFT_X + 190, 142, "github.png", "github.com/xuanhai0913", "https://github.com/xuanhai0913"),
+                (LEFT_X + 362, 168, "linkedin.png", "linkedin.com/in/xuanhai0913", "https://www.linkedin.com/in/xuanhai0913/"),
             ],
         ]
         for row_index, row in enumerate(rows):
-            y = PAGE_H - 183 - row_index * 19
+            y = PAGE_H - 181 - row_index * 16
             for idx, (x, w, icon_name, text, url) in enumerate(row):
-                self.c.setFillColor(WHITE)
-                self.c.setStrokeColor(HexColor("#E1EAEC"))
-                self.c.roundRect(x, y - 9, w, 17, 6, fill=1, stroke=1)
-                self.image_icon(CONTACT_ICON_DIR / icon_name, x + 11, y - 0.5, 7.6, TEAL, 7)
+                if idx:
+                    self.c.setStrokeColor(HexColor("#DDE6E8"))
+                    self.c.setLineWidth(0.55)
+                    self.c.line(x - 15, y - 5, x - 15, y + 7)
+                self.image_icon(CONTACT_ICON_DIR / icon_name, x, y + 0.5, 6.2, TEAL, 5.8)
                 self.c.setFillColor(INK)
-                size = 5.45 if len(text) > 25 else 6.35
+                size = 5.85 if len(text) > 25 else 6.45
                 self.c.setFont("Arial", size)
-                ty = y - 2.0 if len(text) <= 26 else y - 1.4
-                lines = self.wrap(text, w - 26, "Arial", size)
-                for line in lines[:2]:
-                    self.c.drawString(x + 24, ty, line)
-                    ty -= 6.4
+                self.c.drawString(x + 11, y - 2.0, text)
                 if url:
-                    self.link_box(x, y - 9, w, 17, url)
+                    self.link_box(x - 6, y - 6, w, 14, url)
 
     def ai_workflow_card(self) -> None:
-        x = LEFT_X + 2
-        y = PAGE_H - 228
-        w = PAGE_W - (LEFT_X * 2) - 4
-        h = 94
-        self.c.setFillColor(TEAL_SOFT)
-        self.c.setStrokeColor(HexColor("#BBD9D8"))
-        self.c.roundRect(x, y - h, w, h, 10, fill=1, stroke=1)
-        left = x + 20
-        top = y - 22
+        x = LEFT_X + 6
+        y = PAGE_H - 223
+        w = PAGE_W - (LEFT_X * 2) - 12
+        h = 68
+        self.c.setFillColor(HexColor("#F6FBFA"))
+        self.c.roundRect(x, y - h, w, h, 8, fill=1, stroke=0)
+        self.c.setFillColor(TEAL)
+        self.c.roundRect(x, y - h, 3.2, h, 1.5, fill=1, stroke=0)
+        self.c.setStrokeColor(HexColor("#D8E7E7"))
+        self.c.setLineWidth(0.65)
+        self.c.line(x + 14, y - h + 14, x + w - 14, y - h + 14)
 
-        self.icon_circle(left, top + 2, "AI", TEAL, WHITE, 13, 8.5)
+        left = x + 18
+        top = y - 18
         self.c.setFillColor(TEAL_DARK)
-        self.c.setFont("Arial-Bold", 12.8)
-        self.c.drawString(left + 25, top + 4, "AI Workflow")
-        self.text(
-            "I set up project-aware AI workflows to turn messy context into plans, review notes, automation, and smoother release handoff.",
-            left,
-            top - 17,
-            170,
-            "Arial",
-            6.9,
-            INK,
-            9.8,
-        )
+        self.c.setFont("Arial-Bold", 11.2)
+        self.c.drawString(left, top, "AI Workflow")
+        self.c.setFillColor(MUTED)
+        self.c.setFont("Arial", 6.75)
+        self.c.drawString(left, top - 11, "Project-aware context, review automation and release handoff.")
 
-        columns = [
-            ("file-earmark-text.svg", "Project Context", "Structure requirements, codebase and docs into clear, actionable context."),
-            ("robot.svg", "Agent Skills", "Use agents for coding, review, tests, automation and docs."),
-            ("git.svg", "Review & CI/CD", "AI-assisted review, quality gates and smoother release handoff."),
-        ]
-        start_x = x + 218
-        col_w = 108
-        for i, (icon_name, title, body) in enumerate(columns):
-            cx = start_x + i * col_w
-            if i:
-                self.c.setStrokeColor(HexColor("#BED8D8"))
-                self.c.line(cx - 11, y - 18, cx - 11, y - h + 18)
-            self.c.setFillColor(WHITE)
-            self.c.circle(cx, top + 3, 9.5, fill=1, stroke=0)
-            self.svg_icon(WORKFLOW_ICON_DIR / icon_name, cx, top + 3, 8.2)
+        tools = [("Claude", 0), ("Codex", 42), ("Antigravity", 82)]
+        for label, offset in tools:
+            self.agent_icon(left + offset + 5, top - 29, label, 4.2)
             self.c.setFillColor(INK)
-            self.c.setFont("Arial-Bold", 7.45)
-            self.c.drawString(cx + 14, top + 1, title)
-            self.text(body, cx, top - 16, col_w - 18, "Arial", 6.25, INK, 8.7)
-            if title == "Agent Skills":
-                tool_y = top - 51
-                for offset, label in ((9, "Claude"), (43, "Codex"), (77, "Antigravity")):
-                    self.c.setFillColor(WHITE)
-                    self.c.circle(cx + offset, tool_y - 1.5, 7.2, fill=1, stroke=0)
-                    self.agent_icon(cx + offset, tool_y - 1.5, label, 4.9)
-                    self.c.setFillColor(INK)
-                    self.c.setFont("Arial-Bold", 4.8)
-                    self.c.drawCentredString(cx + offset, tool_y - 12.5, label)
+            self.c.setFont("Arial-Bold", 5.25)
+            self.c.drawString(left + offset + 13, top - 31.5, label)
+
+        items = [
+            ("file-earmark-text.svg", "Context", "requirements + codebase notes"),
+            ("robot.svg", "Agent support", "coding, tests, docs"),
+            ("git.svg", "Review/CI", "quality gates + handoff"),
+        ]
+        start_x = x + 240
+        for i, (icon_name, title, body) in enumerate(items):
+            cx = start_x + i * 95
+            self.svg_icon(WORKFLOW_ICON_DIR / icon_name, cx, top - 1, 7.2)
+            self.c.setFillColor(INK)
+            self.c.setFont("Arial-Bold", 6.65)
+            self.c.drawString(cx + 10, top - 2, title)
+            self.c.setFillColor(MUTED)
+            self.c.setFont("Arial", 5.6)
+            self.c.drawString(cx + 10, top - 11, body)
 
     def agent_icon(self, x: float, y: float, label: str, r: float = 6.0) -> None:
         icon_path = AGENT_ICON_DIR / f"{label.lower()}.png"
@@ -378,28 +365,26 @@ class VisualCv:
             y -= 18
 
     def skill_row(self, x: float, y: float, label: str, category: str, icon_name: str | None = None) -> float:
-        row_h = 13.8
-        self.c.setFillColor(WHITE)
+        row_h = 12.2
         self.c.setStrokeColor(LINE)
-        self.c.roundRect(x, y - row_h + 4, RIGHT_W, row_h, 5, fill=1, stroke=1)
-        self.c.setFillColor(PALE)
-        self.c.circle(x + 12, y - 3.2, 6.6, fill=1, stroke=0)
+        self.c.setLineWidth(0.5)
+        self.c.line(x + 2, y - row_h + 2.6, x + RIGHT_W - 2, y - row_h + 2.6)
         icon_path = STACK_ICON_DIR / icon_name if icon_name else None
         if icon_path and icon_path.exists():
-            self.c.drawImage(ImageReader(str(icon_path)), x + 7, y - 8.6, 10.5, 10.5, mask="auto")
+            self.c.drawImage(ImageReader(str(icon_path)), x + 2, y - 8.3, 8.7, 8.7, mask="auto")
         elif label in ("Claude", "Codex", "Antigravity"):
-            self.agent_icon(x + 12, y - 3.2, label, 4.8)
+            self.agent_icon(x + 6.5, y - 3.8, label, 4.0)
         else:
             self.c.setFillColor(TEAL)
             self.c.setFont("Arial-Bold", 5.8)
-            self.c.drawCentredString(x + 12, y - 5.3, "AI")
+            self.c.drawCentredString(x + 6.5, y - 5.3, "AI")
         self.c.setFillColor(INK)
         self.c.setFont("Arial-Bold", 7.1)
-        self.c.drawString(x + 27, y - 5.3, label)
+        self.c.drawString(x + 17, y - 5.1, label)
         self.c.setFillColor(MUTED)
         self.c.setFont("Arial", 5.2)
-        self.c.drawRightString(x + RIGHT_W - 8, y - 5.2, category.upper())
-        return y - row_h - 1.4
+        self.c.drawRightString(x + RIGHT_W - 4, y - 5.1, category.upper())
+        return y - row_h
 
     def skills_and_projects(self) -> None:
         x = RIGHT_X
@@ -429,11 +414,12 @@ class VisualCv:
             ("AI", "AI Agent Workflow", "Codex/Claude/Antigravity context, skills and review automation.", "Mar 2025 - May 2026"),
         ]
         for mark, title, body, period in projects:
-            card_h = 27
-            self.c.setFillColor(WHITE)
-            self.c.setStrokeColor(LINE)
-            self.c.roundRect(x, y - card_h + 7, RIGHT_W, card_h, 6, fill=1, stroke=1)
-            self.icon_circle(x + 12, y - 7, mark, PALE, TEAL_DARK, 8.5, 6)
+            card_h = 36
+            self.c.setFillColor(PALE)
+            self.c.circle(x + 10, y - 9.0, 8.4, fill=1, stroke=0)
+            self.c.setFillColor(TEAL_DARK)
+            self.c.setFont("Arial-Bold", 5.8)
+            self.c.drawCentredString(x + 10, y - 11.0, mark)
             self.c.setFillColor(INK)
             self.c.setFont("Arial-Bold", 7.0)
             self.c.drawString(x + 27, y, title)
@@ -443,7 +429,10 @@ class VisualCv:
             self.c.setFillColor(TEAL)
             self.c.setFont("Arial-Bold", 5.5)
             self.c.drawString(x + 27, y - 16.3, period)
-            y -= card_h + 4
+            self.c.setStrokeColor(LINE)
+            self.c.setLineWidth(0.5)
+            self.c.line(x + 27, y - 28.5, x + RIGHT_W - 2, y - 28.5)
+            y -= card_h
 
     def footer(self) -> None:
         y = 78
