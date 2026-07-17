@@ -466,6 +466,25 @@
   margin: 0.5rem 0;
 }
 
+.showcase-impact {
+  margin: 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--color-accent);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.showcase-impact span {
+  display: block;
+  margin-bottom: 0.3rem;
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
 .showcase-tech {
   display: flex;
   flex-wrap: wrap;

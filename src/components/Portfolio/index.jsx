@@ -26,30 +26,33 @@ const Portfolio = () => {
   const allProjects = [
     {
       title: "Great Link Mai House",
-      description: "Corporate website for leading Media & B2B company. Built with enterprise-grade security and scalability in mind.",
+      description: "Rebuilt legacy WordPress publishing workflows as a React and ASP.NET Core platform, owning delivery from requirements through release.",
+      achievement: "Unified authentication, media, realtime updates, and B2B publishing workflows in one maintainable system.",
       image: prj8,
       demo: "https://greatlinkmaihouse.com/",
-      technologies: ["ASP.NET Core", "SQL Server", "C#"],
+      technologies: ["React", "ASP.NET Core", "SQL Server", "SignalR"],
       badge: "B2B",
       company: "GREATLINK MAIHOUSE",
-      year: "2024"
+      year: "2025"
     },
     {
       title: "Education English",
-      description: "Free English teaching platform for community. Empowering students with accessible education.",
+      description: "Community LMS supporting accessible English learning with course management, secure authentication, media, and notifications.",
+      achievement: "Digitized volunteer teaching operations with automated certificates and Excel/PDF reporting, reducing manual administration.",
       image: prj6,
       demo: "https://ech.edu.vn",
-      technologies: ["PHP", "MySQL", "WordPress"],
+      technologies: ["ASP.NET Core", "EF Core", "SQL Server", "QuestPDF"],
       company: "ECH COMMUNITY",
       year: "2024"
     },
     {
       title: "VN Media Hub",
-      description: "Professional blog platform with .NET Core backend. Modern CMS with SEO optimization.",
+      description: "Production CMS built with React and ASP.NET Core for content, moderation, publishing, and reporting workflows.",
+      achievement: "Centralized day-to-day content operations and added caching, structured logging, SEO publishing, and PDF exports.",
       image: prj3,
       demo: "https://vnmediahub.com",
       github: "https://github.com/xuanhai0913/VNMediaHub",
-      technologies: [".NET Core", "React", "SQL"],
+      technologies: ["React", "ASP.NET Core", "SQL Server", "Redis"],
       company: "VN MEDIA HUB",
       year: "2024"
     },
@@ -258,6 +261,12 @@ const Portfolio = () => {
         )}
         <h3 className="showcase-title">{project.title}</h3>
         <p className="showcase-desc">{project.description}</p>
+        {project.achievement && (
+          <p className="showcase-impact">
+            <span>IMPACT</span>
+            {project.achievement}
+          </p>
+        )}
 
         <div className="showcase-tech">
           {project.technologies.map((tech, i) => (

@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import argparse
 from pathlib import Path
 
 from reportlab.lib.colors import HexColor
@@ -49,13 +50,16 @@ BOTTOM = 34
 
 
 class VisualCv:
-    def __init__(self, output: Path) -> None:
+    def __init__(self, output: Path, ai_mode: str = "tools") -> None:
+        if ai_mode not in {"off", "tools", "featured"}:
+            raise ValueError(f"Unsupported AI mode: {ai_mode}")
         self.output = output
+        self.ai_mode = ai_mode
         self.c = canvas.Canvas(str(output), pagesize=A4, pageCompression=1)
         self._register_fonts()
         self.c.setTitle("Nguyen Xuan Hai - Visual CV")
         self.c.setAuthor("Nguyen Xuan Hai")
-        self.c.setSubject("One-page visual CV - AI workflow, company experience, skills and projects")
+        self.c.setSubject("One-page visual CV - company experience, skills and selected projects")
         self.c.setCreator("Codex vector visual CV generator")
 
     def _register_fonts(self) -> None:
@@ -162,40 +166,47 @@ class VisualCv:
         y = PAGE_H - 72
 
         self.c.setFillColor(INK)
-        self.c.setFont("Arial-Bold", 30)
+        self.c.setFont("Arial-Bold", 28)
         self.c.drawString(x, y, "Nguyen Xuan Hai")
-        y -= 24
+        y -= 23
         self.c.setFillColor(AMBER)
-        self.c.setFont("Arial-Bold", 14.6)
+        self.c.setFont("Arial-Bold", 14.2)
         self.c.drawString(x, y, "Full-Stack Developer")
-        y -= 18
+        y -= 17
         self.c.setFillColor(INK)
-        self.c.setFont("Arial", 9.5)
-        self.c.drawString(x, y, "React  |  ASP.NET Core  |  Odoo 18  |  AI Agent Workflow")
-        y -= 15
+        self.c.setFont("Arial", 9.2)
+        self.c.drawString(x, y, "React  |  ASP.NET Core  |  NestJS  |  Odoo 18")
+        y -= 14
         self.c.setFillColor(TEAL)
         self.c.rect(x, y + 6, 34, 2, fill=1, stroke=0)
         y -= 10
-        self.text(
-            "Full-stack developer who ships web/ERP features and uses AI agents to speed up delivery, review and operations.",
+        y = self.text(
+            "Full-stack developer with hands-on experience delivering production web and ERP features from requirements through release and support.",
             x,
             y,
             360,
             "Arial",
-            7.7,
+            8.25,
             MUTED,
-            9.3,
+            9.8,
         )
+        y -= 2
+        self.c.setFillColor(TEAL_DARK)
+        self.c.setFont("Arial-Bold", 7.4)
+        self.c.drawString(x, y, "EDUCATION")
+        self.c.setFillColor(INK)
+        self.c.setFont("Arial", 7.4)
+        self.c.drawString(x + 49, y, "UTH - Information Technology | 2022 - 2026")
 
-        image_size = 88
-        image_x = PAGE_W - MARGIN - image_size - 20
-        image_y = PAGE_H - 148
+        image_size = 76
+        image_x = PAGE_W - MARGIN - image_size - 22
+        image_y = PAGE_H - 136
         self.c.setFillColor(PALE)
-        self.c.circle(image_x + image_size / 2, image_y + image_size / 2, image_size / 2 + 11, fill=1, stroke=0)
+        self.c.circle(image_x + image_size / 2, image_y + image_size / 2, image_size / 2 + 9, fill=1, stroke=0)
         self.c.drawImage(ImageReader(str(PROFILE_IMAGE_CIRCLE)), image_x, image_y, image_size, image_size, mask="auto")
         self.c.setStrokeColor(AMBER)
         self.c.setLineWidth(1.2)
-        self.c.circle(image_x + image_size / 2, image_y + image_size / 2, image_size / 2 + 11, fill=0, stroke=1)
+        self.c.circle(image_x + image_size / 2, image_y + image_size / 2, image_size / 2 + 9, fill=0, stroke=1)
 
     def contact_row(self) -> None:
         rows = [
@@ -211,7 +222,7 @@ class VisualCv:
             ],
         ]
         for row_index, row in enumerate(rows):
-            y = PAGE_H - 181 - row_index * 16
+            y = PAGE_H - 190 - row_index * 16
             for idx, (x, w, icon_name, text, url) in enumerate(row):
                 if idx:
                     self.c.setStrokeColor(HexColor("#DDE6E8"))
@@ -224,6 +235,10 @@ class VisualCv:
                 self.c.drawString(x + 11, y - 2.0, text)
                 if url:
                     self.link_box(x - 6, y - 6, w, 14, url)
+
+        self.c.setStrokeColor(LINE)
+        self.c.setLineWidth(0.65)
+        self.c.line(LEFT_X + 6, PAGE_H - 218, PAGE_W - MARGIN - 6, PAGE_H - 218)
 
     def ai_workflow_card(self) -> None:
         x = LEFT_X + 6
@@ -292,56 +307,60 @@ class VisualCv:
         return self.text(text, x + 9, y, width - 9, "Arial", size, INK, size + 1.6) - 1
 
     def company_experience(self) -> None:
-        y = PAGE_H - 344
-        y = self.section_title(LEFT_X, y, "Company Experience", "briefcase.svg")
+        y = PAGE_H - 252
+        y = self.section_title(LEFT_X, y, "Relevant Experience", "briefcase.svg")
         axis_x = LEFT_X + 70
         content_x = LEFT_X + 94
         self.c.setStrokeColor(HexColor("#8BA3AE"))
         self.c.setLineWidth(0.8)
-        self.c.line(axis_x, y + 7, axis_x, BOTTOM + 116)
+        self.c.line(axis_x, y + 7, axis_x, BOTTOM + 100)
 
         entries = [
             (
                 "Feb 2026\n-\nPresent",
                 "Betodemy - Japanese Learning Platform",
-                "Role: Core Full-Stack Developer in 5-person product team",
+                "Full-Stack Developer | Part-time, remote | 5-person team",
+                "React 19 | NestJS | PostgreSQL | Redis | Nx",
                 [
-                    "Built features and fixed bugs across learning modules.",
-                    "Joined weekly product meetings, created issues after release, supported operations.",
+                    "Shipped and stabilized production features across student, teacher and admin workflows.",
+                    "Tracked post-release defects and supported weekly release handoffs in a 5-person team.",
                 ],
             ),
             (
                 "May 2026\n-\nJul 2026",
                 "AI Power - Automotive Dealership ERP",
-                "Role: Odoo ERP Support Developer Intern",
+                "Odoo ERP Support Developer Intern",
+                "Python 3.12 | Odoo 18 | PostgreSQL | QWeb/XML | GitLab CI",
                 [
-                    "Supported Odoo 18 dealership ERP modules after BA/customer requirement updates.",
-                    "Fixed business logic, QWeb reports and i18n across 18 modules and 99+ Python files.",
+                    "Resolved BA/customer defects across 18 Odoo modules and 99+ Python files.",
+                    "Kept 18-state after-sales workflows and localized QWeb reports aligned with operations.",
                 ],
             ),
             (
-                "Jul 2025\n-\nMay 2026",
+                "Jul 2025\n-\nJan 2026",
                 "Great Link Mai House",
-                "Role: Main Full-Stack Developer / BA-facing Owner",
+                "Full-Stack Developer | BA-facing delivery",
+                "React 18 | ASP.NET Core 8 | SQL Server | SignalR | JWT",
                 [
-                    "Led WordPress-to-React/ASP.NET Core conversion.",
-                    "Built auth, realtime, media and integration workflows.",
+                    "Rebuilt WordPress workflows as a React + ASP.NET Core platform.",
+                    "Owned requirements-to-release delivery across auth, media, realtime and B2B publishing.",
                 ],
             ),
             (
                 "Oct 2024\n-\nJan 2026",
                 "VN Media Hub",
-                "Role: Main Full-Stack Developer / BA-facing Owner",
+                "Full-Stack Developer | BA-facing delivery",
+                "React 18 | ASP.NET Core 8 | SQL Server | Redis | Serilog",
                 [
-                    "Led CMS/media platform from requirements to release.",
-                    "Built content, auth, moderation, SEO, caching, logging and PDF/report workflows.",
+                    "Delivered a production CMS for content, moderation and reporting workflows.",
+                    "Added caching, structured logging, SEO publishing and PDF exports for reliable operations.",
                 ],
             ),
         ]
 
-        for dates, title, role, bullets in entries:
+        for dates, title, role, tech, bullets in entries:
             self.c.setFillColor(TEAL)
-            self.c.setFont("Arial-Bold", 7.6)
+            self.c.setFont("Arial-Bold", 7.8)
             dy = y - 2
             for line in dates.splitlines():
                 self.c.drawRightString(axis_x - 18, dy, line)
@@ -351,18 +370,29 @@ class VisualCv:
             self.c.setLineWidth(1.35)
             self.c.circle(axis_x, y - 3, 5.3, fill=1, stroke=1)
             self.c.setFillColor(INK)
-            self.c.setFont("Arial-Bold", 9.1)
+            self.c.setFont("Arial-Bold", 9.8)
             self.c.drawString(content_x, y, title)
             self.c.setStrokeColor(LINE)
             self.c.line(content_x, y - 8, LEFT_X + LEFT_W, y - 8)
             y -= 18
             self.c.setFillColor(TEAL_DARK)
-            self.c.setFont("Arial-Bold", 7.1)
+            self.c.setFont("Arial-Bold", 7.75)
             self.c.drawString(content_x, y, role)
-            y -= 12
+            y -= 11.5
+            y = self.text(
+                tech,
+                content_x,
+                y,
+                LEFT_X + LEFT_W - content_x,
+                "Arial-Italic",
+                6.85,
+                MUTED,
+                8.2,
+            )
+            y -= 2
             for item in bullets:
-                y = self.bullet(item, content_x, y, LEFT_X + LEFT_W - content_x, 6.85)
-            y -= 18
+                y = self.bullet(item, content_x, y, LEFT_X + LEFT_W - content_x, 7.85)
+            y -= 20
 
     def skill_row(self, x: float, y: float, label: str, category: str, icon_name: str | None = None) -> float:
         row_h = 12.2
@@ -386,113 +416,121 @@ class VisualCv:
         self.c.drawRightString(x + RIGHT_W - 4, y - 5.1, category.upper())
         return y - row_h
 
+    def skill_group(self, x: float, y: float, label: str, value: str) -> float:
+        label_w = 65
+        self.c.setFillColor(TEAL_DARK)
+        self.c.setFont("Arial-Bold", 6.5)
+        self.c.drawString(x + 2, y, label.upper())
+        next_y = self.text(value, x + label_w, y, RIGHT_W - label_w - 2, "Arial", 7.65, INK, 9.1)
+        self.c.setStrokeColor(LINE)
+        self.c.setLineWidth(0.45)
+        self.c.line(x + 2, next_y + 2.7, x + RIGHT_W - 2, next_y + 2.7)
+        return next_y - 7
+
+    def developer_tools(self, x: float, y: float) -> float:
+        if self.ai_mode == "off":
+            return y
+        self.c.setFillColor(TEAL_DARK)
+        self.c.setFont("Arial-Bold", 6.9)
+        self.c.drawString(x + 2, y, "DEVELOPER TOOLS")
+        tool_x = x + 68
+        for label, display in [("Claude", "Claude Code"), ("Codex", "Codex")]:
+            self.agent_icon(tool_x + 5, y + 1.5, label, 4.2)
+            self.c.setFillColor(INK)
+            self.c.setFont("Arial", 7.2)
+            self.c.drawString(tool_x + 12, y - 1.6, display)
+            tool_x += 58
+        self.c.setStrokeColor(LINE)
+        self.c.setLineWidth(0.45)
+        self.c.line(x + 2, y - 8, x + RIGHT_W - 2, y - 8)
+        return y - 15
+
+    def project_entry(self, x: float, y: float, project: dict[str, str]) -> float:
+        self.c.setFillColor(INK)
+        self.c.setFont("Arial-Bold", 8.8)
+        self.c.drawString(x + 2, y, project["title"])
+        self.c.setFillColor(MUTED)
+        self.c.setFont("Arial-Bold", 6.15)
+        self.c.drawRightString(x + RIGHT_W - 2, y, project["period"])
+        y -= 10
+        self.c.setFillColor(TEAL_DARK)
+        self.c.setFont("Arial-Bold", 6.8)
+        self.c.drawString(x + 2, y, project["role"])
+        y -= 9
+        y = self.text(project["tech"], x + 2, y, RIGHT_W - 4, "Arial-Italic", 6.75, MUTED, 8.1)
+        y -= 1.5
+        y = self.text(project["impact"], x + 2, y, RIGHT_W - 4, "Arial", 7.55, INK, 9.1)
+        self.c.setStrokeColor(LINE)
+        self.c.setLineWidth(0.5)
+        self.c.line(x + 2, y + 2, x + RIGHT_W - 2, y + 2)
+        return y - 14
+
     def skills_and_projects(self) -> None:
         x = RIGHT_X
-        y = PAGE_H - 344
-        y = self.section_title(x, y, "Skills", "code-slash.svg")
-        skills = [
-            ("React", "Frontend", "react.png"),
-            ("ASP.NET Core", "Backend", "dotnet.png"),
-            ("NestJS", "Backend", "nestjs.png"),
-            ("Python 3.12", "Backend", "python.png"),
-            ("Odoo 18", "ERP", "odoo.png"),
-            ("PostgreSQL", "Database", "postgresql.png"),
-            ("Docker", "Infra", "docker.png"),
-            ("GitLab CI", "CI/CD", "gitlab.png"),
-            ("Claude", "AI Agents", None),
-            ("Codex", "AI Agents", None),
-            ("Antigravity", "AI Agents", None),
+        y = PAGE_H - 252
+        y = self.section_title(x, y, "Core Skills", "code-slash.svg")
+        skill_groups = [
+            ("Frontend", "React 18/19, TypeScript, Vite"),
+            ("Backend", "ASP.NET Core, NestJS, REST API"),
+            ("Data", "PostgreSQL, SQL Server, Redis"),
+            ("ERP", "Python 3.12, Odoo 18, QWeb/XML"),
+            ("Delivery", "Docker, GitLab CI/CD, Git"),
         ]
-        for label, category, icon_name in skills:
-            y = self.skill_row(x, y, label, category, icon_name)
+        for label, value in skill_groups:
+            y = self.skill_group(x, y, label, value)
+        y = self.developer_tools(x, y)
 
-        y -= 16
+        y -= 10
         y = self.section_title(x, y, "Selected Projects", "folder2-open.svg")
         projects = [
-            ("EC", "ECH LMS", "LMS workflows for accessible English learning.", "Oct 2024 - Jan 2026"),
-            ("VI", "Vision Key AI", "AI screen-assistant workflows and landing page.", "Dec 2025 - Dec 2025"),
-            ("AI", "AI Agent Workflow", "Codex/Claude/Antigravity context, skills and review automation.", "Mar 2025 - May 2026"),
+            {
+                "title": "ECH LMS",
+                "role": "Full-Stack Developer / Volunteer",
+                "period": "Oct 2024 - Jan 2026",
+                "tech": "ASP.NET Core | EF Core | SQL Server | QuestPDF",
+                "impact": "Digitized volunteer teaching operations with automated certificates and Excel/PDF reports.",
+            },
+            {
+                "title": "Portfolio Website",
+                "role": "Frontend Developer",
+                "period": "Mar 2025 - May 2026",
+                "tech": "React | Vite | SlateJS | GSAP | Vercel",
+                "impact": "Built recruiter-facing project discovery, a rich-text contact flow and analytics tracking.",
+            },
         ]
-        for mark, title, body, period in projects:
-            card_h = 36
-            self.c.setFillColor(PALE)
-            self.c.circle(x + 10, y - 9.0, 8.4, fill=1, stroke=0)
-            self.c.setFillColor(TEAL_DARK)
-            self.c.setFont("Arial-Bold", 5.8)
-            self.c.drawCentredString(x + 10, y - 11.0, mark)
-            self.c.setFillColor(INK)
-            self.c.setFont("Arial-Bold", 7.0)
-            self.c.drawString(x + 27, y, title)
-            self.c.setFillColor(INK)
-            self.c.setFont("Arial", 5.4)
-            self.c.drawString(x + 27, y - 8.4, body[:76])
-            self.c.setFillColor(TEAL)
-            self.c.setFont("Arial-Bold", 5.5)
-            self.c.drawString(x + 27, y - 16.3, period)
-            self.c.setStrokeColor(LINE)
-            self.c.setLineWidth(0.5)
-            self.c.line(x + 27, y - 28.5, x + RIGHT_W - 2, y - 28.5)
-            y -= card_h
+        if self.ai_mode == "featured":
+            projects[1] = {
+                "title": "AI Development Tools",
+                "role": "Frontend / Python Developer",
+                "period": "Mar 2025 - May 2026",
+                "tech": "React | Gemini/DeepSeek APIs | Python | pytest",
+                "impact": "Built a portfolio assistant and reusable LLM-assisted unit-test drafting workflow.",
+            }
+        for project in projects:
+            y = self.project_entry(x, y, project)
 
     def footer(self) -> None:
-        y = 78
+        y = 42
         self.c.setStrokeColor(HexColor("#AEBCC5"))
-        self.c.line(MARGIN, y + 18, PAGE_W - MARGIN, y + 18)
-        mid = PAGE_W / 2 - 8
-        self.c.setStrokeColor(LINE)
-        self.c.line(mid, y - 36, mid, y + 10)
-
-        self.c.setFillColor(TEAL)
-        self.c.circle(MARGIN + 12, y - 2, 10, fill=1, stroke=0)
-        self.svg_icon(SECTION_ICON_DIR / "mortarboard.svg", MARGIN + 12, y - 2, 9.0)
-        self.c.setFillColor(INK)
-        self.c.setFont("Arial-Bold", 8.4)
-        self.c.drawString(MARGIN + 32, y + 1, "EDUCATION")
-        self.c.setFillColor(TEAL)
-        self.c.rect(MARGIN + 32, y - 7, 28, 2, fill=1, stroke=0)
-        self.c.setFillColor(INK)
-        self.c.setFont("Arial", 6.7)
-        self.c.drawString(MARGIN + 2, y - 30, "UTH - Information Technology, 2022 - 2026")
-
-        cert_x = mid + 28
-        self.c.setFillColor(TEAL)
-        self.c.circle(cert_x - 16, y - 2, 10, fill=1, stroke=0)
-        self.svg_icon(SECTION_ICON_DIR / "award.svg", cert_x - 16, y - 2, 8.6)
-        self.c.setFillColor(INK)
-        self.c.setFont("Arial-Bold", 8.4)
-        self.c.drawString(cert_x, y + 1, "CERTIFICATIONS")
-        self.c.setFillColor(TEAL)
-        self.c.rect(cert_x, y - 7, 28, 2, fill=1, stroke=0)
-        certs = [
-            "Gemini Certified Student/Faculty",
-            "Google AI for K12 Educators",
-            "Basic Office Information Technology",
-            "Volunteer Participation Certificate",
-        ]
-        cy = y - 16
-        self.c.setFont("Arial", 5.9)
-        for cert in certs:
-            self.c.setFillColor(TEAL)
-            self.c.circle(cert_x + 2, cy + 2, 1.5, fill=1, stroke=0)
-            self.c.setFillColor(MUTED)
-            self.c.drawString(cert_x + 8, cy, cert)
-            cy -= 8
+        self.c.setLineWidth(0.6)
+        self.c.line(MARGIN, y + 10, PAGE_W - MARGIN, y + 10)
         self.c.setFillColor(MUTED)
-        self.c.setFont("Arial", 6.4)
-        self.c.drawRightString(PAGE_W - MARGIN, y - 34, "Ho Chi Minh City, Vietnam")
+        self.c.setFont("Arial", 6.6)
+        self.c.drawString(MARGIN, y - 2, "Portfolio: my-portfolio-nxh.vercel.app")
+        self.c.drawRightString(PAGE_W - MARGIN, y - 2, "Ho Chi Minh City, Vietnam")
 
     def save(self) -> None:
         self.c.save()
 
 
-def build() -> None:
+def build(output: Path = OUTPUT, ai_mode: str = "tools") -> None:
     if not PROFILE_IMAGE_CIRCLE.exists():
         raise FileNotFoundError(f"Missing profile image: {PROFILE_IMAGE_CIRCLE}")
-    pdf = VisualCv(OUTPUT)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    pdf = VisualCv(output, ai_mode=ai_mode)
     pdf.background()
     pdf.header()
     pdf.contact_row()
-    pdf.ai_workflow_card()
     pdf.company_experience()
     pdf.skills_and_projects()
     pdf.footer()
@@ -500,4 +538,8 @@ def build() -> None:
 
 
 if __name__ == "__main__":
-    build()
+    parser = argparse.ArgumentParser(description="Generate the reusable one-page visual CV.")
+    parser.add_argument("--ai-mode", choices=["off", "tools", "featured"], default="tools")
+    parser.add_argument("--output", type=Path, default=OUTPUT)
+    args = parser.parse_args()
+    build(args.output, args.ai_mode)

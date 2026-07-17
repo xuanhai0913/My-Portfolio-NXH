@@ -235,8 +235,13 @@ class CvPdf:
         self.y -= 2
 
     def entry(self, item: Entry) -> None:
+        header = f"{item.role} - {item.name}"
+        period_width = self.text_width(item.period, "Arial-Bold", 8)
+        header_width = CONTENT_W - period_width - 12
+        header_lines = self.wrap(header, header_width, "Arial-Bold", 9)
         estimated = (
             88
+            + max(0, len(header_lines) - 1) * 10
             + max(1, len(self.wrap(f"Stack: {item.stack}", CONTENT_W, "Arial-Italic", 7.8))) * 10
             + (10 if item.link else 0)
             + sum(max(1, len(self.wrap(b, CONTENT_W - 16, "Arial", 8.35))) * 11.4 for b in item.bullets)
@@ -244,12 +249,14 @@ class CvPdf:
         self.ensure(estimated)
         self.c.setFillColor(INK)
         self.c.setFont("Arial-Bold", 9)
-        header = f"{item.role} - {item.name}"
-        self.c.drawString(MARGIN_X, self.y, header)
+        header_y = self.y
+        for line in header_lines:
+            self.c.drawString(MARGIN_X, header_y, line)
+            header_y -= 10
         self.c.setFillColor(MUTED)
         self.c.setFont("Arial-Bold", 8)
         self.c.drawRightString(PAGE_W - MARGIN_X, self.y, item.period)
-        self.y -= 11
+        self.y = header_y - 1
 
         self.c.setFont("Arial", 7.9)
         self.c.setFillColor(MUTED)
@@ -296,8 +303,8 @@ WORK_ENTRIES: Sequence[Entry] = [
         stack="React 19, Vite, Tailwind CSS 4, HeroUI, NestJS 11, TypeORM, PostgreSQL, Redis, BullMQ, Socket.IO, Nx, pnpm, GitLab CI/CD",
         bullets=[
             "Worked as a core developer in a 5-person engineering team with Betodemy's Japan-side leadership, joining weekly meetings to discuss bugs, feature scope and release priorities.",
-            "Built and fixed product modules for student portals, teacher-led online classes, admin workflows, gamified practice and multilingual learning content.",
-            "Created/managed issues after release, supported production operations, and configured AI-assisted workflows for issue analysis, code review and CI/CD handoff inside an Nx monorepo.",
+            "Shipped and stabilized production features across student portals, teacher-led classes, admin workflows, gamified practice and multilingual learning content.",
+            "Turned post-release defects into tracked issues and supported weekly release handoffs with AI-assisted analysis, code review and CI/CD context inside an Nx monorepo.",
         ],
     ),
     Entry(
@@ -308,20 +315,20 @@ WORK_ENTRIES: Sequence[Entry] = [
         stack="Python 3.12, Odoo 18, PostgreSQL, QWeb/XML, wkhtmltopdf, Docker, GitLab CI/CD, gettext i18n",
         bullets=[
             "Supported an Odoo 18 ERP for automotive dealerships in Vietnam, covering sales, an 18-state after-sales service workflow, spare parts, warranty and TT200 accounting.",
-            "Handled fixes and small enhancements after BA/customer discussions, adjusting business logic, data models, QWeb/XML views, localized PDF reports and translations.",
-            "Maintained module-level changes across 18 custom modules and 99+ Python files using Dockerized development and GitLab CI workflows.",
+            "Resolved BA/customer-reported defects and delivered enhancements across business logic, data models, QWeb/XML views, localized PDF reports and translations.",
+            "Maintained changes across 18 custom modules and 99+ Python files, helping keep the 18-state workflow aligned with dealership operations through Docker and GitLab CI.",
         ],
     ),
     Entry(
         role="Main Full-Stack Developer / BA-facing Owner",
         name="Great Link Mai House - Digital Publishing Platform",
-        period="Start: Jul 2025 | End: May 2026",
+        period="Start: Jul 2025 | End: Jan 2026",
         link="https://greatlinkmaihouse.com",
         stack="ASP.NET Core 8, React 18, SignalR, SQL Server, JWT, Google OAuth, Cloudinary, SendGrid, OpenAI API",
         bullets=[
-            "Owned the main delivery flow for a WordPress-to-React/ASP.NET Core conversion, covering requirement clarification, solution direction and implementation handoff.",
-            "Built the platform end-to-end across React frontend, ASP.NET Core APIs, SQL Server database, authentication, realtime updates, media handling and integrations.",
-            "Worked directly in a BA-facing role to clarify scope, close implementation decisions and keep the product aligned with business publishing/B2B workflows.",
+            "Rebuilt WordPress workflows as a React and ASP.NET Core platform, owning delivery from requirement clarification through release handoff.",
+            "Integrated authentication, realtime updates, media handling and third-party services into one maintainable SQL-backed system for B2B publishing workflows.",
+            "Worked directly in a BA-facing role to close scope and translate business decisions into frontend, API and database changes.",
         ],
     ),
     Entry(
@@ -331,9 +338,9 @@ WORK_ENTRIES: Sequence[Entry] = [
         link="https://vnmediahub.com",
         stack="React 18, Vite, ASP.NET Core 8 Web API, Entity Framework Core, SQL Server, JWT, Google OAuth2, reCAPTCHA v3, Redis/Memory Cache, Serilog, Docker, QuestPDF",
         bullets=[
-            "Led the main build and WordPress-to-React/ASP.NET Core conversion for a CMS/media platform, from requirement clarification to production-ready delivery.",
-            "Implemented content management, authentication, moderation, SEO-friendly publishing, cache layers, structured logging and automated PDF/report exports.",
-            "Acted as a BA-facing developer: clarified needs, closed feature scope and translated business workflows into frontend, API and database changes.",
+            "Delivered a production CMS from requirement clarification to release, covering content, authentication, moderation and reporting workflows.",
+            "Implemented caching, structured logging, SEO-friendly publishing and automated PDF exports to support reliable day-to-day content operations.",
+            "Acted as a BA-facing developer to close feature scope and translate business workflows into React, ASP.NET Core API and SQL Server changes.",
         ],
     ),
 ]
@@ -348,7 +355,7 @@ PROJECT_ENTRIES: Sequence[Entry] = [
         bullets=[
             "Task: support an LMS for a community English program serving disabled learners and people in difficult circumstances.",
             "Action: built course/content management, secure authentication, certificate generation, media storage, email notifications and Excel/PDF reporting.",
-            "Result: helped create a more maintainable learning platform for volunteer teaching and community operations.",
+            "Result: digitized volunteer teaching operations and reduced manual administration through automated certificates and Excel/PDF reports.",
         ],
     ),
     Entry(

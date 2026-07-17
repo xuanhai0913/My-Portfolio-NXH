@@ -205,6 +205,12 @@ const Experience = () => {
                                 </div>
                                 <h4 className="job-role">{job.role}</h4>
                                 <p className="job-description">{job.description}</p>
+                                {job.achievement && (
+                                    <p className="job-achievement">
+                                        <span className="achievement-label">IMPACT</span>
+                                        <span>{job.achievement}</span>
+                                    </p>
+                                )}
 
                                 <div className="tech-stack-mini">
                                     {job.technologies.slice(0, 5).map((tech, i) => (
@@ -224,4 +230,3 @@ const Experience = () => {
 };
 
 export default Experience;
-

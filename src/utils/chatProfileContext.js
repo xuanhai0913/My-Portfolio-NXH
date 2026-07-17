@@ -38,11 +38,13 @@ export const PROFILE_CONTEXT = {
       name: 'Great Link Mai House',
       url: 'https://greatlinkmaihouse.com/',
       stack: ['ASP.NET Core', 'React 18', 'SignalR'],
+      achievement: 'Rebuilt legacy WordPress publishing workflows as a maintainable React and ASP.NET Core platform with end-to-end delivery ownership.',
     },
     {
       name: 'VN Media Hub',
       url: 'https://vnmediahub.com',
       stack: ['React 18', 'ASP.NET Core 8', 'Redis'],
+      achievement: 'Delivered a production CMS that centralized publishing and reporting workflows with caching, structured logging, SEO, and PDF exports.',
     },
     {
       name: 'Vision Key AI',
@@ -70,6 +72,7 @@ export const PROFILE_CONTEXT = {
     role: item.role,
     period: item.period,
     description: item.description,
+    achievement: item.achievement,
     technologies: item.technologies,
   })),
 };

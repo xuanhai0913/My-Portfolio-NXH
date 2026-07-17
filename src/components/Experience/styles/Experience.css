@@ -158,10 +158,33 @@
 .job-description {
     color: #ccc;
     line-height: 1.7;
-    margin-bottom: 25px;
+    margin-bottom: 14px;
     font-size: 1rem;
     max-width: 90%;
     text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.job-achievement {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+    gap: 12px;
+    max-width: 90%;
+    margin: 0 0 25px;
+    padding-left: 14px;
+    border-left: 2px solid var(--color-accent);
+    color: #f1f1f1;
+    font-size: 0.98rem;
+    line-height: 1.6;
+}
+
+.achievement-label {
+    padding-top: 2px;
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
 }
 
 /* Tech Stack */
@@ -247,6 +270,16 @@
 
     .company-name {
         font-size: 1.5rem;
+    }
+
+    .job-description,
+    .job-achievement {
+        max-width: 100%;
+    }
+
+    .job-achievement {
+        grid-template-columns: 1fr;
+        gap: 4px;
     }
 
     .audio-toggle {
