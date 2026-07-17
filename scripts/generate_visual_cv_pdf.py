@@ -306,6 +306,15 @@ class VisualCv:
         self.c.circle(x + 2, y + 3, 1.0, fill=1, stroke=0)
         return self.text(text, x + 9, y, width - 9, "Arial", size, INK, size + 1.6) - 1
 
+    def achievement(self, text: str, x: float, y: float, width: float) -> float:
+        label = "Achievement:"
+        size = 7.25
+        label_width = self.width(label, "Arial-Bold", size) + 4
+        self.c.setFillColor(AMBER)
+        self.c.setFont("Arial-Bold", size)
+        self.c.drawString(x, y, label)
+        return self.text(text, x + label_width, y, width - label_width, "Arial", size, INK, 8.7)
+
     def company_experience(self) -> None:
         y = PAGE_H - 252
         y = self.section_title(LEFT_X, y, "Company Experience", "briefcase.svg")
@@ -325,6 +334,7 @@ class VisualCv:
                     "Shipped and stabilized production features across student, teacher and admin workflows.",
                     "Tracked post-release defects and supported weekly release handoffs in a 5-person team.",
                 ],
+                "Made production defects traceable through weekly issue, review and release handoffs.",
             ),
             (
                 "May 2026\n-\nJul 2026",
@@ -335,6 +345,7 @@ class VisualCv:
                     "Resolved BA/customer defects across 18 Odoo modules and 99+ Python files.",
                     "Kept 18-state after-sales workflows and localized QWeb reports aligned with operations.",
                 ],
+                "Kept 18 custom modules aligned with BA/customer changes across the dealership workflow.",
             ),
             (
                 "Jul 2025\n-\nJan 2026",
@@ -345,6 +356,7 @@ class VisualCv:
                     "Rebuilt WordPress workflows as a React + ASP.NET Core platform.",
                     "Owned requirements-to-release delivery across auth, media, realtime and B2B publishing.",
                 ],
+                "Replaced fragmented WordPress workflows with one maintainable product delivery flow.",
             ),
             (
                 "Oct 2024\n-\nJan 2026",
@@ -355,10 +367,11 @@ class VisualCv:
                     "Delivered a production CMS for content, moderation and reporting workflows.",
                     "Added caching, structured logging, SEO publishing and PDF exports for reliable operations.",
                 ],
+                "Centralized publishing operations with stronger observability and automated reporting.",
             ),
         ]
 
-        for dates, title, role, tech, bullets in entries:
+        for dates, title, role, tech, bullets, achievement in entries:
             self.c.setFillColor(TEAL)
             self.c.setFont("Arial-Bold", 7.8)
             dy = y - 2
@@ -392,7 +405,9 @@ class VisualCv:
             y -= 2
             for item in bullets:
                 y = self.bullet(item, content_x, y, LEFT_X + LEFT_W - content_x, 7.85)
-            y -= 20
+            y -= 1
+            y = self.achievement(achievement, content_x, y, LEFT_X + LEFT_W - content_x)
+            y -= 17
 
     def skill_row(self, x: float, y: float, label: str, category: str, icon_name: str | None = None) -> float:
         row_h = 12.2
@@ -431,15 +446,15 @@ class VisualCv:
         if self.ai_mode == "off":
             return y
         self.c.setFillColor(TEAL_DARK)
-        self.c.setFont("Arial-Bold", 6.9)
-        self.c.drawString(x + 2, y, "DEVELOPER TOOLS")
-        tool_x = x + 68
+        self.c.setFont("Arial-Bold", 6.6)
+        self.c.drawString(x + 2, y, "DEV TOOLS")
+        tool_x = x + 60
         for label, display in [("Claude", "Claude Code"), ("Codex", "Codex")]:
             self.agent_icon(tool_x + 5, y + 1.5, label, 4.2)
             self.c.setFillColor(INK)
-            self.c.setFont("Arial", 7.2)
+            self.c.setFont("Arial", 6.9)
             self.c.drawString(tool_x + 12, y - 1.6, display)
-            tool_x += 58
+            tool_x += 66
         self.c.setStrokeColor(LINE)
         self.c.setLineWidth(0.45)
         self.c.line(x + 2, y - 8, x + RIGHT_W - 2, y - 8)

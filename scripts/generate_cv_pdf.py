@@ -303,7 +303,7 @@ WORK_ENTRIES: Sequence[Entry] = [
         bullets=[
             "Worked as a core developer in a 5-person engineering team with Betodemy's Japan-side leadership, joining weekly meetings to discuss bugs, feature scope and release priorities.",
             "Shipped and stabilized production features across student portals, teacher-led classes, admin workflows, gamified practice and multilingual learning content.",
-            "Turned post-release defects into tracked issues and supported weekly release handoffs with AI-assisted analysis, code review and CI/CD context inside an Nx monorepo.",
+            "Achievement: made post-release defects traceable through weekly issue, review and release handoffs inside an Nx monorepo.",
         ],
     ),
     Entry(
@@ -315,7 +315,7 @@ WORK_ENTRIES: Sequence[Entry] = [
         bullets=[
             "Supported an Odoo 18 ERP for automotive dealerships in Vietnam, covering sales, an 18-state after-sales service workflow, spare parts, warranty and TT200 accounting.",
             "Resolved BA/customer-reported defects and delivered enhancements across business logic, data models, QWeb/XML views, localized PDF reports and translations.",
-            "Maintained changes across 18 custom modules and 99+ Python files, helping keep the 18-state workflow aligned with dealership operations through Docker and GitLab CI.",
+            "Achievement: kept 18 custom modules and the 18-state workflow aligned with BA/customer changes through Docker and GitLab CI.",
         ],
     ),
     Entry(
@@ -327,7 +327,7 @@ WORK_ENTRIES: Sequence[Entry] = [
         bullets=[
             "Rebuilt WordPress workflows as a React and ASP.NET Core platform, owning delivery from requirement clarification through release handoff.",
             "Integrated authentication, realtime updates, media handling and third-party services into one maintainable SQL-backed system for B2B publishing workflows.",
-            "Worked directly in a BA-facing role to close scope and translate business decisions into frontend, API and database changes.",
+            "Achievement: replaced fragmented WordPress workflows with one maintainable React, API and SQL-backed product delivery flow.",
         ],
     ),
     Entry(
@@ -339,7 +339,7 @@ WORK_ENTRIES: Sequence[Entry] = [
         bullets=[
             "Delivered a production CMS from requirement clarification to release, covering content, authentication, moderation and reporting workflows.",
             "Implemented caching, structured logging, SEO-friendly publishing and automated PDF exports to support reliable day-to-day content operations.",
-            "Acted as a BA-facing developer to close feature scope and translate business workflows into React, ASP.NET Core API and SQL Server changes.",
+            "Achievement: centralized publishing operations with caching, structured logging, SEO workflows and automated reporting.",
         ],
     ),
 ]
