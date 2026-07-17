@@ -308,7 +308,7 @@ class VisualCv:
 
     def company_experience(self) -> None:
         y = PAGE_H - 252
-        y = self.section_title(LEFT_X, y, "Relevant Experience", "briefcase.svg")
+        y = self.section_title(LEFT_X, y, "Company Experience", "briefcase.svg")
         axis_x = LEFT_X + 70
         content_x = LEFT_X + 94
         self.c.setStrokeColor(HexColor("#8BA3AE"))
@@ -484,7 +484,7 @@ class VisualCv:
         y = self.developer_tools(x, y)
 
         y -= 10
-        y = self.section_title(x, y, "Selected Projects", "folder2-open.svg")
+        y = self.section_title(x, y, "Independent Projects", "folder2-open.svg")
         projects = [
             {
                 "title": "ChongScam - Trust Platform",

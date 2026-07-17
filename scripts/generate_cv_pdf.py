@@ -404,7 +404,7 @@ def build() -> None:
     for item in WORK_ENTRIES:
         pdf.entry(item)
 
-    pdf.section("Selected Projects", 190)
+    pdf.section("Independent Projects", 190)
     for item in PROJECT_ENTRIES:
         pdf.entry(item)
 
