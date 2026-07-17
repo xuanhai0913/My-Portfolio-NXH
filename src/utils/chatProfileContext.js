@@ -47,14 +47,22 @@ export const PROFILE_CONTEXT = {
       achievement: 'Delivered a production CMS that centralized publishing and reporting workflows with caching, structured logging, SEO, and PDF exports.',
     },
     {
-      name: 'Vision Key AI',
-      url: 'https://landing-vision-premium.vercel.app',
-      stack: ['Swift', 'Next.js', 'Gemini'],
+      name: 'ChongScam - Trust Platform',
+      url: 'https://chongscam.vn/',
+      stack: ['React 19', 'NestJS 11', 'PostgreSQL', 'Jest'],
+      achievement: 'Built production session/RBAC, risk-search, moderation, audit, and admin workflows for online transaction checks.',
     },
     {
-      name: 'Portfolio Website',
-      url: EXTERNAL_URLS.PORTFOLIO,
-      stack: ['React', 'GSAP', 'CSS3', 'AI Assistant'],
+      name: 'RouteLab - Shortest Path Lab',
+      url: 'https://tsp-delivery-route-optimizer.vercel.app/',
+      stack: ['React', 'TypeScript', 'Express', 'Vitest'],
+      achievement: 'Implemented four shortest-path solvers, replay visualization, automated tests, and backend algorithm CI.',
+    },
+    {
+      name: 'AgriTrace - Blockchain Traceability',
+      url: 'https://github.com/xuanhai0913/agri-traceability-system',
+      stack: ['React', 'Express', 'PostgreSQL', 'Solidity', 'IPFS'],
+      achievement: 'Built multi-role supply-chain workflows with hybrid on-chain/off-chain evidence and QR verification.',
     },
   ],
   aiWorkflowSummary: [

@@ -57,7 +57,7 @@ class CvPdf:
         self._register_fonts()
         self.c.setTitle("Nguyen Xuan Hai - Full-Stack Developer CV")
         self.c.setAuthor("Nguyen Xuan Hai")
-        self.c.setSubject("Full-Stack Developer CV - React, ASP.NET Core, NestJS, AI Agent Workflows")
+        self.c.setSubject("Full-Stack Developer CV - React, ASP.NET Core, NestJS, PostgreSQL")
         self.c.setCreator("Codex CV generator")
 
     def _register_fonts(self) -> None:
@@ -89,7 +89,7 @@ class CvPdf:
         self.c.drawString(MARGIN_X, self.y, "Nguyen Xuan Hai")
         self.c.setFont("Arial", 8)
         self.c.setFillColor(MUTED)
-        self.c.drawRightString(PAGE_W - MARGIN_X, self.y, "Full-Stack Developer | React | .NET | Odoo | AI")
+        self.c.drawRightString(PAGE_W - MARGIN_X, self.y, "Full-Stack Developer | React | .NET | NestJS | Odoo")
         self.y -= 18
         self.c.setStrokeColor(SOFT_RULE)
         self.c.line(MARGIN_X, self.y, PAGE_W - MARGIN_X, self.y)
@@ -156,7 +156,7 @@ class CvPdf:
         self.c.drawString(x, y, "Nguyen Xuan Hai")
         self.c.setFont("Arial-Bold", 9.6)
         self.c.setFillColor(ACCENT_DARK)
-        self.c.drawString(x, y - 16, "Full-Stack Developer | React | ASP.NET Core | Odoo 18 | AI Integration")
+        self.c.drawString(x, y - 16, "Full-Stack Developer | React | ASP.NET Core | NestJS | PostgreSQL")
 
         self.c.setFont("Arial", 8.15)
         self.c.setFillColor(MUTED)
@@ -210,11 +210,10 @@ class CvPdf:
     def summary(self) -> None:
         self.section("Professional Summary", 55)
         text = (
-            "Full-stack developer building production web apps, ERP workflows and AI-assisted delivery systems across React/Vite, "
-            "ASP.NET Core, Python/Odoo 18, NestJS, PostgreSQL/SQL Server and cloud deployment workflows. Experienced "
-            "with automotive dealership ERP, CMS, B2B platforms, LMS/community projects, realtime features, authentication, reporting/PDF "
-            "generation and localization. Comfortable setting up project-specific AI context, skills and agent workflows with tools "
-            "such as Claude, Codex and Antigravity to support planning, code review, CI/CD handoff, automation and operations."
+            "Full-stack developer building production web applications and ERP workflows with React/Vite, ASP.NET Core, NestJS, "
+            "Python/Odoo 18, PostgreSQL and SQL Server. Experienced with automotive dealership ERP, CMS, B2B platforms, "
+            "authentication, realtime features, reporting and localization. Uses AI coding tools selectively for planning, review, "
+            "testing and release handoff while keeping engineering decisions grounded in code, tests and product requirements."
         )
         self.y = self.draw_wrapped(text, MARGIN_X, self.y, CONTENT_W, "Arial", 8.75, INK, 11.4)
         self.y -= 4
@@ -226,7 +225,7 @@ class CvPdf:
             ("Backend:", "Python 3.12, Odoo 18, ASP.NET Core 8, NestJS, Node.js/Express, RESTful APIs, Entity Framework Core, TypeORM, JWT, OAuth2, ASP.NET Identity, Swagger/OpenAPI."),
             ("ERP & Reporting:", "Odoo ORM, QWeb/XML, wkhtmltopdf, gettext i18n, TT200 accounting workflows, PostgreSQL, SQL Server, MySQL, QuestPDF, ClosedXML."),
             ("Data & Infra:", "PostgreSQL, SQL Server, Redis, BullMQ, Socket.IO, SignalR, Docker, IIS, Vercel, GitLab CI/CD, GitHub, pnpm, Nx monorepo."),
-            ("AI & Agent Workflow:", "Claude, Codex, Antigravity-style agents, project skill/config setup, AI-assisted planning, code review, CI/CD handoff, automation, operations support, Gemini/DeepSeek/OpenAI APIs."),
+            ("AI-assisted Tooling:", "Claude Code, Codex, project context/config setup, code review, test drafting, documentation, CI/CD handoff, Gemini/DeepSeek/OpenAI APIs."),
             ("Quality & Tooling:", "pytest, pytest-cov, linting, Serilog, Cloudinary, MailKit, Swagger/OpenAPI, documentation and troubleshooting workflows."),
             ("Professional:", "Problem solving, communication, teamwork, time management, documentation, ownership across frontend/backend tasks."),
         ]
@@ -240,7 +239,7 @@ class CvPdf:
         header_width = CONTENT_W - period_width - 12
         header_lines = self.wrap(header, header_width, "Arial-Bold", 9)
         estimated = (
-            88
+            44
             + max(0, len(header_lines) - 1) * 10
             + max(1, len(self.wrap(f"Stack: {item.stack}", CONTENT_W, "Arial-Italic", 7.8))) * 10
             + (10 if item.link else 0)
@@ -347,39 +346,39 @@ WORK_ENTRIES: Sequence[Entry] = [
 
 PROJECT_ENTRIES: Sequence[Entry] = [
     Entry(
-        role="Full-Stack Developer / Volunteer",
-        name="ECH English Community House - LMS",
-        period="Start: Oct 2024 | End: Jan 2026",
-        link="https://ech.edu.vn",
-        stack="ASP.NET Core 8 MVC/API, Entity Framework Core, SQL Server, Bootstrap 5, JavaScript, ASP.NET Identity, JWT, Cloudinary, MailKit, QuestPDF, ClosedXML, IIS",
+        role="Full-Stack Developer",
+        name="ChongScam - Trust & Anti-Scam Platform",
+        period="Start: 2026 | End: 2026",
+        link="https://chongscam.vn/",
+        stack="React 19, TypeScript, NestJS 11, PostgreSQL, Redis, session authentication, RBAC, CSRF, rate limiting, Jest",
         bullets=[
-            "Task: support an LMS for a community English program serving disabled learners and people in difficult circumstances.",
-            "Action: built course/content management, secure authentication, certificate generation, media storage, email notifications and Excel/PDF reporting.",
-            "Result: digitized volunteer teaching operations and reduced manual administration through automated certificates and Excel/PDF reports.",
+            "Task: build a production trust platform for checking transaction risk, verified traders and community scam reports.",
+            "Action: implemented session/RBAC flows, search, moderation, audit controls, admin operations and security middleware across React and NestJS.",
+            "Result: shipped the public platform at chongscam.vn with PostgreSQL-backed operational workflows and automated API tests.",
         ],
     ),
     Entry(
-        role="macOS / AI Developer",
-        name="Vision Key - AI Screen Assistant",
-        period="Start: Dec 2025 | End: Dec 2025",
-        link="https://landing-vision-premium.vercel.app",
-        stack="Swift 5.9+, SwiftUI, AppKit, Google Gemini 2.5 Pro API, Carbon global hotkey, macOS Keychain, Chrome extensions",
+        role="Full-Stack / Algorithm Developer",
+        name="RouteLab - Shortest Path Laboratory",
+        period="Start: May 2026 | End: Jul 2026",
+        link="https://tsp-delivery-route-optimizer.vercel.app/",
+        stack="React, TypeScript, Express, PostgreSQL, Dijkstra, A*, Floyd-Warshall, Bellman-Ford, Vitest, GitHub Actions",
         bullets=[
-            "Task: prototype an AI screen assistant for on-screen productivity and quick contextual assistance.",
-            "Action: built secure API key storage, global hotkeys and Gemini-powered workflows with SwiftUI/AppKit.",
-            "Result: published the supporting landing page and browser extension repositories for product presentation.",
+            "Task: make shortest-path algorithms observable and comparable on weighted map and graph datasets.",
+            "Action: implemented solver, API and PostgreSQL paths plus step-by-step replay visualization for four algorithms.",
+            "Result: published a working demo with automated frontend/backend tests and a dedicated backend algorithm CI pipeline.",
         ],
     ),
     Entry(
-        role="Frontend / Python Developer",
-        name="Portfolio AI Assistant & LLM Unit Test Generator",
-        period="Start: Mar 2025 | End: May 2026",
-        link="https://my-portfolio-nxh.vercel.app",
-        stack="React, JavaScript, Three.js, GSAP, Gemini/DeepSeek APIs, Python 3.8+, pytest, pytest-cov, Black, Flake8, Pylint, Mypy, Vercel",
+        role="Full-Stack / Blockchain Developer",
+        name="AgriTrace - Agricultural Traceability System",
+        period="Start: Apr 2026 | End: Jun 2026",
+        link="https://github.com/xuanhai0913/agri-traceability-system",
+        stack="React, Express, PostgreSQL, Solidity, Hardhat, IPFS, Polygon Amoy, JWT, RBAC, QR verification",
         bullets=[
-            "Task: make portfolio information easier for recruiters to explore and automate unit-test drafting for Python code.",
-            "Action: built a Gemini-powered portfolio assistant and an LLM unit-test generator using DeepSeek API, pytest and coverage tooling.",
-            "Result: improved recruiter-facing project discovery and created reusable AI-assisted testing and development workflows.",
+            "Task: model agricultural supply-chain traceability across producer, inspection, warehouse and distributor roles.",
+            "Action: built React/Express/PostgreSQL operations, Solidity lifecycle contracts, IPFS evidence and QR verification.",
+            "Result: delivered a public hybrid on-chain/off-chain architecture with deployed Polygon Amoy contracts and reproducible source code.",
         ],
     ),
 ]
@@ -437,7 +436,7 @@ def normalize_pdf(path: Path) -> None:
         {
             "/Title": "Nguyen Xuan Hai - Full-Stack Developer CV",
             "/Author": "Nguyen Xuan Hai",
-            "/Subject": "Full-Stack Developer CV - React, ASP.NET Core, NestJS, AI Integration",
+            "/Subject": "Full-Stack Developer CV - React, ASP.NET Core, NestJS, PostgreSQL",
             "/Creator": "Codex CV generator",
         }
     )

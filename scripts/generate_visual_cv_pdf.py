@@ -449,6 +449,9 @@ class VisualCv:
         self.c.setFillColor(INK)
         self.c.setFont("Arial-Bold", 8.8)
         self.c.drawString(x + 2, y, project["title"])
+        if project.get("url"):
+            title_width = self.width(project["title"], "Arial-Bold", 8.8)
+            self.c.linkURL(project["url"], (x + 2, y - 2, x + 2 + title_width, y + 8), relative=0, thickness=0)
         self.c.setFillColor(MUTED)
         self.c.setFont("Arial-Bold", 6.15)
         self.c.drawRightString(x + RIGHT_W - 2, y, project["period"])
@@ -484,25 +487,36 @@ class VisualCv:
         y = self.section_title(x, y, "Selected Projects", "folder2-open.svg")
         projects = [
             {
-                "title": "ECH LMS",
-                "role": "Full-Stack Developer / Volunteer",
-                "period": "Oct 2024 - Jan 2026",
-                "tech": "ASP.NET Core | EF Core | SQL Server | QuestPDF",
-                "impact": "Digitized volunteer teaching operations with automated certificates and Excel/PDF reports.",
+                "title": "ChongScam - Trust Platform",
+                "role": "Full-Stack Developer",
+                "period": "2026",
+                "url": "https://chongscam.vn/",
+                "tech": "React 19 | NestJS 11 | PostgreSQL | Jest",
+                "impact": "Built production search, session/RBAC, moderation and security workflows for transaction risk checks.",
             },
             {
-                "title": "Portfolio Website",
-                "role": "Frontend Developer",
-                "period": "Mar 2025 - May 2026",
-                "tech": "React | Vite | SlateJS | GSAP | Vercel",
-                "impact": "Built recruiter-facing project discovery, a rich-text contact flow and analytics tracking.",
+                "title": "RouteLab - Shortest Path Lab",
+                "role": "Full-Stack / Algorithm Developer",
+                "period": "May - Jul 2026",
+                "url": "https://tsp-delivery-route-optimizer.vercel.app/",
+                "tech": "React | TypeScript | Express | PostgreSQL | Vitest",
+                "impact": "Implemented four solvers, replay visualization, automated tests and backend algorithm CI.",
+            },
+            {
+                "title": "AgriTrace - Blockchain Traceability",
+                "role": "Full-Stack / Blockchain Developer",
+                "period": "Apr - Jun 2026",
+                "url": "https://github.com/xuanhai0913/agri-traceability-system",
+                "tech": "React | Express | PostgreSQL | Solidity | IPFS",
+                "impact": "Built multi-role supply-chain flows with hybrid on-chain evidence and QR verification.",
             },
         ]
         if self.ai_mode == "featured":
-            projects[1] = {
+            projects[2] = {
                 "title": "AI Development Tools",
                 "role": "Frontend / Python Developer",
                 "period": "Mar 2025 - May 2026",
+                "url": "https://github.com/xuanhai0913/LLM-Unit-tests",
                 "tech": "React | Gemini/DeepSeek APIs | Python | pytest",
                 "impact": "Built a portfolio assistant and reusable LLM-assisted unit-test drafting workflow.",
             }

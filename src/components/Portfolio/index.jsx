@@ -5,13 +5,13 @@ import './styles/Portfolio.css';
 // Import project images
 import prj1 from '../../images/project/prj1.png';
 import prj3 from '../../images/project/prj3.png';
-import prj5 from '../../images/project/prj5.png';
 import prj6 from '../../images/project/prj6.png';
-import prj7 from '../../images/project/prj7.png';
 import prj8 from '../../images/project/prj8.png';
-import prj9 from '../../images/project/prj9.png';
 import prj10 from '../../images/project/prj10.png';
 import visionKey from '../../images/project/visionKey.png';
+import agriTrace from '../../images/project/agritrace.png';
+import chongScam from '../../images/project/chongscam.png';
+import routeLab from '../../images/project/routelab.png';
 
 const Portfolio = () => {
   const sectionRef = useRef(null);
@@ -51,14 +51,48 @@ const Portfolio = () => {
       achievement: "Centralized day-to-day content operations and added caching, structured logging, SEO publishing, and PDF exports.",
       image: prj3,
       demo: "https://vnmediahub.com",
-      github: "https://github.com/xuanhai0913/VNMediaHub",
       technologies: ["React", "ASP.NET Core", "SQL Server", "Redis"],
       company: "VN MEDIA HUB",
       year: "2024"
     },
     {
+      title: "ChongScam - Trust Platform",
+      description: "Production platform for checking transaction risk, verified traders, and community scam reports.",
+      achievement: "Built React 19 and NestJS/PostgreSQL flows for session auth, RBAC, search, moderation, audit controls, and admin operations.",
+      image: chongScam,
+      demo: "https://chongscam.vn/",
+      technologies: ["React 19", "NestJS 11", "PostgreSQL", "Jest"],
+      badge: "PRODUCTION",
+      company: "PET PROJECT",
+      year: "2026"
+    },
+    {
+      title: "RouteLab - Shortest Path Lab",
+      description: "Interactive laboratory comparing Dijkstra, A*, Floyd-Warshall, and Bellman-Ford on weighted map graphs.",
+      achievement: "Implemented solver/API/database paths, replay visualization, automated tests, and backend algorithm CI.",
+      image: routeLab,
+      demo: "https://tsp-delivery-route-optimizer.vercel.app/",
+      github: "https://github.com/xuanhai0913/tsp-delivery-route-optimizer",
+      technologies: ["React", "TypeScript", "Express", "Vitest"],
+      badge: "PUBLIC CODE",
+      company: "PET PROJECT",
+      year: "2026"
+    },
+    {
+      title: "AgriTrace - Blockchain Traceability",
+      description: "Hybrid on-chain/off-chain agricultural traceability system with multi-role supply-chain workflows.",
+      achievement: "Built React/Express/PostgreSQL operations, Solidity lifecycle contracts, QR verification, and IPFS evidence on Polygon Amoy.",
+      image: agriTrace,
+      github: "https://github.com/xuanhai0913/agri-traceability-system",
+      technologies: ["React", "Express", "PostgreSQL", "Solidity"],
+      badge: "PUBLIC CODE",
+      company: "PET PROJECT",
+      year: "2026"
+    },
+    {
       title: "Vision Key AI",
-      description: "Multi-platform AI assistant powered by Gemini 2.0. Available on MacOS, Chrome Extension.",
+      description: "Native macOS screen assistant with secure API-key storage, global hotkeys, and Gemini-powered contextual workflows.",
+      achievement: "Implemented the SwiftUI/AppKit desktop flow and published supporting browser-extension repositories.",
       image: visionKey,
       technologies: ["Swift", "Next.js", "AI"],
       badge: "AI",
@@ -72,7 +106,8 @@ const Portfolio = () => {
     },
     {
       title: "LLM Unit Test Gen",
-      description: "AI-powered tool generating unit tests using Deepseek LLM. Boost your development productivity.",
+      description: "Developer tool that drafts unit tests from source context using a DeepSeek-powered React and Express workflow.",
+      achievement: "Connected Monaco-based code input to reusable generation, validation, and test-oriented backend flows.",
       image: prj10,
       demo: "/videos",
       github: "https://github.com/xuanhai0913/LLM-Unit-tests",
@@ -82,39 +117,13 @@ const Portfolio = () => {
     },
     {
       title: "Portfolio Website",
-      description: "Modern brutalist portfolio with GSAP animations. Showcasing creative design and development skills.",
+      description: "Recruiter-facing React portfolio with structured project evidence, responsive interactions, and analytics.",
+      achievement: "Built the project discovery flow, Slate-based contact experience, GSAP motion, and a contextual portfolio assistant.",
       image: prj1,
       demo: "https://my-portfolio-nxh.vercel.app/",
       github: "https://github.com/xuanhai0913/My-Portfolio-NXH",
       technologies: ["React", "GSAP", "CSS3"],
       year: "2024"
-    },
-    {
-      title: "Happy New Year",
-      description: "Animated festive greeting website with interactive canvas animations and particle effects.",
-      image: prj5,
-      demo: "https://happy-new-year-five-olive.vercel.app/",
-      github: "https://github.com/xuanhai0913/Happy-New-Year",
-      technologies: ["HTML5", "JS", "Canvas"],
-      year: "2024"
-    },
-    {
-      title: "SPRM Management",
-      description: "Student performance tracking system. Comprehensive dashboard for educators and students.",
-      image: prj7,
-      demo: "https://cnpm-fullstack-react-csharp.onrender.com",
-      github: "https://github.com/xuanhai0913/CNPM-Fullstack-React-CSharp",
-      technologies: ["React", "C#", "EF Core"],
-      year: "2023"
-    },
-    {
-      title: "OTP API Service",
-      description: "Phone rental service for OTP verification. Secure and reliable API infrastructure.",
-      image: prj9,
-      demo: "https://otp-api-omega.vercel.app/",
-      technologies: ["Node.js", "MongoDB", "Express"],
-      badge: "API",
-      year: "2023"
     }
   ];
 
