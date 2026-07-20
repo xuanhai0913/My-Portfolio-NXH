@@ -71,9 +71,12 @@ export const PROFILE_CONTEXT = {
     'Applies AI pragmatically for issue analysis, documentation, QA support and operations without replacing engineering judgment.',
   ],
   certifications: [
+    'Software Development Lifecycle (AIAcademy by AIPOWER, Jul 2026)',
+    'Information Security Awareness (AIAcademy by AIPOWER, Jul 2026)',
+    'Customer Communication & Professional Workplace Practices (AIAcademy by AIPOWER, Jul 2026)',
     'Gemini Certified Faculty (Google, 2025)',
-    'Gemini Certified University Student (Google, 2024)',
-    'Google AI for K12 Educators (2023)',
+    'Gemini Certified University Student (Google for Education, Dec 2025)',
+    'Google AI for K12 Educators (Google for Education, Dec 2025)',
   ],
   experienceSummary: WORK_EXPERIENCE.map((item) => ({
     company: item.company,

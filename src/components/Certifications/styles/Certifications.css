@@ -134,6 +134,7 @@
 
 /* Thumbnail Fix */
 .cert-thumb {
+    display: block;
     width: 100%;
     aspect-ratio: 16/9;
     /* Enforce aspect ratio */
@@ -200,9 +201,48 @@
     font-size: 1.5rem;
     color: var(--text-primary);
     line-height: 1.3;
-    margin: 0;
+    margin: 0 0 1.25rem;
+}
+
+.cert-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
     margin-top: auto;
-    /* Push title to bottom if space allows */
+    padding-top: 0.9rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+}
+
+.credential-id {
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+.cert-verify {
+    color: var(--color-accent);
+    text-decoration: none;
+    text-align: right;
+}
+
+.cert-verify:hover,
+.cert-verify:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 0.25rem;
+}
+
+@media (max-width: 430px) {
+    .cert-actions {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .cert-verify {
+        text-align: left;
+    }
 }
 
 /* Corner Accents */
