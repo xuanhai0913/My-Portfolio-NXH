@@ -11,6 +11,15 @@
 # production
 /build
 
+# Generated CV variants and previews (master CVs stay in public/)
+/cv/
+/tmp/
+/public/CV_NguyenXuanHai 2.pdf
+
+# Python-generated files
+__pycache__/
+*.py[cod]
+
 # misc
 .DS_Store
 .env

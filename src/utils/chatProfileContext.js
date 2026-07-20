@@ -7,7 +7,7 @@ export const PROFILE_CONTEXT = {
   website: EXTERNAL_URLS.PORTFOLIO,
   contacts: {
     email: 'xuanhai0913750452@gmail.com',
-    phone: '0929501116',
+    phone: '+84 929 501 116',
     zalo: EXTERNAL_URLS.ZALO,
   },
   socials: {
@@ -35,6 +35,12 @@ export const PROFILE_CONTEXT = {
   ],
   projects: [
     {
+      name: 'OakMind Group Corporate Platform',
+      url: 'https://oakmindgroup.com/',
+      stack: ['React 19', 'ASP.NET Core 8', 'SQL Server', 'Cloudflare R2'],
+      achievement: 'Shipped a live corporate CMS/admin with bilingual content, SEO/analytics, video, and R2 media workflows in 28 authored commits.',
+    },
+    {
       name: 'Great Link Mai House',
       url: 'https://greatlinkmaihouse.com/',
       stack: ['ASP.NET Core', 'React 18', 'SignalR'],
@@ -50,7 +56,7 @@ export const PROFILE_CONTEXT = {
       name: 'ChongScam - Trust Platform',
       url: 'https://chongscam.vn/',
       stack: ['React 19', 'NestJS 11', 'PostgreSQL', 'Jest'],
-      achievement: 'Built production session/RBAC, risk-search, moderation, audit, and admin workflows for online transaction checks.',
+      achievement: 'Delivered a client-operated production platform spanning 22 controllers, 20 SQL migrations, and 12 Jest/e2e test suites.',
     },
     {
       name: 'RouteLab - Shortest Path Lab',

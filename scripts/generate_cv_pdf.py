@@ -160,7 +160,7 @@ class CvPdf:
 
         self.c.setFont("Arial", 8.15)
         self.c.setFillColor(MUTED)
-        contact_1 = "Ho Chi Minh City, Vietnam | Date of Birth: 29/11/2004 | 0929501116 | xuanhai0913750452@gmail.com"
+        contact_1 = "Ho Chi Minh City, Vietnam | Date of Birth: 29/11/2004 | +84 929 501 116 | xuanhai0913750452@gmail.com"
         portfolio_text = "my-portfolio-nxh.vercel.app"
         github_text = "github.com/xuanhai0913"
         linkedin_text = "linkedin.com/in/xuanhai0913"
@@ -210,10 +210,10 @@ class CvPdf:
     def summary(self) -> None:
         self.section("Professional Summary", 55)
         text = (
-            "Full-stack developer building production web applications and ERP workflows with React/Vite, ASP.NET Core, NestJS, "
-            "Python/Odoo 18, PostgreSQL and SQL Server. Experienced with automotive dealership ERP, CMS, B2B platforms, "
-            "authentication, realtime features, reporting and localization. Uses AI coding tools selectively for planning, review, "
-            "testing and release handoff while keeping engineering decisions grounded in code, tests and product requirements."
+            "Full-stack developer with commercial software delivery experience since October 2024 across part-time and internship roles. "
+            "Builds production React, ASP.NET Core, NestJS and Odoo workflows from requirement clarification through release and support. "
+            "Hands-on with authentication, CMS, realtime features, ERP business logic, PostgreSQL and SQL Server; uses AI coding tools "
+            "selectively for review, test drafting and delivery support."
         )
         self.y = self.draw_wrapped(text, MARGIN_X, self.y, CONTENT_W, "Arial", 8.75, INK, 11.4)
         self.y -= 4
@@ -221,13 +221,12 @@ class CvPdf:
     def skills(self) -> None:
         self.section("Skills", 86)
         rows = [
-            ("Frontend:", "React 18/19, Vite, JavaScript ES6+, TypeScript, React Router, Tailwind CSS, Bootstrap, HeroUI, Framer Motion, GSAP, SlateJS, PlateJS, responsive UI."),
-            ("Backend:", "Python 3.12, Odoo 18, ASP.NET Core 8, NestJS, Node.js/Express, RESTful APIs, Entity Framework Core, TypeORM, JWT, OAuth2, ASP.NET Identity, Swagger/OpenAPI."),
-            ("ERP & Reporting:", "Odoo ORM, QWeb/XML, wkhtmltopdf, gettext i18n, TT200 accounting workflows, PostgreSQL, SQL Server, MySQL, QuestPDF, ClosedXML."),
-            ("Data & Infra:", "PostgreSQL, SQL Server, Redis, BullMQ, Socket.IO, SignalR, Docker, IIS, Vercel, GitLab CI/CD, GitHub, pnpm, Nx monorepo."),
-            ("AI-assisted Tooling:", "Claude Code, Codex, project context/config setup, code review, test drafting, documentation, CI/CD handoff, Gemini/DeepSeek/OpenAI APIs."),
-            ("Quality & Tooling:", "pytest, pytest-cov, linting, Serilog, Cloudinary, MailKit, Swagger/OpenAPI, documentation and troubleshooting workflows."),
-            ("Professional:", "Problem solving, communication, teamwork, time management, documentation, ownership across frontend/backend tasks."),
+            ("Frontend:", "React 18/19, TypeScript, JavaScript ES6+, Vite, React Router, Tailwind CSS, responsive component UI."),
+            ("Backend:", "C#, ASP.NET Core 8 Web API/MVC, Entity Framework Core, NestJS 11, Node.js/Express, RESTful APIs, JWT, OAuth2, Swagger/OpenAPI."),
+            ("ERP & Data:", "Python 3.12, Odoo 18 ORM, QWeb/XML, PostgreSQL, SQL Server, Redis, TT200 accounting workflows."),
+            ("Architecture & Quality:", "Dependency injection, service/repository separation, DTO validation, RBAC, CSRF, rate limiting, Jest, structured logging."),
+            ("Delivery:", "Docker, GitLab CI/CD, GitHub Actions, IIS, Vercel, Git, Nx monorepo, issue/MR and release handoff workflows."),
+            ("Developer Tools:", "Claude Code and Codex for codebase context, review, test drafting and documentation; engineering decisions verified in code and tests."),
         ]
         for label, value in rows:
             self.key_value(label, value)
@@ -302,8 +301,8 @@ WORK_ENTRIES: Sequence[Entry] = [
         stack="React 19, Vite, Tailwind CSS 4, HeroUI, NestJS 11, TypeORM, PostgreSQL, Redis, BullMQ, Socket.IO, Nx, pnpm, GitLab CI/CD",
         bullets=[
             "Worked as a core developer in a 5-person engineering team with Betodemy's Japan-side leadership, joining weekly meetings to discuss bugs, feature scope and release priorities.",
-            "Shipped and stabilized production features across student portals, teacher-led classes, admin workflows, gamified practice and multilingual learning content.",
-            "Achievement: made post-release defects traceable through weekly issue, review and release handoffs inside an Nx monorepo.",
+            "Built document-editor, challenge-player, online-class and student/admin features across the React/NestJS Nx monorepo.",
+            "Achievement: delivered 70+ merged MRs and closed 70+ authored issues across production learning workflows.",
         ],
     ),
     Entry(
@@ -314,32 +313,21 @@ WORK_ENTRIES: Sequence[Entry] = [
         stack="Python 3.12, Odoo 18, PostgreSQL, QWeb/XML, wkhtmltopdf, Docker, GitLab CI/CD, gettext i18n",
         bullets=[
             "Supported an Odoo 18 ERP for automotive dealerships in Vietnam, covering sales, an 18-state after-sales service workflow, spare parts, warranty and TT200 accounting.",
-            "Resolved BA/customer-reported defects and delivered enhancements across business logic, data models, QWeb/XML views, localized PDF reports and translations.",
-            "Achievement: kept 18 custom modules and the 18-state workflow aligned with BA/customer changes through Docker and GitLab CI.",
+            "Debugged BA/customer-reported defects across business logic, data models, QWeb/XML views, localized PDF reports and translations.",
+            "Achievement: supported fixes across all 18 custom modules and 99+ Python files without breaking the 18-state service workflow.",
         ],
     ),
     Entry(
-        role="Main Full-Stack Developer / BA-facing Owner",
-        name="Great Link Mai House - Digital Publishing Platform",
-        period="Start: Jul 2025 | End: Jan 2026",
-        link="https://greatlinkmaihouse.com",
-        stack="ASP.NET Core 8, React 18, SignalR, SQL Server, JWT, Google OAuth, Cloudinary, SendGrid, OpenAI API",
-        bullets=[
-            "Rebuilt WordPress workflows as a React and ASP.NET Core platform, owning delivery from requirement clarification through release handoff.",
-            "Integrated authentication, realtime updates, media handling and third-party services into one maintainable SQL-backed system for B2B publishing workflows.",
-            "Achievement: replaced fragmented WordPress workflows with one maintainable React, API and SQL-backed product delivery flow.",
-        ],
-    ),
-    Entry(
-        role="Main Full-Stack Developer / BA-facing Owner",
-        name="VN Media Hub - CMS & Media Platform",
+        role="Part-time Full-Stack Developer / BA-facing Owner",
+        name="OakMind Group - Three Production Web Products",
         period="Start: Oct 2024 | End: Jan 2026",
-        link="https://vnmediahub.com",
-        stack="React 18, Vite, ASP.NET Core 8 Web API, Entity Framework Core, SQL Server, JWT, Google OAuth2, reCAPTCHA v3, Redis/Memory Cache, Serilog, Docker, QuestPDF",
+        link="https://oakmindgroup.com/",
+        stack="C#, ASP.NET Core 8 Web API/MVC, Entity Framework Core, React 18/19, SQL Server, Redis, Serilog, JWT, SignalR, Cloudflare R2",
         bullets=[
-            "Delivered a production CMS from requirement clarification to release, covering content, authentication, moderation and reporting workflows.",
-            "Implemented caching, structured logging, SEO-friendly publishing and automated PDF exports to support reliable day-to-day content operations.",
-            "Achievement: centralized publishing operations with caching, structured logging, SEO workflows and automated reporting.",
+            "VN Media Hub: built production CMS workflows for authentication, content, moderation, caching, structured logging, SEO publishing and reporting.",
+            "Great Link Mai House: converted legacy WordPress/ASP.NET MVC workflows into React screens and ASP.NET Core APIs with auth, media and realtime updates.",
+            "OakMind Group website: shipped a live React 19 and ASP.NET Core corporate CMS with admin/editor workflows, bilingual content, SEO/analytics, video library and Cloudflare R2 media in 28 authored commits.",
+            "Achievement: owned BA clarification through production release across three company products.",
         ],
     ),
 ]
@@ -348,13 +336,13 @@ PROJECT_ENTRIES: Sequence[Entry] = [
     Entry(
         role="Full-Stack Developer",
         name="ChongScam - Trust & Anti-Scam Platform",
-        period="Start: 2026 | End: 2026",
+        period="Start: Apr 2026 | End: Jul 2026",
         link="https://chongscam.vn/",
         stack="React 19, TypeScript, NestJS 11, PostgreSQL, Redis, session authentication, RBAC, CSRF, rate limiting, Jest",
         bullets=[
             "Task: build a production trust platform for checking transaction risk, verified traders and community scam reports.",
             "Action: implemented session/RBAC flows, search, moderation, audit controls, admin operations and security middleware across React and NestJS.",
-            "Result: shipped the public platform at chongscam.vn with PostgreSQL-backed operational workflows and automated API tests.",
+            "Result: shipped the client-operated platform at chongscam.vn spanning 22 NestJS controllers, 20 SQL migrations and 12 Jest/e2e test suites.",
         ],
     ),
     Entry(
@@ -394,8 +382,8 @@ def build() -> None:
         "Education",
         [
             (
-                "UTH - University of Transport Ho Chi Minh City:",
-                "Information Technology major, 2022 - 2026. Higher education: University level. Coursework and projects focused on practical software development, web systems and applied programming.",
+                "Ho Chi Minh City University of Transport (UTH):",
+                "Information Technology, 2022 - Expected 2026 | GPA: 3.24/4.00. Coursework and projects focused on software development, OOP, databases and web systems.",
             )
         ],
     )

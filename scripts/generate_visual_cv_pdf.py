@@ -181,7 +181,7 @@ class VisualCv:
         self.c.rect(x, y + 6, 34, 2, fill=1, stroke=0)
         y -= 10
         y = self.text(
-            "Full-stack developer with hands-on experience delivering production web and ERP features from requirements through release and support.",
+            "Commercial software delivery experience since Oct 2024 across part-time and internship roles, from requirements through production support.",
             x,
             y,
             360,
@@ -196,7 +196,7 @@ class VisualCv:
         self.c.drawString(x, y, "EDUCATION")
         self.c.setFillColor(INK)
         self.c.setFont("Arial", 7.4)
-        self.c.drawString(x + 49, y, "UTH - Information Technology | 2022 - 2026")
+        self.c.drawString(x + 49, y, "Ho Chi Minh City University of Transport | IT | Expected 2026 | GPA 3.24/4.00")
 
         image_size = 76
         image_x = PAGE_W - MARGIN - image_size - 22
@@ -211,7 +211,7 @@ class VisualCv:
     def contact_row(self) -> None:
         rows = [
             [
-                (LEFT_X + 18, 142, "phone.png", "0929501116", None),
+                (LEFT_X + 18, 142, "phone.png", "+84 929 501 116", None),
                 (LEFT_X + 190, 142, "calendar.png", "29/11/2004", None),
                 (LEFT_X + 362, 168, "email.png", "xuanhai0913750452@gmail.com", "mailto:xuanhai0913750452@gmail.com"),
             ],
@@ -317,7 +317,7 @@ class VisualCv:
 
     def company_experience(self) -> None:
         y = PAGE_H - 252
-        y = self.section_title(LEFT_X, y, "Company Experience", "briefcase.svg")
+        y = self.section_title(LEFT_X, y, "Work Experience", "briefcase.svg")
         axis_x = LEFT_X + 70
         content_x = LEFT_X + 94
         self.c.setStrokeColor(HexColor("#8BA3AE"))
@@ -331,10 +331,10 @@ class VisualCv:
                 "Full-Stack Developer | Part-time, remote | 5-person team",
                 "React 19 | NestJS | PostgreSQL | Redis | Nx",
                 [
-                    "Shipped and stabilized production features across student, teacher and admin workflows.",
-                    "Tracked post-release defects and supported weekly release handoffs in a 5-person team.",
+                    "Built document-editor, challenge-player, online-class and student/admin features.",
+                    "Worked with Japan-side leadership in weekly issue, review and release cycles.",
                 ],
-                "Made production defects traceable through weekly issue, review and release handoffs.",
+                "Delivered 70+ merged MRs and closed 70+ authored issues across production workflows.",
             ),
             (
                 "May 2026\n-\nJul 2026",
@@ -342,32 +342,22 @@ class VisualCv:
                 "Odoo ERP Support Developer Intern",
                 "Python 3.12 | Odoo 18 | PostgreSQL | QWeb/XML | GitLab CI",
                 [
-                    "Resolved BA/customer defects across 18 Odoo modules and 99+ Python files.",
-                    "Kept 18-state after-sales workflows and localized QWeb reports aligned with operations.",
+                    "Debugged BA/customer defects across business logic, QWeb/XML and localized reports.",
+                    "Supported sales, service, parts, warranty and TT200 accounting workflows.",
                 ],
-                "Kept 18 custom modules aligned with BA/customer changes across the dealership workflow.",
-            ),
-            (
-                "Jul 2025\n-\nJan 2026",
-                "Great Link Mai House",
-                "Full-Stack Developer | BA-facing delivery",
-                "React 18 | ASP.NET Core 8 | SQL Server | SignalR | JWT",
-                [
-                    "Rebuilt WordPress workflows as a React + ASP.NET Core platform.",
-                    "Owned requirements-to-release delivery across auth, media, realtime and B2B publishing.",
-                ],
-                "Replaced fragmented WordPress workflows with one maintainable product delivery flow.",
+                "Supported fixes across all 18 custom modules and 99+ Python files without breaking the 18-state service flow.",
             ),
             (
                 "Oct 2024\n-\nJan 2026",
-                "VN Media Hub",
-                "Full-Stack Developer | BA-facing delivery",
-                "React 18 | ASP.NET Core 8 | SQL Server | Redis | Serilog",
+                "OakMind Group",
+                "Part-time Full-Stack Developer | BA-facing owner",
+                "React 18/19 | ASP.NET Core 8 | EF Core | SQL Server | R2",
                 [
-                    "Delivered a production CMS for content, moderation and reporting workflows.",
-                    "Added caching, structured logging, SEO publishing and PDF exports for reliable operations.",
+                    "VN Media Hub: built CMS auth, moderation, caching, logging and SEO publishing flows.",
+                    "Great Link Mai House: converted WordPress/MVC workflows into React + ASP.NET Core APIs.",
+                    "OakMind Group Website: shipped live CMS/admin, SEO/analytics and Cloudflare R2 media in 28 commits.",
                 ],
-                "Centralized publishing operations with stronger observability and automated reporting.",
+                "Owned BA clarification through production release across three company products.",
             ),
         ]
 
@@ -504,10 +494,10 @@ class VisualCv:
             {
                 "title": "ChongScam - Trust Platform",
                 "role": "Full-Stack Developer",
-                "period": "2026",
+                "period": "Apr - Jul 2026",
                 "url": "https://chongscam.vn/",
                 "tech": "React 19 | NestJS 11 | PostgreSQL | Jest",
-                "impact": "Built production search, session/RBAC, moderation and security workflows for transaction risk checks.",
+                "impact": "Delivered a client-operated production platform spanning 22 controllers, 20 migrations and 12 test suites.",
             },
             {
                 "title": "RouteLab - Shortest Path Lab",

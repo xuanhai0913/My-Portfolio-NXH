@@ -12,6 +12,7 @@ import visionKey from '../../images/project/visionKey.png';
 import agriTrace from '../../images/project/agritrace.png';
 import chongScam from '../../images/project/chongscam.png';
 import routeLab from '../../images/project/routelab.png';
+import oakMind from '../../images/project/oakmind.jpg';
 
 const Portfolio = () => {
   const sectionRef = useRef(null);
@@ -25,6 +26,17 @@ const Portfolio = () => {
 
   const allProjects = [
     {
+      title: "OakMind Group Corporate Platform",
+      description: "Production corporate CMS for Media and B2B Import-Export, built with React 19 and ASP.NET Core 8.",
+      achievement: "Shipped admin/editor, bilingual content, SEO/analytics, video, and Cloudflare R2 media workflows in 28 authored commits.",
+      image: oakMind,
+      demo: "https://oakmindgroup.com/",
+      technologies: ["React 19", "ASP.NET Core 8", "SQL Server", "Cloudflare R2"],
+      badge: "PRODUCTION",
+      company: "OAKMIND GROUP",
+      year: "2026"
+    },
+    {
       title: "Great Link Mai House",
       description: "Rebuilt legacy WordPress publishing workflows as a React and ASP.NET Core platform, owning delivery from requirements through release.",
       achievement: "Unified authentication, media, realtime updates, and B2B publishing workflows in one maintainable system.",
@@ -32,7 +44,7 @@ const Portfolio = () => {
       demo: "https://greatlinkmaihouse.com/",
       technologies: ["React", "ASP.NET Core", "SQL Server", "SignalR"],
       badge: "B2B",
-      company: "GREATLINK MAIHOUSE",
+      company: "OAKMIND GROUP",
       year: "2025"
     },
     {
@@ -52,13 +64,13 @@ const Portfolio = () => {
       image: prj3,
       demo: "https://vnmediahub.com",
       technologies: ["React", "ASP.NET Core", "SQL Server", "Redis"],
-      company: "VN MEDIA HUB",
+      company: "OAKMIND GROUP",
       year: "2024"
     },
     {
       title: "ChongScam - Trust Platform",
       description: "Production platform for checking transaction risk, verified traders, and community scam reports.",
-      achievement: "Built React 19 and NestJS/PostgreSQL flows for session auth, RBAC, search, moderation, audit controls, and admin operations.",
+      achievement: "Delivered a client-operated production platform spanning 22 controllers, 20 SQL migrations, and 12 Jest/e2e test suites.",
       image: chongScam,
       demo: "https://chongscam.vn/",
       technologies: ["React 19", "NestJS 11", "PostgreSQL", "Jest"],
