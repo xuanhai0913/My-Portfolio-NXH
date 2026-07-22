@@ -473,6 +473,33 @@ class VisualCv:
         self.c.line(x + 2, y + 2, x + RIGHT_W - 2, y + 2)
         return y - 14
 
+    def certifications(self, x: float, y: float) -> float:
+        y = self.section_title(x, y, "Certifications", "award.svg")
+        items = [
+            (
+                "AWS Cloud Practitioner Essentials - AWS Training, Jul 2026",
+                "https://my-portfolio-nxh.vercel.app/Cert/AWS-Cloud-Practitioner-Essentials.pdf",
+            ),
+            (
+                "AWS Educate: Introduction to Generative AI - Training Badge, Jul 2026",
+                "https://www.credly.com/badges/b4359efe-7437-4a0a-8753-d39143683c06/public_url",
+            ),
+            (
+                "Getting into the Serverless Mindset - AWS Training, Jul 2026",
+                "https://my-portfolio-nxh.vercel.app/Cert/AWS-Getting-into-the-Serverless-Mindset.pdf",
+            ),
+            ("English: B1.4 - Intermediate; technical reading/writing", ""),
+        ]
+        for item, url in items:
+            row_top = y + 7
+            self.c.setFillColor(TEAL)
+            self.c.circle(x + 4, y + 2.2, 1.6, fill=1, stroke=0)
+            next_y = self.text(item, x + 11, y, RIGHT_W - 13, "Arial", 6.9, INK, 8.2)
+            if url:
+                self.c.linkURL(url, (x + 9, next_y + 1, x + RIGHT_W - 2, row_top), relative=0, thickness=0)
+            y = next_y - 3.5
+        return y
+
     def skills_and_projects(self) -> None:
         x = RIGHT_X
         y = PAGE_H - 252
@@ -527,6 +554,8 @@ class VisualCv:
             }
         for project in projects:
             y = self.project_entry(x, y, project)
+        y -= 2
+        self.certifications(x, y)
 
     def footer(self) -> None:
         y = 42

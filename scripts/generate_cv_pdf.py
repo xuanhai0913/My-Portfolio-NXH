@@ -397,16 +397,21 @@ def build() -> None:
         pdf.entry(item)
 
     pdf.compact_section(
-        "Certifications & Activities",
+        "Certifications & Language",
         [
             (
-                "Google / AI:",
-                "Gemini Certified University Student; Gemini Certified Faculty; Google AI for K12 Educators; Code a Joke-Telling Talkbot.",
+                "AWS Training:",
+                "AWS Cloud Practitioner Essentials; Getting into the Serverless Mindset - Completion Certificates (Jul 2026).",
             ),
             (
-                "Additional:",
-                "Basic Office Information Technology; Volunteer Participation Certificate; English Community House volunteer.",
+                "AWS Training Badge:",
+                "AWS Educate Introduction to Generative AI - Training Badge (Jul 2026; verifiable via Credly).",
             ),
+            (
+                "Professional:",
+                "Information Security Awareness (AIAcademy by AIPOWER, Jul 2026).",
+            ),
+            ("English:", "B1.4 - Intermediate; technical reading and written communication."),
         ],
     )
     pdf.save()

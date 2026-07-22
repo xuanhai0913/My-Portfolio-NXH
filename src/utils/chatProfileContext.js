@@ -77,12 +77,18 @@ export const PROFILE_CONTEXT = {
     'Applies AI pragmatically for issue analysis, documentation, QA support and operations without replacing engineering judgment.',
   ],
   certifications: [
+    'AWS Cloud Practitioner Essentials - Completion Certificate (AWS Training & Certification, Jul 2026)',
+    'AWS Educate Introduction to Generative AI - Training Badge (AWS Training & Certification, Jul 2026; verified via Credly)',
+    'Getting into the Serverless Mindset - Completion Certificate (AWS Training & Certification, Jul 2026)',
     'Software Development Lifecycle (AIAcademy by AIPOWER, Jul 2026)',
     'Information Security Awareness (AIAcademy by AIPOWER, Jul 2026)',
     'Customer Communication & Professional Workplace Practices (AIAcademy by AIPOWER, Jul 2026)',
     'Gemini Certified Faculty (Google, 2025)',
     'Gemini Certified University Student (Google for Education, Dec 2025)',
     'Google AI for K12 Educators (Google for Education, Dec 2025)',
+  ],
+  languages: [
+    'English: B1.4 (intermediate; technical reading and written communication)',
   ],
   experienceSummary: WORK_EXPERIENCE.map((item) => ({
     company: item.company,

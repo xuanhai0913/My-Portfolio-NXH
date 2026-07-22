@@ -12,9 +12,45 @@ import certAip102 from '../../images/certs/cert-aipower-aip102.webp';
 import certAip103 from '../../images/certs/cert-aipower-aip103.webp';
 import certAip104 from '../../images/certs/cert-aipower-aip104.webp';
 import certAip106 from '../../images/certs/cert-aipower-aip106.webp';
+import certAwsCloudPractitioner from '../../images/certs/cert-aws-cloud-practitioner-essentials.png';
+import certAwsGenerativeAi from '../../images/certs/cert-aws-educate-generative-ai.png';
+import certAwsServerless from '../../images/certs/cert-aws-serverless-mindset.png';
 
 // Certificate data
 const certificates = [
+  {
+    id: 'aws-cloud-practitioner-essentials',
+    title: "AWS Cloud Practitioner Essentials",
+    issuer: "AWS Training & Certification",
+    thumbnail: certAwsCloudPractitioner,
+    pdfUrl: "/Cert/AWS-Cloud-Practitioner-Essentials.pdf",
+    description: "Completion certificate covering foundational AWS Cloud concepts and services",
+    actionLabel: "View completion certificate ↗",
+    accent: "#ff9900",
+    date: "Jul 2026"
+  },
+  {
+    id: 'aws-educate-generative-ai',
+    title: "AWS Educate Introduction to Generative AI",
+    issuer: "AWS Training & Certification",
+    thumbnail: certAwsGenerativeAi,
+    verifyUrl: "https://www.credly.com/badges/b4359efe-7437-4a0a-8753-d39143683c06/public_url",
+    description: "Training badge covering foundational generative AI concepts and AWS use cases",
+    actionLabel: "Verify digital badge ↗",
+    accent: "#ff9900",
+    date: "Jul 2026"
+  },
+  {
+    id: 'aws-serverless-mindset',
+    title: "Getting into the Serverless Mindset",
+    issuer: "AWS Training & Certification",
+    thumbnail: certAwsServerless,
+    pdfUrl: "/Cert/AWS-Getting-into-the-Serverless-Mindset.pdf",
+    description: "Completion certificate covering serverless principles and cloud-native thinking",
+    actionLabel: "View completion certificate ↗",
+    accent: "#ff9900",
+    date: "Jul 2026"
+  },
   {
     id: 'aip104',
     title: "Software Development Lifecycle (SDLC)",
@@ -161,7 +197,17 @@ const Certifications = () => {
             <span className="deco-line"></span>
             <span className="deco-text">VERIFIED_CREDENTIALS</span>
           </div>
-          <h2 className="section-title">CERTIFICATIONS</h2>
+          <div className="certs-title-row">
+            <h2 className="section-title">CERTIFICATIONS</h2>
+            <a
+              className="credly-profile-link"
+              href="https://www.credly.com/users/xuanhai0913"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View Credly Profile ↗
+            </a>
+          </div>
         </header>
 
         {/* Responsive Grid/Stack */}
@@ -201,11 +247,11 @@ const Certifications = () => {
                   )}
                   <a
                     className="cert-verify"
-                    href={cert.verifyUrl}
+                    href={cert.verifyUrl || cert.pdfUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Verify credential ↗
+                    {cert.actionLabel || 'Verify credential ↗'}
                   </a>
                 </div>
               </div>

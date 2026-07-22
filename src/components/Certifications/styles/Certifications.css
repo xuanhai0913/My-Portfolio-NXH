@@ -71,6 +71,38 @@
     transform: translateY(0);
 }
 
+.certs-title-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+.credly-profile-link {
+    color: var(--color-accent);
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 0.2rem;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.credly-profile-link:hover,
+.credly-profile-link:focus-visible {
+    color: var(--text-primary);
+}
+
+@media (max-width: 640px) {
+    .certs-title-row {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.9rem;
+    }
+}
+
 .header-deco {
     display: flex;
     align-items: center;
