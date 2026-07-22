@@ -80,6 +80,7 @@ export const PROFILE_CONTEXT = {
     'AWS Cloud Practitioner Essentials - Completion Certificate (AWS Training & Certification, Jul 2026)',
     'AWS Educate Introduction to Generative AI - Training Badge (AWS Training & Certification, Jul 2026; verified via Credly)',
     'Getting into the Serverless Mindset - Completion Certificate (AWS Training & Certification, Jul 2026)',
+    'Episode 1: Building the Front Door - Completion Certificate (AWS Training & Certification, Jul 2026)',
     'Software Development Lifecycle (AIAcademy by AIPOWER, Jul 2026)',
     'Information Security Awareness (AIAcademy by AIPOWER, Jul 2026)',
     'Customer Communication & Professional Workplace Practices (AIAcademy by AIPOWER, Jul 2026)',

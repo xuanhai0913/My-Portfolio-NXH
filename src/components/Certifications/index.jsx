@@ -15,6 +15,7 @@ import certAip106 from '../../images/certs/cert-aipower-aip106.webp';
 import certAwsCloudPractitioner from '../../images/certs/cert-aws-cloud-practitioner-essentials.png';
 import certAwsGenerativeAi from '../../images/certs/cert-aws-educate-generative-ai.png';
 import certAwsServerless from '../../images/certs/cert-aws-serverless-mindset.png';
+import certAwsBuildingFrontDoor from '../../images/certs/cert-aws-building-front-door.png';
 
 // Certificate data
 const certificates = [
@@ -47,6 +48,17 @@ const certificates = [
     thumbnail: certAwsServerless,
     pdfUrl: "/Cert/AWS-Getting-into-the-Serverless-Mindset.pdf",
     description: "Completion certificate covering serverless principles and cloud-native thinking",
+    actionLabel: "View completion certificate ↗",
+    accent: "#ff9900",
+    date: "Jul 2026"
+  },
+  {
+    id: 'aws-building-front-door',
+    title: "Episode 1: Building the Front Door",
+    issuer: "AWS Training & Certification",
+    thumbnail: certAwsBuildingFrontDoor,
+    pdfUrl: "/Cert/AWS-Episode-1-Building-the-Front-Door.pdf",
+    description: "AWS serverless learning path completion certificate",
     actionLabel: "View completion certificate ↗",
     accent: "#ff9900",
     date: "Jul 2026"
