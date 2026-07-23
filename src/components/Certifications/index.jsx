@@ -14,6 +14,7 @@ import certAip104 from '../../images/certs/cert-aipower-aip104.webp';
 import certAip106 from '../../images/certs/cert-aipower-aip106.webp';
 import certAwsCloudPractitioner from '../../images/certs/cert-aws-cloud-practitioner-essentials.png';
 import certAwsGenerativeAi from '../../images/certs/cert-aws-educate-generative-ai.png';
+import certAwsMachineLearning from '../../images/certs/cert-aws-educate-machine-learning-foundations.png';
 import certAwsServerless from '../../images/certs/cert-aws-serverless-mindset.png';
 import certAwsBuildingFrontDoor from '../../images/certs/cert-aws-building-front-door.png';
 
@@ -37,6 +38,17 @@ const certificates = [
     thumbnail: certAwsGenerativeAi,
     verifyUrl: "https://www.credly.com/badges/b4359efe-7437-4a0a-8753-d39143683c06/public_url",
     description: "Training badge covering foundational generative AI concepts and AWS use cases",
+    actionLabel: "Verify digital badge ↗",
+    accent: "#ff9900",
+    date: "Jul 2026"
+  },
+  {
+    id: 'aws-educate-machine-learning-foundations',
+    title: "AWS Educate Machine Learning Foundations",
+    issuer: "AWS Training & Certification",
+    thumbnail: certAwsMachineLearning,
+    verifyUrl: "https://www.credly.com/badges/70759e75-f89f-4360-aee4-208b396b2f1d/public_url",
+    description: "Training badge covering foundational machine learning concepts and workflows",
     actionLabel: "Verify digital badge ↗",
     accent: "#ff9900",
     date: "Jul 2026"
