@@ -31,7 +31,8 @@ const certificates = [
     description: "Completion certificate covering foundational AWS Cloud concepts and services",
     actionLabel: "View completion certificate ↗",
     accent: "#ff9900",
-    date: "Jul 2026"
+    date: "Jul 2026",
+    tags: ['featured', 'aws', 'cloud-data']
   },
   {
     id: 'aws-educate-getting-started-with-databases',
@@ -42,7 +43,8 @@ const certificates = [
     description: "Training badge covering database concepts and foundational AWS database services",
     actionLabel: "Verify digital badge ↗",
     accent: "#ff9900",
-    date: "Jul 2026"
+    date: "Jul 2026",
+    tags: ['featured', 'aws', 'cloud-data']
   },
   {
     id: 'aws-educate-generative-ai',
@@ -53,7 +55,8 @@ const certificates = [
     description: "Training badge covering foundational generative AI concepts and AWS use cases",
     actionLabel: "Verify digital badge ↗",
     accent: "#ff9900",
-    date: "Jul 2026"
+    date: "Jul 2026",
+    tags: ['featured', 'aws', 'ai-ml']
   },
   {
     id: 'aws-educate-machine-learning-foundations',
@@ -64,7 +67,8 @@ const certificates = [
     description: "Training badge covering foundational machine learning concepts and workflows",
     actionLabel: "Verify digital badge ↗",
     accent: "#ff9900",
-    date: "Jul 2026"
+    date: "Jul 2026",
+    tags: ['featured', 'aws', 'ai-ml']
   },
   {
     id: 'aws-educate-getting-started-with-serverless',
@@ -75,7 +79,8 @@ const certificates = [
     description: "Training badge covering foundational serverless concepts and AWS services",
     actionLabel: "Verify digital badge ↗",
     accent: "#ff9900",
-    date: "Jul 2026"
+    date: "Jul 2026",
+    tags: ['featured', 'aws', 'cloud-data']
   },
   {
     id: 'aws-serverless-mindset',
@@ -86,7 +91,8 @@ const certificates = [
     description: "Completion certificate covering serverless principles and cloud-native thinking",
     actionLabel: "View completion certificate ↗",
     accent: "#ff9900",
-    date: "Jul 2026"
+    date: "Jul 2026",
+    tags: ['aws', 'cloud-data']
   },
   {
     id: 'aws-building-front-door',
@@ -97,7 +103,8 @@ const certificates = [
     description: "AWS serverless learning path completion certificate",
     actionLabel: "View completion certificate ↗",
     accent: "#ff9900",
-    date: "Jul 2026"
+    date: "Jul 2026",
+    tags: ['aws', 'cloud-data']
   },
   {
     id: 'aip104',
@@ -108,7 +115,8 @@ const certificates = [
     verifyUrl: "https://aiacademy.aipower.vn/certificates/e53aeb6b738a4a6eafb0c6edf9b2e912",
     credentialId: "E53AEB6B738A",
     accent: "#1fa85b",
-    date: "Jul 2026"
+    date: "Jul 2026",
+    tags: ['featured', 'engineering']
   },
   {
     id: 'aip102',
@@ -119,7 +127,8 @@ const certificates = [
     verifyUrl: "https://aiacademy.aipower.vn/certificates/a358790e05024ead81b114eb4653361c",
     credentialId: "A358790E0502",
     accent: "#1fa85b",
-    date: "Jul 2026"
+    date: "Jul 2026",
+    tags: ['featured', 'engineering']
   },
   {
     id: 'aip103',
@@ -130,7 +139,8 @@ const certificates = [
     verifyUrl: "https://aiacademy.aipower.vn/certificates/851d6b5833ee4e2fbca70d37201236c8",
     credentialId: "851D6B5833EE",
     accent: "#1fa85b",
-    date: "Jul 2026"
+    date: "Jul 2026",
+    tags: ['engineering']
   },
   {
     id: 'faculty',
@@ -141,7 +151,8 @@ const certificates = [
     verifyUrl: "https://edu.google.accredible.com/b72948bf-9762-446f-b771-5eaadd88ccf9?key=8346ffe5eeaa608d615483a398c1a29a43f53ad92dcd7f8a4a5986d28124ead9",
     description: "Certified Faculty in Google Gemini AI",
     accent: "#8e44ad",
-    date: "2025"
+    date: "2025",
+    tags: ['ai-ml', 'education']
   },
   {
     id: 'student',
@@ -152,7 +163,8 @@ const certificates = [
     verifyUrl: "https://edu.google.accredible.com/1dd22150-1e7d-4dc6-9ad1-4fd25443e7b3",
     description: "Certified in Google Gemini AI technologies",
     accent: "#4285f4",
-    date: "Dec 2025"
+    date: "Dec 2025",
+    tags: ['featured', 'ai-ml', 'education']
   },
   {
     id: 'google-ai-k12',
@@ -163,7 +175,8 @@ const certificates = [
     verifyUrl: "https://edu.exceedlms.com/student/award/k4zuntPUoY1eRJoBF3zcecCR",
     description: "AI education methodologies for K-12",
     accent: "#34a853",
-    date: "Dec 2025"
+    date: "Dec 2025",
+    tags: ['ai-ml', 'education']
   },
   {
     id: 'talkbot',
@@ -174,7 +187,8 @@ const certificates = [
     verifyUrl: "https://edu.exceedlms.com/student/award/T84bwoKX7qy2ghnd33FEjn77",
     description: "Conversational AI development",
     accent: "#ea4335",
-    date: "Dec 2025"
+    date: "Dec 2025",
+    tags: ['ai-ml', 'education']
   },
   {
     id: 'aip101',
@@ -185,7 +199,8 @@ const certificates = [
     verifyUrl: "https://aiacademy.aipower.vn/certificates/7756e001cd694e42bf52d5dcb3963d5c",
     credentialId: "7756E001CD69",
     accent: "#1fa85b",
-    date: "Jul 2026"
+    date: "Jul 2026",
+    tags: ['engineering']
   },
   {
     id: 'aip106',
@@ -196,7 +211,8 @@ const certificates = [
     verifyUrl: "https://aiacademy.aipower.vn/certificates/f861ed4468ab48328d5173ed479292ed",
     credentialId: "F861ED4468AB",
     accent: "#1fa85b",
-    date: "Jul 2026"
+    date: "Jul 2026",
+    tags: ['engineering']
   },
   {
     id: 'ech',
@@ -206,13 +222,40 @@ const certificates = [
     verifyUrl: "https://ech.edu.vn/",
     description: "Certificate of volunteer participation at ECH",
     accent: "#e67e22",
-    date: "2025"
+    date: "2025",
+    tags: ['education']
   }
 ];
+
+const filters = [
+  { id: 'featured', label: 'Highlights' },
+  { id: 'aws', label: 'AWS' },
+  { id: 'cloud-data', label: 'Cloud & Data' },
+  { id: 'ai-ml', label: 'AI & ML' },
+  { id: 'engineering', label: 'Engineering' },
+  { id: 'education', label: 'Education' },
+  { id: 'all', label: 'All' }
+];
+
+const tagLabels = {
+  aws: 'AWS',
+  'cloud-data': 'Cloud & Data',
+  'ai-ml': 'AI & ML',
+  engineering: 'Engineering',
+  education: 'Education'
+};
 
 const Certifications = () => {
   const sectionRef = useRef(null);
   const [inView, setInView] = useState(false);
+  const [activeFilter, setActiveFilter] = useState('featured');
+
+  const visibleCertificates = activeFilter === 'all'
+    ? certificates
+    : certificates.filter((cert) => cert.tags.includes(activeFilter));
+
+  const awsCount = certificates.filter((cert) => cert.tags.includes('aws')).length;
+  const credlyCount = certificates.filter((cert) => cert.verifyUrl?.includes('credly.com')).length;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -256,11 +299,47 @@ const Certifications = () => {
               View Credly Profile ↗
             </a>
           </div>
+          <div className="certs-overview">
+            <p className="certs-intro">
+              Verified learning across cloud, backend engineering, data and applied AI.
+              Filter the collection by the capability most relevant to your team.
+            </p>
+            <dl className="certs-stats" aria-label="Certification summary">
+              <div><dt>{certificates.length}</dt><dd>Credentials</dd></div>
+              <div><dt>{awsCount}</dt><dd>AWS</dd></div>
+              <div><dt>{credlyCount}</dt><dd>Credly badges</dd></div>
+            </dl>
+          </div>
         </header>
+
+        <div className="certs-filter-bar" aria-label="Filter certifications">
+          {filters.map((filter) => {
+            const count = filter.id === 'all'
+              ? certificates.length
+              : certificates.filter((cert) => cert.tags.includes(filter.id)).length;
+
+            return (
+              <button
+                key={filter.id}
+                type="button"
+                className={`cert-filter ${activeFilter === filter.id ? 'is-active' : ''}`}
+                aria-pressed={activeFilter === filter.id}
+                onClick={() => setActiveFilter(filter.id)}
+              >
+                <span>{filter.label}</span>
+                <span className="cert-filter-count">{count}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        <p className="certs-result-count" aria-live="polite">
+          Showing {visibleCertificates.length} of {certificates.length} credentials
+        </p>
 
         {/* Responsive Grid/Stack */}
         <div className="certs-grid">
-          {certificates.map((cert, index) => (
+          {visibleCertificates.map((cert, index) => (
             <article
               key={cert.id}
               className={`cert-item ${inView ? 'in-view' : ''}`}
@@ -288,6 +367,12 @@ const Certifications = () => {
                 </div>
 
                 <h3 className="cert-title">{cert.title}</h3>
+
+                <div className="cert-tags" aria-label={`${cert.title} topics`}>
+                  {cert.tags
+                    .filter((tag) => tagLabels[tag])
+                    .map((tag) => <span key={tag}>{tagLabels[tag]}</span>)}
+                </div>
 
                 <div className="cert-actions">
                   {cert.credentialId && (
