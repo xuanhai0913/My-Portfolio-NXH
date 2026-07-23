@@ -84,6 +84,7 @@ export const PROFILE_CONTEXT = {
     'AWS Educate Getting Started with Serverless - Training Badge (AWS Training & Certification, Jul 2026; verified via Credly)',
     'Getting into the Serverless Mindset - Completion Certificate (AWS Training & Certification, Jul 2026)',
     'Episode 1: Building the Front Door - Completion Certificate (AWS Training & Certification, Jul 2026)',
+    'Essential Google Cloud Infrastructure: Foundation - Completion Badge (Google Cloud Skills Boost, Jul 2026; verified via Google Skills)',
     'Software Development Lifecycle (AIAcademy by AIPOWER, Jul 2026)',
     'Information Security Awareness (AIAcademy by AIPOWER, Jul 2026)',
     'Customer Communication & Professional Workplace Practices (AIAcademy by AIPOWER, Jul 2026)',

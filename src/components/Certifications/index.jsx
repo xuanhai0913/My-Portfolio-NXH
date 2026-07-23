@@ -19,6 +19,7 @@ import certAwsMachineLearning from '../../images/certs/cert-aws-educate-machine-
 import certAwsGettingStartedServerless from '../../images/certs/cert-aws-educate-getting-started-with-serverless.png';
 import certAwsServerless from '../../images/certs/cert-aws-serverless-mindset.png';
 import certAwsBuildingFrontDoor from '../../images/certs/cert-aws-building-front-door.png';
+import certGoogleCloudInfrastructure from '../../images/certs/cert-google-cloud-infrastructure-foundation.png';
 
 // Certificate data
 const certificates = [
@@ -105,6 +106,18 @@ const certificates = [
     accent: "#ff9900",
     date: "Jul 2026",
     tags: ['aws', 'cloud-data']
+  },
+  {
+    id: 'google-cloud-infrastructure-foundation',
+    title: "Essential Google Cloud Infrastructure: Foundation",
+    issuer: "Google Cloud Skills Boost",
+    thumbnail: certGoogleCloudInfrastructure,
+    verifyUrl: "https://www.skills.google/public_profiles/03bc8f46-a5c3-423f-8d12-f235d5da8486/badges/25783325",
+    description: "Completion badge covering Compute Engine, Cloud Shell, VPC networking and infrastructure design",
+    actionLabel: "Verify completion badge ↗",
+    accent: "#4285f4",
+    date: "Jul 2026",
+    tags: ['featured', 'google-cloud', 'cloud-data']
   },
   {
     id: 'aip104',
@@ -239,6 +252,7 @@ const filters = [
 
 const tagLabels = {
   aws: 'AWS',
+  'google-cloud': 'Google Cloud',
   'cloud-data': 'Cloud & Data',
   'ai-ml': 'AI & ML',
   engineering: 'Engineering',
@@ -255,7 +269,9 @@ const Certifications = () => {
     : certificates.filter((cert) => cert.tags.includes(activeFilter));
 
   const awsCount = certificates.filter((cert) => cert.tags.includes('aws')).length;
-  const credlyCount = certificates.filter((cert) => cert.verifyUrl?.includes('credly.com')).length;
+  const digitalBadgeCount = certificates.filter((cert) =>
+    cert.verifyUrl?.includes('credly.com') || cert.verifyUrl?.includes('skills.google')
+  ).length;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -290,14 +306,24 @@ const Certifications = () => {
           </div>
           <div className="certs-title-row">
             <h2 className="section-title">CERTIFICATIONS</h2>
-            <a
-              className="credly-profile-link"
-              href="https://www.credly.com/users/xuanhai0913"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View Credly Profile ↗
-            </a>
+            <div className="credential-profile-links">
+              <a
+                className="credly-profile-link"
+                href="https://www.credly.com/users/xuanhai0913"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Credly Profile ↗
+              </a>
+              <a
+                className="credly-profile-link"
+                href="https://www.skills.google/public_profiles/03bc8f46-a5c3-423f-8d12-f235d5da8486"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Google Skills Profile ↗
+              </a>
+            </div>
           </div>
           <div className="certs-overview">
             <p className="certs-intro">
@@ -307,7 +333,7 @@ const Certifications = () => {
             <dl className="certs-stats" aria-label="Certification summary">
               <div><dt>{certificates.length}</dt><dd>Credentials</dd></div>
               <div><dt>{awsCount}</dt><dd>AWS</dd></div>
-              <div><dt>{credlyCount}</dt><dd>Credly badges</dd></div>
+              <div><dt>{digitalBadgeCount}</dt><dd>Digital badges</dd></div>
             </dl>
           </div>
         </header>

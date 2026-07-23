@@ -179,6 +179,13 @@
     gap: 1.5rem;
 }
 
+.credential-profile-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.85rem 1.25rem;
+}
+
 .credly-profile-link {
     color: var(--color-accent);
     border-bottom: 1px solid currentColor;
@@ -201,6 +208,10 @@
         align-items: flex-start;
         flex-direction: column;
         gap: 0.9rem;
+    }
+
+    .credential-profile-links {
+        justify-content: flex-start;
     }
 
     .certs-overview {
