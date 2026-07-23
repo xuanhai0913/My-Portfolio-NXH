@@ -485,8 +485,8 @@ class VisualCv:
                 "https://www.credly.com/badges/b4359efe-7437-4a0a-8753-d39143683c06/public_url",
             ),
             (
-                "Getting into the Serverless Mindset - AWS Training, Jul 2026",
-                "https://my-portfolio-nxh.vercel.app/Cert/AWS-Getting-into-the-Serverless-Mindset.pdf",
+                "AWS Serverless Learning Path - Lambda, API Gateway & Event-Driven Architecture, Jul 2026",
+                "https://my-portfolio-nxh.vercel.app/#certifications",
             ),
             ("English: B1.4 - Intermediate; technical reading/writing", ""),
         ]

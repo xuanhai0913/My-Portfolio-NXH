@@ -19,7 +19,19 @@ import certAwsMachineLearning from '../../images/certs/cert-aws-educate-machine-
 import certAwsGettingStartedServerless from '../../images/certs/cert-aws-educate-getting-started-with-serverless.png';
 import certAwsServerless from '../../images/certs/cert-aws-serverless-mindset.png';
 import certAwsBuildingFrontDoor from '../../images/certs/cert-aws-building-front-door.png';
+import certAwsEventDriven from '../../images/certs/cert-aws-designing-event-driven-architectures.png';
+import certAwsLambdaIntro from '../../images/certs/cert-aws-introduction-to-aws-lambda.png';
+import certAwsLambdaFoundations from '../../images/certs/cert-aws-lambda-foundations.png';
+import certAwsServerlessScaling from '../../images/certs/cert-aws-scaling-serverless-architectures.png';
+import certAwsServerlessSecurity from '../../images/certs/cert-aws-security-and-observability-for-serverless-applications.png';
+import certAwsServerlessDeploy from '../../images/certs/cert-aws-deploying-serverless-applications.png';
+import certAwsApiGateway from '../../images/certs/cert-aws-amazon-api-gateway-for-serverless-applications.png';
 import certGoogleCloudInfrastructure from '../../images/certs/cert-google-cloud-infrastructure-foundation.png';
+import certGoogleGenAiChatbot from '../../images/certs/cert-google-gen-ai-chatbot.png';
+import certGoogleGenAiFoundations from '../../images/certs/cert-google-gen-ai-foundations.png';
+import certGoogleGenAiLandscape from '../../images/certs/cert-google-gen-ai-landscape.png';
+import certGoogleGenAiApps from '../../images/certs/cert-google-gen-ai-apps.png';
+import certGoogleGenAiAgents from '../../images/certs/cert-google-gen-ai-agents.png';
 
 // Certificate data
 const certificates = [
@@ -108,6 +120,90 @@ const certificates = [
     tags: ['aws', 'cloud-data']
   },
   {
+    id: 'aws-designing-event-driven-architectures',
+    title: "Designing Event-Driven Architectures",
+    issuer: "AWS Training & Certification",
+    thumbnail: certAwsEventDriven,
+    pdfUrl: "/Cert/AWS-Designing-Event-Driven-Architectures.pdf",
+    description: "Event-driven architecture patterns, service decoupling and asynchronous workflows",
+    actionLabel: "View completion certificate ↗",
+    accent: "#ff9900",
+    date: "Jul 2026",
+    tags: ['aws', 'cloud-data', 'engineering']
+  },
+  {
+    id: 'aws-introduction-to-lambda',
+    title: "Introduction to AWS Lambda",
+    issuer: "AWS Training & Certification",
+    thumbnail: certAwsLambdaIntro,
+    pdfUrl: "/Cert/AWS-Introduction-to-AWS-Lambda.pdf",
+    description: "Introduction to event-driven compute and serverless function development",
+    actionLabel: "View completion certificate ↗",
+    accent: "#ff9900",
+    date: "Jul 2026",
+    tags: ['aws', 'cloud-data']
+  },
+  {
+    id: 'aws-lambda-foundations',
+    title: "AWS Lambda Foundations",
+    issuer: "AWS Training & Certification",
+    thumbnail: certAwsLambdaFoundations,
+    pdfUrl: "/Cert/AWS-Lambda-Foundations.pdf",
+    description: "Lambda configuration, invocation, permissions and operational foundations",
+    actionLabel: "View completion certificate ↗",
+    accent: "#ff9900",
+    date: "Jul 2026",
+    tags: ['aws', 'cloud-data', 'engineering']
+  },
+  {
+    id: 'aws-scaling-serverless-architectures',
+    title: "Scaling Serverless Architectures",
+    issuer: "AWS Training & Certification",
+    thumbnail: certAwsServerlessScaling,
+    pdfUrl: "/Cert/AWS-Scaling-Serverless-Architectures.pdf",
+    description: "Scaling patterns, concurrency and resilient serverless application design",
+    actionLabel: "View completion certificate ↗",
+    accent: "#ff9900",
+    date: "Jul 2026",
+    tags: ['aws', 'cloud-data', 'engineering']
+  },
+  {
+    id: 'aws-serverless-security-observability',
+    title: "Security and Observability for Serverless Applications",
+    issuer: "AWS Training & Certification",
+    thumbnail: certAwsServerlessSecurity,
+    pdfUrl: "/Cert/AWS-Security-and-Observability-for-Serverless-Applications.pdf",
+    description: "Security controls, monitoring and observability for serverless workloads",
+    actionLabel: "View completion certificate ↗",
+    accent: "#ff9900",
+    date: "Jul 2026",
+    tags: ['aws', 'cloud-data', 'engineering']
+  },
+  {
+    id: 'aws-deploying-serverless-applications',
+    title: "Deploying Serverless Applications",
+    issuer: "AWS Training & Certification",
+    thumbnail: certAwsServerlessDeploy,
+    pdfUrl: "/Cert/AWS-Deploying-Serverless-Applications.pdf",
+    description: "Deployment workflows and lifecycle practices for serverless applications",
+    actionLabel: "View completion certificate ↗",
+    accent: "#ff9900",
+    date: "Jul 2026",
+    tags: ['aws', 'cloud-data', 'engineering']
+  },
+  {
+    id: 'aws-api-gateway-serverless',
+    title: "Amazon API Gateway for Serverless Applications",
+    issuer: "AWS Training & Certification",
+    thumbnail: certAwsApiGateway,
+    pdfUrl: "/Cert/AWS-Amazon-API-Gateway-for-Serverless-Applications.pdf",
+    description: "API Gateway configuration and API integration for serverless backends",
+    actionLabel: "View completion certificate ↗",
+    accent: "#ff9900",
+    date: "Jul 2026",
+    tags: ['featured', 'aws', 'cloud-data', 'engineering']
+  },
+  {
     id: 'google-cloud-infrastructure-foundation',
     title: "Essential Google Cloud Infrastructure: Foundation",
     issuer: "Google Cloud Skills Boost",
@@ -118,6 +214,61 @@ const certificates = [
     accent: "#4285f4",
     date: "Jul 2026",
     tags: ['featured', 'google-cloud', 'cloud-data']
+  },
+  {
+    id: 'google-gen-ai-beyond-chatbot',
+    title: "Gen AI: Beyond the Chatbot",
+    issuer: "Google Cloud Skills",
+    thumbnail: certGoogleGenAiChatbot,
+    verifyUrl: "https://www.skills.google/public_profiles/03bc8f46-a5c3-423f-8d12-f235d5da8486/badges/25822351",
+    description: "Foundation models, prompt engineering and organizational Gen AI strategy",
+    accent: "#4285f4",
+    date: "Jul 2026",
+    tags: ['google-cloud', 'ai-ml']
+  },
+  {
+    id: 'google-gen-ai-foundational-concepts',
+    title: "Gen AI: Unlock Foundational Concepts",
+    issuer: "Google Cloud Skills",
+    thumbnail: certGoogleGenAiFoundations,
+    verifyUrl: "https://www.skills.google/public_profiles/03bc8f46-a5c3-423f-8d12-f235d5da8486/badges/25822525",
+    description: "Generative AI foundations, data types, responsible AI and model limitations",
+    accent: "#4285f4",
+    date: "Jul 2026",
+    tags: ['google-cloud', 'ai-ml']
+  },
+  {
+    id: 'google-gen-ai-landscape',
+    title: "Gen AI: Navigate the Landscape",
+    issuer: "Google Cloud Skills",
+    thumbnail: certGoogleGenAiLandscape,
+    verifyUrl: "https://www.skills.google/public_profiles/03bc8f46-a5c3-423f-8d12-f235d5da8486/badges/25823747",
+    description: "Gen AI solution layers, Google Cloud offerings and solution selection",
+    accent: "#4285f4",
+    date: "Jul 2026",
+    tags: ['google-cloud', 'ai-ml']
+  },
+  {
+    id: 'google-gen-ai-apps',
+    title: "Gen AI Apps: Transform Your Work",
+    issuer: "Google Cloud Skills",
+    thumbnail: certGoogleGenAiApps,
+    verifyUrl: "https://www.skills.google/public_profiles/03bc8f46-a5c3-423f-8d12-f235d5da8486/badges/25823921",
+    description: "Grounding, RAG, effective prompting and automated workflows with Google AI tools",
+    accent: "#4285f4",
+    date: "Jul 2026",
+    tags: ['google-cloud', 'ai-ml']
+  },
+  {
+    id: 'google-gen-ai-agents',
+    title: "Gen AI Agents: Transform Your Organization",
+    issuer: "Google Cloud Skills",
+    thumbnail: certGoogleGenAiAgents,
+    verifyUrl: "https://www.skills.google/public_profiles/03bc8f46-a5c3-423f-8d12-f235d5da8486/badges/25824035",
+    description: "Hands-on agent foundations covering models, reasoning loops and tools",
+    accent: "#4285f4",
+    date: "Jul 2026",
+    tags: ['featured', 'google-cloud', 'ai-ml', 'engineering']
   },
   {
     id: 'aip104',
@@ -243,6 +394,7 @@ const certificates = [
 const filters = [
   { id: 'featured', label: 'Highlights' },
   { id: 'aws', label: 'AWS' },
+  { id: 'google-cloud', label: 'Google Cloud' },
   { id: 'cloud-data', label: 'Cloud & Data' },
   { id: 'ai-ml', label: 'AI & ML' },
   { id: 'engineering', label: 'Engineering' },
@@ -313,7 +465,7 @@ const Certifications = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Credly Profile ↗
+                Credly ↗
               </a>
               <a
                 className="credly-profile-link"
@@ -321,7 +473,15 @@ const Certifications = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Google Skills Profile ↗
+                Google Skills ↗
+              </a>
+              <a
+                className="credly-profile-link"
+                href="https://g.dev/xuanhai0913"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                g.dev ↗
               </a>
             </div>
           </div>
