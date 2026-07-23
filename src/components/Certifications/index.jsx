@@ -16,6 +16,7 @@ import certAwsCloudPractitioner from '../../images/certs/cert-aws-cloud-practiti
 import certAwsDatabases from '../../images/certs/cert-aws-educate-getting-started-with-databases.png';
 import certAwsGenerativeAi from '../../images/certs/cert-aws-educate-generative-ai.png';
 import certAwsMachineLearning from '../../images/certs/cert-aws-educate-machine-learning-foundations.png';
+import certAwsGettingStartedServerless from '../../images/certs/cert-aws-educate-getting-started-with-serverless.png';
 import certAwsServerless from '../../images/certs/cert-aws-serverless-mindset.png';
 import certAwsBuildingFrontDoor from '../../images/certs/cert-aws-building-front-door.png';
 
@@ -61,6 +62,17 @@ const certificates = [
     thumbnail: certAwsMachineLearning,
     verifyUrl: "https://www.credly.com/badges/70759e75-f89f-4360-aee4-208b396b2f1d/public_url",
     description: "Training badge covering foundational machine learning concepts and workflows",
+    actionLabel: "Verify digital badge ↗",
+    accent: "#ff9900",
+    date: "Jul 2026"
+  },
+  {
+    id: 'aws-educate-getting-started-with-serverless',
+    title: "AWS Educate Getting Started with Serverless",
+    issuer: "AWS Training & Certification",
+    thumbnail: certAwsGettingStartedServerless,
+    verifyUrl: "https://www.credly.com/badges/8e055149-b708-45ba-ac1a-3b85d3a89c6e/public_url",
+    description: "Training badge covering foundational serverless concepts and AWS services",
     actionLabel: "Verify digital badge ↗",
     accent: "#ff9900",
     date: "Jul 2026"

@@ -81,6 +81,7 @@ export const PROFILE_CONTEXT = {
     'AWS Educate Getting Started with Databases - Training Badge (AWS Training & Certification, Jul 2026; verified via Credly)',
     'AWS Educate Introduction to Generative AI - Training Badge (AWS Training & Certification, Jul 2026; verified via Credly)',
     'AWS Educate Machine Learning Foundations - Training Badge (AWS Training & Certification, Jul 2026; verified via Credly)',
+    'AWS Educate Getting Started with Serverless - Training Badge (AWS Training & Certification, Jul 2026; verified via Credly)',
     'Getting into the Serverless Mindset - Completion Certificate (AWS Training & Certification, Jul 2026)',
     'Episode 1: Building the Front Door - Completion Certificate (AWS Training & Certification, Jul 2026)',
     'Software Development Lifecycle (AIAcademy by AIPOWER, Jul 2026)',
