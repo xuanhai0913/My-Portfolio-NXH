@@ -78,6 +78,7 @@ export const PROFILE_CONTEXT = {
   ],
   certifications: [
     'AWS Cloud Practitioner Essentials - Completion Certificate (AWS Training & Certification, Jul 2026)',
+    'AWS Educate Getting Started with Databases - Training Badge (AWS Training & Certification, Jul 2026; verified via Credly)',
     'AWS Educate Introduction to Generative AI - Training Badge (AWS Training & Certification, Jul 2026; verified via Credly)',
     'AWS Educate Machine Learning Foundations - Training Badge (AWS Training & Certification, Jul 2026; verified via Credly)',
     'Getting into the Serverless Mindset - Completion Certificate (AWS Training & Certification, Jul 2026)',

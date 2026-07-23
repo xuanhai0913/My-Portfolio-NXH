@@ -13,6 +13,7 @@ import certAip103 from '../../images/certs/cert-aipower-aip103.webp';
 import certAip104 from '../../images/certs/cert-aipower-aip104.webp';
 import certAip106 from '../../images/certs/cert-aipower-aip106.webp';
 import certAwsCloudPractitioner from '../../images/certs/cert-aws-cloud-practitioner-essentials.png';
+import certAwsDatabases from '../../images/certs/cert-aws-educate-getting-started-with-databases.png';
 import certAwsGenerativeAi from '../../images/certs/cert-aws-educate-generative-ai.png';
 import certAwsMachineLearning from '../../images/certs/cert-aws-educate-machine-learning-foundations.png';
 import certAwsServerless from '../../images/certs/cert-aws-serverless-mindset.png';
@@ -28,6 +29,17 @@ const certificates = [
     pdfUrl: "/Cert/AWS-Cloud-Practitioner-Essentials.pdf",
     description: "Completion certificate covering foundational AWS Cloud concepts and services",
     actionLabel: "View completion certificate ↗",
+    accent: "#ff9900",
+    date: "Jul 2026"
+  },
+  {
+    id: 'aws-educate-getting-started-with-databases',
+    title: "AWS Educate Getting Started with Databases",
+    issuer: "AWS Training & Certification",
+    thumbnail: certAwsDatabases,
+    verifyUrl: "https://www.credly.com/badges/9c8c5b6c-71f2-46e2-92b4-264c4cf9aa3b/public_url",
+    description: "Training badge covering database concepts and foundational AWS database services",
+    actionLabel: "Verify digital badge ↗",
     accent: "#ff9900",
     date: "Jul 2026"
   },
