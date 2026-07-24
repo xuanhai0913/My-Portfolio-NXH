@@ -114,8 +114,45 @@ p95 latency=8420ms error_rate=31%`
     ]
   },
   {
-    slug: 'sqldoctor',
+    slug: 'agentflow',
     index: '04',
+    name: 'AgentFlow Studio',
+    type: 'AGENTIC SYSTEMS',
+    status: TOOL_STATUS.LIVE,
+    description: 'Designs a reviewable multi-agent workflow with explicit roles, dependencies, handoffs, and quality gates.',
+    input: 'Objective + stack + constraints',
+    output: 'Agent graph + delivery gates',
+    stack: ['Gemini', 'Agent Orchestration', 'DAG', 'Quality Gates'],
+    accent: 'violet',
+    fields: [
+      {
+        name: 'objective',
+        label: 'PROJECT OBJECTIVE',
+        type: 'textarea',
+        required: true,
+        placeholder: 'Describe what the agent team should deliver...',
+        defaultValue: 'Build and release a customer-support assistant that answers from approved product documentation, cites sources, and safely escalates uncertain requests.'
+      },
+      {
+        name: 'techStack',
+        label: 'TECH STACK',
+        type: 'text',
+        required: true,
+        placeholder: 'Example: React, NestJS, PostgreSQL, Gemini, Docker',
+        defaultValue: 'React, NestJS, PostgreSQL, Gemini, Docker, GitLab CI'
+      },
+      {
+        name: 'constraints',
+        label: 'CONSTRAINTS / DEFINITION OF DONE',
+        type: 'textarea',
+        placeholder: 'Security, time, quality, deployment, or review constraints...',
+        defaultValue: 'No unverified answers; PII must not be stored; every response needs a source; include automated tests, human review, rollback, and production monitoring.'
+      }
+    ]
+  },
+  {
+    slug: 'sqldoctor',
+    index: '05',
     name: 'SQL Doctor',
     type: 'DATABASE',
     status: TOOL_STATUS.PLANNED,
@@ -127,7 +164,7 @@ p95 latency=8420ms error_rate=31%`
   },
   {
     slug: 'scamsignal',
-    index: '05',
+    index: '06',
     name: 'ScamSignal AI',
     type: 'TRUST & SAFETY',
     status: TOOL_STATUS.PLANNED,
@@ -139,7 +176,7 @@ p95 latency=8420ms error_rate=31%`
   },
   {
     slug: 'healthreport',
-    index: '06',
+    index: '07',
     name: 'Health Report Companion',
     type: 'RESPONSIBLE AI',
     status: TOOL_STATUS.PLANNED,

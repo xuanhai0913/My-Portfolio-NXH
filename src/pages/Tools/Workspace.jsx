@@ -10,6 +10,75 @@ const severityLabel = {
   info: 'INFO'
 };
 
+const WorkflowMap = ({ workflow }) => (
+  <section className="agent-flow" aria-labelledby="agent-flow-title">
+    <div className="agent-flow-heading">
+      <div>
+        <span>GENERATED EXECUTION GRAPH</span>
+        <h2 id="agent-flow-title">AGENT FLOW</h2>
+      </div>
+      <span>{String(workflow.agents.length).padStart(2, '0')} AGENTS</span>
+    </div>
+
+    <div className="agent-lanes">
+      {workflow.agents.map((agent, index) => (
+        <article className="agent-node" key={agent.id}>
+          <div className="agent-node-index">A{String(index + 1).padStart(2, '0')}</div>
+          <div className="agent-node-content">
+            <div className="agent-node-title">
+              <h3>{agent.name}</h3>
+              <span>{agent.id}</span>
+            </div>
+            {agent.dependsOn.length > 0 && (
+              <p className="agent-dependencies">
+                WAITS FOR {agent.dependsOn.map((dependency) => `#${dependency}`).join(' + ')}
+              </p>
+            )}
+            <p className="agent-mission">{agent.mission}</p>
+            <div className="agent-deliverable">
+              <span>DELIVERABLE</span>
+              <p>{agent.deliverable}</p>
+            </div>
+            {agent.tools.length > 0 && (
+              <div className="agent-tools">
+                {agent.tools.map((agentTool) => <span key={agentTool}>{agentTool}</span>)}
+              </div>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+
+    {workflow.handoffs.length > 0 && (
+      <div className="agent-handoffs">
+        <h3>HANDOFF CONTRACTS</h3>
+        {workflow.handoffs.map((handoff, index) => (
+          <div key={`${handoff.from}-${handoff.to}-${index}`}>
+            <span>{handoff.from}</span>
+            <b aria-hidden="true">→</b>
+            <span>{handoff.to}</span>
+            <p>{handoff.evidence}</p>
+          </div>
+        ))}
+      </div>
+    )}
+
+    {workflow.qualityGates.length > 0 && (
+      <div className="agent-gates">
+        <h3>QUALITY GATES</h3>
+        <ol>
+          {workflow.qualityGates.map((gate, index) => (
+            <li key={`${gate}-${index}`}>
+              <span>G{String(index + 1).padStart(2, '0')}</span>
+              {gate}
+            </li>
+          ))}
+        </ol>
+      </div>
+    )}
+  </section>
+);
+
 const Workspace = () => {
   const { slug } = useParams();
   const tool = getToolBySlug(slug);
@@ -190,6 +259,10 @@ const Workspace = () => {
                 <span>SUMMARY</span>
                 <p>{result.summary}</p>
               </div>
+
+              {result.workflow?.agents?.length > 0 && (
+                <WorkflowMap workflow={result.workflow} />
+              )}
 
               {result.findings?.length > 0 && (
                 <div className="result-section">

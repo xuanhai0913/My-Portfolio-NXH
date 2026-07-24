@@ -324,6 +324,194 @@
   border-top: 1px solid var(--workspace-line);
 }
 
+.agent-flow {
+  border-top: 1px solid var(--workspace-accent);
+  padding-top: 1rem;
+}
+
+.agent-flow-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: end;
+  margin-bottom: 1rem;
+}
+
+.agent-flow-heading span,
+.agent-handoffs > h3,
+.agent-gates > h3 {
+  color: var(--workspace-accent);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+}
+
+.agent-flow-heading h2 {
+  margin: 0.35rem 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.8rem);
+  line-height: 0.9;
+}
+
+.agent-lanes {
+  display: flex;
+  flex-direction: column;
+}
+
+.agent-node {
+  display: grid;
+  grid-template-columns: 54px 1fr;
+  position: relative;
+  border-top: 1px solid var(--workspace-line);
+  padding: 1rem 0;
+}
+
+.agent-node:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 20px;
+  z-index: 2;
+  width: 8px;
+  height: 8px;
+  border-right: 1px solid var(--workspace-accent);
+  border-bottom: 1px solid var(--workspace-accent);
+  transform: rotate(45deg);
+}
+
+.agent-node-index {
+  color: var(--workspace-accent);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+}
+
+.agent-node-content {
+  min-width: 0;
+}
+
+.agent-node-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.agent-node-title h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  text-transform: uppercase;
+}
+
+.agent-node-title span,
+.agent-dependencies,
+.agent-deliverable > span,
+.agent-tools span {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.08em;
+}
+
+.agent-node-title span {
+  color: #676760;
+}
+
+.agent-dependencies {
+  margin: 0.45rem 0;
+  color: #68d8ff;
+}
+
+.agent-mission {
+  margin: 0.55rem 0;
+  color: var(--workspace-muted);
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+.agent-deliverable {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+  padding-left: 0.75rem;
+  border-left: 1px solid var(--workspace-accent);
+}
+
+.agent-deliverable > span {
+  color: var(--workspace-accent);
+}
+
+.agent-deliverable p {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.agent-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.8rem;
+}
+
+.agent-tools span {
+  border: 1px solid var(--workspace-line);
+  padding: 0.24rem 0.4rem;
+  color: var(--workspace-muted);
+}
+
+.agent-handoffs,
+.agent-gates {
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--workspace-line);
+  padding-top: 1rem;
+}
+
+.agent-handoffs > div {
+  display: grid;
+  grid-template-columns: minmax(70px, auto) 20px minmax(70px, auto) 1fr;
+  gap: 0.65rem;
+  align-items: baseline;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid rgba(240, 240, 233, 0.07);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+}
+
+.agent-handoffs b {
+  color: var(--workspace-accent);
+}
+
+.agent-handoffs p {
+  margin: 0;
+  color: var(--workspace-muted);
+  font-family: var(--font-display);
+  line-height: 1.45;
+}
+
+.agent-gates ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.agent-gates li {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 0.75rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid rgba(240, 240, 233, 0.07);
+  color: var(--workspace-muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.agent-gates li span {
+  color: var(--workspace-accent);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+}
+
 .result-section > h2,
 .artifact-heading h2 {
   margin: 0 0 1rem;
@@ -488,6 +676,25 @@
 
   .workspace-footer {
     flex-direction: column;
+  }
+
+  .agent-node-title {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .agent-deliverable {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+
+  .agent-handoffs > div {
+    grid-template-columns: 1fr 18px 1fr;
+  }
+
+  .agent-handoffs p {
+    grid-column: 1 / -1;
   }
 }
 
