@@ -118,7 +118,7 @@
   border: 1px solid var(--tools-line);
 }
 
-.tool-status--live-demo {
+.tool-status--live {
   border-color: var(--tools-accent);
   color: var(--tools-accent);
 }

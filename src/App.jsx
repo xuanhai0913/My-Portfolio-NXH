@@ -29,6 +29,7 @@ const VideoDemo = lazy(() => import('./components/VideoDemo'));
 const Hero3D = lazy(() => import('./components/Hero3D'));
 const Blog = lazy(() => import('./components/Blog'));
 const Tools = lazy(() => import('./pages/Tools'));
+const ToolWorkspace = lazy(() => import('./pages/Tools/Workspace'));
 
 // Defer third-party analytics (bundle-defer-third-party)
 const SpeedInsights = lazy(() =>
@@ -150,6 +151,13 @@ const App = () => {
             <ErrorBoundary>
               <Suspense fallback={<LoadingFallback />}>
                 <Tools />
+              </Suspense>
+            </ErrorBoundary>
+          } />
+          <Route path="/tools/:slug" element={
+            <ErrorBoundary>
+              <Suspense fallback={<LoadingFallback />}>
+                <ToolWorkspace />
               </Suspense>
             </ErrorBoundary>
           } />
