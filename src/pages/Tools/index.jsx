@@ -1,12 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { TOOL_STATUS, tools } from '../../data/tools';
+import useLocaleNavigation from '../../hooks/useLocaleNavigation';
 import './styles/Tools.css';
 
 const liveToolCount = tools.filter((tool) => tool.status === TOOL_STATUS.LIVE).length;
 
-const Tools = () => (
-  <main className="tools-page">
+const Tools = () => {
+  const { localizePath } = useLocaleNavigation();
+
+  return (
+    <main className="tools-page">
     <section className="tools-hero" aria-labelledby="tools-title">
       <div className="tools-eyebrow">
         <span>NXH / AI UTILITY BENCH</span>
@@ -56,7 +60,7 @@ const Tools = () => (
             </dl>
             <div className="tool-action">
               {isLive ? (
-                <Link to={`/tools/${tool.slug}`}>RUN TOOL<span aria-hidden="true">↗</span></Link>
+                <Link to={localizePath(`/tools/${tool.slug}`)}>RUN TOOL<span aria-hidden="true">↗</span></Link>
               ) : (
                 <span>PLANNED</span>
               )}
@@ -70,7 +74,8 @@ const Tools = () => (
       <span>BUILD PRINCIPLE 001</span>
       <p>AI proposes. Evidence stays visible. A human makes the final decision.</p>
     </aside>
-  </main>
-);
+    </main>
+  );
+};
 
 export default Tools;

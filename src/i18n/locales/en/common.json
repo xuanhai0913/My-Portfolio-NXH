@@ -1,0 +1,47 @@
+{
+  "header": {
+    "home": "Home",
+    "about": "About",
+    "portfolio": "Portfolio",
+    "certifications": "Certifications",
+    "tools": "Tools",
+    "blog": "Blog",
+    "contact": "Contact",
+    "toggleNavigation": "Toggle navigation",
+    "languageSwitcher": "Select language",
+    "english": "English",
+    "vietnamese": "Vietnamese"
+  },
+  "common": {
+    "loading": "Loading...",
+    "close": "Close",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "retry": "Try again",
+    "skipToContent": "Skip to main content"
+  },
+  "audio": {
+    "label": "Sound",
+    "enable": "Click to enable",
+    "enableAriaLabel": "Click to enable sound",
+    "enableAria": "Click to enable sound",
+    "enableHint": "Click to enable",
+    "mute": "Mute sound",
+    "unmute": "Unmute sound"
+  },
+  "error": {
+    "generic": "Something went wrong.",
+    "loadFailed": "Unable to load this content.",
+    "retry": "Please try again."
+  },
+  "sections": {
+    "experience": "Experience",
+    "projects": "Projects"
+  },
+  "footer": {
+    "supportAria": "Buy me a coffee on Ko-fi",
+    "support": "Buy me a coffee",
+    "copyright": "© {{year}} Nguyễn Xuân Hải. All rights reserved.",
+    "madeIn": "Made with ❤️ in Vietnam"
+  }
+}

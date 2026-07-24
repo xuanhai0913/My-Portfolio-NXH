@@ -1,4 +1,11 @@
 import React, { Component } from 'react';
+import { useTranslation } from 'react-i18next';
+
+const DefaultErrorFallback = () => {
+  const { t } = useTranslation();
+
+  return t('error.generic');
+};
 
 class ErrorBoundary extends Component {
   constructor(props) {
@@ -23,7 +30,7 @@ class ErrorBoundary extends Component {
       
       return (
         <div className="error-fallback">
-          {this.props.errorMessage || 'Something went wrong.'}
+          {this.props.errorMessage || <DefaultErrorFallback />}
         </div>
       );
     }

@@ -1,7 +1,9 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import './AudioActivator.css';
 
 const AudioActivator = () => {
+  const { t } = useTranslation();
   const [activated, setActivated] = useState(false);
   const [dismissing, setDismissing] = useState(false);
   const activatedRef = useRef(false);
@@ -60,7 +62,7 @@ const AudioActivator = () => {
       role="button"
       tabIndex={0}
       onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') doActivate(); }}
-      aria-label="Click to enable sound"
+      aria-label={t('audio.enableAria')}
     >
       <div className="audio-activator-inner">
         <div className="audio-activator-icon">
@@ -71,8 +73,8 @@ const AudioActivator = () => {
           </svg>
         </div>
         <div className="audio-activator-text">
-          <span className="audio-activator-label">SOUND</span>
-          <span className="audio-activator-hint">CLICK TO ENABLE</span>
+          <span className="audio-activator-label">{t('audio.label')}</span>
+          <span className="audio-activator-hint">{t('audio.enableHint')}</span>
         </div>
         <div className="audio-activator-pulse"></div>
       </div>

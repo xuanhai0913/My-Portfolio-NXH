@@ -1,0 +1,47 @@
+{
+  "header": {
+    "home": "Trang chủ",
+    "about": "Giới thiệu",
+    "portfolio": "Dự án",
+    "certifications": "Chứng chỉ",
+    "tools": "Công cụ",
+    "blog": "Bài viết",
+    "contact": "Liên hệ",
+    "toggleNavigation": "Bật hoặc tắt điều hướng",
+    "languageSwitcher": "Chọn ngôn ngữ",
+    "english": "Tiếng Anh",
+    "vietnamese": "Tiếng Việt"
+  },
+  "common": {
+    "loading": "Đang tải...",
+    "close": "Đóng",
+    "cancel": "Hủy",
+    "confirm": "Xác nhận",
+    "retry": "Thử lại",
+    "skipToContent": "Chuyển đến nội dung chính"
+  },
+  "audio": {
+    "label": "Âm thanh",
+    "enable": "Nhấn để bật",
+    "enableAriaLabel": "Nhấn để bật âm thanh",
+    "enableAria": "Nhấn để bật âm thanh",
+    "enableHint": "Nhấn để bật",
+    "mute": "Tắt âm thanh",
+    "unmute": "Bật âm thanh"
+  },
+  "error": {
+    "generic": "Đã xảy ra lỗi.",
+    "loadFailed": "Không thể tải nội dung này.",
+    "retry": "Vui lòng thử lại."
+  },
+  "sections": {
+    "experience": "Kinh nghiệm",
+    "projects": "Dự án"
+  },
+  "footer": {
+    "supportAria": "Ủng hộ tôi một ly cà phê trên Ko-fi",
+    "support": "Mời tôi một ly cà phê",
+    "copyright": "© {{year}} Nguyễn Xuân Hải. Đã đăng ký bản quyền.",
+    "madeIn": "Được phát triển với ❤️ tại Việt Nam"
+  }
+}

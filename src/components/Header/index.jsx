@@ -1,13 +1,17 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import useLocaleNavigation from '../../hooks/useLocaleNavigation';
 import './styles/Header.css';
 
 // Logo from Cloudinary CDN (full logo with text)
 const logoFull = 'https://res.cloudinary.com/dqdcqtu8m/image/upload/v1765001214/Logo_st3nmr.png';
 
 const Header = () => {
+  const { t } = useTranslation();
   const [isNavOpen, setIsNavOpen] = useState(false);
   const location = useLocation();
+  const { locale, localizePath, changeLocale } = useLocaleNavigation();
   const [scrolled, setScrolled] = useState(false);
   const scrolledRef = useRef(false);
   const rafRef = useRef(null);
@@ -29,12 +33,15 @@ const Header = () => {
     return () => {
       window.removeEventListener('scroll', onScroll);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      document.body.style.overflow = 'auto';
     };
   }, [onScroll]);
 
   const toggleNav = () => {
-    setIsNavOpen(!isNavOpen);
-    document.body.style.overflow = !isNavOpen ? 'hidden' : 'auto';
+    setIsNavOpen((wasOpen) => {
+      document.body.style.overflow = wasOpen ? 'auto' : 'hidden';
+      return !wasOpen;
+    });
   };
 
   const closeNav = () => {
@@ -42,52 +49,49 @@ const Header = () => {
     document.body.style.overflow = 'auto';
   };
 
+  const handleLocaleChange = (targetLocale) => {
+    closeNav();
+    changeLocale(targetLocale);
+  };
+
   const navItems = [
-    { id: 'home', label: 'Home', href: '#profile' },
-    { id: 'about', label: 'About', href: '#about' },
-    { id: 'portfolio', label: 'Portfolio', href: '#portfolio' },
-    { id: 'certifications', label: 'Certifications', href: '#certifications' },
-    { id: 'tools', label: 'Tools', href: '/tools', isRoute: true },
-    { id: 'blog', label: 'Blog', href: '/blog', isRoute: true },
-    { id: 'contact', label: 'Contact', href: '#contact' }
+    { id: 'home', label: t('header.home', { defaultValue: 'Home' }), href: '#profile' },
+    { id: 'about', label: t('header.about', { defaultValue: 'About' }), href: '#about' },
+    { id: 'portfolio', label: t('header.portfolio', { defaultValue: 'Portfolio' }), href: '#portfolio' },
+    { id: 'certifications', label: t('header.certifications', { defaultValue: 'Certifications' }), href: '#certifications' },
+    { id: 'tools', label: t('header.tools', { defaultValue: 'Tools' }), href: '/tools', isRoute: true },
+    { id: 'blog', label: t('header.blog', { defaultValue: 'Blog' }), href: '/blog', isRoute: true },
+    { id: 'contact', label: t('header.contact', { defaultValue: 'Contact' }), href: '#contact' }
   ];
 
-  // Check if we're on a sub-route page (not main portfolio)
-  const isSubRoute = location.pathname !== '/';
+  const localizedRoot = localizePath('/');
+  const isSubRoute = location.pathname !== localizedRoot;
 
   return (
     <header className={`header ${scrolled ? 'header--scrolled' : ''}`}>
       <div className="header-overlay"></div>
       <div className="nav-container">
         <div className="logo-container">
-          <Link to="/" className="logo-link" onClick={closeNav}>
+          <Link to={localizedRoot} className="logo-link" onClick={closeNav}>
             <img src={logoFull} alt="HaiLam Dev" className="logo-full" />
           </Link>
         </div>
 
-        <button
-          className={`nav-toggle ${isNavOpen ? 'active' : ''}`}
-          onClick={toggleNav}
-          aria-label="Toggle navigation"
-        >
-          <span className="hamburger"></span>
-        </button>
-
-        <nav className={`nav ${isNavOpen ? 'nav-open' : ''}`}>
+        <nav id="primary-navigation" className={`nav ${isNavOpen ? 'nav-open' : ''}`}>
           <ul className="nav-links">
             {navItems.map((item) => (
               <li key={item.id}>
                 {item.isRoute ? (
                   <Link
-                    to={item.href}
+                    to={localizePath(item.href)}
                     onClick={closeNav}
-                    className={location.pathname === item.href ? 'active' : ''}
+                    className={location.pathname === localizePath(item.href) ? 'active' : ''}
                   >
                     {item.label}
                   </Link>
                 ) : isSubRoute ? (
                   <Link
-                    to={`/${item.href}`}
+                    to={`${localizedRoot}${item.href}`}
                     onClick={closeNav}
                   >
                     {item.label}
@@ -101,6 +105,44 @@ const Header = () => {
             ))}
           </ul>
         </nav>
+
+        <div className="header-actions">
+          <div
+            className="language-switcher"
+            role="group"
+            aria-label={t('header.languageSwitcher', { defaultValue: 'Select language' })}
+          >
+            <button
+              type="button"
+              className={locale === 'en' ? 'active' : ''}
+              onClick={() => handleLocaleChange('en')}
+              aria-pressed={locale === 'en'}
+              aria-label={t('header.english', { defaultValue: 'English' })}
+            >
+              EN
+            </button>
+            <span aria-hidden="true">|</span>
+            <button
+              type="button"
+              className={locale === 'vi' ? 'active' : ''}
+              onClick={() => handleLocaleChange('vi')}
+              aria-pressed={locale === 'vi'}
+              aria-label={t('header.vietnamese', { defaultValue: 'Vietnamese' })}
+            >
+              VI
+            </button>
+          </div>
+
+          <button
+            className={`nav-toggle ${isNavOpen ? 'active' : ''}`}
+            onClick={toggleNav}
+            aria-label={t('header.toggleNavigation', { defaultValue: 'Toggle navigation' })}
+            aria-expanded={isNavOpen}
+            aria-controls="primary-navigation"
+          >
+            <span className="hamburger"></span>
+          </button>
+        </div>
       </div>
     </header>
   );

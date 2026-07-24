@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { getInitialToolInputs, getToolBySlug, TOOL_STATUS } from '../../data/tools';
+import useLocaleNavigation from '../../hooks/useLocaleNavigation';
 import './styles/Workspace.css';
 
 const severityLabel = {
@@ -81,6 +82,7 @@ const WorkflowMap = ({ workflow }) => (
 
 const Workspace = () => {
   const { slug } = useParams();
+  const { localizePath } = useLocaleNavigation();
   const tool = getToolBySlug(slug);
   const abortRef = useRef(null);
   const [inputs, setInputs] = useState(() => getInitialToolInputs(tool));
@@ -98,7 +100,7 @@ const Workspace = () => {
   }, [tool]);
 
   if (!tool || tool.status !== TOOL_STATUS.LIVE) {
-    return <Navigate to="/tools" replace />;
+    return <Navigate to={localizePath('/tools')} replace />;
   }
 
   const updateInput = (name, value) => {
@@ -165,7 +167,7 @@ const Workspace = () => {
   return (
     <main className="workspace-page">
       <header className="workspace-header">
-        <Link to="/tools" className="workspace-back">← ALL TOOLS</Link>
+        <Link to={localizePath('/tools')} className="workspace-back">← ALL TOOLS</Link>
         <div className="workspace-title-block">
           <span>{tool.type} / {tool.index}</span>
           <h1>{tool.name}</h1>

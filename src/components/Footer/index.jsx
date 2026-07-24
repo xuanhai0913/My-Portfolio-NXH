@@ -1,9 +1,12 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { EXTERNAL_URLS } from '../../utils/constants';
 import { trackCTAClick } from '../../utils/analytics';
 import './Footer.css';
 
 const Footer = () => {
+    const { t } = useTranslation();
+
     return (
         <footer className="footer" data-section="footer">
             <div className="footer-content">
@@ -13,16 +16,16 @@ const Footer = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="kofi-button"
-                        aria-label="Buy me a coffee on Ko-fi"
+                        aria-label={t('footer.supportAria')}
                         onClick={() => trackCTAClick('Buy me a coffee', 'footer')}
                     >
                         <i className="fas fa-coffee"></i>
-                        <span>Buy me a coffee</span>
+                        <span>{t('footer.support')}</span>
                     </a>
                 </div>
                 <div className="footer-copyright">
-                    <p>© 2025 Nguyễn Xuân Hải. All rights reserved.</p>
-                    <p className="footer-subtitle">Made with ❤️ in Vietnam</p>
+                    <p>{t('footer.copyright', { year: 2025 })}</p>
+                    <p className="footer-subtitle">{t('footer.madeIn')}</p>
                 </div>
             </div>
         </footer>

@@ -1,5 +1,6 @@
 import React, { lazy, Suspense, useEffect } from 'react';
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import ErrorBoundary from './components/ErrorBoundary';
 import Header from './components/Header';
 import SmoothScroll from './components/SmoothScroll';
@@ -40,14 +41,20 @@ const Analytics = lazy(() =>
 );
 
 // Hoisted loading fallback (rerender-no-inline-components)
-const LoadingFallback = () => (
-  <div className="loading-container">
-    <div className="loading-spinner"></div>
-  </div>
-);
+const LoadingFallback = () => {
+  const { t } = useTranslation();
+
+  return (
+    <div className="loading-container" role="status" aria-label={t('common.loading')}>
+      <div className="loading-spinner"></div>
+    </div>
+  );
+};
 
 // Hoisted Main Portfolio Page (rerender-no-inline-components)
 const MainPortfolio = () => {
+  const { t } = useTranslation();
+
   // Active Theory-inspired parallax depth layers
   useParallax();
 
@@ -83,7 +90,7 @@ const MainPortfolio = () => {
 
       {/* Below-fold core sections — eager render for reliability */}
       <ErrorBoundary>
-        <SectionTransition text="EXPERIENCE" />
+        <SectionTransition text={t('sections.experience')} />
       </ErrorBoundary>
 
       <ErrorBoundary>
@@ -91,7 +98,7 @@ const MainPortfolio = () => {
       </ErrorBoundary>
 
       <ErrorBoundary>
-        <SectionTransition text="PROJECTS" />
+        <SectionTransition text={t('sections.projects')} />
       </ErrorBoundary>
 
       <ErrorBoundary>
@@ -113,9 +120,66 @@ const MainPortfolio = () => {
   );
 };
 
+const routePath = (prefix, path) => {
+  if (path === '/') return prefix || '/';
+  return `${prefix}${path}`;
+};
+
+const renderLocalizedRoutes = (prefix) => (
+  <React.Fragment key={prefix || 'en'}>
+    <Route path={routePath(prefix, '/')} element={<MainPortfolio />} />
+    <Route path={routePath(prefix, '/assistant')} element={<ChatWidget mode="page" />} />
+    <Route path={routePath(prefix, '/videos')} element={(
+      <ErrorBoundary>
+        <Suspense fallback={<LoadingFallback />}>
+          <VideoDemo />
+        </Suspense>
+      </ErrorBoundary>
+    )} />
+    <Route path={routePath(prefix, '/tools')} element={(
+      <ErrorBoundary>
+        <Suspense fallback={<LoadingFallback />}>
+          <Tools />
+        </Suspense>
+      </ErrorBoundary>
+    )} />
+    <Route path={routePath(prefix, '/tools/:slug')} element={(
+      <ErrorBoundary>
+        <Suspense fallback={<LoadingFallback />}>
+          <ToolWorkspace />
+        </Suspense>
+      </ErrorBoundary>
+    )} />
+    <Route path={routePath(prefix, '/3d')} element={(
+      <ErrorBoundary>
+        <Suspense fallback={<LoadingFallback />}>
+          <Hero3D />
+        </Suspense>
+      </ErrorBoundary>
+    )} />
+    <Route path={routePath(prefix, '/blog')} element={(
+      <ErrorBoundary>
+        <Suspense fallback={<LoadingFallback />}>
+          <Blog />
+        </Suspense>
+      </ErrorBoundary>
+    )} />
+    <Route path={routePath(prefix, '/home')} element={<Navigate to={prefix || '/'} replace />} />
+    <Route path={routePath(prefix, '/Home')} element={<Navigate to={prefix || '/'} replace />} />
+  </React.Fragment>
+);
+
 const App = () => {
+  const { t, i18n } = useTranslation();
   const location = useLocation();
-  const isAssistantRoute = location.pathname === '/assistant';
+  const isAssistantRoute = /^(\/vi)?\/assistant\/?$/.test(location.pathname);
+
+  useEffect(() => {
+    const urlLanguage = /^\/vi(?:\/|$)/.test(location.pathname) ? 'vi' : 'en';
+    if (i18n.resolvedLanguage !== urlLanguage) {
+      void i18n.changeLanguage(urlLanguage);
+    }
+  }, [i18n, location.pathname]);
 
   return (
     <SmoothScroll>
@@ -128,7 +192,7 @@ const App = () => {
         <BackgroundWaves /> */}
 
         {/* Skip to content — WCAG 2.4.1 */}
-        <a href="#profile" className="skip-link">Skip to main content</a>
+        <a href="#profile" className="skip-link">{t('common.skipToContent')}</a>
 
         <ErrorBoundary>
           <Header />
@@ -138,46 +202,8 @@ const App = () => {
         {!isAssistantRoute ? <ChatWidget /> : null}
 
         <Routes>
-          <Route path="/" element={<MainPortfolio />} />
-          <Route path="/assistant" element={<ChatWidget mode="page" />} />
-          <Route path="/videos" element={
-            <ErrorBoundary>
-              <Suspense fallback={<LoadingFallback />}>
-                <VideoDemo />
-              </Suspense>
-            </ErrorBoundary>
-          } />
-          <Route path="/tools" element={
-            <ErrorBoundary>
-              <Suspense fallback={<LoadingFallback />}>
-                <Tools />
-              </Suspense>
-            </ErrorBoundary>
-          } />
-          <Route path="/tools/:slug" element={
-            <ErrorBoundary>
-              <Suspense fallback={<LoadingFallback />}>
-                <ToolWorkspace />
-              </Suspense>
-            </ErrorBoundary>
-          } />
-          <Route path="/3d" element={
-            <ErrorBoundary>
-              <Suspense fallback={<LoadingFallback />}>
-                <Hero3D />
-              </Suspense>
-            </ErrorBoundary>
-          } />
-          <Route path="/blog" element={
-            <ErrorBoundary>
-              <Suspense fallback={<LoadingFallback />}>
-                <Blog />
-              </Suspense>
-            </ErrorBoundary>
-          } />
-          {/* Redirect /home and /Home to root — fix Google indexing ghost page */}
-          <Route path="/home" element={<Navigate to="/" replace />} />
-          <Route path="/Home" element={<Navigate to="/" replace />} />
+          {renderLocalizedRoutes('')}
+          {renderLocalizedRoutes('/vi')}
         </Routes>
 
         {/* Deferred third-party analytics — loads after main content */}
