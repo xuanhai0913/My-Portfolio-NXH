@@ -290,3 +290,10 @@
         font-size: 0.9rem;
     }
 }
+
+@media (max-width: 480px) {
+    .experience-section .section-title {
+        font-size: clamp(1.85rem, 9.5vw, 2.25rem);
+        overflow-wrap: anywhere;
+    }
+}

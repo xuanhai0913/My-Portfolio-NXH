@@ -15,10 +15,17 @@
   width: 100%;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 2rem;
   flex: 1;
   align-items: center;
+}
+
+.contact-model-col,
+.contact-content,
+.minimal-form,
+.form-group {
+  min-width: 0;
 }
 
 /* ===== 3D Model Column ===== */
@@ -295,7 +302,7 @@
 /* ===== Desktop: 2 columns ===== */
 @media (min-width: 1024px) {
   .contact-container {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 4rem;
   }
 

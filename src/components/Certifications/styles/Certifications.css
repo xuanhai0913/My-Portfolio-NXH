@@ -179,6 +179,10 @@
     gap: 1.5rem;
 }
 
+.certs-section .section-title {
+    overflow-wrap: anywhere;
+}
+
 .credential-profile-links {
     display: flex;
     flex-wrap: wrap;
@@ -204,6 +208,10 @@
 }
 
 @media (max-width: 640px) {
+    .certs-section .section-title {
+        font-size: clamp(1.85rem, 10vw, 2.5rem);
+    }
+
     .certs-title-row {
         align-items: flex-start;
         flex-direction: column;

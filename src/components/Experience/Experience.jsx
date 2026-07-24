@@ -80,6 +80,7 @@ const Experience = () => {
         if (sectionRef.current) observer.observe(sectionRef.current);
 
         let tl;
+        const audio = audioRef.current;
 
         // GSAP ScrollTrigger for Video Background
         const video = videoRef.current;
@@ -118,7 +119,6 @@ const Experience = () => {
                 if (tl.scrollTrigger) tl.scrollTrigger.kill();
                 tl.kill();
             }
-            const audio = audioRef.current;
             if (audio) { audio.pause(); audio.currentTime = 0; }
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -22,12 +22,17 @@
 
 .profile-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 4rem;
   max-width: 1400px;
   width: 100%;
   margin: 0 auto;
   z-index: 2;
+}
+
+.profile-content,
+.profile-visual {
+  min-width: 0;
 }
 
 /* ================= HERO TYPOGRAPHY ================= */
@@ -326,12 +331,21 @@
 /* ================= RESPONSIVE ================= */
 @media (min-width: 1024px) {
   .profile-grid {
-    grid-template-columns: 1.2fr 0.8fr;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
     align-items: center;
   }
 }
 
 @media (max-width: 768px) {
+  .profile-section {
+    padding: 80px 1rem 2rem;
+  }
+
+  .hero-line.line-1,
+  .hero-line.line-2 {
+    font-size: clamp(2.35rem, 12vw, 4rem);
+  }
+
   .hero-line.line-2 {
     margin-left: 0;
   }

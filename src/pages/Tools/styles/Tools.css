@@ -278,7 +278,11 @@
 
   .tools-hero h1 {
     margin-bottom: 2rem;
-    font-size: 24vw;
+    font-size: 21vw;
+  }
+
+  .tools-page--vi .tools-hero h1 {
+    font-size: 15vw;
   }
 
   .tool-row {

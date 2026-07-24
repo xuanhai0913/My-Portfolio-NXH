@@ -397,6 +397,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
   const toastTimeoutRef = useRef(null);
   const toastQueueRef = useRef([]);
   const toastRef = useRef(null);
+  const showToastRef = useRef(null);
   const actionsMenuRef = useRef(null);
   const language = preferredLanguage || 'en';
   const isDevMode = process.env.NODE_ENV !== 'production';
@@ -461,7 +462,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
 
   useEffect(() => {
     if (meta.persistHealthy) return;
-    showToast(
+    showToastRef.current?.(
       language === 'vi'
         ? 'Cảnh báo: phiên chat có thể không lưu được trên trình duyệt này.'
         : 'Warning: chat session may not persist in this browser.',
@@ -747,6 +748,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
 
     toastQueueRef.current.push(nextToast);
   };
+  showToastRef.current = showToast;
 
   const runHeaderAction = async (actionKey, actionRunner) => {
     if (!actionKey || typeof actionRunner !== 'function') return;

@@ -12,7 +12,7 @@
 
 .about-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 4rem;
   max-width: 1400px;
   width: 100%;
@@ -30,6 +30,7 @@
 /* Left Column */
 .about-left {
   display: flex;
+  min-width: 0;
   flex-direction: column;
   justify-content: center;
   /* Vertical Center */
@@ -83,6 +84,7 @@
   border-left: 2px solid var(--color-accent);
   color: #ccc;
   font-size: 0.9rem;
+  overflow-wrap: anywhere;
 }
 
 .comment {
@@ -100,6 +102,7 @@
 /* Right Column: Terminal */
 .about-right {
   display: flex;
+  min-width: 0;
   align-items: center;
   /* Vertical Center for Terminal */
   justify-content: center;
@@ -204,9 +207,16 @@
 
 @media (min-width: 1024px) {
   .about-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     align-items: center;
     /* Enforce vertical center desktop */
     min-height: 60vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-header {
+    font-size: clamp(2.25rem, 12vw, 3rem);
+    overflow-wrap: anywhere;
   }
 }
