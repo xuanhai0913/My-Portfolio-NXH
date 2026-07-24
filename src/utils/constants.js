@@ -74,7 +74,7 @@ export const WORK_EXPERIENCE = [
     role: 'CORE FULLSTACK DEVELOPER',
     period: 'Start: February 2026 | End: Present',
     description: 'Worked as a core developer in a 5-person engineering team with Betodemy leadership from Japan. Built and fixed product modules for student portals, teacher-led online classes, admin tools, gamified practice, and multilingual learning content. Joined weekly product meetings and supported production operations through tracked issues, review notes, and CI/CD handoffs.',
-    achievement: 'Delivered 70+ merged MRs and closed 70+ authored issues across document-editor, challenge-player, online-class, and student/admin workflows.',
+    achievement: 'Delivered 70+ merged MRs and closed 70+ authored issues across document-editor, online-class, and student/admin workflows.',
     technologies: ['React 19', 'Vite', 'React Router', 'Tailwind CSS', 'HeroUI', 'NestJS', 'TypeORM', 'PostgreSQL', 'Redis', 'BullMQ', 'Socket.IO', 'PlateJS', 'SlateJS', 'Nx', 'pnpm', 'GitLab CI/CD', 'Claude', 'Codex', 'AI Agents'],
     logo: null,
     link: 'https://betodemy.com/'
