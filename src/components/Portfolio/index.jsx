@@ -3,28 +3,18 @@ import { trackProjectClick } from '../../utils/analytics';
 import './styles/Portfolio.css';
 
 // Import project images
-import prj1 from '../../images/project/prj1.png';
-import prj3 from '../../images/project/prj3.png';
-import prj6 from '../../images/project/prj6.png';
-import prj8 from '../../images/project/prj8.png';
-import prj10 from '../../images/project/prj10.png';
-import visionKey from '../../images/project/visionKey.png';
-import agriTrace from '../../images/project/agritrace.png';
-import chongScam from '../../images/project/chongscam.png';
-import routeLab from '../../images/project/routelab.png';
-import oakMind from '../../images/project/oakmind.jpg';
+import prj1 from '../../images/project/prj1.webp';
+import prj3 from '../../images/project/prj3.webp';
+import prj6 from '../../images/project/prj6.webp';
+import prj8 from '../../images/project/prj8.webp';
+import prj10 from '../../images/project/prj10.webp';
+import visionKey from '../../images/project/visionKey.webp';
+import agriTrace from '../../images/project/agritrace.webp';
+import chongScam from '../../images/project/chongscam.webp';
+import routeLab from '../../images/project/routelab.webp';
+import oakMind from '../../images/project/oakmind.webp';
 
-const Portfolio = () => {
-  const sectionRef = useRef(null);
-  const projectListRef = useRef(null);
-  const touchStartXRef = useRef(null);
-  const touchStartYRef = useRef(null);
-  const prevIndexRef = useRef(0);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
-
-  const allProjects = [
+const allProjects = [
     {
       title: "OakMind Group Corporate Platform",
       description: "Production corporate CMS for Media and B2B Import-Export, built with React 19 and ASP.NET Core 8.",
@@ -137,7 +127,19 @@ const Portfolio = () => {
       technologies: ["React", "GSAP", "CSS3"],
       year: "2024"
     }
-  ];
+];
+
+const Portfolio = () => {
+  const sectionRef = useRef(null);
+  const projectListRef = useRef(null);
+  const touchStartXRef = useRef(null);
+  const touchStartYRef = useRef(null);
+  const prevIndexRef = useRef(0);
+  const scrollFrameRef = useRef(null);
+  const hasPreloadedRef = useRef(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(max-width: 900px)');
@@ -149,47 +151,87 @@ const Portfolio = () => {
   }, []);
 
   useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return undefined;
+
+    const preloadProjectImages = () => {
+      if (hasPreloadedRef.current) return;
+      hasPreloadedRef.current = true;
+
+      allProjects.forEach((project) => {
+        const image = new Image();
+        image.decoding = 'async';
+        image.src = project.image;
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        preloadProjectImages();
+        observer.disconnect();
+      },
+      { rootMargin: '900px 0px' }
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
     if (!isMobile) return undefined;
 
     const current = Number.isFinite(activeIndex) ? activeIndex : 0;
     setScrollProgress((current + 1) / allProjects.length);
     return undefined;
-  }, [activeIndex, allProjects.length, isMobile]);
+  }, [activeIndex, isMobile]);
 
   useEffect(() => {
     if (isMobile) return undefined;
 
-    const handleScroll = () => {
+    const updateFromScroll = () => {
+      scrollFrameRef.current = null;
       if (!sectionRef.current) return;
+
       const rect = sectionRef.current.getBoundingClientRect();
       const sectionHeight = sectionRef.current.offsetHeight;
       const viewportHeight = window.innerHeight;
-
-      const scrolled = -rect.top;
       const totalScrollable = Math.max(sectionHeight - viewportHeight, 1);
-      const rawProgress = scrolled / totalScrollable;
+      const rawProgress = -rect.top / totalScrollable;
       const progress = Number.isFinite(rawProgress)
         ? Math.max(0, Math.min(1, rawProgress))
         : 0;
 
-      setScrollProgress(progress);
+      setScrollProgress((current) => (
+        Math.abs(current - progress) > 0.001 ? progress : current
+      ));
 
-      // Determine active index based on scroll progress
-      const rawIndex = Math.floor(progress * allProjects.length);
+      const rawIndex = Math.round(progress * (allProjects.length - 1));
       const newIndex = Number.isFinite(rawIndex)
         ? Math.min(allProjects.length - 1, Math.max(0, rawIndex))
         : prevIndexRef.current;
 
-      if (newIndex !== prevIndexRef.current) {
-        prevIndexRef.current = newIndex;
-        setActiveIndex(newIndex);
-      }
+      if (newIndex === prevIndexRef.current) return;
+      prevIndexRef.current = newIndex;
+      setActiveIndex(newIndex);
+    };
+
+    const handleScroll = () => {
+      if (scrollFrameRef.current !== null) return;
+      scrollFrameRef.current = window.requestAnimationFrame(updateFromScroll);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [allProjects.length, isMobile]);
+    updateFromScroll();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (scrollFrameRef.current !== null) {
+        window.cancelAnimationFrame(scrollFrameRef.current);
+        scrollFrameRef.current = null;
+      }
+    };
+  }, [isMobile]);
 
   // Handle project click from list
   const handleProjectClick = (index) => {
@@ -204,7 +246,8 @@ const Portfolio = () => {
       const sectionHeight = sectionRef.current.offsetHeight;
       const viewportHeight = window.innerHeight;
       const totalScrollable = Math.max(sectionHeight - viewportHeight, 1);
-      const targetScroll = sectionTop + (index / allProjects.length) * totalScrollable;
+      const progress = allProjects.length > 1 ? index / (allProjects.length - 1) : 0;
+      const targetScroll = sectionTop + progress * totalScrollable;
       window.scrollTo({ top: targetScroll, behavior: 'smooth' });
     }
   };
@@ -260,7 +303,7 @@ const Portfolio = () => {
     : 0;
   const activeProject = allProjects[safeActiveIndex] || allProjects[0];
 
-  const renderShowcaseCard = (project) => (
+  const renderShowcaseCard = (project, prioritizeImage = false) => (
     <article className="showcase-card">
       <div className="showcase-visual">
         <div className="visual-frame">
@@ -268,7 +311,11 @@ const Portfolio = () => {
             src={project.image}
             alt={`${project.title} preview`}
             className="showcase-image"
-            loading="lazy"
+            loading={prioritizeImage ? 'eager' : 'lazy'}
+            fetchPriority={prioritizeImage ? 'high' : 'low'}
+            decoding="async"
+            width="1600"
+            height="1000"
           />
         </div>
         {project.badge && (
@@ -337,7 +384,12 @@ const Portfolio = () => {
   );
 
   return (
-    <section id="portfolio" className="portfolio-section portfolio-scrollytelling" ref={sectionRef}>
+    <section
+      id="portfolio"
+      className="portfolio-section portfolio-scrollytelling"
+      ref={sectionRef}
+      style={{ '--project-scroll-height': `${Math.max(620, allProjects.length * 72)}vh` }}
+    >
       <div className="portfolio-sticky">
         {/* Fixed Header */}
         <div className="portfolio-header scrolly-header">
@@ -371,7 +423,15 @@ const Portfolio = () => {
               onTouchStart={handleStageTouchStart}
               onTouchEnd={handleStageTouchEnd}
             >
-              {renderShowcaseCard(activeProject)}
+              {allProjects.map((project, index) => (
+                <div
+                  key={project.title}
+                  className={`mobile-project-card ${safeActiveIndex === index ? 'is-active' : ''}`}
+                  aria-hidden={safeActiveIndex !== index}
+                >
+                  {renderShowcaseCard(project, safeActiveIndex === index)}
+                </div>
+              ))}
             </div>
 
             <p className="mobile-swipe-hint">Swipe left or right to change project</p>
@@ -422,7 +482,7 @@ const Portfolio = () => {
 
               {/* Project Detail (Right Side) */}
               <div className="project-showcase">
-                {renderShowcaseCard(activeProject)}
+                {renderShowcaseCard(activeProject, true)}
               </div>
             </div>
 
