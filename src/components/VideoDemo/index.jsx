@@ -1,14 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import useLocaleNavigation from '../../hooks/useLocaleNavigation';
 import './VideoDemo.css';
 
 // Import video
 import llmsVideo from '../../videos/LLMs.mp4';
 
 const VideoDemo = () => {
+    const { t } = useTranslation('misc');
+    const { localizePath } = useLocaleNavigation();
     const featuredProject = {
         title: "LLM-Powered Unit Test Generator",
-        description: "An automated testing utility utilizing DeepSeek LLM to generate coverage-focused unit tests. Parses ASTs to identify edge cases and mocks external dependencies automatically.",
+        description: t('video.description'),
         videoSrc: llmsVideo,
         technologies: ["React", "Node.js", "DeepSeek AI", "Docker"],
         github: "https://github.com/xuanhai0913/LLM-Unit-tests"
@@ -16,8 +20,8 @@ const VideoDemo = () => {
 
     return (
         <div className="video-demo-page">
-            <Link to="/" className="back-btn">
-                ← BACK TO PORTFOLIO
+            <Link to={localizePath('/')} className="back-btn">
+                ← {t('video.back')}
             </Link>
 
             <div className="cinema-container">
@@ -27,16 +31,16 @@ const VideoDemo = () => {
                         <div className="screen-content">
                             <video controls className="cinema-video">
                                 <source src={featuredProject.videoSrc} type="video/mp4" />
-                                Your browser does not support the video tag.
+                                {t('video.unsupported')}
                             </video>
-                            <div className="live-tag">LIVE_PREVIEW</div>
+                            <div className="live-tag">{t('video.livePreview')}</div>
                         </div>
                     </div>
                 </div>
 
                 {/* Right: Info Panel */}
                 <div className="info-panel">
-                    <div className="project-meta">FEATURED_PROJECT_01</div>
+                    <div className="project-meta">{t('video.featured')}</div>
                     <h1 className="project-hero-title">{featuredProject.title}</h1>
                     <p className="project-detail">{featuredProject.description}</p>
 
@@ -52,7 +56,7 @@ const VideoDemo = () => {
                         rel="noopener noreferrer"
                         className="btn-github-cinema"
                     >
-                        VIEW SOURCE CODE ↗
+                        {t('video.source')} ↗
                     </a>
                 </div>
             </div>

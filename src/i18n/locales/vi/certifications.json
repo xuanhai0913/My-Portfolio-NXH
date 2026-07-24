@@ -1,0 +1,73 @@
+{
+  "eyebrow": "THÔNG_TIN_ĐÃ_XÁC_MINH",
+  "title": "CHỨNG CHỈ",
+  "intro": "Các thành tích học tập đã được xác minh trong lĩnh vực điện toán đám mây, kỹ thuật backend, dữ liệu và AI ứng dụng. Lọc bộ sưu tập theo năng lực phù hợp nhất với đội ngũ của bạn.",
+  "stats": {
+    "credentials": "Chứng nhận",
+    "aws": "AWS",
+    "digitalBadges": "Huy hiệu số"
+  },
+  "filters": {
+    "featured": "Nổi bật",
+    "aws": "AWS",
+    "google-cloud": "Google Cloud",
+    "cloud-data": "Đám mây & Dữ liệu",
+    "ai-ml": "AI & ML",
+    "engineering": "Kỹ thuật",
+    "education": "Giáo dục",
+    "all": "Tất cả"
+  },
+  "aria": {
+    "summary": "Tóm tắt chứng chỉ",
+    "filters": "Lọc chứng chỉ",
+    "viewCertificate": "Xem chứng chỉ {{title}}",
+    "verifyCertificate": "Xác minh chứng chỉ {{title}}",
+    "topics": "Chủ đề của {{title}}"
+  },
+  "resultCount": "Đang hiển thị {{visible}} trong tổng số {{total}} chứng nhận",
+  "credentialId": "Mã {{id}}",
+  "fallbackDescription": "Chứng nhận đã được xác minh do {{issuer}} cấp.",
+  "actions": {
+    "viewPdf": "XEM PDF ↗",
+    "verify": "XÁC MINH ↗",
+    "viewCompletionCertificate": "Xem chứng nhận hoàn thành ↗",
+    "viewCourseCertificate": "Xem chứng nhận khóa học ↗",
+    "verifyTrainingBadge": "Xác minh huy hiệu đào tạo ↗",
+    "verifyDigitalBadge": "Xác minh huy hiệu số ↗",
+    "verifyCompletionBadge": "Xác minh huy hiệu hoàn thành ↗",
+    "verifyCredential": "Xác minh chứng nhận ↗"
+  },
+  "certificates": {
+    "aws-cloud-practitioner-essentials": { "description": "Chứng nhận hoàn thành bao quát các khái niệm và dịch vụ nền tảng của AWS Cloud." },
+    "aws-knowledge-events-workflows": { "description": "Kiến thức đã được xác minh về Step Functions, EventBridge, SQS, SNS và kiến trúc serverless hướng sự kiện." },
+    "aws-knowledge-serverless": { "description": "Kiến thức kỹ thuật đã được xác minh về AWS Lambda, Amazon API Gateway và các mô hình ứng dụng serverless." },
+    "aws-educate-getting-started-with-databases": { "description": "Huy hiệu đào tạo về các khái niệm cơ sở dữ liệu và dịch vụ cơ sở dữ liệu nền tảng của AWS." },
+    "aws-educate-generative-ai": { "description": "Huy hiệu đào tạo về các khái niệm AI tạo sinh nền tảng và trường hợp sử dụng trên AWS." },
+    "aws-educate-machine-learning-foundations": { "description": "Huy hiệu đào tạo về các khái niệm và quy trình máy học nền tảng." },
+    "aws-educate-getting-started-with-serverless": { "description": "Huy hiệu đào tạo về các khái niệm serverless nền tảng và dịch vụ AWS." },
+    "aws-serverless-mindset": { "description": "Chứng nhận hoàn thành về các nguyên tắc serverless và tư duy cloud-native." },
+    "aws-building-front-door": { "description": "Chứng nhận hoàn thành lộ trình học serverless của AWS." },
+    "aws-designing-event-driven-architectures": { "description": "Các mô hình kiến trúc hướng sự kiện, phân tách dịch vụ và quy trình bất đồng bộ." },
+    "aws-introduction-to-lambda": { "description": "Nhập môn điện toán hướng sự kiện và phát triển hàm serverless." },
+    "aws-lambda-foundations": { "description": "Kiến thức nền tảng về cấu hình, gọi hàm, phân quyền và vận hành Lambda." },
+    "aws-scaling-serverless-architectures": { "description": "Các mô hình mở rộng, xử lý đồng thời và thiết kế ứng dụng serverless có khả năng phục hồi." },
+    "aws-serverless-security-observability": { "description": "Kiểm soát bảo mật, giám sát và khả năng quan sát cho khối lượng công việc serverless." },
+    "aws-deploying-serverless-applications": { "description": "Quy trình triển khai và thực hành vòng đời cho ứng dụng serverless." },
+    "aws-api-gateway-serverless": { "description": "Cấu hình API Gateway và tích hợp API cho backend serverless." },
+    "aws-episode-2-powering-backend": { "description": "Chứng nhận hoàn thành về các dịch vụ backend trong một ứng dụng serverless trên AWS." },
+    "aws-amplify-getting-started": { "description": "Chứng nhận hoàn thành về phân phối và lưu trữ ứng dụng bằng AWS Amplify." },
+    "aws-aip-c01-domain-1-review": { "description": "Hoàn thành khóa học Domain 1 theo hướng dẫn kỳ thi AWS Certified Generative AI Developer - Professional." },
+    "aws-vectordb-vs-graphdb-agents": { "description": "Chứng nhận hoàn thành nội dung so sánh kho dữ liệu vector và đồ thị cho các trường hợp sử dụng AI tác tử." },
+    "google-cloud-infrastructure-foundation": { "description": "Huy hiệu hoàn thành về Compute Engine, Cloud Shell, mạng VPC và thiết kế hạ tầng." },
+    "google-gen-ai-beyond-chatbot": { "description": "Mô hình nền tảng, kỹ thuật prompt và chiến lược Gen AI cho tổ chức." },
+    "google-gen-ai-foundational-concepts": { "description": "Nền tảng AI tạo sinh, các loại dữ liệu, AI có trách nhiệm và giới hạn của mô hình." },
+    "google-gen-ai-landscape": { "description": "Các lớp giải pháp Gen AI, sản phẩm Google Cloud và cách lựa chọn giải pháp." },
+    "google-gen-ai-apps": { "description": "Grounding, RAG, kỹ thuật prompt hiệu quả và quy trình tự động với các công cụ AI của Google." },
+    "google-gen-ai-agents": { "description": "Thực hành nền tảng về tác tử, bao gồm mô hình, vòng lặp suy luận và công cụ." },
+    "faculty": { "description": "Giảng viên được chứng nhận về Google Gemini AI." },
+    "student": { "description": "Được chứng nhận về các công nghệ Google Gemini AI." },
+    "google-ai-k12": { "description": "Phương pháp giáo dục AI dành cho bậc K-12." },
+    "talkbot": { "description": "Phát triển AI hội thoại." },
+    "ech": { "description": "Chứng nhận tham gia hoạt động tình nguyện tại ECH." }
+  }
+}

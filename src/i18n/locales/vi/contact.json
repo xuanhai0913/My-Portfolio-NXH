@@ -1,0 +1,162 @@
+{
+  "heading": {
+    "prefix": "Hãy",
+    "highlight": "Kết nối"
+  },
+  "intro": {
+    "beforeHighlight": "Bạn có ý tưởng hoặc dự án? Hãy cùng hợp tác và tạo nên điều gì đó",
+    "highlight": "phi thường",
+    "afterHighlight": "."
+  },
+  "model": {
+    "caption": "Di chuyển con trỏ quanh tôi nhé!",
+    "thankYou": "Cảm ơn bạn!",
+    "aria": "Mô hình kem 3D tương tác"
+  },
+  "form": {
+    "namePlaceholder": "HỌ TÊN",
+    "nameAria": "Họ tên của bạn",
+    "emailPlaceholder": "EMAIL",
+    "emailAria": "Địa chỉ email của bạn",
+    "useEmailDomain": "Dùng tên miền email {{domain}}",
+    "sending": "ĐANG GỬI...",
+    "send": "GỬI TIN NHẮN →"
+  },
+  "status": {
+    "success": "Đã gửi tin nhắn! Tôi sẽ sớm phản hồi bạn.",
+    "error": "Không thể gửi. Vui lòng kiểm tra cấu hình hoặc thử lại sau.",
+    "empty": "Vui lòng nhập nội dung trước khi gửi."
+  },
+  "social": {
+    "githubAria": "Hồ sơ GitHub",
+    "linkedinAria": "Hồ sơ LinkedIn",
+    "youtubeAria": "Kênh YouTube",
+    "devtoAria": "Blog Dev.to",
+    "emailAria": "Gửi email"
+  },
+  "editor": {
+    "placeholder": "Nhập tin nhắn... (dùng / để mở lệnh)",
+    "aria": "Trình soạn thảo tin nhắn",
+    "showPreview": "Xem trước email",
+    "hidePreview": "Ẩn bản xem trước email",
+    "previewTitle": "Xem trước email",
+    "noContent": "Chưa có nội dung.",
+    "dragHandleAria": "Kéo để sắp xếp lại khối này",
+    "dragHandleTooltip": "Kéo khối",
+    "dnd": {
+      "instructions": "Nhấn phím cách để chọn khối. Dùng các phím mũi tên để di chuyển, nhấn phím cách để thả hoặc Escape để hủy.",
+      "pickedUp": "Đã chọn khối {{id}}.",
+      "movedOver": "Khối {{activeId}} đã di chuyển qua {{overId}}.",
+      "noTarget": "Khối {{id}} không còn nằm trên vùng có thể thả.",
+      "dropped": "Đã thả khối {{activeId}} lên {{overId}}.",
+      "cancelled": "Đã hủy di chuyển khối {{id}}."
+    },
+    "toggleChecklistAria": "Đánh dấu mục công việc",
+    "editCtaAria": "Sửa nút kêu gọi hành động",
+    "edit": "Sửa",
+    "buttonTextPlaceholder": "Nội dung nút",
+    "buttonTextAria": "Nội dung nút",
+    "buttonUrlAria": "URL của nút",
+    "cancel": "Hủy",
+    "save": "Lưu",
+    "prompts": {
+      "enterUrl": "Nhập URL:",
+      "buttonText": "Nội dung nút:",
+      "buttonUrl": "URL của nút:"
+    },
+    "defaults": {
+      "checklist": "Mục công việc mới",
+      "replyNow": "Phản hồi ngay",
+      "viewDetails": "Xem chi tiết",
+      "leftColumn": "Nội dung cột trái...",
+      "rightColumn": "Nội dung cột phải..."
+    },
+    "toolbar": {
+      "aria": "Định dạng tin nhắn",
+      "bold": "In đậm",
+      "italic": "In nghiêng",
+      "underline": "Gạch chân",
+      "strikethrough": "Gạch ngang",
+      "code": "Mã nội dòng",
+      "link": "Liên kết",
+      "heading-one": "Tiêu đề 1",
+      "heading-two": "Tiêu đề 2",
+      "heading-three": "Tiêu đề 3",
+      "block-quote": "Trích dẫn",
+      "bulleted-list": "Danh sách dấu đầu dòng",
+      "numbered-list": "Danh sách đánh số",
+      "code-block": "Khối mã",
+      "callout": "Ghi chú nổi bật",
+      "checklist": "Danh sách công việc",
+      "two-columns": "Hai cột",
+      "cta": "Nút kêu gọi hành động",
+      "divider": "Đường phân cách",
+      "image": "Hình ảnh"
+    },
+    "slash": {
+      "aria": "Lệnh chèn khối",
+      "header": "CÁC KHỐI",
+      "items": {
+        "paragraph": { "label": "Đoạn văn", "description": "Văn bản thường" },
+        "headingOne": { "label": "Tiêu đề 1", "description": "Tiêu đề lớn" },
+        "headingTwo": { "label": "Tiêu đề 2", "description": "Tiêu đề vừa" },
+        "headingThree": { "label": "Tiêu đề 3", "description": "Tiêu đề nhỏ" },
+        "blockquote": { "label": "Trích dẫn", "description": "Khối trích dẫn" },
+        "bulletedList": { "label": "Danh sách dấu đầu dòng", "description": "Danh sách không thứ tự" },
+        "numberedList": { "label": "Danh sách đánh số", "description": "Danh sách có thứ tự" },
+        "codeBlock": { "label": "Khối mã", "description": "Đoạn mã nguồn" },
+        "image": { "label": "Hình ảnh", "description": "Tìm trên Unsplash hoặc dán URL" },
+        "divider": { "label": "Đường phân cách", "description": "Đường phân cách ngang" },
+        "callout": { "label": "Ghi chú nổi bật", "description": "Mẹo hoặc ghi chú được làm nổi bật" },
+        "checklist": { "label": "Danh sách công việc", "description": "Một mục công việc" },
+        "cta": { "label": "Nút kêu gọi hành động", "description": "Nút kêu gọi hành động nổi bật" },
+        "twoColumns": { "label": "Hai cột", "description": "Các khối nội dung đặt cạnh nhau" }
+      }
+    }
+  },
+  "imagePicker": {
+    "title": "Chèn hình ảnh",
+    "closeAria": "Đóng trình chọn ảnh",
+    "tabs": { "upload": "Tải lên" },
+    "categories": {
+      "trending": "Thịnh hành",
+      "nature": "Thiên nhiên",
+      "technology": "Công nghệ",
+      "architecture": "Kiến trúc",
+      "people": "Con người",
+      "animals": "Động vật",
+      "food": "Ẩm thực",
+      "travel": "Du lịch",
+      "business": "Kinh doanh",
+      "textures": "Họa tiết"
+    },
+    "searchPlaceholder": "Tìm ảnh...",
+    "searchAria": "Tìm ảnh trên Unsplash",
+    "search": "TÌM KIẾM",
+    "loadingPhotos": "Đang tải ảnh...",
+    "trendingPhotos": "Ảnh thịnh hành",
+    "unsplashPhotoAlt": "Ảnh từ Unsplash",
+    "loading": "Đang tải...",
+    "loadMore": "Tải thêm",
+    "noResults": "Không có kết quả. Hãy thử từ khóa khác.",
+    "photosBy": "Ảnh từ",
+    "chooseFileAria": "Chọn tệp hình ảnh",
+    "dropzone": {
+      "title": "Kéo và thả hình ảnh vào đây",
+      "subtitle": "hoặc nhấn để chọn từ máy tính",
+      "hint": "PNG, JPG, GIF, WebP • Tối đa 5MB"
+    },
+    "uploadPreviewAlt": "Xem trước ảnh tải lên",
+    "change": "Thay đổi",
+    "insertImage": "CHÈN HÌNH ẢNH",
+    "imageUrlAria": "URL trực tiếp của hình ảnh",
+    "insert": "CHÈN",
+    "urlHint": "Dán liên kết trực tiếp đến hình ảnh bất kỳ trên web",
+    "errors": {
+      "api": "Lỗi API Unsplash: {{status}}",
+      "load": "Không thể tải ảnh từ Unsplash. Vui lòng thử lại.",
+      "fileType": "Vui lòng chọn tệp hình ảnh (PNG, JPG, GIF, WebP).",
+      "fileSize": "Tệp quá lớn. Kích thước tối đa là 5MB."
+    }
+  }
+}

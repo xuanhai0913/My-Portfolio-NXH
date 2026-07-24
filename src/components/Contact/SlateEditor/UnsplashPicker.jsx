@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import ReactDOM from 'react-dom';
+import { useTranslation } from 'react-i18next';
 
 const UNSPLASH_ACCESS_KEY = process.env.REACT_APP_UNSPLASH_ACCESS_KEY;
 const PER_PAGE = 12;
@@ -7,21 +8,22 @@ const PER_PAGE = 12;
 const TABS = { UNSPLASH: 'unsplash', UPLOAD: 'upload', URL: 'url' };
 
 const CATEGORIES = [
-  { key: 'trending', label: 'Trending', icon: '🔥' },
-  { key: 'nature', label: 'Nature', icon: '🌿' },
-  { key: 'technology', label: 'Technology', icon: '💻' },
-  { key: 'architecture', label: 'Architecture', icon: '🏛' },
-  { key: 'people', label: 'People', icon: '👤' },
-  { key: 'animals', label: 'Animals', icon: '🐾' },
-  { key: 'food', label: 'Food & Drink', icon: '☕' },
-  { key: 'travel', label: 'Travel', icon: '✈️' },
-  { key: 'business', label: 'Business', icon: '💼' },
-  { key: 'textures', label: 'Textures', icon: '🎨' },
+  { key: 'trending', icon: '🔥' },
+  { key: 'nature', icon: '🌿' },
+  { key: 'technology', icon: '💻' },
+  { key: 'architecture', icon: '🏛' },
+  { key: 'people', icon: '👤' },
+  { key: 'animals', icon: '🐾' },
+  { key: 'food', icon: '☕' },
+  { key: 'travel', icon: '✈️' },
+  { key: 'business', icon: '💼' },
+  { key: 'textures', icon: '🎨' },
 ];
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
 const UnsplashPicker = ({ isOpen, onSelect, onClose }) => {
+  const { t } = useTranslation('contact');
   const [activeTab, setActiveTab] = useState(TABS.UNSPLASH);
   const [query, setQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('trending');
@@ -46,14 +48,6 @@ const UnsplashPicker = ({ isOpen, onSelect, onClose }) => {
     }
   }, [isOpen, activeTab]);
 
-  // Load initial photos when picker opens
-  useEffect(() => {
-    if (isOpen && UNSPLASH_ACCESS_KEY && activeTab === TABS.UNSPLASH && !hasFetchedInitial.current) {
-      hasFetchedInitial.current = true;
-      fetchCurated(1);
-    }
-  }, [isOpen, activeTab]);
-
   // Close on Escape
   useEffect(() => {
     if (!isOpen) return;
@@ -64,7 +58,7 @@ const UnsplashPicker = ({ isOpen, onSelect, onClose }) => {
     return () => document.removeEventListener('keydown', handleKey);
   }, [isOpen, onClose]);
 
-  const fetchCurated = async (pageNum = 1) => {
+  const fetchCurated = useCallback(async (pageNum = 1) => {
     if (!UNSPLASH_ACCESS_KEY) return;
     setLoading(true);
     setError(null);
@@ -75,7 +69,11 @@ const UnsplashPicker = ({ isOpen, onSelect, onClose }) => {
         `https://api.unsplash.com/photos?page=${pageNum}&per_page=${PER_PAGE}&order_by=popular`,
         { headers: { Authorization: `Client-ID ${UNSPLASH_ACCESS_KEY}` } }
       );
-      if (!res.ok) throw new Error(`Unsplash API error: ${res.status}`);
+      if (!res.ok) {
+        const apiError = new Error('Unsplash API error');
+        apiError.status = res.status;
+        throw apiError;
+      }
       const data = await res.json();
 
       if (pageNum === 1) {
@@ -86,11 +84,23 @@ const UnsplashPicker = ({ isOpen, onSelect, onClose }) => {
       setHasMore(data.length === PER_PAGE);
       setPage(pageNum);
     } catch (err) {
-      setError(err.message);
+      setError(
+        err.status
+          ? t('imagePicker.errors.api', { status: err.status })
+          : t('imagePicker.errors.load')
+      );
     } finally {
       setLoading(false);
     }
-  };
+  }, [t]);
+
+  // Load initial photos when the picker first opens on the Unsplash tab.
+  useEffect(() => {
+    if (isOpen && UNSPLASH_ACCESS_KEY && activeTab === TABS.UNSPLASH && !hasFetchedInitial.current) {
+      hasFetchedInitial.current = true;
+      fetchCurated(1);
+    }
+  }, [isOpen, activeTab, fetchCurated]);
 
   const searchUnsplash = useCallback(
     async (searchQuery, pageNum = 1) => {
@@ -106,7 +116,11 @@ const UnsplashPicker = ({ isOpen, onSelect, onClose }) => {
           )}&page=${pageNum}&per_page=${PER_PAGE}&orientation=landscape`,
           { headers: { Authorization: `Client-ID ${UNSPLASH_ACCESS_KEY}` } }
         );
-        if (!res.ok) throw new Error(`Unsplash API error: ${res.status}`);
+        if (!res.ok) {
+          const apiError = new Error('Unsplash API error');
+          apiError.status = res.status;
+          throw apiError;
+        }
         const data = await res.json();
 
         if (pageNum === 1) {
@@ -117,12 +131,16 @@ const UnsplashPicker = ({ isOpen, onSelect, onClose }) => {
         setHasMore(pageNum < data.total_pages);
         setPage(pageNum);
       } catch (err) {
-        setError(err.message);
+        setError(
+          err.status
+            ? t('imagePicker.errors.api', { status: err.status })
+            : t('imagePicker.errors.load')
+        );
       } finally {
         setLoading(false);
       }
     },
-    []
+    [t]
   );
 
   const handleCategoryClick = (categoryKey) => {
@@ -173,11 +191,11 @@ const UnsplashPicker = ({ isOpen, onSelect, onClose }) => {
   const processFile = (file) => {
     if (!file) return;
     if (!file.type.startsWith('image/')) {
-      setError('Please select an image file (PNG, JPG, GIF, WebP)');
+      setError(t('imagePicker.errors.fileType'));
       return;
     }
     if (file.size > MAX_FILE_SIZE) {
-      setError('File too large. Maximum size is 5MB.');
+      setError(t('imagePicker.errors.fileSize'));
       return;
     }
     setError(null);
@@ -259,15 +277,17 @@ const UnsplashPicker = ({ isOpen, onSelect, onClose }) => {
       ref={overlayRef}
       className="unsplash-overlay"
       onMouseDown={handleOverlayClick}
+      role="presentation"
     >
-      <div className="unsplash-picker">
+      <div className="unsplash-picker" role="dialog" aria-modal="true" aria-label={t('imagePicker.title')}>
         {/* Header */}
         <div className="unsplash-header">
-          <span className="unsplash-title">Insert Image</span>
+          <span className="unsplash-title">{t('imagePicker.title')}</span>
           <button
             type="button"
             className="unsplash-close"
             onClick={() => { onClose(); reset(); }}
+            aria-label={t('imagePicker.closeAria')}
           >
             ✕
           </button>
@@ -287,7 +307,7 @@ const UnsplashPicker = ({ isOpen, onSelect, onClose }) => {
             className={`picker-tab ${activeTab === TABS.UPLOAD ? 'active' : ''}`}
             onClick={() => switchTab(TABS.UPLOAD)}
           >
-            <span className="picker-tab-icon">📁</span> Upload
+            <span className="picker-tab-icon">📁</span> {t('imagePicker.tabs.upload')}
           </button>
           <button
             type="button"
@@ -311,7 +331,7 @@ const UnsplashPicker = ({ isOpen, onSelect, onClose }) => {
                   onClick={() => handleCategoryClick(cat.key)}
                 >
                   <span className="category-chip-icon">{cat.icon}</span>
-                  {cat.label}
+                  {t(`imagePicker.categories.${cat.key}`)}
                 </button>
               ))}
             </div>
@@ -322,7 +342,8 @@ const UnsplashPicker = ({ isOpen, onSelect, onClose }) => {
                 ref={inputRef}
                 type="text"
                 className="unsplash-search-input"
-                placeholder="Search photos..."
+                placeholder={t('imagePicker.searchPlaceholder')}
+                aria-label={t('imagePicker.searchAria')}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
               />
@@ -331,24 +352,24 @@ const UnsplashPicker = ({ isOpen, onSelect, onClose }) => {
                 className="unsplash-search-btn"
                 disabled={loading || !query.trim()}
               >
-                {loading && results.length === 0 ? '...' : 'SEARCH'}
+                {loading && results.length === 0 ? '...' : t('imagePicker.search')}
               </button>
             </form>
 
             {error && <div className="unsplash-error">{error}</div>}
 
             {loading && results.length === 0 && (
-              <div className="unsplash-loading">Loading photos...</div>
+              <div className="unsplash-loading">{t('imagePicker.loadingPhotos')}</div>
             )}
 
             {results.length > 0 && (
               <>
                 {!isSearchMode && activeCategory === 'trending' && (
-                  <div className="unsplash-section-label">Trending photos</div>
+                  <div className="unsplash-section-label">{t('imagePicker.trendingPhotos')}</div>
                 )}
                 {isSearchMode && activeCategory && activeCategory !== 'trending' && (
                   <div className="unsplash-section-label">
-                    {CATEGORIES.find((c) => c.key === activeCategory)?.label || activeCategory}
+                    {t(`imagePicker.categories.${activeCategory}`)}
                   </div>
                 )}
                 <div className="unsplash-grid">
@@ -360,7 +381,7 @@ const UnsplashPicker = ({ isOpen, onSelect, onClose }) => {
                     >
                       <img
                         src={photo.urls.small}
-                        alt={photo.alt_description || 'Unsplash photo'}
+                        alt={photo.alt_description || t('imagePicker.unsplashPhotoAlt')}
                         loading="lazy"
                       />
                       <div className="unsplash-photo-credit">
@@ -377,7 +398,7 @@ const UnsplashPicker = ({ isOpen, onSelect, onClose }) => {
                     onClick={handleLoadMore}
                     disabled={loading}
                   >
-                    {loading ? 'Loading...' : 'Load more'}
+                    {loading ? t('imagePicker.loading') : t('imagePicker.loadMore')}
                   </button>
                 )}
               </>
@@ -385,13 +406,13 @@ const UnsplashPicker = ({ isOpen, onSelect, onClose }) => {
 
             {!loading && results.length === 0 && isSearchMode && (
               <div className="unsplash-empty">
-                No results. Try a different search term.
+                {t('imagePicker.noResults')}
               </div>
             )}
 
             {results.length > 0 && (
               <div className="unsplash-attribution">
-                Photos by{' '}
+                {t('imagePicker.photosBy')}{' '}
                 <a
                   href="https://unsplash.com/?utm_source=portfolio&utm_medium=referral"
                   target="_blank"
@@ -413,6 +434,7 @@ const UnsplashPicker = ({ isOpen, onSelect, onClose }) => {
               accept="image/*"
               onChange={handleFileSelect}
               className="upload-file-input"
+              aria-label={t('imagePicker.chooseFileAria')}
             />
 
             {!uploadPreview ? (
@@ -426,20 +448,20 @@ const UnsplashPicker = ({ isOpen, onSelect, onClose }) => {
               >
                 <div className="upload-dropzone-icon">📤</div>
                 <div className="upload-dropzone-text">
-                  Drag & drop an image here
+                  {t('imagePicker.dropzone.title')}
                 </div>
                 <div className="upload-dropzone-subtext">
-                  or click to browse from your computer
+                  {t('imagePicker.dropzone.subtitle')}
                 </div>
                 <div className="upload-dropzone-hint">
-                  PNG, JPG, GIF, WebP • Max 5MB
+                  {t('imagePicker.dropzone.hint')}
                 </div>
               </div>
             ) : (
               <div className="upload-preview">
                 <img
                   src={uploadPreview.url}
-                  alt="Upload preview"
+                  alt={t('imagePicker.uploadPreviewAlt')}
                   className="upload-preview-img"
                 />
                 <div className="upload-preview-info">
@@ -455,14 +477,14 @@ const UnsplashPicker = ({ isOpen, onSelect, onClose }) => {
                       fileInputRef.current.value = '';
                     }}
                   >
-                    Change
+                    {t('imagePicker.change')}
                   </button>
                   <button
                     type="button"
                     className="upload-btn-insert"
                     onClick={handleUploadInsert}
                   >
-                    INSERT IMAGE
+                    {t('imagePicker.insertImage')}
                   </button>
                 </div>
               </div>
@@ -481,6 +503,7 @@ const UnsplashPicker = ({ isOpen, onSelect, onClose }) => {
                 type="url"
                 className="unsplash-search-input"
                 placeholder="https://example.com/image.jpg"
+                aria-label={t('imagePicker.imageUrlAria')}
                 value={manualUrl}
                 onChange={(e) => setManualUrl(e.target.value)}
               />
@@ -489,11 +512,11 @@ const UnsplashPicker = ({ isOpen, onSelect, onClose }) => {
                 className="unsplash-search-btn"
                 disabled={!manualUrl.trim()}
               >
-                INSERT
+                {t('imagePicker.insert')}
               </button>
             </form>
             <div className="url-tab-hint">
-              Paste a direct link to any image on the web
+              {t('imagePicker.urlHint')}
             </div>
           </div>
         )}

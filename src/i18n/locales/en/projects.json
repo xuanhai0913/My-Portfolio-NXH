@@ -1,0 +1,85 @@
+{
+  "heading": "PROJECTS_",
+  "labels": {
+    "impact": "IMPACT"
+  },
+  "actions": {
+    "visitSite": "VISIT SITE",
+    "github": "GITHUB_",
+    "previous": "PREV",
+    "next": "NEXT"
+  },
+  "hints": {
+    "swipe": "Swipe left or right to change project",
+    "scroll": "SCROLL TO EXPLORE"
+  },
+  "aria": {
+    "preview": "{{title}} preview",
+    "projectNavigation": "Project navigation",
+    "selectProject": "View {{title}}",
+    "previousProject": "View previous project",
+    "nextProject": "View next project",
+    "visitSite": "Visit the {{title}} website",
+    "github": "View the {{title}} source code on GitHub",
+    "githubVariant": "View the {{variant}} source code for {{title}} on GitHub"
+  },
+  "items": {
+    "oakmind": {
+      "title": "OakMind Group Corporate Platform",
+      "description": "Production corporate CMS for Media and B2B Import-Export, built with React 19 and ASP.NET Core 8.",
+      "achievement": "Shipped admin/editor, bilingual content, SEO/analytics, video, and Cloudflare R2 media workflows in 28 authored commits.",
+      "badge": "PRODUCTION"
+    },
+    "greatLinkMaiHouse": {
+      "title": "Great Link Mai House",
+      "description": "Rebuilt legacy WordPress publishing workflows as a React and ASP.NET Core platform, owning delivery from requirements through release.",
+      "achievement": "Unified authentication, media, realtime updates, and B2B publishing workflows in one maintainable system.",
+      "badge": "B2B"
+    },
+    "educationEnglish": {
+      "title": "Education English",
+      "description": "Community LMS supporting accessible English learning with course management, secure authentication, media, and notifications.",
+      "achievement": "Digitized volunteer teaching operations with automated certificates and Excel/PDF reporting, reducing manual administration."
+    },
+    "vnMediaHub": {
+      "title": "VN Media Hub",
+      "description": "Production CMS built with React and ASP.NET Core for content, moderation, publishing, and reporting workflows.",
+      "achievement": "Centralized day-to-day content operations and added caching, structured logging, SEO publishing, and PDF exports."
+    },
+    "chongScam": {
+      "title": "ChongScam - Trust Platform",
+      "description": "Production platform for checking transaction risk, verified traders, and community scam reports.",
+      "achievement": "Delivered a client-operated production platform spanning 22 controllers, 20 SQL migrations, and 12 Jest/e2e test suites.",
+      "badge": "PRODUCTION"
+    },
+    "routeLab": {
+      "title": "RouteLab - Shortest Path Lab",
+      "description": "Interactive laboratory comparing Dijkstra, A*, Floyd-Warshall, and Bellman-Ford on weighted map graphs.",
+      "achievement": "Implemented solver/API/database paths, replay visualization, automated tests, and backend algorithm CI.",
+      "badge": "PUBLIC CODE"
+    },
+    "agriTrace": {
+      "title": "AgriTrace - Blockchain Traceability",
+      "description": "Hybrid on-chain/off-chain agricultural traceability system with multi-role supply-chain workflows.",
+      "achievement": "Built React/Express/PostgreSQL operations, Solidity lifecycle contracts, QR verification, and IPFS evidence on Polygon Amoy.",
+      "badge": "PUBLIC CODE"
+    },
+    "visionKey": {
+      "title": "Vision Key AI",
+      "description": "Native macOS screen assistant with secure API-key storage, global hotkeys, and Gemini-powered contextual workflows.",
+      "achievement": "Implemented the SwiftUI/AppKit desktop flow and published supporting browser-extension repositories.",
+      "badge": "AI"
+    },
+    "llmUnitTestGen": {
+      "title": "LLM Unit Test Gen",
+      "description": "Developer tool that drafts unit tests from source context using a DeepSeek-powered React and Express workflow.",
+      "achievement": "Connected Monaco-based code input to reusable generation, validation, and test-oriented backend flows.",
+      "badge": "FEATURED"
+    },
+    "portfolioWebsite": {
+      "title": "Portfolio Website",
+      "description": "Recruiter-facing React portfolio with structured project evidence, responsive interactions, and analytics.",
+      "achievement": "Built the project discovery flow, Slate-based contact experience, GSAP motion, and a contextual portfolio assistant."
+    }
+  }
+}

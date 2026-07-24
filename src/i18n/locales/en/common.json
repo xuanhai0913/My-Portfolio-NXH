@@ -165,6 +165,16 @@
     "outputDisclaimer": "AI output may be incomplete or incorrect.",
     "verifyNotice": "VERIFY BEFORE USE / NO INPUT PERSISTENCE"
   },
+  "meta": {
+    "titles": {
+      "portfolio": "Nguyễn Xuân Hải - Full-Stack Developer | React, .NET, Odoo & AI",
+      "assistant": "Portfolio Assistant - Nguyễn Xuân Hải",
+      "videos": "Project Demos - Nguyễn Xuân Hải",
+      "tools": "AI Tools - Nguyễn Xuân Hải",
+      "threeD": "3D Experience - Nguyễn Xuân Hải",
+      "blog": "Blog - Nguyễn Xuân Hải | React, .NET Core & AI"
+    }
+  },
   "footer": {
     "supportAria": "Buy me a coffee on Ko-fi",
     "support": "Buy me a coffee",

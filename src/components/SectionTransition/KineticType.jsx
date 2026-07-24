@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './SectionTransition.css';
@@ -6,6 +7,7 @@ import './SectionTransition.css';
 gsap.registerPlugin(ScrollTrigger);
 
 const KineticType = ({ text }) => {
+    const { t } = useTranslation('misc');
     const containerRef = useRef(null);
     const charsContainerRef = useRef(null);
     const lineHorizontalRef = useRef(null);
@@ -128,7 +130,7 @@ const KineticType = ({ text }) => {
             {/* Subtitle */}
             <div className="kinetic-subtitle" ref={subtitleRef}>
                 <span className="subtitle-dash">—</span>
-                <span>SCROLL TO EXPLORE</span>
+                <span>{t('transition.scroll')}</span>
                 <span className="subtitle-dash">—</span>
             </div>
 

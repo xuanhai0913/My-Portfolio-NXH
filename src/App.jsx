@@ -175,10 +175,23 @@ const App = () => {
 
   useEffect(() => {
     const urlLanguage = /^\/vi(?:\/|$)/.test(location.pathname) ? 'vi' : 'en';
+    document.documentElement.lang = urlLanguage;
     if (i18n.resolvedLanguage !== urlLanguage) {
       void i18n.changeLanguage(urlLanguage);
     }
   }, [i18n, location.pathname]);
+
+  useEffect(() => {
+    const route = location.pathname.replace(/^\/vi(?=\/|$)/, '') || '/';
+    let page = 'portfolio';
+    if (route.startsWith('/assistant')) page = 'assistant';
+    else if (route.startsWith('/videos')) page = 'videos';
+    else if (route.startsWith('/tools')) page = 'tools';
+    else if (route.startsWith('/3d')) page = 'threeD';
+    else if (route.startsWith('/blog')) page = 'blog';
+
+    document.title = t(`meta.titles.${page}`);
+  }, [i18n.resolvedLanguage, location.pathname, t]);
 
   return (
     <SmoothScroll>

@@ -1,7 +1,10 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import '../Profile/homeTranslations';
 import './styles/About.css';
 
 const About = () => {
+  const { t } = useTranslation('home');
   const sectionRef = useRef(null);
   const [inView, setInView] = useState(false);
 
@@ -33,30 +36,23 @@ const About = () => {
 
         {/* Left: Bio & Header */}
         <div className="about-left">
-          <h2 className="about-header">ABOUT_ME</h2>
+          <h2 className="about-header">{t('about.title')}</h2>
           <div className="bio-container">
             {/* AI-extractable definition block (40-60 words, self-contained) */}
             <p className="bio-text">
-              Nguyễn Xuân Hải is a <span className="highlight">Full-Stack Developer</span> based
-              in Ho Chi Minh City, Vietnam, specializing in React, .NET Core,
-              Odoo, and practical AI-assisted engineering workflows. He builds
-              production web applications — from B2B platforms and automotive
-              dealership ERP workflows to AI agents that support planning,
-              code review, automation, and delivery.
+              {t('about.bioBeforeRole')} <span className="highlight">{t('about.role')}</span>{' '}
+              {t('about.bioAfterRole')}
             </p>
             {/* AI-extractable stats block (+37% citation boost per GEO study) */}
             <p className="bio-sub">
-              9+ projects shipped to production, including 3 commercial platforms
-              serving real users in Vietnam. Tech stack spans React frontends,
-              .NET Core and Odoo backends, Node.js APIs, PostgreSQL,
-              and AI workflows with Claude, Codex, Antigravity-style agents,
-              Gemini, DeepSeek, and OpenAI APIs.
+              {t('about.stats')}
             </p>
 
             <div className="code-quote">
-              <span className="comment">{'/* Currently */'}</span>
+              <span className="comment">{t('about.currentlyComment')}</span>
               <br />
-              <span className="keyword">building</span> <span className="string">"project-aware AI agents for dev workflows"</span>;
+              <span className="keyword">{t('about.currentlyAction')}</span>{' '}
+              <span className="string">{t('about.currentlyProject')}</span>;
             </div>
           </div>
         </div>
@@ -70,7 +66,7 @@ const About = () => {
                 <span className="circle yellow"></span>
                 <span className="circle green"></span>
               </div>
-              <div className="title">skills.exe</div>
+              <div className="title">{t('about.terminalTitle')}</div>
             </div>
             <div className="terminal-body">
               {skills.technical.map((skill, index) => (
@@ -81,6 +77,11 @@ const About = () => {
                   <div className="skill-bar-track">
                     <div
                       className="skill-bar-fill"
+                      role="progressbar"
+                      aria-label={t('about.skillLevelAria', { skill: skill.name, level: skill.level })}
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      aria-valuenow={skill.level}
                       style={{
                         width: inView ? `${skill.level}%` : '0%',
                         transitionDelay: `${index * 0.1 + 0.5}s`

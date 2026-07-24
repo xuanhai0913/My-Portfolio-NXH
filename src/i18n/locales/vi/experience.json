@@ -1,0 +1,35 @@
+{
+  "title": {
+    "highlight": "KINH",
+    "rest": "_NGHIỆM"
+  },
+  "impactLabel": "TÁC ĐỘNG",
+  "companyLogoAlt": "Logo {{company}}",
+  "audio": {
+    "mute": "Tắt nhạc nền",
+    "unmute": "Bật nhạc nền"
+  },
+  "records": {
+    "betodemy": {
+      "company": "Betodemy – Nền tảng học tiếng Nhật",
+      "role": "LẬP TRÌNH VIÊN FULLSTACK CHỦ CHỐT",
+      "period": "Bắt đầu: Tháng 2/2026 | Kết thúc: Hiện tại",
+      "description": "Làm việc với vai trò lập trình viên chủ chốt trong đội ngũ kỹ thuật 5 người cùng ban lãnh đạo Betodemy tại Nhật Bản. Xây dựng và sửa chữa các mô-đun sản phẩm cho cổng thông tin học viên, lớp học trực tuyến có giáo viên hướng dẫn, công cụ quản trị, bài luyện tập có yếu tố trò chơi và nội dung học tập đa ngôn ngữ. Tham gia các buổi họp sản phẩm hằng tuần và hỗ trợ vận hành môi trường production thông qua issue được theo dõi, ghi chú review và bàn giao CI/CD.",
+      "achievement": "Hoàn thành hơn 70 MR đã merge và đóng hơn 70 issue tự phụ trách trong các luồng trình soạn thảo tài liệu, lớp học trực tuyến, học viên và quản trị viên."
+    },
+    "aiPower": {
+      "company": "AI Power – ERP Đại lý Ô tô",
+      "role": "THỰC TẬP SINH HỖ TRỢ PHÁT TRIỂN ODOO ERP",
+      "period": "Bắt đầu: Tháng 5/2026 | Kết thúc: Tháng 7/2026",
+      "description": "Hỗ trợ hệ thống Odoo 18 ERP dành cho các đại lý ô tô tại Việt Nam, bao gồm bán hàng, quy trình dịch vụ sau bán hàng gồm 18 trạng thái, phụ tùng, bảo hành và kế toán TT200. Xử lý lỗi và cải tiến sau các buổi trao đổi với BA/khách hàng trên logic nghiệp vụ, giao diện QWeb/XML, báo cáo PDF, bản địa hóa, quy trình Docker và GitLab CI.",
+      "achievement": "Hỗ trợ gỡ lỗi và sửa lỗi trên toàn bộ 18 mô-đun tùy chỉnh cùng hơn 99 tệp Python, đồng thời duy trì nguyên vẹn quy trình dịch vụ sau bán hàng gồm 18 trạng thái."
+    },
+    "oakMindGroup": {
+      "company": "OakMind Group – Ba Sản phẩm Web Production",
+      "role": "LẬP TRÌNH VIÊN FULLSTACK BÁN THỜI GIAN / ĐẦU MỐI LÀM VIỆC VỚI BA",
+      "period": "Bắt đầu: Tháng 10/2024 | Kết thúc: Tháng 1/2026",
+      "description": "Phát triển ba sản phẩm production cho OakMind Group. VN Media Hub bao gồm xác thực CMS, kiểm duyệt, caching, logging, SEO và báo cáo. Great Link Mai House chuyển đổi các quy trình cũ từ WordPress/ASP.NET MVC sang React và ASP.NET Core. Website OakMind Group bổ sung CMS/trang quản trị doanh nghiệp, nội dung song ngữ, analytics, video và lưu trữ media trên Cloudflare R2.",
+      "achievement": "Phụ trách xuyên suốt từ làm rõ yêu cầu với BA đến phát hành production cho cả ba sản phẩm; hoàn thiện website OakMind đang hoạt động với 28 commit tự thực hiện."
+    }
+  }
+}

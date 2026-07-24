@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useRef, useMemo, useEffect } from 'react';
 import { Slate, Editable } from 'slate-react';
 import { Transforms } from 'slate';
+import { useTranslation } from 'react-i18next';
 import {
   DndContext,
   closestCenter,
@@ -49,6 +50,7 @@ const loadDraftValue = () => {
 };
 
 const SlateEditor = ({ hiddenInputRef, disabled }) => {
+  const { t } = useTranslation('contact');
   const { editor, handleHotkeys } = useSlateEditor();
   const [value, setValue] = useState(() => loadDraftValue());
   const slashMenuRef = useRef(null);
@@ -134,6 +136,21 @@ const SlateEditor = ({ hiddenInputRef, disabled }) => {
 
   const blockIds = value.filter((n) => n.id).map((n) => n.id);
   const previewHtml = useMemo(() => serializeToEmailHtml(value), [value]);
+  const dndAccessibility = useMemo(() => ({
+    screenReaderInstructions: {
+      draggable: t('editor.dnd.instructions'),
+    },
+    announcements: {
+      onDragStart: ({ active }) => t('editor.dnd.pickedUp', { id: active.id }),
+      onDragOver: ({ active, over }) => over
+        ? t('editor.dnd.movedOver', { activeId: active.id, overId: over.id })
+        : t('editor.dnd.noTarget', { id: active.id }),
+      onDragEnd: ({ active, over }) => over
+        ? t('editor.dnd.dropped', { activeId: active.id, overId: over.id })
+        : t('editor.dnd.cancelled', { id: active.id }),
+      onDragCancel: ({ active }) => t('editor.dnd.cancelled', { id: active.id }),
+    },
+  }), [t]);
 
   useEffect(() => {
     if (hiddenInputRef?.current) {
@@ -165,14 +182,16 @@ const SlateEditor = ({ hiddenInputRef, disabled }) => {
             type="button"
             className={`slate-preview-toggle ${previewOpen ? 'active' : ''}`}
             onClick={() => setPreviewOpen((v) => !v)}
+            aria-expanded={previewOpen}
           >
-            {previewOpen ? 'Hide Email Preview' : 'Show Email Preview'}
+            {previewOpen ? t('editor.hidePreview') : t('editor.showPreview')}
           </button>
         </div>
         <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}
           onDragEnd={handleDragEnd}
+          accessibility={dndAccessibility}
         >
           <SortableContext
             items={blockIds}
@@ -183,7 +202,8 @@ const SlateEditor = ({ hiddenInputRef, disabled }) => {
               renderElement={renderElement}
               renderLeaf={renderLeaf}
               onKeyDown={handleKeyDown}
-              placeholder="Type your message... (use / for commands)"
+              placeholder={t('editor.placeholder')}
+              aria-label={t('editor.aria')}
               readOnly={disabled}
               spellCheck
               autoFocus={false}
@@ -193,11 +213,11 @@ const SlateEditor = ({ hiddenInputRef, disabled }) => {
         </DndContext>
         {previewOpen && (
           <div className="slate-email-preview">
-            <div className="slate-email-preview-header">Email Preview</div>
+            <div className="slate-email-preview-header">{t('editor.previewTitle')}</div>
             <div
               className="slate-email-preview-body"
               dangerouslySetInnerHTML={{
-                __html: previewHtml || '<p><em>No content yet.</em></p>',
+                __html: previewHtml || `<p><em>${t('editor.noContent')}</em></p>`,
               }}
             />
           </div>

@@ -1,4 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import i18n from '../../i18n';
+import enCertifications from '../../i18n/locales/en/certifications.json';
+import viCertifications from '../../i18n/locales/vi/certifications.json';
 import './styles/Certifications.css';
 
 // Import certificate thumbnail images
@@ -38,6 +42,9 @@ import certGoogleGenAiFoundations from '../../images/certs/cert-google-gen-ai-fo
 import certGoogleGenAiLandscape from '../../images/certs/cert-google-gen-ai-landscape.png';
 import certGoogleGenAiApps from '../../images/certs/cert-google-gen-ai-apps.png';
 import certGoogleGenAiAgents from '../../images/certs/cert-google-gen-ai-agents.png';
+
+i18n.addResourceBundle('en', 'certifications', enCertifications, true, true);
+i18n.addResourceBundle('vi', 'certifications', viCertifications, true, true);
 
 // Certificate data
 const certificates = [
@@ -472,26 +479,56 @@ const certificates = [
 ];
 
 const filters = [
-  { id: 'featured', label: 'Highlights' },
-  { id: 'aws', label: 'AWS' },
-  { id: 'google-cloud', label: 'Google Cloud' },
-  { id: 'cloud-data', label: 'Cloud & Data' },
-  { id: 'ai-ml', label: 'AI & ML' },
-  { id: 'engineering', label: 'Engineering' },
-  { id: 'education', label: 'Education' },
-  { id: 'all', label: 'All' }
+  'featured',
+  'aws',
+  'google-cloud',
+  'cloud-data',
+  'ai-ml',
+  'engineering',
+  'education',
+  'all'
 ];
 
-const tagLabels = {
-  aws: 'AWS',
-  'google-cloud': 'Google Cloud',
-  'cloud-data': 'Cloud & Data',
-  'ai-ml': 'AI & ML',
-  engineering: 'Engineering',
-  education: 'Education'
+const monthIndexes = {
+  Jan: 0,
+  Feb: 1,
+  Mar: 2,
+  Apr: 3,
+  May: 4,
+  Jun: 5,
+  Jul: 6,
+  Aug: 7,
+  Sep: 8,
+  Oct: 9,
+  Nov: 10,
+  Dec: 11
+};
+
+const formatCertificateDate = (date, locale) => {
+  const match = date.match(/^(?:([A-Z][a-z]{2}) )?(\d{4})$/);
+  if (!match) return date;
+
+  const [, month, year] = match;
+  const value = new Date(Date.UTC(Number(year), month ? monthIndexes[month] : 0, 1));
+
+  return new Intl.DateTimeFormat(locale, month
+    ? { month: 'short', year: 'numeric', timeZone: 'UTC' }
+    : { year: 'numeric', timeZone: 'UTC' }
+  ).format(value);
+};
+
+const getActionKey = (cert) => {
+  if (!cert.actionLabel) return 'actions.verifyCredential';
+  if (cert.id === 'aws-aip-c01-domain-1-review') return 'actions.viewCourseCertificate';
+  if (cert.id.startsWith('aws-knowledge-')) return 'actions.verifyTrainingBadge';
+  if (cert.id.startsWith('aws-educate-')) return 'actions.verifyDigitalBadge';
+  if (cert.id === 'google-cloud-infrastructure-foundation') return 'actions.verifyCompletionBadge';
+  if (cert.pdfUrl) return 'actions.viewCompletionCertificate';
+  return 'actions.verifyCredential';
 };
 
 const Certifications = () => {
+  const { t, i18n: translationInstance } = useTranslation('certifications');
   const sectionRef = useRef(null);
   const [inView, setInView] = useState(false);
   const [activeFilter, setActiveFilter] = useState('featured');
@@ -504,6 +541,7 @@ const Certifications = () => {
   const digitalBadgeCount = certificates.filter((cert) =>
     cert.verifyUrl?.includes('credly.com') || cert.verifyUrl?.includes('skills.google')
   ).length;
+  const locale = translationInstance.resolvedLanguage === 'vi' ? 'vi-VN' : 'en-US';
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -534,10 +572,10 @@ const Certifications = () => {
         <header className={`certs-header ${inView ? 'in-view' : ''}`}>
           <div className="header-deco">
             <span className="deco-line"></span>
-            <span className="deco-text">VERIFIED_CREDENTIALS</span>
+            <span className="deco-text">{t('eyebrow')}</span>
           </div>
           <div className="certs-title-row">
-            <h2 className="section-title">CERTIFICATIONS</h2>
+            <h2 className="section-title">{t('title')}</h2>
             <div className="credential-profile-links">
               <a
                 className="credly-profile-link"
@@ -567,32 +605,31 @@ const Certifications = () => {
           </div>
           <div className="certs-overview">
             <p className="certs-intro">
-              Verified learning across cloud, backend engineering, data and applied AI.
-              Filter the collection by the capability most relevant to your team.
+              {t('intro')}
             </p>
-            <dl className="certs-stats" aria-label="Certification summary">
-              <div><dt>{certificates.length}</dt><dd>Credentials</dd></div>
-              <div><dt>{awsCount}</dt><dd>AWS</dd></div>
-              <div><dt>{digitalBadgeCount}</dt><dd>Digital badges</dd></div>
+            <dl className="certs-stats" aria-label={t('aria.summary')}>
+              <div><dt>{certificates.length}</dt><dd>{t('stats.credentials')}</dd></div>
+              <div><dt>{awsCount}</dt><dd>{t('stats.aws')}</dd></div>
+              <div><dt>{digitalBadgeCount}</dt><dd>{t('stats.digitalBadges')}</dd></div>
             </dl>
           </div>
         </header>
 
-        <div className="certs-filter-bar" aria-label="Filter certifications">
+        <div className="certs-filter-bar" aria-label={t('aria.filters')}>
           {filters.map((filter) => {
-            const count = filter.id === 'all'
+            const count = filter === 'all'
               ? certificates.length
-              : certificates.filter((cert) => cert.tags.includes(filter.id)).length;
+              : certificates.filter((cert) => cert.tags.includes(filter)).length;
 
             return (
               <button
-                key={filter.id}
+                key={filter}
                 type="button"
-                className={`cert-filter ${activeFilter === filter.id ? 'is-active' : ''}`}
-                aria-pressed={activeFilter === filter.id}
-                onClick={() => setActiveFilter(filter.id)}
+                className={`cert-filter ${activeFilter === filter ? 'is-active' : ''}`}
+                aria-pressed={activeFilter === filter}
+                onClick={() => setActiveFilter(filter)}
               >
-                <span>{filter.label}</span>
+                <span>{t(`filters.${filter}`)}</span>
                 <span className="cert-filter-count">{count}</span>
               </button>
             );
@@ -600,7 +637,10 @@ const Certifications = () => {
         </div>
 
         <p className="certs-result-count" aria-live="polite">
-          Showing {visibleCertificates.length} of {certificates.length} credentials
+          {t('resultCount', {
+            visible: visibleCertificates.length,
+            total: certificates.length
+          })}
         </p>
 
         {/* Responsive Grid/Stack */}
@@ -617,11 +657,13 @@ const Certifications = () => {
                   href={cert.pdfUrl || cert.verifyUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`${cert.pdfUrl ? 'View' : 'Verify'} ${cert.title} certificate`}
+                  aria-label={t(cert.pdfUrl ? 'aria.viewCertificate' : 'aria.verifyCertificate', {
+                    title: cert.title
+                  })}
                 >
                   <img src={cert.thumbnail} alt={cert.title} loading="lazy" decoding="async" />
                   <div className="view-overlay">
-                    <span>{cert.pdfUrl ? 'VIEW PDF ↗' : 'VERIFY ↗'}</span>
+                    <span>{t(cert.pdfUrl ? 'actions.viewPdf' : 'actions.verify')}</span>
                   </div>
                 </a>
 
@@ -629,20 +671,28 @@ const Certifications = () => {
                   <span className="cert-issuer" style={{ color: cert.accent }}>
                     {cert.issuer}
                   </span>
-                  <span className="cert-date">{cert.date}</span>
+                  <span className="cert-date">{formatCertificateDate(cert.date, locale)}</span>
                 </div>
 
                 <h3 className="cert-title">{cert.title}</h3>
 
-                <div className="cert-tags" aria-label={`${cert.title} topics`}>
+                <p className="cert-description">
+                  {t(`certificates.${cert.id}.description`, {
+                    defaultValue: t('fallbackDescription', { issuer: cert.issuer })
+                  })}
+                </p>
+
+                <div className="cert-tags" aria-label={t('aria.topics', { title: cert.title })}>
                   {cert.tags
-                    .filter((tag) => tagLabels[tag])
-                    .map((tag) => <span key={tag}>{tagLabels[tag]}</span>)}
+                    .filter((tag) => tag !== 'featured')
+                    .map((tag) => <span key={tag}>{t(`filters.${tag}`)}</span>)}
                 </div>
 
                 <div className="cert-actions">
                   {cert.credentialId && (
-                    <span className="credential-id">ID {cert.credentialId}</span>
+                    <span className="credential-id">
+                      {t('credentialId', { id: cert.credentialId })}
+                    </span>
                   )}
                   <a
                     className="cert-verify"
@@ -650,7 +700,7 @@ const Certifications = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {cert.actionLabel || 'Verify credential ↗'}
+                    {t(getActionKey(cert))}
                   </a>
                 </div>
               </div>

@@ -1,0 +1,20 @@
+{
+  "transition": { "loading": "Loading...", "scroll": "SCROLL TO EXPLORE" },
+  "video": {
+    "back": "BACK TO PORTFOLIO",
+    "description": "An automated testing utility using DeepSeek LLM to generate coverage-focused unit tests. It parses ASTs to identify edge cases and mock external dependencies.",
+    "unsupported": "Your browser does not support the video tag.",
+    "livePreview": "LIVE_PREVIEW",
+    "featured": "FEATURED_PROJECT_01",
+    "source": "VIEW SOURCE CODE"
+  },
+  "hero3d": {
+    "close": "Close 3D experience",
+    "fullstack": "FULL-STACK",
+    "developer": "DEVELOPER",
+    "description": "Building digital experiences with modern web technologies.",
+    "scroll": "SCROLL DOWN",
+    "explore": "EXPLORE MY WORK",
+    "enter": "ENTER PORTFOLIO"
+  }
+}

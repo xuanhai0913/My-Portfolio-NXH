@@ -9,6 +9,7 @@ import React, {
 import ReactDOM from 'react-dom';
 import { Editor, Transforms, Range } from 'slate';
 import { ReactEditor } from 'slate-react';
+import { useTranslation } from 'react-i18next';
 import { SLASH_MENU_ITEMS } from './slateConstants';
 import {
   toggleBlock,
@@ -19,6 +20,7 @@ import {
 } from './slateHelpers';
 
 const SlashMenu = forwardRef(({ editor, onRequestImage }, ref) => {
+  const { t } = useTranslation('contact');
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -26,9 +28,10 @@ const SlashMenu = forwardRef(({ editor, onRequestImage }, ref) => {
   const [targetRange, setTargetRange] = useState(null);
   const menuRef = useRef(null);
 
-  const filteredItems = SLASH_MENU_ITEMS.filter((item) =>
-    item.label.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredItems = SLASH_MENU_ITEMS.filter((item) => {
+    const label = t(`editor.slash.items.${item.key}.label`);
+    return label.toLowerCase().includes(search.toLowerCase());
+  });
 
   const selectItem = useCallback(
     (item) => {
@@ -51,19 +54,23 @@ const SlashMenu = forwardRef(({ editor, onRequestImage }, ref) => {
           break;
         }
         case 'insert-checklist': {
-          insertChecklistItem(editor);
+          insertChecklistItem(editor, t('editor.defaults.checklist'));
           break;
         }
         case 'insert-cta': {
-          const label = window.prompt('Button text:', 'Reply now');
+          const label = window.prompt(t('editor.prompts.buttonText'), t('editor.defaults.replyNow'));
           if (label === null) break;
-          const url = window.prompt('Button URL:', 'https://');
+          const url = window.prompt(t('editor.prompts.buttonUrl'), 'https://');
           if (!url) break;
-          insertCtaButton(editor, label, url);
+          insertCtaButton(editor, label, url, t('editor.defaults.viewDetails'));
           break;
         }
         case 'insert-two-columns': {
-          insertTwoColumns(editor);
+          insertTwoColumns(
+            editor,
+            t('editor.defaults.leftColumn'),
+            t('editor.defaults.rightColumn')
+          );
           break;
         }
         case 'toggle-block':
@@ -76,7 +83,7 @@ const SlashMenu = forwardRef(({ editor, onRequestImage }, ref) => {
       setIsOpen(false);
       ReactEditor.focus(editor);
     },
-    [editor, onRequestImage, targetRange]
+    [editor, onRequestImage, t, targetRange]
   );
 
   const checkForSlashCommand = useCallback(() => {
@@ -191,8 +198,10 @@ const SlashMenu = forwardRef(({ editor, onRequestImage }, ref) => {
       ref={menuRef}
       className="slash-menu"
       style={{ top: menuPosition.top, left: menuPosition.left }}
+      role="listbox"
+      aria-label={t('editor.slash.aria')}
     >
-      <div className="slash-menu-header">BLOCKS</div>
+      <div className="slash-menu-header">{t('editor.slash.header')}</div>
       {filteredItems.map((item, index) => (
         <div
           key={item.type}
@@ -204,11 +213,13 @@ const SlashMenu = forwardRef(({ editor, onRequestImage }, ref) => {
             selectItem(item);
           }}
           onMouseEnter={() => setSelectedIndex(index)}
+          role="option"
+          aria-selected={index === selectedIndex}
         >
           <span className="slash-menu-icon">{item.icon}</span>
           <div className="slash-menu-text">
-            <span className="slash-menu-label">{item.label}</span>
-            <span className="slash-menu-desc">{item.description}</span>
+            <span className="slash-menu-label">{t(`editor.slash.items.${item.key}.label`)}</span>
+            <span className="slash-menu-desc">{t(`editor.slash.items.${item.key}.description`)}</span>
           </div>
         </div>
       ))}

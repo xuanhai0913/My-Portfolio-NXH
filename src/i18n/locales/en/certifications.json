@@ -1,0 +1,73 @@
+{
+  "eyebrow": "VERIFIED_CREDENTIALS",
+  "title": "CERTIFICATIONS",
+  "intro": "Verified learning across cloud, backend engineering, data and applied AI. Filter the collection by the capability most relevant to your team.",
+  "stats": {
+    "credentials": "Credentials",
+    "aws": "AWS",
+    "digitalBadges": "Digital badges"
+  },
+  "filters": {
+    "featured": "Highlights",
+    "aws": "AWS",
+    "google-cloud": "Google Cloud",
+    "cloud-data": "Cloud & Data",
+    "ai-ml": "AI & ML",
+    "engineering": "Engineering",
+    "education": "Education",
+    "all": "All"
+  },
+  "aria": {
+    "summary": "Certification summary",
+    "filters": "Filter certifications",
+    "viewCertificate": "View {{title}} certificate",
+    "verifyCertificate": "Verify {{title}} certificate",
+    "topics": "{{title}} topics"
+  },
+  "resultCount": "Showing {{visible}} of {{total}} credentials",
+  "credentialId": "ID {{id}}",
+  "fallbackDescription": "Verified credential issued by {{issuer}}.",
+  "actions": {
+    "viewPdf": "VIEW PDF ↗",
+    "verify": "VERIFY ↗",
+    "viewCompletionCertificate": "View completion certificate ↗",
+    "viewCourseCertificate": "View course certificate ↗",
+    "verifyTrainingBadge": "Verify training badge ↗",
+    "verifyDigitalBadge": "Verify digital badge ↗",
+    "verifyCompletionBadge": "Verify completion badge ↗",
+    "verifyCredential": "Verify credential ↗"
+  },
+  "certificates": {
+    "aws-cloud-practitioner-essentials": { "description": "Completion certificate covering foundational AWS Cloud concepts and services." },
+    "aws-knowledge-events-workflows": { "description": "Verified knowledge of Step Functions, EventBridge, SQS, SNS and event-driven serverless architectures." },
+    "aws-knowledge-serverless": { "description": "Verified technical knowledge of AWS Lambda, Amazon API Gateway and serverless application patterns." },
+    "aws-educate-getting-started-with-databases": { "description": "Training badge covering database concepts and foundational AWS database services." },
+    "aws-educate-generative-ai": { "description": "Training badge covering foundational generative AI concepts and AWS use cases." },
+    "aws-educate-machine-learning-foundations": { "description": "Training badge covering foundational machine learning concepts and workflows." },
+    "aws-educate-getting-started-with-serverless": { "description": "Training badge covering foundational serverless concepts and AWS services." },
+    "aws-serverless-mindset": { "description": "Completion certificate covering serverless principles and cloud-native thinking." },
+    "aws-building-front-door": { "description": "AWS serverless learning path completion certificate." },
+    "aws-designing-event-driven-architectures": { "description": "Event-driven architecture patterns, service decoupling and asynchronous workflows." },
+    "aws-introduction-to-lambda": { "description": "Introduction to event-driven compute and serverless function development." },
+    "aws-lambda-foundations": { "description": "Lambda configuration, invocation, permissions and operational foundations." },
+    "aws-scaling-serverless-architectures": { "description": "Scaling patterns, concurrency and resilient serverless application design." },
+    "aws-serverless-security-observability": { "description": "Security controls, monitoring and observability for serverless workloads." },
+    "aws-deploying-serverless-applications": { "description": "Deployment workflows and lifecycle practices for serverless applications." },
+    "aws-api-gateway-serverless": { "description": "API Gateway configuration and API integration for serverless backends." },
+    "aws-episode-2-powering-backend": { "description": "Completion certificate covering backend services in an AWS serverless application." },
+    "aws-amplify-getting-started": { "description": "Completion certificate covering application delivery and hosting with AWS Amplify." },
+    "aws-aip-c01-domain-1-review": { "description": "Course completion for Domain 1 of the AWS Certified Generative AI Developer - Professional exam guide." },
+    "aws-vectordb-vs-graphdb-agents": { "description": "Completion certificate comparing vector and graph data stores for agentic AI use cases." },
+    "google-cloud-infrastructure-foundation": { "description": "Completion badge covering Compute Engine, Cloud Shell, VPC networking and infrastructure design." },
+    "google-gen-ai-beyond-chatbot": { "description": "Foundation models, prompt engineering and organizational Gen AI strategy." },
+    "google-gen-ai-foundational-concepts": { "description": "Generative AI foundations, data types, responsible AI and model limitations." },
+    "google-gen-ai-landscape": { "description": "Gen AI solution layers, Google Cloud offerings and solution selection." },
+    "google-gen-ai-apps": { "description": "Grounding, RAG, effective prompting and automated workflows with Google AI tools." },
+    "google-gen-ai-agents": { "description": "Hands-on agent foundations covering models, reasoning loops and tools." },
+    "faculty": { "description": "Certified Faculty in Google Gemini AI." },
+    "student": { "description": "Certified in Google Gemini AI technologies." },
+    "google-ai-k12": { "description": "AI education methodologies for K-12." },
+    "talkbot": { "description": "Conversational AI development." },
+    "ech": { "description": "Certificate of volunteer participation at ECH." }
+  }
+}

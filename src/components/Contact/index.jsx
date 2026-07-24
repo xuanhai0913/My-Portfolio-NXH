@@ -1,5 +1,6 @@
 import React, { useRef, useState, useMemo, Suspense, lazy } from 'react';
 import emailjs from '@emailjs/browser';
+import { useTranslation } from 'react-i18next';
 import { API } from '../../utils/constants';
 import { trackContactSubmit, trackSocialClick } from '../../utils/analytics';
 import SlateEditor, { SLATE_DRAFT_STORAGE_KEY } from './SlateEditor';
@@ -16,6 +17,7 @@ const DOMAIN_SUGGESTIONS = [
 ];
 
 const Contact = () => {
+  const { t } = useTranslation('contact');
   const form = useRef();
   const hiddenMessageRef = useRef();
   const [loading, setLoading] = useState(false);
@@ -113,16 +115,16 @@ const Contact = () => {
           }>
             <IceCreamModel celebrate={status === 'success'} />
           </Suspense>
-          <p className="model-caption">Move your cursor around me! 🍦</p>
+          <p className="model-caption">{t('model.caption')} 🍦</p>
         </div>
 
         {/* Right Column: Form */}
         <div className="contact-content">
           <h2 className="contact-heading">
-            Let's <span className="neon">Connect</span>
+            {t('heading.prefix')} <span className="neon">{t('heading.highlight')}</span>
           </h2>
           <p className="contact-intro">
-            Have an idea or project? Let's collaborate and build something <span className="neon">extraordinary</span>.
+            {t('intro.beforeHighlight')} <span className="neon">{t('intro.highlight')}</span>{t('intro.afterHighlight')}
           </p>
 
           <form ref={form} onSubmit={sendEmail} className="minimal-form">
@@ -130,7 +132,8 @@ const Contact = () => {
               <input
                 type="text"
                 name="user_name"
-                placeholder="NAME"
+                placeholder={t('form.namePlaceholder')}
+                aria-label={t('form.nameAria')}
                 required
                 disabled={loading}
               />
@@ -139,7 +142,8 @@ const Contact = () => {
               <input
                 type="email"
                 name="user_email"
-                placeholder="EMAIL"
+                placeholder={t('form.emailPlaceholder')}
+                aria-label={t('form.emailAria')}
                 required
                 disabled={loading}
                 value={email}
@@ -153,6 +157,7 @@ const Contact = () => {
                       type="button"
                       className="email-domain-chip"
                       onClick={() => handleDomainClick(domain)}
+                      aria-label={t('form.useEmailDomain', { domain })}
                     >
                       {domain}
                     </button>
@@ -178,32 +183,32 @@ const Contact = () => {
               className={`btn-submit ${loading ? 'loading' : ''}`}
               disabled={loading}
             >
-              {loading ? 'SENDING...' : 'SEND MESSAGE →'}
+              {loading ? t('form.sending') : t('form.send')}
             </button>
 
             {status === 'success' && (
               <p className="status-msg success">
-                Message sent! I'll get back to you soon.
+                {t('status.success')}
               </p>
             )}
             {status === 'error' && (
               <p className="status-msg error">
-                Failed to send. Please verify the keys or try again later.
+                {t('status.error')}
               </p>
             )}
             {status === 'empty' && (
               <p className="status-msg error">
-                Please type a message before sending.
+                {t('status.empty')}
               </p>
             )}
           </form>
 
           <div className="social-links">
-            <a href="https://github.com/xuanhai0913" target="_blank" rel="noreferrer" className="social-icon" aria-label="GitHub profile" onClick={() => trackSocialClick('github')}>GITHUB</a>
-            <a href="https://www.linkedin.com/in/xuanhai0913/" target="_blank" rel="noreferrer" className="social-icon" aria-label="LinkedIn profile" onClick={() => trackSocialClick('linkedin')}>LINKEDIN</a>
-            <a href="https://www.youtube.com/@xuanhai0913" target="_blank" rel="noreferrer" className="social-icon" aria-label="YouTube channel" onClick={() => trackSocialClick('youtube')}>YOUTUBE</a>
-            <a href="https://dev.to/xuanhai0913" target="_blank" rel="noreferrer" className="social-icon" aria-label="Dev.to blog" onClick={() => trackSocialClick('devto')}>DEV.TO</a>
-            <a href="mailto:xuanhai0913750452@gmail.com" className="social-icon" aria-label="Send email" onClick={() => trackSocialClick('email')}>EMAIL</a>
+            <a href="https://github.com/xuanhai0913" target="_blank" rel="noreferrer" className="social-icon" aria-label={t('social.githubAria')} onClick={() => trackSocialClick('github')}>GITHUB</a>
+            <a href="https://www.linkedin.com/in/xuanhai0913/" target="_blank" rel="noreferrer" className="social-icon" aria-label={t('social.linkedinAria')} onClick={() => trackSocialClick('linkedin')}>LINKEDIN</a>
+            <a href="https://www.youtube.com/@xuanhai0913" target="_blank" rel="noreferrer" className="social-icon" aria-label={t('social.youtubeAria')} onClick={() => trackSocialClick('youtube')}>YOUTUBE</a>
+            <a href="https://dev.to/xuanhai0913" target="_blank" rel="noreferrer" className="social-icon" aria-label={t('social.devtoAria')} onClick={() => trackSocialClick('devto')}>DEV.TO</a>
+            <a href="mailto:xuanhai0913750452@gmail.com" className="social-icon" aria-label={t('social.emailAria')} onClick={() => trackSocialClick('email')}>EMAIL</a>
           </div>
         </div>
 

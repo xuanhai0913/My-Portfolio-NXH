@@ -1,5 +1,10 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import useLocaleNavigation from '../../hooks/useLocaleNavigation';
+import i18n from '../../i18n';
 import { trackProjectClick } from '../../utils/analytics';
+import enProjects from '../../i18n/locales/en/projects.json';
+import viProjects from '../../i18n/locales/vi/projects.json';
 import './styles/Portfolio.css';
 
 // Import project images
@@ -14,33 +19,30 @@ import chongScam from '../../images/project/chongscam.webp';
 import routeLab from '../../images/project/routelab.webp';
 import oakMind from '../../images/project/oakmind.webp';
 
-const allProjects = [
+i18n.addResourceBundle('en', 'projects', enProjects, true, true);
+i18n.addResourceBundle('vi', 'projects', viProjects, true, true);
+
+const projectCatalog = [
     {
-      title: "OakMind Group Corporate Platform",
-      description: "Production corporate CMS for Media and B2B Import-Export, built with React 19 and ASP.NET Core 8.",
-      achievement: "Shipped admin/editor, bilingual content, SEO/analytics, video, and Cloudflare R2 media workflows in 28 authored commits.",
+      id: "oakmind",
       image: oakMind,
       demo: "https://oakmindgroup.com/",
       technologies: ["React 19", "ASP.NET Core 8", "SQL Server", "Cloudflare R2"],
-      badge: "PRODUCTION",
+      badge: true,
       company: "OAKMIND GROUP",
       year: "2026"
     },
     {
-      title: "Great Link Mai House",
-      description: "Rebuilt legacy WordPress publishing workflows as a React and ASP.NET Core platform, owning delivery from requirements through release.",
-      achievement: "Unified authentication, media, realtime updates, and B2B publishing workflows in one maintainable system.",
+      id: "greatLinkMaiHouse",
       image: prj8,
       demo: "https://greatlinkmaihouse.com/",
       technologies: ["React", "ASP.NET Core", "SQL Server", "SignalR"],
-      badge: "B2B",
+      badge: true,
       company: "OAKMIND GROUP",
       year: "2025"
     },
     {
-      title: "Education English",
-      description: "Community LMS supporting accessible English learning with course management, secure authentication, media, and notifications.",
-      achievement: "Digitized volunteer teaching operations with automated certificates and Excel/PDF reporting, reducing manual administration.",
+      id: "educationEnglish",
       image: prj6,
       demo: "https://ech.edu.vn",
       technologies: ["ASP.NET Core", "EF Core", "SQL Server", "QuestPDF"],
@@ -48,9 +50,7 @@ const allProjects = [
       year: "2024"
     },
     {
-      title: "VN Media Hub",
-      description: "Production CMS built with React and ASP.NET Core for content, moderation, publishing, and reporting workflows.",
-      achievement: "Centralized day-to-day content operations and added caching, structured logging, SEO publishing, and PDF exports.",
+      id: "vnMediaHub",
       image: prj3,
       demo: "https://vnmediahub.com",
       technologies: ["React", "ASP.NET Core", "SQL Server", "Redis"],
@@ -58,46 +58,38 @@ const allProjects = [
       year: "2024"
     },
     {
-      title: "ChongScam - Trust Platform",
-      description: "Production platform for checking transaction risk, verified traders, and community scam reports.",
-      achievement: "Delivered a client-operated production platform spanning 22 controllers, 20 SQL migrations, and 12 Jest/e2e test suites.",
+      id: "chongScam",
       image: chongScam,
       demo: "https://chongscam.vn/",
       technologies: ["React 19", "NestJS 11", "PostgreSQL", "Jest"],
-      badge: "PRODUCTION",
+      badge: true,
       company: "PET PROJECT",
       year: "2026"
     },
     {
-      title: "RouteLab - Shortest Path Lab",
-      description: "Interactive laboratory comparing Dijkstra, A*, Floyd-Warshall, and Bellman-Ford on weighted map graphs.",
-      achievement: "Implemented solver/API/database paths, replay visualization, automated tests, and backend algorithm CI.",
+      id: "routeLab",
       image: routeLab,
       demo: "https://tsp-delivery-route-optimizer.vercel.app/",
       github: "https://github.com/xuanhai0913/tsp-delivery-route-optimizer",
       technologies: ["React", "TypeScript", "Express", "Vitest"],
-      badge: "PUBLIC CODE",
+      badge: true,
       company: "PET PROJECT",
       year: "2026"
     },
     {
-      title: "AgriTrace - Blockchain Traceability",
-      description: "Hybrid on-chain/off-chain agricultural traceability system with multi-role supply-chain workflows.",
-      achievement: "Built React/Express/PostgreSQL operations, Solidity lifecycle contracts, QR verification, and IPFS evidence on Polygon Amoy.",
+      id: "agriTrace",
       image: agriTrace,
       github: "https://github.com/xuanhai0913/agri-traceability-system",
       technologies: ["React", "Express", "PostgreSQL", "Solidity"],
-      badge: "PUBLIC CODE",
+      badge: true,
       company: "PET PROJECT",
       year: "2026"
     },
     {
-      title: "Vision Key AI",
-      description: "Native macOS screen assistant with secure API-key storage, global hotkeys, and Gemini-powered contextual workflows.",
-      achievement: "Implemented the SwiftUI/AppKit desktop flow and published supporting browser-extension repositories.",
+      id: "visionKey",
       image: visionKey,
       technologies: ["Swift", "Next.js", "AI"],
-      badge: "AI",
+      badge: true,
       demo: "https://landing-vision-premium.vercel.app",
       githubLinks: [
         { url: "https://github.com/xuanhai0913/Vision-Key", label: "MacOS" },
@@ -107,20 +99,16 @@ const allProjects = [
       year: "2025"
     },
     {
-      title: "LLM Unit Test Gen",
-      description: "Developer tool that drafts unit tests from source context using a DeepSeek-powered React and Express workflow.",
-      achievement: "Connected Monaco-based code input to reusable generation, validation, and test-oriented backend flows.",
+      id: "llmUnitTestGen",
       image: prj10,
       demo: "/videos",
       github: "https://github.com/xuanhai0913/LLM-Unit-tests",
       technologies: ["React", "Deepseek", "Node.js"],
-      badge: "FEATURED",
+      badge: true,
       year: "2025"
     },
     {
-      title: "Portfolio Website",
-      description: "Recruiter-facing React portfolio with structured project evidence, responsive interactions, and analytics.",
-      achievement: "Built the project discovery flow, Slate-based contact experience, GSAP motion, and a contextual portfolio assistant.",
+      id: "portfolioWebsite",
       image: prj1,
       demo: "https://my-portfolio-nxh.vercel.app/",
       github: "https://github.com/xuanhai0913/My-Portfolio-NXH",
@@ -129,7 +117,11 @@ const allProjects = [
     }
 ];
 
+const PROJECT_COUNT = projectCatalog.length;
+
 const Portfolio = () => {
+  const { t } = useTranslation('projects');
+  const { localizePath } = useLocaleNavigation();
   const sectionRef = useRef(null);
   const projectListRef = useRef(null);
   const touchStartXRef = useRef(null);
@@ -140,6 +132,13 @@ const Portfolio = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const allProjects = projectCatalog.map((project) => ({
+    ...project,
+    title: t(`items.${project.id}.title`),
+    description: t(`items.${project.id}.description`),
+    achievement: t(`items.${project.id}.achievement`),
+    badge: project.badge ? t(`items.${project.id}.badge`) : null,
+  }));
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(max-width: 900px)');
@@ -158,7 +157,7 @@ const Portfolio = () => {
       if (hasPreloadedRef.current) return;
       hasPreloadedRef.current = true;
 
-      allProjects.forEach((project) => {
+      projectCatalog.forEach((project) => {
         const image = new Image();
         image.decoding = 'async';
         image.src = project.image;
@@ -182,7 +181,7 @@ const Portfolio = () => {
     if (!isMobile) return undefined;
 
     const current = Number.isFinite(activeIndex) ? activeIndex : 0;
-    setScrollProgress((current + 1) / allProjects.length);
+    setScrollProgress((current + 1) / PROJECT_COUNT);
     return undefined;
   }, [activeIndex, isMobile]);
 
@@ -206,9 +205,9 @@ const Portfolio = () => {
         Math.abs(current - progress) > 0.001 ? progress : current
       ));
 
-      const rawIndex = Math.round(progress * (allProjects.length - 1));
+      const rawIndex = Math.round(progress * (PROJECT_COUNT - 1));
       const newIndex = Number.isFinite(rawIndex)
-        ? Math.min(allProjects.length - 1, Math.max(0, rawIndex))
+        ? Math.min(PROJECT_COUNT - 1, Math.max(0, rawIndex))
         : prevIndexRef.current;
 
       if (newIndex === prevIndexRef.current) return;
@@ -246,7 +245,7 @@ const Portfolio = () => {
       const sectionHeight = sectionRef.current.offsetHeight;
       const viewportHeight = window.innerHeight;
       const totalScrollable = Math.max(sectionHeight - viewportHeight, 1);
-      const progress = allProjects.length > 1 ? index / (allProjects.length - 1) : 0;
+      const progress = PROJECT_COUNT > 1 ? index / (PROJECT_COUNT - 1) : 0;
       const targetScroll = sectionTop + progress * totalScrollable;
       window.scrollTo({ top: targetScroll, behavior: 'smooth' });
     }
@@ -254,7 +253,7 @@ const Portfolio = () => {
 
   const handlePrevProject = () => {
     setActiveIndex((prev) => {
-      const next = (prev - 1 + allProjects.length) % allProjects.length;
+      const next = (prev - 1 + PROJECT_COUNT) % PROJECT_COUNT;
       prevIndexRef.current = next;
       return next;
     });
@@ -262,7 +261,7 @@ const Portfolio = () => {
 
   const handleNextProject = () => {
     setActiveIndex((prev) => {
-      const next = (prev + 1) % allProjects.length;
+      const next = (prev + 1) % PROJECT_COUNT;
       prevIndexRef.current = next;
       return next;
     });
@@ -299,7 +298,7 @@ const Portfolio = () => {
   };
 
   const safeActiveIndex = Number.isFinite(activeIndex)
-    ? Math.min(allProjects.length - 1, Math.max(0, activeIndex))
+    ? Math.min(PROJECT_COUNT - 1, Math.max(0, activeIndex))
     : 0;
   const activeProject = allProjects[safeActiveIndex] || allProjects[0];
 
@@ -309,7 +308,7 @@ const Portfolio = () => {
         <div className="visual-frame">
           <img
             src={project.image}
-            alt={`${project.title} preview`}
+            alt={t('aria.preview', { title: project.title })}
             className="showcase-image"
             loading={prioritizeImage ? 'eager' : 'lazy'}
             fetchPriority={prioritizeImage ? 'high' : 'low'}
@@ -331,28 +330,29 @@ const Portfolio = () => {
         <p className="showcase-desc">{project.description}</p>
         {project.achievement && (
           <p className="showcase-impact">
-            <span>IMPACT</span>
+            <span>{t('labels.impact')}</span>
             {project.achievement}
           </p>
         )}
 
         <div className="showcase-tech">
-          {project.technologies.map((tech, i) => (
-            <span key={i} className="tech-pill">{tech}</span>
+          {project.technologies.map((tech) => (
+            <span key={tech} className="tech-pill">{tech}</span>
           ))}
         </div>
 
         <div className="showcase-actions">
           {project.demo && (
             <a
-              href={project.demo}
+              href={project.demo.startsWith('/') ? localizePath(project.demo) : project.demo}
               target={project.demo.startsWith('/') ? '_self' : '_blank'}
               rel="noopener noreferrer"
               className="action-btn primary"
+              aria-label={t('aria.visitSite', { title: project.title })}
               onClick={() => trackProjectClick(project.title, 'demo')}
             >
-              <span className="btn-text">VISIT SITE</span>
-              <span className="btn-icon">↗</span>
+              <span className="btn-text">{t('actions.visitSite')}</span>
+              <span className="btn-icon" aria-hidden="true">↗</span>
             </a>
           )}
           {project.github && (
@@ -361,18 +361,20 @@ const Portfolio = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="action-btn secondary"
+              aria-label={t('aria.github', { title: project.title })}
               onClick={() => trackProjectClick(project.title, 'github')}
             >
-              <span className="btn-text">GITHUB_</span>
+              <span className="btn-text">{t('actions.github')}</span>
             </a>
           )}
-          {project.githubLinks && project.githubLinks.map((link, i) => (
+          {project.githubLinks && project.githubLinks.map((link) => (
             <a
-              key={i}
+              key={link.url}
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
               className="action-btn secondary"
+              aria-label={t('aria.githubVariant', { title: project.title, variant: link.label })}
               onClick={() => trackProjectClick(project.title, `github-${link.label}`)}
             >
               <span className="btn-text">{link.label}</span>
@@ -388,27 +390,29 @@ const Portfolio = () => {
       id="portfolio"
       className="portfolio-section portfolio-scrollytelling"
       ref={sectionRef}
-      style={{ '--project-scroll-height': `${Math.max(620, allProjects.length * 72)}vh` }}
+      style={{ '--project-scroll-height': `${Math.max(620, PROJECT_COUNT * 72)}vh` }}
+      aria-labelledby="portfolio-title"
     >
       <div className="portfolio-sticky">
         {/* Fixed Header */}
         <div className="portfolio-header scrolly-header">
-          <h2 className="section-title glitch-text" data-text="PROJECTS_">PROJECTS_</h2>
+          <h2 id="portfolio-title" className="section-title glitch-text" data-text={t('heading')}>{t('heading')}</h2>
           <div className="project-counter">
             <span className="current">{String(safeActiveIndex + 1).padStart(2, '0')}</span>
             <span className="divider">/</span>
-            <span className="total">{String(allProjects.length).padStart(2, '0')}</span>
+            <span className="total">{String(PROJECT_COUNT).padStart(2, '0')}</span>
           </div>
         </div>
 
         {isMobile ? (
           <div className="portfolio-mobile">
-            <div className="mobile-project-nav" role="tablist" aria-label="Project navigation">
+            <div className="mobile-project-nav" role="tablist" aria-label={t('aria.projectNavigation')}>
               {allProjects.map((project, index) => (
                 <button
-                  key={index}
+                  key={project.id}
                   role="tab"
                   aria-selected={safeActiveIndex === index}
+                  aria-label={t('aria.selectProject', { title: project.title })}
                   className={`mobile-nav-item ${safeActiveIndex === index ? 'active' : ''}`}
                   onClick={() => handleProjectClick(index)}
                 >
@@ -425,7 +429,7 @@ const Portfolio = () => {
             >
               {allProjects.map((project, index) => (
                 <div
-                  key={project.title}
+                  key={project.id}
                   className={`mobile-project-card ${safeActiveIndex === index ? 'is-active' : ''}`}
                   aria-hidden={safeActiveIndex !== index}
                 >
@@ -434,17 +438,17 @@ const Portfolio = () => {
               ))}
             </div>
 
-            <p className="mobile-swipe-hint">Swipe left or right to change project</p>
+            <p className="mobile-swipe-hint">{t('hints.swipe')}</p>
 
             <div className="mobile-project-controls">
-              <button type="button" className="mobile-control-btn" onClick={handlePrevProject}>
-                PREV
+              <button type="button" className="mobile-control-btn" onClick={handlePrevProject} aria-label={t('aria.previousProject')}>
+                {t('actions.previous')}
               </button>
               <span className="mobile-control-counter">
-                {String(safeActiveIndex + 1).padStart(2, '0')} / {String(allProjects.length).padStart(2, '0')}
+                {String(safeActiveIndex + 1).padStart(2, '0')} / {String(PROJECT_COUNT).padStart(2, '0')}
               </span>
-              <button type="button" className="mobile-control-btn" onClick={handleNextProject}>
-                NEXT
+              <button type="button" className="mobile-control-btn" onClick={handleNextProject} aria-label={t('aria.nextProject')}>
+                {t('actions.next')}
               </button>
             </div>
           </div>
@@ -457,7 +461,8 @@ const Portfolio = () => {
                 <div className="list-inner">
                   {allProjects.map((project, index) => (
                     <button
-                      key={index}
+                      key={project.id}
+                      aria-label={t('aria.selectProject', { title: project.title })}
                       className={`project-list-item ${safeActiveIndex === index ? 'active' : ''} ${index < safeActiveIndex ? 'passed' : ''}`}
                       onClick={() => handleProjectClick(index)}
                     >
@@ -493,11 +498,20 @@ const Portfolio = () => {
                 style={{ height: `${scrollProgress * 100}%` }}
               ></div>
               <div className="progress-dots">
-                {allProjects.map((_, index) => (
+                {allProjects.map((project, index) => (
                   <div
-                    key={index}
+                    key={project.id}
                     className={`progress-dot ${safeActiveIndex >= index ? 'active' : ''}`}
                     onClick={() => handleProjectClick(index)}
+                    role="button"
+                    tabIndex={0}
+                    aria-label={t('aria.selectProject', { title: project.title })}
+                    onKeyDown={(event) => {
+                      if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        handleProjectClick(index);
+                      }
+                    }}
                   ></div>
                 ))}
               </div>
@@ -507,7 +521,7 @@ const Portfolio = () => {
 
         {/* Scroll Hint */}
         <div className={`scroll-hint ${scrollProgress > 0.1 || isMobile ? 'hidden' : ''}`}>
-          <span className="hint-text">SCROLL TO EXPLORE</span>
+          <span className="hint-text">{t('hints.scroll')}</span>
           <div className="hint-arrow">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path d="M12 5L12 19M12 19L5 12M12 19L19 12" stroke="currentColor" strokeWidth="2" />

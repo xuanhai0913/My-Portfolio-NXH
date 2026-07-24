@@ -2,6 +2,7 @@ import React, { useRef, useMemo, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF, Float, ContactShadows } from '@react-three/drei';
 import * as THREE from 'three';
+import { useTranslation } from 'react-i18next';
 
 const CELEBRATE_DURATION = 3; // seconds
 
@@ -111,6 +112,7 @@ function Scene({ mousePos, celebrate }) {
 }
 
 const IceCreamModel = ({ celebrate = false }) => {
+  const { t } = useTranslation('contact');
   const containerRef = useRef(null);
   const mousePos = useRef({ x: 0, y: 0 });
   const [showThankYou, setShowThankYou] = useState(false);
@@ -159,6 +161,7 @@ const IceCreamModel = ({ celebrate = false }) => {
       ref={containerRef}
       className="icecream-3d-container"
       onMouseMove={handleMouseMove}
+      aria-label={t('model.aria')}
     >
       <Canvas
         camera={{ position: [0, 0, 6], fov: 40 }}
@@ -175,7 +178,7 @@ const IceCreamModel = ({ celebrate = false }) => {
 
       {/* Thank you overlay */}
       {showThankYou && (
-        <div className="icecream-thankyou">Thank you!</div>
+        <div className="icecream-thankyou">{t('model.thankYou')}</div>
       )}
     </div>
   );

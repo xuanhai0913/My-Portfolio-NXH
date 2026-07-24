@@ -2,6 +2,8 @@ import React, { Suspense, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { ScrollControls, Scroll, useScroll } from '@react-three/drei';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import useLocaleNavigation from '../../hooks/useLocaleNavigation';
 import './Hero3D.css';
 
 const profileImage = '/images/og-image.jpg';
@@ -56,9 +58,11 @@ const Scene = () => (
 );
 
 const Hero3D = () => {
+    const { t } = useTranslation('misc');
+    const { localizePath } = useLocaleNavigation();
     return (
         <div className="hero3d-container">
-            <Link to="/" className="close-3d">×</Link>
+            <Link to={localizePath('/')} className="close-3d" aria-label={t('hero3d.close')}>×</Link>
 
             <Canvas
                 camera={{ position: [0, 0, 6], fov: 50 }}
@@ -78,17 +82,17 @@ const Hero3D = () => {
                             <div className="scroll-page page-1">
                                 <div className="scroll-content">
                                     <h1 className="scroll-title">
-                                        FULL-STACK <br />
-                                        <span className="scroll-highlight">DEVELOPER</span>
+                                        {t('hero3d.fullstack')} <br />
+                                        <span className="scroll-highlight">{t('hero3d.developer')}</span>
                                     </h1>
                                     <div className="scroll-description">
                                         <p>
-                                            Building digital experiences with modern web technologies.
+                                            {t('hero3d.description')}
                                         </p>
                                     </div>
                                 </div>
                                 <div className="scroll-indicator">
-                                    <span>SCROLL DOWN</span>
+                                    <span>{t('hero3d.scroll')}</span>
                                     <div className="scroll-arrow"></div>
                                 </div>
                             </div>
@@ -111,9 +115,9 @@ const Hero3D = () => {
                             {/* Page 3 - CTA */}
                             <div className="scroll-page page-3">
                                 <div className="scroll-content center">
-                                    <h2 className="scroll-subtitle">EXPLORE MY WORK</h2>
-                                    <Link to="/" className="scroll-btn-accent">
-                                        ENTER PORTFOLIO <i className="fa-solid fa-arrow-down"></i>
+                                    <h2 className="scroll-subtitle">{t('hero3d.explore')}</h2>
+                                    <Link to={localizePath('/')} className="scroll-btn-accent">
+                                        {t('hero3d.enter')} <i className="fa-solid fa-arrow-down"></i>
                                     </Link>
                                 </div>
                             </div>

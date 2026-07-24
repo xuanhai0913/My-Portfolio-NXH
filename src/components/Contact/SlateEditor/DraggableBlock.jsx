@@ -1,8 +1,10 @@
 import React from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import { useTranslation } from 'react-i18next';
 
 const DraggableBlock = ({ element, children }) => {
+  const { t } = useTranslation('contact');
   const {
     attributes: sortableAttributes,
     listeners,
@@ -25,6 +27,8 @@ const DraggableBlock = ({ element, children }) => {
         contentEditable={false}
         {...listeners}
         {...sortableAttributes}
+        aria-label={t('editor.dragHandleAria')}
+        title={t('editor.dragHandleTooltip')}
       >
         <span className="drag-handle-icon">&#x2630;</span>
       </div>

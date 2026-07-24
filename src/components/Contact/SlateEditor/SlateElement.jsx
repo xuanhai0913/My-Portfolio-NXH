@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Transforms } from 'slate';
 import { useSlateStatic, ReactEditor } from 'slate-react';
+import { useTranslation } from 'react-i18next';
 
 const SlateElement = ({ attributes, children, element }) => {
+  const { t } = useTranslation('contact');
   const editor = useSlateStatic();
   const [isCtaEditorOpen, setIsCtaEditorOpen] = useState(false);
-  const [ctaLabel, setCtaLabel] = useState(element.label || 'View details');
+  const [ctaLabel, setCtaLabel] = useState(element.label || t('editor.defaults.viewDetails'));
   const [ctaUrl, setCtaUrl] = useState(element.url || 'https://');
 
   const normalizeCtaUrl = (value) => {
@@ -28,7 +30,7 @@ const SlateElement = ({ attributes, children, element }) => {
   const saveCtaChanges = (e) => {
     e.preventDefault();
     const path = ReactEditor.findPath(editor, element);
-    const nextLabel = String(ctaLabel || '').trim() || 'View details';
+    const nextLabel = String(ctaLabel || '').trim() || t('editor.defaults.viewDetails');
     const nextUrl = normalizeCtaUrl(ctaUrl);
 
     Transforms.setNodes(
@@ -93,7 +95,7 @@ const SlateElement = ({ attributes, children, element }) => {
             contentEditable={false}
             className={`slate-checklist-toggle ${element.checked ? 'checked' : ''}`}
             onMouseDown={toggleChecklist}
-            aria-label="Toggle checklist item"
+            aria-label={t('editor.toggleChecklistAria')}
           >
             {element.checked ? '\u2611' : '\u2610'}
           </button>
@@ -101,7 +103,7 @@ const SlateElement = ({ attributes, children, element }) => {
         </div>
       );
     case 'cta-button': {
-      const label = element.label || 'View details';
+      const label = element.label || t('editor.defaults.viewDetails');
       return (
         <div {...attributes} contentEditable={false} className="slate-cta-wrapper">
           <div className="slate-cta-row">
@@ -118,12 +120,13 @@ const SlateElement = ({ attributes, children, element }) => {
               className="slate-cta-edit-btn"
               onMouseDown={(e) => {
                 e.preventDefault();
-                setCtaLabel(element.label || 'View details');
+                setCtaLabel(element.label || t('editor.defaults.viewDetails'));
                 setCtaUrl(element.url || 'https://');
                 setIsCtaEditorOpen((v) => !v);
               }}
+              aria-label={t('editor.editCtaAria')}
             >
-              Edit
+              {t('editor.edit')}
             </button>
           </div>
           {isCtaEditorOpen && (
@@ -132,20 +135,22 @@ const SlateElement = ({ attributes, children, element }) => {
                 className="slate-cta-input"
                 value={ctaLabel}
                 onChange={(e) => setCtaLabel(e.target.value)}
-                placeholder="Button text"
+                placeholder={t('editor.buttonTextPlaceholder')}
+                aria-label={t('editor.buttonTextAria')}
               />
               <input
                 className="slate-cta-input"
                 value={ctaUrl}
                 onChange={(e) => setCtaUrl(e.target.value)}
                 placeholder="https://example.com"
+                aria-label={t('editor.buttonUrlAria')}
               />
               <div className="slate-cta-editor-actions">
                 <button type="button" className="slate-cta-cancel" onMouseDown={(e) => { e.preventDefault(); setIsCtaEditorOpen(false); }}>
-                  Cancel
+                  {t('editor.cancel')}
                 </button>
                 <button type="submit" className="slate-cta-save">
-                  Save
+                  {t('editor.save')}
                 </button>
               </div>
             </form>

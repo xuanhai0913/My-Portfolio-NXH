@@ -1,0 +1,20 @@
+{
+  "transition": { "loading": "Đang tải...", "scroll": "CUỘN ĐỂ KHÁM PHÁ" },
+  "video": {
+    "back": "QUAY LẠI PORTFOLIO",
+    "description": "Công cụ kiểm thử tự động sử dụng DeepSeek LLM để tạo unit test tập trung vào độ bao phủ, phân tích AST nhằm xác định trường hợp biên và mock dependency bên ngoài.",
+    "unsupported": "Trình duyệt của bạn không hỗ trợ video.",
+    "livePreview": "XEM_TRỰC_TIẾP",
+    "featured": "DỰ_ÁN_NỔI_BẬT_01",
+    "source": "XEM MÃ NGUỒN"
+  },
+  "hero3d": {
+    "close": "Đóng trải nghiệm 3D",
+    "fullstack": "LẬP TRÌNH VIÊN",
+    "developer": "FULL-STACK",
+    "description": "Xây dựng trải nghiệm số bằng các công nghệ web hiện đại.",
+    "scroll": "CUỘN XUỐNG",
+    "explore": "KHÁM PHÁ DỰ ÁN",
+    "enter": "VÀO PORTFOLIO"
+  }
+}

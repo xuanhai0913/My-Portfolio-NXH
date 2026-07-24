@@ -42,20 +42,20 @@ export const VOID_TYPES = [
 ];
 
 export const SLASH_MENU_ITEMS = [
-  { label: 'Paragraph', type: BLOCK_TYPES.PARAGRAPH, icon: 'P', description: 'Plain text' },
-  { label: 'Heading 1', type: BLOCK_TYPES.HEADING_ONE, icon: 'H1', description: 'Large heading' },
-  { label: 'Heading 2', type: BLOCK_TYPES.HEADING_TWO, icon: 'H2', description: 'Medium heading' },
-  { label: 'Heading 3', type: BLOCK_TYPES.HEADING_THREE, icon: 'H3', description: 'Small heading' },
-  { label: 'Blockquote', type: BLOCK_TYPES.BLOCK_QUOTE, icon: '>', description: 'Quote block' },
-  { label: 'Bulleted List', type: BLOCK_TYPES.BULLETED_LIST, icon: '\u2022', description: 'Unordered list' },
-  { label: 'Numbered List', type: BLOCK_TYPES.NUMBERED_LIST, icon: '1.', description: 'Ordered list' },
-  { label: 'Code Block', type: BLOCK_TYPES.CODE_BLOCK, icon: '</>', description: 'Code snippet' },
-  { label: 'Image', type: BLOCK_TYPES.IMAGE, icon: '\uD83D\uDDBC', description: 'Search Unsplash or paste URL', action: 'prompt-image' },
-  { label: 'Divider', type: BLOCK_TYPES.DIVIDER, icon: '\u2014', description: 'Horizontal separator', action: 'insert-void' },
-  { label: 'Callout', type: BLOCK_TYPES.CALLOUT, icon: '\u26A1', description: 'Highlighted tip or note' },
-  { label: 'Checklist', type: BLOCK_TYPES.CHECKLIST_ITEM, icon: '\u2611', description: 'Task list item', action: 'insert-checklist' },
-  { label: 'Button CTA', type: BLOCK_TYPES.CTA_BUTTON, icon: 'CTA', description: 'Stylish call-to-action button', action: 'insert-cta' },
-  { label: 'Two Columns', type: BLOCK_TYPES.TWO_COLUMNS, icon: '2C', description: 'Side-by-side content blocks', action: 'insert-two-columns' },
+  { key: 'paragraph', type: BLOCK_TYPES.PARAGRAPH, icon: 'P' },
+  { key: 'headingOne', type: BLOCK_TYPES.HEADING_ONE, icon: 'H1' },
+  { key: 'headingTwo', type: BLOCK_TYPES.HEADING_TWO, icon: 'H2' },
+  { key: 'headingThree', type: BLOCK_TYPES.HEADING_THREE, icon: 'H3' },
+  { key: 'blockquote', type: BLOCK_TYPES.BLOCK_QUOTE, icon: '>' },
+  { key: 'bulletedList', type: BLOCK_TYPES.BULLETED_LIST, icon: '\u2022' },
+  { key: 'numberedList', type: BLOCK_TYPES.NUMBERED_LIST, icon: '1.' },
+  { key: 'codeBlock', type: BLOCK_TYPES.CODE_BLOCK, icon: '</>' },
+  { key: 'image', type: BLOCK_TYPES.IMAGE, icon: '\uD83D\uDDBC', action: 'prompt-image' },
+  { key: 'divider', type: BLOCK_TYPES.DIVIDER, icon: '\u2014', action: 'insert-void' },
+  { key: 'callout', type: BLOCK_TYPES.CALLOUT, icon: '\u26A1' },
+  { key: 'checklist', type: BLOCK_TYPES.CHECKLIST_ITEM, icon: '\u2611', action: 'insert-checklist' },
+  { key: 'cta', type: BLOCK_TYPES.CTA_BUTTON, icon: 'CTA', action: 'insert-cta' },
+  { key: 'twoColumns', type: BLOCK_TYPES.TWO_COLUMNS, icon: '2C', action: 'insert-two-columns' },
 ];
 
 let _nextId = 0;

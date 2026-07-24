@@ -2,11 +2,26 @@ import React, { useRef, useCallback, useState } from 'react';
 import './styles/Experience.css';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useTranslation } from 'react-i18next';
+import i18n from '../../i18n';
+import enExperience from '../../i18n/locales/en/experience.json';
+import viExperience from '../../i18n/locales/vi/experience.json';
 import { WORK_EXPERIENCE } from '../../utils/constants';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const EXPERIENCE_KEYS = ['betodemy', 'aiPower', 'oakMindGroup'];
+
+if (!i18n.hasResourceBundle('en', 'experience')) {
+    i18n.addResourceBundle('en', 'experience', enExperience);
+}
+
+if (!i18n.hasResourceBundle('vi', 'experience')) {
+    i18n.addResourceBundle('vi', 'experience', viExperience);
+}
+
 const Experience = () => {
+    const { t } = useTranslation('experience');
     const sectionRef = useRef(null);
     const videoRef = useRef(null);
     const audioRef = useRef(null);
@@ -152,8 +167,8 @@ const Experience = () => {
                 <button
                     className={`audio-toggle ${isMuted ? 'muted' : ''}`}
                     onClick={toggleMute}
-                    aria-label={isMuted ? 'Unmute background music' : 'Mute background music'}
-                    title={isMuted ? 'Bật nhạc nền' : 'Tắt nhạc nền'}
+                    aria-label={t(isMuted ? 'audio.unmute' : 'audio.mute')}
+                    title={t(isMuted ? 'audio.unmute' : 'audio.mute')}
                 >
                     <i className={`fas ${isMuted ? 'fa-volume-mute' : 'fa-volume-up'}`}></i>
                 </button>
@@ -174,55 +189,60 @@ const Experience = () => {
 
             <div className={`experience-container ${inView ? 'in-view' : ''}`}>
                 <h2 className="section-title">
-                    <span className="hollow-text">WORK</span>_HISTORY
+                    <span className="hollow-text">{t('title.highlight')}</span>{t('title.rest')}
                 </h2>
 
                 <div className="experience-timeline">
-                    {WORK_EXPERIENCE.map((job, index) => (
-                        <div key={index} className="experience-item" style={{ '--delay': `${index * 0.2}s` }}>
-                            <div className="experience-marker"></div>
-                            <div className="experience-content">
-                                <div className="experience-header">
-                                    <div className="company-info">
-                                        {job.logo && (
-                                            job.link ? (
-                                                <a href={job.link} target="_blank" rel="noopener noreferrer" className="company-logo-link">
-                                                    <img src={job.logo} alt={`${job.company} logo`} className="company-logo" />
+                    {WORK_EXPERIENCE.map((job, index) => {
+                        const experienceKey = EXPERIENCE_KEYS[index] ?? String(index);
+                        const company = t(`records.${experienceKey}.company`, { defaultValue: job.company });
+
+                        return (
+                            <div key={experienceKey} className="experience-item" style={{ '--delay': `${index * 0.2}s` }}>
+                                <div className="experience-marker"></div>
+                                <div className="experience-content">
+                                    <div className="experience-header">
+                                        <div className="company-info">
+                                            {job.logo && (
+                                                job.link ? (
+                                                    <a href={job.link} target="_blank" rel="noopener noreferrer" className="company-logo-link">
+                                                        <img src={job.logo} alt={t('companyLogoAlt', { company })} className="company-logo" />
+                                                    </a>
+                                                ) : (
+                                                    <img src={job.logo} alt={t('companyLogoAlt', { company })} className="company-logo" />
+                                                )
+                                            )}
+                                            {job.link ? (
+                                                <a href={job.link} target="_blank" rel="noopener noreferrer" className="company-name-link">
+                                                    <h3 className="company-name">{company}</h3>
                                                 </a>
                                             ) : (
-                                                <img src={job.logo} alt={`${job.company} logo`} className="company-logo" />
-                                            )
-                                        )}
-                                        {job.link ? (
-                                            <a href={job.link} target="_blank" rel="noopener noreferrer" className="company-name-link">
-                                                <h3 className="company-name">{job.company}</h3>
-                                            </a>
-                                        ) : (
-                                            <h3 className="company-name">{job.company}</h3>
+                                                <h3 className="company-name">{company}</h3>
+                                            )}
+                                        </div>
+                                        <span className="job-period">{t(`records.${experienceKey}.period`, { defaultValue: job.period })}</span>
+                                    </div>
+                                    <h4 className="job-role">{t(`records.${experienceKey}.role`, { defaultValue: job.role })}</h4>
+                                    <p className="job-description">{t(`records.${experienceKey}.description`, { defaultValue: job.description })}</p>
+                                    {job.achievement && (
+                                        <p className="job-achievement">
+                                            <span className="achievement-label">{t('impactLabel')}</span>
+                                            <span>{t(`records.${experienceKey}.achievement`, { defaultValue: job.achievement })}</span>
+                                        </p>
+                                    )}
+
+                                    <div className="tech-stack-mini">
+                                        {job.technologies.slice(0, 5).map((tech, i) => (
+                                            <span key={i} className="tech-badge">{tech}</span>
+                                        ))}
+                                        {job.technologies.length > 5 && (
+                                            <span className="tech-badge more">+{job.technologies.length - 5}</span>
                                         )}
                                     </div>
-                                    <span className="job-period">{job.period}</span>
-                                </div>
-                                <h4 className="job-role">{job.role}</h4>
-                                <p className="job-description">{job.description}</p>
-                                {job.achievement && (
-                                    <p className="job-achievement">
-                                        <span className="achievement-label">IMPACT</span>
-                                        <span>{job.achievement}</span>
-                                    </p>
-                                )}
-
-                                <div className="tech-stack-mini">
-                                    {job.technologies.slice(0, 5).map((tech, i) => (
-                                        <span key={i} className="tech-badge">{tech}</span>
-                                    ))}
-                                    {job.technologies.length > 5 && (
-                                        <span className="tech-badge more">+{job.technologies.length - 5}</span>
-                                    )}
                                 </div>
                             </div>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             </div>
         </section>

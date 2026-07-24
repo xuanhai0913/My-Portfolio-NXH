@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import useLocaleNavigation from '../../hooks/useLocaleNavigation';
 import './Blog.css';
 
 const DEVTO_API = 'https://dev.to/api/articles?username=xuanhai0913&per_page=20';
@@ -12,13 +14,17 @@ const decodeEntities = (str) => {
 };
 
 const Blog = () => {
+  const { t, i18n: i18nInstance } = useTranslation('content');
+  const { localizePath } = useLocaleNavigation();
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    document.title = 'Blog — Nguyễn Xuân Hải | React, .NET Core & AI Articles';
+    document.title = t('blog.documentTitle');
+  }, [t]);
 
+  useEffect(() => {
     const fetchArticles = async () => {
       try {
         // Cache-bust to get latest articles
@@ -40,11 +46,27 @@ const Blog = () => {
   }, []);
 
   const formatDate = (dateStr) => {
-    return new Date(dateStr).toLocaleDateString('en-US', {
+    return new Date(dateStr).toLocaleDateString(
+      i18nInstance.resolvedLanguage === 'vi' ? 'vi-VN' : 'en-US',
+      {
       year: 'numeric',
       month: 'short',
       day: 'numeric'
-    });
+      }
+    );
+  };
+
+  const localizeArticle = (article) => {
+    if (i18nInstance.resolvedLanguage !== 'vi') return article;
+
+    const slug = article.slug || article.url?.split('/').filter(Boolean).pop();
+    const key = `blog.articles.${slug}`;
+
+    return {
+      ...article,
+      title: t(`${key}.title`, { defaultValue: article.title }),
+      description: t(`${key}.description`, { defaultValue: article.description })
+    };
   };
 
   if (loading) {
@@ -52,7 +74,7 @@ const Blog = () => {
       <div className="blog-page">
         <div className="blog-loading">
           <div className="blog-loading-bar" />
-          <span>Fetching articles...</span>
+          <span>{t('blog.loading')}</span>
         </div>
       </div>
     );
@@ -62,7 +84,7 @@ const Blog = () => {
     return (
       <div className="blog-page">
         <div className="blog-error">
-          <p>Could not load articles. <a href="https://dev.to/xuanhai0913" target="_blank" rel="noopener noreferrer">View on Dev.to</a></p>
+          <p>{t('blog.error')} <a href="https://dev.to/xuanhai0913" target="_blank" rel="noopener noreferrer">{t('blog.viewOnDevto')}</a></p>
         </div>
       </div>
     );
@@ -71,15 +93,18 @@ const Blog = () => {
   return (
     <div className="blog-page">
       <div className="blog-header">
-        <Link to="/" className="blog-back">&larr; Back</Link>
-        <h1 className="blog-title">Blog</h1>
+        <Link to={localizePath('/')} className="blog-back">&larr; {t('blog.back')}</Link>
+        <h1 className="blog-title">{t('blog.title')}</h1>
         <p className="blog-subtitle">
-          Writing about React, .NET Core, AI, and building production web apps.
+          {t('blog.subtitle')}
         </p>
       </div>
 
       <div className="blog-grid">
-        {articles.map((article, index) => (
+        {articles.map((rawArticle, index) => {
+          const article = localizeArticle(rawArticle);
+
+          return (
           <a
             key={article.id}
             href={article.url}
@@ -92,7 +117,7 @@ const Blog = () => {
               {(article.cover_image || article.social_image) ? (
                 <img
                   src={article.cover_image || article.social_image}
-                  alt={`${article.title} — cover`}
+                  alt={t('blog.coverAlt', { title: article.title })}
                   loading="lazy"
                 />
               ) : (
@@ -105,7 +130,7 @@ const Blog = () => {
             <div className="blog-card-body">
               <div className="blog-card-meta">
                 <time>{formatDate(article.published_at)}</time>
-                <span className="blog-card-reading">{article.reading_time_minutes} min read</span>
+                <span className="blog-card-reading">{t('blog.minutesRead', { count: article.reading_time_minutes })}</span>
               </div>
 
               <h2 className="blog-card-title">{article.title}</h2>
@@ -119,12 +144,13 @@ const Blog = () => {
               </div>
 
               <div className="blog-card-stats">
-                <span>❤️ {article.public_reactions_count} reactions</span>
-                <span>💬 {article.comments_count} comments</span>
+                <span>❤️ {t('blog.reactions', { count: article.public_reactions_count })}</span>
+                <span>💬 {t('blog.comments', { count: article.comments_count })}</span>
               </div>
             </div>
           </a>
-        ))}
+          );
+        })}
       </div>
 
       <div className="blog-footer">
@@ -134,7 +160,7 @@ const Blog = () => {
           rel="noopener noreferrer"
           className="blog-devto-link"
         >
-          View all on Dev.to &rarr;
+          {t('blog.viewAll')} &rarr;
         </a>
       </div>
     </div>

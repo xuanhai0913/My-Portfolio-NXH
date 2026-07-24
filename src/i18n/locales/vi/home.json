@@ -1,0 +1,60 @@
+{
+  "profile": {
+    "titleLine1": "LẬP TRÌNH VIÊN",
+    "titleLine2": "FULL-STACK",
+    "introBeforeName": "Tôi là",
+    "introAfterName": "— tôi xây dựng các ứng dụng web production với React, .NET Core, Odoo & AI.",
+    "introLine2": "Từ nền tảng B2B và quy trình ERP đến các công cụ ứng dụng AI, được triển khai cho khách hàng thực tế tại Việt Nam.",
+    "viewCv": "XEM CV",
+    "viewCvAria": "Xem CV / hồ sơ năng lực",
+    "scrollHint": "CUỘN ĐỂ KHÁM PHÁ",
+    "profileImageAlt": "Nguyễn Xuân Hải",
+    "experienceBadge": "KINH NGHIỆM TẠI 4 CÔNG TY",
+    "experienceBadgeAria": "Xem chi tiết kinh nghiệm làm việc"
+  },
+  "experience": {
+    "dialogAria": "Chi tiết kinh nghiệm làm việc",
+    "closeAria": "Đóng chi tiết kinh nghiệm làm việc",
+    "title": "NHẬT_KÝ_KINH_NGHIỆM",
+    "companyExperience": "KINH_NGHIỆM_CÔNG_TY:",
+    "companyCount": "4 CÔNG TY",
+    "jobs": [
+      {
+        "company": "Betodemy – Nền tảng học tiếng Nhật",
+        "role": "LẬP TRÌNH VIÊN FULLSTACK NÒNG CỐT",
+        "period": "Bắt đầu: Tháng 2/2026 | Kết thúc: Hiện tại"
+      },
+      {
+        "company": "AI Power – ERP đại lý ô tô",
+        "role": "THỰC TẬP SINH HỖ TRỢ PHÁT TRIỂN ODOO ERP",
+        "period": "Bắt đầu: Tháng 5/2026 | Kết thúc: Tháng 7/2026"
+      },
+      {
+        "company": "OakMind Group – Ba sản phẩm web production",
+        "role": "LẬP TRÌNH VIÊN FULLSTACK BÁN THỜI GIAN / ĐẦU MỐI LÀM VIỆC VỚI BA",
+        "period": "Bắt đầu: Tháng 10/2024 | Kết thúc: Tháng 1/2026"
+      }
+    ]
+  },
+  "cvPreview": {
+    "dialogAria": "Xem trước CV",
+    "title": "XEM_TRƯỚC_CV.PDF",
+    "download": "TẢI XUỐNG",
+    "downloadAria": "Tải CV của Nguyễn Xuân Hải",
+    "closeAria": "Đóng bản xem trước CV",
+    "loading": "ĐANG_TẢI_TÀI_LIỆU...",
+    "iframeTitle": "Bản xem trước CV của Nguyễn Xuân Hải"
+  },
+  "about": {
+    "title": "VỀ_TÔI",
+    "bioBeforeRole": "Nguyễn Xuân Hải là",
+    "role": "Lập trình viên Full-Stack",
+    "bioAfterRole": "tại Thành phố Hồ Chí Minh, Việt Nam, chuyên về React, .NET Core, Odoo và các quy trình kỹ thuật ứng dụng AI thực tiễn. Anh xây dựng ứng dụng web production — từ nền tảng B2B và quy trình ERP cho đại lý ô tô đến các AI agent hỗ trợ lập kế hoạch, review code, tự động hóa và bàn giao.",
+    "stats": "Hơn 9 dự án đã được triển khai lên production, trong đó có 3 nền tảng thương mại phục vụ người dùng thực tế tại Việt Nam. Tech stack gồm frontend React, backend .NET Core và Odoo, API Node.js, PostgreSQL cùng các quy trình AI sử dụng Claude, Codex, agent theo phong cách Antigravity, Gemini, DeepSeek và OpenAI APIs.",
+    "currentlyComment": "/* Hiện tại */",
+    "currentlyAction": "đang_xây_dựng",
+    "currentlyProject": "\"AI agent hiểu ngữ cảnh dự án cho quy trình phát triển\"",
+    "terminalTitle": "kỹ_năng.exe",
+    "skillLevelAria": "Mức độ thành thạo {{skill}}: {{level}}%"
+  }
+}

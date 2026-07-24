@@ -1,0 +1,162 @@
+{
+  "heading": {
+    "prefix": "Let's",
+    "highlight": "Connect"
+  },
+  "intro": {
+    "beforeHighlight": "Have an idea or project? Let's collaborate and build something",
+    "highlight": "extraordinary",
+    "afterHighlight": "."
+  },
+  "model": {
+    "caption": "Move your cursor around me!",
+    "thankYou": "Thank you!",
+    "aria": "Interactive 3D ice cream model"
+  },
+  "form": {
+    "namePlaceholder": "NAME",
+    "nameAria": "Your name",
+    "emailPlaceholder": "EMAIL",
+    "emailAria": "Your email address",
+    "useEmailDomain": "Use email domain {{domain}}",
+    "sending": "SENDING...",
+    "send": "SEND MESSAGE →"
+  },
+  "status": {
+    "success": "Message sent! I'll get back to you soon.",
+    "error": "Failed to send. Please verify the keys or try again later.",
+    "empty": "Please type a message before sending."
+  },
+  "social": {
+    "githubAria": "GitHub profile",
+    "linkedinAria": "LinkedIn profile",
+    "youtubeAria": "YouTube channel",
+    "devtoAria": "Dev.to blog",
+    "emailAria": "Send email"
+  },
+  "editor": {
+    "placeholder": "Type your message... (use / for commands)",
+    "aria": "Message editor",
+    "showPreview": "Show Email Preview",
+    "hidePreview": "Hide Email Preview",
+    "previewTitle": "Email Preview",
+    "noContent": "No content yet.",
+    "dragHandleAria": "Drag to reorder this block",
+    "dragHandleTooltip": "Drag block",
+    "dnd": {
+      "instructions": "To pick up a block, press Space. Use the arrow keys to move it, press Space to drop it, or Escape to cancel.",
+      "pickedUp": "Picked up block {{id}}.",
+      "movedOver": "Block {{activeId}} moved over {{overId}}.",
+      "noTarget": "Block {{id}} is no longer over a drop target.",
+      "dropped": "Dropped block {{activeId}} over {{overId}}.",
+      "cancelled": "Cancelled moving block {{id}}."
+    },
+    "toggleChecklistAria": "Toggle checklist item",
+    "editCtaAria": "Edit call-to-action button",
+    "edit": "Edit",
+    "buttonTextPlaceholder": "Button text",
+    "buttonTextAria": "Button text",
+    "buttonUrlAria": "Button URL",
+    "cancel": "Cancel",
+    "save": "Save",
+    "prompts": {
+      "enterUrl": "Enter URL:",
+      "buttonText": "Button text:",
+      "buttonUrl": "Button URL:"
+    },
+    "defaults": {
+      "checklist": "New checklist item",
+      "replyNow": "Reply now",
+      "viewDetails": "View details",
+      "leftColumn": "Left column content...",
+      "rightColumn": "Right column content..."
+    },
+    "toolbar": {
+      "aria": "Message formatting",
+      "bold": "Bold",
+      "italic": "Italic",
+      "underline": "Underline",
+      "strikethrough": "Strikethrough",
+      "code": "Inline code",
+      "link": "Link",
+      "heading-one": "Heading 1",
+      "heading-two": "Heading 2",
+      "heading-three": "Heading 3",
+      "block-quote": "Blockquote",
+      "bulleted-list": "Bulleted list",
+      "numbered-list": "Numbered list",
+      "code-block": "Code block",
+      "callout": "Callout",
+      "checklist": "Checklist",
+      "two-columns": "Two columns",
+      "cta": "Button CTA",
+      "divider": "Divider",
+      "image": "Image"
+    },
+    "slash": {
+      "aria": "Block commands",
+      "header": "BLOCKS",
+      "items": {
+        "paragraph": { "label": "Paragraph", "description": "Plain text" },
+        "headingOne": { "label": "Heading 1", "description": "Large heading" },
+        "headingTwo": { "label": "Heading 2", "description": "Medium heading" },
+        "headingThree": { "label": "Heading 3", "description": "Small heading" },
+        "blockquote": { "label": "Blockquote", "description": "Quote block" },
+        "bulletedList": { "label": "Bulleted List", "description": "Unordered list" },
+        "numberedList": { "label": "Numbered List", "description": "Ordered list" },
+        "codeBlock": { "label": "Code Block", "description": "Code snippet" },
+        "image": { "label": "Image", "description": "Search Unsplash or paste URL" },
+        "divider": { "label": "Divider", "description": "Horizontal separator" },
+        "callout": { "label": "Callout", "description": "Highlighted tip or note" },
+        "checklist": { "label": "Checklist", "description": "Task list item" },
+        "cta": { "label": "Button CTA", "description": "Stylish call-to-action button" },
+        "twoColumns": { "label": "Two Columns", "description": "Side-by-side content blocks" }
+      }
+    }
+  },
+  "imagePicker": {
+    "title": "Insert Image",
+    "closeAria": "Close image picker",
+    "tabs": { "upload": "Upload" },
+    "categories": {
+      "trending": "Trending",
+      "nature": "Nature",
+      "technology": "Technology",
+      "architecture": "Architecture",
+      "people": "People",
+      "animals": "Animals",
+      "food": "Food & Drink",
+      "travel": "Travel",
+      "business": "Business",
+      "textures": "Textures"
+    },
+    "searchPlaceholder": "Search photos...",
+    "searchAria": "Search Unsplash photos",
+    "search": "SEARCH",
+    "loadingPhotos": "Loading photos...",
+    "trendingPhotos": "Trending photos",
+    "unsplashPhotoAlt": "Unsplash photo",
+    "loading": "Loading...",
+    "loadMore": "Load more",
+    "noResults": "No results. Try a different search term.",
+    "photosBy": "Photos by",
+    "chooseFileAria": "Choose an image file",
+    "dropzone": {
+      "title": "Drag & drop an image here",
+      "subtitle": "or click to browse from your computer",
+      "hint": "PNG, JPG, GIF, WebP • Max 5MB"
+    },
+    "uploadPreviewAlt": "Upload preview",
+    "change": "Change",
+    "insertImage": "INSERT IMAGE",
+    "imageUrlAria": "Direct image URL",
+    "insert": "INSERT",
+    "urlHint": "Paste a direct link to any image on the web",
+    "errors": {
+      "api": "Unsplash API error: {{status}}",
+      "load": "Unable to load photos from Unsplash. Please try again.",
+      "fileType": "Please select an image file (PNG, JPG, GIF, WebP).",
+      "fileSize": "File too large. Maximum size is 5MB."
+    }
+  }
+}

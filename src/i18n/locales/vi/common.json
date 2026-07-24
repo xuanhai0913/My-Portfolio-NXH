@@ -165,6 +165,16 @@
     "outputDisclaimer": "Kết quả AI có thể chưa đầy đủ hoặc chưa chính xác.",
     "verifyNotice": "KIỂM CHỨNG TRƯỚC KHI DÙNG / KHÔNG LƯU DỮ LIỆU ĐẦU VÀO"
   },
+  "meta": {
+    "titles": {
+      "portfolio": "Nguyễn Xuân Hải - Lập trình viên Full-Stack | React, .NET, Odoo & AI",
+      "assistant": "Trợ lý Portfolio - Nguyễn Xuân Hải",
+      "videos": "Video dự án - Nguyễn Xuân Hải",
+      "tools": "Bộ công cụ AI - Nguyễn Xuân Hải",
+      "threeD": "Trải nghiệm 3D - Nguyễn Xuân Hải",
+      "blog": "Bài viết kỹ thuật - Nguyễn Xuân Hải | React, .NET Core & AI"
+    }
+  },
   "footer": {
     "supportAria": "Ủng hộ tôi một ly cà phê trên Ko-fi",
     "support": "Mời tôi một ly cà phê",

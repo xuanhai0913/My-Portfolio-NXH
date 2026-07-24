@@ -107,18 +107,18 @@ export const insertDivider = (editor) => {
   });
 };
 
-export const insertChecklistItem = (editor) => {
+export const insertChecklistItem = (editor, text = 'New checklist item') => {
   const checklistNode = {
     id: generateId(),
     type: BLOCK_TYPES.CHECKLIST_ITEM,
     checked: false,
-    children: [{ text: 'New checklist item' }],
+    children: [{ text }],
   };
   Transforms.insertNodes(editor, checklistNode);
 };
 
-export const insertCtaButton = (editor, label, url) => {
-  const safeLabel = String(label || '').trim() || 'View details';
+export const insertCtaButton = (editor, label, url, fallbackLabel = 'View details') => {
+  const safeLabel = String(label || '').trim() || fallbackLabel;
   const safeUrl = String(url || '').trim();
 
   const buttonNode = {
@@ -137,7 +137,7 @@ export const insertCtaButton = (editor, label, url) => {
   });
 };
 
-export const insertTwoColumns = (editor) => {
+export const insertTwoColumns = (editor, leftText = 'Left column content...', rightText = 'Right column content...') => {
   const twoColumnsNode = {
     id: generateId(),
     type: BLOCK_TYPES.TWO_COLUMNS,
@@ -145,12 +145,12 @@ export const insertTwoColumns = (editor) => {
       {
         id: generateId(),
         type: BLOCK_TYPES.COLUMN,
-        children: [{ text: 'Left column content...' }],
+        children: [{ text: leftText }],
       },
       {
         id: generateId(),
         type: BLOCK_TYPES.COLUMN,
-        children: [{ text: 'Right column content...' }],
+        children: [{ text: rightText }],
       },
     ],
   };

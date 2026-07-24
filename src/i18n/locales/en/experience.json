@@ -1,0 +1,35 @@
+{
+  "title": {
+    "highlight": "WORK",
+    "rest": "_HISTORY"
+  },
+  "impactLabel": "IMPACT",
+  "companyLogoAlt": "{{company}} logo",
+  "audio": {
+    "mute": "Mute background music",
+    "unmute": "Unmute background music"
+  },
+  "records": {
+    "betodemy": {
+      "company": "Betodemy – Japanese Learning Platform",
+      "role": "CORE FULLSTACK DEVELOPER",
+      "period": "Start: February 2026 | End: Present",
+      "description": "Worked as a core developer in a 5-person engineering team with Betodemy leadership from Japan. Built and fixed product modules for student portals, teacher-led online classes, admin tools, gamified practice, and multilingual learning content. Joined weekly product meetings and supported production operations through tracked issues, review notes, and CI/CD handoffs.",
+      "achievement": "Delivered 70+ merged MRs and closed 70+ authored issues across document-editor, online-class, and student/admin workflows."
+    },
+    "aiPower": {
+      "company": "AI Power – Automotive Dealership ERP",
+      "role": "ODOO ERP SUPPORT DEVELOPER INTERN",
+      "period": "Start: May 2026 | End: July 2026",
+      "description": "Supported an Odoo 18 ERP for automotive dealerships in Vietnam, covering sales, an 18-state after-sales service workflow, spare parts, warranty, and TT200 accounting. Handled fixes and enhancements after BA/customer discussions across business logic, QWeb/XML views, PDF reports, localization, Docker workflows, and GitLab CI.",
+      "achievement": "Supported debugging and fixes across all 18 custom modules and 99+ Python files while preserving the 18-state after-sales service workflow."
+    },
+    "oakMindGroup": {
+      "company": "OakMind Group – Three Production Web Products",
+      "role": "PART-TIME FULLSTACK DEVELOPER / BA-FACING OWNER",
+      "period": "Start: October 2024 | End: January 2026",
+      "description": "Delivered three production products for OakMind Group. VN Media Hub covered CMS authentication, moderation, caching, logging, SEO, and reporting. Great Link Mai House converted legacy WordPress/ASP.NET MVC workflows into React and ASP.NET Core. The OakMind Group website added a corporate CMS/admin, bilingual content, analytics, video, and Cloudflare R2 media.",
+      "achievement": "Owned BA clarification through production release across all three products; delivered the live OakMind website in 28 authored commits."
+    }
+  }
+}

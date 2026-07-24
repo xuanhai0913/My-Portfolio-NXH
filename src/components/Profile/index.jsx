@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import ExperiencePopup from './ExperiencePopup';
 import CVPreview from './CVPreview';
+import './homeTranslations';
 import './styles/Profile.css';
 
 const profileImage = '/images/og-image.jpg';
 
 const Profile = () => {
+  const { t } = useTranslation('home');
   const [loaded, setLoaded] = useState(false);
   const [showExperience, setShowExperience] = useState(false);
   const [showCV, setShowCV] = useState(false);
@@ -22,19 +25,19 @@ const Profile = () => {
         <div className="profile-content">
           <h1 className="hero-title">
             <span className={`hero-line line-1 ${loaded ? 'in-view' : ''}`}>
-              FULL-STACK
+              {t('profile.titleLine1')}
             </span>
             <span className={`hero-line line-2 ${loaded ? 'in-view' : ''}`}>
-              <span className="hollow-text">DEVELOPER</span>
+              <span className="hollow-text">{t('profile.titleLine2')}</span>
             </span>
           </h1>
 
           <div className={`hero-sub ${loaded ? 'in-view' : ''}`}>
             <p>
-              I'm <span className="neon-highlight">Nguyễn Xuân Hải</span> — I build
-              production web apps with React, .NET Core, Odoo & AI.
-              <br />From B2B platforms and ERP workflows to AI-powered tools,
-              shipped for real clients in Vietnam.
+              {t('profile.introBeforeName')}{' '}
+              <span className="neon-highlight">Nguyễn Xuân Hải</span>{' '}
+              {t('profile.introAfterName')}
+              <br />{t('profile.introLine2')}
             </p>
           </div>
 
@@ -42,14 +45,14 @@ const Profile = () => {
             <button
               onClick={() => setShowCV(true)}
               className="btn-brutalist btn-view-cv"
-              aria-label="View CV / Resume"
+              aria-label={t('profile.viewCvAria')}
             >
-              VIEW CV
+              {t('profile.viewCv')}
               <span className="btn-icon" aria-hidden="true">↗</span>
             </button>
 
             <div className="scroll-hint">
-              <span>SCROLL TO EXPLORE</span>
+              <span>{t('profile.scrollHint')}</span>
             </div>
           </div>
         </div>
@@ -60,18 +63,18 @@ const Profile = () => {
             <div className="glitch-image-wrapper">
               <img
                 src={profileImage}
-                alt="Nguyễn Xuân Hải"
+                alt={t('profile.profileImageAlt')}
                 className="profile-img main-img"
               />
               <img
                 src={profileImage}
-                alt="Glitch Layer 1"
+                alt=""
                 className="profile-img glitch-layer layer-1"
                 aria-hidden="true"
               />
               <img
                 src={profileImage}
-                alt="Glitch Layer 2"
+                alt=""
                 className="profile-img glitch-layer layer-2"
                 aria-hidden="true"
               />
@@ -83,10 +86,10 @@ const Profile = () => {
               onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setShowExperience(true); } }}
               role="button"
               tabIndex={0}
-              aria-label="View work experience details"
+              aria-label={t('profile.experienceBadgeAria')}
             >
               <span className="status-dot" aria-hidden="true"></span>
-              4 COMPANY EXPERIENCES
+              {t('profile.experienceBadge')}
             </div>
 
             {/* Decorative Grid Lines */}

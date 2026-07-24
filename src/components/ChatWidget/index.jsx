@@ -1,11 +1,11 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import i18nInstance from '../../i18n';
 import { API } from '../../utils/constants';
 import useChatSession from '../../hooks/useChatSession';
 import {
   buildPortfolioSystemPrompt,
   PROFILE_CONTEXT,
-  WELCOME_MESSAGE,
 } from '../../utils/chatProfileContext';
 import {
   buildIntentResponse,
@@ -28,6 +28,11 @@ const TOAST_DURATION_MS = 2600;
 const TELEMETRY_EVENT_LIMIT = 30;
 const SUPPORTED_TEXT_TYPES = new Set(['text/plain', 'text/markdown', 'application/json']);
 const CONTACT_TRIGGER_REGEX = /(liên hệ|lien he|contact|email|mail|linkedin|cv|resume|kết nối|ket noi|phone|sđt|sdt)/i;
+const WELCOME_MESSAGES = new Set([
+  i18nInstance.getFixedT('en', 'content')('chat.welcome'),
+  i18nInstance.getFixedT('vi', 'content')('chat.welcome'),
+  'Welcome to Nguyen Xuan Hai portfolio. You can ask me about CV, projects, experience, certifications, or contact links.',
+]);
 
 function createMessage(role, content, extra = {}) {
   return {
@@ -47,7 +52,7 @@ function getCaseInsensitiveField(obj, fieldName) {
   return key ? obj[key] : undefined;
 }
 
-function parseJsonLikeAssistantContent(content) {
+function parseJsonLikeAssistantContent(content, t) {
   if (!content || typeof content !== 'string') return null;
   const trimmed = content.trim();
   if (!trimmed.startsWith('{')) return null;
@@ -72,7 +77,7 @@ function parseJsonLikeAssistantContent(content) {
     if (!answer && fallbackHighlights.length === 0) return null;
 
     return {
-      displayText: answer || 'Structured response parsed from fallback.',
+      displayText: answer || t('chat.structuredFallbackParsed'),
       action: {
         type: 'rich',
         answer: answer || '',
@@ -123,7 +128,7 @@ function parseJsonLikeAssistantContent(content) {
   }
 
   return {
-    displayText: typeof answer === 'string' ? answer : 'Structured response',
+    displayText: typeof answer === 'string' ? answer : t('chat.structuredResponse'),
     action: {
       type: 'rich',
       answer: typeof answer === 'string' ? answer : '',
@@ -144,6 +149,8 @@ function parseJsonLikeAssistantContent(content) {
 }
 
 function ActionCard({ action, onRunNextAction, onAskInterviewQuestion }) {
+  const { t } = useTranslation('content');
+
   if (!action) return null;
 
   if (action.type === 'rich') {
@@ -191,7 +198,7 @@ function ActionCard({ action, onRunNextAction, onAskInterviewQuestion }) {
           <div className="chat-timeline">
             {action.timeline.map((item, index) => (
               <div key={`timeline-${index}`} className="chat-timeline-item">
-                <strong>{item.phase || `Step ${index + 1}`}</strong>
+                <strong>{item.phase || t('chat.structured.step', { count: index + 1 })}</strong>
                 <span>{item.detail}</span>
               </div>
             ))}
@@ -203,7 +210,7 @@ function ActionCard({ action, onRunNextAction, onAskInterviewQuestion }) {
             {action.skillsMatrix.map((item, index) => (
               <div key={`skill-${index}`} className="chat-skill-row">
                 <span className="chat-skill-name">{item.skill}</span>
-                <span className={`chat-skill-level level-${item.level || 'medium'}`}>{item.level || 'medium'}</span>
+                <span className={`chat-skill-level level-${item.level || 'medium'}`}>{item.level || t('chat.structured.medium')}</span>
                 {item.evidence ? <small>{item.evidence}</small> : null}
               </div>
             ))}
@@ -212,11 +219,11 @@ function ActionCard({ action, onRunNextAction, onAskInterviewQuestion }) {
 
         {action.hrSummary ? (
           <div className="chat-hr-summary">
-            {action.hrSummary.fit ? <p><strong>Fit:</strong> {action.hrSummary.fit}</p> : null}
-            {action.hrSummary.seniority ? <p><strong>Seniority:</strong> {action.hrSummary.seniority}</p> : null}
-            {action.hrSummary.noticePeriod ? <p><strong>Notice:</strong> {action.hrSummary.noticePeriod}</p> : null}
-            {action.hrSummary.salaryRange ? <p><strong>Salary:</strong> {action.hrSummary.salaryRange}</p> : null}
-            {action.hrSummary.workMode ? <p><strong>Work Mode:</strong> {action.hrSummary.workMode}</p> : null}
+            {action.hrSummary.fit ? <p><strong>{t('chat.structured.fit')}</strong> {action.hrSummary.fit}</p> : null}
+            {action.hrSummary.seniority ? <p><strong>{t('chat.structured.seniority')}</strong> {action.hrSummary.seniority}</p> : null}
+            {action.hrSummary.noticePeriod ? <p><strong>{t('chat.structured.notice')}</strong> {action.hrSummary.noticePeriod}</p> : null}
+            {action.hrSummary.salaryRange ? <p><strong>{t('chat.structured.salary')}</strong> {action.hrSummary.salaryRange}</p> : null}
+            {action.hrSummary.workMode ? <p><strong>{t('chat.structured.workMode')}</strong> {action.hrSummary.workMode}</p> : null}
           </div>
         ) : null}
 
@@ -224,7 +231,7 @@ function ActionCard({ action, onRunNextAction, onAskInterviewQuestion }) {
           <div className="chat-risk-flags">
             {action.riskFlags.map((item, index) => (
               <article key={`risk-${index}`} className={`chat-risk-item severity-${item.severity || 'medium'}`}>
-                <h6>{item.title || 'Risk'}</h6>
+                <h6>{item.title || t('chat.structured.risk')}</h6>
                 {item.detail ? <p>{item.detail}</p> : null}
               </article>
             ))}
@@ -233,7 +240,7 @@ function ActionCard({ action, onRunNextAction, onAskInterviewQuestion }) {
 
         {hasInterviewQuestions ? (
           <div className="chat-interview-questions">
-            <p><strong>Interview Questions</strong></p>
+            <p><strong>{t('chat.structured.interviewQuestions')}</strong></p>
             <ol>
               {action.interviewQuestions.map((item, index) => (
                 <li key={`question-${index}`}>
@@ -253,7 +260,7 @@ function ActionCard({ action, onRunNextAction, onAskInterviewQuestion }) {
                   type="button"
                   onClick={() => onRunNextAction?.(item)}
                 >
-                  {item?.label || 'Action'}
+                  {item?.label || t('chat.structured.action')}
                 </button>
               );
             })}
@@ -272,11 +279,11 @@ function ActionCard({ action, onRunNextAction, onAskInterviewQuestion }) {
 
         {action.fitSummary ? (
           <div className="chat-fit-summary">
-            <p><strong>Match:</strong> {action.fitSummary.matchLevel || 'unknown'}</p>
+            <p><strong>{t('chat.structured.match')}</strong> {action.fitSummary.matchLevel || t('chat.structured.unknown')}</p>
 
             {Array.isArray(action.fitSummary.strongMatches) && action.fitSummary.strongMatches.length > 0 ? (
               <>
-                <p><strong>Strong matches</strong></p>
+                <p><strong>{t('chat.structured.strongMatches')}</strong></p>
                 <ul>
                   {action.fitSummary.strongMatches.map((item, index) => (
                     <li key={`strong-${index}`}>{item}</li>
@@ -287,7 +294,7 @@ function ActionCard({ action, onRunNextAction, onAskInterviewQuestion }) {
 
             {Array.isArray(action.fitSummary.gaps) && action.fitSummary.gaps.length > 0 ? (
               <>
-                <p><strong>Gaps</strong></p>
+                <p><strong>{t('chat.structured.gaps')}</strong></p>
                 <ul>
                   {action.fitSummary.gaps.map((item, index) => (
                     <li key={`gap-${index}`}>{item}</li>
@@ -297,7 +304,7 @@ function ActionCard({ action, onRunNextAction, onAskInterviewQuestion }) {
             ) : null}
 
             {action.fitSummary.recommendation ? (
-              <p><strong>Recommendation:</strong> {action.fitSummary.recommendation}</p>
+              <p><strong>{t('chat.structured.recommendation')}</strong> {action.fitSummary.recommendation}</p>
             ) : null}
           </div>
         ) : null}
@@ -341,7 +348,7 @@ function ActionCard({ action, onRunNextAction, onAskInterviewQuestion }) {
               {item.detail ? <div className="chat-item-detail">{item.detail}</div> : null}
               {item.url ? (
                 <a href={item.url} target="_blank" rel="noopener noreferrer">
-                  Open link
+                  {t('chat.structured.openLink')}
                 </a>
               ) : null}
             </li>
@@ -355,19 +362,17 @@ function ActionCard({ action, onRunNextAction, onAskInterviewQuestion }) {
 }
 
 const ChatWidget = ({ mode = 'floating' }) => {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation('content');
   const isStandalonePage = mode === 'page';
   const uiLanguage = i18n.resolvedLanguage === 'vi' ? 'vi' : 'en';
   const initialMessages = useMemo(
     () => [
       createMessage(
         'assistant',
-        uiLanguage === 'vi'
-          ? 'Chào mừng bạn đến với portfolio của Nguyễn Xuân Hải. Bạn có thể hỏi về CV, dự án, kinh nghiệm, chứng chỉ hoặc thông tin liên hệ.'
-          : WELCOME_MESSAGE
+        t('chat.welcome')
       ),
     ],
-    [uiLanguage]
+    [t]
   );
 
   const { messages, setMessages, clearSession, meta } = useChatSession(initialMessages);
@@ -405,6 +410,21 @@ const ChatWidget = ({ mode = 'floating' }) => {
   useEffect(() => {
     setPreferredLanguage(uiLanguage);
   }, [uiLanguage]);
+
+  useEffect(() => {
+    setMessages((currentMessages) => {
+      if (
+        currentMessages.length !== 1
+        || currentMessages[0].role !== 'assistant'
+        || !WELCOME_MESSAGES.has(currentMessages[0].content)
+        || currentMessages[0].content === t('chat.welcome')
+      ) {
+        return currentMessages;
+      }
+
+      return [{ ...currentMessages[0], content: t('chat.welcome') }];
+    });
+  }, [setMessages, t]);
 
   useEffect(() => {
     if (!showIntroSpotlight) return;
@@ -462,13 +482,8 @@ const ChatWidget = ({ mode = 'floating' }) => {
 
   useEffect(() => {
     if (meta.persistHealthy) return;
-    showToastRef.current?.(
-      language === 'vi'
-        ? 'Cảnh báo: phiên chat có thể không lưu được trên trình duyệt này.'
-        : 'Warning: chat session may not persist in this browser.',
-      'error'
-    );
-  }, [language, meta.persistHealthy]);
+    showToastRef.current?.(t('chat.persistWarning'), 'error');
+  }, [meta.persistHealthy, t]);
 
   useEffect(() => {
     if (!isDevMode || typeof window === 'undefined') return undefined;
@@ -537,12 +552,12 @@ const ChatWidget = ({ mode = 'floating' }) => {
   const handleQuickMail = () => {
     const recipient = PROFILE_CONTEXT.contacts.email;
     if (!recipient) {
-      showToast(language === 'vi' ? 'Thiếu email liên hệ.' : 'Contact email is missing.', 'error');
+      showToast(t('chat.missingEmail'), 'error');
       return;
     }
 
-    const subjectRaw = 'Portfolio Inquiry - Nguyen Xuan Hai';
-    const bodyRaw = 'Hello Hai,\n\nI would like to discuss an opportunity.';
+    const subjectRaw = t('chat.emailSubject');
+    const bodyRaw = t('chat.emailBody');
     const encodedRecipient = encodeURIComponent(recipient);
     const encodedSubject = encodeURIComponent(subjectRaw);
     const encodedBody = encodeURIComponent(bodyRaw);
@@ -565,11 +580,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
 
   const handleChangeResponseStyle = (nextStyle) => {
     setResponseStyle(nextStyle);
-    showToast(
-      language === 'vi'
-        ? `Đã chuyển style trả lời: ${nextStyle}.`
-        : `Response style switched to: ${nextStyle}.`
-    );
+    showToast(t('chat.responseStyleChanged', { style: t(`chat.styles.${nextStyle}`) }));
   };
 
   const handleRunStructuredAction = (item) => {
@@ -635,9 +646,10 @@ const ChatWidget = ({ mode = 'floating' }) => {
 
   const handleSelectLanguage = (lang) => {
     setPreferredLanguage(lang);
-    appendMessage(createMessage('assistant', lang === 'vi'
-      ? 'Đã chọn tiếng Việt. Bạn có thể hỏi về CV, dự án, kinh nghiệm hoặc liên hệ.'
-      : 'English selected. You can ask about CV, projects, experience, or contact links.',
+    const fixedT = i18n.getFixedT(lang, 'content');
+    appendMessage(createMessage('assistant', fixedT(lang === 'vi'
+      ? 'chat.onboardingVietnamese'
+      : 'chat.onboardingEnglish'),
     { modelUsed: 'local-onboarding' }));
   };
 
@@ -653,12 +665,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
     const isTextByExtension = /\.(txt|md|json)$/i.test(file.name);
 
     if (!isTextByType && !isTextByExtension) {
-      showToast(
-        language === 'vi'
-          ? 'Hiện tại chỉ hỗ trợ đọc file JD dạng text (.txt, .md). Bạn có thể dán nội dung JD trực tiếp vào chat.'
-          : 'Currently only text JD files (.txt, .md) are supported. Please paste JD content directly in chat.',
-        'error'
-      );
+      showToast(t('chat.unsupportedJdFile'), 'error');
       event.target.value = '';
       return;
     }
@@ -667,18 +674,14 @@ const ChatWidget = ({ mode = 'floating' }) => {
       const content = await file.text();
       const normalized = content.trim().slice(0, 7000);
       if (!normalized) {
-        showToast(language === 'vi' ? 'File JD trống.' : 'The uploaded JD file is empty.', 'error');
+        showToast(t('chat.emptyJdFile'), 'error');
       } else {
         setJobDescription(normalized);
         setJobDescriptionFile(file.name);
-        showToast(
-          language === 'vi'
-            ? `Đã nạp JD: ${file.name}. Bây giờ bạn có thể hỏi độ phù hợp với vị trí.`
-            : `JD loaded: ${file.name}. You can now ask about role fit.`
-        );
+        showToast(t('chat.jdLoadSuccess', { file: file.name }));
       }
     } catch (error) {
-      showToast(language === 'vi' ? 'Không thể đọc file JD.' : 'Unable to read the JD file.', 'error');
+      showToast(t('chat.jdReadError'), 'error');
     }
 
     event.target.value = '';
@@ -687,7 +690,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
   const clearJDContext = () => {
     setJobDescription('');
     setJobDescriptionFile('');
-    showToast(language === 'vi' ? 'Đã xoá ngữ cảnh JD.' : 'JD context removed.');
+    showToast(t('chat.jdRemoved'));
   };
 
   const appendMessage = (msg) => {
@@ -776,7 +779,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
     const args = parts.slice(1);
 
     if (!command) {
-      showToast(language === 'vi' ? 'Hãy nhập lệnh sau dấu /' : 'Please enter a command after /.', 'error');
+      showToast(t('chat.enterCommand'), 'error');
       return true;
     }
 
@@ -817,7 +820,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
       if (['brief', 'detailed', 'fit'].includes(nextStyle)) {
         handleChangeResponseStyle(nextStyle);
       } else {
-        showToast(language === 'vi' ? 'Style hợp lệ: brief | detailed | fit.' : 'Valid styles: brief | detailed | fit.', 'error');
+        showToast(t('chat.validStyles'), 'error');
       }
       return true;
     }
@@ -828,37 +831,35 @@ const ChatWidget = ({ mode = 'floating' }) => {
     }
 
     if (command === 'help') {
-      const helpText = language === 'vi'
-        ? 'Lệnh nhanh: /copy, /txt, /pdf, /regen, /clear, /jd, /style brief|detailed|fit, /help'
-        : 'Quick commands: /copy, /txt, /pdf, /regen, /clear, /jd, /style brief|detailed|fit, /help';
+      const helpText = t('chat.quickCommands');
       appendMessage(createMessage('assistant', helpText, { modelUsed: 'slash-help' }));
       return true;
     }
 
-    showToast(language === 'vi' ? `Không hỗ trợ lệnh /${command}.` : `Unsupported command /${command}.`, 'error');
+    showToast(t('chat.unsupportedCommand', { command }), 'error');
     return true;
   };
 
   const slashCommands = useMemo(() => {
     const base = [
-      { key: '/copy', hint: language === 'vi' ? 'Sao chép transcript' : 'Copy transcript' },
-      { key: '/txt', hint: language === 'vi' ? 'Xuất TXT' : 'Export TXT' },
-      { key: '/pdf', hint: language === 'vi' ? 'Xuất PDF' : 'Export PDF' },
-      { key: '/regen', hint: language === 'vi' ? 'Tạo lại câu trả lời' : 'Regenerate last answer' },
-      { key: '/clear', hint: language === 'vi' ? 'Xoá session chat' : 'Clear chat session' },
-      { key: '/jd', hint: language === 'vi' ? 'Tải JD file' : 'Upload JD file' },
-      { key: '/style brief', hint: language === 'vi' ? 'Đổi style ngắn' : 'Set brief style' },
-      { key: '/style detailed', hint: language === 'vi' ? 'Đổi style chi tiết' : 'Set detailed style' },
-      { key: '/style fit', hint: language === 'vi' ? 'Đổi style fit' : 'Set fit style' },
-      { key: '/help', hint: language === 'vi' ? 'Hiện danh sách lệnh nhanh' : 'Show quick command list' },
+      { key: '/copy', hint: t('chat.commandHints.copy') },
+      { key: '/txt', hint: t('chat.commandHints.txt') },
+      { key: '/pdf', hint: t('chat.commandHints.pdf') },
+      { key: '/regen', hint: t('chat.commandHints.regenerate') },
+      { key: '/clear', hint: t('chat.commandHints.clear') },
+      { key: '/jd', hint: t('chat.commandHints.jd') },
+      { key: '/style brief', hint: t('chat.commandHints.brief') },
+      { key: '/style detailed', hint: t('chat.commandHints.detailed') },
+      { key: '/style fit', hint: t('chat.commandHints.fit') },
+      { key: '/help', hint: t('chat.commandHints.help') },
     ];
 
     if (isDevMode) {
-      base.push({ key: '/debug', hint: showTelemetryPanel ? 'Hide debug panel' : 'Show debug panel' });
+      base.push({ key: '/debug', hint: t(showTelemetryPanel ? 'chat.commandHints.hideDebug' : 'chat.commandHints.showDebug') });
     }
 
     return base;
-  }, [isDevMode, language, showTelemetryPanel]);
+  }, [isDevMode, showTelemetryPanel, t]);
 
   const filteredSlashCommands = useMemo(() => {
     if (!isCommandMode) return [];
@@ -941,7 +942,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
     const payload = await response.json();
 
     if (!response.ok || !payload.success) {
-      const fallbackText = payload?.message || payload?.error || 'Chat service is temporarily unavailable.';
+      const fallbackText = payload?.message || payload?.error || t('chat.serviceUnavailable');
       return {
         content: fallbackText,
         modelUsed: payload?.modelUsed || null,
@@ -976,7 +977,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
     });
 
     return {
-      content: payload.responseText || 'The assistant returned an empty response. Please try asking again.',
+      content: payload.responseText || t('chat.emptyResponse'),
       modelUsed: payload.modelUsed,
       action: ensuredAction,
       suggestions: payload?.structuredResponse?.suggestions || [],
@@ -1022,7 +1023,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
       appendMessage(
         createMessage(
           'assistant',
-          'I am having trouble responding right now. Please try again in a moment.',
+          t('chat.responseError'),
           { modelUsed: 'error-fallback' }
         )
       );
@@ -1032,10 +1033,11 @@ const ChatWidget = ({ mode = 'floating' }) => {
   };
 
   const formatTranscript = () => {
-    const header = `Portfolio Assistant Transcript\nGenerated: ${new Date().toLocaleString()}\n\n`;
+    const date = new Date().toLocaleString(language === 'vi' ? 'vi-VN' : 'en-US');
+    const header = `${t('chat.transcript.title')}\n${t('chat.transcript.generated', { date })}\n\n`;
     const body = messages
       .map((message) => {
-        const role = message.role === 'user' ? 'User' : 'Assistant';
+        const role = message.role === 'user' ? t('chat.transcript.user') : t('chat.transcript.assistant');
         return `[${role}] ${message.content}`;
       })
       .join('\n\n');
@@ -1049,12 +1051,12 @@ const ChatWidget = ({ mode = 'floating' }) => {
       try {
         if (navigator.clipboard?.writeText) {
           await navigator.clipboard.writeText(transcript);
-          showToast(language === 'vi' ? 'Đã sao chép transcript.' : 'Transcript copied.');
+          showToast(t('chat.transcriptCopied'));
         } else {
-          showToast(language === 'vi' ? 'Trình duyệt không hỗ trợ clipboard API.' : 'Clipboard API is not available.', 'error');
+          showToast(t('chat.clipboardUnavailable'), 'error');
         }
       } catch (error) {
-        showToast(language === 'vi' ? 'Không thể sao chép transcript.' : 'Unable to copy transcript.', 'error');
+        showToast(t('chat.transcriptCopyError'), 'error');
       }
     });
   };
@@ -1072,7 +1074,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
-      showToast(language === 'vi' ? 'Đã xuất file TXT.' : 'TXT export completed.');
+      showToast(t('chat.txtExported'));
     });
   };
 
@@ -1087,7 +1089,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
       const printHtml = `
       <html>
         <head>
-          <title>Chat Session Export</title>
+          <title>${t('chat.transcript.printTitle')}</title>
           <style>
             body { font-family: Arial, sans-serif; margin: 24px; line-height: 1.5; }
             h1 { font-size: 20px; margin-bottom: 16px; }
@@ -1095,7 +1097,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
           </style>
         </head>
         <body>
-          <h1>Portfolio Assistant Session</h1>
+          <h1>${t('chat.transcript.sessionTitle')}</h1>
           <pre>${escaped}</pre>
         </body>
       </html>
@@ -1151,11 +1153,11 @@ const ChatWidget = ({ mode = 'floating' }) => {
 
       try {
         await printViaIframe();
-        showToast(language === 'vi' ? 'Đã mở hộp thoại in PDF.' : 'PDF print dialog opened.');
+        showToast(t('chat.pdfDialogOpened'));
       } catch (error) {
         const popup = window.open('', '_blank', 'width=900,height=700');
         if (!popup) {
-          showToast(language === 'vi' ? 'Không thể mở hộp thoại in PDF.' : 'Unable to open print dialog for PDF.', 'error');
+          showToast(t('chat.pdfDialogError'), 'error');
           return;
         }
 
@@ -1165,7 +1167,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
           popup.focus();
           popup.print();
         }, 120);
-        showToast(language === 'vi' ? 'Đã mở hộp thoại in PDF.' : 'PDF print dialog opened.');
+        showToast(t('chat.pdfDialogOpened'));
       }
     });
   };
@@ -1176,7 +1178,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
     await runHeaderAction('regenerate', async () => {
       const lastUserIndex = [...messages].map((item) => item.role).lastIndexOf('user');
       if (lastUserIndex === -1) {
-        showToast(language === 'vi' ? 'Chưa có câu hỏi để tạo lại câu trả lời.' : 'No user question to regenerate from.', 'error');
+        showToast(t('chat.nothingToRegenerate'), 'error');
         return;
       }
 
@@ -1197,9 +1199,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
         appendMessage(
           createMessage(
             'assistant',
-            language === 'vi'
-              ? 'Không thể tạo lại câu trả lời lúc này. Vui lòng thử lại sau.'
-              : 'Unable to regenerate the answer right now. Please try again later.',
+            t('chat.regenerateError'),
             { modelUsed: 'error-fallback' }
           )
         );
@@ -1216,9 +1216,9 @@ const ChatWidget = ({ mode = 'floating' }) => {
           type="button"
           className="chat-launcher"
           onClick={handleOpenChat}
-          aria-label={uiLanguage === 'vi' ? 'Mở trợ lý AI portfolio' : 'Open AI portfolio assistant'}
+          aria-label={t('chat.openAssistantAria')}
         >
-          <span>{uiLanguage === 'vi' ? 'Trợ lý AI' : 'AI Assistant'}</span>
+          <span>{t('chat.launcher')}</span>
         </button>
       ) : null}
 
@@ -1227,14 +1227,10 @@ const ChatWidget = ({ mode = 'floating' }) => {
           type="button"
           className="chat-intro-spotlight"
           onClick={handleOpenChat}
-          aria-label={uiLanguage === 'vi' ? 'Mở phần giới thiệu trợ lý' : 'Open chat intro'}
+          aria-label={t('chat.introAria')}
         >
-          <strong>{uiLanguage === 'vi' ? 'Xin chào, chào mừng bạn đến với portfolio của Hải.' : 'Hello, welcome to Hai portfolio.'}</strong>
-          <span>
-            {uiLanguage === 'vi'
-              ? 'Nhấn Trợ lý AI để hỏi nhanh về CV, dự án và thông tin liên hệ.'
-              : 'Click AI Assistant to ask quickly about CV, projects, and contact info.'}
-          </span>
+          <strong>{t('chat.introTitle')}</strong>
+          <span>{t('chat.introBody')}</span>
         </button>
       ) : null}
 
@@ -1242,15 +1238,15 @@ const ChatWidget = ({ mode = 'floating' }) => {
         {toast ? (
           <div className={`chat-toast ${toast.type === 'error' ? 'error' : ''}`} role="status" aria-live="polite">
             <span>{toast.text}</span>
-            <button type="button" onClick={dismissToast} aria-label="Dismiss notification">x</button>
+            <button type="button" onClick={dismissToast} aria-label={t('chat.dismissNotification')}>x</button>
           </div>
         ) : null}
 
         <header className="chat-header">
           <div>
-            <h3>{uiLanguage === 'vi' ? 'Trợ lý Portfolio' : 'Portfolio Assistant'}</h3>
-            <p>{uiLanguage === 'vi' ? 'Hỏi về CV, dự án và kinh nghiệm.' : 'Ask about CV, projects, and experience.'}</p>
-            {lastModelUsed ? <small className="chat-model-meta">Model: {lastModelUsed}</small> : null}
+            <h3>{t('chat.headerTitle')}</h3>
+            <p>{t('chat.headerSubtitle')}</p>
+            {lastModelUsed ? <small className="chat-model-meta">{t('chat.model', { model: lastModelUsed })}</small> : null}
           </div>
           <div className="chat-header-actions">
             {!isStandalonePage ? (
@@ -1259,8 +1255,8 @@ const ChatWidget = ({ mode = 'floating' }) => {
                   type="button"
                   className="chat-icon-btn"
                   onClick={handleToggleFullscreen}
-                  aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
-                  title={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
+                  aria-label={t(isFullscreen ? 'chat.exitFullscreen' : 'chat.enterFullscreen')}
+                  title={t(isFullscreen ? 'chat.exitFullscreen' : 'chat.enterFullscreen')}
                 >
                   <span className={`chat-icon ${isFullscreen ? 'icon-window' : 'icon-fullscreen'}`} aria-hidden="true" />
                 </button>
@@ -1268,8 +1264,8 @@ const ChatWidget = ({ mode = 'floating' }) => {
                   type="button"
                   className="chat-icon-btn"
                   onClick={() => setOpen(false)}
-                  aria-label="Hide chat"
-                  title="Hide chat"
+                  aria-label={t('chat.hideChat')}
+                  title={t('chat.hideChat')}
                 >
                   <span className="chat-icon icon-hide" aria-hidden="true" />
                 </button>
@@ -1281,32 +1277,32 @@ const ChatWidget = ({ mode = 'floating' }) => {
                 type="button"
                 className="chat-actions-toggle"
                 onClick={() => setShowActionsMenu((prev) => !prev)}
-                aria-label="Open actions menu"
+                aria-label={t('chat.openActionsMenu')}
                 aria-expanded={showActionsMenu}
               >
-                Actions
+                {t('chat.actions')}
               </button>
 
               {showActionsMenu ? (
-                <div className="chat-actions-menu" role="menu" aria-label="Chat actions">
+                <div className="chat-actions-menu" role="menu" aria-label={t('chat.actionsMenuAria')}>
                   <button type="button" role="menuitem" onClick={() => handleMenuAction(handleCopyTranscript)} disabled={isHeaderActionBusy || loading}>
-                    {activeHeaderAction === 'copy' ? (language === 'vi' ? 'Đang copy...' : 'Copying...') : 'Copy transcript'}
+                    {activeHeaderAction === 'copy' ? t('chat.copying') : t('chat.copyTranscript')}
                   </button>
                   <button type="button" role="menuitem" onClick={() => handleMenuAction(handleExportTranscriptTxt)} disabled={isHeaderActionBusy || loading}>
-                    {activeHeaderAction === 'txt' ? 'Exporting...' : 'Export TXT'}
+                    {activeHeaderAction === 'txt' ? t('chat.exporting') : t('chat.exportTxt')}
                   </button>
                   <button type="button" role="menuitem" onClick={() => handleMenuAction(handleExportTranscriptPdf)} disabled={isHeaderActionBusy || loading}>
-                    {activeHeaderAction === 'pdf' ? 'Preparing...' : 'Export PDF'}
+                    {activeHeaderAction === 'pdf' ? t('chat.preparing') : t('chat.exportPdf')}
                   </button>
                   <button type="button" role="menuitem" onClick={() => handleMenuAction(handleRegenerateLastAnswer)} disabled={loading || isHeaderActionBusy}>
-                    {activeHeaderAction === 'regenerate' ? 'Regenerating...' : 'Regenerate answer'}
+                    {activeHeaderAction === 'regenerate' ? t('chat.regenerating') : t('chat.regenerateAnswer')}
                   </button>
                   <button type="button" role="menuitem" onClick={() => handleMenuAction(handleClear)} disabled={isHeaderActionBusy || loading}>
-                    Clear session
+                    {t('chat.clearSession')}
                   </button>
                   {isDevMode ? (
                     <button type="button" role="menuitem" onClick={() => handleMenuAction(() => setShowTelemetryPanel((prev) => !prev))}>
-                      {showTelemetryPanel ? 'Debug Off' : 'Debug On'}
+                      {t(showTelemetryPanel ? 'chat.debugOff' : 'chat.debugOn')}
                     </button>
                   ) : null}
                 </div>
@@ -1318,8 +1314,8 @@ const ChatWidget = ({ mode = 'floating' }) => {
         {isDevMode && showTelemetryPanel ? (
           <div className="chat-telemetry-panel" role="status" aria-live="polite">
             <div className="chat-telemetry-head">
-              <strong>Telemetry (latest {TELEMETRY_EVENT_LIMIT})</strong>
-              <button type="button" onClick={() => setTelemetryEvents([])}>Clear Log</button>
+              <strong>{t('chat.telemetry', { count: TELEMETRY_EVENT_LIMIT })}</strong>
+              <button type="button" onClick={() => setTelemetryEvents([])}>{t('chat.clearLog')}</button>
             </div>
             <div className="chat-telemetry-body">
               {telemetryEvents.map((item, index) => (
@@ -1335,7 +1331,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
         <div className="chat-body" role="log" aria-live="polite" ref={chatBodyRef}>
           {messages.map((message) => {
             const parsedAssistantContent = message.role === 'assistant' && !message.action
-              ? parseJsonLikeAssistantContent(message.content)
+              ? parseJsonLikeAssistantContent(message.content, t)
               : null;
 
             const displayText = parsedAssistantContent?.displayText || message.content;
@@ -1363,24 +1359,24 @@ const ChatWidget = ({ mode = 'floating' }) => {
 
           {loading ? (
             <article className="chat-message assistant">
-              <p>Thinking...</p>
+              <p>{t('chat.thinking')}</p>
             </article>
           ) : null}
         </div>
 
         {!preferredLanguage ? (
           <div className="chat-language-gate">
-            <p>Choose your chat language / Chọn ngôn ngữ trò chuyện</p>
+            <p>{t('chat.languagePrompt')}</p>
             <div className="chat-language-actions">
-              <button type="button" onClick={() => handleSelectLanguage('vi')}>Tiếng Việt</button>
-              <button type="button" onClick={() => handleSelectLanguage('en')}>English</button>
+              <button type="button" onClick={() => handleSelectLanguage('vi')}>{t('chat.vietnamese')}</button>
+              <button type="button" onClick={() => handleSelectLanguage('en')}>{t('chat.english')}</button>
             </div>
           </div>
         ) : null}
 
         <div className="chat-input-wrap">
           <div className="chat-style-row">
-            <span>{language === 'vi' ? 'Style:' : 'Style:'}</span>
+            <span>{t('chat.responseStyle')}</span>
             <div className="chat-style-actions">
               {['brief', 'detailed', 'fit'].map((item) => (
                 <button
@@ -1389,7 +1385,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
                   className={responseStyle === item ? 'active' : ''}
                   onClick={() => handleChangeResponseStyle(item)}
                 >
-                  {item}
+                  {t(`chat.styles.${item}`)}
                 </button>
               ))}
             </div>
@@ -1397,7 +1393,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
 
           {shouldShowContactActions ? (
             <div className="chat-quick-actions">
-              <button type="button" onClick={handleQuickMail}>{language === 'vi' ? 'Gửi mail nhanh' : 'Quick Email'}</button>
+              <button type="button" onClick={handleQuickMail}>{t('chat.quickEmail')}</button>
               <button type="button" onClick={handleQuickLinkedIn}>LinkedIn</button>
               <button type="button" onClick={handleQuickCV}>CV</button>
             </div>
@@ -1405,12 +1401,12 @@ const ChatWidget = ({ mode = 'floating' }) => {
 
           <div className="chat-context-row">
             <button type="button" className="chat-context-btn" onClick={handleJDUploadClick}>
-              {language === 'vi' ? 'Tải JD (.txt/.md)' : 'Upload JD (.txt/.md)'}
+              {t('chat.uploadJd')}
             </button>
             {jobDescription ? (
               <div className="chat-jd-pill" role="status" aria-live="polite">
-                <span>{jobDescriptionFile || (language === 'vi' ? 'JD đã nạp' : 'JD loaded')}</span>
-                <button type="button" onClick={clearJDContext}>x</button>
+                <span>{jobDescriptionFile || t('chat.jdLoaded')}</span>
+                <button type="button" onClick={clearJDContext} aria-label={t('chat.removeJdAria')}>x</button>
               </div>
             ) : null}
             <input
@@ -1422,7 +1418,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
             />
           </div>
 
-          <div className="chat-suggestions" aria-label="Suggested follow-up questions">
+          <div className="chat-suggestions" aria-label={t('chat.suggestionsAria')}>
             {suggestions.map((item) => (
               <button key={item} type="button" onClick={() => handleSend(item)}>
                 {item}
@@ -1431,7 +1427,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
           </div>
 
           {filteredSlashCommands.length > 0 ? (
-            <div className="chat-command-palette" aria-label="Slash commands">
+            <div className="chat-command-palette" aria-label={t('chat.slashCommandsAria')}>
               {filteredSlashCommands.map((item, index) => (
                 <button
                   key={item.key}
@@ -1467,12 +1463,12 @@ const ChatWidget = ({ mode = 'floating' }) => {
               value={input}
               onChange={(event) => setInput(event.target.value)}
               onKeyDown={handleInputKeyDown}
-              placeholder={language === 'vi' ? 'Đặt câu hỏi cho Nguyễn Xuân Hải...' : 'Ask about Nguyen Xuan Hai...'}
+              placeholder={t('chat.inputPlaceholder')}
               maxLength={600}
               disabled={!preferredLanguage}
             />
             <button type="submit" disabled={loading || !input.trim() || !preferredLanguage}>
-              Send
+              {t('chat.send')}
             </button>
           </form>
         </div>
