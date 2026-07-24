@@ -69,12 +69,18 @@ const Header = () => {
   const isSubRoute = location.pathname !== localizedRoot;
 
   return (
-    <header className={`header ${scrolled ? 'header--scrolled' : ''}`}>
-      <div className="header-overlay"></div>
+    <header className={`header ${scrolled ? 'header--scrolled' : ''} ${isNavOpen ? 'header--open' : ''}`}>
+      <div className="header-overlay" onClick={closeNav} aria-hidden="true"></div>
       <div className="nav-container">
         <div className="logo-container">
-          <Link to={localizedRoot} className="logo-link" onClick={closeNav}>
+          <Link
+            to={localizedRoot}
+            className="logo-link"
+            onClick={closeNav}
+            aria-label={t('header.home', { defaultValue: 'Home' })}
+          >
             <img src={logoFull} alt="HaiLam Dev" className="logo-full" />
+            <span className="logo-mark" aria-hidden="true">NXH</span>
           </Link>
         </div>
 
