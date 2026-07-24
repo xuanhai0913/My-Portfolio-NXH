@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import useLocaleNavigation from '../../hooks/useLocaleNavigation';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import './styles/Header.css';
 
 // Logo from Cloudinary CDN (full logo with text)
@@ -49,19 +50,19 @@ const Header = () => {
     document.body.style.overflow = 'auto';
   };
 
-  const handleLocaleChange = (targetLocale) => {
+  const handleLocaleChange = () => {
     closeNav();
-    changeLocale(targetLocale);
+    changeLocale(locale === 'en' ? 'vi' : 'en');
   };
 
   const navItems = [
-    { id: 'home', label: t('header.home', { defaultValue: 'Home' }), href: '#profile' },
-    { id: 'about', label: t('header.about', { defaultValue: 'About' }), href: '#about' },
-    { id: 'portfolio', label: t('header.portfolio', { defaultValue: 'Portfolio' }), href: '#portfolio' },
-    { id: 'certifications', label: t('header.certifications', { defaultValue: 'Certifications' }), href: '#certifications' },
-    { id: 'tools', label: t('header.tools', { defaultValue: 'Tools' }), href: '/tools', isRoute: true },
-    { id: 'blog', label: t('header.blog', { defaultValue: 'Blog' }), href: '/blog', isRoute: true },
-    { id: 'contact', label: t('header.contact', { defaultValue: 'Contact' }), href: '#contact' }
+    { id: 'home', icon: 'fa-house', label: t('header.home', { defaultValue: 'Home' }), href: '#profile' },
+    { id: 'about', icon: 'fa-user', label: t('header.about', { defaultValue: 'About' }), href: '#about' },
+    { id: 'portfolio', icon: 'fa-layer-group', label: t('header.portfolio', { defaultValue: 'Portfolio' }), href: '#portfolio' },
+    { id: 'certifications', icon: 'fa-certificate', label: t('header.certifications', { defaultValue: 'Certifications' }), href: '#certifications' },
+    { id: 'tools', icon: 'fa-screwdriver-wrench', label: t('header.tools', { defaultValue: 'Tools' }), href: '/tools', isRoute: true },
+    { id: 'blog', icon: 'fa-pen-nib', label: t('header.blog', { defaultValue: 'Blog' }), href: '/blog', isRoute: true },
+    { id: 'contact', icon: 'fa-paper-plane', label: t('header.contact', { defaultValue: 'Contact' }), href: '#contact' }
   ];
 
   const localizedRoot = localizePath('/');
@@ -86,19 +87,26 @@ const Header = () => {
                     to={localizePath(item.href)}
                     onClick={closeNav}
                     className={location.pathname === localizePath(item.href) ? 'active' : ''}
+                    aria-label={item.label}
+                    data-tooltip={item.label}
                   >
-                    {item.label}
+                    <i className={`fa-solid ${item.icon}`} aria-hidden="true"></i>
+                    <span className="nav-label">{item.label}</span>
                   </Link>
                 ) : isSubRoute ? (
                   <Link
                     to={`${localizedRoot}${item.href}`}
                     onClick={closeNav}
+                    aria-label={item.label}
+                    data-tooltip={item.label}
                   >
-                    {item.label}
+                    <i className={`fa-solid ${item.icon}`} aria-hidden="true"></i>
+                    <span className="nav-label">{item.label}</span>
                   </Link>
                 ) : (
-                  <a href={item.href} onClick={closeNav}>
-                    {item.label}
+                  <a href={item.href} onClick={closeNav} aria-label={item.label} data-tooltip={item.label}>
+                    <i className={`fa-solid ${item.icon}`} aria-hidden="true"></i>
+                    <span className="nav-label">{item.label}</span>
                   </a>
                 )}
               </li>
@@ -107,31 +115,20 @@ const Header = () => {
         </nav>
 
         <div className="header-actions">
-          <div
-            className="language-switcher"
-            role="group"
-            aria-label={t('header.languageSwitcher', { defaultValue: 'Select language' })}
+          <button
+            type="button"
+            className="language-toggle"
+            onClick={handleLocaleChange}
+            aria-label={locale === 'en'
+              ? t('header.switchToVietnamese', { defaultValue: 'Switch to Vietnamese' })
+              : t('header.switchToEnglish', { defaultValue: 'Switch to English' })}
+            title={locale === 'en'
+              ? t('header.switchToVietnamese', { defaultValue: 'Switch to Vietnamese' })
+              : t('header.switchToEnglish', { defaultValue: 'Switch to English' })}
           >
-            <button
-              type="button"
-              className={locale === 'en' ? 'active' : ''}
-              onClick={() => handleLocaleChange('en')}
-              aria-pressed={locale === 'en'}
-              aria-label={t('header.english', { defaultValue: 'English' })}
-            >
-              EN
-            </button>
-            <span aria-hidden="true">|</span>
-            <button
-              type="button"
-              className={locale === 'vi' ? 'active' : ''}
-              onClick={() => handleLocaleChange('vi')}
-              aria-pressed={locale === 'vi'}
-              aria-label={t('header.vietnamese', { defaultValue: 'Vietnamese' })}
-            >
-              VI
-            </button>
-          </div>
+            <i className="fa-solid fa-globe" aria-hidden="true"></i>
+            <span>{locale.toUpperCase()}</span>
+          </button>
 
           <button
             className={`nav-toggle ${isNavOpen ? 'active' : ''}`}

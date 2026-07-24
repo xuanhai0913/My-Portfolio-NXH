@@ -10,7 +10,9 @@
     "toggleNavigation": "Toggle navigation",
     "languageSwitcher": "Select language",
     "english": "English",
-    "vietnamese": "Vietnamese"
+    "vietnamese": "Vietnamese",
+    "switchToEnglish": "Switch to English",
+    "switchToVietnamese": "Switch to Vietnamese"
   },
   "common": {
     "loading": "Loading...",

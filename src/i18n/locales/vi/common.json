@@ -10,7 +10,9 @@
     "toggleNavigation": "Bật hoặc tắt điều hướng",
     "languageSwitcher": "Chọn ngôn ngữ",
     "english": "Tiếng Anh",
-    "vietnamese": "Tiếng Việt"
+    "vietnamese": "Tiếng Việt",
+    "switchToEnglish": "Chuyển sang tiếng Anh",
+    "switchToVietnamese": "Chuyển sang tiếng Việt"
   },
   "common": {
     "loading": "Đang tải...",
