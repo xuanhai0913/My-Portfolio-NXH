@@ -77,7 +77,7 @@ export const WORK_EXPERIENCE = [
     achievement: 'Delivered 70+ merged MRs and closed 70+ authored issues across document-editor, challenge-player, online-class, and student/admin workflows.',
     technologies: ['React 19', 'Vite', 'React Router', 'Tailwind CSS', 'HeroUI', 'NestJS', 'TypeORM', 'PostgreSQL', 'Redis', 'BullMQ', 'Socket.IO', 'PlateJS', 'SlateJS', 'Nx', 'pnpm', 'GitLab CI/CD', 'Claude', 'Codex', 'AI Agents'],
     logo: null,
-    link: null
+    link: 'https://betodemy.com/'
   },
   {
     company: 'AI Power – Automotive Dealership ERP',
