@@ -244,6 +244,7 @@ module.exports = async (req, res) => {
   if (!tool) return res.status(404).json({ success: false, message: 'Tool not found.' });
 
   const inputs = sanitizeInputs(req.body?.inputs, tool);
+  const locale = req.body?.locale === 'vi' ? 'vi' : 'en';
   if (!inputs) {
     return res.status(400).json({
       success: false,
@@ -265,6 +266,9 @@ module.exports = async (req, res) => {
 
   const prompt = [
     tool.prompt,
+    locale === 'vi'
+      ? 'Write all human-readable response content in natural Vietnamese. Keep code, identifiers, library names, and technical syntax unchanged.'
+      : 'Write all human-readable response content in English.',
     'Required response schema:',
     responseSchema,
     'USER-SUPPLIED DATA START',

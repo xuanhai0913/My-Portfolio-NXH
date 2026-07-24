@@ -40,6 +40,131 @@
     "experience": "Kinh nghiệm",
     "projects": "Dự án"
   },
+  "tools": {
+    "eyebrow": "NXH / BỘ CÔNG CỤ AI",
+    "count": "{{live}} ĐANG CHẠY / {{total}} TỔNG CỘNG",
+    "kicker": "CÔNG CỤ NHỎ. KẾT QUẢ RÕ RÀNG.",
+    "title": "CÔNG CỤ",
+    "intro": "Các tiện ích AI chuyên biệt giúp biến ngữ cảnh phức tạp thành kết quả có thể xem xét, kiểm chứng và sử dụng. Mỗi công cụ đang hoạt động đều trình bày rõ bằng chứng và giới hạn.",
+    "applicationsAria": "Các ứng dụng AI nhỏ",
+    "liveApp": "ĐANG HOẠT ĐỘNG",
+    "buildQueue": "SẮP PHÁT TRIỂN",
+    "input": "ĐẦU VÀO",
+    "output": "ĐẦU RA",
+    "runTool": "MỞ CÔNG CỤ",
+    "planned": "ĐANG LÊN KẾ HOẠCH",
+    "stackAria": "Công nghệ sử dụng cho {{name}}",
+    "principleLabel": "NGUYÊN TẮC XÂY DỰNG 001",
+    "principle": "AI đưa ra đề xuất. Bằng chứng luôn hiển thị. Con người là người quyết định cuối cùng.",
+    "items": {
+      "testforge": {
+        "type": "KỸ THUẬT PHẦN MỀM",
+        "description": "Phác thảo unit test theo độ bao phủ, các trường hợp biên và hướng dẫn mock dependency từ mã nguồn.",
+        "input": "Mã nguồn + framework kiểm thử",
+        "output": "Bản nháp test + danh sách kiểm tra",
+        "fields": {
+          "language": { "label": "NGÔN NGỮ" },
+          "framework": { "label": "FRAMEWORK KIỂM THỬ" },
+          "sourceCode": { "label": "MÃ NGUỒN", "placeholder": "Dán hàm hoặc class bạn muốn kiểm thử..." }
+        }
+      },
+      "repolens": {
+        "type": "PHÂN TÍCH MÃ NGUỒN",
+        "description": "Chuyển ngữ cảnh repository thành sơ đồ kiến trúc, rủi ro dependency và kế hoạch thay đổi có thể thực thi.",
+        "input": "README + cây thư mục + yêu cầu",
+        "output": "Sơ đồ hệ thống + báo cáo rủi ro",
+        "fields": {
+          "goal": {
+            "label": "MỤC TIÊU PHÂN TÍCH",
+            "placeholder": "Ví dụ: Thêm cơ chế thử lại thanh toán mà không ảnh hưởng xử lý đơn hàng",
+            "defaultValue": "Xác định phương án an toàn nhất để bổ sung audit logging."
+          },
+          "repositoryContext": { "label": "NGỮ CẢNH REPOSITORY", "placeholder": "Dán README, cây thư mục, ghi chú kiến trúc hoặc các file mã nguồn đã chọn..." }
+        }
+      },
+      "incidentlens": {
+        "type": "GỠ LỖI",
+        "description": "Tổ chức log và stack trace thành các nguyên nhân khả dĩ, bằng chứng, bước kiểm chứng và danh sách phục hồi.",
+        "input": "Log + ngữ cảnh thay đổi gần nhất",
+        "output": "Giả thuyết nguyên nhân + hành động",
+        "fields": {
+          "recentChange": {
+            "label": "THAY ĐỔI GẦN NHẤT",
+            "placeholder": "Điều gì đã thay đổi trước khi sự cố xảy ra?",
+            "defaultValue": "Đã triển khai cấu hình connection pool cơ sở dữ liệu mới."
+          },
+          "logs": { "label": "LOG / STACK TRACE", "placeholder": "Xóa thông tin nhạy cảm rồi dán log hoặc stack trace..." }
+        }
+      },
+      "agentflow": {
+        "type": "HỆ THỐNG ĐA TÁC TỬ",
+        "description": "Thiết kế quy trình đa tác tử có thể kiểm duyệt với vai trò, dependency, bàn giao và cổng chất lượng rõ ràng.",
+        "input": "Mục tiêu + công nghệ + ràng buộc",
+        "output": "Sơ đồ tác tử + cổng bàn giao",
+        "fields": {
+          "objective": {
+            "label": "MỤC TIÊU DỰ ÁN",
+            "placeholder": "Mô tả kết quả đội tác tử cần bàn giao...",
+            "defaultValue": "Xây dựng và phát hành trợ lý hỗ trợ khách hàng, chỉ trả lời từ tài liệu sản phẩm được phê duyệt, trích dẫn nguồn và chuyển tiếp an toàn các yêu cầu chưa chắc chắn."
+          },
+          "techStack": { "label": "CÔNG NGHỆ", "placeholder": "Ví dụ: React, NestJS, PostgreSQL, Gemini, Docker" },
+          "constraints": {
+            "label": "RÀNG BUỘC / ĐỊNH NGHĨA HOÀN THÀNH",
+            "placeholder": "Các yêu cầu về bảo mật, thời gian, chất lượng, triển khai hoặc kiểm duyệt...",
+            "defaultValue": "Không trả lời khi chưa được kiểm chứng; không lưu PII; mọi câu trả lời phải có nguồn; cần có kiểm thử tự động, kiểm duyệt của con người, rollback và giám sát production."
+          }
+        }
+      },
+      "sqldoctor": {
+        "type": "CƠ SỞ DỮ LIỆU",
+        "description": "Đánh giá schema và query plan để đề xuất index, cách viết lại an toàn và chỉ số kiểm chứng hiệu quả.",
+        "input": "Schema + kế hoạch truy vấn",
+        "output": "Kế hoạch tối ưu"
+      },
+      "scamsignal": {
+        "type": "TIN CẬY & AN TOÀN",
+        "description": "Sắp xếp bằng chứng giao dịch và tín hiệu đáng ngờ thành dòng thời gian để con người kiểm chứng.",
+        "input": "Tin nhắn + bằng chứng",
+        "output": "Tín hiệu + dòng thời gian bằng chứng"
+      },
+      "healthreport": {
+        "type": "AI CÓ TRÁCH NHIỆM",
+        "description": "Giải thích thuật ngữ trong báo cáo và chuẩn bị câu hỏi cho bác sĩ, không chẩn đoán hay thay thế tư vấn y khoa.",
+        "input": "Nội dung báo cáo đã ẩn danh",
+        "output": "Giải thích bằng ngôn ngữ dễ hiểu"
+      }
+    }
+  },
+  "workspace": {
+    "allTools": "TẤT CẢ CÔNG CỤ",
+    "runtime": "NỀN TẢNG GEMINI",
+    "resetExample": "ĐẶT LẠI VÍ DỤ",
+    "required": "Trường {{field}} là bắt buộc.",
+    "safetyNotice": "Không nhập bí mật, thông tin xác thực hoặc dữ liệu sức khỏe cá nhân.",
+    "analyzing": "ĐANG PHÂN TÍCH...",
+    "runFailedMessage": "Công cụ không thể hoàn tất lần chạy này.",
+    "unexpectedError": "Đã xảy ra lỗi không mong muốn.",
+    "states": { "idle": "SẴN SÀNG", "running": "ĐANG CHẠY", "success": "THÀNH CÔNG", "error": "LỖI" },
+    "ready": "SẴN SÀNG_",
+    "readyDescription": "Kiểm tra dữ liệu ví dụ rồi chạy công cụ. Kết quả chỉ được giữ trong phiên trình duyệt này.",
+    "analyzingDescription": "Đang phân tích bằng chứng được cung cấp và chuẩn bị kết quả có cấu trúc...",
+    "runFailed": "CHẠY THẤT BẠI",
+    "summary": "TÓM TẮT",
+    "findings": "PHÁT HIỆN",
+    "nextActions": "BƯỚC TIẾP THEO",
+    "copy": "SAO CHÉP",
+    "copied": "ĐÃ SAO CHÉP",
+    "severity": { "high": "CAO", "medium": "VỪA", "low": "THẤP", "info": "THÔNG TIN" },
+    "generatedGraph": "SƠ ĐỒ THỰC THI ĐƯỢC TẠO",
+    "agentFlow": "LUỒNG TÁC TỬ",
+    "agentCount": "{{count}} TÁC TỬ",
+    "waitsFor": "CHỜ",
+    "deliverable": "SẢN PHẨM BÀN GIAO",
+    "handoffContracts": "QUY ƯỚC BÀN GIAO",
+    "qualityGates": "CỔNG CHẤT LƯỢNG",
+    "outputDisclaimer": "Kết quả AI có thể chưa đầy đủ hoặc chưa chính xác.",
+    "verifyNotice": "KIỂM CHỨNG TRƯỚC KHI DÙNG / KHÔNG LƯU DỮ LIỆU ĐẦU VÀO"
+  },
   "footer": {
     "supportAria": "Ủng hộ tôi một ly cà phê trên Ko-fi",
     "support": "Mời tôi một ly cà phê",

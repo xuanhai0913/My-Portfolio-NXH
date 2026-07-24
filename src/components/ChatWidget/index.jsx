@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { API } from '../../utils/constants';
 import useChatSession from '../../hooks/useChatSession';
 import {
@@ -354,12 +355,19 @@ function ActionCard({ action, onRunNextAction, onAskInterviewQuestion }) {
 }
 
 const ChatWidget = ({ mode = 'floating' }) => {
+  const { i18n } = useTranslation();
   const isStandalonePage = mode === 'page';
+  const uiLanguage = i18n.resolvedLanguage === 'vi' ? 'vi' : 'en';
   const initialMessages = useMemo(
     () => [
-      createMessage('assistant', WELCOME_MESSAGE),
+      createMessage(
+        'assistant',
+        uiLanguage === 'vi'
+          ? 'Chào mừng bạn đến với portfolio của Nguyễn Xuân Hải. Bạn có thể hỏi về CV, dự án, kinh nghiệm, chứng chỉ hoặc thông tin liên hệ.'
+          : WELCOME_MESSAGE
+      ),
     ],
-    []
+    [uiLanguage]
   );
 
   const { messages, setMessages, clearSession, meta } = useChatSession(initialMessages);
@@ -371,7 +379,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
     return localStorage.getItem(CHAT_FULLSCREEN_KEY) === '1';
   });
   const [lastModelUsed, setLastModelUsed] = useState(null);
-  const [preferredLanguage, setPreferredLanguage] = useState(() => localStorage.getItem(CHAT_LANGUAGE_KEY) || '');
+  const [preferredLanguage, setPreferredLanguage] = useState(() => localStorage.getItem(CHAT_LANGUAGE_KEY) || uiLanguage);
   const [showIntroSpotlight, setShowIntroSpotlight] = useState(() => !sessionStorage.getItem(CHAT_INTRO_DISMISSED_KEY));
   const [jobDescription, setJobDescription] = useState('');
   const [jobDescriptionFile, setJobDescriptionFile] = useState('');
@@ -392,6 +400,10 @@ const ChatWidget = ({ mode = 'floating' }) => {
   const actionsMenuRef = useRef(null);
   const language = preferredLanguage || 'en';
   const isDevMode = process.env.NODE_ENV !== 'production';
+
+  useEffect(() => {
+    setPreferredLanguage(uiLanguage);
+  }, [uiLanguage]);
 
   useEffect(() => {
     if (!showIntroSpotlight) return;
@@ -1202,9 +1214,9 @@ const ChatWidget = ({ mode = 'floating' }) => {
           type="button"
           className="chat-launcher"
           onClick={handleOpenChat}
-          aria-label="Open AI portfolio assistant"
+          aria-label={uiLanguage === 'vi' ? 'Mở trợ lý AI portfolio' : 'Open AI portfolio assistant'}
         >
-          <span>AI Assistant</span>
+          <span>{uiLanguage === 'vi' ? 'Trợ lý AI' : 'AI Assistant'}</span>
         </button>
       ) : null}
 
@@ -1213,10 +1225,14 @@ const ChatWidget = ({ mode = 'floating' }) => {
           type="button"
           className="chat-intro-spotlight"
           onClick={handleOpenChat}
-          aria-label="Open chat intro"
+          aria-label={uiLanguage === 'vi' ? 'Mở phần giới thiệu trợ lý' : 'Open chat intro'}
         >
-          <strong>Hello, welcome to Hai portfolio.</strong>
-          <span>Click AI Assistant to ask quickly about CV, projects, and contact info.</span>
+          <strong>{uiLanguage === 'vi' ? 'Xin chào, chào mừng bạn đến với portfolio của Hải.' : 'Hello, welcome to Hai portfolio.'}</strong>
+          <span>
+            {uiLanguage === 'vi'
+              ? 'Nhấn Trợ lý AI để hỏi nhanh về CV, dự án và thông tin liên hệ.'
+              : 'Click AI Assistant to ask quickly about CV, projects, and contact info.'}
+          </span>
         </button>
       ) : null}
 
@@ -1230,8 +1246,8 @@ const ChatWidget = ({ mode = 'floating' }) => {
 
         <header className="chat-header">
           <div>
-            <h3>Portfolio Assistant</h3>
-            <p>Ask about CV, projects, and experience.</p>
+            <h3>{uiLanguage === 'vi' ? 'Trợ lý Portfolio' : 'Portfolio Assistant'}</h3>
+            <p>{uiLanguage === 'vi' ? 'Hỏi về CV, dự án và kinh nghiệm.' : 'Ask about CV, projects, and experience.'}</p>
             {lastModelUsed ? <small className="chat-model-meta">Model: {lastModelUsed}</small> : null}
           </div>
           <div className="chat-header-actions">

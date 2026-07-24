@@ -40,6 +40,131 @@
     "experience": "Experience",
     "projects": "Projects"
   },
+  "tools": {
+    "eyebrow": "NXH / AI UTILITY BENCH",
+    "count": "{{live}} LIVE / {{total}} TOTAL",
+    "kicker": "SMALL TOOLS. CLEAR OUTPUTS.",
+    "title": "TOOLS",
+    "intro": "Focused AI utilities that turn messy context into something a person can review, verify, and use. Every live tool exposes evidence and limitations.",
+    "applicationsAria": "AI mini applications",
+    "liveApp": "LIVE APP",
+    "buildQueue": "BUILD QUEUE",
+    "input": "INPUT",
+    "output": "OUTPUT",
+    "runTool": "RUN TOOL",
+    "planned": "PLANNED",
+    "stackAria": "{{name}} technology stack",
+    "principleLabel": "BUILD PRINCIPLE 001",
+    "principle": "AI proposes. Evidence stays visible. A human makes the final decision.",
+    "items": {
+      "testforge": {
+        "type": "ENGINEERING",
+        "description": "Drafts coverage-focused unit tests, edge cases, and dependency-mocking notes from source code.",
+        "input": "Source code + test framework",
+        "output": "Test draft + review checklist",
+        "fields": {
+          "language": { "label": "LANGUAGE" },
+          "framework": { "label": "TEST FRAMEWORK" },
+          "sourceCode": { "label": "SOURCE CODE", "placeholder": "Paste the function or class you want to test..." }
+        }
+      },
+      "repolens": {
+        "type": "CODE ANALYSIS",
+        "description": "Turns repository context into an architecture map, dependency risks, and an actionable change plan.",
+        "input": "README + file tree + task",
+        "output": "System map + risk report",
+        "fields": {
+          "goal": {
+            "label": "ANALYSIS GOAL",
+            "placeholder": "Example: Add payment retries without breaking order processing",
+            "defaultValue": "Identify the safest path to add audit logging."
+          },
+          "repositoryContext": { "label": "REPOSITORY CONTEXT", "placeholder": "Paste a README, file tree, architecture notes, or selected source files..." }
+        }
+      },
+      "incidentlens": {
+        "type": "DEBUGGING",
+        "description": "Organizes logs and stack traces into likely causes, evidence, verification steps, and a recovery checklist.",
+        "input": "Logs + recent change context",
+        "output": "Root-cause hypotheses + actions",
+        "fields": {
+          "recentChange": {
+            "label": "RECENT CHANGE",
+            "placeholder": "What changed before the incident?",
+            "defaultValue": "Deployed a new database connection pool configuration."
+          },
+          "logs": { "label": "LOGS / STACK TRACE", "placeholder": "Remove secrets, then paste logs or a stack trace..." }
+        }
+      },
+      "agentflow": {
+        "type": "AGENTIC SYSTEMS",
+        "description": "Designs a reviewable multi-agent workflow with explicit roles, dependencies, handoffs, and quality gates.",
+        "input": "Objective + stack + constraints",
+        "output": "Agent graph + delivery gates",
+        "fields": {
+          "objective": {
+            "label": "PROJECT OBJECTIVE",
+            "placeholder": "Describe what the agent team should deliver...",
+            "defaultValue": "Build and release a customer-support assistant that answers from approved product documentation, cites sources, and safely escalates uncertain requests."
+          },
+          "techStack": { "label": "TECH STACK", "placeholder": "Example: React, NestJS, PostgreSQL, Gemini, Docker" },
+          "constraints": {
+            "label": "CONSTRAINTS / DEFINITION OF DONE",
+            "placeholder": "Security, time, quality, deployment, or review constraints...",
+            "defaultValue": "No unverified answers; PII must not be stored; every response needs a source; include automated tests, human review, rollback, and production monitoring."
+          }
+        }
+      },
+      "sqldoctor": {
+        "type": "DATABASE",
+        "description": "Reviews schema and query plans to suggest indexes, safer rewrites, and measurements to validate improvements.",
+        "input": "Schema + query plan",
+        "output": "Optimization plan"
+      },
+      "scamsignal": {
+        "type": "TRUST & SAFETY",
+        "description": "Structures transaction evidence and suspicious signals into a timeline for human verification.",
+        "input": "Messages + evidence",
+        "output": "Signals + evidence timeline"
+      },
+      "healthreport": {
+        "type": "RESPONSIBLE AI",
+        "description": "Explains report terminology and prepares questions for a clinician without diagnosing or replacing medical advice.",
+        "input": "De-identified report text",
+        "output": "Plain-language explanation"
+      }
+    }
+  },
+  "workspace": {
+    "allTools": "ALL TOOLS",
+    "runtime": "GEMINI RUNTIME",
+    "resetExample": "RESET EXAMPLE",
+    "required": "{{field}} is required.",
+    "safetyNotice": "Do not submit secrets, credentials, or personal health information.",
+    "analyzing": "ANALYZING...",
+    "runFailedMessage": "The tool could not complete this run.",
+    "unexpectedError": "Unexpected request error.",
+    "states": { "idle": "IDLE", "running": "RUNNING", "success": "SUCCESS", "error": "ERROR" },
+    "ready": "READY_",
+    "readyDescription": "Review the example input, then run the tool. Results remain in this browser session only.",
+    "analyzingDescription": "Analyzing supplied evidence and preparing structured output...",
+    "runFailed": "RUN FAILED",
+    "summary": "SUMMARY",
+    "findings": "FINDINGS",
+    "nextActions": "NEXT ACTIONS",
+    "copy": "COPY",
+    "copied": "COPIED",
+    "severity": { "high": "HIGH", "medium": "MED", "low": "LOW", "info": "INFO" },
+    "generatedGraph": "GENERATED EXECUTION GRAPH",
+    "agentFlow": "AGENT FLOW",
+    "agentCount": "{{count}} AGENTS",
+    "waitsFor": "WAITS FOR",
+    "deliverable": "DELIVERABLE",
+    "handoffContracts": "HANDOFF CONTRACTS",
+    "qualityGates": "QUALITY GATES",
+    "outputDisclaimer": "AI output may be incomplete or incorrect.",
+    "verifyNotice": "VERIFY BEFORE USE / NO INPUT PERSISTENCE"
+  },
   "footer": {
     "supportAria": "Buy me a coffee on Ko-fi",
     "support": "Buy me a coffee",

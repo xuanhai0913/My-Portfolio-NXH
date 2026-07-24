@@ -59,6 +59,13 @@
   letter-spacing: -0.075em;
 }
 
+.tools-page--vi .tools-hero h1 {
+  font-size: clamp(4.5rem, 10vw, 9rem);
+  line-height: 0.8;
+  letter-spacing: -0.06em;
+  white-space: nowrap;
+}
+
 .tools-hero h1 span {
   color: var(--tools-accent);
 }
