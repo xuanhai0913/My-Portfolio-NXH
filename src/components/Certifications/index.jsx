@@ -26,6 +26,12 @@ import certAwsServerlessScaling from '../../images/certs/cert-aws-scaling-server
 import certAwsServerlessSecurity from '../../images/certs/cert-aws-security-and-observability-for-serverless-applications.png';
 import certAwsServerlessDeploy from '../../images/certs/cert-aws-deploying-serverless-applications.png';
 import certAwsApiGateway from '../../images/certs/cert-aws-amazon-api-gateway-for-serverless-applications.png';
+import certAwsEventsWorkflowsBadge from '../../images/certs/cert-aws-events-workflows-badge.png';
+import certAwsServerlessKnowledgeBadge from '../../images/certs/cert-aws-serverless-knowledge-badge.png';
+import certAwsEpisode2Backend from '../../images/certs/cert-aws-episode-2-powering-backend.png';
+import certAwsAmplify from '../../images/certs/cert-aws-amplify-getting-started.png';
+import certAwsAipDomain1 from '../../images/certs/cert-aws-aip-c01-domain-1-review.png';
+import certAwsVectorGraph from '../../images/certs/cert-aws-vectordb-vs-graphdb-agents.png';
 import certGoogleCloudInfrastructure from '../../images/certs/cert-google-cloud-infrastructure-foundation.png';
 import certGoogleGenAiChatbot from '../../images/certs/cert-google-gen-ai-chatbot.png';
 import certGoogleGenAiFoundations from '../../images/certs/cert-google-gen-ai-foundations.png';
@@ -46,6 +52,32 @@ const certificates = [
     accent: "#ff9900",
     date: "Jul 2026",
     tags: ['featured', 'aws', 'cloud-data']
+  },
+  {
+    id: 'aws-knowledge-events-workflows',
+    title: "AWS Knowledge: Events and Workflows",
+    issuer: "AWS Training & Certification",
+    thumbnail: certAwsEventsWorkflowsBadge,
+    pdfUrl: "/Cert/AWS-Events-and-Workflows-Knowledge-Badge-Assessment.pdf",
+    verifyUrl: "https://www.credly.com/badges/7ec9cba5-c356-4f45-8692-95809e2f3e2a/public_url",
+    description: "Verified knowledge of Step Functions, EventBridge, SQS, SNS and event-driven serverless architectures",
+    actionLabel: "Verify training badge ↗",
+    accent: "#ff9900",
+    date: "Jul 2026",
+    tags: ['featured', 'aws', 'cloud-data', 'engineering']
+  },
+  {
+    id: 'aws-knowledge-serverless',
+    title: "AWS Knowledge: Serverless",
+    issuer: "AWS Training & Certification",
+    thumbnail: certAwsServerlessKnowledgeBadge,
+    pdfUrl: "/Cert/AWS-Serverless-Knowledge-Badge-Assessment.pdf",
+    verifyUrl: "https://www.credly.com/badges/6b334133-b6df-424e-a3ac-a46894d520ee/public_url",
+    description: "Verified technical knowledge of AWS Lambda, Amazon API Gateway and serverless application patterns",
+    actionLabel: "Verify training badge ↗",
+    accent: "#ff9900",
+    date: "Jul 2026",
+    tags: ['featured', 'aws', 'cloud-data', 'engineering']
   },
   {
     id: 'aws-educate-getting-started-with-databases',
@@ -202,6 +234,54 @@ const certificates = [
     accent: "#ff9900",
     date: "Jul 2026",
     tags: ['featured', 'aws', 'cloud-data', 'engineering']
+  },
+  {
+    id: 'aws-episode-2-powering-backend',
+    title: "Episode 2: Powering the Backend",
+    issuer: "AWS Training & Certification",
+    thumbnail: certAwsEpisode2Backend,
+    pdfUrl: "/Cert/AWS-Episode-2-Powering-the-Backend.pdf",
+    description: "Completion certificate covering backend services in an AWS serverless application",
+    actionLabel: "View completion certificate ↗",
+    accent: "#ff9900",
+    date: "Jul 2026",
+    tags: ['aws', 'cloud-data', 'engineering']
+  },
+  {
+    id: 'aws-amplify-getting-started',
+    title: "AWS Amplify Getting Started",
+    issuer: "AWS Training & Certification",
+    thumbnail: certAwsAmplify,
+    pdfUrl: "/Cert/AWS-Amplify-Getting-Started.pdf",
+    description: "Completion certificate covering application delivery and hosting with AWS Amplify",
+    actionLabel: "View completion certificate ↗",
+    accent: "#ff9900",
+    date: "Jul 2026",
+    tags: ['aws', 'cloud-data', 'engineering']
+  },
+  {
+    id: 'aws-aip-c01-domain-1-review',
+    title: "AIP-C01 Domain 1 Review",
+    issuer: "AWS Training & Certification",
+    thumbnail: certAwsAipDomain1,
+    pdfUrl: "/Cert/AWS-AIP-C01-Domain-1-Review.pdf",
+    description: "Course completion for Domain 1 of the AWS Certified Generative AI Developer - Professional exam guide",
+    actionLabel: "View course certificate ↗",
+    accent: "#ff9900",
+    date: "Jul 2026",
+    tags: ['aws', 'ai-ml']
+  },
+  {
+    id: 'aws-vectordb-vs-graphdb-agents',
+    title: "VectorDB vs GraphDB for Gen AI Agents",
+    issuer: "AWS Training & Certification",
+    thumbnail: certAwsVectorGraph,
+    pdfUrl: "/Cert/AWS-VectorDB-vs-GraphDB-for-Gen-AI-Agents.pdf",
+    description: "Completion certificate comparing vector and graph data stores for agentic AI use cases",
+    actionLabel: "View completion certificate ↗",
+    accent: "#ff9900",
+    date: "Jul 2026",
+    tags: ['aws', 'ai-ml', 'cloud-data', 'engineering']
   },
   {
     id: 'google-cloud-infrastructure-foundation',

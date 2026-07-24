@@ -481,12 +481,12 @@ class VisualCv:
                 "https://my-portfolio-nxh.vercel.app/Cert/AWS-Cloud-Practitioner-Essentials.pdf",
             ),
             (
-                "AWS Educate: Introduction to Generative AI - Training Badge, Jul 2026",
-                "https://www.credly.com/badges/b4359efe-7437-4a0a-8753-d39143683c06/public_url",
+                "AWS Knowledge: Events and Workflows - Training Badge, Jul 2026",
+                "https://www.credly.com/badges/7ec9cba5-c356-4f45-8692-95809e2f3e2a/public_url",
             ),
             (
-                "AWS Serverless Learning Path - Lambda, API Gateway & Event-Driven Architecture, Jul 2026",
-                "https://my-portfolio-nxh.vercel.app/#certifications",
+                "AWS Knowledge: Serverless - Training Badge, Jul 2026",
+                "https://www.credly.com/badges/6b334133-b6df-424e-a3ac-a46894d520ee/public_url",
             ),
             ("English: B1.4 - Intermediate; technical reading/writing", ""),
         ]
