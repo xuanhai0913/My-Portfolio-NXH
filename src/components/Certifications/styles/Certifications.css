@@ -133,6 +133,17 @@
     transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
 }
 
+.cert-filter-icon {
+    width: 18px;
+    height: 18px;
+    flex: 0 0 auto;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.65;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
 .cert-filter:hover,
 .cert-filter:focus-visible {
     border-color: rgba(212, 255, 0, 0.65);
@@ -232,8 +243,20 @@
     }
 
     .cert-filter {
-        flex: 1 1 calc(50% - 0.65rem);
+        flex: 0 0 auto;
         justify-content: space-between;
+    }
+
+    .certs-filter-bar {
+        flex-wrap: nowrap;
+        margin-inline: -5vw;
+        padding-inline: 5vw;
+        overflow-x: auto;
+        scrollbar-width: none;
+    }
+
+    .certs-filter-bar::-webkit-scrollbar {
+        display: none;
     }
 }
 

@@ -29,7 +29,8 @@
   },
   "chat": {
     "welcome": "Chào mừng bạn đến với portfolio của Nguyễn Xuân Hải. Bạn có thể hỏi về CV, dự án, kinh nghiệm, chứng chỉ hoặc thông tin liên hệ.",
-    "launcher": "Trợ lý AI",
+    "launcher": "Hỏi Hải",
+    "launcherHint": "CV · dự án · phù hợp",
     "openAssistantAria": "Mở trợ lý AI portfolio",
     "introAria": "Mở phần giới thiệu trợ lý",
     "introTitle": "Xin chào, chào mừng bạn đến với portfolio của Hải.",

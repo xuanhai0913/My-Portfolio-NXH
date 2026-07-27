@@ -29,7 +29,8 @@
   },
   "chat": {
     "welcome": "Welcome to Nguyen Xuan Hai's portfolio. You can ask about his CV, projects, experience, certifications, or contact information.",
-    "launcher": "AI Assistant",
+    "launcher": "Ask Hai",
+    "launcherHint": "CV · work · fit",
     "openAssistantAria": "Open AI portfolio assistant",
     "introAria": "Open assistant introduction",
     "introTitle": "Hello, welcome to Hai's portfolio.",

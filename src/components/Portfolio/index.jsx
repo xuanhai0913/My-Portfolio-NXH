@@ -127,7 +127,56 @@ const projectCatalog = [
     }
 ];
 
-const projectGroups = ['client', 'pet'];
+const projectGroups = ['all', 'client', 'pet'];
+
+const ProjectUiIcon = ({ type }) => {
+  const paths = {
+    all: (
+      <>
+        <rect x="3" y="3" width="7" height="7" rx="1" />
+        <rect x="14" y="3" width="7" height="7" rx="1" />
+        <rect x="3" y="14" width="7" height="7" rx="1" />
+        <rect x="14" y="14" width="7" height="7" rx="1" />
+      </>
+    ),
+    client: (
+      <>
+        <path d="M4 8h16v11H4z" />
+        <path d="M9 8V5h6v3M4 12h16M10 12v2h4v-2" />
+      </>
+    ),
+    pet: (
+      <>
+        <path d="M9 3v5l-5 9a2 2 0 0 0 1.8 3h12.4a2 2 0 0 0 1.8-3l-5-9V3" />
+        <path d="M8 13h8M8 3h8" />
+      </>
+    ),
+    role: (
+      <>
+        <circle cx="12" cy="8" r="3" />
+        <path d="M5 20c.8-4 3.1-6 7-6s6.2 2 7 6" />
+      </>
+    ),
+    impact: (
+      <>
+        <path d="M4 18V9M10 18V5M16 18v-7M22 18H2" />
+        <path d="m16 7 3-3 3 3M19 4v8" />
+      </>
+    ),
+    stack: (
+      <>
+        <path d="m12 3 9 5-9 5-9-5 9-5Z" />
+        <path d="m3 12 9 5 9-5M3 16l9 5 9-5" />
+      </>
+    )
+  };
+
+  return (
+    <svg className="project-ui-icon" viewBox="0 0 24 24" aria-hidden="true">
+      {paths[type] || paths.all}
+    </svg>
+  );
+};
 
 const Portfolio = () => {
   const { t } = useTranslation('projects');
@@ -142,13 +191,16 @@ const Portfolio = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const [projectGroup, setProjectGroup] = useState('client');
-  const filteredCatalog = projectCatalog.filter((project) => project.group === projectGroup);
+  const [projectGroup, setProjectGroup] = useState('all');
+  const filteredCatalog = projectGroup === 'all'
+    ? projectCatalog
+    : projectCatalog.filter((project) => project.group === projectGroup);
   const projectCount = filteredCatalog.length;
   const allProjects = filteredCatalog.map((project) => ({
     ...project,
     title: t(`items.${project.id}.title`),
     description: t(`items.${project.id}.description`),
+    role: t(`items.${project.id}.role`),
     achievement: t(`items.${project.id}.achievement`),
     badge: project.badge ? t(`items.${project.id}.badge`) : null,
   }));
@@ -321,6 +373,13 @@ const Portfolio = () => {
     setActiveIndex(0);
     prevIndexRef.current = 0;
     setScrollProgress(0);
+
+    if (!isMobile && sectionRef.current) {
+      window.scrollTo({
+        top: sectionRef.current.offsetTop,
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+      });
+    }
   };
 
   const renderShowcaseCard = (project, prioritizeImage = false) => (
@@ -344,22 +403,42 @@ const Portfolio = () => {
       </div>
 
       <div className="showcase-info">
-        {project.company && (
-          <span className="showcase-company">{project.company}</span>
-        )}
+        <div className="showcase-meta">
+          {project.company && <span className="showcase-company">{project.company}</span>}
+          <span className="showcase-year">{project.year}</span>
+        </div>
         <h3 className="showcase-title">{project.title}</h3>
         <p className="showcase-desc">{project.description}</p>
-        {project.achievement && (
-          <p className="showcase-impact">
-            <span>{t('labels.impact')}</span>
-            {project.achievement}
-          </p>
-        )}
 
-        <div className="showcase-tech">
-          {project.technologies.map((tech) => (
-            <span key={tech} className="tech-pill">{tech}</span>
-          ))}
+        <div className="showcase-evidence">
+          <div className="evidence-item">
+            <span className="evidence-icon"><ProjectUiIcon type="role" /></span>
+            <div>
+              <span className="evidence-label">{t('labels.role')}</span>
+              <p>{project.role}</p>
+            </div>
+          </div>
+          {project.achievement && (
+            <div className="evidence-item">
+              <span className="evidence-icon"><ProjectUiIcon type="impact" /></span>
+              <div>
+                <span className="evidence-label">{t('labels.impact')}</span>
+                <p>{project.achievement}</p>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="showcase-stack">
+          <span className="stack-label">
+            <ProjectUiIcon type="stack" />
+            {t('labels.stack')}
+          </span>
+          <div className="showcase-tech">
+            {project.technologies.map((tech) => (
+              <span key={tech} className="tech-pill">{tech}</span>
+            ))}
+          </div>
         </div>
 
         <div className="showcase-actions">
@@ -411,14 +490,21 @@ const Portfolio = () => {
       id="portfolio"
       className="portfolio-section portfolio-scrollytelling"
       ref={sectionRef}
-      style={{ '--project-scroll-height': `${Math.max(360, projectCount * 72)}vh` }}
+      style={{ '--project-scroll-height': `${Math.max(420, projectCount * 55)}vh` }}
       aria-labelledby="portfolio-title"
     >
       <div className="portfolio-sticky">
         {/* Fixed Header */}
         <div className="portfolio-header scrolly-header">
           <h2 id="portfolio-title" className="section-title glitch-text" data-text={t('heading')}>{t('heading')}</h2>
-          <div className="project-group-switch" aria-label={t('aria.projectGroups')}>
+          <p className="project-overview">
+            {t('overview', {
+              total: projectCatalog.length,
+              client: projectCatalog.filter((project) => project.group === 'client').length,
+              pet: projectCatalog.filter((project) => project.group === 'pet').length
+            })}
+          </p>
+          <div className="project-group-switch" role="group" aria-label={t('aria.projectGroups')}>
             {projectGroups.map((group) => (
               <button
                 key={group}
@@ -427,8 +513,13 @@ const Portfolio = () => {
                 aria-pressed={projectGroup === group}
                 onClick={() => handleGroupChange(group)}
               >
+                <ProjectUiIcon type={group} />
                 <span>{t(`groups.${group}`)}</span>
-                <small>{projectCatalog.filter((project) => project.group === group).length}</small>
+                <small>
+                  {group === 'all'
+                    ? projectCatalog.length
+                    : projectCatalog.filter((project) => project.group === group).length}
+                </small>
               </button>
             ))}
           </div>
@@ -502,6 +593,15 @@ const Portfolio = () => {
                       onClick={() => handleProjectClick(index)}
                     >
                       <span className="item-index">{String(index + 1).padStart(2, '0')}</span>
+                      <img
+                        className="item-thumb"
+                        src={project.image}
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        width="96"
+                        height="64"
+                      />
                       <div className="item-content">
                         <span className="item-title">{project.title}</span>
                         {project.badge && <span className="item-badge">{project.badge}</span>}

@@ -1,9 +1,13 @@
 {
   "heading": "DỰ ÁN_",
   "labels": {
-    "impact": "TÁC ĐỘNG"
+    "role": "VAI TRÒ",
+    "impact": "KẾT QUẢ",
+    "stack": "CÔNG NGHỆ"
   },
+  "overview": "Tổng {{total}} dự án · {{client}} hệ thống khách hàng · {{pet}} sản phẩm độc lập",
   "groups": {
+    "all": "Tất cả",
     "client": "Dự án thực tế",
     "pet": "Pet Lab"
   },
@@ -32,58 +36,68 @@
     "oakmind": {
       "title": "OakMind Group - Nền tảng doanh nghiệp",
       "description": "Hệ thống CMS doanh nghiệp vận hành thực tế cho lĩnh vực Truyền thông và Xuất nhập khẩu B2B, được xây dựng bằng React 19 và ASP.NET Core 8.",
+      "role": "Lập trình viên Full-Stack chính",
       "achievement": "Phát hành trang quản trị/trình biên tập, nội dung song ngữ, SEO/phân tích, video và quy trình quản lý media trên Cloudflare R2 qua 28 commit trực tiếp thực hiện.",
       "badge": "VẬN HÀNH THỰC TẾ"
     },
     "greatLinkMaiHouse": {
       "title": "Great Link Mai House",
       "description": "Xây dựng lại quy trình xuất bản WordPress cũ thành nền tảng React và ASP.NET Core, phụ trách toàn bộ quá trình từ thu thập yêu cầu đến phát hành.",
+      "role": "Full-Stack Developer · BA Owner",
       "achievement": "Hợp nhất xác thực, media, cập nhật thời gian thực và quy trình xuất bản B2B trong một hệ thống dễ bảo trì.",
       "badge": "B2B"
     },
     "educationEnglish": {
       "title": "Education English",
       "description": "Hệ thống LMS cộng đồng hỗ trợ học tiếng Anh dễ tiếp cận với chức năng quản lý khóa học, xác thực an toàn, media và thông báo.",
+      "role": "Full-Stack Developer · Tình nguyện viên",
       "achievement": "Số hóa hoạt động giảng dạy tình nguyện bằng chứng chỉ tự động và báo cáo Excel/PDF, giúp giảm công việc quản trị thủ công."
     },
     "vnMediaHub": {
       "title": "VN Media Hub",
       "description": "Hệ thống CMS vận hành thực tế được xây dựng bằng React và ASP.NET Core cho các quy trình nội dung, kiểm duyệt, xuất bản và báo cáo.",
+      "role": "Full-Stack Developer · BA Owner",
       "achievement": "Tập trung hóa hoạt động nội dung hằng ngày, đồng thời bổ sung bộ nhớ đệm, structured logging, xuất bản chuẩn SEO và xuất PDF."
     },
     "chongScam": {
       "title": "ChongScam - Nền tảng xác minh",
       "description": "Nền tảng vận hành thực tế để kiểm tra rủi ro giao dịch, người bán đã xác minh và các báo cáo lừa đảo từ cộng đồng.",
+      "role": "Xây dựng sản phẩm · Full-Stack",
       "achievement": "Bàn giao nền tảng production do khách hàng vận hành, bao gồm 22 controller, 20 SQL migration và 12 bộ kiểm thử Jest/e2e.",
       "badge": "VẬN HÀNH THỰC TẾ"
     },
     "routeLab": {
       "title": "RouteLab - Tối ưu lộ trình",
       "description": "Phòng thí nghiệm tương tác so sánh Dijkstra, A*, Floyd-Warshall và Bellman-Ford trên đồ thị bản đồ có trọng số.",
+      "role": "Tác giả · Full-Stack Developer",
       "achievement": "Xây dựng các luồng thuật toán/API/cơ sở dữ liệu, trực quan hóa quá trình chạy lại, kiểm thử tự động và CI cho thuật toán backend.",
       "badge": "MÃ NGUỒN CÔNG KHAI"
     },
     "agriTrace": {
       "title": "AgriTrace - Truy xuất nguồn gốc Blockchain",
       "description": "Hệ thống truy xuất nguồn gốc nông sản kết hợp on-chain/off-chain với quy trình chuỗi cung ứng dành cho nhiều vai trò.",
+      "role": "Full-Stack & Smart Contract Developer",
       "achievement": "Xây dựng nghiệp vụ bằng React/Express/PostgreSQL, smart contract Solidity quản lý vòng đời, xác minh QR và bằng chứng IPFS trên Polygon Amoy.",
       "badge": "MÃ NGUỒN CÔNG KHAI"
     },
     "visionKey": {
       "title": "Vision Key AI",
       "description": "Trợ lý màn hình macOS native với khả năng lưu API key an toàn, phím tắt toàn hệ thống và quy trình theo ngữ cảnh được hỗ trợ bởi Gemini.",
+      "role": "Tác giả · Lập trình macOS/AI",
       "achievement": "Xây dựng luồng ứng dụng desktop bằng SwiftUI/AppKit và phát hành các repository tiện ích mở rộng trình duyệt hỗ trợ.",
       "badge": "AI"
     },
     "llmUnitTestGen": {
       "title": "Trình tạo Unit Test bằng LLM",
       "description": "Công cụ lập trình viên tạo bản nháp unit test từ ngữ cảnh mã nguồn qua quy trình React và Express được hỗ trợ bởi DeepSeek.",
+      "role": "Tác giả · Lập trình công cụ AI",
       "achievement": "Kết nối vùng nhập mã dựa trên Monaco với các luồng backend tái sử dụng cho việc sinh, xác thực và định hướng kiểm thử.",
       "badge": "NỔI BẬT"
     },
     "portfolioWebsite": {
       "title": "Website Portfolio",
       "description": "Portfolio React dành cho nhà tuyển dụng với bằng chứng dự án có cấu trúc, tương tác responsive và phân tích hành vi.",
+      "role": "Thiết kế & Frontend Developer",
       "achievement": "Xây dựng luồng khám phá dự án, trải nghiệm liên hệ dựa trên Slate, chuyển động GSAP và trợ lý portfolio theo ngữ cảnh."
     }
   }

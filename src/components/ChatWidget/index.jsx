@@ -1218,7 +1218,14 @@ const ChatWidget = ({ mode = 'floating' }) => {
           onClick={handleOpenChat}
           aria-label={t('chat.openAssistantAria')}
         >
-          <span>{t('chat.launcher')}</span>
+          <span className="chat-launcher-avatar" aria-hidden="true">
+            <span>H</span>
+            <i></i>
+          </span>
+          <span className="chat-launcher-copy">
+            <strong>{t('chat.launcher')}</strong>
+            <small>{t('chat.launcherHint')}</small>
+          </span>
         </button>
       ) : null}
 

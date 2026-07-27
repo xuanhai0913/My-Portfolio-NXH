@@ -3,18 +3,93 @@
   right: max(20px, env(safe-area-inset-right));
   bottom: max(94px, calc(20px + env(safe-area-inset-bottom)));
   z-index: 9998;
-  border: 1px solid rgba(212, 255, 0, 0.6);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 52px;
+  height: 52px;
+  border: 1px solid rgba(212, 255, 0, 0.68);
   border-radius: 999px;
   background: rgba(0, 0, 0, 0.92);
   color: var(--color-accent);
-  padding: 11px 16px;
+  padding: 5px;
   font-family: var(--font-mono);
   font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 1.3px;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   cursor: pointer;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+  transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.chat-launcher:hover,
+.chat-launcher:focus-visible {
+  width: 172px;
+  border-color: var(--color-accent);
+  background: rgba(8, 10, 2, 0.97);
+  outline: none;
+}
+
+.chat-launcher-avatar {
+  position: relative;
+  display: grid;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  place-items: center;
+  border-radius: 50%;
+  color: #050505;
+  background: var(--color-accent);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 900;
+}
+
+.chat-launcher-avatar i {
+  position: absolute;
+  right: 1px;
+  bottom: 1px;
+  width: 8px;
+  height: 8px;
+  border: 2px solid #050505;
+  border-radius: 50%;
+  background: #43e36d;
+}
+
+.chat-launcher-copy {
+  display: flex;
+  min-width: 104px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  opacity: 0;
+  transform: translateX(5px);
+  transition: opacity 0.18s ease 0.05s, transform 0.18s ease 0.05s;
+}
+
+.chat-launcher:hover .chat-launcher-copy,
+.chat-launcher:focus-visible .chat-launcher-copy {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.chat-launcher-copy strong {
+  color: var(--color-accent);
+  font-size: 0.7rem;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.chat-launcher-copy small {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.55rem;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: nowrap;
 }
 
 .chat-intro-spotlight {
