@@ -3,6 +3,10 @@
   "labels": {
     "impact": "TÁC ĐỘNG"
   },
+  "groups": {
+    "client": "Dự án thực tế",
+    "pet": "Pet Lab"
+  },
   "actions": {
     "visitSite": "TRUY CẬP",
     "github": "GITHUB_",
@@ -15,6 +19,7 @@
   },
   "aria": {
     "preview": "Bản xem trước của {{title}}",
+    "projectGroups": "Nhóm dự án",
     "projectNavigation": "Điều hướng dự án",
     "selectProject": "Xem dự án {{title}}",
     "previousProject": "Xem dự án trước",

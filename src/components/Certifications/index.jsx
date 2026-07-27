@@ -627,10 +627,15 @@ const Certifications = () => {
   const sectionRef = useRef(null);
   const [inView, setInView] = useState(false);
   const [activeFilter, setActiveFilter] = useState('featured');
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [collapsedLimit, setCollapsedLimit] = useState(6);
 
-  const visibleCertificates = activeFilter === 'all'
+  const filteredCertificates = activeFilter === 'all'
     ? certificates
     : certificates.filter((cert) => cert.tags.includes(activeFilter));
+  const visibleCertificates = isExpanded
+    ? filteredCertificates
+    : filteredCertificates.slice(0, collapsedLimit);
 
   const awsCount = certificates.filter((cert) => cert.tags.includes('aws')).length;
   const digitalBadgeCount = certificates.filter((cert) =>
@@ -652,6 +657,27 @@ const Certifications = () => {
 
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    const updateLimit = () => {
+      if (window.matchMedia('(min-width: 1024px)').matches) {
+        setCollapsedLimit(6);
+      } else if (window.matchMedia('(min-width: 768px)').matches) {
+        setCollapsedLimit(4);
+      } else {
+        setCollapsedLimit(2);
+      }
+    };
+
+    updateLimit();
+    window.addEventListener('resize', updateLimit);
+    return () => window.removeEventListener('resize', updateLimit);
+  }, []);
+
+  const handleFilterChange = (filter) => {
+    setActiveFilter(filter);
+    setIsExpanded(false);
+  };
 
   return (
     <section id="certifications" className="certs-section" ref={sectionRef}>
@@ -730,7 +756,7 @@ const Certifications = () => {
                 type="button"
                 className={`cert-filter ${activeFilter === filter ? 'is-active' : ''}`}
                 aria-pressed={activeFilter === filter}
-                onClick={() => setActiveFilter(filter)}
+                onClick={() => handleFilterChange(filter)}
               >
                 <span>{t(`filters.${filter}`)}</span>
                 <span className="cert-filter-count">{count}</span>
@@ -742,7 +768,7 @@ const Certifications = () => {
         <p className="certs-result-count" aria-live="polite">
           {t('resultCount', {
             visible: visibleCertificates.length,
-            total: certificates.length
+            total: filteredCertificates.length
           })}
         </p>
 
@@ -821,6 +847,20 @@ const Certifications = () => {
             </article>
           ))}
         </div>
+
+        {filteredCertificates.length > collapsedLimit && (
+          <div className="certs-disclosure">
+            <button
+              type="button"
+              className="certs-disclosure-button"
+              aria-expanded={isExpanded}
+              onClick={() => setIsExpanded((current) => !current)}
+            >
+              <span>{t(isExpanded ? 'actions.showLess' : 'actions.showMore')}</span>
+              <span aria-hidden="true">{isExpanded ? '↑' : '↓'}</span>
+            </button>
+          </div>
+        )}
 
       </div>
     </section>

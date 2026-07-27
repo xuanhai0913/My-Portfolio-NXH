@@ -35,7 +35,9 @@
     "verifyTrainingBadge": "Xác minh huy hiệu đào tạo ↗",
     "verifyDigitalBadge": "Xác minh huy hiệu số ↗",
     "verifyCompletionBadge": "Xác minh huy hiệu hoàn thành ↗",
-    "verifyCredential": "Xác minh chứng nhận ↗"
+    "verifyCredential": "Xác minh chứng nhận ↗",
+    "showMore": "Xem tất cả chứng chỉ",
+    "showLess": "Thu gọn chứng chỉ"
   },
   "certificates": {
     "aws-knowledge-cloud-essentials": { "description": "Kiến thức đã được xác minh về các khái niệm, dịch vụ, bảo mật và kiến trúc cốt lõi của AWS Cloud." },

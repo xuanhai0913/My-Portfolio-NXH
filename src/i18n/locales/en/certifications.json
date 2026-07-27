@@ -35,7 +35,9 @@
     "verifyTrainingBadge": "Verify training badge ↗",
     "verifyDigitalBadge": "Verify digital badge ↗",
     "verifyCompletionBadge": "Verify completion badge ↗",
-    "verifyCredential": "Verify credential ↗"
+    "verifyCredential": "Verify credential ↗",
+    "showMore": "Show all credentials",
+    "showLess": "Show fewer credentials"
   },
   "certificates": {
     "aws-knowledge-cloud-essentials": { "description": "Verified knowledge of core AWS Cloud concepts, services, security and architecture." },

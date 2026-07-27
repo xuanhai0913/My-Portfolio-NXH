@@ -3,6 +3,10 @@
   "labels": {
     "impact": "IMPACT"
   },
+  "groups": {
+    "client": "Client work",
+    "pet": "Pet lab"
+  },
   "actions": {
     "visitSite": "VISIT SITE",
     "github": "GITHUB_",
@@ -15,6 +19,7 @@
   },
   "aria": {
     "preview": "{{title}} preview",
+    "projectGroups": "Project groups",
     "projectNavigation": "Project navigation",
     "selectProject": "View {{title}}",
     "previousProject": "View previous project",

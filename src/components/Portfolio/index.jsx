@@ -30,7 +30,8 @@ const projectCatalog = [
       technologies: ["React 19", "ASP.NET Core 8", "SQL Server", "Cloudflare R2"],
       badge: true,
       company: "OAKMIND GROUP",
-      year: "2026"
+      year: "2026",
+      group: "client"
     },
     {
       id: "greatLinkMaiHouse",
@@ -39,7 +40,8 @@ const projectCatalog = [
       technologies: ["React", "ASP.NET Core", "SQL Server", "SignalR"],
       badge: true,
       company: "OAKMIND GROUP",
-      year: "2025"
+      year: "2025",
+      group: "client"
     },
     {
       id: "educationEnglish",
@@ -47,7 +49,8 @@ const projectCatalog = [
       demo: "https://ech.edu.vn",
       technologies: ["ASP.NET Core", "EF Core", "SQL Server", "QuestPDF"],
       company: "ECH COMMUNITY",
-      year: "2024"
+      year: "2024",
+      group: "client"
     },
     {
       id: "vnMediaHub",
@@ -55,7 +58,8 @@ const projectCatalog = [
       demo: "https://vnmediahub.com",
       technologies: ["React", "ASP.NET Core", "SQL Server", "Redis"],
       company: "OAKMIND GROUP",
-      year: "2024"
+      year: "2024",
+      group: "client"
     },
     {
       id: "chongScam",
@@ -64,7 +68,8 @@ const projectCatalog = [
       technologies: ["React 19", "NestJS 11", "PostgreSQL", "Jest"],
       badge: true,
       company: "PET PROJECT",
-      year: "2026"
+      year: "2026",
+      group: "pet"
     },
     {
       id: "routeLab",
@@ -74,7 +79,8 @@ const projectCatalog = [
       technologies: ["React", "TypeScript", "Express", "Vitest"],
       badge: true,
       company: "PET PROJECT",
-      year: "2026"
+      year: "2026",
+      group: "pet"
     },
     {
       id: "agriTrace",
@@ -83,7 +89,8 @@ const projectCatalog = [
       technologies: ["React", "Express", "PostgreSQL", "Solidity"],
       badge: true,
       company: "PET PROJECT",
-      year: "2026"
+      year: "2026",
+      group: "pet"
     },
     {
       id: "visionKey",
@@ -96,7 +103,8 @@ const projectCatalog = [
         { url: "https://github.com/xuanhai0913/Extension-Vision-Premium", label: "Premium" },
         { url: "https://github.com/xuanhai0913/Extension-Vision-Key", label: "Standard" }
       ],
-      year: "2025"
+      year: "2025",
+      group: "pet"
     },
     {
       id: "llmUnitTestGen",
@@ -105,7 +113,8 @@ const projectCatalog = [
       github: "https://github.com/xuanhai0913/LLM-Unit-tests",
       technologies: ["React", "Deepseek", "Node.js"],
       badge: true,
-      year: "2025"
+      year: "2025",
+      group: "pet"
     },
     {
       id: "portfolioWebsite",
@@ -113,11 +122,12 @@ const projectCatalog = [
       demo: "https://my-portfolio-nxh.vercel.app/",
       github: "https://github.com/xuanhai0913/My-Portfolio-NXH",
       technologies: ["React", "GSAP", "CSS3"],
-      year: "2024"
+      year: "2024",
+      group: "pet"
     }
 ];
 
-const PROJECT_COUNT = projectCatalog.length;
+const projectGroups = ['client', 'pet'];
 
 const Portfolio = () => {
   const { t } = useTranslation('projects');
@@ -132,7 +142,10 @@ const Portfolio = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const allProjects = projectCatalog.map((project) => ({
+  const [projectGroup, setProjectGroup] = useState('client');
+  const filteredCatalog = projectCatalog.filter((project) => project.group === projectGroup);
+  const projectCount = filteredCatalog.length;
+  const allProjects = filteredCatalog.map((project) => ({
     ...project,
     title: t(`items.${project.id}.title`),
     description: t(`items.${project.id}.description`),
@@ -181,9 +194,9 @@ const Portfolio = () => {
     if (!isMobile) return undefined;
 
     const current = Number.isFinite(activeIndex) ? activeIndex : 0;
-    setScrollProgress((current + 1) / PROJECT_COUNT);
+    setScrollProgress((current + 1) / projectCount);
     return undefined;
-  }, [activeIndex, isMobile]);
+  }, [activeIndex, isMobile, projectCount]);
 
   useEffect(() => {
     if (isMobile) return undefined;
@@ -205,9 +218,9 @@ const Portfolio = () => {
         Math.abs(current - progress) > 0.001 ? progress : current
       ));
 
-      const rawIndex = Math.round(progress * (PROJECT_COUNT - 1));
+      const rawIndex = Math.round(progress * (projectCount - 1));
       const newIndex = Number.isFinite(rawIndex)
-        ? Math.min(PROJECT_COUNT - 1, Math.max(0, rawIndex))
+        ? Math.min(projectCount - 1, Math.max(0, rawIndex))
         : prevIndexRef.current;
 
       if (newIndex === prevIndexRef.current) return;
@@ -230,7 +243,7 @@ const Portfolio = () => {
         scrollFrameRef.current = null;
       }
     };
-  }, [isMobile]);
+  }, [isMobile, projectCount]);
 
   // Handle project click from list
   const handleProjectClick = (index) => {
@@ -245,7 +258,7 @@ const Portfolio = () => {
       const sectionHeight = sectionRef.current.offsetHeight;
       const viewportHeight = window.innerHeight;
       const totalScrollable = Math.max(sectionHeight - viewportHeight, 1);
-      const progress = PROJECT_COUNT > 1 ? index / (PROJECT_COUNT - 1) : 0;
+      const progress = projectCount > 1 ? index / (projectCount - 1) : 0;
       const targetScroll = sectionTop + progress * totalScrollable;
       window.scrollTo({ top: targetScroll, behavior: 'smooth' });
     }
@@ -253,7 +266,7 @@ const Portfolio = () => {
 
   const handlePrevProject = () => {
     setActiveIndex((prev) => {
-      const next = (prev - 1 + PROJECT_COUNT) % PROJECT_COUNT;
+      const next = (prev - 1 + projectCount) % projectCount;
       prevIndexRef.current = next;
       return next;
     });
@@ -261,7 +274,7 @@ const Portfolio = () => {
 
   const handleNextProject = () => {
     setActiveIndex((prev) => {
-      const next = (prev + 1) % PROJECT_COUNT;
+      const next = (prev + 1) % projectCount;
       prevIndexRef.current = next;
       return next;
     });
@@ -298,9 +311,17 @@ const Portfolio = () => {
   };
 
   const safeActiveIndex = Number.isFinite(activeIndex)
-    ? Math.min(PROJECT_COUNT - 1, Math.max(0, activeIndex))
+    ? Math.min(projectCount - 1, Math.max(0, activeIndex))
     : 0;
   const activeProject = allProjects[safeActiveIndex] || allProjects[0];
+
+  const handleGroupChange = (group) => {
+    if (group === projectGroup) return;
+    setProjectGroup(group);
+    setActiveIndex(0);
+    prevIndexRef.current = 0;
+    setScrollProgress(0);
+  };
 
   const renderShowcaseCard = (project, prioritizeImage = false) => (
     <article className="showcase-card">
@@ -390,17 +411,31 @@ const Portfolio = () => {
       id="portfolio"
       className="portfolio-section portfolio-scrollytelling"
       ref={sectionRef}
-      style={{ '--project-scroll-height': `${Math.max(620, PROJECT_COUNT * 72)}vh` }}
+      style={{ '--project-scroll-height': `${Math.max(360, projectCount * 72)}vh` }}
       aria-labelledby="portfolio-title"
     >
       <div className="portfolio-sticky">
         {/* Fixed Header */}
         <div className="portfolio-header scrolly-header">
           <h2 id="portfolio-title" className="section-title glitch-text" data-text={t('heading')}>{t('heading')}</h2>
+          <div className="project-group-switch" aria-label={t('aria.projectGroups')}>
+            {projectGroups.map((group) => (
+              <button
+                key={group}
+                type="button"
+                className={projectGroup === group ? 'is-active' : ''}
+                aria-pressed={projectGroup === group}
+                onClick={() => handleGroupChange(group)}
+              >
+                <span>{t(`groups.${group}`)}</span>
+                <small>{projectCatalog.filter((project) => project.group === group).length}</small>
+              </button>
+            ))}
+          </div>
           <div className="project-counter">
             <span className="current">{String(safeActiveIndex + 1).padStart(2, '0')}</span>
             <span className="divider">/</span>
-            <span className="total">{String(PROJECT_COUNT).padStart(2, '0')}</span>
+            <span className="total">{String(projectCount).padStart(2, '0')}</span>
           </div>
         </div>
 
@@ -445,7 +480,7 @@ const Portfolio = () => {
                 {t('actions.previous')}
               </button>
               <span className="mobile-control-counter">
-                {String(safeActiveIndex + 1).padStart(2, '0')} / {String(PROJECT_COUNT).padStart(2, '0')}
+                {String(safeActiveIndex + 1).padStart(2, '0')} / {String(projectCount).padStart(2, '0')}
               </span>
               <button type="button" className="mobile-control-btn" onClick={handleNextProject} aria-label={t('aria.nextProject')}>
                 {t('actions.next')}

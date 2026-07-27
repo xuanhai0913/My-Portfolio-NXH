@@ -1,36 +1,50 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import './SectionTransition.css';
 
 const KineticType = ({ text }) => {
     const { t } = useTranslation('misc');
     const containerRef = useRef(null);
-    const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
         const container = containerRef.current;
         if (!container) return undefined;
 
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (!entry.isIntersecting) return;
-                setIsVisible(true);
-                observer.disconnect();
-            },
-            { rootMargin: '100px 0px', threshold: 0.15 }
-        );
+        let frameId = null;
 
-        observer.observe(container);
+        const updateProgress = () => {
+            frameId = null;
+            const rect = container.getBoundingClientRect();
+            const start = window.innerHeight * 0.9;
+            const end = window.innerHeight * 0.12;
+            const rawProgress = (start - rect.top) / Math.max(start - end, 1);
+            const progress = Math.max(0, Math.min(1, rawProgress));
+            container.style.setProperty('--scroll-progress', progress.toFixed(4));
+        };
 
-        return () => observer.disconnect();
+        const requestUpdate = () => {
+            if (frameId !== null) return;
+            frameId = window.requestAnimationFrame(updateProgress);
+        };
+
+        window.addEventListener('scroll', requestUpdate, { passive: true });
+        window.addEventListener('resize', requestUpdate);
+        updateProgress();
+
+        return () => {
+            window.removeEventListener('scroll', requestUpdate);
+            window.removeEventListener('resize', requestUpdate);
+            if (frameId !== null) window.cancelAnimationFrame(frameId);
+        };
     }, []);
 
     const characters = text.split('');
 
     return (
         <div
-            className={`kinetic-container simple-mode ${isVisible ? 'is-visible' : ''}`}
+            className="kinetic-container simple-mode"
             ref={containerRef}
+            style={{ '--char-count': Math.max(characters.length, 1) }}
         >
             <div className="kinetic-hline"></div>
             <div className="kinetic-vline"></div>
@@ -44,7 +58,11 @@ const KineticType = ({ text }) => {
 
             <div className="kinetic-chars-wrapper">
                 {characters.map((char, i) => (
-                    <span key={`${char}-${i}`} className="kinetic-char" style={{ '--char-index': i }}>
+                    <span
+                        key={`${char}-${i}`}
+                        className="kinetic-char"
+                        style={{ '--char-index': i, '--char-start': (i * 0.035).toFixed(3) }}
+                    >
                         {char === ' ' ? '\u00a0' : char}
                     </span>
                 ))}

@@ -51,17 +51,16 @@
 }
 
 .hero-line.line-1 {
-  font-size: clamp(3.5rem, 10vw, 9rem);
+  font-size: clamp(3.5rem, 7vw, 7rem);
   color: var(--color-accent);
   margin-left: -5px;
   /* Optical alignment */
 }
 
 .hero-line.line-2 {
-  font-size: clamp(3.5rem, 10vw, 9rem);
+  font-size: clamp(3.5rem, 7vw, 7rem);
   align-self: flex-start;
-  margin-left: 10%;
-  /* Stagger effect */
+  margin-left: 0;
 }
 
 .hollow-text {

@@ -42,6 +42,7 @@
    KINETIC TYPE — PREMIUM SCROLL-DRIVEN
    ============================================ */
 .kinetic-container.simple-mode {
+    --scroll-progress: 0;
     background: #000;
     width: 100%;
     height: 65vh;
@@ -61,34 +62,31 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap: nowrap;
+    width: min(92vw, 1700px);
+    white-space: nowrap;
     z-index: 10;
     perspective: 800px;
     gap: 0;
 }
 
 .kinetic-char {
+    --char-progress: clamp(0, calc((var(--scroll-progress) - var(--char-start)) * 7), 1);
     display: inline-block;
+    flex: 0 0 auto;
     font-family: 'Inter', sans-serif;
-    font-size: clamp(3rem, 14vw, 12rem);
+    font-size: clamp(2.4rem, calc(88vw / var(--char-count) * 1.55), 12rem);
     font-weight: 900;
     color: #ccff00;
     text-transform: uppercase;
     line-height: 1;
     letter-spacing: -0.03em;
-    opacity: 0;
-    transform: translateY(36px);
+    opacity: var(--char-progress);
+    transform: translateY(calc((1 - var(--char-progress)) * 44px));
     transform-origin: center bottom;
-    transition: opacity 0.55s ease,
-                transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
-    transition-delay: calc(var(--char-index) * 35ms);
     text-shadow:
         0 0 40px rgba(204, 255, 0, 0.15),
         0 0 80px rgba(204, 255, 0, 0.05);
-}
-
-.kinetic-container.is-visible .kinetic-char {
-    opacity: 1;
-    transform: translateY(0);
 }
 
 /* --- Horizontal Reveal Line --- */
@@ -106,12 +104,8 @@
         transparent 100%);
     transform: scaleX(0);
     transform-origin: center;
-    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: scaleX(var(--scroll-progress));
     z-index: 5;
-}
-
-.kinetic-container.is-visible .kinetic-hline {
-    transform: scaleX(1);
 }
 
 /* --- Vertical Accent Line --- */
@@ -128,12 +122,8 @@
         transparent);
     transform: scaleY(0);
     transform-origin: center;
-    transition: transform 0.8s ease 0.15s;
+    transform: scaleY(var(--scroll-progress));
     z-index: 4;
-}
-
-.kinetic-container.is-visible .kinetic-vline {
-    transform: scaleY(1);
 }
 
 /* --- Subtitle --- */
@@ -148,14 +138,8 @@
     letter-spacing: 4px;
     color: rgba(255, 255, 255, 0.35);
     text-transform: uppercase;
-    opacity: 0;
-    transform: translateY(12px);
-    transition: opacity 0.5s ease 0.35s, transform 0.5s ease 0.35s;
-}
-
-.kinetic-container.is-visible .kinetic-subtitle {
-    opacity: 1;
-    transform: translateY(0);
+    opacity: clamp(0, calc((var(--scroll-progress) - 0.55) * 3), 1);
+    transform: translateY(calc((1 - var(--scroll-progress)) * 12px));
 }
 
 .subtitle-dash {
@@ -169,14 +153,8 @@
     top: 0;
     width: 1px;
     background: rgba(204, 255, 0, 0.15);
-    height: 0%;
-    opacity: 0;
-    transition: height 0.7s ease 0.15s, opacity 0.7s ease 0.15s;
-}
-
-.kinetic-container.is-visible .geo-line {
-    height: 100%;
-    opacity: 1;
+    height: calc(var(--scroll-progress) * 100%);
+    opacity: var(--scroll-progress);
 }
 
 .line-left { left: 25%; }
@@ -192,14 +170,8 @@
     border-radius: 50%;
     top: 50%;
     transform: translateY(-50%);
-    opacity: 0;
-    scale: 0.85;
-    transition: opacity 0.7s ease 0.2s, scale 0.7s ease 0.2s;
-}
-
-.kinetic-container.is-visible .geo-circle {
-    opacity: 0.6;
-    scale: 1;
+    opacity: calc(var(--scroll-progress) * 0.6);
+    scale: calc(0.85 + var(--scroll-progress) * 0.15);
 }
 
 .circle-left { left: -14vw; }
@@ -213,13 +185,8 @@
     transform: translateX(-50%) translateY(15px);
     color: #ccff00;
     font-size: 1.5rem;
-    opacity: 0;
-    transition: opacity 0.4s ease 0.45s, transform 0.4s ease 0.45s;
-}
-
-.kinetic-container.is-visible .scroll-arrow {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
+    opacity: clamp(0, calc((var(--scroll-progress) - 0.7) * 4), 1);
+    transform: translateX(-50%) translateY(calc((1 - var(--scroll-progress)) * 15px));
 }
 
 /* ============================================
@@ -229,10 +196,6 @@
     .kinetic-container.simple-mode {
         height: 50vh;
         min-height: 300px;
-    }
-
-    .kinetic-char {
-        font-size: clamp(2.5rem, 12vw, 5rem);
     }
 
     .kinetic-subtitle {

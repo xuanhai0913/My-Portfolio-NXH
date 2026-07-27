@@ -261,6 +261,38 @@
     gap: 2rem;
 }
 
+.certs-disclosure {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.certs-disclosure-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    min-width: 220px;
+    min-height: 46px;
+    padding: 0.75rem 1.1rem;
+    border: 1px solid rgba(212, 255, 0, 0.5);
+    color: var(--color-accent);
+    background: rgba(212, 255, 0, 0.04);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.certs-disclosure-button:hover,
+.certs-disclosure-button:focus-visible {
+    border-color: var(--color-accent);
+    color: #050505;
+    background: var(--color-accent);
+}
+
 @media (min-width: 768px) {
     .certs-grid {
         grid-template-columns: repeat(2, 1fr);
