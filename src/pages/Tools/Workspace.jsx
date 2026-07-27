@@ -140,16 +140,26 @@ const Workspace = () => {
     setError('');
 
     try {
-      const response = await fetch(`/api/tools/${tool.slug}`, {
+      const response = await fetch('/api/tool-runner', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ inputs, locale: i18n.resolvedLanguage === 'vi' ? 'vi' : 'en' }),
+        body: JSON.stringify({
+          slug: tool.slug,
+          inputs,
+          locale: i18n.resolvedLanguage === 'vi' ? 'vi' : 'en'
+        }),
         signal: controller.signal
       });
-      const payload = await response.json().catch(() => ({}));
+      const contentType = response.headers.get('content-type') || '';
+      const payload = contentType.includes('application/json')
+        ? await response.json().catch(() => ({}))
+        : {};
 
       if (!response.ok || !payload.success || !payload.result) {
-        throw new Error(payload.message || t('workspace.runFailedMessage'));
+        const fallbackMessage = [404, 405].includes(response.status)
+          ? t('workspace.runtimeUnavailable')
+          : t('workspace.runFailedMessage');
+        throw new Error(payload.message || fallbackMessage);
       }
 
       setResult(payload.result);

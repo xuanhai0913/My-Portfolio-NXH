@@ -15,7 +15,10 @@
       script.src = 'https://www.googletagmanager.com/gtag/js?id=G-RXRLFGKXCN';
       document.head.appendChild(script);
       gtag('js', new Date());
-      gtag('config', 'G-RXRLFGKXCN');
+      gtag('config', 'G-RXRLFGKXCN', {
+        allow_google_signals: false,
+        allow_ad_personalization_signals: false
+      });
     }
 
     window.addEventListener('load', function () {

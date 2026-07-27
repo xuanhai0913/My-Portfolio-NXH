@@ -35,8 +35,41 @@
     "introAria": "Mở phần giới thiệu trợ lý",
     "introTitle": "Xin chào, chào mừng bạn đến với portfolio của Hải.",
     "introBody": "Chọn Trợ lý AI để hỏi nhanh về CV, dự án và thông tin liên hệ.",
-    "headerTitle": "Trợ lý Portfolio",
-    "headerSubtitle": "Hỏi về CV, dự án và kinh nghiệm.",
+    "copilotEyebrow": "TRỰC TUYẾN · HIỂU HỒ SƠ",
+    "headerTitle": "Hai Recruiter Copilot",
+    "headerSubtitle": "Câu trả lời có dẫn chứng cho quyết định tuyển dụng.",
+    "contextStatus": "Trạng thái ngữ cảnh của trợ lý",
+    "profileContextReady": "Đã tải hồ sơ",
+    "jdContextReady": "Đã tải ngữ cảnh JD",
+    "aiConnected": "AI đã kết nối",
+    "commandEyebrow": "TRUNG TÂM HỖ TRỢ TUYỂN DỤNG",
+    "commandTitle": "Bạn muốn xác minh điều gì?",
+    "commandDescription": "Chọn một góc đánh giá. Mỗi câu trả lời đều dựa trên kinh nghiệm, dự án và chứng chỉ của Hải.",
+    "assistantName": "Hai Copilot",
+    "you": "Bạn",
+    "youInitial": "B",
+    "modes": {
+      "snapshot": {
+        "title": "Tóm tắt 30 giây",
+        "description": "Kinh nghiệm, thế mạnh, khả năng onboard",
+        "prompt": "Hãy tóm tắt hồ sơ Nguyễn Xuân Hải trong 30 giây cho nhà tuyển dụng, gồm kinh nghiệm, kỹ năng mạnh nhất, dẫn chứng và khả năng onboard."
+      },
+      "match": {
+        "title": "Đối chiếu JD",
+        "description": "Điểm mạnh, khoảng trống, đề xuất",
+        "prompt": "Đánh giá mức độ phù hợp của Nguyễn Xuân Hải với JD đã tải. Nếu chưa có JD, hãy hướng dẫn cách cung cấp nhanh nhất."
+      },
+      "projects": {
+        "title": "Dẫn chứng dự án",
+        "description": "Vai trò, công nghệ, tác động production",
+        "prompt": "Trình bày các dẫn chứng dự án mạnh nhất của Nguyễn Xuân Hải, tập trung vào vai trò sở hữu, quyết định kỹ thuật, tác động production và liên kết kiểm chứng."
+      },
+      "interview": {
+        "title": "Bộ câu hỏi phỏng vấn",
+        "description": "Câu hỏi và hướng đào sâu phù hợp",
+        "prompt": "Tạo bộ câu hỏi phỏng vấn thực tế cho Nguyễn Xuân Hải, gồm câu hỏi kỹ thuật và hành vi dựa trên kinh nghiệm dự án thật."
+      }
+    },
     "model": "Mô hình: {{model}}",
     "dismissNotification": "Đóng thông báo",
     "enterFullscreen": "Mở toàn màn hình",

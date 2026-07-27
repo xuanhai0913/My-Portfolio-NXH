@@ -239,7 +239,7 @@ module.exports = async (req, res) => {
   if (req.method === 'OPTIONS') return res.status(204).end();
   if (req.method !== 'POST') return res.status(405).json({ success: false, message: 'Method not allowed.' });
 
-  const slug = String(req.query?.slug || '').toLowerCase();
+  const slug = String(req.body?.slug || req.query?.slug || '').toLowerCase();
   const tool = toolRegistry[slug];
   if (!tool) return res.status(404).json({ success: false, message: 'Tool not found.' });
 

@@ -35,8 +35,41 @@
     "introAria": "Open assistant introduction",
     "introTitle": "Hello, welcome to Hai's portfolio.",
     "introBody": "Select AI Assistant to ask about his CV, projects, and contact information.",
-    "headerTitle": "Portfolio Assistant",
-    "headerSubtitle": "Ask about CV, projects, and experience.",
+    "copilotEyebrow": "ONLINE · PROFILE-AWARE",
+    "headerTitle": "Hai Recruiter Copilot",
+    "headerSubtitle": "Evidence-led answers for hiring decisions.",
+    "contextStatus": "Assistant context status",
+    "profileContextReady": "Profile context ready",
+    "jdContextReady": "JD context loaded",
+    "aiConnected": "AI connected",
+    "commandEyebrow": "RECRUITER COMMAND CENTER",
+    "commandTitle": "What would you like to verify?",
+    "commandDescription": "Start with a hiring lens. Every answer is grounded in Hai's experience, projects, and credentials.",
+    "assistantName": "Hai Copilot",
+    "you": "You",
+    "youInitial": "Y",
+    "modes": {
+      "snapshot": {
+        "title": "30-second snapshot",
+        "description": "Experience, strengths, availability",
+        "prompt": "Give me a concise 30-second recruiter snapshot of Nguyen Xuan Hai, including experience, strongest skills, evidence, and availability."
+      },
+      "match": {
+        "title": "JD match",
+        "description": "Strengths, gaps, recommendation",
+        "prompt": "Assess Nguyen Xuan Hai's fit for the loaded job description. If no JD is loaded, tell me the fastest way to provide one."
+      },
+      "projects": {
+        "title": "Project evidence",
+        "description": "Ownership, stack, production impact",
+        "prompt": "Show the strongest project evidence for Nguyen Xuan Hai, focusing on ownership, technical decisions, production impact, and verifiable links."
+      },
+      "interview": {
+        "title": "Interview kit",
+        "description": "Questions and targeted probes",
+        "prompt": "Create a practical interview kit for Nguyen Xuan Hai with targeted technical and behavioral questions based on his real project experience."
+      }
+    },
     "model": "Model: {{model}}",
     "dismissNotification": "Dismiss notification",
     "enterFullscreen": "Enter fullscreen",

@@ -143,6 +143,7 @@
     "safetyNotice": "Không nhập bí mật, thông tin xác thực hoặc dữ liệu sức khỏe cá nhân.",
     "analyzing": "ĐANG PHÂN TÍCH...",
     "runFailedMessage": "Công cụ không thể hoàn tất lần chạy này.",
+    "runtimeUnavailable": "Nền tảng AI Tools đang tạm thời không khả dụng. Vui lòng tải lại trang và thử lại.",
     "unexpectedError": "Đã xảy ra lỗi không mong muốn.",
     "states": { "idle": "SẴN SÀNG", "running": "ĐANG CHẠY", "success": "THÀNH CÔNG", "error": "LỖI" },
     "ready": "SẴN SÀNG_",

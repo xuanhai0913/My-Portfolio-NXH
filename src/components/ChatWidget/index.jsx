@@ -361,6 +361,41 @@ function ActionCard({ action, onRunNextAction, onAskInterviewQuestion }) {
   return null;
 }
 
+function CopilotIcon({ type }) {
+  const paths = {
+    snapshot: (
+      <>
+        <circle cx="12" cy="8" r="3" />
+        <path d="M5 20c.6-4 2.9-6 7-6s6.4 2 7 6" />
+      </>
+    ),
+    match: (
+      <>
+        <circle cx="11" cy="11" r="6" />
+        <path d="m16 16 4 4M8.5 11l1.8 1.8 3.4-3.7" />
+      </>
+    ),
+    projects: (
+      <>
+        <path d="M3.5 7.5h6l2-2h9v13h-17z" />
+        <path d="M7 12h10M7 15h7" />
+      </>
+    ),
+    interview: (
+      <>
+        <path d="M4 5h16v11H9l-5 4z" />
+        <path d="M8 9h8M8 12h5" />
+      </>
+    ),
+  };
+
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      {paths[type] || paths.snapshot}
+    </svg>
+  );
+}
+
 const ChatWidget = ({ mode = 'floating' }) => {
   const { t, i18n } = useTranslation('content');
   const isStandalonePage = mode === 'page';
@@ -404,6 +439,9 @@ const ChatWidget = ({ mode = 'floating' }) => {
   const toastRef = useRef(null);
   const showToastRef = useRef(null);
   const actionsMenuRef = useRef(null);
+  const launcherRef = useRef(null);
+  const panelRef = useRef(null);
+  const previousFocusRef = useRef(null);
   const language = preferredLanguage || 'en';
   const isDevMode = process.env.NODE_ENV !== 'production';
 
@@ -463,6 +501,22 @@ const ChatWidget = ({ mode = 'floating' }) => {
   }, [open]);
 
   useEffect(() => {
+    if (!open || isStandalonePage) return undefined;
+
+    const handleEscape = (event) => {
+      if (event.key !== 'Escape' || event.defaultPrevented) return;
+      event.preventDefault();
+      setOpen(false);
+      requestAnimationFrame(() => {
+        (launcherRef.current || previousFocusRef.current)?.focus?.();
+      });
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isStandalonePage, open]);
+
+  useEffect(() => {
     if (!open || !chatBodyRef.current) return;
     chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
   }, [messages, loading, open]);
@@ -514,6 +568,14 @@ const ChatWidget = ({ mode = 'floating' }) => {
 
   const fallbackSuggestions = useMemo(() => suggestionsByIntent(language), [language]);
   const suggestions = aiSuggestions.length > 0 ? aiSuggestions : fallbackSuggestions;
+  const copilotModes = useMemo(() => (
+    ['snapshot', 'match', 'projects', 'interview'].map((key) => ({
+      key,
+      title: t(`chat.modes.${key}.title`),
+      description: t(`chat.modes.${key}.description`),
+      prompt: t(`chat.modes.${key}.prompt`),
+    }))
+  ), [t]);
   const isHeaderActionBusy = Boolean(activeHeaderAction);
   const commandPrefixInput = input.trimStart();
   const isCommandMode = commandPrefixInput.startsWith('/');
@@ -534,6 +596,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
   };
 
   const handleOpenChat = () => {
+    previousFocusRef.current = document.activeElement;
     setOpen(true);
     setShowIntroSpotlight(false);
     sessionStorage.setItem(CHAT_INTRO_DISMISSED_KEY, '1');
@@ -542,6 +605,14 @@ const ChatWidget = ({ mode = 'floating' }) => {
       const { trackAssistantOpen } = require('../../utils/analytics');
       trackAssistantOpen('widget');
     } catch { /* analytics not critical */ }
+  };
+
+  const handleCloseChat = () => {
+    setShowActionsMenu(false);
+    setOpen(false);
+    requestAnimationFrame(() => {
+      (launcherRef.current || previousFocusRef.current)?.focus?.();
+    });
   };
 
   const handleToggleFullscreen = () => {
@@ -1213,6 +1284,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
     <>
       {!isStandalonePage && !open ? (
         <button
+          ref={launcherRef}
           type="button"
           className="chat-launcher"
           onClick={handleOpenChat}
@@ -1241,7 +1313,14 @@ const ChatWidget = ({ mode = 'floating' }) => {
         </button>
       ) : null}
 
-      <section className={`chat-panel ${open ? 'open' : ''} ${isFullscreen ? 'fullscreen' : ''} ${isStandalonePage ? 'page-mode' : ''}`} aria-hidden={!open}>
+      <section
+        ref={panelRef}
+        className={`chat-panel ${open ? 'open' : ''} ${isFullscreen ? 'fullscreen' : ''} ${isStandalonePage ? 'page-mode' : ''}`}
+        role="dialog"
+        aria-labelledby="chat-title"
+        aria-describedby="chat-subtitle"
+        hidden={!open}
+      >
         {toast ? (
           <div className={`chat-toast ${toast.type === 'error' ? 'error' : ''}`} role="status" aria-live="polite">
             <span>{toast.text}</span>
@@ -1250,10 +1329,16 @@ const ChatWidget = ({ mode = 'floating' }) => {
         ) : null}
 
         <header className="chat-header">
-          <div>
-            <h3>{t('chat.headerTitle')}</h3>
-            <p>{t('chat.headerSubtitle')}</p>
-            {lastModelUsed ? <small className="chat-model-meta">{t('chat.model', { model: lastModelUsed })}</small> : null}
+          <div className="chat-identity">
+            <span className="chat-identity-avatar" aria-hidden="true">H</span>
+            <div>
+              <span className="chat-identity-eyebrow">
+                <i aria-hidden="true" />
+                {t('chat.copilotEyebrow')}
+              </span>
+              <h3 id="chat-title">{t('chat.headerTitle')}</h3>
+              <p id="chat-subtitle">{t('chat.headerSubtitle')}</p>
+            </div>
           </div>
           <div className="chat-header-actions">
             {!isStandalonePage ? (
@@ -1270,7 +1355,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
                 <button
                   type="button"
                   className="chat-icon-btn"
-                  onClick={() => setOpen(false)}
+                  onClick={handleCloseChat}
                   aria-label={t('chat.hideChat')}
                   title={t('chat.hideChat')}
                 >
@@ -1318,6 +1403,15 @@ const ChatWidget = ({ mode = 'floating' }) => {
           </div>
         </header>
 
+        <div className="chat-status-rail" aria-label={t('chat.contextStatus')}>
+          <span className={jobDescription ? 'ready' : ''}>
+            {jobDescription ? t('chat.jdContextReady') : t('chat.profileContextReady')}
+          </span>
+          <span>{t(`chat.styles.${responseStyle}`)}</span>
+          <span>{language.toUpperCase()}</span>
+          {lastModelUsed ? <span>{t('chat.aiConnected')}</span> : null}
+        </div>
+
         {isDevMode && showTelemetryPanel ? (
           <div className="chat-telemetry-panel" role="status" aria-live="polite">
             <div className="chat-telemetry-head">
@@ -1336,6 +1430,32 @@ const ChatWidget = ({ mode = 'floating' }) => {
         ) : null}
 
         <div className="chat-body" role="log" aria-live="polite" ref={chatBodyRef}>
+          {messages.length <= 1 && !loading ? (
+            <section className="chat-command-deck" aria-labelledby="chat-command-title">
+              <div className="chat-command-intro">
+                <span>{t('chat.commandEyebrow')}</span>
+                <h4 id="chat-command-title">{t('chat.commandTitle')}</h4>
+                <p>{t('chat.commandDescription')}</p>
+              </div>
+              <div className="chat-mode-grid">
+                {copilotModes.map((item) => (
+                  <button
+                    key={item.key}
+                    type="button"
+                    onClick={() => handleSend(item.prompt)}
+                  >
+                    <span className="chat-mode-icon"><CopilotIcon type={item.key} /></span>
+                    <span>
+                      <strong>{item.title}</strong>
+                      <small>{item.description}</small>
+                    </span>
+                    <b aria-hidden="true">↗</b>
+                  </button>
+                ))}
+              </div>
+            </section>
+          ) : null}
+
           {messages.map((message) => {
             const parsedAssistantContent = message.role === 'assistant' && !message.action
               ? parseJsonLikeAssistantContent(message.content, t)
@@ -1352,21 +1472,33 @@ const ChatWidget = ({ mode = 'floating' }) => {
 
             return (
               <article key={message.id} className={`chat-message ${message.role}`}>
-                <p>{displayText}</p>
-                {displayAction ? (
-                  <ActionCard
-                    action={displayAction}
-                    onRunNextAction={handleRunStructuredAction}
-                    onAskInterviewQuestion={handleAskInterviewQuestion}
-                  />
-                ) : null}
+                <span className="chat-message-avatar" aria-hidden="true">
+                  {message.role === 'assistant' ? 'H' : t('chat.youInitial')}
+                </span>
+                <div className="chat-message-content">
+                  <span className="chat-message-author">
+                    {message.role === 'assistant' ? t('chat.assistantName') : t('chat.you')}
+                  </span>
+                  <p>{displayText}</p>
+                  {displayAction ? (
+                    <ActionCard
+                      action={displayAction}
+                      onRunNextAction={handleRunStructuredAction}
+                      onAskInterviewQuestion={handleAskInterviewQuestion}
+                    />
+                  ) : null}
+                </div>
               </article>
             );
           })}
 
           {loading ? (
             <article className="chat-message assistant">
-              <p>{t('chat.thinking')}</p>
+              <span className="chat-message-avatar" aria-hidden="true">H</span>
+              <div className="chat-message-content">
+                <span className="chat-message-author">{t('chat.assistantName')}</span>
+                <p className="chat-thinking"><i /><i /><i /> {t('chat.thinking')}</p>
+              </div>
             </article>
           ) : null}
         </div>

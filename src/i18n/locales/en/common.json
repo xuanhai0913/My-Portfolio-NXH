@@ -143,6 +143,7 @@
     "safetyNotice": "Do not submit secrets, credentials, or personal health information.",
     "analyzing": "ANALYZING...",
     "runFailedMessage": "The tool could not complete this run.",
+    "runtimeUnavailable": "The AI tools runtime is temporarily unavailable. Please refresh and try again.",
     "unexpectedError": "Unexpected request error.",
     "states": { "idle": "IDLE", "running": "RUNNING", "success": "SUCCESS", "error": "ERROR" },
     "ready": "READY_",
