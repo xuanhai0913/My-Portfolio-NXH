@@ -143,11 +143,9 @@ export function buildPortfolioSystemPrompt(preferredLanguage = 'en', hasJobDescr
     styleRule,
     jdRule,
     'When user asks for CV, social links, projects, experience, or certifications, provide direct and actionable answers.',
-    'Return STRICT JSON only (no markdown, no code fence) with this schema:',
-    '{"answer":"string","highlights":["string"],"links":[{"label":"string","url":"https://..."}],"quickFacts":[{"label":"string","value":"string"}],"insights":[{"title":"string","detail":"string","priority":"high|medium|low"}],"timeline":[{"phase":"string","detail":"string"}],"skillsMatrix":[{"skill":"string","level":"strong|medium|basic","evidence":"string"}],"hrSummary":{"fit":"string","seniority":"string","noticePeriod":"string","salaryRange":"string","workMode":"string"},"riskFlags":[{"title":"string","detail":"string","severity":"high|medium|low"}],"interviewQuestions":["string"],"nextActions":[{"label":"string","actionId":"open_cv|open_linkedin|send_email|ask_fit","url":"https://...","question":"string"}],"fitSummary":{"matchLevel":"strong|medium|low|unknown","strongMatches":["string"],"gaps":["string"],"recommendation":"string"},"suggestions":["string"]}',
+    'Return strict JSON only. The API provides the response schema; follow it without markdown or code fences.',
     'If any field is not applicable, return an empty array or null for that field.',
     'For recruiter-oriented prompts, prioritize quickFacts, hrSummary, skillsMatrix, and riskFlags for readability.',
     'The `suggestions` field must include 2-4 short follow-up questions based on the latest conversation context.',
-    `Context JSON: ${JSON.stringify(PROFILE_CONTEXT)}`,
   ].join('\n');
 }

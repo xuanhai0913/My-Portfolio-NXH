@@ -9,6 +9,113 @@ const DEFAULT_FALLBACK_MODELS = [
 ];
 
 const RETRYABLE_STATUSES = new Set([429, 500, 502, 503, 504]);
+const STRUCTURED_RESPONSE_SCHEMA = {
+  type: 'OBJECT',
+  properties: {
+    answer: { type: 'STRING' },
+    highlights: { type: 'ARRAY', items: { type: 'STRING' } },
+    links: {
+      type: 'ARRAY',
+      items: {
+        type: 'OBJECT',
+        properties: {
+          label: { type: 'STRING' },
+          url: { type: 'STRING' },
+        },
+      },
+    },
+    quickFacts: {
+      type: 'ARRAY',
+      items: {
+        type: 'OBJECT',
+        properties: {
+          label: { type: 'STRING' },
+          value: { type: 'STRING' },
+        },
+      },
+    },
+    insights: {
+      type: 'ARRAY',
+      items: {
+        type: 'OBJECT',
+        properties: {
+          title: { type: 'STRING' },
+          detail: { type: 'STRING' },
+          priority: { type: 'STRING', enum: ['high', 'medium', 'low'] },
+        },
+      },
+    },
+    timeline: {
+      type: 'ARRAY',
+      items: {
+        type: 'OBJECT',
+        properties: {
+          phase: { type: 'STRING' },
+          detail: { type: 'STRING' },
+        },
+      },
+    },
+    skillsMatrix: {
+      type: 'ARRAY',
+      items: {
+        type: 'OBJECT',
+        properties: {
+          skill: { type: 'STRING' },
+          level: { type: 'STRING', enum: ['strong', 'medium', 'basic'] },
+          evidence: { type: 'STRING' },
+        },
+      },
+    },
+    hrSummary: {
+      type: 'OBJECT',
+      properties: {
+        fit: { type: 'STRING' },
+        seniority: { type: 'STRING' },
+        noticePeriod: { type: 'STRING' },
+        salaryRange: { type: 'STRING' },
+        workMode: { type: 'STRING' },
+      },
+    },
+    riskFlags: {
+      type: 'ARRAY',
+      items: {
+        type: 'OBJECT',
+        properties: {
+          title: { type: 'STRING' },
+          detail: { type: 'STRING' },
+          severity: { type: 'STRING', enum: ['high', 'medium', 'low'] },
+        },
+      },
+    },
+    interviewQuestions: { type: 'ARRAY', items: { type: 'STRING' } },
+    nextActions: {
+      type: 'ARRAY',
+      items: {
+        type: 'OBJECT',
+        properties: {
+          label: { type: 'STRING' },
+          actionId: {
+            type: 'STRING',
+            enum: ['open_cv', 'open_linkedin', 'send_email', 'ask_fit'],
+          },
+          url: { type: 'STRING' },
+          question: { type: 'STRING' },
+        },
+      },
+    },
+    fitSummary: {
+      type: 'OBJECT',
+      properties: {
+        matchLevel: { type: 'STRING', enum: ['strong', 'medium', 'low', 'unknown'] },
+        strongMatches: { type: 'ARRAY', items: { type: 'STRING' } },
+        gaps: { type: 'ARRAY', items: { type: 'STRING' } },
+        recommendation: { type: 'STRING' },
+      },
+    },
+    suggestions: { type: 'ARRAY', items: { type: 'STRING' } },
+  },
+  required: ['answer', 'highlights', 'links', 'suggestions'],
+};
 
 function resolveFallbackModels() {
   const raw = process.env.GEMINI_FALLBACK_MODELS;
@@ -113,10 +220,38 @@ function getFieldCaseInsensitive(obj, fieldName) {
   return key ? obj[key] : undefined;
 }
 
+function extractJsonStringField(text, fieldName) {
+  const fieldPattern = new RegExp(`"(?:${fieldName})"\\s*:\\s*"`, 'i');
+  const match = fieldPattern.exec(text);
+  if (!match) return '';
+
+  const start = match.index + match[0].length;
+  let escaped = false;
+
+  for (let index = start; index < text.length; index += 1) {
+    const char = text[index];
+    if (char === '"' && !escaped) {
+      const rawValue = text.slice(start, index);
+      try {
+        return JSON.parse(`"${rawValue}"`).trim();
+      } catch (error) {
+        return rawValue
+          .replace(/\\"/g, '"')
+          .replace(/\\n/g, '\n')
+          .replace(/\\\\/g, '\\')
+          .trim();
+      }
+    }
+    escaped = char === '\\' && !escaped;
+    if (char !== '\\') escaped = false;
+  }
+
+  return '';
+}
+
 function extractStructuredFromJsonLikeText(text) {
   if (!text || typeof text !== 'string') return null;
 
-  const answerMatch = text.match(/"(?:answer|ANSWER|Answer)"\s*:\s*"([\s\S]*?)"\s*,/);
   const rawHighlights = [];
   const highlightRegex = /"(?:highlights|HIGHLIGHTS|Highlights)"\s*:\s*\[([\s\S]*?)\]/m;
   const highlightsMatch = text.match(highlightRegex);
@@ -129,7 +264,7 @@ function extractStructuredFromJsonLikeText(text) {
     }
   }
 
-  const answer = answerMatch?.[1]?.trim() || '';
+  const answer = extractJsonStringField(text, 'answer');
   if (!answer && rawHighlights.length === 0) return null;
 
   return {
@@ -147,6 +282,31 @@ function extractStructuredFromJsonLikeText(text) {
     fitSummary: null,
     suggestions: [],
   };
+}
+
+function buildReadableStructuredText(structuredResponse, isVietnamese) {
+  if (!structuredResponse) return '';
+  if (structuredResponse.answer) return structuredResponse.answer;
+
+  if (structuredResponse.highlights?.length) {
+    return structuredResponse.highlights.map((item) => `• ${item}`).join('\n');
+  }
+
+  if (structuredResponse.quickFacts?.length) {
+    return structuredResponse.quickFacts
+      .map((item) => `• ${item.label}: ${item.value}`)
+      .join('\n');
+  }
+
+  if (structuredResponse.insights?.length) {
+    return structuredResponse.insights
+      .map((item) => `• ${item.title}${item.detail ? `: ${item.detail}` : ''}`)
+      .join('\n');
+  }
+
+  return isVietnamese
+    ? 'Mình chưa tạo được câu trả lời hoàn chỉnh. Bạn hãy thử hỏi lại ngắn gọn hơn.'
+    : 'I could not build a complete answer. Please try a shorter version of the question.';
 }
 
 function normalizeStructuredResponse(parsed) {
@@ -429,10 +589,11 @@ module.exports = async (req, res) => {
       },
     ],
     generationConfig: {
-      temperature: 0.65,
-      maxOutputTokens: 1024,
-      topP: 0.9,
+      temperature: 0.35,
+      maxOutputTokens: 3072,
+      topP: 0.85,
       responseMimeType: 'application/json',
+      responseSchema: STRUCTURED_RESPONSE_SCHEMA,
     },
   };
 
@@ -447,8 +608,10 @@ module.exports = async (req, res) => {
       const structuredResponse = normalizeStructuredResponse(parsed) || extractStructuredFromJsonLikeText(responseText);
       const fallbackText = stripMarkdownNoise(responseText);
       const looksLikeRawJson = /^\s*\{[\s\S]*$/m.test(fallbackText);
-      const safeText = structuredResponse?.answer
-        || (looksLikeRawJson ? 'The response format was incomplete. Please try regenerate.' : fallbackText);
+      const isVietnamese = /\bVietnamese\b|tiếng Việt/i.test(systemPrompt || '');
+      const safeText = structuredResponse
+        ? buildReadableStructuredText(structuredResponse, isVietnamese)
+        : (looksLikeRawJson ? '' : fallbackText);
 
       if (result.ok && safeText) {
         return res.status(200).json({
@@ -457,6 +620,19 @@ module.exports = async (req, res) => {
           fallbackTried: triedModels.length - 1,
           responseText: safeText,
           structuredResponse,
+        });
+      }
+
+      if (result.ok && looksLikeRawJson && !structuredResponse) {
+        if (model !== fallbackModels[fallbackModels.length - 1]) continue;
+        return res.status(502).json({
+          success: false,
+          errorType: 'invalid_structured_response',
+          modelUsed: model,
+          fallbackTried: triedModels.length - 1,
+          message: isVietnamese
+            ? 'Trợ lý chưa tạo được câu trả lời hoàn chỉnh. Vui lòng thử lại.'
+            : 'The assistant could not build a complete answer. Please try again.',
         });
       }
 
