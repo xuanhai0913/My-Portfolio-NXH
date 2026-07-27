@@ -99,7 +99,8 @@
     "styles": {
       "brief": "Brief",
       "detailed": "Detailed",
-      "fit": "Fit"
+      "fit": "Fit",
+      "technical": "Technical"
     },
     "quickEmail": "Quick Email",
     "uploadJd": "Upload JD (.txt/.md)",
@@ -122,8 +123,8 @@
     "jdReadError": "Unable to read the JD file.",
     "jdRemoved": "JD context removed.",
     "enterCommand": "Please enter a command after /.",
-    "validStyles": "Valid styles: brief | detailed | fit.",
-    "quickCommands": "Quick commands: /copy, /txt, /pdf, /regen, /clear, /jd, /style brief|detailed|fit, /help",
+    "validStyles": "Valid styles: brief | detailed | fit | technical.",
+    "quickCommands": "Quick commands: /copy, /txt, /pdf, /regen, /clear, /jd, /style brief|detailed|fit|technical, /help",
     "unsupportedCommand": "Unsupported command /{{command}}.",
     "commandHints": {
       "copy": "Copy transcript",
@@ -135,6 +136,7 @@
       "brief": "Set brief style",
       "detailed": "Set detailed style",
       "fit": "Set fit style",
+      "technical": "Set technical style",
       "help": "Show quick command list",
       "showDebug": "Show debug panel",
       "hideDebug": "Hide debug panel"

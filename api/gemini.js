@@ -12,7 +12,10 @@ const RETRYABLE_STATUSES = new Set([429, 500, 502, 503, 504]);
 const STRUCTURED_RESPONSE_SCHEMA = {
   type: 'OBJECT',
   properties: {
-    answer: { type: 'STRING' },
+    answer: {
+      type: 'STRING',
+      description: 'Primary response in GitHub-flavored Markdown when formatting improves readability.',
+    },
     highlights: { type: 'ARRAY', items: { type: 'STRING' } },
     links: {
       type: 'ARRAY',

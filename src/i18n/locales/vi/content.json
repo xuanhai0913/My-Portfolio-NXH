@@ -99,7 +99,8 @@
     "styles": {
       "brief": "Ngắn gọn",
       "detailed": "Chi tiết",
-      "fit": "Độ phù hợp"
+      "fit": "Độ phù hợp",
+      "technical": "Kỹ thuật"
     },
     "quickEmail": "Gửi email nhanh",
     "uploadJd": "Tải JD (.txt/.md)",
@@ -122,8 +123,8 @@
     "jdReadError": "Không thể đọc file JD.",
     "jdRemoved": "Đã xóa ngữ cảnh JD.",
     "enterCommand": "Hãy nhập lệnh sau dấu /.",
-    "validStyles": "Kiểu hợp lệ: brief | detailed | fit.",
-    "quickCommands": "Lệnh nhanh: /copy, /txt, /pdf, /regen, /clear, /jd, /style brief|detailed|fit, /help",
+    "validStyles": "Kiểu hợp lệ: brief | detailed | fit | technical.",
+    "quickCommands": "Lệnh nhanh: /copy, /txt, /pdf, /regen, /clear, /jd, /style brief|detailed|fit|technical, /help",
     "unsupportedCommand": "Không hỗ trợ lệnh /{{command}}.",
     "commandHints": {
       "copy": "Sao chép cuộc trò chuyện",
@@ -135,6 +136,7 @@
       "brief": "Chọn kiểu ngắn gọn",
       "detailed": "Chọn kiểu chi tiết",
       "fit": "Chọn kiểu độ phù hợp",
+      "technical": "Chọn kiểu kỹ thuật",
       "help": "Hiện danh sách lệnh nhanh",
       "showDebug": "Hiện bảng gỡ lỗi",
       "hideDebug": "Ẩn bảng gỡ lỗi"

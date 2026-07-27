@@ -52,6 +52,221 @@ function getCaseInsensitiveField(obj, fieldName) {
   return key ? obj[key] : undefined;
 }
 
+function getSafeMarkdownUrl(value) {
+  const url = String(value || '').trim();
+  if (/^(https?:\/\/|mailto:|tel:)/i.test(url)) return url;
+  return '';
+}
+
+function renderInlineMarkdown(text, keyPrefix = 'inline') {
+  const source = String(text || '');
+  const tokenPattern = /(`[^`\n]+`|\*\*[^*\n]+\*\*|__[^_\n]+__|\[[^\]\n]+\]\([^) \n]+\)|~~[^~\n]+~~|\*[^*\n]+\*)/g;
+  const nodes = [];
+  let cursor = 0;
+  let match;
+  let index = 0;
+
+  while ((match = tokenPattern.exec(source)) !== null) {
+    if (match.index > cursor) {
+      nodes.push(source.slice(cursor, match.index));
+    }
+
+    const token = match[0];
+    const key = `${keyPrefix}-${index}`;
+
+    if (token.startsWith('`')) {
+      nodes.push(<code key={key}>{token.slice(1, -1)}</code>);
+    } else if (token.startsWith('**') || token.startsWith('__')) {
+      nodes.push(<strong key={key}>{token.slice(2, -2)}</strong>);
+    } else if (token.startsWith('~~')) {
+      nodes.push(<del key={key}>{token.slice(2, -2)}</del>);
+    } else if (token.startsWith('[')) {
+      const linkMatch = token.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+      const safeUrl = getSafeMarkdownUrl(linkMatch?.[2]);
+      nodes.push(safeUrl ? (
+        <a key={key} href={safeUrl} target="_blank" rel="noopener noreferrer">
+          {linkMatch[1]}
+        </a>
+      ) : linkMatch?.[1] || token);
+    } else {
+      nodes.push(<em key={key}>{token.slice(1, -1)}</em>);
+    }
+
+    cursor = match.index + token.length;
+    index += 1;
+  }
+
+  if (cursor < source.length) nodes.push(source.slice(cursor));
+  return nodes;
+}
+
+function splitMarkdownTableRow(line) {
+  return line
+    .trim()
+    .replace(/^\|/, '')
+    .replace(/\|$/, '')
+    .split('|')
+    .map((cell) => cell.trim());
+}
+
+function isMarkdownTableDivider(line) {
+  const cells = splitMarkdownTableRow(line);
+  return cells.length > 0 && cells.every((cell) => /^:?-{3,}:?$/.test(cell));
+}
+
+function MarkdownMessage({ children }) {
+  const lines = String(children || '').replace(/\r\n/g, '\n').split('\n');
+  const blocks = [];
+  let index = 0;
+
+  while (index < lines.length) {
+    const line = lines[index];
+    const trimmed = line.trim();
+
+    if (!trimmed) {
+      index += 1;
+      continue;
+    }
+
+    const fenceMatch = trimmed.match(/^```([\w.+#-]*)\s*$/);
+    if (fenceMatch) {
+      const codeLines = [];
+      index += 1;
+      while (index < lines.length && !lines[index].trim().startsWith('```')) {
+        codeLines.push(lines[index]);
+        index += 1;
+      }
+      if (index < lines.length) index += 1;
+      blocks.push(
+        <pre key={`code-${index}`} data-language={fenceMatch[1] || 'text'}>
+          <code>{codeLines.join('\n')}</code>
+        </pre>
+      );
+      continue;
+    }
+
+    if (index + 1 < lines.length && line.includes('|') && isMarkdownTableDivider(lines[index + 1])) {
+      const headers = splitMarkdownTableRow(line);
+      const rows = [];
+      index += 2;
+      while (index < lines.length && lines[index].includes('|') && lines[index].trim()) {
+        rows.push(splitMarkdownTableRow(lines[index]));
+        index += 1;
+      }
+      blocks.push(
+        <div className="chat-markdown-table-wrap" key={`table-${index}`}>
+          <table>
+            <thead>
+              <tr>
+                {headers.map((cell, cellIndex) => (
+                  <th key={`head-${cellIndex}`}>{renderInlineMarkdown(cell, `head-${cellIndex}`)}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((row, rowIndex) => (
+                <tr key={`row-${rowIndex}`}>
+                  {headers.map((_, cellIndex) => (
+                    <td key={`cell-${rowIndex}-${cellIndex}`}>
+                      {renderInlineMarkdown(row[cellIndex] || '', `cell-${rowIndex}-${cellIndex}`)}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
+      continue;
+    }
+
+    const headingMatch = trimmed.match(/^(#{1,4})\s+(.+)$/);
+    if (headingMatch) {
+      const level = headingMatch[1].length;
+      const HeadingTag = `h${Math.min(level + 2, 6)}`;
+      blocks.push(
+        <HeadingTag key={`heading-${index}`}>
+          {renderInlineMarkdown(headingMatch[2], `heading-${index}`)}
+        </HeadingTag>
+      );
+      index += 1;
+      continue;
+    }
+
+    if (/^>\s?/.test(trimmed)) {
+      const quoteLines = [];
+      while (index < lines.length && /^>\s?/.test(lines[index].trim())) {
+        quoteLines.push(lines[index].trim().replace(/^>\s?/, ''));
+        index += 1;
+      }
+      blocks.push(
+        <blockquote key={`quote-${index}`}>
+          {renderInlineMarkdown(quoteLines.join(' '), `quote-${index}`)}
+        </blockquote>
+      );
+      continue;
+    }
+
+    if (/^([-*_])\1{2,}$/.test(trimmed)) {
+      blocks.push(<hr key={`hr-${index}`} />);
+      index += 1;
+      continue;
+    }
+
+    const listMatch = trimmed.match(/^([-*+]|\d+\.)\s+(.+)$/);
+    if (listMatch) {
+      const ordered = /\d+\./.test(listMatch[1]);
+      const items = [];
+      while (index < lines.length) {
+        const current = lines[index].trim().match(/^([-*+]|\d+\.)\s+(.+)$/);
+        if (!current || /\d+\./.test(current[1]) !== ordered) break;
+        const checklist = current[2].match(/^\[([ xX])\]\s+(.+)$/);
+        items.push({
+          checked: checklist ? checklist[1].toLowerCase() === 'x' : null,
+          text: checklist ? checklist[2] : current[2],
+        });
+        index += 1;
+      }
+      const ListTag = ordered ? 'ol' : 'ul';
+      const listBlockIndex = index;
+      blocks.push(
+        <ListTag key={`list-${listBlockIndex}`} className={items.some((item) => item.checked !== null) ? 'chat-checklist' : ''}>
+          {items.map((item, itemIndex) => (
+            <li key={`item-${itemIndex}`}>
+              {item.checked !== null ? (
+                <span className={`chat-check-state ${item.checked ? 'checked' : ''}`} aria-hidden="true">
+                  {item.checked ? '✓' : ''}
+                </span>
+              ) : null}
+              <span>{renderInlineMarkdown(item.text, `list-${listBlockIndex}-${itemIndex}`)}</span>
+            </li>
+          ))}
+        </ListTag>
+      );
+      continue;
+    }
+
+    const paragraphLines = [trimmed];
+    index += 1;
+    while (
+      index < lines.length
+      && lines[index].trim()
+      && !/^(```|#{1,4}\s|>\s?|[-*+]\s+|\d+\.\s+|([-*_])\2{2,}$)/.test(lines[index].trim())
+      && !(index + 1 < lines.length && lines[index].includes('|') && isMarkdownTableDivider(lines[index + 1]))
+    ) {
+      paragraphLines.push(lines[index].trim());
+      index += 1;
+    }
+    blocks.push(
+      <p key={`paragraph-${index}`}>
+        {renderInlineMarkdown(paragraphLines.join(' '), `paragraph-${index}`)}
+      </p>
+    );
+  }
+
+  return <div className="chat-markdown">{blocks}</div>;
+}
+
 function parseJsonLikeAssistantContent(content, t) {
   if (!content || typeof content !== 'string') return null;
   const trimmed = content.trim();
@@ -888,7 +1103,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
 
     if (command === 'style') {
       const nextStyle = (args[0] || '').toLowerCase();
-      if (['brief', 'detailed', 'fit'].includes(nextStyle)) {
+      if (['brief', 'detailed', 'fit', 'technical'].includes(nextStyle)) {
         handleChangeResponseStyle(nextStyle);
       } else {
         showToast(t('chat.validStyles'), 'error');
@@ -922,6 +1137,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
       { key: '/style brief', hint: t('chat.commandHints.brief') },
       { key: '/style detailed', hint: t('chat.commandHints.detailed') },
       { key: '/style fit', hint: t('chat.commandHints.fit') },
+      { key: '/style technical', hint: t('chat.commandHints.technical') },
       { key: '/help', hint: t('chat.commandHints.help') },
     ];
 
@@ -1479,7 +1695,9 @@ const ChatWidget = ({ mode = 'floating' }) => {
                   <span className="chat-message-author">
                     {message.role === 'assistant' ? t('chat.assistantName') : t('chat.you')}
                   </span>
-                  <p>{displayText}</p>
+                  {message.role === 'assistant'
+                    ? <MarkdownMessage>{displayText}</MarkdownMessage>
+                    : <p>{displayText}</p>}
                   {displayAction ? (
                     <ActionCard
                       action={displayAction}
@@ -1517,7 +1735,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
           <div className="chat-style-row">
             <span>{t('chat.responseStyle')}</span>
             <div className="chat-style-actions">
-              {['brief', 'detailed', 'fit'].map((item) => (
+              {['brief', 'detailed', 'fit', 'technical'].map((item) => (
                 <button
                   key={item}
                   type="button"

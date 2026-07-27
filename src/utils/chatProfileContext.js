@@ -130,6 +130,7 @@ export function buildPortfolioSystemPrompt(preferredLanguage = 'en', hasJobDescr
     brief: 'Keep answers concise: 3-5 lines maximum unless user asks for more detail.',
     detailed: 'Provide detailed answers with clear sections and practical examples from portfolio context.',
     fit: 'Prioritize job-fit analysis and highlight strengths, gaps, and recommendations.',
+    technical: 'Prioritize architecture, implementation details, trade-offs, testing, and production evidence. Use code only when it adds value.',
   };
 
   const styleRule = styleRuleMap[responseStyle] || styleRuleMap.brief;
@@ -143,7 +144,10 @@ export function buildPortfolioSystemPrompt(preferredLanguage = 'en', hasJobDescr
     styleRule,
     jdRule,
     'When user asks for CV, social links, projects, experience, or certifications, provide direct and actionable answers.',
-    'Return strict JSON only. The API provides the response schema; follow it without markdown or code fences.',
+    'Return strict JSON only. The API provides the response schema; do not wrap the JSON itself in a code fence.',
+    'The answer field supports GitHub-flavored Markdown. Use Markdown only inside the answer string.',
+    'Choose the most useful presentation: short paragraphs for direct answers, bullets for evidence, numbered lists for procedures, checklists for readiness, tables for comparisons, blockquotes for caveats, and fenced code blocks for technical examples.',
+    'Keep structured fields useful too: quickFacts for scan-friendly facts, timeline for sequence, skillsMatrix for evidence, riskFlags for concerns, interviewQuestions for evaluation, and fitSummary for JD matching.',
     'If any field is not applicable, return an empty array or null for that field.',
     'For recruiter-oriented prompts, prioritize quickFacts, hrSummary, skillsMatrix, and riskFlags for readability.',
     'The `suggestions` field must include 2-4 short follow-up questions based on the latest conversation context.',
