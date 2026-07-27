@@ -2,11 +2,33 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import useLocaleNavigation from '../../hooks/useLocaleNavigation';
-import '@fortawesome/fontawesome-free/css/all.min.css';
 import './styles/Header.css';
 
-// Logo from Cloudinary CDN (full logo with text)
-const logoFull = 'https://res.cloudinary.com/dqdcqtu8m/image/upload/v1765001214/Logo_st3nmr.png';
+const ICON_PATHS = {
+  home: <><path d="m3 11 9-8 9 8" /><path d="M5 10v10h14V10" /><path d="M9 20v-6h6v6" /></>,
+  user: <><circle cx="12" cy="8" r="4" /><path d="M4 21a8 8 0 0 1 16 0" /></>,
+  portfolio: <><path d="m12 3-9 5 9 5 9-5-9-5Z" /><path d="m3 12 9 5 9-5" /><path d="m3 16 9 5 9-5" /></>,
+  certifications: <><circle cx="12" cy="9" r="6" /><path d="m8 14-1 7 5-3 5 3-1-7" /><path d="m12 6 1 2 2 .5-1.5 1.5.5 2-2-1-2 1 .5-2L9 8.5l2-.5 1-2Z" /></>,
+  tools: <><path d="M14.5 6.5a4 4 0 0 0-5-5L12 4 9 7 6.5 4.5a4 4 0 0 0 5 5L20 18l-2 2-8.5-8.5" /><path d="m5 15-3 3 4 4 3-3" /></>,
+  blog: <><path d="M4 20h4L20 8l-4-4L4 16v4Z" /><path d="m14 6 4 4" /></>,
+  contact: <><path d="m22 2-7 20-4-9-9-4 20-7Z" /><path d="m22 2-11 11" /></>,
+  globe: <><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" /></>
+};
+
+const HeaderIcon = ({ name }) => (
+  <svg
+    className="header-icon"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    {ICON_PATHS[name]}
+  </svg>
+);
 
 const Header = () => {
   const { t } = useTranslation();
@@ -16,6 +38,18 @@ const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const scrolledRef = useRef(false);
   const rafRef = useRef(null);
+
+  const closeNav = useCallback(() => {
+    setIsNavOpen(false);
+    document.body.style.overflow = 'auto';
+  }, []);
+
+  const toggleNav = useCallback(() => {
+    setIsNavOpen((wasOpen) => {
+      document.body.style.overflow = wasOpen ? 'auto' : 'hidden';
+      return !wasOpen;
+    });
+  }, []);
 
   const onScroll = useCallback(() => {
     if (rafRef.current) return;
@@ -38,17 +72,20 @@ const Header = () => {
     };
   }, [onScroll]);
 
-  const toggleNav = () => {
-    setIsNavOpen((wasOpen) => {
-      document.body.style.overflow = wasOpen ? 'auto' : 'hidden';
-      return !wasOpen;
-    });
-  };
+  useEffect(() => {
+    closeNav();
+  }, [closeNav, location.pathname]);
 
-  const closeNav = () => {
-    setIsNavOpen(false);
-    document.body.style.overflow = 'auto';
-  };
+  useEffect(() => {
+    if (!isNavOpen) return undefined;
+
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape') closeNav();
+    };
+
+    window.addEventListener('keydown', closeOnEscape);
+    return () => window.removeEventListener('keydown', closeOnEscape);
+  }, [closeNav, isNavOpen]);
 
   const handleLocaleChange = () => {
     closeNav();
@@ -56,13 +93,13 @@ const Header = () => {
   };
 
   const navItems = [
-    { id: 'home', icon: 'fa-house', label: t('header.home', { defaultValue: 'Home' }), href: '#profile' },
-    { id: 'about', icon: 'fa-user', label: t('header.about', { defaultValue: 'About' }), href: '#about' },
-    { id: 'portfolio', icon: 'fa-layer-group', label: t('header.portfolio', { defaultValue: 'Portfolio' }), href: '#portfolio' },
-    { id: 'certifications', icon: 'fa-certificate', label: t('header.certifications', { defaultValue: 'Certifications' }), href: '#certifications' },
-    { id: 'tools', icon: 'fa-screwdriver-wrench', label: t('header.tools', { defaultValue: 'Tools' }), href: '/tools', isRoute: true },
-    { id: 'blog', icon: 'fa-pen-nib', label: t('header.blog', { defaultValue: 'Blog' }), href: '/blog', isRoute: true },
-    { id: 'contact', icon: 'fa-paper-plane', label: t('header.contact', { defaultValue: 'Contact' }), href: '#contact' }
+    { id: 'home', icon: 'home', label: t('header.home', { defaultValue: 'Home' }), href: '#profile' },
+    { id: 'about', icon: 'user', label: t('header.about', { defaultValue: 'About' }), href: '#about' },
+    { id: 'portfolio', icon: 'portfolio', label: t('header.portfolio', { defaultValue: 'Portfolio' }), href: '#portfolio' },
+    { id: 'certifications', icon: 'certifications', label: t('header.certifications', { defaultValue: 'Certifications' }), href: '#certifications' },
+    { id: 'tools', icon: 'tools', label: t('header.tools', { defaultValue: 'Tools' }), href: '/tools', isRoute: true },
+    { id: 'blog', icon: 'blog', label: t('header.blog', { defaultValue: 'Blog' }), href: '/blog', isRoute: true },
+    { id: 'contact', icon: 'contact', label: t('header.contact', { defaultValue: 'Contact' }), href: '#contact' }
   ];
 
   const localizedRoot = localizePath('/');
@@ -70,7 +107,13 @@ const Header = () => {
 
   return (
     <header className={`header ${scrolled ? 'header--scrolled' : ''} ${isNavOpen ? 'header--open' : ''}`}>
-      <div className="header-overlay" onClick={closeNav} aria-hidden="true"></div>
+      <button
+        type="button"
+        className="header-overlay"
+        onClick={closeNav}
+        aria-label={t('header.closeNavigation', { defaultValue: 'Close navigation' })}
+        tabIndex={isNavOpen ? 0 : -1}
+      />
       <div className="nav-container">
         <div className="logo-container">
           <Link
@@ -79,7 +122,6 @@ const Header = () => {
             onClick={closeNav}
             aria-label={t('header.home', { defaultValue: 'Home' })}
           >
-            <img src={logoFull} alt="HaiLam Dev" className="logo-full" />
             <span className="logo-mark" aria-hidden="true">NXH</span>
           </Link>
         </div>
@@ -96,7 +138,7 @@ const Header = () => {
                     aria-label={item.label}
                     data-tooltip={item.label}
                   >
-                    <i className={`fa-solid ${item.icon}`} aria-hidden="true"></i>
+                    <HeaderIcon name={item.icon} />
                     <span className="nav-label">{item.label}</span>
                   </Link>
                 ) : isSubRoute ? (
@@ -106,12 +148,12 @@ const Header = () => {
                     aria-label={item.label}
                     data-tooltip={item.label}
                   >
-                    <i className={`fa-solid ${item.icon}`} aria-hidden="true"></i>
+                    <HeaderIcon name={item.icon} />
                     <span className="nav-label">{item.label}</span>
                   </Link>
                 ) : (
                   <a href={item.href} onClick={closeNav} aria-label={item.label} data-tooltip={item.label}>
-                    <i className={`fa-solid ${item.icon}`} aria-hidden="true"></i>
+                    <HeaderIcon name={item.icon} />
                     <span className="nav-label">{item.label}</span>
                   </a>
                 )}
@@ -132,11 +174,12 @@ const Header = () => {
               ? t('header.switchToVietnamese', { defaultValue: 'Switch to Vietnamese' })
               : t('header.switchToEnglish', { defaultValue: 'Switch to English' })}
           >
-            <i className="fa-solid fa-globe" aria-hidden="true"></i>
-            <span>{locale.toUpperCase()}</span>
+            <HeaderIcon name="globe" />
+            <span translate="no">{locale.toUpperCase()}</span>
           </button>
 
           <button
+            type="button"
             className={`nav-toggle ${isNavOpen ? 'active' : ''}`}
             onClick={toggleNav}
             aria-label={t('header.toggleNavigation', { defaultValue: 'Toggle navigation' })}

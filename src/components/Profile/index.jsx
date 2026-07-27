@@ -1,21 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ExperiencePopup from './ExperiencePopup';
 import CVPreview from './CVPreview';
 import './homeTranslations';
 import './styles/Profile.css';
 
-const profileImage = '/images/og-image.jpg';
+const profileImage = '/images/profile-hero.webp';
 
 const Profile = () => {
   const { t } = useTranslation('home');
-  const [loaded, setLoaded] = useState(false);
   const [showExperience, setShowExperience] = useState(false);
   const [showCV, setShowCV] = useState(false);
-
-  useEffect(() => {
-    setLoaded(true);
-  }, []);
 
   return (
     <section id="profile" className="profile-section">
@@ -24,15 +19,15 @@ const Profile = () => {
         {/* Left: Typography */}
         <div className="profile-content">
           <h1 className="hero-title">
-            <span className={`hero-line line-1 ${loaded ? 'in-view' : ''}`}>
+            <span className="hero-line line-1">
               {t('profile.titleLine1')}
             </span>
-            <span className={`hero-line line-2 ${loaded ? 'in-view' : ''}`}>
+            <span className="hero-line line-2">
               <span className="hollow-text">{t('profile.titleLine2')}</span>
             </span>
           </h1>
 
-          <div className={`hero-sub ${loaded ? 'in-view' : ''}`}>
+          <div className="hero-sub">
             <p>
               {t('profile.introBeforeName')}{' '}
               <span className="neon-highlight">Nguyễn Xuân Hải</span>{' '}
@@ -41,7 +36,7 @@ const Profile = () => {
             </p>
           </div>
 
-          <div className={`hero-cta ${loaded ? 'in-view' : ''}`}>
+          <div className="hero-cta">
             <button
               onClick={() => setShowCV(true)}
               className="btn-brutalist btn-view-cv"
@@ -58,25 +53,17 @@ const Profile = () => {
         </div>
 
         {/* Right: Glitch Image */}
-        <div className={`profile-visual ${loaded ? 'in-view' : ''}`}>
+        <div className="profile-visual">
           <div className="glitch-frame">
             <div className="glitch-image-wrapper">
               <img
                 src={profileImage}
                 alt={t('profile.profileImageAlt')}
                 className="profile-img main-img"
-              />
-              <img
-                src={profileImage}
-                alt=""
-                className="profile-img glitch-layer layer-1"
-                aria-hidden="true"
-              />
-              <img
-                src={profileImage}
-                alt=""
-                className="profile-img glitch-layer layer-2"
-                aria-hidden="true"
+                width="665"
+                height="1182"
+                fetchpriority="high"
+                decoding="async"
               />
             </div>
 

@@ -77,7 +77,9 @@ export const PROFILE_CONTEXT = {
     'Applies AI pragmatically for issue analysis, documentation, QA support and operations without replacing engineering judgment.',
   ],
   certifications: [
+    'AWS Knowledge: Cloud Essentials - Training Badge (AWS Training & Certification, Jul 2026; verified via Credly)',
     'AWS Cloud Practitioner Essentials - Completion Certificate (AWS Training & Certification, Jul 2026)',
+    'AWS Database Migration Service Overview - Completion Certificate (AWS Training & Certification, Jul 2026; verified via AWS Skill Builder)',
     'AWS Educate Getting Started with Databases - Training Badge (AWS Training & Certification, Jul 2026; verified via Credly)',
     'AWS Educate Introduction to Generative AI - Training Badge (AWS Training & Certification, Jul 2026; verified via Credly)',
     'AWS Educate Machine Learning Foundations - Training Badge (AWS Training & Certification, Jul 2026; verified via Credly)',
@@ -88,6 +90,8 @@ export const PROFILE_CONTEXT = {
     'AWS Knowledge: Events and Workflows - Training Badge (AWS Training & Certification, Jul 2026; verified via Credly; Step Functions, EventBridge, SQS and SNS)',
     'AWS Knowledge: Serverless - Training Badge (AWS Training & Certification, Jul 2026; verified via Credly; Lambda and API Gateway)',
     'AWS serverless and applied AI course completions: Episode 2 - Powering the Backend, AWS Amplify Getting Started, AIP-C01 Domain 1 Review, and VectorDB vs GraphDB for Gen AI Agents (Jul 2026)',
+    'AWS Certified AI Practitioner preparation: AIF-C01 Domain 2 Review, Official Practice Question Set, and Domain 3 Review (AWS Training & Certification, Jul 2026)',
+    'AWS applied AI and ML learning: Generative AI for Executives and Planning a Machine Learning Project (AWS Training & Certification, Jul 2026)',
     'Essential Google Cloud Infrastructure: Foundation - Completion Badge (Google Cloud Skills Boost, Jul 2026; verified via Google Skills)',
     'Google Gen AI Leader learning path: Beyond the Chatbot, Unlock Foundational Concepts, Navigate the Landscape, Apps: Transform Your Work, and Agents: Transform Your Organization (Google Cloud Skills, Jul 2026)',
     'Software Development Lifecycle (AIAcademy by AIPOWER, Jul 2026)',

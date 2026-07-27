@@ -1,14 +1,11 @@
 import React, { useRef, useCallback, useState } from 'react';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import './styles/Experience.css';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
 import enExperience from '../../i18n/locales/en/experience.json';
 import viExperience from '../../i18n/locales/vi/experience.json';
 import { WORK_EXPERIENCE } from '../../utils/constants';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const EXPERIENCE_KEYS = ['betodemy', 'aiPower', 'oakMindGroup'];
 
@@ -26,8 +23,8 @@ const Experience = () => {
     const videoRef = useRef(null);
     const audioRef = useRef(null);
     const [inView, setInView] = useState(false);
-    const [isMuted, setIsMuted] = useState(false);
-    const isMutedRef = useRef(false);
+    const [isMuted, setIsMuted] = useState(true);
+    const isMutedRef = useRef(true);
     const inViewRef = useRef(false);
     const audioUnlockedRef = useRef(false);
     const fadeIntervalRef = useRef(null);
@@ -79,11 +76,13 @@ const Experience = () => {
                 if (entry.isIntersecting) {
                     setInView(true);
                     inViewRef.current = true;
+                    videoRef.current?.play().catch(() => { });
                     // Auto-play if audio was already activated
                     startAudio();
                 } else {
                     setInView(false);
                     inViewRef.current = false;
+                    videoRef.current?.pause();
                     const audio = audioRef.current;
                     if (audio && !audio.paused) {
                         fadeAudio(audio, 0, 600);
@@ -94,47 +93,14 @@ const Experience = () => {
         );
         if (sectionRef.current) observer.observe(sectionRef.current);
 
-        let tl;
         const audio = audioRef.current;
-
-        // GSAP ScrollTrigger for Video Background
-        const video = videoRef.current;
-        if (video) {
-            fetch("/Nhan_Gai_Optimized.mp4")
-                .then(res => res.blob())
-                .then(blob => {
-                    const objectUrl = URL.createObjectURL(blob);
-                    video.src = objectUrl;
-                    video.onloadedmetadata = () => {
-                        tl = gsap.timeline({
-                            scrollTrigger: {
-                                trigger: sectionRef.current,
-                                start: "top bottom",
-                                end: "bottom top",
-                                scrub: true,
-                            }
-                        });
-                        tl.fromTo(video,
-                            { currentTime: 0 },
-                            { currentTime: video.duration, ease: "none" }
-                        );
-                        ScrollTrigger.refresh();
-                    };
-                })
-                .catch(() => {
-                    video.src = "/Nhan_Gai_Optimized.mp4";
-                });
-        }
 
         return () => {
             observer.disconnect();
             window.removeEventListener('audioActivated', onAudioActivated);
             if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
-            if (tl) {
-                if (tl.scrollTrigger) tl.scrollTrigger.kill();
-                tl.kill();
-            }
             if (audio) { audio.pause(); audio.currentTime = 0; }
+            videoRef.current?.pause();
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -146,6 +112,7 @@ const Experience = () => {
         if (isMuted) {
             setIsMuted(false);
             isMutedRef.current = false;
+            audioUnlockedRef.current = true;
             audio.volume = 0.1;
             audio.play().then(() => {
                 fadeAudio(audio, 0.4, 400);
@@ -160,7 +127,7 @@ const Experience = () => {
     return (
         <section id="experience" className="experience-section" ref={sectionRef}>
             {/* Background Audio */}
-            <audio ref={audioRef} src="/audio/EXPERIENCE.mp3" loop preload="auto" />
+            <audio ref={audioRef} src="/audio/EXPERIENCE.mp3" loop preload="none" />
 
             {/* Mute/Unmute Toggle — show when section is in view */}
             {inView && (
@@ -182,7 +149,8 @@ const Experience = () => {
                     src="/Nhan_Gai_Optimized.mp4"
                     muted
                     playsInline
-                    loop={false}
+                    loop
+                    preload="none"
                 />
                 <div className="experience-bg-overlay"></div>
             </div>

@@ -17,6 +17,8 @@ import certAip103 from '../../images/certs/cert-aipower-aip103.webp';
 import certAip104 from '../../images/certs/cert-aipower-aip104.webp';
 import certAip106 from '../../images/certs/cert-aipower-aip106.webp';
 import certAwsCloudPractitioner from '../../images/certs/cert-aws-cloud-practitioner-essentials.png';
+import certAwsCloudEssentialsBadge from '../../images/certs/cert-aws-cloud-essentials-badge.png';
+import certAwsDmsOverview from '../../images/certs/cert-aws-database-migration-service-overview.png';
 import certAwsDatabases from '../../images/certs/cert-aws-educate-getting-started-with-databases.png';
 import certAwsGenerativeAi from '../../images/certs/cert-aws-educate-generative-ai.png';
 import certAwsMachineLearning from '../../images/certs/cert-aws-educate-machine-learning-foundations.png';
@@ -35,6 +37,11 @@ import certAwsServerlessKnowledgeBadge from '../../images/certs/cert-aws-serverl
 import certAwsEpisode2Backend from '../../images/certs/cert-aws-episode-2-powering-backend.png';
 import certAwsAmplify from '../../images/certs/cert-aws-amplify-getting-started.png';
 import certAwsAipDomain1 from '../../images/certs/cert-aws-aip-c01-domain-1-review.png';
+import certAwsAifDomain2 from '../../images/certs/cert-aws-aif-c01-domain-2-review.png';
+import certAwsAifPracticeSet from '../../images/certs/cert-aws-aif-c01-official-practice-question-set.png';
+import certAwsAifDomain3 from '../../images/certs/cert-aws-aif-c01-domain-3-review.png';
+import certAwsGenAiExecutives from '../../images/certs/cert-aws-generative-ai-for-executives.png';
+import certAwsPlanningMl from '../../images/certs/cert-aws-planning-machine-learning-project.png';
 import certAwsVectorGraph from '../../images/certs/cert-aws-vectordb-vs-graphdb-agents.png';
 import certGoogleCloudInfrastructure from '../../images/certs/cert-google-cloud-infrastructure-foundation.png';
 import certGoogleGenAiChatbot from '../../images/certs/cert-google-gen-ai-chatbot.png';
@@ -49,6 +56,18 @@ i18n.addResourceBundle('vi', 'certifications', viCertifications, true, true);
 // Certificate data
 const certificates = [
   {
+    id: 'aws-knowledge-cloud-essentials',
+    title: "AWS Knowledge: Cloud Essentials",
+    issuer: "AWS Training & Certification",
+    thumbnail: certAwsCloudEssentialsBadge,
+    verifyUrl: "https://www.credly.com/badges/1146b467-7e68-4c92-9f36-83ad6858df10/public_url",
+    description: "Verified knowledge of core AWS Cloud concepts, services, security and architecture",
+    actionLabel: "Verify training badge ↗",
+    accent: "#ff9900",
+    date: "Jul 2026",
+    tags: ['featured', 'aws', 'cloud-data']
+  },
+  {
     id: 'aws-cloud-practitioner-essentials',
     title: "AWS Cloud Practitioner Essentials",
     issuer: "AWS Training & Certification",
@@ -59,6 +78,19 @@ const certificates = [
     accent: "#ff9900",
     date: "Jul 2026",
     tags: ['featured', 'aws', 'cloud-data']
+  },
+  {
+    id: 'aws-database-migration-service-overview',
+    title: "AWS Database Migration Service Overview",
+    issuer: "AWS Training & Certification",
+    thumbnail: certAwsDmsOverview,
+    pdfUrl: "/Cert/AWS-Database-Migration-Service-Overview.pdf",
+    verifyUrl: "https://credentials.skillbuilder.aws/credential/a8a30a05-2db8-486c-9ce0-32f02d601ead",
+    description: "AWS DMS fundamentals for planning, configuring and monitoring heterogeneous database migrations",
+    actionLabel: "Verify credential ↗",
+    accent: "#ff9900",
+    date: "Jul 2026",
+    tags: ['featured', 'aws', 'cloud-data', 'engineering']
   },
   {
     id: 'aws-knowledge-events-workflows',
@@ -277,6 +309,66 @@ const certificates = [
     accent: "#ff9900",
     date: "Jul 2026",
     tags: ['aws', 'ai-ml']
+  },
+  {
+    id: 'aws-aif-c01-domain-2-review',
+    title: "AIF-C01 Domain 2 Review",
+    issuer: "AWS Training & Certification",
+    thumbnail: certAwsAifDomain2,
+    pdfUrl: "/Cert/AWS-AIF-C01-Domain-2-Review.pdf",
+    description: "Course completion for Domain 2 of the AWS Certified AI Practitioner exam guide",
+    actionLabel: "View course certificate ↗",
+    accent: "#ff9900",
+    date: "Jul 2026",
+    tags: ['aws', 'ai-ml']
+  },
+  {
+    id: 'aws-aif-c01-official-practice-question-set',
+    title: "AIF-C01 Official Practice Question Set",
+    issuer: "AWS Training & Certification",
+    thumbnail: certAwsAifPracticeSet,
+    pdfUrl: "/Cert/AWS-AIF-C01-Official-Practice-Question-Set.pdf",
+    description: "Official practice-question preparation for the AWS Certified AI Practitioner exam",
+    actionLabel: "View course certificate ↗",
+    accent: "#ff9900",
+    date: "Jul 2026",
+    tags: ['featured', 'aws', 'ai-ml']
+  },
+  {
+    id: 'aws-aif-c01-domain-3-review',
+    title: "AIF-C01 Domain 3 Review",
+    issuer: "AWS Training & Certification",
+    thumbnail: certAwsAifDomain3,
+    pdfUrl: "/Cert/AWS-AIF-C01-Domain-3-Review.pdf",
+    description: "Course completion for Domain 3 of the AWS Certified AI Practitioner exam guide",
+    actionLabel: "View course certificate ↗",
+    accent: "#ff9900",
+    date: "Jul 2026",
+    tags: ['aws', 'ai-ml']
+  },
+  {
+    id: 'aws-generative-ai-for-executives',
+    title: "Generative AI for Executives",
+    issuer: "AWS Training & Certification",
+    thumbnail: certAwsGenAiExecutives,
+    pdfUrl: "/Cert/AWS-Generative-AI-for-Executives.pdf",
+    description: "Business-focused foundations for identifying and governing generative AI opportunities",
+    actionLabel: "View completion certificate ↗",
+    accent: "#ff9900",
+    date: "Jul 2026",
+    tags: ['aws', 'ai-ml']
+  },
+  {
+    id: 'aws-planning-machine-learning-project',
+    title: "Planning a Machine Learning Project",
+    issuer: "AWS Training & Certification",
+    thumbnail: certAwsPlanningMl,
+    pdfUrl: "/Cert/AWS-Planning-a-Machine-Learning-Project.pdf",
+    description: "Practical foundations for defining ML problems, data requirements, metrics and delivery plans",
+    actionLabel: "View completion certificate ↗",
+    accent: "#ff9900",
+    date: "Jul 2026",
+    tags: ['featured', 'aws', 'ai-ml', 'engineering']
   },
   {
     id: 'aws-vectordb-vs-graphdb-agents',
@@ -519,7 +611,10 @@ const formatCertificateDate = (date, locale) => {
 
 const getActionKey = (cert) => {
   if (!cert.actionLabel) return 'actions.verifyCredential';
-  if (cert.id === 'aws-aip-c01-domain-1-review') return 'actions.viewCourseCertificate';
+  if (cert.id === 'aws-database-migration-service-overview') return 'actions.verifyCredential';
+  if (cert.id.startsWith('aws-aip-c01-') || cert.id.startsWith('aws-aif-c01-')) {
+    return 'actions.viewCourseCertificate';
+  }
   if (cert.id.startsWith('aws-knowledge-')) return 'actions.verifyTrainingBadge';
   if (cert.id.startsWith('aws-educate-')) return 'actions.verifyDigitalBadge';
   if (cert.id === 'google-cloud-infrastructure-foundation') return 'actions.verifyCompletionBadge';
@@ -587,6 +682,14 @@ const Certifications = () => {
               </a>
               <a
                 className="credly-profile-link"
+                href="https://credentials.skillbuilder.aws/credential/a8a30a05-2db8-486c-9ce0-32f02d601ead"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                AWS Skill Builder ↗
+              </a>
+              <a
+                className="credly-profile-link"
                 href="https://www.skills.google/public_profiles/03bc8f46-a5c3-423f-8d12-f235d5da8486"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -649,7 +752,7 @@ const Certifications = () => {
             <article
               key={cert.id}
               className={`cert-item ${inView ? 'in-view' : ''}`}
-              style={{ transitionDelay: `${index * 0.08}s` }}
+              style={{ transitionDelay: `${Math.min(index, 6) * 0.06}s` }}
             >
               <div className="cert-inner">
                 <a
@@ -661,7 +764,14 @@ const Certifications = () => {
                     title: cert.title
                   })}
                 >
-                  <img src={cert.thumbnail} alt={cert.title} loading="lazy" decoding="async" />
+                  <img
+                    src={cert.thumbnail}
+                    alt={cert.title}
+                    loading="lazy"
+                    decoding="async"
+                    width="1200"
+                    height="675"
+                  />
                   <div className="view-overlay">
                     <span>{t(cert.pdfUrl ? 'actions.viewPdf' : 'actions.verify')}</span>
                   </div>

@@ -311,7 +311,7 @@ const Portfolio = () => {
             alt={t('aria.preview', { title: project.title })}
             className="showcase-image"
             loading={prioritizeImage ? 'eager' : 'lazy'}
-            fetchPriority={prioritizeImage ? 'high' : 'low'}
+            fetchpriority={prioritizeImage ? 'high' : 'low'}
             decoding="async"
             width="1600"
             height="1000"

@@ -38,7 +38,9 @@
     "verifyCredential": "Verify credential ↗"
   },
   "certificates": {
+    "aws-knowledge-cloud-essentials": { "description": "Verified knowledge of core AWS Cloud concepts, services, security and architecture." },
     "aws-cloud-practitioner-essentials": { "description": "Completion certificate covering foundational AWS Cloud concepts and services." },
+    "aws-database-migration-service-overview": { "description": "AWS DMS fundamentals for planning, configuring and monitoring heterogeneous database migrations." },
     "aws-knowledge-events-workflows": { "description": "Verified knowledge of Step Functions, EventBridge, SQS, SNS and event-driven serverless architectures." },
     "aws-knowledge-serverless": { "description": "Verified technical knowledge of AWS Lambda, Amazon API Gateway and serverless application patterns." },
     "aws-educate-getting-started-with-databases": { "description": "Training badge covering database concepts and foundational AWS database services." },
@@ -57,6 +59,11 @@
     "aws-episode-2-powering-backend": { "description": "Completion certificate covering backend services in an AWS serverless application." },
     "aws-amplify-getting-started": { "description": "Completion certificate covering application delivery and hosting with AWS Amplify." },
     "aws-aip-c01-domain-1-review": { "description": "Course completion for Domain 1 of the AWS Certified Generative AI Developer - Professional exam guide." },
+    "aws-aif-c01-domain-2-review": { "description": "Course completion for Domain 2 of the AWS Certified AI Practitioner exam guide." },
+    "aws-aif-c01-official-practice-question-set": { "description": "Official practice-question preparation for the AWS Certified AI Practitioner exam." },
+    "aws-aif-c01-domain-3-review": { "description": "Course completion for Domain 3 of the AWS Certified AI Practitioner exam guide." },
+    "aws-generative-ai-for-executives": { "description": "Business-focused foundations for identifying and governing generative AI opportunities." },
+    "aws-planning-machine-learning-project": { "description": "Practical foundations for defining ML problems, data requirements, metrics and delivery plans." },
     "aws-vectordb-vs-graphdb-agents": { "description": "Completion certificate comparing vector and graph data stores for agentic AI use cases." },
     "google-cloud-infrastructure-foundation": { "description": "Completion badge covering Compute Engine, Cloud Shell, VPC networking and infrastructure design." },
     "google-gen-ai-beyond-chatbot": { "description": "Foundation models, prompt engineering and organizational Gen AI strategy." },

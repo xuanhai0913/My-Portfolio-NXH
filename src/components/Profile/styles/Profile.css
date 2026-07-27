@@ -48,9 +48,6 @@
 
 .hero-line {
   display: block;
-  opacity: 0;
-  transform: translateY(100px);
-  transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hero-line.line-1 {
@@ -65,12 +62,6 @@
   align-self: flex-start;
   margin-left: 10%;
   /* Stagger effect */
-  transition-delay: 0.1s;
-}
-
-.hero-line.in-view {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .hollow-text {
@@ -84,14 +75,6 @@
   max-width: 600px;
   margin-left: 5px;
   margin-bottom: 3rem;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.8s ease 0.4s;
-}
-
-.hero-sub.in-view {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .hero-sub p {
@@ -110,14 +93,6 @@
   display: flex;
   align-items: center;
   gap: 2rem;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.8s ease 0.6s;
-}
-
-.hero-cta.in-view {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .btn-brutalist {
@@ -155,7 +130,13 @@
       transparent,
       rgba(255, 255, 255, 0.4),
       transparent);
-  animation: shine 3s infinite;
+  transform: translateX(0);
+  transition: transform 0.65s ease;
+}
+
+.btn-view-cv:hover::before,
+.btn-view-cv:focus-visible::before {
+  transform: translateX(200%);
 }
 
 @keyframes shine {
@@ -185,12 +166,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  opacity: 0;
-  transition: opacity 1s ease 0.2s;
-}
-
-.profile-visual.in-view {
-  opacity: 1;
 }
 
 .glitch-frame {
@@ -282,7 +257,6 @@
   align-items: center;
   gap: 10px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  animation: float 4s ease-in-out infinite;
   z-index: 10;
 }
 
@@ -354,6 +328,10 @@
   .floating-badge {
     right: 0;
     bottom: -1.5rem;
+  }
+
+  .glitch-layer {
+    display: none;
   }
 }
 

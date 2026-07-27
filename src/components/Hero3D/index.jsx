@@ -1,4 +1,5 @@
 import React, { Suspense, useRef } from 'react';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { ScrollControls, Scroll, useScroll } from '@react-three/drei';
 import { Link } from 'react-router-dom';

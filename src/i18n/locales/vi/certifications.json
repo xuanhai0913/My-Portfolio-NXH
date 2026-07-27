@@ -38,7 +38,9 @@
     "verifyCredential": "Xác minh chứng nhận ↗"
   },
   "certificates": {
+    "aws-knowledge-cloud-essentials": { "description": "Kiến thức đã được xác minh về các khái niệm, dịch vụ, bảo mật và kiến trúc cốt lõi của AWS Cloud." },
     "aws-cloud-practitioner-essentials": { "description": "Chứng nhận hoàn thành bao quát các khái niệm và dịch vụ nền tảng của AWS Cloud." },
+    "aws-database-migration-service-overview": { "description": "Nền tảng AWS DMS để lập kế hoạch, cấu hình và giám sát quá trình di chuyển cơ sở dữ liệu không đồng nhất." },
     "aws-knowledge-events-workflows": { "description": "Kiến thức đã được xác minh về Step Functions, EventBridge, SQS, SNS và kiến trúc serverless hướng sự kiện." },
     "aws-knowledge-serverless": { "description": "Kiến thức kỹ thuật đã được xác minh về AWS Lambda, Amazon API Gateway và các mô hình ứng dụng serverless." },
     "aws-educate-getting-started-with-databases": { "description": "Huy hiệu đào tạo về các khái niệm cơ sở dữ liệu và dịch vụ cơ sở dữ liệu nền tảng của AWS." },
@@ -57,6 +59,11 @@
     "aws-episode-2-powering-backend": { "description": "Chứng nhận hoàn thành về các dịch vụ backend trong một ứng dụng serverless trên AWS." },
     "aws-amplify-getting-started": { "description": "Chứng nhận hoàn thành về phân phối và lưu trữ ứng dụng bằng AWS Amplify." },
     "aws-aip-c01-domain-1-review": { "description": "Hoàn thành khóa học Domain 1 theo hướng dẫn kỳ thi AWS Certified Generative AI Developer - Professional." },
+    "aws-aif-c01-domain-2-review": { "description": "Hoàn thành khóa học Domain 2 theo hướng dẫn kỳ thi AWS Certified AI Practitioner." },
+    "aws-aif-c01-official-practice-question-set": { "description": "Hoàn thành bộ câu hỏi luyện tập chính thức cho kỳ thi AWS Certified AI Practitioner." },
+    "aws-aif-c01-domain-3-review": { "description": "Hoàn thành khóa học Domain 3 theo hướng dẫn kỳ thi AWS Certified AI Practitioner." },
+    "aws-generative-ai-for-executives": { "description": "Kiến thức GenAI theo góc nhìn kinh doanh để xác định cơ hội ứng dụng và quản trị phù hợp." },
+    "aws-planning-machine-learning-project": { "description": "Nền tảng thực tiễn để xác định bài toán ML, yêu cầu dữ liệu, chỉ số và kế hoạch triển khai." },
     "aws-vectordb-vs-graphdb-agents": { "description": "Chứng nhận hoàn thành nội dung so sánh kho dữ liệu vector và đồ thị cho các trường hợp sử dụng AI tác tử." },
     "google-cloud-infrastructure-foundation": { "description": "Huy hiệu hoàn thành về Compute Engine, Cloud Shell, mạng VPC và thiết kế hạ tầng." },
     "google-gen-ai-beyond-chatbot": { "description": "Mô hình nền tảng, kỹ thuật prompt và chiến lược Gen AI cho tổ chức." },

@@ -1,15 +1,10 @@
-import React, { lazy, Suspense, useEffect } from 'react';
+import React, { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import ErrorBoundary from './components/ErrorBoundary';
 import Header from './components/Header';
-import SmoothScroll from './components/SmoothScroll';
-import CustomCursor from './components/CustomCursor';
 import PageTransition from './components/PageTransition';
-import AudioActivator from './components/AudioActivator/AudioActivator';
-import ChatWidget from './components/ChatWidget';
 import { initSectionTracking, initScrollDepthTracking } from './utils/analytics';
-import useParallax from './hooks/useParallax';
 import './App.css';
 
 // Critical above-fold components — load eagerly
@@ -17,12 +12,13 @@ import Profile from './components/Profile';
 import About from './components/About';
 import SectionTransition from './components/SectionTransition';
 
-// Core sections are loaded eagerly to avoid runtime chunk stalls on production.
-import Experience from './components/Experience/Experience';
-import Portfolio from './components/Portfolio';
-import Certifications from './components/Certifications';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
+// Below-fold sections stay out of the critical bundle.
+const Experience = lazy(() => import('./components/Experience/Experience'));
+const Portfolio = lazy(() => import('./components/Portfolio'));
+const Certifications = lazy(() => import('./components/Certifications'));
+const Contact = lazy(() => import('./components/Contact'));
+const Footer = lazy(() => import('./components/Footer'));
+const ChatWidget = lazy(() => import('./components/ChatWidget'));
 
 // Lazy load optional route pages
 const VideoDemo = lazy(() => import('./components/VideoDemo'));
@@ -50,19 +46,60 @@ const LoadingFallback = () => {
   );
 };
 
+const SectionFallback = () => (
+  <div className="section-loading-placeholder" aria-hidden="true" />
+);
+
+const DeferredSection = ({
+  children,
+  anchorId,
+  minHeight = 480,
+  rootMargin = '500px 0px'
+}) => {
+  const containerRef = useRef(null);
+  const [shouldRender, setShouldRender] = useState(false);
+
+  useEffect(() => {
+    if (shouldRender || !containerRef.current) return undefined;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        setShouldRender(true);
+        observer.disconnect();
+      },
+      { rootMargin }
+    );
+
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, [rootMargin, shouldRender]);
+
+  return (
+    <div
+      ref={containerRef}
+      style={shouldRender ? undefined : { minHeight }}
+      aria-busy={!shouldRender}
+    >
+      {!shouldRender && anchorId ? (
+        <span id={anchorId} className="deferred-section-anchor" aria-hidden="true" />
+      ) : null}
+      {shouldRender ? children : null}
+    </div>
+  );
+};
+
+const ChatSurface = ({ mode }) => (
+  <Suspense fallback={null}>
+    <ChatWidget mode={mode} />
+  </Suspense>
+);
+
 // Hoisted Main Portfolio Page (rerender-no-inline-components)
 const MainPortfolio = () => {
   const { t } = useTranslation();
 
-  // Active Theory-inspired parallax depth layers
-  useParallax();
-
   useEffect(() => {
-    // Force ScrollTrigger refresh after lazy components mount
-    const timer = setTimeout(() => {
-      window.dispatchEvent(new Event('resize'));
-    }, 1000);
-
     // Initialize analytics tracking (analytics-tracking skill)
     const analyticsTimer = setTimeout(() => {
       initSectionTracking();
@@ -70,7 +107,6 @@ const MainPortfolio = () => {
     const cleanupScroll = initScrollDepthTracking();
 
     return () => {
-      clearTimeout(timer);
       clearTimeout(analyticsTimer);
       if (cleanupScroll) cleanupScroll();
     };
@@ -87,13 +123,17 @@ const MainPortfolio = () => {
         <About />
       </ErrorBoundary>
 
-      {/* Below-fold core sections — eager render for reliability */}
+      {/* Below-fold core sections */}
       <ErrorBoundary>
         <SectionTransition text={t('sections.experience')} />
       </ErrorBoundary>
 
       <ErrorBoundary>
-        <Experience />
+        <DeferredSection anchorId="experience" minHeight={900}>
+          <Suspense fallback={<SectionFallback />}>
+            <Experience />
+          </Suspense>
+        </DeferredSection>
       </ErrorBoundary>
 
       <ErrorBoundary>
@@ -101,19 +141,35 @@ const MainPortfolio = () => {
       </ErrorBoundary>
 
       <ErrorBoundary>
-        <Portfolio />
+        <DeferredSection anchorId="portfolio" minHeight={900}>
+          <Suspense fallback={<SectionFallback />}>
+            <Portfolio />
+          </Suspense>
+        </DeferredSection>
       </ErrorBoundary>
 
       <ErrorBoundary>
-        <Certifications />
+        <DeferredSection anchorId="certifications" minHeight={700}>
+          <Suspense fallback={<SectionFallback />}>
+            <Certifications />
+          </Suspense>
+        </DeferredSection>
       </ErrorBoundary>
 
       <ErrorBoundary>
-        <Contact />
+        <DeferredSection anchorId="contact" minHeight={640}>
+          <Suspense fallback={<SectionFallback />}>
+            <Contact />
+          </Suspense>
+        </DeferredSection>
       </ErrorBoundary>
 
       <ErrorBoundary>
-        <Footer />
+        <DeferredSection minHeight={240}>
+          <Suspense fallback={<SectionFallback />}>
+            <Footer />
+          </Suspense>
+        </DeferredSection>
       </ErrorBoundary>
     </>
   );
@@ -127,7 +183,7 @@ const routePath = (prefix, path) => {
 const renderLocalizedRoutes = (prefix) => (
   <React.Fragment key={prefix || 'en'}>
     <Route path={routePath(prefix, '/')} element={<MainPortfolio />} />
-    <Route path={routePath(prefix, '/assistant')} element={<ChatWidget mode="page" />} />
+    <Route path={routePath(prefix, '/assistant')} element={<ChatSurface mode="page" />} />
     <Route path={routePath(prefix, '/videos')} element={(
       <ErrorBoundary>
         <Suspense fallback={<LoadingFallback />}>
@@ -194,37 +250,27 @@ const App = () => {
   }, [i18n.resolvedLanguage, location.pathname, t]);
 
   return (
-    <SmoothScroll>
-      <CustomCursor />
-      <div className="app">
-        {/* Page transition iris-wipe overlay */}
-        <PageTransition />
-        
-        {/* Procedural 3D Background - DISABLED to prevent huge composite lag
-        <BackgroundWaves /> */}
+    <div className="app">
+      <PageTransition />
 
-        {/* Skip to content — WCAG 2.4.1 */}
-        <a href="#profile" className="skip-link">{t('common.skipToContent')}</a>
+      <a href="#profile" className="skip-link">{t('common.skipToContent')}</a>
 
-        <ErrorBoundary>
-          <Header />
-        </ErrorBoundary>
+      <ErrorBoundary>
+        <Header />
+      </ErrorBoundary>
 
-        {!isAssistantRoute ? <AudioActivator /> : null}
-        {!isAssistantRoute ? <ChatWidget /> : null}
+      {!isAssistantRoute ? <ChatSurface /> : null}
 
-        <Routes>
-          {renderLocalizedRoutes('')}
-          {renderLocalizedRoutes('/vi')}
-        </Routes>
+      <Routes>
+        {renderLocalizedRoutes('')}
+        {renderLocalizedRoutes('/vi')}
+      </Routes>
 
-        {/* Deferred third-party analytics — loads after main content */}
-        <Suspense fallback={null}>
-          <Analytics debug={false} mode="production" />
-          <SpeedInsights />
-        </Suspense>
-      </div>
-    </SmoothScroll>
+      <Suspense fallback={null}>
+        <Analytics debug={false} mode="production" />
+        <SpeedInsights />
+      </Suspense>
+    </div>
   );
 };
 

@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
-
 :root {
   /* Colors - Premium Brutalist */
   --bg-dark: #000000;
@@ -20,6 +18,11 @@
   /* Layout */
   --header-height: 80px;
   --border-width: 1px;
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 * {
@@ -81,11 +84,21 @@ code {
 /* Performance: content-visibility for below-fold sections (rendering-content-visibility) */
 .experience-section,
 .portfolio-section,
-.certifications-section,
+.certs-section,
 .contact-section,
 .footer {
   content-visibility: auto;
   contain-intrinsic-size: auto 600px;
+}
+
+.section-loading-placeholder {
+  min-height: 65vh;
+  background: var(--bg-dark);
+}
+
+.deferred-section-anchor {
+  display: block;
+  scroll-margin-top: 88px;
 }
 
 /* Accessibility: respect prefers-reduced-motion (animate skill) */
@@ -159,29 +172,21 @@ html.lenis, html.lenis body {
   inset: 0;
   pointer-events: none;
   z-index: 9998;
-  opacity: 0.035;
+  opacity: 0.015;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
   background-size: 128px 128px;
-  animation: grain 8s steps(10) infinite;
-}
-
-@keyframes grain {
-  0%, 100% { transform: translate(0, 0); }
-  10% { transform: translate(-5%, -10%); }
-  20% { transform: translate(-15%, 5%); }
-  30% { transform: translate(7%, -25%); }
-  40% { transform: translate(-5%, 25%); }
-  50% { transform: translate(-15%, 10%); }
-  60% { transform: translate(15%, 0%); }
-  70% { transform: translate(0%, 15%); }
-  80% { transform: translate(3%, -35%); }
-  90% { transform: translate(-10%, 10%); }
 }
 
 /* Respect reduced motion for grain animation */
 @media (prefers-reduced-motion: reduce) {
   .app::after {
-    animation: none;
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .app::after {
+    display: none;
   }
 }

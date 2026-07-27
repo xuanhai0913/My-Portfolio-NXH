@@ -15,7 +15,6 @@
   text-transform: uppercase;
   cursor: pointer;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
-  animation: chatPulse 2s ease-in-out infinite;
 }
 
 .chat-intro-spotlight {
@@ -46,6 +45,17 @@
   color: rgba(255, 255, 255, 0.78);
   font-size: 0.75rem;
   line-height: 1.35;
+}
+
+@media (max-width: 768px) {
+  .chat-intro-spotlight {
+    display: none;
+  }
+
+  .chat-launcher {
+    right: max(14px, env(safe-area-inset-right));
+    bottom: max(14px, env(safe-area-inset-bottom));
+  }
 }
 
 .chat-panel {
