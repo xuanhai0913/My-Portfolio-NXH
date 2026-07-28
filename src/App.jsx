@@ -5,6 +5,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 import Header from './components/Header';
 import PageTransition from './components/PageTransition';
 import { initSectionTracking, initScrollDepthTracking } from './utils/analytics';
+import { updateMetaTags } from './utils/metaTags';
 import './App.css';
 
 // Critical above-fold components — load eagerly
@@ -238,16 +239,8 @@ const App = () => {
   }, [i18n, location.pathname]);
 
   useEffect(() => {
-    const route = location.pathname.replace(/^\/vi(?=\/|$)/, '') || '/';
-    let page = 'portfolio';
-    if (route.startsWith('/assistant')) page = 'assistant';
-    else if (route.startsWith('/videos')) page = 'videos';
-    else if (route.startsWith('/tools')) page = 'tools';
-    else if (route.startsWith('/3d')) page = 'threeD';
-    else if (route.startsWith('/blog')) page = 'blog';
-
-    document.title = t(`meta.titles.${page}`);
-  }, [i18n.resolvedLanguage, location.pathname, t]);
+    updateMetaTags(location.pathname);
+  }, [i18n.resolvedLanguage, location.pathname]);
 
   return (
     <div className="app">

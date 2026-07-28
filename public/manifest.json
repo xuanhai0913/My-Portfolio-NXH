@@ -1,6 +1,6 @@
 {
-  "short_name": "HaiLam Dev",
-  "name": "HaiLam Dev - Portfolio",
+  "short_name": "NXH Portfolio",
+  "name": "Nguyễn Xuân Hải - Full-Stack Developer Portfolio",
   "icons": [
     {
       "src": "https://res.cloudinary.com/dqdcqtu8m/image/upload/v1765003310/favicon_hwohfv.png",
@@ -14,7 +14,7 @@
       "type": "image/png"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
   "display": "standalone",
   "theme_color": "#4a90e2",
   "background_color": "#0a1628"

@@ -54,9 +54,6 @@ Allow: /
 User-agent: Bingbot
 Allow: /
 
-# Crawl delay (be nice to servers)
-Crawl-delay: 5
-
 # Sitemap location
 Sitemap: https://my-portfolio-nxh.vercel.app/sitemap.xml
 

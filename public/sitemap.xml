@@ -1,58 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  
-  <!-- Homepage (main entry point) -->
   <url>
     <loc>https://my-portfolio-nxh.vercel.app/</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://my-portfolio-nxh.vercel.app/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://my-portfolio-nxh.vercel.app/vi" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://my-portfolio-nxh.vercel.app/" />
     <image:image>
       <image:loc>https://my-portfolio-nxh.vercel.app/images/og-image.jpg</image:loc>
       <image:title>Nguyễn Xuân Hải - Full-Stack Developer Portfolio</image:title>
-      <image:caption>Portfolio website showcasing React, ASP.NET Core, and AI projects</image:caption>
+      <image:caption>Production projects built with React, ASP.NET Core, NestJS and Odoo.</image:caption>
     </image:image>
   </url>
-
-  <!-- AI Assistant Page (real route) -->
   <url>
-    <loc>https://my-portfolio-nxh.vercel.app/assistant</loc>
-    <lastmod>2026-04-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://my-portfolio-nxh.vercel.app/vi</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://my-portfolio-nxh.vercel.app/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://my-portfolio-nxh.vercel.app/vi" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://my-portfolio-nxh.vercel.app/" />
   </url>
-
-  <!-- Videos Page (real route) -->
   <url>
-    <loc>https://my-portfolio-nxh.vercel.app/videos</loc>
-    <lastmod>2026-04-01</lastmod>
+    <loc>https://my-portfolio-nxh.vercel.app/tools</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://my-portfolio-nxh.vercel.app/tools" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://my-portfolio-nxh.vercel.app/vi/tools" />
+  </url>
+  <url>
+    <loc>https://my-portfolio-nxh.vercel.app/vi/tools</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://my-portfolio-nxh.vercel.app/tools" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://my-portfolio-nxh.vercel.app/vi/tools" />
+  </url>
+  <url>
+    <loc>https://my-portfolio-nxh.vercel.app/tools/testforge</loc>
+    <lastmod>2026-07-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-
-  <!-- 3D Experience Page (real route) -->
   <url>
-    <loc>https://my-portfolio-nxh.vercel.app/3d</loc>
-    <lastmod>2026-04-01</lastmod>
+    <loc>https://my-portfolio-nxh.vercel.app/tools/repolens</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://my-portfolio-nxh.vercel.app/tools/incidentlens</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://my-portfolio-nxh.vercel.app/tools/agentflow</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://my-portfolio-nxh.vercel.app/blog</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://my-portfolio-nxh.vercel.app/blog" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://my-portfolio-nxh.vercel.app/vi/blog" />
+  </url>
+  <url>
+    <loc>https://my-portfolio-nxh.vercel.app/videos</loc>
+    <lastmod>2026-07-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
-
-  <!-- CV Download -->
   <url>
-    <loc>https://my-portfolio-nxh.vercel.app/CV_NguyenXuanHai_visual.pdf</loc>
-    <lastmod>2026-04-01</lastmod>
+    <loc>https://my-portfolio-nxh.vercel.app/assistant</loc>
+    <lastmod>2026-07-28</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.6</priority>
   </url>
-
-  <!-- Blog Page (real route) -->
-  <url>
-    <loc>https://my-portfolio-nxh.vercel.app/blog</loc>
-    <lastmod>2026-04-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
 </urlset>

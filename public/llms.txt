@@ -1,0 +1,56 @@
+# Nguyễn Xuân Hải - Full-Stack Developer
+
+> Official portfolio and verified project index for Nguyễn Xuân Hải, a Full-Stack Developer based in Ho Chi Minh City, Vietnam.
+
+## Primary pages
+
+- [Portfolio](https://my-portfolio-nxh.vercel.app/): Experience, production work, independent projects, technical skills and credentials.
+- [Vietnamese portfolio](https://my-portfolio-nxh.vercel.app/vi): Vietnamese-language version of the portfolio.
+- [Engineering tools](https://my-portfolio-nxh.vercel.app/tools): Practical AI tools for testing, repository analysis, incident diagnosis and agent workflow design.
+- [Project demos](https://my-portfolio-nxh.vercel.app/videos): Video demonstrations of selected software projects.
+- [Technical notes](https://my-portfolio-nxh.vercel.app/blog): Articles about React, .NET, AI integration and web engineering.
+- [CV](https://my-portfolio-nxh.vercel.app/CV_NguyenXuanHai.pdf): ATS-readable curriculum vitae.
+- [Visual CV](https://my-portfolio-nxh.vercel.app/CV_NguyenXuanHai_visual.pdf): One-page visual curriculum vitae.
+
+## Professional profile
+
+- Name: Nguyễn Xuân Hải
+- Role: Full-Stack Developer
+- Location: Ho Chi Minh City, Vietnam
+- Core technologies: React, TypeScript, ASP.NET Core, NestJS, Python, Odoo 18, PostgreSQL and SQL Server
+- Education: Information Technology at University of Transport Ho Chi Minh City (UTH), expected graduation 2026, GPA 3.24/4.00
+- English: B1.4
+
+## Experience
+
+- Betodemy, Full-Stack Developer, February 2026 to present: Japanese learning platform; product features, bug fixing, weekly issue/release workflow and production support.
+- AI Power, Full-Stack Developer Intern, May 2026 to July 2026: Odoo 18 automotive dealership ERP; supported debugging and fixes across 18 custom modules and 99+ Python files.
+- OakMind Group, Part-time Full-Stack Developer, October 2024 to January 2026: delivered OakMind Group Corporate Platform, Great Link Mai House and VN Media Hub from requirement clarification through production release.
+
+## Verified production work
+
+- [OakMind Group](https://oakmindgroup.com/): React 19 and ASP.NET Core corporate CMS with bilingual content, SEO, analytics and Cloudflare R2 media workflows.
+- [Great Link Mai House](https://greatlinkmaihouse.com/): React and ASP.NET Core B2B publishing platform.
+- [VN Media Hub](https://vnmediahub.com): React and ASP.NET Core media CMS.
+- [Education English Hub](https://ech.edu.vn): ASP.NET Core community LMS with certificates and PDF/Excel reporting.
+- [ChongScam](https://chongscam.vn/): React 19, NestJS 11 and PostgreSQL transaction trust platform.
+- [Betodemy](https://betodemy.com/): Japanese learning platform.
+
+## Independent engineering projects
+
+- [RouteLab](https://tsp-delivery-route-optimizer.vercel.app/): Interactive shortest-path algorithm laboratory.
+- [AgriTrace](https://github.com/xuanhai0913/agri-traceability-system): Blockchain-based agricultural traceability with Solidity, PostgreSQL and IPFS.
+- [Vision Key AI](https://landing-vision-premium.vercel.app): Native macOS contextual screen assistant.
+- [GitHub](https://github.com/xuanhai0913): Source repositories and contribution history.
+
+## Credentials and profiles
+
+- [LinkedIn](https://www.linkedin.com/in/xuanhai0913/)
+- [Credly](https://www.credly.com/users/xuanhai0913)
+- [Google Skills profile](https://www.skills.google/public_profiles/03bc8f46-a5c3-423f-8d12-f235d5da8486)
+- [Google Developer profile](https://g.dev/xuanhai0913)
+
+## Contact
+
+- Email: xuanhai0913750452@gmail.com
+- Portfolio contact: https://my-portfolio-nxh.vercel.app/#contact
