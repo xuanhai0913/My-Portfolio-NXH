@@ -1088,13 +1088,26 @@
   }
 
   .slate-toolbar {
-    gap: 0.1rem;
-    padding: 0.4rem 0.5rem;
+    flex-wrap: nowrap;
+    gap: 0.2rem;
+    padding: 0.45rem 0.5rem;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: x proximity;
   }
 
   .slate-toolbar-btn {
-    padding: 0.25rem 0.35rem;
+    display: inline-grid;
+    min-width: 40px;
+    min-height: 40px;
+    padding: 0.35rem 0.5rem;
+    place-items: center;
     font-size: 0.65rem;
+    scroll-snap-align: start;
+  }
+
+  .slate-preview-toggle {
+    min-height: 40px;
+    padding: 0.45rem 0.7rem;
   }
 
   .drag-handle {

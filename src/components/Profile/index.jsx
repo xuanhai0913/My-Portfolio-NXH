@@ -67,17 +67,15 @@ const Profile = () => {
               />
             </div>
 
-            <div
+            <button
+              type="button"
               className="floating-badge"
               onClick={() => setShowExperience(true)}
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setShowExperience(true); } }}
-              role="button"
-              tabIndex={0}
-              aria-label={t('profile.experienceBadgeAria')}
+              aria-label={`${t('profile.experienceBadge')} — ${t('profile.experienceBadgeAria')}`}
             >
               <span className="status-dot" aria-hidden="true"></span>
               {t('profile.experienceBadge')}
-            </div>
+            </button>
 
             {/* Decorative Grid Lines */}
             <div className="grid-deco top-left"></div>

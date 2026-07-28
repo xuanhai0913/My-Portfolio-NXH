@@ -94,13 +94,14 @@ const Experience = () => {
         if (sectionRef.current) observer.observe(sectionRef.current);
 
         const audio = audioRef.current;
+        const video = videoRef.current;
 
         return () => {
             observer.disconnect();
             window.removeEventListener('audioActivated', onAudioActivated);
             if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
             if (audio) { audio.pause(); audio.currentTime = 0; }
-            videoRef.current?.pause();
+            video?.pause();
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

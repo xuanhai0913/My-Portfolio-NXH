@@ -120,7 +120,7 @@ const Header = () => {
             to={localizedRoot}
             className="logo-link"
             onClick={closeNav}
-            aria-label={t('header.home', { defaultValue: 'Home' })}
+            aria-label={`NXH — ${t('header.home', { defaultValue: 'Home' })}`}
           >
             <span className="logo-mark" aria-hidden="true">NXH</span>
           </Link>
@@ -167,9 +167,9 @@ const Header = () => {
             type="button"
             className="language-toggle"
             onClick={handleLocaleChange}
-            aria-label={locale === 'en'
+            aria-label={`${locale.toUpperCase()} — ${locale === 'en'
               ? t('header.switchToVietnamese', { defaultValue: 'Switch to Vietnamese' })
-              : t('header.switchToEnglish', { defaultValue: 'Switch to English' })}
+              : t('header.switchToEnglish', { defaultValue: 'Switch to English' })}`}
             title={locale === 'en'
               ? t('header.switchToVietnamese', { defaultValue: 'Switch to Vietnamese' })
               : t('header.switchToEnglish', { defaultValue: 'Switch to English' })}

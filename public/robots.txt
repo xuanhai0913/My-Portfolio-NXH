@@ -1,5 +1,5 @@
 # Robots.txt for my-portfolio-nxh.vercel.app
-# Portfolio website of Nguyễn Xuân Hải - Fullstack Developer
+# Portfolio website of Nguyễn Xuân Hải - Full-Stack Developer
 
 User-agent: *
 Allow: /

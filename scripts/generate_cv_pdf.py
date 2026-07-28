@@ -210,7 +210,7 @@ class CvPdf:
     def summary(self) -> None:
         self.section("Professional Summary", 55)
         text = (
-            "Full-stack developer with commercial software delivery experience since October 2024 across part-time and internship roles. "
+            "Full-stack developer with commercial software delivery experience since October 2024 through commercial product work and an ERP internship. "
             "Builds production React, ASP.NET Core, NestJS and Odoo workflows from requirement clarification through release and support. "
             "Hands-on with authentication, CMS, realtime features, ERP business logic, PostgreSQL and SQL Server; uses AI coding tools "
             "selectively for review, test drafting and delivery support."
@@ -318,7 +318,7 @@ WORK_ENTRIES: Sequence[Entry] = [
         ],
     ),
     Entry(
-        role="Part-time Full-Stack Developer / BA-facing Owner",
+        role="Full-Stack Developer / Business Analysis & Delivery",
         name="OakMind Group - Three Production Web Products",
         period="Start: Oct 2024 | End: Jan 2026",
         link="https://oakmindgroup.com/",

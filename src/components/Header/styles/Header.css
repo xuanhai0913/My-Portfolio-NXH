@@ -77,6 +77,11 @@
   outline: none;
 }
 
+.logo-link:focus-visible {
+  box-shadow: 0 0 0 2px #000, 0 0 0 3px var(--color-accent),
+    0 0 20px rgba(212, 255, 0, 0.25);
+}
+
 .logo-mark {
   font-family: var(--font-mono);
   font-size: 0.72rem;
@@ -102,8 +107,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 42px;
-  height: 42px;
+  min-width: 44px;
+  height: 44px;
   padding: 0 0.75rem;
   gap: 0;
   border-radius: 999px;
@@ -165,7 +170,7 @@
   justify-content: center;
   gap: 0.45rem;
   min-width: 56px;
-  height: 42px;
+  height: 44px;
   padding: 0 0.65rem;
   border: 1px solid transparent;
   border-radius: 999px;
@@ -375,9 +380,9 @@
     display: inline-flex;
     justify-content: center;
     gap: 0;
-    min-width: 42px;
+    min-width: 44px;
     width: auto;
-    height: 42px;
+    height: 44px;
     padding: 0;
     font-size: 0.875rem;
   }
@@ -465,8 +470,8 @@
   }
 
   .logo-link {
-    width: 42px;
-    height: 42px;
+    width: 44px;
+    height: 44px;
   }
 
   .header-actions {
@@ -477,13 +482,13 @@
 
   .language-toggle {
     min-width: 52px;
-    height: 42px;
+    height: 44px;
     padding: 0 0.5rem;
   }
 
   .nav-toggle {
-    width: 42px;
-    height: 42px;
+    width: 44px;
+    height: 44px;
   }
 }
 
@@ -500,12 +505,12 @@
   .logo-link,
   .language-toggle,
   .nav-toggle {
-    height: 40px;
+    height: 44px;
   }
 
   .logo-link,
   .nav-toggle {
-    width: 40px;
+    width: 44px;
   }
 
   .language-toggle {

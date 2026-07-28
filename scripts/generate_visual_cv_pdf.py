@@ -181,7 +181,7 @@ class VisualCv:
         self.c.rect(x, y + 6, 34, 2, fill=1, stroke=0)
         y -= 10
         y = self.text(
-            "Commercial software delivery experience since Oct 2024 across part-time and internship roles, from requirements through production support.",
+            "Commercial software delivery experience since Oct 2024 through commercial product work and an ERP internship, from requirements through production support.",
             x,
             y,
             360,
@@ -328,7 +328,7 @@ class VisualCv:
             (
                 "Feb 2026\n-\nPresent",
                 "Betodemy - Japanese Learning Platform",
-                "Full-Stack Developer | Part-time, remote | 5-person team",
+                "Full-Stack Developer | 5-person team",
                 "React 19 | NestJS | PostgreSQL | Redis | Nx",
                 [
                     "Built document-editor, challenge-player, online-class and student/admin features.",
@@ -350,7 +350,7 @@ class VisualCv:
             (
                 "Oct 2024\n-\nJan 2026",
                 "OakMind Group",
-                "Part-time Full-Stack Developer | BA-facing owner",
+                "Full-Stack Developer | Business analysis & delivery",
                 "React 18/19 | ASP.NET Core 8 | EF Core | SQL Server | R2",
                 [
                     "VN Media Hub: built CMS auth, moderation, caching, logging and SEO publishing flows.",

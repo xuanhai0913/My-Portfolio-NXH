@@ -1226,9 +1226,12 @@ const ChatWidget = ({ mode = 'floating' }) => {
       }),
     });
 
-    const payload = await response.json();
+    const contentType = response.headers.get('content-type') || '';
+    const payload = contentType.includes('application/json')
+      ? await response.json().catch(() => null)
+      : null;
 
-    if (!response.ok || !payload.success) {
+    if (!response.ok || !payload?.success) {
       const fallbackText = payload?.message || payload?.error || t('chat.serviceUnavailable');
       return {
         content: fallbackText,
@@ -1504,7 +1507,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
           type="button"
           className="chat-launcher"
           onClick={handleOpenChat}
-          aria-label={t('chat.openAssistantAria')}
+          aria-label={`${t('chat.launcher')} — ${t('chat.launcherHint')}`}
         >
           <span className="chat-launcher-avatar" aria-hidden="true">
             <span>H</span>

@@ -25,6 +25,427 @@ def load_base():
 
 
 VARIANTS = {
+    "rma-dotnet-core-backend-junior": {
+        "output": ROOT / "cv" / "rma-dotnet-core-backend-junior" / "CV_NguyenXuanHai_RMA_DotNet_Core_Backend_Junior_ATS.pdf",
+        "title": "Nguyen Xuan Hai - .NET Core Backend Developer CV",
+        "subtitle": ".NET Core Backend Developer | C# | ASP.NET Core | RESTful API | SQL",
+        "summary": (
+            "Junior backend-oriented developer with commercial delivery experience since October 2024 through commercial product work and an ERP internship. "
+            "Built and supported production web systems using C#, ASP.NET Core, RESTful APIs, SQL Server and PostgreSQL. "
+            "Experienced with Object-Oriented Programming, Entity Framework Core, relational data workflows, debugging, "
+            "automated testing, Docker, Git and CI/CD; available to start immediately."
+        ),
+        "skills": [
+            (".NET Backend:", "C#, .NET Core, ASP.NET Core Web API/MVC, Object-Oriented Programming (OOP), modular service and business layers."),
+            ("API & Integration:", "RESTful API development/integration, DTO validation, authentication, authorization and asynchronous workflows."),
+            ("Database:", "SQL Server, PostgreSQL, Entity Framework Core, relational modelling, migrations, SQL queries and data debugging."),
+            ("Quality & Support:", "Unit/integration/e2e testing, validation, logging, code review, root-cause analysis and production troubleshooting."),
+            ("Delivery:", "Git, GitLab CI/CD, GitHub Actions, Docker, issue tracking, release handoff and Agile team collaboration."),
+        ],
+        "work_entries": ["Betodemy", "AI Power", "OakMind"],
+        "project_entries": ["ChongScam"],
+        "certification_rows": [
+            ("AWS Training Badge:", "AWS Educate Getting Started with Databases (Jul 2026)."),
+            ("English:", "B1.4 - Intermediate; technical reading and written communication."),
+        ],
+        "overrides": {
+            "Betodemy": [
+                "Build and troubleshoot production REST API and PostgreSQL workflows in a modular product within a 5-person engineering team.",
+                "Trace defects across service, data and UI layers through weekly issue, review, test, CI and release cycles.",
+                "Achievement: delivered 70+ merged MRs and closed 70+ authored issues with traceable post-release support.",
+            ],
+            "AI Power": [
+                "Converted BA/customer change lists into business-logic, relational-data and reporting fixes in a modular ERP codebase.",
+                "Investigated cross-module defects with Python/PostgreSQL and verified release changes through Docker and GitLab CI.",
+                "Achievement: supported fixes across 18 custom modules and 99+ Python files while preserving an 18-state service workflow.",
+            ],
+            "OakMind": [
+                "VN Media Hub: built ASP.NET Core CMS/API workflows with authentication, caching, logging and SQL Server-backed reporting.",
+                "Great Link Mai House: converted legacy MVC/WordPress flows into React screens, C# services, Entity Framework data paths and integrations.",
+                "OakMind Group Website: shipped React 19/.NET 8 APIs for bilingual content, roles, contact leads, analytics and media.",
+                "Achievement: owned BA requirement clarification through production release across all three OakMind Group products.",
+            ],
+            "ChongScam": [
+                "Built production REST API workflows for authentication, RBAC, moderation, audit controls and secure admin operations.",
+                "Achievement: shipped the client-operated platform with 22 controllers, 20 SQL migrations and 12 Jest/e2e test suites.",
+            ],
+        },
+    },
+    "nanoco-it-tester": {
+        "output": ROOT / "cv" / "nanoco-it-tester" / "CV_NguyenXuanHai_NANOCO_IT_Tester_ATS.pdf",
+        "title": "Nguyen Xuan Hai - IT Tester CV",
+        "subtitle": "IT Tester | Manual Testing | API & SQL Validation | Bug Tracking | Test Automation",
+        "summary": (
+            "Junior technical tester candidate with commercial software delivery experience since October 2024. "
+            "Hands-on in reproducing production defects, validating web and ERP business workflows, documenting issues, "
+            "checking REST APIs and relational data, and supporting regression and release quality. "
+            "Developer background in JavaScript/TypeScript, Python, SQL and automated tests enables efficient root-cause investigation."
+        ),
+        "skills": [
+            ("Software Testing:", "Functional, system and regression testing; test scenarios, acceptance checks and release validation."),
+            ("Defect Management:", "Defect reproduction, expected-vs-actual analysis, traceable issue reporting and post-release verification."),
+            ("API & Data:", "RESTful API validation, PostgreSQL, SQL Server, relational-data checks and debugging tools."),
+            ("Test Automation:", "Jest, Vitest and end-to-end test suites; JavaScript/TypeScript and Python foundations for automation."),
+            ("Tools & Delivery:", "Git, GitLab CI/CD, GitHub Actions, Docker, Agile issue workflows and cross-functional BA/Developer collaboration."),
+        ],
+        "work_entries": ["Betodemy", "AI Power", "OakMind"],
+        "project_entries": ["RouteLab"],
+        "certification_rows": [
+            ("Training:", "Software Development Lifecycle - AIAcademy by AIPOWER (Jul 2026)."),
+            ("English:", "B1.4 - Intermediate; technical reading and written communication."),
+        ],
+        "overrides": {
+            "Betodemy": [
+                "Reproduce production defects, clarify expected behavior and track fixes through weekly issues, review and regression checks.",
+                "Validate UI, REST API and PostgreSQL-backed learning workflows before release and support post-release verification.",
+                "Achievement: delivered 70+ merged MRs and closed 70+ authored issues with traceable review and release handoff.",
+            ],
+            "AI Power": [
+                "Reproduced BA/customer-reported defects and validated fixes across ERP business logic, reports, localization and linked modules.",
+                "Checked sales, service, parts, warranty and accounting workflows against requirement updates and existing process states.",
+                "Achievement: supported release-safe fixes across 18 modules and 99+ Python files while preserving an 18-state workflow.",
+            ],
+            "OakMind": [
+                "VN Media Hub: validated CMS, authentication, moderation, reporting and production content workflows.",
+                "Great Link Mai House: verified converted React/API flows against legacy behavior, including auth, media and integrations.",
+                "OakMind Group Website: checked bilingual CMS, media, SEO/analytics and lead workflows before production handoff.",
+                "Achievement: owned requirement clarification, acceptance checks and production handoff across all three OakMind Group products.",
+            ],
+            "ChongScam": [
+                "Validated authentication, RBAC, moderation, audit and secure admin workflows across REST APIs and PostgreSQL data paths.",
+                "Achievement: shipped the client-operated platform with 12 Jest/e2e test files covering critical trust and moderation flows.",
+            ],
+            "RouteLab": [
+                "Designed automated checks for routing algorithms, API behavior and deterministic path outputs.",
+                "Achievement: published a working demo backed by 95 automated tests and a dedicated GitHub Actions CI pipeline.",
+            ],
+        },
+    },
+    "phuc-sinh-developer": {
+        "output": ROOT / "cv" / "phuc-sinh-developer" / "CV_NguyenXuanHai_PhucSinh_Developer_ATS.pdf",
+        "title": "Nguyen Xuan Hai - Developer CV",
+        "subtitle": "Developer | C# / ASP.NET Core | React | SQL | ERP",
+        "summary": (
+            "Full-stack developer with commercial delivery experience since October 2024 through commercial product work and an ERP internship. "
+            "Built and supported production web products and internal business workflows using C#, ASP.NET Core, React, TypeScript, "
+            "RESTful APIs, SQL Server and PostgreSQL. Experienced with ERP requirements, code review, debugging, testing and CI/CD; "
+            "uses AI-assisted development tools while validating generated outputs through code, tests and manual verification."
+        ),
+        "skills": [
+            ("Full-Stack Development:", "C#, ASP.NET Core Web API/MVC, React, TypeScript, RESTful API integration and modular service design."),
+            ("ERP & Business Systems:", "Odoo 18 workflows, requirements clarification, business logic, internal CMS/admin systems and production support."),
+            ("Data:", "SQL Server, PostgreSQL, Entity Framework Core, TypeORM, relational modelling and query/debug support."),
+            ("Quality:", "Object-Oriented Programming, clean modular code, code review, Jest/Vitest, end-to-end testing, logging and systematic debugging."),
+            ("Delivery:", "Git, GitLab CI/CD, GitHub Actions, Docker, Agile-style issue tracking, release handoff and cross-functional BA collaboration."),
+            ("Developer Tools:", "Claude Code and Codex for codebase context, implementation planning and review notes; outputs verified through tests and CI."),
+        ],
+        "work_entries": ["Betodemy", "AI Power", "OakMind"],
+        "project_entries": ["ChongScam"],
+        "certification_rows": [
+            ("English:", "B1.4 - Intermediate; technical reading and written communication."),
+        ],
+        "overrides": {
+            "Betodemy": [
+                "Build and troubleshoot production features in a modular React/NestJS product within a 5-person engineering team.",
+                "Work through weekly requirements, code review, tests, CI checks, release handoff and post-release operations.",
+                "Achievement: delivered 70+ merged MRs and closed 70+ authored issues across production workflows.",
+            ],
+            "AI Power": [
+                "Converted BA/customer change lists into traceable fixes for ERP business logic, relational data models and reports.",
+                "Supported sales, service, parts, warranty and TT200 accounting workflows in a modular Odoo 18 codebase.",
+                "Achievement: supported fixes across 18 custom modules and 99+ Python files while preserving an 18-state service flow.",
+            ],
+            "OakMind": [
+                "VN Media Hub: built production CMS, authentication, moderation, logging and reporting workflows with React and ASP.NET Core.",
+                "Great Link Mai House: converted legacy MVC/WordPress flows into maintainable React screens, C# APIs and integrations.",
+                "OakMind Group Website: shipped a bilingual React 19/ASP.NET Core 8 CMS with media, SEO/analytics and lead workflows.",
+                "Achievement: owned BA requirement clarification through production release across all three OakMind Group products.",
+            ],
+            "ChongScam": [
+                "Built production React/NestJS workflows for authentication, RBAC, moderation, audit controls and secure admin operations.",
+                "Achievement: shipped the client-operated platform with 22 controllers, 20 SQL migrations and 12 Jest/e2e test suites.",
+            ],
+        },
+    },
+    "texpo-software-developer": {
+        "output": ROOT / "cv" / "texpo-software-developer" / "CV_NguyenXuanHai_TEXPO_Software_Developer_ATS.pdf",
+        "title": "Nguyen Xuan Hai - Software Developer CV",
+        "subtitle": "Software Developer | C# | Python | JavaScript | SQL | Business Systems",
+        "summary": (
+            "Junior software developer with commercial delivery experience since October 2024 through commercial product work and an ERP internship. "
+            "Built and supported production web products and ERP workflows using C#, ASP.NET Core, Python, JavaScript/TypeScript, "
+            "RESTful APIs, SQL Server and PostgreSQL. Experienced with OOP, modular services, systematic debugging, teamwork, "
+            "requirements clarification, Git, Docker and CI/CD."
+        ),
+        "skills": [
+            ("Programming:", "C#, Python 3.12, JavaScript, TypeScript, Object-Oriented Programming (OOP) and asynchronous workflows."),
+            ("Application Development:", "ASP.NET Core Web API/MVC, NestJS, Odoo 18, React, RESTful API integration and modular service/business layers."),
+            ("Data:", "SQL Server, PostgreSQL, Entity Framework Core, TypeORM, relational modelling, migrations and query/debug support."),
+            ("Quality:", "Systematic debugging, validation, logging, code review, Jest/Vitest, end-to-end testing and issue tracking."),
+            ("Delivery & Cloud:", "Git, GitLab CI/CD, GitHub Actions, Docker, AWS Cloud fundamentals, release handoff and production support."),
+        ],
+        "work_entries": ["Betodemy", "AI Power", "OakMind"],
+        "project_entries": ["RouteLab"],
+        "certification_rows": [
+            ("AWS Training:", "AWS Cloud Practitioner Essentials - Completion Certificate (Jul 2026)."),
+            ("English:", "B1.4 - Intermediate; technical reading and written communication."),
+        ],
+        "overrides": {
+            "Betodemy": [
+                "Build and debug production features across UI, API and PostgreSQL workflows in a modular product within a 5-person team.",
+                "Analyze defects, create traceable issues and support code review, CI, release and post-release operations.",
+                "Achievement: delivered 70+ merged MRs and closed 70+ authored issues across production workflows.",
+            ],
+            "AI Power": [
+                "Translated BA/customer requirements into Python business-logic, relational-data and report fixes in an Odoo ERP.",
+                "Debugged linked sales, service, parts, warranty and accounting workflows; verified changes through Docker and GitLab CI.",
+                "Achievement: supported fixes across 18 modules and 99+ Python files while preserving an 18-state service flow.",
+            ],
+            "OakMind": [
+                "VN Media Hub: built ASP.NET Core CMS workflows with authentication, logging and SQL Server-backed reporting.",
+                "Great Link Mai House: converted legacy workflows into React screens, C# services and external integrations.",
+                "OakMind Group Website: shipped a React/.NET CMS for roles, bilingual content, leads, analytics and media.",
+                "Achievement: owned requirement clarification through production release across all three OakMind Group products.",
+            ],
+            "RouteLab": [
+                "Implemented Dijkstra, A*, Floyd-Warshall and Bellman-Ford with REST API and PostgreSQL-backed paths.",
+                "Achievement: published a working demo with 95 automated tests and a dedicated GitHub Actions CI pipeline.",
+            ],
+        },
+    },
+    "lacviet-dotnet-developer": {
+        "output": ROOT / "cv" / "lacviet-dotnet-developer" / "CV_NguyenXuanHai_LacViet_DotNet_Developer_ATS.pdf",
+        "title": "Nguyen Xuan Hai - .NET Developer CV",
+        "subtitle": ".NET Developer | C# | ASP.NET Core | React | RESTful API | SQL",
+        "summary": (
+            "Junior .NET-oriented full-stack developer with commercial delivery experience since October 2024 through commercial product work and an ERP internship. "
+            "Built and supported production web products using C#, ASP.NET Core, React, TypeScript, RESTful APIs, WebSocket/SignalR, "
+            "SQL Server and PostgreSQL. Experienced with OOP, modular service design, code review, debugging, testing, Docker and CI/CD."
+        ),
+        "skills": [
+            (".NET Backend:", "C#, ASP.NET Core Web API/MVC, Object-Oriented Programming (OOP), modular service/business layers and asynchronous workflows."),
+            ("Frontend & Integration:", "React, TypeScript, RESTful API integration, WebSocket/SignalR, authentication and reusable UI workflows."),
+            ("Data:", "SQL Server, PostgreSQL, Entity Framework Core, relational modelling, migrations and query/debug support."),
+            ("Quality:", "Clean modular code, code review, validation, caching, Serilog, Jest/Vitest, end-to-end testing and systematic debugging."),
+            ("Delivery:", "Git, GitLab CI/CD, GitHub Actions, Docker, issue tracking, release handoff and production support."),
+            ("Developer Tools:", "Claude Code and Codex for codebase context and review notes; outputs verified through code, tests and CI."),
+        ],
+        "work_entries": ["Betodemy", "AI Power", "OakMind"],
+        "project_entries": ["ChongScam"],
+        "certification_rows": [
+            ("English:", "B1.4 - Intermediate; technical reading and written communication."),
+        ],
+        "overrides": {
+            "Betodemy": [
+                "Build and debug production UI/API features in a modular React/NestJS product within a 5-person team.",
+                "Trace defects across frontend, REST API and relational-data paths through weekly review, tests, CI and release handoff.",
+                "Achievement: delivered 70+ merged MRs and closed 70+ authored issues across production workflows.",
+            ],
+            "AI Power": [
+                "Converted BA/customer change lists into traceable business-logic, relational-data and report fixes in a modular ERP codebase.",
+                "Debugged cross-module workflow defects and verified changes through Docker and GitLab CI handoff.",
+                "Achievement: supported fixes across 18 custom modules and 99+ Python files while preserving an 18-state service flow.",
+            ],
+            "OakMind": [
+                "VN Media Hub: built ASP.NET Core CMS/API workflows with authentication, caching, Serilog and SQL Server-backed reporting.",
+                "Great Link Mai House: converted legacy workflows into React screens, C# services, SignalR and external integrations.",
+                "OakMind Group Website: shipped React 19/.NET 8 CMS APIs for roles, content, analytics, contact leads and media.",
+                "Achievement: owned BA requirement clarification through production release across all three OakMind Group products.",
+            ],
+            "ChongScam": [
+                "Built production REST API workflows for authentication, RBAC, moderation, audit controls and secure admin operations.",
+                "Achievement: shipped the client-operated platform with 22 controllers, 20 SQL migrations and 12 Jest/e2e test suites.",
+            ],
+            "RouteLab": [
+                "Implemented four routing algorithms with REST/database paths and replay visualization.",
+                "Achievement: published a working demo backed by 95 automated tests and a dedicated GitHub Actions CI pipeline.",
+            ],
+        },
+    },
+    "vnvc-senior-software-developer": {
+        "output": ROOT / "cv" / "vnvc-senior-software-developer" / "CV_NguyenXuanHai_VNVC_Software_Developer_ATS.pdf",
+        "title": "Nguyen Xuan Hai - Software Developer CV",
+        "subtitle": "Software Developer | C# | ASP.NET Core | React / TypeScript | RESTful API | SQL Server",
+        "summary": (
+            "Full-stack developer with commercial delivery experience since October 2024 through commercial product work and an ERP internship. "
+            "Built and supported production web products using C#, ASP.NET Core, React, TypeScript, RESTful APIs, "
+            "SQL Server and PostgreSQL. Experienced with OOP, modular service design, authentication, logging, systematic debugging, "
+            "testing, Docker, CI/CD and post-release support."
+        ),
+        "skills": [
+            (".NET Backend:", "C#, ASP.NET Core Web API/MVC, Object-Oriented Programming (OOP), modular service/business layers and asynchronous workflows."),
+            ("Frontend & Integration:", "React, TypeScript, JavaScript, RESTful API integration, authentication and reusable UI workflows."),
+            ("Data:", "SQL Server, PostgreSQL, Entity Framework Core, relational modelling, migrations and query/debug support."),
+            ("Quality & Operations:", "Validation, RBAC, caching, Serilog, automated testing, systematic debugging, root-cause notes and production support."),
+            ("Delivery:", "Git, GitLab CI/CD, GitHub Actions, Docker, issue tracking, code review, release handoff and BA/QA collaboration."),
+        ],
+        "work_entries": ["Betodemy", "AI Power", "OakMind"],
+        "project_entries": ["ChongScam"],
+        "certification_rows": [
+            ("AWS Training:", "AWS Cloud Practitioner Essentials - Completion Certificate (Jul 2026)."),
+            ("English:", "B1.4 - Intermediate; technical reading and written communication."),
+        ],
+        "overrides": {
+            "Betodemy": [
+                "Build and troubleshoot production UI/API features in a modular React/Vite and NestJS product within a 5-person team.",
+                "Trace defects across frontend, REST API and PostgreSQL paths through weekly review, tests, CI, release and post-release support.",
+                "Achievement: delivered 70+ merged MRs and closed 70+ authored issues across production workflows.",
+            ],
+            "AI Power": [
+                "Converted BA/customer changes into traceable business-logic, relational-data and report fixes in a modular ERP.",
+                "Debugged linked sales, service, parts, warranty and accounting workflows; verified changes through Docker and GitLab CI.",
+                "Achievement: supported fixes across 18 modules and 99+ Python files while preserving an 18-state service flow.",
+            ],
+            "OakMind": [
+                "VN Media Hub: built ASP.NET Core CMS APIs with authentication, caching, Serilog and SQL Server-backed reporting workflows.",
+                "Great Link Mai House: converted legacy workflows into React screens, C# services, Entity Framework data paths and integrations.",
+                "OakMind Group Website: shipped React 19/.NET 8 APIs for bilingual content, roles, contact leads, analytics and media.",
+                "Achievement: owned BA requirement clarification through production release across all three OakMind Group products.",
+            ],
+            "ChongScam": [
+                "Built production REST API workflows for session authentication, RBAC, moderation, audit controls and secure admin operations.",
+                "Achievement: shipped the client-operated platform with 22 controllers, 20 SQL migrations and 12 Jest/e2e test suites.",
+            ],
+        },
+    },
+    "phong-kham-315-middle-backend": {
+        "output": ROOT / "cv" / "phong-kham-315-middle-backend" / "CV_NguyenXuanHai_PhongKham315_Middle_Backend_ATS.pdf",
+        "title": "Nguyen Xuan Hai - Backend Developer CV",
+        "subtitle": "Backend Developer | C# | .NET Core | RESTful API | Entity Framework Core | SQL",
+        "summary": (
+            "Backend-oriented developer with commercial delivery experience since October 2024 through commercial product work and an ERP internship. "
+            "Built and supported production business systems using C#, ASP.NET Core, RESTful APIs, Entity Framework Core, SQL Server and PostgreSQL. "
+            "Experienced with authentication, relational data workflows, integration testing, logging, systematic debugging, Docker and CI/CD."
+        ),
+        "skills": [
+            (".NET Backend:", "C#, .NET Core, ASP.NET Core Web API/MVC, Object-Oriented Programming (OOP), modular service and business layers."),
+            ("API & Integration:", "RESTful API design/integration, DTO validation, authentication, RBAC, asynchronous workflows and WebSocket/SignalR exposure."),
+            ("Data:", "SQL Server, PostgreSQL, Entity Framework Core, relational modelling, migrations, data mapping and query/debug support."),
+            ("Quality & Security:", "Integration/e2e testing, validation, authorization, audit logging, Serilog, caching and systematic debugging."),
+            ("Delivery:", "Git, code review, GitLab CI/CD, GitHub Actions, Docker, issue tracking, release handoff and production support."),
+        ],
+        "work_entries": ["Betodemy", "AI Power", "OakMind"],
+        "project_entries": ["ChongScam"],
+        "certification_rows": [
+            ("English:", "B1.4 - Intermediate; good technical reading and written communication."),
+        ],
+        "overrides": {
+            "Betodemy": [
+                "Build and debug production API/data workflows in a modular NestJS/PostgreSQL product within a 5-person team.",
+                "Trace cross-layer defects through weekly issue, review, test, CI and release cycles; support post-release operations.",
+                "Achievement: delivered 70+ merged MRs and closed 70+ authored issues across production workflows.",
+            ],
+            "AI Power": [
+                "Translated BA/customer changes into traceable business-logic, relational-data and reporting fixes in a modular ERP.",
+                "Debugged linked sales, service, parts, warranty and accounting workflows; verified changes through Docker and GitLab CI.",
+                "Achievement: supported fixes across 18 modules and 99+ Python files while preserving an 18-state service flow.",
+            ],
+            "OakMind": [
+                "VN Media Hub: built ASP.NET Core REST APIs with authentication, caching, Serilog and SQL Server-backed CMS/reporting workflows.",
+                "Great Link Mai House: converted legacy workflows into C# services, Entity Framework Core data paths, SignalR and integrations.",
+                "OakMind Group Website: shipped .NET 8 APIs for roles, bilingual content review, contact leads, analytics and media.",
+                "Achievement: owned BA requirement clarification through production release across all three OakMind Group products.",
+            ],
+            "ChongScam": [
+                "Built production REST API workflows for session authentication, RBAC, moderation, audit controls and secure admin operations.",
+                "Achievement: shipped the client-operated platform with 22 controllers, 20 SQL migrations and 12 Jest/e2e test suites.",
+            ],
+        },
+    },
+    "ecomdent-fullstack-dotnet-erp": {
+        "output": ROOT / "cv" / "ecomdent-fullstack-dotnet-erp" / "CV_NguyenXuanHai_Ecomdent_FullStack_DotNet_ERP_ATS.pdf",
+        "title": "Nguyen Xuan Hai - Full-Stack Developer CV",
+        "subtitle": "Full-Stack Developer | C# | .NET Core | Web API | PostgreSQL | ERP",
+        "summary": (
+            "Full-stack developer with commercial delivery experience since October 2024 through commercial product work and an ERP internship. "
+            "Built and supported production business systems using C#, ASP.NET Core Web API, Entity Framework Core, SQL Server, "
+            "PostgreSQL, React and Bootstrap. Experienced with OOP, layered services, DTO/validation workflows, authentication, "
+            "systematic debugging, ERP requirements and BA/QA-facing release delivery."
+        ),
+        "skills": [
+            (".NET Backend:", "C#, .NET Core, ASP.NET Core Web API/MVC, Object-Oriented Programming (OOP), asynchronous workflows and modular service/business layers."),
+            ("API & Data:", "RESTful API, DTO mapping, input validation, exception handling, Entity Framework Core, PostgreSQL, SQL Server and relational modelling."),
+            ("Frontend:", "React, TypeScript, Bootstrap, reusable form/table/modal workflows, responsive UI and API integration; transferable component-based foundation for Vue.js."),
+            ("ERP & Quality:", "Business workflow analysis, authentication, logging, query/debug support, refactoring, code review and production troubleshooting."),
+            ("Delivery:", "Git, GitLab CI/CD, GitHub Actions, Docker, issue tracking, BA/QA collaboration, release handoff and post-release support."),
+        ],
+        "work_entries": ["Betodemy", "AI Power", "OakMind"],
+        "project_entries": ["ChongScam"],
+        "certification_rows": [],
+        "overrides": {
+            "Betodemy": [
+                "Build and debug production form, API and PostgreSQL workflows in a modular product within a 5-person team.",
+                "Trace defects across UI, DTO/validation, service and data layers through weekly issue, review, CI and release cycles.",
+                "Achievement: delivered 70+ merged MRs and closed 70+ authored issues across production workflows.",
+            ],
+            "AI Power": [
+                "Translated BA/customer changes into business-logic, relational-data, report and input-validation fixes in an Odoo ERP.",
+                "Debugged linked sales, service, parts, warranty and accounting workflows; verified changes through Docker and GitLab CI.",
+                "Achievement: supported fixes across 18 modules and 99+ Python files while preserving an 18-state service flow.",
+            ],
+            "OakMind": [
+                "VN Media Hub: built ASP.NET Core CMS APIs with authentication, caching, logging and SQL Server-backed reporting workflows.",
+                "Great Link Mai House: converted legacy workflows into React screens, C# services, DTO contracts and integrations.",
+                "OakMind Group Website: shipped .NET 8/EF Core APIs for roles, bilingual content review, leads, analytics and media.",
+                "Achievement: owned BA requirement clarification through production release across all three OakMind Group products.",
+            ],
+            "ChongScam": [
+                "Built production REST API workflows for session authentication, RBAC, moderation, audit controls and secure admin operations.",
+                "Applied DTO validation, relational migrations, rate limiting and automated API/e2e verification across a modular backend.",
+                "Achievement: shipped the client-operated platform with 22 controllers, 20 SQL migrations and 12 Jest/e2e test suites.",
+            ],
+        },
+    },
+    "axon-software-engineer-i": {
+        "output": ROOT / "cv" / "axon-software-engineer-i" / "CV_NguyenXuanHai_Axon_Software_Engineer_I_ATS.pdf",
+        "title": "Nguyen Xuan Hai - Software Engineer I CV",
+        "subtitle": "Software Engineer I | C#/.NET | React | OOP | Testing & CI/CD",
+        "summary": (
+            "Junior software engineer with commercial delivery experience since October 2024 through commercial product work and an ERP internship. "
+            "Built and supported production web features using C#, ASP.NET Core, React, TypeScript, RESTful APIs and relational databases. "
+            "Experienced with code review, debugging, automated testing, CI/CD and end-to-end delivery; uses AI-assisted development tools "
+            "for codebase context and review while validating behavior through code, tests and manual checks."
+        ),
+        "skills": [
+            ("Programming Foundations:", "C#, Object-Oriented Programming (OOP), data structures, algorithms, asynchronous workflows and systematic debugging."),
+            ("Application Development:", "ASP.NET Core Web API/MVC, React, TypeScript, NestJS, RESTful API integration and modular service design."),
+            ("Data:", "SQL Server, PostgreSQL, Entity Framework Core, TypeORM, relational modelling and query/debug support."),
+            ("Quality:", "Code review, Jest/Vitest, end-to-end testing, validation, authentication, RBAC, logging and regression-aware changes."),
+            ("Delivery:", "Git, GitLab CI/CD, GitHub Actions, Docker, issue tracking, release handoff and production support."),
+            ("Developer Tools:", "Claude Code and Codex for codebase context, implementation planning and review notes; outputs verified through tests and CI."),
+        ],
+        "work_entries": ["Betodemy", "AI Power", "OakMind"],
+        "project_entries": ["RouteLab"],
+        "certification_rows": [
+            ("English:", "B1.4 - Intermediate; technical reading and written communication."),
+        ],
+        "overrides": {
+            "Betodemy": [
+                "Build and debug end-to-end product features in a modular React/NestJS monorepo within a 5-person engineering team.",
+                "Work through weekly issues, code review, tests, CI checks, release handoff and production troubleshooting.",
+                "Achievement: delivered 70+ merged MRs and closed 70+ authored issues across production workflows.",
+            ],
+            "AI Power": [
+                "Completed a professional software development internship supporting business logic, data models and reports in an existing modular ERP codebase.",
+                "Prepared small, traceable fixes from BA/customer requirements and checked GitLab CI handoff for shared production workflows.",
+                "Achievement: supported fixes across 18 custom modules and 99+ Python files without breaking an 18-state service flow.",
+            ],
+            "OakMind": [
+                "VN Media Hub: built production CMS, authentication, moderation, logging and reporting features with React and ASP.NET Core APIs.",
+                "Great Link Mai House: converted legacy workflows into maintainable React screens, C# services and realtime integrations.",
+                "OakMind Group Website: shipped a bilingual React 19/ASP.NET Core 8 CMS with media, SEO/analytics and lead workflows.",
+                "Achievement: owned requirement clarification through production release across all three OakMind Group products.",
+            ],
+            "RouteLab": [
+                "Implemented Dijkstra, A*, Floyd-Warshall and Bellman-Ford with REST/database paths and replay visualization.",
+                "Achievement: published a working demo with automated frontend/backend tests and a dedicated backend algorithm CI pipeline.",
+            ],
+            "ChongScam": [
+                "Built production React/NestJS workflows for session authentication, RBAC, moderation, audit controls and secure admin operations.",
+                "Achievement: shipped the client-operated platform with 22 controllers, 20 SQL migrations and 12 Jest/e2e test suites.",
+            ],
+        },
+    },
     "zalo-software-fresher": {
         "output": ROOT / "cv" / "zalo-software-fresher" / "CV_NguyenXuanHai_Zalo_Software_Fresher.pdf",
         "title": "Nguyen Xuan Hai - Software Development Fresher CV",
@@ -161,9 +582,21 @@ def build_variant(name: str) -> Path:
             self.key_value(label, value)
         self.y -= 2
 
+    def footer(self):
+        self.c.saveState()
+        self.c.setStrokeColor(base.SOFT_RULE)
+        self.c.line(base.MARGIN_X, base.BOTTOM - 8, base.PAGE_W - base.MARGIN_X, base.BOTTOM - 8)
+        self.c.setFillColor(base.MUTED)
+        self.c.setFont("Arial", 7.2)
+        target_role = config["subtitle"].split("|")[0].strip()
+        self.c.drawString(base.MARGIN_X, base.BOTTOM - 22, f"Nguyen Xuan Hai | {target_role}")
+        self.c.drawRightString(base.PAGE_W - base.MARGIN_X, base.BOTTOM - 22, f"Page {self.page}")
+        self.c.restoreState()
+
     pdf.header = MethodType(header, pdf)
     pdf.summary = MethodType(summary, pdf)
     pdf.skills = MethodType(skills, pdf)
+    pdf._footer = MethodType(footer, pdf)
 
     work_entries = select_entries(base.WORK_ENTRIES, config["work_entries"], config["overrides"], base)
     project_entries = select_entries(base.PROJECT_ENTRIES, config["project_entries"], config["overrides"], base)
@@ -181,13 +614,16 @@ def build_variant(name: str) -> Path:
     pdf.section("Independent Projects", 140)
     for item in project_entries:
         pdf.entry(item)
-    pdf.compact_section(
-        "Certifications & Activities",
+    certification_rows = config.get(
+        "certification_rows",
         [
-            ("Google / AI:", "Gemini Certified University Student; Gemini Certified Faculty; Google AI for K12 Educators; Code a Joke-Telling Talkbot."),
-            ("Additional:", "Basic Office Information Technology; Volunteer Participation Certificate; English Community House volunteer."),
+            ("AWS Training:", "AWS Cloud Practitioner Essentials - Completion Certificate (Jul 2026)."),
+            ("Professional:", "Software Development Lifecycle (AIAcademy by AIPOWER, Jul 2026); Information Security Awareness (AIAcademy by AIPOWER, Jul 2026)."),
+            ("English:", "B1.4 - Intermediate; technical reading and written communication."),
         ],
     )
+    if certification_rows:
+        pdf.compact_section("Certifications & Language", certification_rows)
     pdf.save()
     base.normalize_pdf(output)
     return output

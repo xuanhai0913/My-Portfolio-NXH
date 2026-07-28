@@ -70,7 +70,7 @@
       },
       "repolens": {
         "type": "PHÂN TÍCH MÃ NGUỒN",
-        "description": "Chuyển ngữ cảnh repository thành sơ đồ kiến trúc, rủi ro dependency và kế hoạch thay đổi có thể thực thi.",
+        "description": "Chuyển ngữ cảnh mã nguồn thành sơ đồ kiến trúc, các rủi ro phụ thuộc và kế hoạch thay đổi có thể thực thi.",
         "input": "README + cây thư mục + yêu cầu",
         "output": "Sơ đồ hệ thống + báo cáo rủi ro",
         "fields": {
@@ -79,7 +79,7 @@
             "placeholder": "Ví dụ: Thêm cơ chế thử lại thanh toán mà không ảnh hưởng xử lý đơn hàng",
             "defaultValue": "Xác định phương án an toàn nhất để bổ sung audit logging."
           },
-          "repositoryContext": { "label": "NGỮ CẢNH REPOSITORY", "placeholder": "Dán README, cây thư mục, ghi chú kiến trúc hoặc các file mã nguồn đã chọn..." }
+          "repositoryContext": { "label": "NGỮ CẢNH MÃ NGUỒN", "placeholder": "Dán README, cây thư mục, ghi chú kiến trúc hoặc các tệp mã nguồn đã chọn..." }
         }
       },
       "incidentlens": {
@@ -97,21 +97,21 @@
         }
       },
       "agentflow": {
-        "type": "HỆ THỐNG ĐA TÁC TỬ",
-        "description": "Thiết kế quy trình đa tác tử có thể kiểm duyệt với vai trò, dependency, bàn giao và cổng chất lượng rõ ràng.",
+        "type": "HỆ THỐNG NHIỀU AI AGENT",
+        "description": "Thiết kế quy trình phối hợp nhiều AI agent với vai trò, quan hệ phụ thuộc, cách bàn giao và tiêu chí kiểm soát chất lượng rõ ràng.",
         "input": "Mục tiêu + công nghệ + ràng buộc",
-        "output": "Sơ đồ tác tử + cổng bàn giao",
+        "output": "Sơ đồ AI agent + các bước kiểm soát",
         "fields": {
           "objective": {
             "label": "MỤC TIÊU DỰ ÁN",
-            "placeholder": "Mô tả kết quả đội tác tử cần bàn giao...",
+            "placeholder": "Mô tả kết quả mà nhóm AI agent cần tạo ra...",
             "defaultValue": "Xây dựng và phát hành trợ lý hỗ trợ khách hàng, chỉ trả lời từ tài liệu sản phẩm được phê duyệt, trích dẫn nguồn và chuyển tiếp an toàn các yêu cầu chưa chắc chắn."
           },
           "techStack": { "label": "CÔNG NGHỆ", "placeholder": "Ví dụ: React, NestJS, PostgreSQL, Gemini, Docker" },
           "constraints": {
             "label": "RÀNG BUỘC / ĐỊNH NGHĨA HOÀN THÀNH",
             "placeholder": "Các yêu cầu về bảo mật, thời gian, chất lượng, triển khai hoặc kiểm duyệt...",
-            "defaultValue": "Không trả lời khi chưa được kiểm chứng; không lưu PII; mọi câu trả lời phải có nguồn; cần có kiểm thử tự động, kiểm duyệt của con người, rollback và giám sát production."
+            "defaultValue": "Không trả lời khi chưa được kiểm chứng; không lưu dữ liệu định danh cá nhân; mọi câu trả lời phải có nguồn; cần có kiểm thử tự động, bước duyệt của con người, phương án khôi phục phiên bản trước và giám sát khi vận hành."
           }
         }
       },
@@ -143,7 +143,7 @@
     "safetyNotice": "Không nhập bí mật, thông tin xác thực hoặc dữ liệu sức khỏe cá nhân.",
     "analyzing": "ĐANG PHÂN TÍCH...",
     "runFailedMessage": "Công cụ không thể hoàn tất lần chạy này.",
-    "runtimeUnavailable": "Nền tảng AI Tools đang tạm thời không khả dụng. Vui lòng tải lại trang và thử lại.",
+    "runtimeUnavailable": "Các công cụ AI đang tạm thời không khả dụng. Vui lòng tải lại trang và thử lại.",
     "unexpectedError": "Đã xảy ra lỗi không mong muốn.",
     "states": { "idle": "SẴN SÀNG", "running": "ĐANG CHẠY", "success": "THÀNH CÔNG", "error": "LỖI" },
     "ready": "SẴN SÀNG_",
@@ -157,12 +157,12 @@
     "copied": "ĐÃ SAO CHÉP",
     "severity": { "high": "CAO", "medium": "VỪA", "low": "THẤP", "info": "THÔNG TIN" },
     "generatedGraph": "SƠ ĐỒ THỰC THI ĐƯỢC TẠO",
-    "agentFlow": "LUỒNG TÁC TỬ",
-    "agentCount": "{{count}} TÁC TỬ",
+    "agentFlow": "QUY TRÌNH AI AGENT",
+    "agentCount": "{{count}} AI AGENT",
     "waitsFor": "CHỜ",
     "deliverable": "SẢN PHẨM BÀN GIAO",
-    "handoffContracts": "QUY ƯỚC BÀN GIAO",
-    "qualityGates": "CỔNG CHẤT LƯỢNG",
+    "handoffContracts": "QUY TẮC BÀN GIAO",
+    "qualityGates": "TIÊU CHÍ KIỂM SOÁT CHẤT LƯỢNG",
     "outputDisclaimer": "Kết quả AI có thể chưa đầy đủ hoặc chưa chính xác.",
     "verifyNotice": "KIỂM CHỨNG TRƯỚC KHI DÙNG / KHÔNG LƯU DỮ LIỆU ĐẦU VÀO"
   },

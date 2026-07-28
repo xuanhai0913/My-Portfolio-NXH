@@ -16,12 +16,12 @@ export function suggestionsByIntent(lang = 'en') {
   return vi
     ? [
         'Cho tôi xem CV',
-        'Kỹ năng nào phù hợp vai trò Fullstack?',
+        'Kỹ năng nào phù hợp với vị trí Full-Stack Developer?',
         'Nếu tôi gửi JD thì độ phù hợp thế nào?',
       ]
     : [
         'Show me the CV',
-        'Which skills best fit a Fullstack role?',
+        'Which skills best fit a Full-Stack Developer role?',
         'If I share a JD, can you evaluate job fit?',
       ];
 }

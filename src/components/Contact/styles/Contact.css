@@ -156,14 +156,15 @@
   color: var(--text-primary);
   font-family: var(--font-mono);
   font-size: 1.1rem;
-  transition: all 0.3s ease;
+  transition: border-color 0.3s ease, padding-left 0.3s ease;
 }
 
-.form-group input:focus,
-.form-group textarea:focus {
+.form-group input:focus-visible,
+.form-group textarea:focus-visible {
   outline: none;
   border-bottom-color: var(--color-accent);
   padding-left: 10px;
+  box-shadow: 0 2px 0 rgba(212, 255, 0, 0.28);
 }
 
 .form-group input:disabled,
@@ -198,7 +199,7 @@
   font-size: 0.75rem;
   padding: 0.3rem 0.6rem;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
   letter-spacing: 0.02em;
 }
 
@@ -221,7 +222,7 @@
   font-size: 1.2rem;
   cursor: pointer;
   align-self: flex-start;
-  transition: all 0.3s ease;
+  transition: color 0.3s ease, background-color 0.3s ease;
 }
 
 .btn-submit:hover:not(:disabled) {
@@ -322,11 +323,15 @@
 /* ===== Mobile ===== */
 @media (max-width: 768px) {
   .contact-section {
-    padding: 4rem 1rem;
+    padding: 5.5rem 1rem 4rem;
   }
 
-  .icecream-3d-container {
-    height: 280px;
+  .contact-container {
+    gap: 0;
+  }
+
+  .contact-model-col {
+    display: none;
   }
 
   .contact-heading {
@@ -337,10 +342,6 @@
     font-size: 1rem;
   }
 
-  .icecream-glow {
-    width: 160px;
-    height: 160px;
-  }
 }
 
 /* ===== Celebration Animation ===== */

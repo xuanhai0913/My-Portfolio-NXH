@@ -25,6 +25,539 @@ def load_base():
 
 
 VARIANTS = {
+    "phuc-sinh-developer": {
+        "output": ROOT / "cv" / "phuc-sinh-developer" / "CV_NguyenXuanHai_PhucSinh_Developer_visual.pdf",
+        "role": "Developer",
+        "stack_line": "C# / ASP.NET Core  |  React  |  SQL  |  ERP  |  AI-assisted Delivery",
+        "headline": "Full-stack developer with commercial delivery experience since Oct 2024 across production web products, ERP workflows and internal business systems.",
+        "workflow": "",
+        "ai_mode": "tools",
+        "skills": [
+            ("C# / ASP.NET Core", "BACKEND", "dotnet.png"),
+            ("React / TypeScript", "FRONTEND", "react.png"),
+            ("RESTful API / MVC", "BACKEND", "dotnet.png"),
+            ("SQL Server / PostgreSQL", "DATABASE", "postgresql.png"),
+            ("ERP Business Workflows", "ERP", "odoo.png"),
+            ("OOP / Modular Design", "ARCHITECTURE", "code-slash.svg"),
+            ("Testing / Debugging", "QUALITY", "code-slash.svg"),
+            ("Git / Code Review", "DELIVERY", "gitlab.png"),
+            ("Docker / CI/CD", "DELIVERY", "docker.png"),
+            ("AI-assisted Development", "AI TOOLS", "robot.svg"),
+        ],
+        "experiences": [
+            (
+                "Feb 2026\n-\nPresent",
+                "Betodemy",
+                "Full-Stack Developer | 5-person team",
+                "React 19, TypeScript, NestJS, PostgreSQL, Redis, Nx, GitLab CI/CD",
+                [
+                    "Build and troubleshoot production features through weekly issue, code-review, test and release cycles.",
+                    "Translate product requirements into modular frontend/API changes and support post-release operations.",
+                ],
+                "Delivered 70+ merged MRs and closed 70+ authored issues across production workflows.",
+            ),
+            (
+                "May 2026\n-\nJul 2026",
+                "AI Power",
+                "Odoo ERP Support Developer Intern",
+                "Python 3.12, Odoo 18, PostgreSQL, QWeb/XML, Docker, GitLab CI/CD",
+                [
+                    "Converted BA/customer change lists into traceable fixes for ERP business logic, data models and reports.",
+                    "Supported sales, service, parts, warranty and TT200 accounting workflows in a shared modular codebase.",
+                ],
+                "Supported fixes across 18 custom modules and 99+ Python files while preserving an 18-state service flow.",
+            ),
+            (
+                "Oct 2024\n-\nJan 2026",
+                "OakMind Group",
+                "Full-Stack Developer | Business analysis & delivery",
+                "C#, ASP.NET Core 8, EF Core, React 18/19, SQL Server, Redis, Docker",
+                [
+                    "VN Media Hub: built CMS, authentication, moderation, logging and reporting workflows with React and ASP.NET Core.",
+                    "Great Link Mai House: converted legacy MVC/WordPress flows into maintainable React screens, APIs and integrations.",
+                    "OakMind Group Website: shipped a bilingual CMS with media, SEO/analytics and lead-management workflows.",
+                ],
+                "Owned requirement clarification through production release across three company products.",
+            ),
+        ],
+        "projects": [
+            {
+                "title": "ChongScam",
+                "role": "Full-Stack Developer",
+                "url": "https://chongscam.vn/",
+                "tech": "React 19 | NestJS 11 | PostgreSQL | Redis | Jest/e2e",
+                "body": "Shipped a client-operated system with auth, RBAC, moderation, audit controls and 12 automated test suites.",
+                "period": "Apr 2026 - Jul 2026",
+            },
+            {
+                "title": "RouteLab",
+                "role": "Full-Stack / Algorithm Developer",
+                "url": "https://tsp-delivery-route-optimizer.vercel.app/",
+                "tech": "TypeScript | Express | PostgreSQL | Vitest | CI",
+                "body": "Implemented four routing algorithms, REST/database paths, automated tests and a dedicated CI pipeline.",
+                "period": "May 2026 - Jul 2026",
+            },
+        ],
+    },
+    "texpo-software-developer": {
+        "output": ROOT / "cv" / "texpo-software-developer" / "CV_NguyenXuanHai_TEXPO_Software_Developer_visual.pdf",
+        "role": "Software Developer",
+        "stack_line": "C# / ASP.NET Core  |  Python  |  JavaScript  |  SQL  |  Business Systems",
+        "headline": "Junior software developer with commercial delivery experience since Oct 2024 across production web products, ERP workflows and internal business systems.",
+        "workflow": "",
+        "ai_mode": "tools",
+        "skills": [
+            ("C# / ASP.NET Core", "BACKEND", "dotnet.png"),
+            ("Python 3.12 / Odoo", "BACKEND & ERP", "python.png"),
+            ("JavaScript / TypeScript", "FRONTEND", "react.png"),
+            ("RESTful API / MVC", "ARCHITECTURE", "dotnet.png"),
+            ("SQL Server / PostgreSQL", "DATABASE", "postgresql.png"),
+            ("OOP / Modular Design", "FOUNDATION", "code-slash.svg"),
+            ("Testing / Debugging", "QUALITY", "code-slash.svg"),
+            ("Git / Code Review", "DELIVERY", "gitlab.png"),
+            ("Docker / CI/CD", "DELIVERY", "docker.png"),
+            ("AWS Cloud Fundamentals", "CLOUD", "code-slash.svg"),
+        ],
+        "experiences": [
+            (
+                "Feb 2026\n-\nPresent",
+                "Betodemy",
+                "Full-Stack Developer | 5-person team",
+                "React 19, TypeScript, NestJS, PostgreSQL, Redis, Nx, GitLab CI/CD",
+                [
+                    "Build and debug production features across UI, API and database workflows in a modular product.",
+                    "Analyze defects, create traceable issues and support review, release and post-release operations.",
+                ],
+                "Delivered 70+ merged MRs and closed 70+ authored issues across production workflows.",
+            ),
+            (
+                "May 2026\n-\nJul 2026",
+                "AI Power",
+                "Odoo ERP Support Developer Intern",
+                "Python 3.12, Odoo 18, PostgreSQL, QWeb/XML, Docker, GitLab CI/CD",
+                [
+                    "Translated BA/customer requirements into Python business-logic, data-model and report fixes.",
+                    "Debugged linked sales, service, parts, warranty and accounting workflows in an operational ERP.",
+                ],
+                "Supported fixes across 18 modules and 99+ Python files while preserving an 18-state service flow.",
+            ),
+            (
+                "Oct 2024\n-\nJan 2026",
+                "OakMind Group",
+                "Full-Stack Developer | Business analysis & delivery",
+                "C#, ASP.NET Core 8, EF Core, React 18/19, SQL Server, Redis, Docker",
+                [
+                    "VN Media Hub: built CMS, authentication, logging and SQL-backed reporting workflows.",
+                    "Great Link Mai House: converted legacy flows into React screens, C# services and integrations.",
+                    "OakMind Group Website: shipped a bilingual CMS with media, SEO/analytics and lead workflows.",
+                ],
+                "Owned requirement clarification through production release across three company products.",
+            ),
+        ],
+        "projects": [
+            {
+                "title": "RouteLab",
+                "role": "Full-Stack / Algorithm Developer",
+                "url": "https://tsp-delivery-route-optimizer.vercel.app/",
+                "tech": "TypeScript | Express | PostgreSQL | Algorithms | CI",
+                "body": "Implemented four routing algorithms, REST/database paths, 95 automated tests and GitHub Actions CI.",
+                "period": "May 2026 - Jul 2026",
+            },
+            {
+                "title": "ChongScam",
+                "role": "Full-Stack Developer",
+                "url": "https://chongscam.vn/",
+                "tech": "React 19 | NestJS 11 | PostgreSQL | Redis | Jest/e2e",
+                "body": "Shipped a client-operated system with auth, RBAC, moderation, audit and secure admin workflows.",
+                "period": "Apr 2026 - Jul 2026",
+            },
+        ],
+    },
+    "dxc-software-engineer": {
+        "output": ROOT / "cv" / "dxc-software-engineer" / "CV_NguyenXuanHai_DXC_Software_Engineer_visual.pdf",
+        "role": "Software Engineer",
+        "stack_line": "OOP  |  RESTful API  |  SQL  |  Testing & Debugging  |  Git / CI/CD",
+        "headline": "Junior software engineer with commercial delivery experience since Oct 2024, building, testing and debugging production web and business-system features.",
+        "workflow": "",
+        "ai_mode": "off",
+        "skills": [
+            ("OOP / Modular Design", "FOUNDATION", "code-slash.svg"),
+            ("RESTful API", "BACKEND", "nestjs.png"),
+            ("JavaScript / TypeScript", "DEVELOPMENT", "react.png"),
+            ("C# / ASP.NET Core", "DEVELOPMENT", "dotnet.png"),
+            ("Python 3.12", "DEVELOPMENT", "python.png"),
+            ("SQL Server / PostgreSQL", "DATABASE", "postgresql.png"),
+            ("Testing / Debugging", "QUALITY", "code-slash.svg"),
+            ("Git / Code Review", "DELIVERY", "gitlab.png"),
+            ("Docker / CI/CD", "DELIVERY", "docker.png"),
+            ("Issue / Release Support", "DELIVERY", "gitlab.png"),
+        ],
+        "experiences": [
+            (
+                "Feb 2026\n-\nPresent",
+                "Betodemy",
+                "Full-Stack Developer | 5-person team",
+                "React 19, TypeScript, NestJS, PostgreSQL, Redis, Nx, GitLab CI/CD",
+                [
+                    "Build, test and debug production features through weekly issue, code-review and release cycles.",
+                    "Document defects, coordinate implementation details and support post-release troubleshooting with the product team.",
+                ],
+                "Delivered 70+ merged MRs and closed 70+ authored issues across production workflows.",
+            ),
+            (
+                "May 2026\n-\nJul 2026",
+                "AI Power",
+                "Odoo ERP Support Developer Intern",
+                "Python 3.12, Odoo 18, PostgreSQL, QWeb/XML, Docker, GitLab CI/CD",
+                [
+                    "Diagnosed and resolved BA/customer-reported defects across business logic, relational data and reports.",
+                    "Prepared small, traceable changes and verified release handoff within a shared modular codebase.",
+                ],
+                "Supported fixes across 18 custom modules and 99+ Python files while preserving an 18-state service workflow.",
+            ),
+            (
+                "Oct 2024\n-\nJan 2026",
+                "OakMind Group",
+                "Full-Stack Developer | Business analysis & delivery",
+                "C#, ASP.NET Core 8, React 18/19, SQL Server, RESTful API, Git, Docker",
+                [
+                    "VN Media Hub: built production CMS, authentication, moderation, logging and reporting workflows.",
+                    "Great Link Mai House: converted legacy flows into maintainable React screens, C# services and integrations.",
+                    "OakMind Group Website: shipped a bilingual CMS with media, SEO/analytics and lead workflows.",
+                ],
+                "Owned requirement clarification through production release across three company products.",
+            ),
+        ],
+        "projects": [
+            {
+                "title": "RouteLab",
+                "role": "Full-Stack / Algorithm Developer",
+                "url": "https://tsp-delivery-route-optimizer.vercel.app/",
+                "tech": "TypeScript | Express | PostgreSQL | Algorithms | Vitest | CI",
+                "body": "Implemented four routing algorithms, REST/database paths, 95 automated tests and GitHub Actions CI.",
+                "period": "May 2026 - Jul 2026",
+            },
+            {
+                "title": "ChongScam",
+                "role": "Full-Stack Developer",
+                "url": "https://chongscam.vn/",
+                "tech": "React 19 | NestJS 11 | PostgreSQL | Jest/e2e",
+                "body": "Shipped a client-operated platform with auth, RBAC, moderation, audit controls and tested backend workflows.",
+                "period": "Apr 2026 - Jul 2026",
+            },
+        ],
+        "certifications": [
+            (
+                "Software Development Lifecycle - AIAcademy by AIPOWER, Jul 2026",
+                "https://aiacademy.aipower.vn/certificates/e53aeb6b738a4a6eafb0c6edf9b2e912",
+            ),
+            (
+                "Information Security Awareness - AIAcademy by AIPOWER, Jul 2026",
+                "https://aiacademy.aipower.vn/certificates/f574be7d6b83416d9673e6d28f19664b",
+            ),
+            (
+                "AWS Cloud Practitioner Essentials - Completion Certificate, Jul 2026",
+                "https://my-portfolio-nxh.vercel.app/Cert/AWS-Cloud-Practitioner-Essentials.pdf",
+            ),
+            ("English: B1.4 - Intermediate; technical reading/writing", ""),
+        ],
+    },
+    "lacviet-dotnet-developer": {
+        "output": ROOT / "cv" / "lacviet-dotnet-developer" / "CV_NguyenXuanHai_LacViet_DotNet_Developer_visual.pdf",
+        "role": ".NET Developer",
+        "stack_line": "C# / ASP.NET Core  |  React  |  RESTful API  |  SQL  |  CI/CD",
+        "headline": "Junior .NET-oriented full-stack developer with commercial delivery experience since Oct 2024 across production web products and business systems.",
+        "workflow": "",
+        "ai_mode": "tools",
+        "skills": [
+            ("C# / ASP.NET Core", "BACKEND", "dotnet.png"),
+            ("RESTful API / MVC", "BACKEND", "dotnet.png"),
+            ("React / TypeScript", "FRONTEND", "react.png"),
+            ("SQL Server / PostgreSQL", "DATABASE", "postgresql.png"),
+            ("EF Core / Relational Data", "DATABASE", "postgresql.png"),
+            ("WebSocket / SignalR", "REALTIME", "code-slash.svg"),
+            ("OOP / Modular Design", "ARCHITECTURE", "code-slash.svg"),
+            ("Testing / Debugging", "QUALITY", "code-slash.svg"),
+            ("Git / Code Review", "DELIVERY", "gitlab.png"),
+            ("Docker / CI/CD", "DELIVERY", "docker.png"),
+        ],
+        "experiences": [
+            (
+                "Feb 2026\n-\nPresent",
+                "Betodemy",
+                "Full-Stack Developer | 5-person team",
+                "React 19, TypeScript, NestJS, PostgreSQL, Redis, Nx, GitLab CI/CD",
+                [
+                    "Build and troubleshoot production UI/API features through weekly issue, code-review, test and release cycles.",
+                    "Trace defects across frontend, REST API and relational-data paths; support deployment and post-release operations.",
+                ],
+                "Delivered 70+ merged MRs and closed 70+ authored issues across production workflows.",
+            ),
+            (
+                "May 2026\n-\nJul 2026",
+                "AI Power",
+                "Odoo ERP Support Developer Intern",
+                "Python 3.12, Odoo 18, PostgreSQL, QWeb/XML, Docker, GitLab CI/CD",
+                [
+                    "Converted BA/customer change lists into traceable business-logic, relational-data and report fixes.",
+                    "Debugged cross-module workflow defects and verified changes through Docker and GitLab CI handoff.",
+                ],
+                "Supported fixes across 18 custom modules and 99+ Python files while preserving an 18-state service flow.",
+            ),
+            (
+                "Oct 2024\n-\nJan 2026",
+                "OakMind Group",
+                "Full-Stack Developer | Business analysis & delivery",
+                "C#, ASP.NET Core 8, EF Core, React 18/19, SQL Server, Redis, Docker",
+                [
+                    "VN Media Hub: built ASP.NET Core CMS/API workflows with auth, caching, Serilog and SQL-backed reporting.",
+                    "Great Link Mai House: converted legacy flows into React screens, C# services, SignalR and integrations.",
+                    "OakMind Group Website: shipped React 19/.NET 8 CMS APIs for roles, content, analytics, leads and media.",
+                ],
+                "Owned requirement clarification through production release across three company products.",
+            ),
+        ],
+        "projects": [
+            {
+                "title": "ChongScam",
+                "role": "Full-Stack Developer",
+                "url": "https://chongscam.vn/",
+                "tech": "REST API | PostgreSQL | Redis | Jest/e2e | Security",
+                "body": "Shipped auth, RBAC, moderation and audit workflows with 22 controllers, 20 migrations and 12 test suites.",
+                "period": "Apr 2026 - Jul 2026",
+            },
+            {
+                "title": "RouteLab",
+                "role": "Full-Stack / Algorithm Developer",
+                "url": "https://tsp-delivery-route-optimizer.vercel.app/",
+                "tech": "TypeScript | REST API | PostgreSQL | Vitest | CI",
+                "body": "Implemented four routing algorithms with database-backed APIs, 95 automated tests and GitHub Actions CI.",
+                "period": "May 2026 - Jul 2026",
+            },
+        ],
+    },
+    "vnvc-senior-software-developer": {
+        "output": ROOT / "cv" / "vnvc-senior-software-developer" / "CV_NguyenXuanHai_VNVC_Software_Developer_visual.pdf",
+        "role": "Software Developer (.NET / React)",
+        "stack_line": "C# / ASP.NET Core  |  RESTful API  |  React / TypeScript  |  SQL Server",
+        "headline": "Full-stack developer with commercial delivery experience since Oct 2024 building and supporting production web products and business systems.",
+        "workflow": "",
+        "ai_mode": "off",
+        "skills": [
+            ("C# / ASP.NET Core", "BACKEND", "dotnet.png"),
+            ("RESTful API / MVC", "BACKEND", "dotnet.png"),
+            ("React / TypeScript", "FRONTEND", "react.png"),
+            ("TypeScript / JavaScript", "FRONTEND", "react.png"),
+            ("SQL Server / PostgreSQL", "DATABASE", "postgresql.png"),
+            ("EF Core / Relational Data", "DATA ACCESS", "postgresql.png"),
+            ("OOP / Modular Services", "ARCHITECTURE", "code-slash.svg"),
+            ("Auth / RBAC / Logging", "SECURITY", "code-slash.svg"),
+            ("Testing / Debugging", "QUALITY", "code-slash.svg"),
+            ("Git / Docker / CI/CD", "DELIVERY", "docker.png"),
+        ],
+        "experiences": [
+            (
+                "Feb 2026\n-\nPresent",
+                "Betodemy",
+                "Full-Stack Developer | 5-person team",
+                "React 19, Vite, TypeScript, NestJS, PostgreSQL, Redis, GitLab CI/CD",
+                [
+                    "Build and troubleshoot production UI/API features through weekly issue, review, test and release cycles.",
+                    "Trace defects across frontend, REST API and relational-data paths; support release and post-release operations.",
+                ],
+                "Delivered 70+ merged MRs and closed 70+ authored issues across production workflows.",
+            ),
+            (
+                "May 2026\n-\nJul 2026",
+                "AI Power",
+                "Odoo ERP Support Developer Intern",
+                "Python 3.12, Odoo 18, PostgreSQL, QWeb/XML, Docker, GitLab CI/CD",
+                [
+                    "Converted BA/customer change lists into traceable business-logic, data and report fixes.",
+                    "Debugged linked ERP workflows and verified changes through Docker and GitLab CI handoff.",
+                ],
+                "Supported fixes across 18 modules and 99+ Python files while preserving an 18-state service flow.",
+            ),
+            (
+                "Oct 2024\n-\nJan 2026",
+                "OakMind Group",
+                "Full-Stack Developer | Business analysis & delivery",
+                "C#, ASP.NET Core 8, EF Core, React 18/19, SQL Server, Redis, Docker",
+                [
+                    "VN Media Hub: built ASP.NET Core CMS APIs with auth, caching, logging and SQL-backed reports.",
+                    "Great Link Mai House: converted legacy flows into React screens, C# services and integrations.",
+                    "OakMind Group Website: shipped React 19/.NET 8 APIs for content, leads, analytics and media.",
+                ],
+                "Owned requirement clarification through production release across three company products.",
+            ),
+        ],
+        "projects": [
+            {
+                "title": "ChongScam",
+                "role": "Full-Stack Developer",
+                "url": "https://chongscam.vn/",
+                "tech": "REST API | PostgreSQL | Redis | RBAC | Jest/e2e",
+                "body": "Shipped client-operated auth, moderation, audit and admin workflows with 22 controllers, 20 migrations and 12 test suites.",
+                "period": "Apr 2026 - Jul 2026",
+            },
+            {
+                "title": "RouteLab",
+                "role": "Full-Stack / Algorithm Developer",
+                "url": "https://tsp-delivery-route-optimizer.vercel.app/",
+                "tech": "TypeScript | REST API | PostgreSQL | Vitest | CI",
+                "body": "Implemented four routing algorithms with database-backed APIs, 95 automated tests and GitHub Actions CI.",
+                "period": "May 2026 - Jul 2026",
+            },
+        ],
+    },
+    "phong-kham-315-middle-backend": {
+        "output": ROOT / "cv" / "phong-kham-315-middle-backend" / "CV_NguyenXuanHai_PhongKham315_Middle_Backend_visual.pdf",
+        "role": "Backend Developer (.NET Core)",
+        "stack_line": "C# / .NET Core  |  RESTful API  |  EF Core  |  SQL  |  Integration Testing",
+        "headline": "Backend-oriented developer with commercial delivery experience since Oct 2024 across production APIs, business workflows and relational systems.",
+        "workflow": "",
+        "ai_mode": "off",
+        "skills": [
+            ("C# / .NET Core", "BACKEND", "dotnet.png"),
+            ("RESTful API / MVC", "BACKEND", "dotnet.png"),
+            ("Entity Framework Core", "DATA ACCESS", "postgresql.png"),
+            ("SQL Server / PostgreSQL", "DATABASE", "postgresql.png"),
+            ("Authentication / RBAC", "SECURITY", "code-slash.svg"),
+            ("OOP / Modular Services", "ARCHITECTURE", "code-slash.svg"),
+            ("Integration Testing", "QUALITY", "code-slash.svg"),
+            ("Logging / Debugging", "OPERATIONS", "code-slash.svg"),
+            ("Docker / CI/CD", "DELIVERY", "docker.png"),
+            ("Git / Code Review", "DELIVERY", "gitlab.png"),
+        ],
+        "experiences": [
+            (
+                "Feb 2026\n-\nPresent",
+                "Betodemy",
+                "Full-Stack Developer | 5-person team",
+                "NestJS, PostgreSQL, Redis, React 19, Nx, GitLab CI/CD",
+                [
+                    "Build and debug production API/data workflows through weekly issue, review, test and release cycles.",
+                    "Trace cross-layer defects, document reproducible issues and support stable post-release operations.",
+                ],
+                "Delivered 70+ merged MRs and closed 70+ authored issues across production workflows.",
+            ),
+            (
+                "May 2026\n-\nJul 2026",
+                "AI Power",
+                "Odoo ERP Support Developer Intern",
+                "Python 3.12, Odoo 18, PostgreSQL, QWeb/XML, Docker, GitLab CI/CD",
+                [
+                    "Translated BA/customer changes into traceable business-logic, data-model and reporting fixes.",
+                    "Debugged linked sales, service, parts, warranty and accounting workflows in a modular ERP.",
+                ],
+                "Supported fixes across 18 modules and 99+ Python files while preserving an 18-state service flow.",
+            ),
+            (
+                "Oct 2024\n-\nJan 2026",
+                "OakMind Group",
+                "Full-Stack Developer | Business analysis & delivery",
+                "C#, ASP.NET Core 8, EF Core, SQL Server, React 18/19, Redis, Docker",
+                [
+                    "VN Media Hub: built REST APIs, auth, caching, Serilog and SQL-backed CMS/reporting workflows.",
+                    "Great Link Mai House: converted legacy flows into C# services, EF Core data paths and integrations.",
+                    "OakMind Group Website: shipped .NET 8 APIs for roles, content review, leads, analytics and media.",
+                ],
+                "Owned BA requirement clarification through production release across three company products.",
+            ),
+        ],
+        "projects": [
+            {
+                "title": "ChongScam",
+                "role": "Backend / Full-Stack Developer",
+                "url": "https://chongscam.vn/",
+                "tech": "REST API | PostgreSQL | Redis | RBAC | Jest/e2e",
+                "body": "Shipped secure auth, moderation and audit workflows with 22 controllers, 20 migrations and 12 test suites.",
+                "period": "Apr 2026 - Jul 2026",
+            },
+            {
+                "title": "RouteLab",
+                "role": "Backend / Algorithm Developer",
+                "url": "https://tsp-delivery-route-optimizer.vercel.app/",
+                "tech": "REST API | PostgreSQL | Vitest | GitHub Actions",
+                "body": "Implemented database-backed routing APIs with four algorithms, 95 automated tests and dedicated CI.",
+                "period": "May 2026 - Jul 2026",
+            },
+        ],
+    },
+    "ecomdent-fullstack-dotnet-erp": {
+        "output": ROOT / "cv" / "ecomdent-fullstack-dotnet-erp" / "CV_NguyenXuanHai_Ecomdent_FullStack_DotNet_ERP_visual.pdf",
+        "role": "Full-Stack Developer (.NET ERP)",
+        "stack_line": "C# / .NET Core  |  Web API  |  PostgreSQL  |  OOP  |  ERP Workflows",
+        "headline": "Full-stack developer with commercial delivery experience since Oct 2024 across .NET web products, ERP workflows and relational business systems.",
+        "workflow": "",
+        "ai_mode": "off",
+        "skills": [
+            ("C# / .NET Core", "BACKEND", "dotnet.png"),
+            ("Web API / RESTful API", "BACKEND", "dotnet.png"),
+            ("OOP / Service Layers", "ARCHITECTURE", "code-slash.svg"),
+            ("DTO / Validation", "API QUALITY", "code-slash.svg"),
+            ("PostgreSQL / SQL Server", "DATABASE", "postgresql.png"),
+            ("EF Core / Relational Data", "DATA ACCESS", "postgresql.png"),
+            ("React / Bootstrap", "FRONTEND", "react.png"),
+            ("Logging / Debugging", "OPERATIONS", "code-slash.svg"),
+            ("Git / Code Review", "DELIVERY", "gitlab.png"),
+            ("Docker / CI/CD", "DELIVERY", "docker.png"),
+        ],
+        "experiences": [
+            (
+                "Feb 2026\n-\nPresent",
+                "Betodemy",
+                "Full-Stack Developer | 5-person team",
+                "React 19, NestJS, PostgreSQL, Redis, Nx, GitLab CI/CD",
+                [
+                    "Build and debug production form, API and PostgreSQL workflows through weekly issue and release cycles.",
+                    "Trace defects across UI, DTO/validation, service and data layers; support post-release operations.",
+                ],
+                "Delivered 70+ merged MRs and closed 70+ authored issues across production workflows.",
+            ),
+            (
+                "May 2026\n-\nJul 2026",
+                "AI Power",
+                "Odoo ERP Support Developer Intern",
+                "Python 3.12, Odoo 18, PostgreSQL, QWeb/XML, Docker, GitLab CI/CD",
+                [
+                    "Translated BA/customer changes into business-logic, data-model, report and input-validation fixes.",
+                    "Debugged linked sales, service, parts, warranty and accounting workflows in a modular ERP.",
+                ],
+                "Supported fixes across 18 modules and 99+ Python files while preserving an 18-state service flow.",
+            ),
+            (
+                "Oct 2024\n-\nJan 2026",
+                "OakMind Group",
+                "Full-Stack Developer | Business analysis & delivery",
+                "C#, ASP.NET Core 8, EF Core, SQL Server, React 18/19, Bootstrap, Docker",
+                [
+                    "VN Media Hub: built .NET CMS APIs, auth, caching, logging and SQL-backed reporting workflows.",
+                    "Great Link Mai House: converted legacy flows into React screens, C# services, DTOs and integrations.",
+                    "OakMind Group Website: shipped .NET 8 APIs for roles, content review, leads, analytics and media.",
+                ],
+                "Owned BA requirement clarification through production release across three company products.",
+            ),
+        ],
+        "projects": [
+            {
+                "title": "ECH LMS",
+                "role": "Full-Stack Developer / Volunteer",
+                "url": "https://github.com/xuanhai0913",
+                "tech": "ASP.NET Core | EF Core | SQL Server | Bootstrap",
+                "body": "Built authenticated course/content workflows, media handling and automated PDF/Excel reporting.",
+                "period": "Oct 2024 - Jan 2026",
+            },
+            {
+                "title": "RouteLab",
+                "role": "Full-Stack / Algorithm Developer",
+                "url": "https://tsp-delivery-route-optimizer.vercel.app/",
+                "tech": "REST API | PostgreSQL | Vitest | GitHub Actions",
+                "body": "Implemented database-backed routing APIs with four algorithms, 95 automated tests and dedicated CI.",
+                "period": "May 2026 - Jul 2026",
+            },
+        ],
+    },
     "zalo-software-fresher": {
         "output": ROOT / "cv" / "zalo-software-fresher" / "CV_NguyenXuanHai_Zalo_Software_Fresher_visual.pdf",
         "role": "Software Development Fresher",
@@ -57,7 +590,7 @@ VARIANTS = {
             (
                 "Jul 2025\n-\nJan 2026",
                 "Great Link Mai House",
-                "Role: Main Full-Stack Developer / BA-facing Owner",
+                "Role: Main Full-Stack Developer / Business Analysis & Delivery",
                 [
                     "Converted WordPress flows to React + ASP.NET Core using MVC-style separation.",
                     "Built auth, realtime, media, API integration and SQL-backed workflows.",
@@ -66,7 +599,7 @@ VARIANTS = {
             (
                 "Oct 2024\n-\nJan 2026",
                 "VN Media Hub",
-                "Role: Main Full-Stack Developer / BA-facing Owner",
+                "Role: Main Full-Stack Developer / Business Analysis & Delivery",
                 [
                     "Built CMS/media workflows: auth, moderation, SEO, caching and reports.",
                     "Translated business requirements into frontend, API and database tasks.",
@@ -110,7 +643,7 @@ VARIANTS = {
             (
                 "Jul 2025\n-\nJan 2026",
                 "Great Link Mai House",
-                "Role: Main Full-Stack Developer / BA-facing Owner",
+                "Role: Main Full-Stack Developer / Business Analysis & Delivery",
                 [
                     "Built React + ASP.NET Core API/CMS modules with MVC-style separation.",
                     "Implemented auth, realtime updates, media handling, SQL Server and integrations.",
@@ -119,7 +652,7 @@ VARIANTS = {
             (
                 "Oct 2024\n-\nJan 2026",
                 "VN Media Hub",
-                "Role: Main Full-Stack Developer / BA-facing Owner",
+                "Role: Main Full-Stack Developer / Business Analysis & Delivery",
                 [
                     "Built ASP.NET Core Web API workflows with EF Core, SQL Server and JWT.",
                     "Implemented logging, caching, moderation, SEO and PDF/report generation.",
@@ -171,7 +704,7 @@ VARIANTS = {
             (
                 "Jul 2025\n-\nJan 2026",
                 "Great Link Mai House",
-                "Role: Main Full-Stack Developer / BA-facing Owner",
+                "Role: Main Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ReactJS, ASP.NET Core REST API, SQL Server, JWT, MVC-style separation",
                 [
                     "Converted WordPress workflows into maintainable React + ASP.NET Core screens and APIs.",
@@ -181,7 +714,7 @@ VARIANTS = {
             (
                 "Oct 2024\n-\nJan 2026",
                 "VN Media Hub",
-                "Role: Main Full-Stack Developer / BA-facing Owner",
+                "Role: Main Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ASP.NET Core Web API, SQL Server, auth, caching, logging, reports",
                 [
                     "Built CMS/admin modules for content, moderation, SEO, authentication and reporting workflows.",
@@ -248,7 +781,7 @@ VARIANTS = {
             (
                 "Jul 2025\n-\nJan 2026",
                 "Great Link Mai House",
-                "Role: Main Full-Stack Developer / BA-facing Owner",
+                "Role: Main Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: C#, ASP.NET Core REST API, SQL Server, JWT, MVC-style separation",
                 [
                     "Converted WordPress workflows into maintainable ASP.NET Core API modules and React business screens.",
@@ -258,7 +791,7 @@ VARIANTS = {
             (
                 "Oct 2024\n-\nJan 2026",
                 "VN Media Hub",
-                "Role: Main Full-Stack Developer / BA-facing Owner",
+                "Role: Main Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ASP.NET Core Web API, Entity Framework Core, SQL Server, Redis, Serilog",
                 [
                     "Built CMS modules for content, moderation, authentication, SEO and automated reporting workflows.",
@@ -325,7 +858,7 @@ VARIANTS = {
             (
                 "Jul 2025\n-\nJan 2026",
                 "Great Link Mai House",
-                "Role: Main Frontend/Full-Stack Developer / BA-facing Owner",
+                "Role: Main Frontend/Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ReactJS, REST API, ASP.NET Core API, responsive UI, auth/media flows",
                 [
                     "Converted WordPress business flows into reusable React screens and API-backed product UI.",
@@ -335,7 +868,7 @@ VARIANTS = {
             (
                 "Oct 2024\n-\nJan 2026",
                 "VN Media Hub",
-                "Role: Main Frontend/Full-Stack Developer / BA-facing Owner",
+                "Role: Main Frontend/Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ReactJS, CMS UI, REST API contracts, SEO/admin screens, reporting flows",
                 [
                     "Built CMS/admin UI for content, moderation, SEO and report workflows used in media operations.",
@@ -402,7 +935,7 @@ VARIANTS = {
             (
                 "Jul 2025\n-\nJan 2026",
                 "Great Link Mai House",
-                "Role: Main Frontend/Full-Stack Developer / BA-facing Owner",
+                "Role: Main Frontend/Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ReactJS, TypeScript-style components, REST API, admin/product screens",
                 [
                     "Converted WordPress workflows into reusable React screens connected to ASP.NET Core REST APIs.",
@@ -412,7 +945,7 @@ VARIANTS = {
             (
                 "Oct 2024\n-\nJan 2026",
                 "VN Media Hub",
-                "Role: Main Frontend/Full-Stack Developer / BA-facing Owner",
+                "Role: Main Frontend/Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: React/admin UI, REST API contracts, forms, filters, reporting screens",
                 [
                     "Built CMS/admin UI for content, moderation, SEO, authentication and reporting workflows.",
@@ -479,7 +1012,7 @@ VARIANTS = {
             (
                 "Jul 2025\n-\nJan 2026",
                 "Great Link Mai House",
-                "Role: Main Frontend/Full-Stack Developer / BA-facing Owner",
+                "Role: Main Frontend/Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ReactJS, REST API, ASP.NET Core, responsive UI, auth/media flows",
                 [
                     "Converted WordPress flows into React screens with reusable states, responsive layout and API-backed data.",
@@ -489,7 +1022,7 @@ VARIANTS = {
             (
                 "Oct 2024\n-\nJan 2026",
                 "VN Media Hub",
-                "Role: Main Frontend/Full-Stack Developer / BA-facing Owner",
+                "Role: Main Frontend/Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ReactJS, CMS UI, REST API contracts, SEO/admin screens, reporting flows",
                 [
                     "Built CMS/admin UI for content, moderation, SEO and reporting workflows used in media operations.",
@@ -556,7 +1089,7 @@ VARIANTS = {
             (
                 "Jul 2025\n-\nJan 2026",
                 "Great Link Mai House",
-                "Role: Main Frontend/Full-Stack Developer / BA-facing Owner",
+                "Role: Main Frontend/Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ReactJS, REST API, ASP.NET Core, responsive UI, auth/media flows",
                 [
                     "Converted WordPress flows into reusable React screens with API-backed data states and responsive layout.",
@@ -566,7 +1099,7 @@ VARIANTS = {
             (
                 "Oct 2024\n-\nJan 2026",
                 "VN Media Hub",
-                "Role: Main Frontend/Full-Stack Developer / BA-facing Owner",
+                "Role: Main Frontend/Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ReactJS, CMS/admin UI, API contracts, SEO, reports, caching/logging workflows",
                 [
                     "Built CMS/admin interfaces for content, moderation, SEO and reporting workflows used in media operations.",
@@ -633,7 +1166,7 @@ VARIANTS = {
             (
                 "Jul 2025\n-\nJan 2026",
                 "Great Link Mai House",
-                "Role: Main Frontend/Full-Stack Developer / BA-facing Owner",
+                "Role: Main Frontend/Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ReactJS, TypeScript-style components, REST API, ASP.NET Core, responsive UI",
                 [
                     "Converted WordPress workflows into reusable React screens integrated with ASP.NET Core REST APIs.",
@@ -643,7 +1176,7 @@ VARIANTS = {
             (
                 "Oct 2024\n-\nJan 2026",
                 "VN Media Hub",
-                "Role: Main Frontend/Full-Stack Developer / BA-facing Owner",
+                "Role: Main Frontend/Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ReactJS, CMS/admin UI, async API data, SEO, logging, reporting flows",
                 [
                     "Built CMS/admin interfaces for content, moderation, SEO and report workflows with API-backed data states.",
@@ -720,7 +1253,7 @@ VARIANTS = {
             (
                 "Jul 2025\n-\nJan 2026",
                 "Great Link Mai House",
-                "Role: Main Full-Stack Developer / BA-facing Owner",
+                "Role: Main Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ReactJS, ASP.NET Core REST API, SQL Server, JWT, SignalR, media integrations",
                 [
                     "Converted WordPress flows into React screens and API-backed business workflows.",
@@ -730,7 +1263,7 @@ VARIANTS = {
             (
                 "Oct 2024\n-\nJan 2026",
                 "VN Media Hub",
-                "Role: Main Full-Stack Developer / BA-facing Owner",
+                "Role: Main Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ReactJS, ASP.NET Core Web API, SQL Server, caching, logging, reports",
                 [
                     "Built CMS/admin UI and API workflows for content, moderation, SEO and reporting.",
@@ -797,7 +1330,7 @@ VARIANTS = {
             (
                 "Jul 2025\n-\nJan 2026",
                 "Great Link Mai House",
-                "Role: Main Full-Stack Developer / BA-facing Owner",
+                "Role: Main Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ReactJS, ASP.NET Core REST API, SQL Server, JWT, SignalR, media integrations",
                 [
                     "Converted WordPress workflows into reusable React screens connected to REST APIs and SQL-backed data.",
@@ -807,7 +1340,7 @@ VARIANTS = {
             (
                 "Oct 2024\n-\nJan 2026",
                 "VN Media Hub",
-                "Role: Main Full-Stack Developer / BA-facing Owner",
+                "Role: Main Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ReactJS, ASP.NET Core Web API, SQL Server, caching, logging, report workflows",
                 [
                     "Built CMS/admin workflows for content, moderation, SEO and reports with clear API contracts.",
@@ -864,7 +1397,7 @@ VARIANTS = {
             (
                 "Jul 2025\n-\nJan 2026",
                 "Great Link Mai House",
-                "Role: Main Full-Stack Developer / BA-facing Owner",
+                "Role: Main Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ASP.NET Core REST API, C#, React/Vue-style components, SQL Server, JWT, SignalR",
                 [
                     "Converted legacy WordPress flows into API-backed web modules with MVC-style separation and reusable UI states.",
@@ -874,7 +1407,7 @@ VARIANTS = {
             (
                 "Oct 2024\n-\nJan 2026",
                 "VN Media Hub",
-                "Role: Main Full-Stack Developer / BA-facing Owner",
+                "Role: Main Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ASP.NET Core Web API, SQL Server, CMS/admin UI, logging, caching, reports",
                 [
                     "Built CMS/admin features for content, moderation, SEO and reporting with API contracts and SQL-backed data flows.",
@@ -951,17 +1484,17 @@ VARIANTS = {
             (
                 "Jul 2025\n-\nJan 2026",
                 "Great Link Mai House",
-                "Role: Main Full-Stack Developer / BA-facing Owner",
+                "Role: Main Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ASP.NET Core Web API, C#, React/Angular-style components, SQL Server, JWT, media workflows",
                 [
                     "Converted business requirements into API-backed management screens with MVC-style separation and reusable UI states.",
-                    "Built auth, media and integration workflows while clarifying edge cases with BA-facing ownership before release.",
+                    "Built auth, media and integration workflows while clarifying edge cases with Business analysis & deliveryship before release.",
                 ],
             ),
             (
                 "Oct 2024\n-\nJan 2026",
                 "VN Media Hub",
-                "Role: Main Full-Stack Developer / BA-facing Owner",
+                "Role: Main Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ASP.NET Core API, SQL Server, CMS/admin UI, caching, logging, PDF/report flows",
                 [
                     "Built admin/CMS workflows for content, moderation, SEO and reports using API contracts and SQL-backed data flows.",
@@ -1018,7 +1551,7 @@ VARIANTS = {
             (
                 "Jul 2025\n-\nJan 2026",
                 "Great Link Mai House",
-                "Role: Main Frontend/Full-Stack Developer / BA-facing Owner",
+                "Role: Main Frontend/Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ReactJS, ASP.NET Core REST API, SQL Server, JWT/auth, responsive UI",
                 [
                     "Converted WordPress workflows into React screens connected to REST APIs and auth/media flows.",
@@ -1028,7 +1561,7 @@ VARIANTS = {
             (
                 "Oct 2024\n-\nJan 2026",
                 "VN Media Hub",
-                "Role: Main Frontend/Full-Stack Developer / BA-facing Owner",
+                "Role: Main Frontend/Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ReactJS, API contracts, CMS/admin UI, auth, SEO/report screens",
                 [
                     "Implemented CMS/admin screens for content, moderation, authentication, SEO and reporting workflows.",
@@ -1095,7 +1628,7 @@ VARIANTS = {
             (
                 "Oct 2024\n-\nJan 2026",
                 "VN Media Hub",
-                "Role: Main Frontend/Full-Stack Developer / BA-facing Owner",
+                "Role: Main Frontend/Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ReactJS, admin/CMS UI, REST API contracts, auth, reports, caching/logging context",
                 [
                     "Built admin/CMS screens for content, moderation, authentication, SEO and reporting workflows.",
@@ -1105,11 +1638,11 @@ VARIANTS = {
             (
                 "Jul 2025\n-\nJan 2026",
                 "Great Link Mai House",
-                "Role: Main Frontend/Full-Stack Developer / BA-facing Owner",
+                "Role: Main Frontend/Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ReactJS, responsive UI, ASP.NET Core REST API, auth/media integrations",
                 [
                     "Converted WordPress flows into React screens with reusable UI states and API-backed behavior.",
-                    "Handled responsive screens, auth/media workflows and requirement clarification with BA-facing ownership.",
+                    "Handled responsive screens, auth/media workflows and requirement clarification with Business analysis & deliveryship.",
                 ],
             ),
             (
@@ -1172,7 +1705,7 @@ VARIANTS = {
             (
                 "Jul 2025\n-\nJan 2026",
                 "Great Link Mai House",
-                "Role: Main Frontend/Full-Stack Developer / BA-facing Owner",
+                "Role: Main Frontend/Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: TypeScript-style React components, REST API, responsive UI, auth/media flows",
                 [
                     "Converted WordPress workflows into reusable frontend screens connected to ASP.NET Core REST APIs.",
@@ -1182,7 +1715,7 @@ VARIANTS = {
             (
                 "Oct 2024\n-\nJan 2026",
                 "VN Media Hub",
-                "Role: Main Frontend/Full-Stack Developer / BA-facing Owner",
+                "Role: Main Frontend/Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: CMS/admin UI, REST API contracts, filters/forms, SEO/report screens",
                 [
                     "Built CMS/admin screens for content, moderation, authentication, SEO and reporting workflows.",
@@ -1259,7 +1792,7 @@ VARIANTS = {
             (
                 "Jul 2025\n-\nJan 2026",
                 "Great Link Mai House",
-                "Role: Main Full-Stack Developer / BA-facing Owner",
+                "Role: Main Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ReactJS, REST APIs, ASP.NET Core backend, SQL Server, JWT, realtime/media flows",
                 [
                     "Built React screens connected to REST APIs for auth, media and business workflows.",
@@ -1269,7 +1802,7 @@ VARIANTS = {
             (
                 "Oct 2024\n-\nJan 2026",
                 "VN Media Hub",
-                "Role: Main Full-Stack Developer / BA-facing Owner",
+                "Role: Main Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ReactJS, REST API, SQL Server, caching, logging, reports",
                 [
                     "Built CMS/admin UI flows for content, moderation, SEO and reporting screens.",
@@ -1326,7 +1859,7 @@ VARIANTS = {
             (
                 "Jul 2025\n-\nJan 2026",
                 "Great Link Mai House",
-                "Role: Main Full-Stack Developer / BA-facing Owner",
+                "Role: Main Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ReactJS, ASP.NET Core REST API, SQL Server, JWT, OOP service layers",
                 [
                     "Converted WordPress workflows into maintainable React + ASP.NET Core screens and APIs.",
@@ -1336,7 +1869,7 @@ VARIANTS = {
             (
                 "Oct 2024\n-\nJan 2026",
                 "VN Media Hub",
-                "Role: Main Full-Stack Developer / BA-facing Owner",
+                "Role: Main Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ASP.NET Core Web API, SQL Server, auth, caching, logging, reports",
                 [
                     "Built CMS/admin modules for content, auth, moderation, SEO and reporting workflows.",
@@ -1403,7 +1936,7 @@ VARIANTS = {
             (
                 "Jul 2025\n-\nJan 2026",
                 "Great Link Mai House",
-                "Role: Main Full-Stack Developer / BA-facing Owner",
+                "Role: Main Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ASP.NET Core REST API, ReactJS, SQL Server, JWT/auth, MVC-style modules",
                 [
                     "Converted WordPress workflows into web screens and ASP.NET Core API-backed business modules.",
@@ -1413,7 +1946,7 @@ VARIANTS = {
             (
                 "Oct 2024\n-\nJan 2026",
                 "VN Media Hub",
-                "Role: Main Full-Stack Developer / BA-facing Owner",
+                "Role: Main Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ASP.NET Core Web API, SQL Server, JavaScript UI, caching, logging, reports",
                 [
                     "Built CMS/admin modules for content, moderation, SEO, authentication and reporting workflows.",
@@ -1480,7 +2013,7 @@ VARIANTS = {
             (
                 "Jul 2025\n-\nJan 2026",
                 "Great Link Mai House",
-                "Role: Main Full-Stack Developer / BA-facing Owner",
+                "Role: Main Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ASP.NET Core REST API, SQL Server, OOP service layers, auth/media workflows",
                 [
                     "Converted business workflows into ASP.NET Core API-backed modules with SQL Server data flows.",
@@ -1490,7 +2023,7 @@ VARIANTS = {
             (
                 "Oct 2024\n-\nJan 2026",
                 "VN Media Hub",
-                "Role: Main Full-Stack Developer / BA-facing Owner",
+                "Role: Main Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ASP.NET Core Web API, SQL Server, CMS/admin business workflows, caching, logging, reports",
                 [
                     "Built business/admin modules for content, moderation, authentication, reporting and operations.",
@@ -1567,7 +2100,7 @@ VARIANTS = {
             (
                 "Jul 2025\n-\nJan 2026",
                 "Great Link Mai House",
-                "Role: Main Full-Stack Developer / BA-facing Owner",
+                "Role: Main Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ASP.NET Core REST API, SQL-backed workflows, ReactJS, auth/media/integration flows",
                 [
                     "Converted business requirements into API-connected web modules and operational screens.",
@@ -1577,7 +2110,7 @@ VARIANTS = {
             (
                 "Oct 2024\n-\nJan 2026",
                 "VN Media Hub",
-                "Role: Main Full-Stack Developer / BA-facing Owner",
+                "Role: Main Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: CMS/admin workflows, SQL-backed data flows, reports, logging, caching, API contracts",
                 [
                     "Built admin workflows for content, moderation, reporting and day-to-day business operations.",
@@ -1654,7 +2187,7 @@ VARIANTS = {
             (
                 "Jul 2025\n-\nJan 2026",
                 "Great Link Mai House",
-                "Role: Main Full-Stack Developer / BA-facing Owner",
+                "Role: Main Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ASP.NET Core REST API, ReactJS, SQL Server, JWT/auth, integration workflows",
                 [
                     "Converted WordPress workflows into React screens and ASP.NET Core API-backed business modules.",
@@ -1664,7 +2197,7 @@ VARIANTS = {
             (
                 "Oct 2024\n-\nJan 2026",
                 "VN Media Hub",
-                "Role: Main Full-Stack Developer / BA-facing Owner",
+                "Role: Main Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ASP.NET Core Web API, SQL Server, CMS/admin workflows, caching, logging, reports",
                 [
                     "Built CMS/admin workflows for content, moderation, auth, SEO, reporting and operational support.",
@@ -1711,7 +2244,7 @@ VARIANTS = {
             (
                 "Jul 2025\n-\nJan 2026",
                 "Great Link Mai House",
-                "Role: Main Full-Stack Developer / BA-facing Owner",
+                "Role: Main Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ReactJS, ASP.NET Core REST API, SQL Server, JWT, OOP service layers",
                 [
                     "Converted WordPress workflows into maintainable React + ASP.NET Core web application modules.",
@@ -1721,7 +2254,7 @@ VARIANTS = {
             (
                 "Oct 2024\n-\nJan 2026",
                 "VN Media Hub",
-                "Role: Main Full-Stack Developer / BA-facing Owner",
+                "Role: Main Full-Stack Developer / Business Analysis & Delivery",
                 "Tech: ASP.NET Core Web API, SQL Server, auth, caching, logging, reports",
                 [
                     "Built CMS/admin web workflows for content, authentication, moderation, SEO and reporting.",
@@ -1766,6 +2299,450 @@ VARIANTS = {
             },
         ],
     },
+    "lumi-x-junior-odoo-developer": {
+        "output": ROOT / "cv" / "lumi-x-junior-odoo-developer" / "CV_NguyenXuanHai_LumiX_Junior_Odoo_Developer_visual.pdf",
+        "role": "Junior Odoo Developer",
+        "stack_line": "Python 3.12  |  Odoo 18 ORM  |  PostgreSQL  |  QWeb/XML  |  REST API",
+        "headline": "Junior Odoo/Python developer with hands-on automotive ERP experience, business-process analysis, production debugging and report workflows.",
+        "workflow": "",
+        "ai_mode": "off",
+        "skills": [
+            ("Python 3.12", "BACKEND", "python.png"),
+            ("Odoo 18 / ORM", "ERP", "odoo.png"),
+            ("QWeb / XML", "ERP", "odoo.png"),
+            ("PostgreSQL / SQL", "DATABASE", "postgresql.png"),
+            ("REST API / Integration", "BACKEND", "nestjs.png"),
+            ("ERP Process Analysis", "BUSINESS", "odoo.png"),
+            ("Requirements to Specs", "DELIVERY", "file-earmark-text.svg"),
+            ("Debugging / Testing", "QUALITY", "code-slash.svg"),
+            ("Docker", "INFRA", "docker.png"),
+            ("GitLab CI/CD", "CI/CD", "gitlab.png"),
+        ],
+        "experiences": [
+            (
+                "May 2026\n-\nJul 2026",
+                "AI Power",
+                "Odoo ERP Support Developer Intern",
+                "Python 3.12, Odoo 18 ORM, PostgreSQL, QWeb/XML, i18n, Docker, GitLab CI/CD",
+                [
+                    "Translated BA/customer change lists into fixes across models, business logic, QWeb/XML views and localized PDF reports.",
+                    "Supported sales, 18-state service, parts, warranty and TT200 accounting workflows.",
+                ],
+                "Delivered traceable fixes across 18 custom modules and 99+ Python files while preserving production business workflows.",
+            ),
+            (
+                "Feb 2026\n-\nPresent",
+                "Betodemy",
+                "Full-Stack Developer | 5-person team",
+                "NestJS, PostgreSQL, REST API, Redis, BullMQ, GitLab CI/CD",
+                [
+                    "Built and debugged server-backed product features through weekly issue, review, test and release cycles.",
+                    "Created traceable issues after release and supported production troubleshooting with the product team.",
+                ],
+                "Delivered 70+ merged MRs and closed 70+ authored issues across production workflows.",
+            ),
+            (
+                "Oct 2024\n-\nJan 2026",
+                "OakMind Group",
+                "Full-Stack Developer | Business analysis & delivery",
+                "ASP.NET Core 8, EF Core, SQL Server, React 18/19, REST API, Redis",
+                [
+                    "VN Media Hub: built CMS authentication, moderation, reporting and operations workflows.",
+                    "Great Link Mai House: converted legacy processes into maintainable screens, APIs and integrations.",
+                    "OakMind Group Website: shipped bilingual CMS, media, SEO/analytics and lead workflows.",
+                ],
+                "Owned requirement clarification through production release across three company products.",
+            ),
+        ],
+        "projects": [
+            {
+                "title": "ChongScam",
+                "role": "Full-Stack Developer",
+                "url": "https://chongscam.vn/",
+                "tech": "NestJS | PostgreSQL | REST API | RBAC | Jest",
+                "body": "Built a production backend with relational data, validation, role controls, moderation and audited admin workflows.",
+                "period": "Apr 2026 - Jul 2026",
+            },
+            {
+                "title": "RouteLab",
+                "role": "Full-Stack Developer",
+                "url": "https://github.com/xuanhai0913/tsp-delivery-route-optimizer",
+                "tech": "TypeScript | Express | PostgreSQL | Vitest | CI",
+                "body": "Implemented and tested four routing algorithms with REST API, database paths and automated CI checks.",
+                "period": "2025 - 2026",
+            },
+        ],
+    },
+    "fastboy-junior-backend": {
+        "output": ROOT / "cv" / "fastboy-junior-backend" / "CV_NguyenXuanHai_Fastboy_Junior_Backend_visual.pdf",
+        "role": "Junior Backend Developer",
+        "stack_line": "RESTful API  |  Node.js/NestJS  |  ASP.NET Core  |  PostgreSQL/SQL Server",
+        "headline": "Junior backend-oriented developer with commercial delivery experience since Oct 2024, building API-backed business systems and supporting production releases.",
+        "workflow": "",
+        "ai_mode": "off",
+        "skills": [
+            ("RESTful API", "BACKEND", "nestjs.png"),
+            ("Node.js / NestJS", "BACKEND", "nestjs.png"),
+            ("C# / ASP.NET Core", "BACKEND", "dotnet.png"),
+            ("PostgreSQL / SQL Server", "DATABASE", "postgresql.png"),
+            ("Auth / RBAC / Validation", "SECURITY", "code-slash.svg"),
+            ("OOP / Modular Services", "FOUNDATION", "dotnet.png"),
+            ("Testing / Debugging", "QUALITY", "file-earmark-text.svg"),
+            ("Git / Code Review", "DELIVERY", "gitlab.png"),
+            ("Docker / CI/CD", "DELIVERY", "docker.png"),
+            ("WordPress / PHP Exposure", "ADJACENT", "code-slash.svg"),
+        ],
+        "experiences": [
+            (
+                "Feb 2026\n-\nPresent",
+                "Betodemy",
+                "Full-Stack Developer | 5-person team",
+                "NestJS, TypeScript, PostgreSQL, Redis, BullMQ, Nx, GitLab CI/CD",
+                [
+                    "Build and debug modular REST API features, relational data flows and Redis/BullMQ background jobs.",
+                    "Handle weekly issues through implementation, review, CI checks, release handoff and production troubleshooting.",
+                ],
+                "Delivered 70+ merged MRs and closed 70+ authored issues across production workflows.",
+            ),
+            (
+                "Oct 2024\n-\nJan 2026",
+                "OakMind Group",
+                "Full-Stack Developer | Business analysis & delivery",
+                "ASP.NET Core 8, REST API, EF Core, SQL Server, Redis, React 18/19, WordPress",
+                [
+                    "VN Media Hub: built API-backed CMS, auth, moderation, caching, logging and reporting workflows.",
+                    "Great Link Mai House: converted WordPress processes into maintainable APIs, realtime and media integrations.",
+                    "OakMind Group Website: shipped bilingual CMS, analytics, media and lead-management workflows.",
+                ],
+                "Owned requirements-to-release delivery across three production company products.",
+            ),
+            (
+                "May 2026\n-\nJul 2026",
+                "AI Power",
+                "Odoo ERP Support Developer Intern",
+                "Python 3.12, Odoo 18, PostgreSQL, QWeb/XML, Docker, GitLab CI/CD",
+                [
+                    "Debugged backend business logic, relational data and report workflows from BA/customer change lists.",
+                    "Worked within an existing modular codebase and CI pipeline to prepare release-safe fixes.",
+                ],
+                "Supported fixes across 18 custom modules and 99+ Python files.",
+            ),
+        ],
+        "projects": [
+            {
+                "title": "ChongScam",
+                "role": "Full-Stack Developer",
+                "url": "https://chongscam.vn/",
+                "tech": "NestJS 11 | TypeScript | PostgreSQL | Redis | Jest/e2e",
+                "body": "Built production REST APIs, authentication, RBAC, validation, moderation and audited admin workflows across 22 controllers.",
+                "period": "Apr 2026 - Jul 2026",
+            },
+            {
+                "title": "RouteLab",
+                "role": "Full-Stack Developer",
+                "url": "https://github.com/xuanhai0913/tsp-delivery-route-optimizer",
+                "tech": "TypeScript | Express | PostgreSQL | Vitest | GitHub Actions",
+                "body": "Implemented REST APIs and four tested routing algorithms with relational storage and automated CI checks.",
+                "period": "2025 - 2026",
+            },
+        ],
+    },
+    "nguyen-kim-fullstack-developer": {
+        "output": ROOT / "cv" / "nguyen-kim-fullstack-developer" / "CV_NguyenXuanHai_NguyenKim_FullStack_Developer_visual.pdf",
+        "role": "Full-Stack Developer",
+        "stack_line": "React  |  Node.js/NestJS  |  ASP.NET Core  |  RESTful API  |  PostgreSQL/SQL Server",
+        "headline": "Full-stack developer with commercial delivery experience since Oct 2024, shipping React interfaces, backend APIs and database-backed business workflows.",
+        "workflow": "",
+        "ai_mode": "off",
+        "skills": [
+            ("React / TypeScript", "FRONTEND", "react.png"),
+            ("Node.js / NestJS", "BACKEND", "nestjs.png"),
+            ("C# / ASP.NET Core", "BACKEND", "dotnet.png"),
+            ("RESTful API", "INTEGRATION", "nestjs.png"),
+            ("PostgreSQL / SQL Server", "DATABASE", "postgresql.png"),
+            ("Auth / RBAC / JWT", "SECURITY", "code-slash.svg"),
+            ("Responsive UI", "FRONTEND", "react.png"),
+            ("Testing / Debugging", "QUALITY", "file-earmark-text.svg"),
+            ("Git / Code Review", "DELIVERY", "gitlab.png"),
+            ("Docker / CI/CD", "DELIVERY", "docker.png"),
+        ],
+        "experiences": [
+            (
+                "Feb 2026\n-\nPresent",
+                "Betodemy",
+                "Full-Stack Developer | 5-person team",
+                "React 19, NestJS, TypeScript, PostgreSQL, Redis, BullMQ, Nx, GitLab CI/CD",
+                [
+                    "Build and debug React/API product features, relational data flows and background jobs in weekly issue cycles.",
+                    "Coordinate implementation, review, CI checks, release handoff and post-release troubleshooting.",
+                ],
+                "Delivered 70+ merged MRs and closed 70+ authored issues across production workflows.",
+            ),
+            (
+                "Oct 2024\n-\nJan 2026",
+                "OakMind Group",
+                "Full-Stack Developer | Business analysis & delivery",
+                "React 18/19, ASP.NET Core 8, REST API, EF Core, SQL Server, Redis, Docker",
+                [
+                    "VN Media Hub: built React/API CMS, auth, moderation, SEO, caching, logging and reporting workflows.",
+                    "Great Link Mai House: converted legacy workflows into responsive React screens, APIs, realtime and media integrations.",
+                    "OakMind Group Website: shipped bilingual CMS, analytics, media and lead-management workflows.",
+                ],
+                "Owned requirements-to-release delivery across three production company products.",
+            ),
+            (
+                "May 2026\n-\nJul 2026",
+                "AI Power",
+                "Odoo ERP Support Developer Intern",
+                "Python 3.12, Odoo 18, PostgreSQL, QWeb/XML, Docker, GitLab CI/CD",
+                [
+                    "Debugged business logic, relational data and report workflows from BA/customer change lists.",
+                    "Prepared release-safe fixes inside an existing modular codebase and CI pipeline.",
+                ],
+                "Supported fixes across 18 custom modules and 99+ Python files.",
+            ),
+        ],
+        "projects": [
+            {
+                "title": "ChongScam",
+                "role": "Full-Stack Developer",
+                "url": "https://chongscam.vn/",
+                "tech": "React 19 | NestJS 11 | PostgreSQL | Redis | Jest/e2e",
+                "body": "Built production UI and REST APIs for auth, RBAC, validation, moderation and audited admin workflows.",
+                "period": "Apr 2026 - Jul 2026",
+            },
+            {
+                "title": "RouteLab",
+                "role": "Full-Stack Developer",
+                "url": "https://github.com/xuanhai0913/tsp-delivery-route-optimizer",
+                "tech": "React | TypeScript | Express | PostgreSQL | Vitest | CI",
+                "body": "Implemented responsive route planning, REST APIs and four tested algorithms with automated CI checks.",
+                "period": "2025 - 2026",
+            },
+        ],
+    },
+    "the-one-fullstack-node-nestjs": {
+        "output": ROOT / "cv" / "the-one-fullstack-node-nestjs" / "CV_NguyenXuanHai_TheOne_Fullstack_Node_NestJS_visual.pdf",
+        "role": "Fullstack Developer",
+        "stack_line": "NodeJS/NestJS  |  TypeScript  |  PostgreSQL  |  Docker  |  GitLab CI/CD",
+        "headline": "Full-stack developer focused on modular NestJS services, REST APIs, relational data, testing and production release support.",
+        "workflow": "",
+        "ai_mode": "off",
+        "skills": [
+            ("NodeJS / NestJS", "BACKEND", "nestjs.png"),
+            ("TypeScript", "BACKEND", "react.png"),
+            ("RESTful API", "BACKEND", "nestjs.png"),
+            ("PostgreSQL / SQL", "DATABASE", "postgresql.png"),
+            ("Redis / BullMQ", "BACKEND", "nestjs.png"),
+            ("React 19", "FRONTEND", "react.png"),
+            ("Jest / e2e Testing", "QUALITY", "code-slash.svg"),
+            ("Docker", "INFRA", "docker.png"),
+            ("GitLab CI/CD", "DELIVERY", "gitlab.png"),
+            ("Git / Code Review", "DELIVERY", "gitlab.png"),
+        ],
+        "experiences": [
+            (
+                "Feb 2026\n-\nPresent",
+                "Betodemy",
+                "Full-Stack Developer | 5-person team",
+                "NestJS, TypeScript, PostgreSQL, Redis, BullMQ, Nx, React 19, GitLab CI/CD",
+                [
+                    "Build and debug modular API-backed features, PostgreSQL data flows and Redis/BullMQ background jobs.",
+                    "Handle weekly issues through implementation, review, CI checks, release handoff and production troubleshooting.",
+                ],
+                "Delivered 70+ merged MRs and closed 70+ authored issues across production workflows.",
+            ),
+            (
+                "Oct 2024\n-\nJan 2026",
+                "OakMind Group",
+                "Full-Stack Developer | Business analysis & delivery",
+                "ASP.NET Core 8, REST API, EF Core, SQL Server, Redis, React 18/19, Docker",
+                [
+                    "VN Media Hub: built API-backed CMS, auth, moderation, caching, logging and reporting workflows.",
+                    "Great Link Mai House: converted legacy processes into maintainable APIs, realtime and media integrations.",
+                    "OakMind Group Website: shipped bilingual CMS, analytics, media and lead-management workflows.",
+                ],
+                "Owned requirements-to-release delivery across three production company products.",
+            ),
+            (
+                "May 2026\n-\nJul 2026",
+                "AI Power",
+                "Odoo ERP Support Developer Intern",
+                "Python 3.12, Odoo 18, PostgreSQL, QWeb/XML, Docker, GitLab CI/CD",
+                [
+                    "Debugged backend business logic, relational data and report workflows from BA/customer change lists.",
+                    "Worked within an existing modular codebase and CI pipeline to prepare release-safe fixes.",
+                ],
+                "Supported fixes across 18 custom modules and 99+ Python files.",
+            ),
+        ],
+        "projects": [
+            {
+                "title": "ChongScam",
+                "role": "Full-Stack Developer",
+                "url": "https://chongscam.vn/",
+                "tech": "NestJS 11 | TypeScript | PostgreSQL | Redis | Jest/e2e",
+                "body": "Built production REST APIs, authentication, RBAC, validation, moderation and audited admin workflows across 22 controllers.",
+                "period": "Apr 2026 - Jul 2026",
+            },
+            {
+                "title": "RouteLab",
+                "role": "Full-Stack Developer",
+                "url": "https://github.com/xuanhai0913/tsp-delivery-route-optimizer",
+                "tech": "TypeScript | Express | PostgreSQL | Vitest | GitHub Actions",
+                "body": "Implemented REST APIs and four tested routing algorithms with relational storage and automated CI checks.",
+                "period": "2025 - 2026",
+            },
+        ],
+    },
+    "axon-software-engineer-i": {
+        "output": ROOT / "cv" / "axon-software-engineer-i" / "CV_NguyenXuanHai_Axon_Software_Engineer_I_visual.pdf",
+        "role": "Software Engineer I",
+        "stack_line": "C#/.NET  |  React  |  OOP & DSA  |  Testing & CI/CD",
+        "headline": "Junior software engineer with commercial delivery experience since Oct 2024, shipping end-to-end web features, reviewing changes and supporting production releases.",
+        "workflow": "",
+        "ai_mode": "tools",
+        "skills": [
+            ("C# / .NET", "BACKEND", "dotnet.png"),
+            ("ASP.NET Core API", "BACKEND", "dotnet.png"),
+            ("React / TypeScript", "FRONTEND", "react.png"),
+            ("RESTful API", "BACKEND", "nestjs.png"),
+            ("SQL Server / PostgreSQL", "DATABASE", "postgresql.png"),
+            ("OOP / Data Structures", "FOUNDATION", "dotnet.png"),
+            ("Testing / Debugging", "QUALITY", "code-slash.svg"),
+            ("Git / Code Review", "DELIVERY", "gitlab.png"),
+            ("CI/CD", "DELIVERY", "gitlab.png"),
+            ("AI-assisted Development", "AI TOOLS", "robot.svg"),
+        ],
+        "experiences": [
+            (
+                "Feb 2026\n-\nPresent",
+                "Betodemy",
+                "Full-Stack Developer | 5-person team",
+                "React 19, TypeScript, NestJS, PostgreSQL, Redis, Nx, GitLab CI/CD",
+                [
+                    "Build and debug end-to-end product features in a modular React/NestJS monorepo with weekly issue and code-review cycles.",
+                    "Use AI-assisted codebase context and review notes, then validate changes through tests, CI checks and manual verification.",
+                ],
+                "Delivered 70+ merged MRs and closed 70+ authored issues across production workflows.",
+            ),
+            (
+                "May 2026\n-\nJul 2026",
+                "AI Power",
+                "Odoo ERP Support Developer Intern",
+                "Python 3.12, Odoo 18, PostgreSQL, QWeb/XML, Docker, GitLab CI/CD",
+                [
+                    "Debugged business logic, data models and reports inside an existing modular ERP codebase after BA/customer updates.",
+                    "Prepared small, traceable fixes and checked CI handoff to reduce regression risk across shared workflows.",
+                ],
+                "Supported fixes across 18 custom modules and 99+ Python files without breaking an 18-state service flow.",
+            ),
+            (
+                "Oct 2024\n-\nJan 2026",
+                "OakMind Group",
+                "Full-Stack Developer | Business analysis & delivery",
+                "C#, ASP.NET Core 8, EF Core, React 18/19, SQL Server, Git, Docker",
+                [
+                    "VN Media Hub: built production CMS, auth, moderation, logging and reporting features with React and ASP.NET Core APIs.",
+                    "Great Link Mai House: converted legacy workflows into maintainable React screens, C# services and realtime integrations.",
+                    "OakMind Group Website: shipped a bilingual CMS with media, SEO/analytics and lead-management workflows.",
+                ],
+                "Owned requirement clarification through production release across three company products.",
+            ),
+        ],
+        "projects": [
+            {
+                "title": "RouteLab",
+                "role": "Full-Stack / Algorithm Developer",
+                "url": "https://tsp-delivery-route-optimizer.vercel.app/",
+                "tech": "TypeScript | Dijkstra | A* | PostgreSQL | Vitest | CI",
+                "body": "Implemented four shortest-path algorithms, REST/database paths, replay visualization and automated test/CI workflows.",
+                "period": "May 2026 - Jul 2026",
+            },
+            {
+                "title": "ChongScam",
+                "role": "Full-Stack Developer",
+                "url": "https://chongscam.vn/",
+                "tech": "React 19 | NestJS 11 | PostgreSQL | Jest/e2e",
+                "body": "Shipped a client-operated production platform with auth, RBAC, moderation, audit controls and 12 test suites.",
+                "period": "Apr 2026 - Jul 2026",
+            },
+        ],
+    },
+    "eazylab-backend-nestjs": {
+        "output": ROOT / "cv" / "eazylab-backend-nestjs" / "CV_NguyenXuanHai_Eazylab_Backend_NestJS_visual.pdf",
+        "role": "Backend Developer (NestJS)",
+        "stack_line": "NestJS  |  TypeScript  |  TypeORM  |  PostgreSQL  |  Redis",
+        "headline": "Backend-oriented developer with commercial delivery experience since Oct 2024 across modular services, relational data, testing and production support.",
+        "workflow": "",
+        "ai_mode": "off",
+        "skills": [
+            ("NestJS / Node.js", "BACKEND", "nestjs.png"),
+            ("TypeScript", "BACKEND", "react.png"),
+            ("TypeORM", "ORM", "postgresql.png"),
+            ("PostgreSQL / SQL", "DATABASE", "postgresql.png"),
+            ("Redis / BullMQ", "DATA", "nestjs.png"),
+            ("RESTful API", "BACKEND", "nestjs.png"),
+            ("Auth / RBAC", "SECURITY", "code-slash.svg"),
+            ("Jest / e2e Testing", "QUALITY", "code-slash.svg"),
+            ("GitLab CI/CD", "DELIVERY", "gitlab.png"),
+            ("Dependency Injection / Clean Code", "ARCHITECTURE", "code-slash.svg"),
+        ],
+        "experiences": [
+            (
+                "Feb 2026\n-\nPresent",
+                "Betodemy",
+                "Full-Stack Developer | 5-person team",
+                "NestJS, TypeScript, TypeORM, PostgreSQL, Redis, BullMQ, Nx, GitLab CI/CD",
+                [
+                    "Build and debug modular services, TypeORM data flows and Redis/BullMQ background jobs in an Nx monorepo.",
+                    "Trace defects through weekly issues, code review, CI checks, release handoff and production troubleshooting.",
+                ],
+                "Delivered 70+ merged MRs and closed 70+ authored issues across production workflows.",
+            ),
+            (
+                "Oct 2024\n-\nJan 2026",
+                "OakMind Group",
+                "Full-Stack Developer | Business analysis & delivery",
+                "ASP.NET Core 8, REST API, EF Core, SQL Server, Redis, React 18/19, Docker",
+                [
+                    "VN Media Hub: built API-backed CMS, authentication, moderation, caching, logging and reporting workflows.",
+                    "Great Link Mai House: converted legacy processes into maintainable APIs, realtime and media integrations.",
+                    "OakMind Group Website: shipped bilingual CMS, analytics, media and lead-management workflows.",
+                ],
+                "Owned requirements-to-release delivery across three production company products.",
+            ),
+            (
+                "May 2026\n-\nJul 2026",
+                "AI Power",
+                "Odoo ERP Support Developer Intern",
+                "Python 3.12, Odoo 18, PostgreSQL, QWeb/XML, Docker, GitLab CI/CD",
+                [
+                    "Debugged backend business logic, ORM data and report workflows from BA/customer change lists.",
+                    "Delivered release-safe fixes within an existing modular codebase and CI pipeline.",
+                ],
+                "Supported fixes across 18 custom modules and 99+ Python files.",
+            ),
+        ],
+        "projects": [
+            {
+                "title": "ChongScam",
+                "role": "Full-Stack Developer",
+                "url": "https://chongscam.vn/",
+                "tech": "NestJS 11 | TypeScript | PostgreSQL | Redis | Jest/e2e",
+                "body": "Built production APIs, session auth, RBAC, validation, rate limiting, moderation and audited admin workflows across 22 controllers.",
+                "period": "Apr 2026 - Jul 2026",
+            },
+            {
+                "title": "RouteLab",
+                "role": "Full-Stack Developer",
+                "url": "https://github.com/xuanhai0913/tsp-delivery-route-optimizer",
+                "tech": "TypeScript | Express | PostgreSQL | Vitest | GitHub Actions",
+                "body": "Implemented REST APIs and four routing algorithms with relational storage, 95 automated tests and CI checks.",
+                "period": "2025 - 2026",
+            },
+        ],
+    },
     "ila-odoo-developer": {
         "output": ROOT / "cv" / "ila-odoo-developer" / "CV_NguyenXuanHai_ILA_Odoo_Developer_visual.pdf",
         "role": "Odoo Developer",
@@ -1800,7 +2777,7 @@ VARIANTS = {
             (
                 "Feb 2026\n-\nPresent",
                 "Betodemy",
-                "Full-Stack Developer | Part-time | 5-person team",
+                "Full-Stack Developer | 5-person team",
                 "React 19, NestJS, PostgreSQL, Redis, BullMQ, GitLab CI/CD",
                 [
                     "Built and debugged production features through weekly issue, review, test and release cycles.",
@@ -1811,7 +2788,7 @@ VARIANTS = {
             (
                 "Oct 2024\n-\nJan 2026",
                 "OakMind Group",
-                "Part-time Full-Stack Developer | BA-facing delivery",
+                "Full-Stack Developer | Business analysis & delivery",
                 "React 18/19, ASP.NET Core 8, EF Core, SQL Server, JWT, Redis",
                 [
                     "VN Media Hub: built CMS workflows for authentication, content, moderation, reports and operations.",
@@ -1862,7 +2839,7 @@ VARIANTS = {
             (
                 "Feb 2026\n-\nPresent",
                 "Betodemy",
-                "Full-Stack Developer | Part-time | 5-person team",
+                "Full-Stack Developer | 5-person team",
                 "React 19, NestJS REST APIs, PostgreSQL, Redis, BullMQ, GitLab CI",
                 [
                     "Built and debugged student/admin features across document, challenge and online-class workflows.",
@@ -1884,7 +2861,7 @@ VARIANTS = {
             (
                 "Oct 2024\n-\nJan 2026",
                 "OakMind Group",
-                "Part-time Full-Stack Developer | BA-facing delivery",
+                "Full-Stack Developer | Business analysis & delivery",
                 "React 18/19, ASP.NET Core REST APIs, SQL Server, JWT, Redis, Cloudflare R2",
                 [
                     "VN Media Hub: built React CMS/admin screens and authenticated APIs for content, moderation and reports.",
@@ -1911,6 +2888,688 @@ VARIANTS = {
                 "body": "Built and tested route algorithms with an interactive UI, REST API and GitHub Actions pipeline.",
                 "period": "2025 - 2026",
             },
+        ],
+    },
+    "octo-full-stack-developer": {
+        "output": ROOT / "cv" / "octo-full-stack-developer" / "CV_NguyenXuanHai_Octo_Full_Stack_Developer_visual.pdf",
+        "role": "Full Stack Developer",
+        "stack_line": "React / TypeScript  |  ASP.NET Core / NestJS  |  REST API  |  SQL",
+        "headline": "Full-stack developer with commercial delivery experience since Oct 2024, building production web features from requirements through API, database, testing and release support.",
+        "workflow": "",
+        "ai_mode": "off",
+        "skills": [
+            ("React / TypeScript", "FRONTEND", "react.png"),
+            ("ASP.NET Core / C#", "BACKEND", "dotnet.png"),
+            ("NodeJS / NestJS", "BACKEND", "nestjs.png"),
+            ("RESTful API / MVC", "ARCHITECTURE", "code-slash.svg"),
+            ("PostgreSQL / SQL Server", "DATABASE", "postgresql.png"),
+            ("JWT / RBAC / Auth", "SECURITY", "code-slash.svg"),
+            ("OOP / Modular Design", "ARCHITECTURE", "code-slash.svg"),
+            ("Testing / Debugging", "QUALITY", "code-slash.svg"),
+            ("Git / Code Review", "DELIVERY", "gitlab.png"),
+            ("Docker / CI/CD", "DELIVERY", "docker.png"),
+        ],
+        "experiences": [
+            (
+                "Feb 2026\n-\nPresent",
+                "Betodemy",
+                "Full-Stack Developer | 5-person team",
+                "React 19, TypeScript, NestJS, PostgreSQL, Redis, Nx, GitLab CI/CD",
+                [
+                    "Build and debug production features across UI, REST APIs, relational data and background workflows.",
+                    "Handle weekly issues through implementation, review, CI checks, release handoff and post-release support.",
+                ],
+                "Delivered 70+ merged MRs and closed 70+ authored issues across production workflows.",
+            ),
+            (
+                "Oct 2024\n-\nJan 2026",
+                "OakMind Group",
+                "Full-Stack Developer | Business analysis & delivery",
+                "React 18/19, C#, ASP.NET Core 8, EF Core, SQL Server, Redis, Docker",
+                [
+                    "VN Media Hub: built CMS, authentication, moderation, caching, logging and reporting workflows.",
+                    "Great Link Mai House: converted legacy WordPress/MVC flows into React screens and REST APIs.",
+                    "OakMind Group Website: shipped a bilingual CMS with SEO, media and lead-management workflows.",
+                ],
+                "Owned requirement clarification through production release across three company products.",
+            ),
+            (
+                "May 2026\n-\nJul 2026",
+                "AI Power",
+                "Odoo ERP Support Developer Intern",
+                "Python 3.12, Odoo 18, PostgreSQL, QWeb/XML, Docker, GitLab CI",
+                [
+                    "Debugged Python business logic and BA/customer defects across sales, service, parts and warranty modules.",
+                    "Updated QWeb/XML reports, localized content and PostgreSQL-backed ERP workflows.",
+                ],
+                "Supported stable fixes across 18 custom modules and 99+ Python files.",
+            ),
+        ],
+        "projects": [
+            {
+                "title": "ChongScam",
+                "role": "Full-Stack Developer",
+                "url": "https://chongscam.vn/",
+                "tech": "React 19 | NestJS 11 | PostgreSQL | Redis | Jest/e2e",
+                "body": "Shipped production auth, RBAC, moderation and audit flows across 22 controllers, 20 migrations and 12 test suites.",
+                "period": "Apr 2026 - Present",
+            },
+            {
+                "title": "RouteLab",
+                "role": "Full-Stack Developer",
+                "url": "https://tsp-delivery-route-optimizer.vercel.app/",
+                "tech": "React | TypeScript | Express | PostgreSQL | Vitest | CI",
+                "body": "Built four routing algorithms with an interactive UI, REST API, relational storage, automated tests and CI.",
+                "period": "2025 - 2026",
+            },
+        ],
+    },
+    "kairodi-it-software": {
+        "output": ROOT / "cv" / "kairodi-it-software" / "CV_NguyenXuanHai_Kairodi_IT_Software_visual.pdf",
+        "role": "Software Developer",
+        "stack_line": "JavaScript / TypeScript  |  Node.js / NestJS  |  REST API  |  PostgreSQL",
+        "headline": "Software developer with commercial delivery experience since Oct 2024, solving product problems through production web application, API, database, testing and release workflows.",
+        "workflow": "",
+        "ai_mode": "off",
+        "skills": [
+            ("JavaScript / TypeScript", "FRONTEND", "react.png"),
+            ("Node.js / NestJS", "BACKEND", "nestjs.png"),
+            ("React 18/19", "FRONTEND", "react.png"),
+            ("RESTful API", "BACKEND", "code-slash.svg"),
+            ("PostgreSQL / SQL", "DATABASE", "postgresql.png"),
+            ("Python 3.12", "BACKEND", "python.png"),
+            ("OOP / Modular Design", "ARCHITECTURE", "code-slash.svg"),
+            ("Jest / Testing / Debugging", "QUALITY", "code-slash.svg"),
+            ("Git / Docker / CI/CD", "DELIVERY", "docker.png"),
+        ],
+        "experiences": [
+            (
+                "Feb 2026\n-\nPresent",
+                "Betodemy",
+                "Full-Stack Developer | 5-person team",
+                "React 19, TypeScript, NestJS 11, PostgreSQL, Redis, Nx, GitLab CI/CD",
+                [
+                    "Build and debug production web features across React interfaces, NestJS APIs and PostgreSQL-backed workflows.",
+                    "Handle weekly issues through implementation, review, CI checks, release handoff and post-release support.",
+                ],
+                "Delivered 70+ merged MRs and closed 70+ authored issues across production workflows.",
+            ),
+            (
+                "Oct 2024\n-\nJan 2026",
+                "OakMind Group",
+                "Full-Stack Developer | Business analysis & delivery",
+                "React 18/19, ASP.NET Core REST APIs, SQL Server, Redis, Docker",
+                [
+                    "VN Media Hub: built CMS, authentication, moderation, caching, logging and reporting workflows.",
+                    "Great Link Mai House: converted WordPress/MVC flows into React screens and REST APIs.",
+                    "OakMind Group Website: shipped a bilingual CMS with SEO, media and lead-management workflows.",
+                ],
+                "Owned requirement clarification through production release across three company products.",
+            ),
+            (
+                "May 2026\n-\nJul 2026",
+                "AI Power",
+                "Odoo ERP Support Developer Intern",
+                "Python 3.12, Odoo 18, PostgreSQL, QWeb/XML, Docker, GitLab CI",
+                [
+                    "Debugged Python business logic and PostgreSQL-backed workflows after BA/customer requirement updates.",
+                    "Updated QWeb/XML reports, localized content and interconnected ERP modules.",
+                ],
+                "Supported stable fixes across 18 custom modules and 99+ Python files.",
+            ),
+        ],
+        "projects": [
+            {
+                "title": "ChongScam",
+                "role": "Full-Stack Developer",
+                "url": "https://chongscam.vn/",
+                "tech": "React 19 | NestJS 11 | PostgreSQL | Redis | Jest/e2e",
+                "body": "Shipped production auth, RBAC, moderation and audit flows across 22 controllers, 20 migrations and 12 test suites.",
+                "period": "Apr 2026 - Jul 2026",
+            },
+            {
+                "title": "RouteLab",
+                "role": "Full-Stack / Algorithm Developer",
+                "url": "https://tsp-delivery-route-optimizer.vercel.app/",
+                "tech": "React | TypeScript | Express | PostgreSQL | Vitest | CI",
+                "body": "Built four routing algorithms with an interactive UI, REST API, relational storage, 95 automated tests and CI.",
+                "period": "May 2026 - Jul 2026",
+            },
+        ],
+        "certifications": [
+            (
+                "AWS Cloud Practitioner Essentials - Completion Certificate, Jul 2026",
+                "https://my-portfolio-nxh.vercel.app/Cert/AWS-Cloud-Practitioner-Essentials.pdf",
+            ),
+            (
+                "AWS Educate: Getting Started with Databases - Training Badge, Jul 2026",
+                "https://www.credly.com/badges/9c8c5b6c-71f2-46e2-92b4-264c4cf9aa3b/public_url",
+            ),
+            (
+                "Software Development Lifecycle - AIAcademy by AIPOWER, Jul 2026",
+                "https://aiacademy.aipower.vn/certificates/e53aeb6b738a4a6eafb0c6edf9b2e912",
+            ),
+            ("English: B1.4 - Intermediate; technical reading/writing", ""),
+        ],
+    },
+    "pho-quang-frontend-react-nextjs": {
+        "output": ROOT / "cv" / "pho-quang-frontend-react-nextjs" / "CV_NguyenXuanHai_Frontend_React_NextJS_visual.pdf",
+        "role": "Frontend Developer (React/Next.js)",
+        "stack_line": "ReactJS / Next.js  |  TypeScript  |  RESTful API  |  Zustand  |  Web Performance",
+        "headline": "Junior/Middle frontend developer with production React/Next.js exposure, API-connected UI workflows, state management, security-aware auth flows and release support.",
+        "workflow": "",
+        "ai_mode": "off",
+        "oakmind_position": "after_first",
+        "skills": [
+            ("ReactJS / Next.js", "FRONTEND", "react.png"),
+            ("TypeScript / JavaScript ES6+", "FRONTEND", "react.png"),
+            ("HTML5 / CSS3 / Responsive UI", "FRONTEND", "code-slash.svg"),
+            ("RESTful API Integration", "BACKEND", "nestjs.png"),
+            ("Zustand / Component State", "FRONTEND", "react.png"),
+            ("JWT / CORS / CSRF Awareness", "SECURITY", "code-slash.svg"),
+            ("Performance / SEO / Core Web Vitals", "QUALITY", "code-slash.svg"),
+            ("Vitest / Jest / Testing Library", "QUALITY", "code-slash.svg"),
+            ("Git / Agile Issue Workflow", "DELIVERY", "gitlab.png"),
+            ("Node.js / NestJS Context", "BACKEND", "nestjs.png"),
+        ],
+        "experiences": [
+            (
+                "Feb 2026\n-\nPresent",
+                "Betodemy",
+                "Frontend/Full-Stack Developer | 5-person team",
+                "Next.js 15, React 19, TypeScript, Zustand, NestJS, PostgreSQL, Redis, Vitest, GitLab CI/CD",
+                [
+                    "Built and debugged Next.js/React learning workflows using route state, reusable UI components and API-backed product screens.",
+                    "Worked through weekly Agile issues, code review and release handoff with frontend, API and test changes.",
+                ],
+                "Delivered 70+ merged MRs and closed 70+ authored issues across production workflows.",
+            ),
+            (
+                "Oct 2024\n-\nJan 2026",
+                "OakMind Group",
+                "Frontend/Full-Stack Developer | Business analysis & delivery",
+                "React 18/19, TypeScript, ASP.NET Core REST APIs, SQL Server, JWT/auth, CORS, Redis",
+                [
+                    "VN Media Hub: built CMS/admin React workflows for content, moderation, SEO, reporting and authenticated API operations.",
+                    "Great Link Mai House: converted WordPress/MVC flows into reusable React screens connected to ASP.NET Core APIs.",
+                    "OakMind Group Website: shipped a bilingual React 19 CMS with media, SEO/analytics and lead-management workflows.",
+                ],
+                "Replaced fragmented legacy flows with maintainable React/API workflows across three company products.",
+            ),
+            (
+                "May 2026\n-\nJul 2026",
+                "AI Power",
+                "Odoo ERP Support Developer Intern",
+                "Python 3.12, Odoo 18, PostgreSQL, QWeb/XML, Docker, GitLab CI/CD",
+                [
+                    "Supported BA/customer-reported UI/report and business-flow fixes in a modular ERP system.",
+                    "Read existing workflows carefully, debugged cross-module issues and prepared release-safe fixes.",
+                ],
+                "Supported fixes across 18 custom modules and 99+ Python files while preserving an 18-state service workflow.",
+            ),
+        ],
+        "projects": [
+            {
+                "title": "Portfolio Website",
+                "role": "Frontend Developer",
+                "url": "https://my-portfolio-nxh.vercel.app/",
+                "tech": "React | Vite | SlateJS | GSAP | i18n | SEO | Core Web Vitals",
+                "body": "Built a responsive recruiter-facing portfolio with localized routes, rich-text contact flow, analytics and SEO metadata.",
+                "period": "Mar 2025 - May 2026",
+            },
+            {
+                "title": "ChongScam",
+                "role": "Full-Stack Developer",
+                "url": "https://chongscam.vn/",
+                "tech": "React 19 | NestJS 11 | PostgreSQL | Redis | Jest/e2e",
+                "body": "Shipped production auth, RBAC, moderation, audit and rate-limited API workflows with security-conscious frontend integration.",
+                "period": "Apr 2026 - Jul 2026",
+            },
+        ],
+        "certifications": [
+            (
+                "Software Development Lifecycle - AIAcademy by AIPOWER, Jul 2026",
+                "https://aiacademy.aipower.vn/certificates/e53aeb6b738a4a6eafb0c6edf9b2e912",
+            ),
+            (
+                "Information Security Awareness - AIAcademy by AIPOWER, Jul 2026",
+                "https://aiacademy.aipower.vn/certificates/f574be7d6b83416d9673e6d28f19664b",
+            ),
+            (
+                "AWS Cloud Practitioner Essentials - Completion Certificate, Jul 2026",
+                "https://my-portfolio-nxh.vercel.app/Cert/AWS-Cloud-Practitioner-Essentials.pdf",
+            ),
+            ("English: B1.4 - Intermediate; technical reading/writing", ""),
+        ],
+    },
+    "lampart-junior-qc": {
+        "output": ROOT / "cv" / "lampart-junior-qc" / "CV_NguyenXuanHai_Lampart_Junior_QC_visual.pdf",
+        "role": "Junior QC Engineer",
+        "stack_line": "Manual Testing  |  Regression Testing  |  SQL  |  Git  |  Automation",
+        "headline": "Junior QC candidate with hands-on production experience reproducing defects, validating business workflows, tracking issues and supporting release quality across web and ERP systems.",
+        "workflow": "",
+        "ai_mode": "off",
+        "skills": [
+            ("Manual / Functional Testing", "TESTING", "code-slash.svg"),
+            ("Regression / System Testing", "TESTING", "code-slash.svg"),
+            ("Test Cases / Bug Reporting", "QUALITY", "code-slash.svg"),
+            ("Jest / Vitest / e2e", "AUTOMATION", "code-slash.svg"),
+            ("PostgreSQL / SQL Server", "DATABASE", "postgresql.png"),
+            ("RESTful API Validation", "API", "nestjs.png"),
+            ("Git / Issue Tracking", "DELIVERY", "gitlab.png"),
+            ("CI/CD / Release Checks", "DELIVERY", "gitlab.png"),
+            ("React / TypeScript", "TECHNICAL", "react.png"),
+            ("Agile Team Collaboration", "PROCESS", "code-slash.svg"),
+        ],
+        "experiences": [
+            (
+                "Feb 2026\n-\nPresent",
+                "Betodemy",
+                "Full-Stack Developer | Quality-focused delivery",
+                "React 19, TypeScript, NestJS, PostgreSQL, Redis, Jest/Vitest, GitLab CI/CD",
+                [
+                    "Reproduce production defects, clarify expected behavior and track fixes through weekly issues, review and regression checks.",
+                    "Validate UI, API and database-backed learning workflows before release, then monitor and support post-release operations.",
+                ],
+                "Delivered 70+ merged MRs and closed 70+ authored issues with traceable review and release handoff.",
+            ),
+            (
+                "May 2026\n-\nJul 2026",
+                "AI Power",
+                "Odoo ERP Support Developer Intern | Defect validation",
+                "Python 3.12, Odoo 18, PostgreSQL, QWeb/XML, Docker, GitLab CI/CD",
+                [
+                    "Reproduced BA/customer-reported defects and validated fixes across business logic, reports, localization and linked modules.",
+                    "Checked sales, service, parts, warranty and accounting workflows against requirement updates and existing process states.",
+                ],
+                "Supported release-safe fixes across 18 custom modules and 99+ Python files while preserving an 18-state workflow.",
+            ),
+            (
+                "Oct 2024\n-\nJan 2026",
+                "OakMind Group",
+                "Full-Stack Developer | Business analysis & validation",
+                "React 18/19, ASP.NET Core, SQL Server, PostgreSQL, JWT/auth, Docker",
+                [
+                    "VN Media Hub: validated CMS, authentication, moderation, reporting and production content workflows.",
+                    "Great Link Mai House: verified converted React/API flows against legacy behavior, including auth, media and integrations.",
+                    "OakMind Group Website: checked bilingual CMS, media, SEO/analytics and lead workflows before production handoff.",
+                ],
+                "Owned requirement clarification, acceptance checks and production handoff across three company products.",
+            ),
+        ],
+        "projects": [
+            {
+                "title": "ChongScam",
+                "role": "Full-Stack Developer / Test Automation",
+                "url": "https://chongscam.vn/",
+                "tech": "Jest/e2e | REST API | PostgreSQL | RBAC | Security Testing",
+                "body": "Validated authentication, moderation and audit workflows with 12 automated test suites across a client-operated production system.",
+                "period": "Apr 2026 - Jul 2026",
+            },
+            {
+                "title": "RouteLab",
+                "role": "Full-Stack Developer / Quality Owner",
+                "url": "https://tsp-delivery-route-optimizer.vercel.app/",
+                "tech": "Vitest | API Testing | PostgreSQL | GitHub Actions | CI",
+                "body": "Built 95 automated tests for routing algorithms, API/database paths and edge cases, enforced through a dedicated CI pipeline.",
+                "period": "May 2026 - Jul 2026",
+            },
+        ],
+        "certifications": [
+            (
+                "Software Development Lifecycle - AIAcademy by AIPOWER, Jul 2026",
+                "https://aiacademy.aipower.vn/certificates/e53aeb6b738a4a6eafb0c6edf9b2e912",
+            ),
+            (
+                "Information Security Awareness - AIAcademy by AIPOWER, Jul 2026",
+                "https://aiacademy.aipower.vn/certificates/f574be7d6b83416d9673e6d28f19664b",
+            ),
+            (
+                "AWS Educate: Getting Started with Databases - Training Badge, Jul 2026",
+                "https://www.credly.com/badges/9c8c5b6c-71f2-46e2-92b4-264c4cf9aa3b/public_url",
+            ),
+            ("English: B1.4 - Intermediate; technical reading/writing", ""),
+        ],
+    },
+    "fiai-junior-nodejs": {
+        "output": ROOT / "cv" / "fiai-junior-nodejs" / "CV_NguyenXuanHai_FIAI_Junior_NodeJS_visual.pdf",
+        "role": "Junior NodeJS Developer",
+        "stack_line": "NodeJS / NestJS  |  TypeScript  |  RESTful API  |  PostgreSQL  |  MongoDB",
+        "headline": "Junior NodeJS developer with commercial delivery experience since Oct 2024 across production APIs, relational data, background jobs and release support.",
+        "workflow": "",
+        "ai_mode": "off",
+        "skills": [
+            ("NodeJS / NestJS", "BACKEND", "nestjs.png"),
+            ("TypeScript / JavaScript", "BACKEND", "react.png"),
+            ("RESTful API", "BACKEND", "nestjs.png"),
+            ("PostgreSQL / SQL", "DATABASE", "postgresql.png"),
+            ("MongoDB Fundamentals", "DATABASE", "postgresql.png"),
+            ("Redis / BullMQ", "BACKEND", "nestjs.png"),
+            ("Jest / e2e Testing", "QUALITY", "code-slash.svg"),
+            ("Git / Code Review", "DELIVERY", "gitlab.png"),
+            ("Docker / GitLab CI/CD", "DELIVERY", "docker.png"),
+        ],
+        "experiences": [
+            (
+                "Feb 2026\n-\nPresent",
+                "Betodemy",
+                "Full-Stack Developer | 5-person team",
+                "NestJS, TypeScript, PostgreSQL, Redis, BullMQ, Nx, React 19, GitLab CI/CD",
+                [
+                    "Build and debug modular API-backed features, PostgreSQL data flows and Redis/BullMQ background jobs.",
+                    "Handle weekly issues through implementation, review, CI checks, release handoff and production troubleshooting.",
+                ],
+                "Delivered 70+ merged MRs and closed 70+ authored issues across production workflows.",
+            ),
+            (
+                "Oct 2024\n-\nJan 2026",
+                "OakMind Group",
+                "Full-Stack Developer | Business analysis & delivery",
+                "ASP.NET Core 8, REST API, SQL Server, Redis, React 18/19, Docker",
+                [
+                    "VN Media Hub: built API-backed CMS, authentication, moderation, caching, logging and reporting workflows.",
+                    "Great Link Mai House: converted legacy processes into maintainable APIs, realtime and media integrations.",
+                    "OakMind Group Website: shipped a bilingual CMS with media, SEO/analytics and lead-management workflows.",
+                ],
+                "Owned requirement clarification through production release across three company products.",
+            ),
+            (
+                "May 2026\n-\nJul 2026",
+                "AI Power",
+                "Odoo ERP Support Developer Intern",
+                "Python 3.12, Odoo 18, PostgreSQL, QWeb/XML, Docker, GitLab CI/CD",
+                [
+                    "Debugged backend business logic, relational data and report workflows from BA/customer change lists.",
+                    "Prepared small, traceable fixes within an existing modular codebase and CI pipeline.",
+                ],
+                "Supported fixes across 18 custom modules and 99+ Python files.",
+            ),
+        ],
+        "projects": [
+            {
+                "title": "ChongScam",
+                "role": "Full-Stack Developer",
+                "url": "https://chongscam.vn/",
+                "tech": "NestJS 11 | TypeScript | PostgreSQL | Redis | Jest/e2e",
+                "body": "Built production REST APIs, auth, RBAC, validation, moderation and audited admin workflows across 22 controllers.",
+                "period": "Apr 2026 - Jul 2026",
+            },
+            {
+                "title": "RouteLab",
+                "role": "Full-Stack Developer",
+                "url": "https://github.com/xuanhai0913/tsp-delivery-route-optimizer",
+                "tech": "TypeScript | Express | PostgreSQL | Vitest | GitHub Actions",
+                "body": "Implemented REST APIs and four tested routing algorithms with relational storage and automated CI checks.",
+                "period": "2025 - 2026",
+            },
+        ],
+        "certifications": [
+            (
+                "AWS Educate: Getting Started with Databases - Training Badge, Jul 2026",
+                "https://www.credly.com/badges/9c8c5b6c-71f2-46e2-92b4-264c4cf9aa3b/public_url",
+            ),
+            (
+                "Software Development Lifecycle - AIAcademy by AIPOWER, Jul 2026",
+                "https://aiacademy.aipower.vn/certificates/e53aeb6b738a4a6eafb0c6edf9b2e912",
+            ),
+            ("English: B1.4 - Intermediate; technical reading/writing", ""),
+        ],
+    },
+    "vnpt-fullstack-developer": {
+        "output": ROOT / "cv" / "vnpt-fullstack-developer" / "CV_NguyenXuanHai_VNPT_FullStack_Developer_visual.pdf",
+        "role": "Fullstack Developer",
+        "stack_line": "React / Next.js  |  NestJS / ASP.NET Core  |  RESTful API  |  SQL  |  Docker / CI/CD",
+        "headline": "Full-stack developer with commercial delivery experience since Oct 2024, shipping production web features, APIs, data workflows and release-ready integrations.",
+        "workflow": "",
+        "ai_mode": "tools",
+        "skills": [
+            ("React / Next.js / TypeScript", "FRONTEND", "react.png"),
+            ("Redux / Zustand", "FRONTEND", "react.png"),
+            ("NodeJS / NestJS", "BACKEND", "nestjs.png"),
+            ("C# / ASP.NET Core", "BACKEND", "dotnet.png"),
+            ("RESTful API / WebSocket", "INTEGRATION", "nestjs.png"),
+            ("PostgreSQL / SQL Server", "DATABASE", "postgresql.png"),
+            ("Redis / Caching", "BACKEND", "nestjs.png"),
+            ("Testing / Code Review", "QUALITY", "code-slash.svg"),
+            ("Docker / GitLab CI/CD", "DELIVERY", "docker.png"),
+            ("LLM API / AI-assisted Delivery", "TOOLS", "robot.svg"),
+        ],
+        "experiences": [
+            (
+                "Feb 2026\n-\nPresent",
+                "Betodemy",
+                "Full-Stack Developer | 5-person team",
+                "React 19, TypeScript, NestJS, PostgreSQL, Redis, BullMQ, Nx, GitLab CI/CD",
+                [
+                    "Build production UI/API features, relational data flows and background jobs in weekly Agile-style release cycles.",
+                    "Review changes, debug cross-layer defects and support CI checks, release handoff and post-release operations.",
+                ],
+                "Delivered 70+ merged MRs and closed 70+ authored issues across production workflows.",
+            ),
+            (
+                "Oct 2024\n-\nJan 2026",
+                "OakMind Group",
+                "Full-Stack Developer | Business analysis & delivery",
+                "React 18/19, ASP.NET Core 8, EF Core, SQL Server, Redis, SignalR, Docker",
+                [
+                    "VN Media Hub: built CMS, authentication, moderation, caching, logging and reporting workflows.",
+                    "Great Link Mai House: converted legacy flows into React screens, REST APIs, realtime and media integrations.",
+                    "OakMind Group Website: shipped a bilingual CMS with media, SEO/analytics and lead workflows.",
+                ],
+                "Owned requirements-to-release delivery across three production company products.",
+            ),
+            (
+                "May 2026\n-\nJul 2026",
+                "AI Power",
+                "Odoo ERP Support Developer Intern",
+                "Python 3.12, Odoo 18, PostgreSQL, QWeb/XML, Docker, GitLab CI/CD",
+                [
+                    "Translated BA/customer change lists into traceable business-logic, data-model and report fixes.",
+                    "Debugged linked ERP workflows and verified release handoff within a shared modular codebase.",
+                ],
+                "Supported fixes across 18 custom modules and 99+ Python files while preserving an 18-state service flow.",
+            ),
+        ],
+        "projects": [
+            {
+                "title": "ChongScam",
+                "role": "Full-Stack Developer",
+                "url": "https://chongscam.vn/",
+                "tech": "React 19 | NestJS 11 | PostgreSQL | Redis | Jest/e2e",
+                "body": "Shipped a client-operated production system with auth, RBAC, moderation, audit controls and 12 automated test suites.",
+                "period": "Apr 2026 - Jul 2026",
+            },
+            {
+                "title": "RouteLab",
+                "role": "Full-Stack / Algorithm Developer",
+                "url": "https://tsp-delivery-route-optimizer.vercel.app/",
+                "tech": "React | TypeScript | Express | PostgreSQL | Vitest | CI",
+                "body": "Implemented four routing algorithms, REST/database paths, automated tests and a dedicated CI pipeline.",
+                "period": "May 2026 - Jul 2026",
+            },
+        ],
+        "certifications": [
+            (
+                "Software Development Lifecycle - AIAcademy by AIPOWER, Jul 2026",
+                "https://aiacademy.aipower.vn/certificates/e53aeb6b738a4a6eafb0c6edf9b2e912",
+            ),
+            (
+                "Information Security Awareness - AIAcademy by AIPOWER, Jul 2026",
+                "https://aiacademy.aipower.vn/certificates/f574be7d6b83416d9673e6d28f19664b",
+            ),
+            (
+                "AWS Cloud Practitioner Essentials - Completion Certificate, Jul 2026",
+                "https://www.credly.com/users/xuanhai0913",
+            ),
+            ("English: B1.4 - Intermediate; technical reading/writing", ""),
+        ],
+    },
+    "nam-long-backend-developer": {
+        "output": ROOT / "cv" / "nam-long-backend-developer" / "CV_NguyenXuanHai_NamLong_Backend_Developer_visual.pdf",
+        "role": "Back-End Developer",
+        "stack_line": "NodeJS / NestJS  |  TypeScript  |  RESTful API  |  PostgreSQL  |  Redis",
+        "headline": "Back-end oriented developer with commercial delivery experience since Oct 2024 across production APIs, relational data, background jobs, security controls and release support.",
+        "workflow": "",
+        "ai_mode": "off",
+        "skills": [
+            ("NodeJS / NestJS", "BACKEND", "nestjs.png"),
+            ("TypeScript / JavaScript", "BACKEND", "react.png"),
+            ("RESTful API / Validation", "BACKEND", "nestjs.png"),
+            ("PostgreSQL / SQL", "DATABASE", "postgresql.png"),
+            ("Redis / BullMQ", "BACKEND", "nestjs.png"),
+            ("Auth / RBAC / Security", "ARCHITECTURE", "code-slash.svg"),
+            ("Jest / e2e Testing", "QUALITY", "code-slash.svg"),
+            ("Docker / GitLab CI/CD", "DELIVERY", "docker.png"),
+            ("Git / Code Review", "DELIVERY", "gitlab.png"),
+        ],
+        "experiences": [
+            (
+                "Feb 2026\n-\nPresent",
+                "Betodemy",
+                "Full-Stack Developer | 5-person team",
+                "NestJS, TypeScript, PostgreSQL, Redis, BullMQ, Nx, React 19, GitLab CI/CD",
+                [
+                    "Build and debug modular API-backed features, PostgreSQL data flows and Redis/BullMQ background jobs.",
+                    "Handle weekly issues through implementation, review, CI checks, release handoff and production troubleshooting.",
+                ],
+                "Delivered 70+ merged MRs and closed 70+ authored issues across production workflows.",
+            ),
+            (
+                "Oct 2024\n-\nJan 2026",
+                "OakMind Group",
+                "Full-Stack Developer | Business analysis & delivery",
+                "ASP.NET Core 8, REST API, SQL Server, Redis, React 18/19, Docker",
+                [
+                    "VN Media Hub: built API-backed CMS, authentication, moderation, caching, logging and reporting workflows.",
+                    "Great Link Mai House: converted legacy processes into maintainable APIs, realtime and media integrations.",
+                    "OakMind Group Website: shipped a bilingual CMS with media, SEO/analytics and lead-management workflows.",
+                ],
+                "Owned requirement clarification through production release across three company products.",
+            ),
+            (
+                "May 2026\n-\nJul 2026",
+                "AI Power",
+                "Odoo ERP Support Developer Intern",
+                "Python 3.12, Odoo 18, PostgreSQL, QWeb/XML, Docker, GitLab CI/CD",
+                [
+                    "Debugged backend business logic, relational data and report workflows from BA/customer change lists.",
+                    "Prepared traceable fixes within an existing modular codebase and CI pipeline.",
+                ],
+                "Supported fixes across 18 custom modules and 99+ Python files.",
+            ),
+        ],
+        "projects": [
+            {
+                "title": "ChongScam",
+                "role": "Full-Stack Developer",
+                "url": "https://chongscam.vn/",
+                "tech": "NestJS 11 | TypeScript | PostgreSQL | Redis | Jest/e2e",
+                "body": "Built production REST APIs, auth, RBAC, validation, rate limiting, moderation and audited admin workflows across 22 controllers.",
+                "period": "Apr 2026 - Jul 2026",
+            },
+            {
+                "title": "RouteLab",
+                "role": "Full-Stack Developer",
+                "url": "https://github.com/xuanhai0913/tsp-delivery-route-optimizer",
+                "tech": "TypeScript | Express | PostgreSQL | Vitest | GitHub Actions",
+                "body": "Implemented REST APIs and four tested routing algorithms with relational storage and automated CI checks.",
+                "period": "2025 - 2026",
+            },
+        ],
+        "certifications": [
+            (
+                "AWS Educate: Getting Started with Databases - Training Badge, Jul 2026",
+                "https://www.credly.com/badges/9c8c5b6c-71f2-46e2-92b4-264c4cf9aa3b/public_url",
+            ),
+            (
+                "Software Development Lifecycle - AIAcademy by AIPOWER, Jul 2026",
+                "https://aiacademy.aipower.vn/certificates/e53aeb6b738a4a6eafb0c6edf9b2e912",
+            ),
+            ("English: B1.4 - Intermediate; technical reading/writing", ""),
+        ],
+    },
+    "globaltech-junior-backend": {
+        "output": ROOT / "cv" / "globaltech-junior-backend" / "CV_NguyenXuanHai_GlobalTech_Junior_Backend_visual.pdf",
+        "role": "Junior Software Backend Developer",
+        "stack_line": "C# / ASP.NET Core  |  NodeJS / NestJS  |  RESTful API  |  SQL  |  Redis",
+        "headline": "Junior back-end developer with commercial delivery experience since Oct 2024 across .NET and NodeJS APIs, business modules, relational data and production support.",
+        "workflow": "",
+        "ai_mode": "off",
+        "skills": [
+            ("C# / ASP.NET Core", "BACKEND", "dotnet.png"),
+            ("NodeJS / NestJS", "BACKEND", "nestjs.png"),
+            ("RESTful API / MVC", "BACKEND", "dotnet.png"),
+            ("OOP / Modular Design", "ARCHITECTURE", "code-slash.svg"),
+            ("SQL Server / PostgreSQL", "DATABASE", "postgresql.png"),
+            ("Redis / BullMQ", "BACKEND", "nestjs.png"),
+            ("Auth / JWT / RBAC", "ARCHITECTURE", "code-slash.svg"),
+            ("Testing / Debugging", "QUALITY", "code-slash.svg"),
+            ("Docker / GitLab CI/CD", "DELIVERY", "docker.png"),
+        ],
+        "experiences": [
+            (
+                "Feb 2026\n-\nPresent",
+                "Betodemy",
+                "Full-Stack Developer | 5-person team",
+                "NodeJS, NestJS, TypeScript, PostgreSQL, Redis, BullMQ, GitLab CI/CD",
+                [
+                    "Build and debug modular API-backed features, relational data flows and background jobs.",
+                    "Handle weekly issues through implementation, code review, CI checks and production troubleshooting.",
+                ],
+                "Delivered 70+ merged MRs and closed 70+ authored issues across production workflows.",
+            ),
+            (
+                "Oct 2024\n-\nJan 2026",
+                "OakMind Group",
+                "Full-Stack Developer | Business analysis & delivery",
+                "C#, ASP.NET Core 8, REST API, EF Core, SQL Server, Redis, React 18/19, Docker",
+                [
+                    "VN Media Hub: built ASP.NET Core CMS, authentication, moderation, caching, logging and reporting workflows.",
+                    "Great Link Mai House: converted legacy MVC/WordPress flows into maintainable APIs and integrations.",
+                    "OakMind Group Website: shipped a bilingual ASP.NET Core CMS with media and lead workflows.",
+                ],
+                "Owned requirement clarification through production release across three company products.",
+            ),
+            (
+                "May 2026\n-\nJul 2026",
+                "AI Power",
+                "Odoo ERP Support Developer Intern",
+                "Python 3.12, Odoo 18, PostgreSQL, QWeb/XML, Docker, GitLab CI/CD",
+                [
+                    "Debugged business logic, relational data and report workflows in an existing modular codebase.",
+                    "Translated BA/customer change lists into traceable fixes and release handoff.",
+                ],
+                "Supported fixes across 18 custom modules and 99+ Python files.",
+            ),
+        ],
+        "projects": [
+            {
+                "title": "ChongScam",
+                "role": "Full-Stack Developer",
+                "url": "https://chongscam.vn/",
+                "tech": "NestJS 11 | TypeScript | PostgreSQL | Redis | Jest/e2e",
+                "body": "Built production REST APIs, authentication, RBAC, validation, moderation and audited admin workflows.",
+                "period": "Apr 2026 - Jul 2026",
+            },
+            {
+                "title": "RouteLab",
+                "role": "Full-Stack Developer",
+                "url": "https://github.com/xuanhai0913/tsp-delivery-route-optimizer",
+                "tech": "TypeScript | Express | PostgreSQL | Vitest | GitHub Actions",
+                "body": "Implemented tested REST/database workflows and four routing algorithms with automated CI checks.",
+                "period": "2025 - 2026",
+            },
+        ],
+        "certifications": [
+            (
+                "AWS Educate: Getting Started with Databases - Training Badge, Jul 2026",
+                "https://www.credly.com/badges/9c8c5b6c-71f2-46e2-92b4-264c4cf9aa3b/public_url",
+            ),
+            (
+                "Software Development Lifecycle - AIAcademy by AIPOWER, Jul 2026",
+                "https://aiacademy.aipower.vn/certificates/e53aeb6b738a4a6eafb0c6edf9b2e912",
+            ),
+            ("English: B1.4 - Intermediate; technical reading/writing", ""),
         ],
     },
 }
@@ -1949,8 +3608,8 @@ def build_variant(name: str, ai_mode: str | None = None) -> Path:
     def clean_role(role: str) -> str:
         value = role.removeprefix("Role:").strip()
         replacements = {
-            "Main Full-Stack Developer / BA-facing Owner": "Full-Stack Developer | BA-facing delivery",
-            "Main Frontend/Full-Stack Developer / BA-facing Owner": "Full-Stack Developer | BA-facing delivery",
+            "Main Full-Stack Developer / Business Analysis & Delivery": "Full-Stack Developer | Business analysis & delivery",
+            "Main Frontend/Full-Stack Developer / Business Analysis & Delivery": "Full-Stack Developer | Business analysis & delivery",
             "Core Full-Stack Developer in 5-person team": "Full-Stack Developer | 5-person product team",
         }
         return replacements.get(value, value)
@@ -2001,7 +3660,7 @@ def build_variant(name: str, ai_mode: str | None = None) -> Path:
             oakmind = {
                 "dates": "Oct 2024\n-\nJan 2026",
                 "title": "OakMind Group",
-                "role": "Part-time Full-Stack Developer | BA-facing owner",
+                "role": "Full-Stack Developer | Business analysis & delivery",
                 "tech": "React 18/19 | ASP.NET Core 8 | EF Core | SQL Server | Redis | R2",
                 "bullets": [
                     product_bullet(
@@ -2027,7 +3686,10 @@ def build_variant(name: str, ai_mode: str | None = None) -> Path:
                 for name in ("great link", "vn media", "oakmind")
             )
         ]
-        order = {"betodemy": 0, "ai power": 1, "odoo": 1}
+        if "odoo" in config["role"].lower() or "erp" in config["role"].lower():
+            order = {"ai power": 0, "odoo": 0, "betodemy": 1}
+        else:
+            order = {"betodemy": 0, "ai power": 1, "odoo": 1}
         remaining.sort(
             key=lambda entry: next(
                 (priority for name, priority in order.items() if name in str(entry["title"]).lower()),
@@ -2035,7 +3697,10 @@ def build_variant(name: str, ai_mode: str | None = None) -> Path:
             )
         )
         if oakmind:
-            remaining.append(oakmind)
+            if config.get("oakmind_position") == "after_first" and remaining:
+                remaining.insert(1, oakmind)
+            else:
+                remaining.append(oakmind)
         return remaining
 
     def project_defaults(title: str) -> tuple[str, str]:
@@ -2058,18 +3723,34 @@ def build_variant(name: str, ai_mode: str | None = None) -> Path:
 
     def skill_bucket(label: str, category: str) -> str | None:
         lowered = f"{label} {category}".lower()
-        if any(word in lowered for word in ("claude", "codex", "antigravity", "ai agent", "prompt", "context engineering")):
+        if any(word in lowered for word in ("claude", "codex", "antigravity", "ai agent", "ai-assisted", "prompt", "context engineering")):
             return None
+        if "qc" in config["role"].lower():
+            if any(word in lowered for word in ("manual", "functional", "regression", "system testing")):
+                return "Testing"
+            if any(word in lowered for word in ("test case", "bug report")):
+                return "Test Design"
+            if any(word in lowered for word in ("jest", "vitest", "e2e", "automation")):
+                return "Automation"
+            if any(word in lowered for word in ("sql", "postgres", "database", "rest", "api")):
+                return "Data & API"
+            if any(word in lowered for word in ("git", "issue", "ci/cd", "release", "agile")):
+                return "Delivery"
+            return "Technical Context"
+        if config["role"].lower().startswith("backend") and "typescript" in label.lower():
+            return "Backend & API"
+        if any(word in lowered for word in ("oop", "data structures", "algorithm", "architecture", "solid")):
+            return "Architecture"
         frontend_terms = ("react", "angular", "vue", "javascript", "typescript", "html", "css", "frontend", "state", "tailwind", "bootstrap", "slate")
         if any(word in lowered for word in frontend_terms) or " ui " in f" {lowered} ":
             return "Frontend"
+        if any(word in lowered for word in ("odoo", "erp", "qweb", "business", "report", "requirement", "customer", "domain")):
+            return "ERP / Business"
         if any(word in lowered for word in ("asp.net", ".net", "c#", "node", "nestjs", "backend", "rest", "api", "jwt", "auth", "orm")):
             return "Backend & API"
         if any(word in lowered for word in ("sql", "postgres", "database", "redis", "data")):
             return "Data"
-        if any(word in lowered for word in ("odoo", "erp", "qweb", "business", "report", "requirement", "customer", "domain")):
-            return "ERP / Business"
-        if any(word in lowered for word in ("oop", "mvc", "solid", "architecture", "foundation", "core")):
+        if any(word in lowered for word in ("mvc", "foundation", "core")):
             return "Architecture"
         return "Delivery"
 
@@ -2263,7 +3944,10 @@ def build_variant(name: str, ai_mode: str | None = None) -> Path:
             values = groups.setdefault(bucket, [])
             if label not in values and len(values) < 4:
                 values.append(label)
-        preferred_order = ["Frontend", "Backend & API", "Data", "ERP / Business", "Architecture", "Delivery"]
+        if "qc" in config["role"].lower():
+            preferred_order = ["Testing", "Test Design", "Automation", "Data & API", "Delivery", "Technical Context"]
+        else:
+            preferred_order = ["Frontend", "Backend & API", "Data", "ERP / Business", "Architecture", "Delivery"]
         for label in preferred_order:
             values = groups.get(label)
             if values:
@@ -2274,6 +3958,23 @@ def build_variant(name: str, ai_mode: str | None = None) -> Path:
         y = self.section_title(x, y, "Independent Projects", "folder2-open.svg")
         for project in normalized_projects():
             y = self.project_entry(x, y, project)
+        y -= 2
+        self.certifications(x, y)
+
+    def certifications(self, x: float, y: float) -> float:
+        items = config.get("certifications")
+        if not items:
+            return base.VisualCv.certifications(self, x, y)
+        y = self.section_title(x, y, "Certifications", "award.svg")
+        for item, url in items:
+            row_top = y + 7
+            self.c.setFillColor(base.TEAL)
+            self.c.circle(x + 4, y + 2.2, 1.6, fill=1, stroke=0)
+            next_y = self.text(item, x + 11, y, base.RIGHT_W - 13, "Arial", 6.9, base.INK, 8.2)
+            if url:
+                self.c.linkURL(url, (x + 9, next_y + 1, x + base.RIGHT_W - 2, row_top), relative=0, thickness=0)
+            y = next_y - 3.5
+        return y
 
     def skill_group(self, x: float, y: float, label: str, value: str) -> float:
         label_text = label.upper()
@@ -2292,6 +3993,7 @@ def build_variant(name: str, ai_mode: str | None = None) -> Path:
     pdf.company_experience = MethodType(company_experience, pdf)
     pdf.skill_group = MethodType(skill_group, pdf)
     pdf.skills_and_projects = MethodType(skills_and_projects, pdf)
+    pdf.certifications = MethodType(certifications, pdf)
 
     pdf.background()
     pdf.header()

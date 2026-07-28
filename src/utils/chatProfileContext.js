@@ -2,7 +2,7 @@ import { EXTERNAL_URLS, WORK_EXPERIENCE } from './constants';
 
 export const PROFILE_CONTEXT = {
   name: 'Nguyen Xuan Hai',
-  title: 'Fullstack Developer',
+  title: 'Full-Stack Developer',
   location: 'Ho Chi Minh City, Vietnam',
   website: EXTERNAL_URLS.PORTFOLIO,
   contacts: {
@@ -136,7 +136,7 @@ export function buildPortfolioSystemPrompt(preferredLanguage = 'en', hasJobDescr
   const styleRule = styleRuleMap[responseStyle] || styleRuleMap.brief;
 
   return [
-    'You are a portfolio assistant for Nguyen Xuan Hai, a Fullstack Developer.',
+    'You are a portfolio assistant for Nguyen Xuan Hai, a Full-Stack Developer.',
     'Use only provided portfolio context and avoid making up facts.',
     languageRule,
     'Prefer concise, recruiter-friendly answers with bullet points when useful.',

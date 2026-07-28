@@ -24,7 +24,7 @@ const Footer = () => {
                     </a>
                 </div>
                 <div className="footer-copyright">
-                    <p>{t('footer.copyright', { year: 2025 })}</p>
+                    <p>{t('footer.copyright', { year: new Date().getFullYear() })}</p>
                     <p className="footer-subtitle">{t('footer.madeIn')}</p>
                 </div>
             </div>

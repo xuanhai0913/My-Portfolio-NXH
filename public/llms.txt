@@ -25,7 +25,7 @@
 
 - Betodemy, Full-Stack Developer, February 2026 to present: Japanese learning platform; product features, bug fixing, weekly issue/release workflow and production support.
 - AI Power, Full-Stack Developer Intern, May 2026 to July 2026: Odoo 18 automotive dealership ERP; supported debugging and fixes across 18 custom modules and 99+ Python files.
-- OakMind Group, Part-time Full-Stack Developer, October 2024 to January 2026: delivered OakMind Group Corporate Platform, Great Link Mai House and VN Media Hub from requirement clarification through production release.
+- OakMind Group, Full-Stack Developer, October 2024 to January 2026: delivered OakMind Group Corporate Platform, Great Link Mai House and VN Media Hub from requirement clarification through production release.
 
 ## Verified production work
 

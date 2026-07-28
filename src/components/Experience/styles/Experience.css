@@ -92,7 +92,8 @@
     border: 2px solid var(--color-accent);
     border-radius: 50%;
     z-index: 2;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, border-color 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
 .experience-item:hover .experience-marker {
@@ -110,11 +111,10 @@
 /* Header Info */
 .experience-header {
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
+    flex-direction: column;
+    align-items: flex-start;
     margin-bottom: 15px;
-    flex-wrap: wrap;
-    gap: 15px;
+    gap: 12px;
 }
 
 .company-info {
@@ -153,6 +153,7 @@
     padding: 4px 10px;
     border-radius: 20px;
     background: rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
 }
 
 .job-description {
@@ -235,7 +236,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, border-color 0.3s ease,
+        transform 0.3s ease;
 }
 
 .audio-toggle:hover {

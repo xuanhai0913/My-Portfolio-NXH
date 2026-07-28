@@ -35,6 +35,7 @@ const SpeedInsights = lazy(() =>
 const Analytics = lazy(() =>
   import('@vercel/analytics/react').then(m => ({ default: m.Analytics }))
 );
+const isProduction = process.env.NODE_ENV === 'production';
 
 // Hoisted loading fallback (rerender-no-inline-components)
 const LoadingFallback = () => {
@@ -246,7 +247,7 @@ const App = () => {
     <div className="app">
       <PageTransition />
 
-      <a href="#profile" className="skip-link">{t('common.skipToContent')}</a>
+      <a href="#main-content" className="skip-link">{t('common.skipToContent')}</a>
 
       <ErrorBoundary>
         <Header />
@@ -254,15 +255,19 @@ const App = () => {
 
       {!isAssistantRoute ? <ChatSurface /> : null}
 
-      <Routes>
-        {renderLocalizedRoutes('')}
-        {renderLocalizedRoutes('/vi')}
-      </Routes>
+      <main id="main-content">
+        <Routes>
+          {renderLocalizedRoutes('')}
+          {renderLocalizedRoutes('/vi')}
+        </Routes>
+      </main>
 
-      <Suspense fallback={null}>
-        <Analytics debug={false} mode="production" />
-        <SpeedInsights />
-      </Suspense>
+      {isProduction ? (
+        <Suspense fallback={null}>
+          <Analytics debug={false} mode="production" />
+          <SpeedInsights />
+        </Suspense>
+      ) : null}
     </div>
   );
 };

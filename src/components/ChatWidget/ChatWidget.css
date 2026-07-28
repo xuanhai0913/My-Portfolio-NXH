@@ -1402,6 +1402,13 @@
   gap: 6px;
   overflow-x: auto;
   padding-bottom: 2px;
+  scrollbar-width: none;
+  overscroll-behavior-inline: contain;
+  scroll-snap-type: x proximity;
+}
+
+.chat-suggestions::-webkit-scrollbar {
+  display: none;
 }
 
 .chat-suggestions button {
@@ -1409,6 +1416,7 @@
   background: rgba(255, 255, 255, 0.04);
   color: var(--text-primary);
   border-radius: 999px;
+  scroll-snap-align: start;
   font-size: 0.72rem;
   white-space: nowrap;
   padding: 5px 9px;
@@ -1536,7 +1544,27 @@
 
 @media (max-width: 520px) {
   .chat-launcher {
+    width: 46px;
+    height: 46px;
+    right: max(10px, env(safe-area-inset-right));
     bottom: max(76px, calc(10px + env(safe-area-inset-bottom)));
+    padding: 3px;
+  }
+
+  .chat-launcher:hover,
+  .chat-launcher:focus-visible {
+    width: 46px;
+  }
+
+  .chat-launcher-avatar {
+    width: 38px;
+    height: 38px;
+    flex-basis: 38px;
+    font-size: 0.95rem;
+  }
+
+  .chat-launcher-copy {
+    display: none;
   }
 
   .chat-intro-spotlight {

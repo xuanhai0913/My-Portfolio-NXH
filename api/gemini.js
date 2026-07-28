@@ -117,7 +117,7 @@ const STRUCTURED_RESPONSE_SCHEMA = {
     },
     suggestions: { type: 'ARRAY', items: { type: 'STRING' } },
   },
-  required: ['answer', 'highlights', 'links', 'suggestions'],
+  required: ['answer'],
 };
 
 function resolveFallbackModels() {

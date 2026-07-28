@@ -103,7 +103,7 @@ const Hero3D = () => {
                                 <div className="scroll-content center">
                                     <h2 className="scroll-subtitle">NGUYỄN XUÂN HẢI</h2>
                                     <div className="scroll-image-box">
-                                        <img src={profileImage} alt="Nguyễn Xuân Hải — Fullstack Developer portfolio preview" />
+                                        <img src={profileImage} alt="Nguyễn Xuân Hải — Full-Stack Developer portfolio preview" />
                                     </div>
                                     <div className="scroll-tags">
                                         {['React', 'Node.js', 'TypeScript', 'SQL'].map((s) => (

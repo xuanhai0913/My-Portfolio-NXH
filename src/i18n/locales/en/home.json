@@ -9,7 +9,7 @@
     "viewCvAria": "View CV / Resume",
     "scrollHint": "SCROLL TO EXPLORE",
     "profileImageAlt": "Nguyễn Xuân Hải",
-    "experienceBadge": "4 COMPANY EXPERIENCES",
+    "experienceBadge": "EXPERIENCE AT 3 COMPANIES",
     "experienceBadgeAria": "View work experience details"
   },
   "experience": {
@@ -17,21 +17,21 @@
     "closeAria": "Close work experience details",
     "title": "EXPERIENCE_LOG",
     "companyExperience": "COMPANY_EXPERIENCE:",
-    "companyCount": "4 COMPANIES",
+    "companyCount": "3 COMPANIES",
     "jobs": [
       {
         "company": "Betodemy – Japanese Learning Platform",
-        "role": "CORE FULLSTACK DEVELOPER",
+        "role": "FULL-STACK DEVELOPER",
         "period": "Start: February 2026 | End: Present"
       },
       {
         "company": "AI Power – Automotive Dealership ERP",
-        "role": "ODOO ERP SUPPORT DEVELOPER INTERN",
+        "role": "ODOO ERP DEVELOPER INTERN",
         "period": "Start: May 2026 | End: July 2026"
       },
       {
         "company": "OakMind Group – Three Production Web Products",
-        "role": "PART-TIME FULLSTACK DEVELOPER / BA-FACING OWNER",
+        "role": "FULL-STACK DEVELOPER · BUSINESS ANALYSIS",
         "period": "Start: October 2024 | End: January 2026"
       }
     ]

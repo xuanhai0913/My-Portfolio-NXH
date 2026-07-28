@@ -183,6 +183,7 @@ const Portfolio = () => {
   const { localizePath } = useLocaleNavigation();
   const sectionRef = useRef(null);
   const projectListRef = useRef(null);
+  const mobileNavRef = useRef(null);
   const touchStartXRef = useRef(null);
   const touchStartYRef = useRef(null);
   const prevIndexRef = useRef(0);
@@ -247,6 +248,14 @@ const Portfolio = () => {
 
     const current = Number.isFinite(activeIndex) ? activeIndex : 0;
     setScrollProgress((current + 1) / projectCount);
+
+    const activeTab = mobileNavRef.current?.querySelector('[aria-selected="true"]');
+    activeTab?.scrollIntoView({
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+      block: 'nearest',
+      inline: 'center'
+    });
+
     return undefined;
   }, [activeIndex, isMobile, projectCount]);
 
@@ -532,7 +541,12 @@ const Portfolio = () => {
 
         {isMobile ? (
           <div className="portfolio-mobile">
-            <div className="mobile-project-nav" role="tablist" aria-label={t('aria.projectNavigation')}>
+            <div
+              ref={mobileNavRef}
+              className="mobile-project-nav"
+              role="tablist"
+              aria-label={t('aria.projectNavigation')}
+            >
               {allProjects.map((project, index) => (
                 <button
                   key={project.id}

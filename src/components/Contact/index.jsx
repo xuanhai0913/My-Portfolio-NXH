@@ -132,6 +132,7 @@ const Contact = () => {
               <input
                 type="text"
                 name="user_name"
+                autoComplete="name"
                 placeholder={t('form.namePlaceholder')}
                 aria-label={t('form.nameAria')}
                 required
@@ -142,6 +143,9 @@ const Contact = () => {
               <input
                 type="email"
                 name="user_email"
+                autoComplete="email"
+                inputMode="email"
+                spellCheck="false"
                 placeholder={t('form.emailPlaceholder')}
                 aria-label={t('form.emailAria')}
                 required
@@ -214,7 +218,7 @@ const Contact = () => {
 
       </div>
 
-      <footer className="footer-placeholder"></footer>
+      <div className="footer-placeholder" aria-hidden="true"></div>
     </section>
   );
 };
