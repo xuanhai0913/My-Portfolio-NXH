@@ -29,7 +29,11 @@
   width: 172px;
   border-color: var(--color-accent);
   background: rgba(8, 10, 2, 0.97);
-  outline: none;
+}
+
+.chat-launcher:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 4px;
 }
 
 .chat-launcher-avatar {

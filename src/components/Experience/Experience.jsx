@@ -26,10 +26,30 @@ const Experience = () => {
     const [isMuted, setIsMuted] = useState(true);
     const isMutedRef = useRef(true);
     const inViewRef = useRef(false);
+    const reducedMotionRef = useRef(false);
     const audioUnlockedRef = useRef(false);
     const fadeIntervalRef = useRef(null);
 
     React.useEffect(() => { isMutedRef.current = isMuted; }, [isMuted]);
+
+    React.useEffect(() => {
+        if (typeof window.matchMedia !== 'function') return undefined;
+
+        const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+        const updateMotionPreference = () => {
+            reducedMotionRef.current = motionQuery.matches;
+
+            if (motionQuery.matches) {
+                videoRef.current?.pause();
+            } else if (inViewRef.current) {
+                videoRef.current?.play().catch(() => { });
+            }
+        };
+
+        updateMotionPreference();
+        motionQuery.addEventListener('change', updateMotionPreference);
+        return () => motionQuery.removeEventListener('change', updateMotionPreference);
+    }, []);
 
     // Fade audio volume smoothly
     const fadeAudio = useCallback((audio, targetVol, duration = 800) => {
@@ -76,7 +96,9 @@ const Experience = () => {
                 if (entry.isIntersecting) {
                     setInView(true);
                     inViewRef.current = true;
-                    videoRef.current?.play().catch(() => { });
+                    if (!reducedMotionRef.current) {
+                        videoRef.current?.play().catch(() => { });
+                    }
                     // Auto-play if audio was already activated
                     startAudio();
                 } else {

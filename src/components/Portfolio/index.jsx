@@ -67,7 +67,7 @@ const projectCatalog = [
       demo: "https://chongscam.vn/",
       technologies: ["React 19", "NestJS 11", "PostgreSQL", "Jest"],
       badge: true,
-      company: "PET PROJECT",
+      company: "INDEPENDENT BUILD",
       year: "2026",
       group: "pet"
     },
@@ -78,7 +78,7 @@ const projectCatalog = [
       github: "https://github.com/xuanhai0913/tsp-delivery-route-optimizer",
       technologies: ["React", "TypeScript", "Express", "Vitest"],
       badge: true,
-      company: "PET PROJECT",
+      company: "INDEPENDENT BUILD",
       year: "2026",
       group: "pet"
     },
@@ -88,7 +88,7 @@ const projectCatalog = [
       github: "https://github.com/xuanhai0913/agri-traceability-system",
       technologies: ["React", "Express", "PostgreSQL", "Solidity"],
       badge: true,
-      company: "PET PROJECT",
+      company: "INDEPENDENT BUILD",
       year: "2026",
       group: "pet"
     },
@@ -103,6 +103,7 @@ const projectCatalog = [
         { url: "https://github.com/xuanhai0913/Extension-Vision-Premium", label: "Premium" },
         { url: "https://github.com/xuanhai0913/Extension-Vision-Key", label: "Standard" }
       ],
+      company: "INDEPENDENT BUILD",
       year: "2025",
       group: "pet"
     },
@@ -113,6 +114,7 @@ const projectCatalog = [
       github: "https://github.com/xuanhai0913/LLM-Unit-tests",
       technologies: ["React", "Deepseek", "Node.js"],
       badge: true,
+      company: "INDEPENDENT BUILD",
       year: "2025",
       group: "pet"
     },
@@ -122,6 +124,7 @@ const projectCatalog = [
       demo: "https://my-portfolio-nxh.vercel.app/",
       github: "https://github.com/xuanhai0913/My-Portfolio-NXH",
       technologies: ["React", "GSAP", "CSS3"],
+      company: "INDEPENDENT BUILD",
       year: "2024",
       group: "pet"
     }

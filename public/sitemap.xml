@@ -46,24 +46,72 @@
     <lastmod>2026-07-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://my-portfolio-nxh.vercel.app/tools/testforge" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://my-portfolio-nxh.vercel.app/vi/tools/testforge" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://my-portfolio-nxh.vercel.app/tools/testforge" />
+  </url>
+  <url>
+    <loc>https://my-portfolio-nxh.vercel.app/vi/tools/testforge</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://my-portfolio-nxh.vercel.app/tools/testforge" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://my-portfolio-nxh.vercel.app/vi/tools/testforge" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://my-portfolio-nxh.vercel.app/tools/testforge" />
   </url>
   <url>
     <loc>https://my-portfolio-nxh.vercel.app/tools/repolens</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://my-portfolio-nxh.vercel.app/tools/repolens" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://my-portfolio-nxh.vercel.app/vi/tools/repolens" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://my-portfolio-nxh.vercel.app/tools/repolens" />
+  </url>
+  <url>
+    <loc>https://my-portfolio-nxh.vercel.app/vi/tools/repolens</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://my-portfolio-nxh.vercel.app/tools/repolens" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://my-portfolio-nxh.vercel.app/vi/tools/repolens" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://my-portfolio-nxh.vercel.app/tools/repolens" />
   </url>
   <url>
     <loc>https://my-portfolio-nxh.vercel.app/tools/incidentlens</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://my-portfolio-nxh.vercel.app/tools/incidentlens" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://my-portfolio-nxh.vercel.app/vi/tools/incidentlens" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://my-portfolio-nxh.vercel.app/tools/incidentlens" />
+  </url>
+  <url>
+    <loc>https://my-portfolio-nxh.vercel.app/vi/tools/incidentlens</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://my-portfolio-nxh.vercel.app/tools/incidentlens" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://my-portfolio-nxh.vercel.app/vi/tools/incidentlens" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://my-portfolio-nxh.vercel.app/tools/incidentlens" />
   </url>
   <url>
     <loc>https://my-portfolio-nxh.vercel.app/tools/agentflow</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://my-portfolio-nxh.vercel.app/tools/agentflow" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://my-portfolio-nxh.vercel.app/vi/tools/agentflow" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://my-portfolio-nxh.vercel.app/tools/agentflow" />
+  </url>
+  <url>
+    <loc>https://my-portfolio-nxh.vercel.app/vi/tools/agentflow</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://my-portfolio-nxh.vercel.app/tools/agentflow" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://my-portfolio-nxh.vercel.app/vi/tools/agentflow" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://my-portfolio-nxh.vercel.app/tools/agentflow" />
   </url>
   <url>
     <loc>https://my-portfolio-nxh.vercel.app/blog</loc>
@@ -72,17 +120,51 @@
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://my-portfolio-nxh.vercel.app/blog" />
     <xhtml:link rel="alternate" hreflang="vi" href="https://my-portfolio-nxh.vercel.app/vi/blog" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://my-portfolio-nxh.vercel.app/blog" />
+  </url>
+  <url>
+    <loc>https://my-portfolio-nxh.vercel.app/vi/blog</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://my-portfolio-nxh.vercel.app/blog" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://my-portfolio-nxh.vercel.app/vi/blog" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://my-portfolio-nxh.vercel.app/blog" />
   </url>
   <url>
     <loc>https://my-portfolio-nxh.vercel.app/videos</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://my-portfolio-nxh.vercel.app/videos" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://my-portfolio-nxh.vercel.app/vi/videos" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://my-portfolio-nxh.vercel.app/videos" />
+  </url>
+  <url>
+    <loc>https://my-portfolio-nxh.vercel.app/vi/videos</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://my-portfolio-nxh.vercel.app/videos" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://my-portfolio-nxh.vercel.app/vi/videos" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://my-portfolio-nxh.vercel.app/videos" />
   </url>
   <url>
     <loc>https://my-portfolio-nxh.vercel.app/assistant</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://my-portfolio-nxh.vercel.app/assistant" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://my-portfolio-nxh.vercel.app/vi/assistant" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://my-portfolio-nxh.vercel.app/assistant" />
+  </url>
+  <url>
+    <loc>https://my-portfolio-nxh.vercel.app/vi/assistant</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://my-portfolio-nxh.vercel.app/assistant" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://my-portfolio-nxh.vercel.app/vi/assistant" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://my-portfolio-nxh.vercel.app/assistant" />
   </url>
 </urlset>

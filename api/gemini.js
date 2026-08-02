@@ -1,3 +1,10 @@
+const {
+  buildPortfolioSystemPrompt,
+  buildPortfolioUserMessage,
+  normalizeLocale,
+  normalizeResponseStyle,
+} = require('./portfolio-context');
+
 const GEMINI_API_BASE = 'https://generativelanguage.googleapis.com/v1beta/models';
 
 const DEFAULT_FALLBACK_MODELS = [
@@ -7,8 +14,26 @@ const DEFAULT_FALLBACK_MODELS = [
   'gemini-2.0-flash',
   'gemini-2.5-pro',
 ];
+const MAX_FALLBACK_MODELS = DEFAULT_FALLBACK_MODELS.length;
 
-const RETRYABLE_STATUSES = new Set([429, 500, 502, 503, 504]);
+// A missing model is safe to retry with the next configured fallback. Other
+// client errors (for example a malformed request) should stop immediately.
+const FALLBACK_STATUSES = new Set([404, 429, 500, 502, 503, 504]);
+function parsePositiveInteger(value, fallback, maximum = Number.MAX_SAFE_INTEGER) {
+  const parsed = Number(value);
+  return Number.isSafeInteger(parsed) && parsed > 0 ? Math.min(parsed, maximum) : fallback;
+}
+
+const MAX_MESSAGE_LENGTH = 2000;
+const MAX_JOB_DESCRIPTION_LENGTH = 6000;
+const MAX_HISTORY_MESSAGES = 16;
+const MAX_HISTORY_MESSAGE_LENGTH = 1000;
+const REQUEST_TIMEOUT_MS = parsePositiveInteger(process.env.GEMINI_REQUEST_TIMEOUT_MS, 25000, 60000);
+const TOTAL_REQUEST_TIMEOUT_MS = parsePositiveInteger(process.env.GEMINI_TOTAL_REQUEST_TIMEOUT_MS, 50000, 55000);
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
+const RATE_LIMIT_MAX_REQUESTS = parsePositiveInteger(process.env.GEMINI_RATE_LIMIT_MAX, 12, 120);
+const MAX_RATE_LIMIT_CLIENTS = 2000;
+const clientRequestTimes = new Map();
 const STRUCTURED_RESPONSE_SCHEMA = {
   type: 'OBJECT',
   properties: {
@@ -129,51 +154,177 @@ function resolveFallbackModels() {
     .map((item) => item.trim())
     .filter(Boolean);
 
-  return parsed.length ? parsed : DEFAULT_FALLBACK_MODELS;
+  return parsed.length ? parsed.slice(0, MAX_FALLBACK_MODELS) : DEFAULT_FALLBACK_MODELS;
+}
+
+function getHeaderValue(req, name) {
+  const value = req?.headers?.[name];
+  return Array.isArray(value) ? value[0] : value;
+}
+
+function normalizeOrigin(value) {
+  if (typeof value !== 'string' || !value.trim()) return '';
+
+  try {
+    return new URL(value).origin;
+  } catch (error) {
+    return '';
+  }
+}
+
+function getConfiguredOrigins() {
+  const raw = process.env.GEMINI_ALLOWED_ORIGINS || process.env.GEMINI_ALLOWED_ORIGIN || '';
+  return new Set(
+    raw
+      .split(',')
+      .map((item) => normalizeOrigin(item))
+      .filter(Boolean)
+  );
+}
+
+function isLoopbackHost(host) {
+  try {
+    const hostname = new URL(`http://${host}`).hostname.toLowerCase();
+    return hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '::1';
+  } catch (error) {
+    return false;
+  }
+}
+
+function getRequestOrigin(req) {
+  const host = getHeaderValue(req, 'host');
+  if (!host) return '';
+
+  const forwardedProtocol = String(getHeaderValue(req, 'x-forwarded-proto') || '')
+    .split(',')[0]
+    .trim()
+    .toLowerCase();
+  const protocol = ['http', 'https'].includes(forwardedProtocol)
+    ? forwardedProtocol
+    : (isLoopbackHost(host) ? 'http' : 'https');
+  return normalizeOrigin(`${protocol}://${host}`);
+}
+
+function appendVaryOrigin(res) {
+  const current = typeof res.getHeader === 'function' ? res.getHeader('Vary') : '';
+  const values = (Array.isArray(current) ? current.join(',') : String(current || ''))
+    .split(',')
+    .map((value) => value.trim())
+    .filter(Boolean);
+
+  if (!values.some((value) => value.toLowerCase() === 'origin')) values.push('Origin');
+  res.setHeader('Vary', values.join(', '));
+}
+
+function allowCorsForRequest(req, res) {
+  const origin = normalizeOrigin(getHeaderValue(req, 'origin'));
+  if (!origin) return true;
+
+  const isSameOrigin = origin === getRequestOrigin(req);
+  const isExplicitlyAllowed = getConfiguredOrigins().has(origin);
+  if (!isSameOrigin && !isExplicitlyAllowed) return false;
+
+  res.setHeader('Access-Control-Allow-Origin', origin);
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  appendVaryOrigin(res);
+  return true;
+}
+
+function getClientId(req) {
+  const forwardedFor = String(getHeaderValue(req, 'x-forwarded-for') || '')
+    .split(',')[0]
+    .trim();
+  const remoteAddress = req?.socket?.remoteAddress || 'anonymous';
+  return (forwardedFor || remoteAddress || 'anonymous').slice(0, 128);
+}
+
+function takeRateLimitSlot(req) {
+  const now = Date.now();
+  const cutoff = now - RATE_LIMIT_WINDOW_MS;
+
+  for (const [clientId, timestamps] of clientRequestTimes) {
+    const activeTimestamps = timestamps.filter((timestamp) => timestamp > cutoff);
+    if (activeTimestamps.length) {
+      clientRequestTimes.set(clientId, activeTimestamps);
+    } else {
+      clientRequestTimes.delete(clientId);
+    }
+  }
+
+  const clientId = getClientId(req);
+  const timestamps = clientRequestTimes.get(clientId) || [];
+  if (timestamps.length >= RATE_LIMIT_MAX_REQUESTS) {
+    return {
+      allowed: false,
+      remaining: 0,
+      resetAt: Math.ceil((timestamps[0] + RATE_LIMIT_WINDOW_MS) / 1000),
+      retryAfterSeconds: Math.max(1, Math.ceil((timestamps[0] + RATE_LIMIT_WINDOW_MS - now) / 1000)),
+    };
+  }
+
+  timestamps.push(now);
+  if (!clientRequestTimes.has(clientId) && clientRequestTimes.size >= MAX_RATE_LIMIT_CLIENTS) {
+    const oldestClientId = clientRequestTimes.keys().next().value;
+    if (oldestClientId) clientRequestTimes.delete(oldestClientId);
+  }
+  if (clientRequestTimes.has(clientId)) clientRequestTimes.delete(clientId);
+  clientRequestTimes.set(clientId, timestamps);
+  return {
+    allowed: true,
+    remaining: Math.max(0, RATE_LIMIT_MAX_REQUESTS - timestamps.length),
+    resetAt: Math.ceil((timestamps[0] + RATE_LIMIT_WINDOW_MS) / 1000),
+  };
+}
+
+function setRateLimitHeaders(res, rateLimit) {
+  res.setHeader('X-RateLimit-Limit', String(RATE_LIMIT_MAX_REQUESTS));
+  res.setHeader('X-RateLimit-Remaining', String(rateLimit.remaining));
+  res.setHeader('X-RateLimit-Reset', String(rateLimit.resetAt));
 }
 
 function sanitizeHistory(history) {
   if (!Array.isArray(history)) return [];
   return history
-    .filter((item) => item && typeof item.content === 'string' && typeof item.role === 'string')
-    .slice(-20)
+    .filter((item) => (
+      item
+      && typeof item.content === 'string'
+      && (item.role === 'assistant' || item.role === 'user')
+      && item.content.trim()
+    ))
+    .slice(-MAX_HISTORY_MESSAGES)
     .map((item) => ({
-      role: item.role === 'assistant' ? 'model' : 'user',
-      parts: [{ text: item.content.slice(0, 1500) }],
+      role: item.role,
+      content: item.content.trim().slice(0, MAX_HISTORY_MESSAGE_LENGTH),
     }));
 }
 
-function buildUserMessage(systemPrompt, profileContext, userMessage, jobDescription) {
-  const contextBlock = JSON.stringify(profileContext || {});
-  const jdBlock = typeof jobDescription === 'string' && jobDescription.trim()
-    ? `Job Description: ${jobDescription.trim().slice(0, 6000)}`
-    : 'Job Description: (not provided)';
+async function callGeminiModel(model, apiKey, payload, timeoutMs = REQUEST_TIMEOUT_MS) {
+  const url = `${GEMINI_API_BASE}/${model}:generateContent`;
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), Math.max(1, timeoutMs));
 
-  return [
-    systemPrompt || '',
-    `Context: ${contextBlock}`,
-    jdBlock,
-    `User question: ${userMessage}`,
-  ].join('\n\n');
-}
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-goog-api-key': apiKey,
+      },
+      body: JSON.stringify(payload),
+      signal: controller.signal,
+    });
 
-async function callGeminiModel(model, apiKey, payload) {
-  const url = `${GEMINI_API_BASE}/${model}:generateContent?key=${apiKey}`;
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(payload),
-  });
+    const data = await response.json().catch(() => ({}));
 
-  const data = await response.json().catch(() => ({}));
-
-  return {
-    ok: response.ok,
-    status: response.status,
-    data,
-  };
+    return {
+      ok: response.ok,
+      status: response.status,
+      data,
+    };
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
 function extractText(data) {
@@ -540,16 +691,23 @@ function normalizeStructuredResponse(parsed) {
 }
 
 module.exports = async (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', process.env.GEMINI_ALLOWED_ORIGIN || '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   res.setHeader('Cache-Control', 'no-store');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+
+  if (!allowCorsForRequest(req, res)) {
+    return res.status(403).json({
+      success: false,
+      errorType: 'origin_not_allowed',
+      message: 'This origin is not allowed to use the portfolio assistant.',
+    });
+  }
 
   if (req.method === 'OPTIONS') {
-    return res.status(200).end();
+    return res.status(204).end();
   }
 
   if (req.method !== 'POST') {
+    res.setHeader('Allow', 'POST, OPTIONS');
     return res.status(405).json({
       success: false,
       errorType: 'method_not_allowed',
@@ -557,18 +715,18 @@ module.exports = async (req, res) => {
     });
   }
 
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
-    return res.status(500).json({
+  const body = req.body && typeof req.body === 'object' && !Array.isArray(req.body) ? req.body : null;
+  if (!body) {
+    return res.status(400).json({
       success: false,
-      errorType: 'missing_api_key',
-      message: 'Gemini API key is not configured.',
+      errorType: 'invalid_payload',
+      message: 'Request body must be a JSON object.',
     });
   }
 
-  const { message, history, profileContext, systemPrompt, jobDescription } = req.body || {};
+  const { message, history, jobDescription, locale, responseStyle } = body;
 
-  if (!message || typeof message !== 'string') {
+  if (!message || typeof message !== 'string' || !message.trim()) {
     return res.status(400).json({
       success: false,
       errorType: 'invalid_payload',
@@ -576,17 +734,78 @@ module.exports = async (req, res) => {
     });
   }
 
+  const normalizedMessage = message.trim();
+  if (normalizedMessage.length > MAX_MESSAGE_LENGTH) {
+    return res.status(400).json({
+      success: false,
+      errorType: 'message_too_long',
+      message: `message must be ${MAX_MESSAGE_LENGTH} characters or fewer`,
+    });
+  }
+
+  if (jobDescription !== undefined && typeof jobDescription !== 'string') {
+    return res.status(400).json({
+      success: false,
+      errorType: 'invalid_payload',
+      message: 'jobDescription must be a string when provided',
+    });
+  }
+
+  const normalizedJobDescription = typeof jobDescription === 'string' ? jobDescription.trim() : '';
+  if (normalizedJobDescription.length > MAX_JOB_DESCRIPTION_LENGTH) {
+    return res.status(400).json({
+      success: false,
+      errorType: 'job_description_too_long',
+      message: `jobDescription must be ${MAX_JOB_DESCRIPTION_LENGTH} characters or fewer`,
+    });
+  }
+
+  const rateLimit = takeRateLimitSlot(req);
+  setRateLimitHeaders(res, rateLimit);
+  if (!rateLimit.allowed) {
+    res.setHeader('Retry-After', String(rateLimit.retryAfterSeconds));
+    return res.status(429).json({
+      success: false,
+      errorType: 'rate_limited',
+      message: 'Too many requests. Please try again shortly.',
+    });
+  }
+
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    return res.status(503).json({
+      success: false,
+      errorType: 'service_unavailable',
+      message: 'The portfolio assistant is temporarily unavailable.',
+    });
+  }
+
   const sanitizedHistory = sanitizeHistory(history);
   const fallbackModels = resolveFallbackModels();
+  const normalizedLocale = normalizeLocale(locale);
+  const normalizedResponseStyle = normalizeResponseStyle(responseStyle);
+  const hasJobDescription = Boolean(normalizedJobDescription);
 
   const payload = {
+    systemInstruction: {
+      parts: [{
+        text: buildPortfolioSystemPrompt(
+          normalizedLocale,
+          hasJobDescription,
+          normalizedResponseStyle
+        ),
+      }],
+    },
     contents: [
-      ...sanitizedHistory,
       {
         role: 'user',
         parts: [
           {
-            text: buildUserMessage(systemPrompt, profileContext, message.slice(0, 2000), jobDescription),
+            text: buildPortfolioUserMessage(
+              normalizedMessage,
+              normalizedJobDescription,
+              sanitizedHistory
+            ),
           },
         ],
       },
@@ -601,17 +820,33 @@ module.exports = async (req, res) => {
   };
 
   const triedModels = [];
+  const deadlineAt = Date.now() + TOTAL_REQUEST_TIMEOUT_MS;
+  let requestTimedOut = false;
+  const isVietnamese = normalizedLocale === 'vi';
+  const unavailableMessage = isVietnamese
+    ? 'Trợ lý hiện tạm thời không khả dụng. Vui lòng thử lại sau.'
+    : 'The assistant is temporarily unavailable. Please try again later.';
 
   for (const model of fallbackModels) {
+    const remainingMs = deadlineAt - Date.now();
+    if (remainingMs <= 0) {
+      requestTimedOut = true;
+      break;
+    }
+
     triedModels.push(model);
     try {
-      const result = await callGeminiModel(model, apiKey, payload);
+      const result = await callGeminiModel(
+        model,
+        apiKey,
+        payload,
+        Math.min(REQUEST_TIMEOUT_MS, remainingMs)
+      );
       const responseText = extractText(result.data);
       const parsed = tryParseJson(responseText);
       const structuredResponse = normalizeStructuredResponse(parsed) || extractStructuredFromJsonLikeText(responseText);
       const fallbackText = stripMarkdownNoise(responseText);
       const looksLikeRawJson = /^\s*\{[\s\S]*$/m.test(fallbackText);
-      const isVietnamese = /\bVietnamese\b|tiếng Việt/i.test(systemPrompt || '');
       const safeText = structuredResponse
         ? buildReadableStructuredText(structuredResponse, isVietnamese)
         : (looksLikeRawJson ? '' : fallbackText);
@@ -633,9 +868,7 @@ module.exports = async (req, res) => {
           errorType: 'invalid_structured_response',
           modelUsed: model,
           fallbackTried: triedModels.length - 1,
-          message: isVietnamese
-            ? 'Trợ lý chưa tạo được câu trả lời hoàn chỉnh. Vui lòng thử lại.'
-            : 'The assistant could not build a complete answer. Please try again.',
+          message: unavailableMessage,
         });
       }
 
@@ -646,50 +879,51 @@ module.exports = async (req, res) => {
             errorType: 'empty_model_response',
             modelUsed: model,
             fallbackTried: triedModels.length - 1,
-            message: 'Model returned an empty response.',
+            message: unavailableMessage,
           });
         }
         continue;
       }
 
-      const blocked = !RETRYABLE_STATUSES.has(result.status);
+      const blocked = !FALLBACK_STATUSES.has(result.status);
       if (blocked) {
-        return res.status(result.status || 400).json({
+        return res.status(502).json({
           success: false,
-          errorType: 'gemini_error',
+          errorType: 'upstream_error',
           modelUsed: model,
           fallbackTried: triedModels.length - 1,
-          message: result.data?.error?.message || 'Gemini request failed',
+          message: unavailableMessage,
         });
       }
 
       if (model === fallbackModels[fallbackModels.length - 1]) {
-        return res.status(result.status || 503).json({
+        return res.status(503).json({
           success: false,
           errorType: 'all_models_rejected',
           modelUsed: model,
           fallbackTried: triedModels.length - 1,
-          message: result.data?.error?.message || 'All fallback models failed.',
+          message: unavailableMessage,
         });
       }
     } catch (error) {
-      // Continue trying next model for transient failures.
+      if (error?.name === 'AbortError') requestTimedOut = true;
+      // Continue trying next model for transient failures without exposing provider details.
       if (model === fallbackModels[fallbackModels.length - 1]) {
-        return res.status(500).json({
+        return res.status(requestTimedOut ? 504 : 502).json({
           success: false,
-          errorType: 'gemini_exception',
+          errorType: requestTimedOut ? 'upstream_timeout' : 'upstream_error',
           modelUsed: model,
           fallbackTried: triedModels.length - 1,
-          message: error.message || 'Unexpected Gemini error',
+          message: unavailableMessage,
         });
       }
     }
   }
 
-  return res.status(503).json({
+  return res.status(requestTimedOut ? 504 : 503).json({
     success: false,
-    errorType: 'all_models_unavailable',
+    errorType: requestTimedOut ? 'upstream_timeout' : 'all_models_unavailable',
     fallbackTried: triedModels.length,
-    message: 'All configured Gemini models are currently unavailable. Please try again later.',
+    message: unavailableMessage,
   });
 };

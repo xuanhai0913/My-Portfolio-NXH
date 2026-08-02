@@ -127,7 +127,7 @@ const Contact = () => {
             {t('intro.beforeHighlight')} <span className="neon">{t('intro.highlight')}</span>{t('intro.afterHighlight')}
           </p>
 
-          <form ref={form} onSubmit={sendEmail} className="minimal-form">
+          <form ref={form} onSubmit={sendEmail} className="minimal-form" aria-busy={loading}>
             <div className="form-group">
               <input
                 type="text"
@@ -191,17 +191,17 @@ const Contact = () => {
             </button>
 
             {status === 'success' && (
-              <p className="status-msg success">
+              <p className="status-msg success" role="status" aria-live="polite">
                 {t('status.success')}
               </p>
             )}
             {status === 'error' && (
-              <p className="status-msg error">
+              <p className="status-msg error" role="alert">
                 {t('status.error')}
               </p>
             )}
             {status === 'empty' && (
-              <p className="status-msg error">
+              <p className="status-msg error" role="alert">
                 {t('status.empty')}
               </p>
             )}

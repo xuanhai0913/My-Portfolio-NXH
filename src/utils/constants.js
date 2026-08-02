@@ -41,7 +41,6 @@ export const BREAKPOINTS = {
 
 // API Endpoints
 export const API = {
-  VIEWS: '/api/views',
   GEMINI: '/api/gemini',
   EMAILJS_SERVICE: 'service_9y7spx3',
   EMAILJS_TEMPLATE: 'template_skc0rl8',
@@ -64,7 +63,6 @@ export const EXTERNAL_URLS = {
 export const DEFAULTS = {
   SQUARE_SIZE_MOBILE: 25,
   SQUARE_SIZE_DESKTOP: 35,
-  VIEW_COUNT_FALLBACK: 12693,
 };
 
 // Work Experience Data

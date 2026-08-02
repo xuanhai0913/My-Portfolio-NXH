@@ -21,12 +21,13 @@ Disallow: /node_modules/
 Disallow: /.git/
 Disallow: /.env
 Disallow: /build/
+Disallow: /_seo/
 Disallow: /*.json$
 Disallow: /*.log$
 
 # SEO optimizations
 Allow: /images/og-image.jpg
-Allow: /images/profile.png
+Allow: /images/profile-hero.webp
 Allow: /images/project/
 
 # Social media verification

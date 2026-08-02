@@ -4,41 +4,120 @@ import './homeTranslations';
 import './styles/CVPreview.css';
 
 const CV_VISUAL_URL = 'https://my-portfolio-nxh.vercel.app/CV_NguyenXuanHai_visual.pdf';
+const FOCUSABLE_SELECTOR = [
+    'a[href]',
+    'button:not([disabled])',
+    'iframe',
+    'input:not([disabled])',
+    'select:not([disabled])',
+    'textarea:not([disabled])',
+    '[tabindex]:not([tabindex="-1"])',
+].join(', ');
+
+const getFocusableElements = (container) => (
+    Array.from(container.querySelectorAll(FOCUSABLE_SELECTOR)).filter((element) => (
+        element.tabIndex >= 0
+        && !element.hasAttribute('hidden')
+        && element.getAttribute('aria-hidden') !== 'true'
+        && element.getAttribute('type') !== 'hidden'
+    ))
+);
 
 const CVPreview = ({ onClose }) => {
     const { t } = useTranslation('home');
     const [loading, setLoading] = useState(true);
+    const dialogRef = useRef(null);
     const closeButtonRef = useRef(null);
+    const onCloseRef = useRef(onClose);
+
+    useEffect(() => {
+        onCloseRef.current = onClose;
+    }, [onClose]);
 
     useEffect(() => {
         const previouslyFocused = document.activeElement;
+        const previousBodyOverflow = document.body.style.overflow;
+        const previousDocumentOverflow = document.documentElement.style.overflow;
+
         document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
         closeButtonRef.current?.focus();
 
-        const closeOnEscape = (event) => {
-            if (event.key === 'Escape') onClose();
+        const handleKeyDown = (event) => {
+            if (event.key === 'Escape') {
+                event.preventDefault();
+                onCloseRef.current();
+                return;
+            }
+
+            if (event.key !== 'Tab') return;
+
+            const dialog = dialogRef.current;
+            if (!dialog) return;
+
+            const focusableElements = getFocusableElements(dialog);
+            if (focusableElements.length === 0) {
+                event.preventDefault();
+                dialog.focus();
+                return;
+            }
+
+            const firstElement = focusableElements[0];
+            const lastElement = focusableElements[focusableElements.length - 1];
+
+            if (!dialog.contains(document.activeElement)) {
+                event.preventDefault();
+                (event.shiftKey ? lastElement : firstElement).focus();
+            } else if (event.shiftKey && document.activeElement === firstElement) {
+                event.preventDefault();
+                lastElement.focus();
+            } else if (!event.shiftKey && document.activeElement === lastElement) {
+                event.preventDefault();
+                firstElement.focus();
+            }
         };
-        window.addEventListener('keydown', closeOnEscape);
+
+        const keepFocusInDialog = (event) => {
+            const dialog = dialogRef.current;
+            if (dialog && !dialog.contains(event.target)) {
+                closeButtonRef.current?.focus();
+            }
+        };
+
+        document.addEventListener('keydown', handleKeyDown);
+        document.addEventListener('focusin', keepFocusInDialog);
 
         return () => {
-            window.removeEventListener('keydown', closeOnEscape);
-            document.body.style.overflow = 'unset';
-            previouslyFocused?.focus();
+            document.removeEventListener('keydown', handleKeyDown);
+            document.removeEventListener('focusin', keepFocusInDialog);
+            document.body.style.overflow = previousBodyOverflow;
+            document.documentElement.style.overflow = previousDocumentOverflow;
+
+            if (previouslyFocused?.isConnected && typeof previouslyFocused.focus === 'function') {
+                previouslyFocused.focus();
+            }
         };
-    }, [onClose]);
+    }, []);
 
     const handleLoad = () => {
         setLoading(false);
     };
 
     return (
-        <div className="cv-preview-overlay" onClick={onClose} role="presentation">
+        <div
+            className="cv-preview-overlay"
+            data-lenis-prevent
+            onClick={(event) => {
+                if (event.target === event.currentTarget) onClose();
+            }}
+        >
             <div
+                ref={dialogRef}
                 className="cv-preview-container"
-                onClick={(e) => e.stopPropagation()}
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby="cv-preview-title"
+                tabIndex="-1"
             >
                 <div className="cv-preview-header">
                     <h3 id="cv-preview-title" className="cv-preview-title">{t('cvPreview.title')}</h3>
@@ -63,10 +142,10 @@ const CVPreview = ({ onClose }) => {
                     </div>
                 </div>
 
-                <div className="cv-preview-body">
+                <div className="cv-preview-body" aria-busy={loading}>
                     {loading && (
-                        <div className="cv-loading">
-                            <div className="loading-spinner"></div>
+                        <div className="cv-loading" role="status" aria-live="polite">
+                            <div className="loading-spinner" aria-hidden="true"></div>
                             <span>{t('cvPreview.loading')}</span>
                         </div>
                     )}

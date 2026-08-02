@@ -24,6 +24,16 @@
     opacity: 0.8;
 }
 
+@media (prefers-reduced-motion: reduce) {
+    .experience-section {
+        background: linear-gradient(145deg, #050505, #000 56%, #0a0b05);
+    }
+
+    .experience-bg-video-container {
+        display: none;
+    }
+}
+
 .experience-bg-overlay {
     position: absolute;
     top: 0;

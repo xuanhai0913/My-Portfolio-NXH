@@ -1,16 +1,14 @@
 /* CVPreview.css */
 .cv-preview-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    inset: 0;
     background: rgba(0, 0, 0, 0.9);
     backdrop-filter: blur(10px);
     z-index: 2000;
     display: flex;
     justify-content: center;
     align-items: center;
+    overscroll-behavior: contain;
     animation: fadeIn 0.3s ease;
 }
 
@@ -23,6 +21,7 @@
     border-radius: 8px;
     display: flex;
     flex-direction: column;
+    min-height: 0;
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
     animation: scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -33,6 +32,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 1rem;
     background: rgba(255, 255, 255, 0.02);
 }
 
@@ -41,12 +41,15 @@
     color: #fff;
     font-size: 1rem;
     letter-spacing: 1px;
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
 .cv-actions {
     display: flex;
     align-items: center;
     gap: 15px;
+    flex-shrink: 0;
 }
 
 .cv-download-btn {
@@ -55,8 +58,12 @@
     color: var(--color-accent);
     text-decoration: none;
     border: 1px solid var(--color-accent);
-    padding: 5px 15px;
+    min-height: 44px;
+    padding: 0.5rem 0.875rem;
     border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     transition: color 0.2s ease, background-color 0.2s ease;
 }
 
@@ -71,6 +78,11 @@
     color: #888;
     font-size: 1.5rem;
     cursor: pointer;
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     line-height: 1;
     padding: 0;
     transition: color 0.2s ease;
@@ -82,12 +94,15 @@
 
 .cv-preview-body {
     flex: 1;
+    min-height: 0;
     position: relative;
     overflow: hidden;
     background: #000;
 }
 
 .cv-iframe {
+    position: relative;
+    z-index: 0;
     width: 100%;
     height: 100%;
     border: none;
@@ -108,6 +123,8 @@
     font-family: var(--font-mono);
     font-size: 0.9rem;
     background: #000;
+    z-index: 1;
+    pointer-events: none;
 }
 
 @keyframes scaleUp {

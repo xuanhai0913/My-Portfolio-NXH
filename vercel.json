@@ -8,6 +8,82 @@
       "destination": "/discord-verification.txt"
     },
     {
+      "source": "/vi",
+      "destination": "/_seo/vi.html"
+    },
+    {
+      "source": "/assistant",
+      "destination": "/_seo/assistant.html"
+    },
+    {
+      "source": "/vi/assistant",
+      "destination": "/_seo/vi-assistant.html"
+    },
+    {
+      "source": "/videos",
+      "destination": "/_seo/videos.html"
+    },
+    {
+      "source": "/vi/videos",
+      "destination": "/_seo/vi-videos.html"
+    },
+    {
+      "source": "/tools",
+      "destination": "/_seo/tools.html"
+    },
+    {
+      "source": "/vi/tools",
+      "destination": "/_seo/vi-tools.html"
+    },
+    {
+      "source": "/tools/testforge",
+      "destination": "/_seo/tools-testforge.html"
+    },
+    {
+      "source": "/vi/tools/testforge",
+      "destination": "/_seo/vi-tools-testforge.html"
+    },
+    {
+      "source": "/tools/repolens",
+      "destination": "/_seo/tools-repolens.html"
+    },
+    {
+      "source": "/vi/tools/repolens",
+      "destination": "/_seo/vi-tools-repolens.html"
+    },
+    {
+      "source": "/tools/incidentlens",
+      "destination": "/_seo/tools-incidentlens.html"
+    },
+    {
+      "source": "/vi/tools/incidentlens",
+      "destination": "/_seo/vi-tools-incidentlens.html"
+    },
+    {
+      "source": "/tools/agentflow",
+      "destination": "/_seo/tools-agentflow.html"
+    },
+    {
+      "source": "/vi/tools/agentflow",
+      "destination": "/_seo/vi-tools-agentflow.html"
+    },
+    {
+      "source": "/blog",
+      "destination": "/_seo/blog.html"
+    },
+    {
+      "source": "/vi/blog",
+      "destination": "/_seo/vi-blog.html"
+    },
+    {
+      "source": "/3d",
+      "destination": "/_seo/3d.html"
+    },
+    {
+      "source": "/vi/3d",
+      "destination": "/_seo/vi-3d.html"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }

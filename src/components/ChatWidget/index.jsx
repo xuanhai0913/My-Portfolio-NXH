@@ -4,7 +4,6 @@ import i18nInstance from '../../i18n';
 import { API } from '../../utils/constants';
 import useChatSession from '../../hooks/useChatSession';
 import {
-  buildPortfolioSystemPrompt,
   PROFILE_CONTEXT,
 } from '../../utils/chatProfileContext';
 import {
@@ -1220,9 +1219,9 @@ const ChatWidget = ({ mode = 'floating' }) => {
       body: JSON.stringify({
         message: text,
         history: requestMessages,
-        profileContext: PROFILE_CONTEXT,
-        systemPrompt: buildPortfolioSystemPrompt(language, Boolean(jobDescription), responseStyle),
         jobDescription,
+        locale: language,
+        responseStyle,
       }),
     });
 
