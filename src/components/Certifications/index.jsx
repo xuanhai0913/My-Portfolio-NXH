@@ -85,7 +85,7 @@ const certificates = [
     issuer: "AWS Training & Certification",
     thumbnail: certAwsDmsOverview,
     pdfUrl: "/Cert/AWS-Database-Migration-Service-Overview.pdf",
-    verifyUrl: "https://credentials.skillbuilder.aws/credential/a8a30a05-2db8-486c-9ce0-32f02d601ead",
+    verifyUrl: "https://skillsprofile.skillbuilder.aws/user/xuanhai0913",
     description: "AWS DMS fundamentals for planning, configuring and monitoring heterogeneous database migrations",
     actionLabel: "Verify credential ↗",
     accent: "#ff9900",
@@ -759,7 +759,7 @@ const Certifications = () => {
               </a>
               <a
                 className="credly-profile-link"
-                href="https://credentials.skillbuilder.aws/credential/a8a30a05-2db8-486c-9ce0-32f02d601ead"
+                href="https://skillsprofile.skillbuilder.aws/user/xuanhai0913"
                 target="_blank"
                 rel="noopener noreferrer"
               >
