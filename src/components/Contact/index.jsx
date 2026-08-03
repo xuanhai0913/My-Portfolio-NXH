@@ -187,7 +187,8 @@ const Contact = () => {
               className={`btn-submit ${loading ? 'loading' : ''}`}
               disabled={loading}
             >
-              {loading ? t('form.sending') : t('form.send')}
+              <span>{loading ? t('form.sending') : t('form.send')}</span>
+              {!loading && <span className="btn-submit-arrow" aria-hidden="true">→</span>}
             </button>
 
             {status === 'success' && (

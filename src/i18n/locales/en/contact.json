@@ -20,7 +20,7 @@
     "emailAria": "Your email address",
     "useEmailDomain": "Use email domain {{domain}}",
     "sending": "SENDING...",
-    "send": "SEND MESSAGE →"
+    "send": "SEND MESSAGE"
   },
   "status": {
     "success": "Message sent! I'll get back to you soon.",

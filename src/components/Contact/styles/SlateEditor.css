@@ -1097,8 +1097,8 @@
 
   .slate-toolbar-btn {
     display: inline-grid;
-    min-width: 40px;
-    min-height: 40px;
+    min-width: 44px;
+    min-height: 44px;
     padding: 0.35rem 0.5rem;
     place-items: center;
     font-size: 0.65rem;
@@ -1106,7 +1106,7 @@
   }
 
   .slate-preview-toggle {
-    min-height: 40px;
+    min-height: 44px;
     padding: 0.45rem 0.7rem;
   }
 

@@ -59,6 +59,33 @@ body {
   text-align: center;
 }
 
+.error-fallback__message {
+  margin: 0;
+}
+
+.error-fallback__action {
+  min-height: 44px;
+  margin-top: 12px;
+  padding: 0.65rem 1rem;
+  border: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.error-fallback__action:hover,
+.error-fallback__action:focus-visible {
+  background: #ff5f56;
+  color: #090909;
+}
+
+.error-fallback__action:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);

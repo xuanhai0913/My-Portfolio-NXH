@@ -34,7 +34,9 @@
   "error": {
     "generic": "Something went wrong.",
     "loadFailed": "Unable to load this content.",
-    "retry": "Please try again."
+    "retry": "Please try again.",
+    "newVersionAvailable": "A newer version of this page is available. Refresh to continue.",
+    "refreshPage": "Refresh page"
   },
   "sections": {
     "experience": "Experience",

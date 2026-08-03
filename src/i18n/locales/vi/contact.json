@@ -20,7 +20,7 @@
     "emailAria": "Địa chỉ email của bạn",
     "useEmailDomain": "Dùng tên miền email {{domain}}",
     "sending": "ĐANG GỬI...",
-    "send": "GỬI TIN NHẮN →"
+    "send": "GỬI TIN NHẮN"
   },
   "status": {
     "success": "Đã gửi tin nhắn! Tôi sẽ sớm phản hồi bạn.",

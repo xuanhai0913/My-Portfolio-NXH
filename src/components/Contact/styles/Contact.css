@@ -218,6 +218,9 @@
   border: 1px solid var(--color-accent);
   color: var(--color-accent);
   padding: 1rem 2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
   font-family: var(--font-display);
   font-size: 1.2rem;
   cursor: pointer;
@@ -340,6 +343,14 @@
 
   .contact-intro {
     font-size: 1rem;
+  }
+
+  .btn-submit {
+    min-height: 44px;
+  }
+
+  .btn-submit-arrow {
+    display: none;
   }
 
 }

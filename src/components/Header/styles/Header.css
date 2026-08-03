@@ -464,6 +464,10 @@
     justify-content: space-between;
   }
 
+  .header--scrolled .nav-container {
+    background: rgba(4, 4, 4, 0.985);
+  }
+
   .logo-container {
     padding-right: 0;
     border-right: 0;

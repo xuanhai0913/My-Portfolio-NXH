@@ -34,7 +34,9 @@
   "error": {
     "generic": "Đã xảy ra lỗi.",
     "loadFailed": "Không thể tải nội dung này.",
-    "retry": "Vui lòng thử lại."
+    "retry": "Vui lòng thử lại.",
+    "newVersionAvailable": "Phiên bản mới của trang đã sẵn sàng. Hãy tải lại để tiếp tục.",
+    "refreshPage": "Tải lại trang"
   },
   "sections": {
     "experience": "Kinh nghiệm",

@@ -213,8 +213,7 @@
     .circle-right { right: -20vw; }
 
     .scroll-arrow {
-        bottom: 25px;
-        font-size: 1.2rem;
+        display: none;
     }
 }
 

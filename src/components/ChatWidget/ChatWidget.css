@@ -2,7 +2,8 @@
   position: fixed;
   right: max(20px, env(safe-area-inset-right));
   bottom: max(94px, calc(20px + env(safe-area-inset-bottom)));
-  z-index: 9998;
+  /* Keep the assistant beneath modal overlays (1000+) while above page chrome. */
+  z-index: 900;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -101,7 +102,7 @@
   right: max(20px, env(safe-area-inset-right));
   bottom: max(154px, calc(78px + env(safe-area-inset-bottom)));
   width: min(340px, calc(100vw - 20px));
-  z-index: 9998;
+  z-index: 900;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -150,7 +151,7 @@
     linear-gradient(160deg, rgba(13, 15, 10, 0.99), rgba(3, 4, 3, 0.98));
   border: 1px solid rgba(212, 255, 0, 0.32);
   border-radius: 22px;
-  z-index: 9997;
+  z-index: 900;
   overflow: hidden;
   box-shadow: 0 30px 72px rgba(0, 0, 0, 0.64), 0 0 0 1px rgba(255, 255, 255, 0.035) inset;
   backdrop-filter: blur(14px);
@@ -171,7 +172,7 @@
   border-radius: 0;
   border-left: none;
   border-right: none;
-  z-index: 10000;
+  z-index: 900;
 }
 
 .chat-panel.page-mode {
