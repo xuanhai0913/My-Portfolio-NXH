@@ -1,4 +1,4 @@
-import { PROFILE_CONTEXT } from './chatProfileContext';
+import { getCvUrl } from './chatProfileContext';
 
 const explicitCvIntent = /(cho toi xem cv|xem cv|gui cv|send cv|show( me)? (the )?cv|resume link|download cv)/i;
 
@@ -28,18 +28,19 @@ export function suggestionsByIntent(lang = 'en') {
 
 export function buildIntentResponse(intent, preferredLanguage = 'en') {
   const vi = preferredLanguage === 'vi';
+  const cvUrl = getCvUrl(preferredLanguage);
 
   switch (intent) {
     case 'show_cv':
       return {
         text: vi
-          ? `Ban co the xem CV tai day: ${PROFILE_CONTEXT.cvUrl}`
-          : `You can view the CV here: ${PROFILE_CONTEXT.cvUrl}`,
+          ? `Bạn có thể xem CV tại đây: ${cvUrl}`
+          : `You can view the CV here: ${cvUrl}`,
         action: {
           type: 'cv',
           title: vi ? 'CV Nguyen Xuan Hai' : 'Nguyen Xuan Hai CV',
-          url: PROFILE_CONTEXT.cvUrl,
-          buttonLabel: vi ? 'Mo CV' : 'Open CV',
+          url: cvUrl,
+          buttonLabel: vi ? 'Mở CV' : 'Open CV',
         },
       };
 

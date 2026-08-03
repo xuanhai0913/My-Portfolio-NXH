@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import argparse
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable, List, Optional, Sequence, Tuple
@@ -16,7 +17,10 @@ from pypdf import PdfReader, PdfWriter
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OUTPUT = ROOT / "public" / "CV_NguyenXuanHai.pdf"
+OUTPUT_EN = ROOT / "public" / "CV_NguyenXuanHai.pdf"
+OUTPUT_VI = ROOT / "public" / "CV_NguyenXuanHai_vi.pdf"
+# Keep the English file name as the backward-compatible default for existing links.
+OUTPUT = OUTPUT_EN
 
 FONT_DIR = Path("/System/Library/Fonts/Supplemental")
 FONT_REGULAR = FONT_DIR / "Arial.ttf"
@@ -38,6 +42,101 @@ RULE = HexColor("#CDD8DC")
 SOFT_RULE = HexColor("#E8EEF0")
 
 
+CV_COPY = {
+    "en": {
+        "document_title": "Nguyen Xuan Hai - Full-Stack Developer CV",
+        "document_subject": "Full-Stack Developer CV - React, ASP.NET Core, NestJS, PostgreSQL",
+        "name": "Nguyen Xuan Hai",
+        "role": "Full-Stack Developer | React | ASP.NET Core | NestJS | PostgreSQL",
+        "location": "Ho Chi Minh City, Vietnam",
+        "date_of_birth": "Date of Birth",
+        "portfolio": "Portfolio",
+        "github": "GitHub",
+        "linkedin": "LinkedIn",
+        "summary_section": "Professional Summary",
+        "skills_section": "Core Skills",
+        "education_section": "Education",
+        "experience_section": "Work Experience",
+        "projects_section": "Independent Projects",
+        "certifications_section": "Certifications & Language",
+        "position": "My position",
+        "stack": "Stack",
+        "link": "Link",
+        "footer_role": "Full-Stack Developer",
+        "page": "Page",
+        "summary": (
+            "Full-stack developer with commercial software delivery experience since October 2024 through commercial product work and an ERP internship. "
+            "Builds production React, ASP.NET Core, NestJS and Odoo workflows from requirement clarification through release and support. "
+            "Hands-on with authentication, CMS, realtime features, ERP business logic, PostgreSQL and SQL Server; uses AI coding tools "
+            "selectively for review, test drafting and delivery support."
+        ),
+        "skill_rows": [
+            ("Frontend:", "React 18/19, TypeScript, JavaScript ES6+, Vite, React Router, Tailwind CSS, responsive component UI."),
+            ("Backend:", "C#, ASP.NET Core 8 Web API/MVC, Entity Framework Core, NestJS 11, Node.js/Express, RESTful APIs, JWT, OAuth2, Swagger/OpenAPI."),
+            ("ERP & Data:", "Python 3.12, Odoo 18 ORM, QWeb/XML, PostgreSQL, SQL Server, Redis, TT200 accounting workflows."),
+            ("Architecture & Quality:", "Dependency injection, service/repository separation, DTO validation, RBAC, CSRF, rate limiting, Jest, structured logging."),
+            ("Delivery:", "Docker, GitLab CI/CD, GitHub Actions, IIS, Vercel, Git, Nx monorepo, issue/MR and release handoff workflows."),
+            ("Developer Tools:", "Claude Code and Codex for codebase context, review, test drafting and documentation; engineering decisions verified in code and tests."),
+        ],
+        "education": (
+            "Ho Chi Minh City University of Transport (UTH):",
+            "Information Technology, 2022 - Expected 2026 | GPA: 3.24/4.00. Coursework and projects focused on software development, OOP, databases and web systems.",
+        ),
+        "certifications": [
+            ("AWS Training:", "AWS Cloud Practitioner Essentials; Getting into the Serverless Mindset - Completion Certificates (Jul 2026)."),
+            ("AWS Training Badge:", "AWS Educate Introduction to Generative AI - Training Badge (Jul 2026; verifiable via Credly)."),
+            ("Professional:", "Information Security Awareness (AIAcademy by AIPOWER, Jul 2026)."),
+            ("English:", "B1.4 - Intermediate; technical reading and written communication."),
+        ],
+    },
+    "vi": {
+        "document_title": "Nguyễn Xuân Hải - CV Lập trình viên Full-stack",
+        "document_subject": "CV Lập trình viên Full-stack - React, ASP.NET Core, NestJS, PostgreSQL",
+        "name": "Nguyễn Xuân Hải",
+        "role": "Lập trình viên Full-stack | React | ASP.NET Core | NestJS | PostgreSQL",
+        "location": "TP. Hồ Chí Minh, Việt Nam",
+        "date_of_birth": "Ngày sinh",
+        "portfolio": "Portfolio",
+        "github": "GitHub",
+        "linkedin": "LinkedIn",
+        "summary_section": "Tóm tắt năng lực",
+        "skills_section": "Kỹ năng chuyên môn",
+        "education_section": "Học vấn",
+        "experience_section": "Kinh nghiệm làm việc",
+        "projects_section": "Dự án cá nhân",
+        "certifications_section": "Chứng chỉ & Ngoại ngữ",
+        "position": "Vị trí",
+        "stack": "Công nghệ",
+        "link": "Liên kết",
+        "footer_role": "Lập trình viên Full-stack",
+        "page": "Trang",
+        "summary": (
+            "Lập trình viên Full-stack có kinh nghiệm triển khai sản phẩm phần mềm thực tế từ tháng 10/2024, bao gồm sản phẩm web thương mại và thực tập ERP. "
+            "Phát triển các luồng React, ASP.NET Core, NestJS và Odoo từ làm rõ yêu cầu đến phát hành, hỗ trợ vận hành. "
+            "Có kinh nghiệm về xác thực, CMS, realtime, nghiệp vụ ERP, PostgreSQL và SQL Server; sử dụng công cụ AI có chọn lọc để review, phác thảo kiểm thử và hỗ trợ bàn giao."
+        ),
+        "skill_rows": [
+            ("Frontend:", "React 18/19, TypeScript, JavaScript ES6+, Vite, React Router, Tailwind CSS, giao diện component responsive."),
+            ("Backend:", "C#, ASP.NET Core 8 Web API/MVC, Entity Framework Core, NestJS 11, Node.js/Express, RESTful API, JWT, OAuth2, Swagger/OpenAPI."),
+            ("ERP & dữ liệu:", "Python 3.12, Odoo 18 ORM, QWeb/XML, PostgreSQL, SQL Server, Redis, nghiệp vụ kế toán TT200."),
+            ("Kiến trúc & chất lượng:", "Dependency injection, tách service/repository, DTO validation, RBAC, CSRF, rate limiting, Jest, structured logging."),
+            ("Triển khai:", "Docker, GitLab CI/CD, GitHub Actions, IIS, Vercel, Git, Nx monorepo, issue/MR và quy trình bàn giao phát hành."),
+            ("Công cụ phát triển:", "Claude Code và Codex để đọc ngữ cảnh codebase, review, phác thảo test và tài liệu; quyết định kỹ thuật luôn được kiểm chứng bằng code và test."),
+        ],
+        "education": (
+            "Đại học Giao thông Vận tải TP.HCM (UTH):",
+            "Công nghệ Thông tin, 2022 - Dự kiến 2026 | GPA: 3.24/4.00. Học phần và dự án tập trung vào phát triển phần mềm, OOP, cơ sở dữ liệu và hệ thống web.",
+        ),
+        "certifications": [
+            ("Đào tạo AWS:", "AWS Cloud Practitioner Essentials; Getting into the Serverless Mindset - chứng chỉ hoàn thành (07/2026)."),
+            ("Huy hiệu đào tạo AWS:", "AWS Educate Introduction to Generative AI - Training Badge (07/2026; xác thực qua Credly)."),
+            ("Chuyên môn:", "Information Security Awareness (AIAcademy by AIPOWER, 07/2026)."),
+            ("Tiếng Anh:", "B1.4 - đọc hiểu tài liệu kỹ thuật và giao tiếp bằng văn bản cơ bản."),
+        ],
+    },
+}
+
+
 @dataclass(frozen=True)
 class Entry:
     role: str
@@ -49,15 +148,19 @@ class Entry:
 
 
 class CvPdf:
-    def __init__(self, output: Path) -> None:
+    def __init__(self, output: Path, language: str = "en") -> None:
+        if language not in CV_COPY:
+            raise ValueError(f"Unsupported language: {language}")
         self.output = output
+        self.language = language
+        self.copy = CV_COPY[language]
         self.c = canvas.Canvas(str(output), pagesize=A4, pageCompression=1)
         self.page = 1
         self.y = PAGE_H - TOP
         self._register_fonts()
-        self.c.setTitle("Nguyen Xuan Hai - Full-Stack Developer CV")
-        self.c.setAuthor("Nguyen Xuan Hai")
-        self.c.setSubject("Full-Stack Developer CV - React, ASP.NET Core, NestJS, PostgreSQL")
+        self.c.setTitle(self.copy["document_title"])
+        self.c.setAuthor(self.copy["name"])
+        self.c.setSubject(self.copy["document_subject"])
         self.c.setCreator("Codex CV generator")
 
     def _register_fonts(self) -> None:
@@ -75,8 +178,8 @@ class CvPdf:
         self.c.line(MARGIN_X, BOTTOM - 8, PAGE_W - MARGIN_X, BOTTOM - 8)
         self.c.setFillColor(MUTED)
         self.c.setFont("Arial", 7.2)
-        self.c.drawString(MARGIN_X, BOTTOM - 22, "Nguyen Xuan Hai | Full-Stack Developer")
-        self.c.drawRightString(PAGE_W - MARGIN_X, BOTTOM - 22, f"Page {self.page}")
+        self.c.drawString(MARGIN_X, BOTTOM - 22, f"{self.copy['name']} | {self.copy['footer_role']}")
+        self.c.drawRightString(PAGE_W - MARGIN_X, BOTTOM - 22, f"{self.copy['page']} {self.page}")
         self.c.restoreState()
 
     def new_page(self) -> None:
@@ -86,10 +189,10 @@ class CvPdf:
         self.y = PAGE_H - TOP
         self.c.setFillColor(INK)
         self.c.setFont("Arial-Bold", 9)
-        self.c.drawString(MARGIN_X, self.y, "Nguyen Xuan Hai")
+        self.c.drawString(MARGIN_X, self.y, self.copy["name"])
         self.c.setFont("Arial", 8)
         self.c.setFillColor(MUTED)
-        self.c.drawRightString(PAGE_W - MARGIN_X, self.y, "Full-Stack Developer | React | .NET | NestJS | Odoo")
+        self.c.drawRightString(PAGE_W - MARGIN_X, self.y, self.copy["role"])
         self.y -= 18
         self.c.setStrokeColor(SOFT_RULE)
         self.c.line(MARGIN_X, self.y, PAGE_W - MARGIN_X, self.y)
@@ -153,23 +256,23 @@ class CvPdf:
         y = PAGE_H - 61
         self.c.setFillColor(INK)
         self.c.setFont("Arial-Bold", 20)
-        self.c.drawString(x, y, "Nguyen Xuan Hai")
+        self.c.drawString(x, y, self.copy["name"])
         self.c.setFont("Arial-Bold", 9.6)
         self.c.setFillColor(ACCENT_DARK)
-        self.c.drawString(x, y - 16, "Full-Stack Developer | React | ASP.NET Core | NestJS | PostgreSQL")
+        self.c.drawString(x, y - 16, self.copy["role"])
 
         self.c.setFont("Arial", 8.15)
         self.c.setFillColor(MUTED)
-        contact_1 = "Ho Chi Minh City, Vietnam | Date of Birth: 29/11/2004 | +84 929 501 116 | xuanhai0913750452@gmail.com"
+        contact_1 = f"{self.copy['location']} | {self.copy['date_of_birth']}: 29/11/2004 | +84 929 501 116 | xuanhai0913750452@gmail.com"
         portfolio_text = "my-portfolio-nxh.vercel.app"
         github_text = "github.com/xuanhai0913"
         linkedin_text = "linkedin.com/in/xuanhai0913"
-        contact_2 = f"Portfolio: {portfolio_text} | GitHub: {github_text} | LinkedIn: {linkedin_text}"
+        contact_2 = f"{self.copy['portfolio']}: {portfolio_text} | {self.copy['github']}: {github_text} | {self.copy['linkedin']}: {linkedin_text}"
         self.c.drawString(x, y - 32, contact_1)
         self.c.drawString(x, y - 45, contact_2)
-        portfolio_x = x + self.text_width("Portfolio: ", "Arial", 8.15)
-        github_x = portfolio_x + self.text_width(f"{portfolio_text} | GitHub: ", "Arial", 8.15)
-        linkedin_x = github_x + self.text_width(f"{github_text} | LinkedIn: ", "Arial", 8.15)
+        portfolio_x = x + self.text_width(f"{self.copy['portfolio']}: ", "Arial", 8.15)
+        github_x = portfolio_x + self.text_width(f"{portfolio_text} | {self.copy['github']}: ", "Arial", 8.15)
+        linkedin_x = github_x + self.text_width(f"{github_text} | {self.copy['linkedin']}: ", "Arial", 8.15)
         self._link_text(portfolio_x, y - 45, portfolio_text, 8.15, "https://my-portfolio-nxh.vercel.app")
         self._link_text(github_x, y - 45, github_text, 8.15, "https://github.com/xuanhai0913")
         self._link_text(linkedin_x, y - 45, linkedin_text, 8.15, "https://www.linkedin.com/in/xuanhai0913/")
@@ -208,27 +311,13 @@ class CvPdf:
         self.y -= 1.5
 
     def summary(self) -> None:
-        self.section("Professional Summary", 55)
-        text = (
-            "Full-stack developer with commercial software delivery experience since October 2024 through commercial product work and an ERP internship. "
-            "Builds production React, ASP.NET Core, NestJS and Odoo workflows from requirement clarification through release and support. "
-            "Hands-on with authentication, CMS, realtime features, ERP business logic, PostgreSQL and SQL Server; uses AI coding tools "
-            "selectively for review, test drafting and delivery support."
-        )
-        self.y = self.draw_wrapped(text, MARGIN_X, self.y, CONTENT_W, "Arial", 8.75, INK, 11.4)
+        self.section(self.copy["summary_section"], 55)
+        self.y = self.draw_wrapped(self.copy["summary"], MARGIN_X, self.y, CONTENT_W, "Arial", 8.75, INK, 11.4)
         self.y -= 4
 
     def skills(self) -> None:
-        self.section("Skills", 86)
-        rows = [
-            ("Frontend:", "React 18/19, TypeScript, JavaScript ES6+, Vite, React Router, Tailwind CSS, responsive component UI."),
-            ("Backend:", "C#, ASP.NET Core 8 Web API/MVC, Entity Framework Core, NestJS 11, Node.js/Express, RESTful APIs, JWT, OAuth2, Swagger/OpenAPI."),
-            ("ERP & Data:", "Python 3.12, Odoo 18 ORM, QWeb/XML, PostgreSQL, SQL Server, Redis, TT200 accounting workflows."),
-            ("Architecture & Quality:", "Dependency injection, service/repository separation, DTO validation, RBAC, CSRF, rate limiting, Jest, structured logging."),
-            ("Delivery:", "Docker, GitLab CI/CD, GitHub Actions, IIS, Vercel, Git, Nx monorepo, issue/MR and release handoff workflows."),
-            ("Developer Tools:", "Claude Code and Codex for codebase context, review, test drafting and documentation; engineering decisions verified in code and tests."),
-        ]
-        for label, value in rows:
+        self.section(self.copy["skills_section"], 86)
+        for label, value in self.copy["skill_rows"]:
             self.key_value(label, value)
         self.y -= 2
 
@@ -240,7 +329,7 @@ class CvPdf:
         estimated = (
             44
             + max(0, len(header_lines) - 1) * 10
-            + max(1, len(self.wrap(f"Stack: {item.stack}", CONTENT_W, "Arial-Italic", 7.8))) * 10
+            + max(1, len(self.wrap(f"{self.copy['stack']}: {item.stack}", CONTENT_W, "Arial-Italic", 7.8))) * 10
             + (10 if item.link else 0)
             + sum(max(1, len(self.wrap(b, CONTENT_W - 16, "Arial", 8.35))) * 11.4 for b in item.bullets)
         )
@@ -258,18 +347,20 @@ class CvPdf:
 
         self.c.setFont("Arial", 7.9)
         self.c.setFillColor(MUTED)
-        self.c.drawString(MARGIN_X, self.y, f"My position: {item.role}")
+        self.c.drawString(MARGIN_X, self.y, f"{self.copy['position']}: {item.role}")
         self.y -= 10
 
         self.c.setFont("Arial-Italic", 7.8)
         self.c.setFillColor(ACCENT_DARK)
-        self.y = self.draw_wrapped(f"Stack: {item.stack}", MARGIN_X, self.y, CONTENT_W, "Arial-Italic", 7.8, ACCENT_DARK, 10)
+        self.y = self.draw_wrapped(f"{self.copy['stack']}: {item.stack}", MARGIN_X, self.y, CONTENT_W, "Arial-Italic", 7.8, ACCENT_DARK, 10)
 
         if item.link:
             self.c.setFont("Arial", 7.8)
             self.c.setFillColor(MUTED)
-            self.c.drawString(MARGIN_X, self.y, f"Link: {item.link}")
-            self.c.linkURL(item.link, (MARGIN_X + 22, self.y - 2, MARGIN_X + 22 + self.text_width(item.link, "Arial", 7.8), self.y + 8), relative=0, thickness=0)
+            link_prefix = f"{self.copy['link']}: "
+            self.c.drawString(MARGIN_X, self.y, f"{link_prefix}{item.link}")
+            link_x = MARGIN_X + self.text_width(link_prefix, "Arial", 7.8)
+            self.c.linkURL(item.link, (link_x, self.y - 2, link_x + self.text_width(item.link, "Arial", 7.8), self.y + 8), relative=0, thickness=0)
             self.y -= 10
 
         for bullet in item.bullets:
@@ -371,54 +462,120 @@ PROJECT_ENTRIES: Sequence[Entry] = [
     ),
 ]
 
+WORK_ENTRIES_VI: Sequence[Entry] = [
+    Entry(
+        role="Lập trình viên Full-stack | Nhóm phát triển 5 người",
+        name="Betodemy - Nền tảng học tiếng Nhật",
+        period="Bắt đầu: 02/2026 | Kết thúc: Hiện tại",
+        link="https://betodemy.com",
+        stack="React 19, Vite, Tailwind CSS 4, HeroUI, NestJS 11, TypeORM, PostgreSQL, Redis, BullMQ, Socket.IO, Nx, pnpm, GitLab CI/CD",
+        bullets=[
+            "Phát triển document editor, challenge player, lớp học trực tuyến và luồng dành cho học viên/quản trị trong monorepo React/NestJS.",
+            "Tham gia họp sản phẩm hằng tuần với đầu mối phía Nhật để làm rõ lỗi, phạm vi tính năng và ưu tiên phát hành.",
+            "Thành tựu: hoàn thành hơn 70 merge request và đóng hơn 70 issue do bản thân tạo trong các luồng học tập đang vận hành.",
+        ],
+    ),
+    Entry(
+        role="Thực tập sinh hỗ trợ phát triển Odoo ERP",
+        name="AI Power - ERP đại lý ô tô",
+        period="Bắt đầu: 05/2026 | Kết thúc: 07/2026",
+        link="https://aipower.vn/vi",
+        stack="Python 3.12, Odoo 18, PostgreSQL, QWeb/XML, wkhtmltopdf, Docker, GitLab CI/CD, gettext i18n",
+        bullets=[
+            "Hỗ trợ ERP Odoo 18 cho hệ thống đại lý ô tô tại Việt Nam: bán hàng, dịch vụ sau bán 18 trạng thái, phụ tùng, bảo hành và kế toán TT200.",
+            "Phân tích và sửa lỗi từ BA/khách hàng trong business logic, data model, QWeb/XML, báo cáo PDF bản địa hóa và i18n.",
+            "Thành tựu: hỗ trợ fix trên 18 module custom và hơn 99 file Python, vẫn đảm bảo luồng dịch vụ 18 trạng thái.",
+        ],
+    ),
+    Entry(
+        role="Lập trình viên Full-stack | Phân tích nghiệp vụ & triển khai",
+        name="OakMind Group - Ba sản phẩm web đang vận hành",
+        period="Bắt đầu: 10/2024 | Kết thúc: 01/2026",
+        link="https://oakmindgroup.com/",
+        stack="C#, ASP.NET Core 8 Web API/MVC, Entity Framework Core, React 18/19, SQL Server, Redis, Serilog, JWT, SignalR, Cloudflare R2",
+        bullets=[
+            "VN Media Hub: xây dựng luồng CMS cho xác thực, nội dung, kiểm duyệt, cache, logging, SEO và báo cáo.",
+            "Great Link Mai House: chuyển đổi luồng WordPress/ASP.NET MVC sang React và ASP.NET Core, gồm xác thực, media và realtime.",
+            "OakMind Group Website: triển khai CMS React 19/.NET cho nội dung song ngữ, SEO/analytics, thư viện video và Cloudflare R2 trong 28 commit trực tiếp.",
+            "Thành tựu: theo sát từ làm rõ yêu cầu nghiệp vụ đến phát hành production cho cả ba sản phẩm của công ty.",
+        ],
+    ),
+]
+
+PROJECT_ENTRIES_VI: Sequence[Entry] = [
+    Entry(
+        role="Lập trình viên Full-stack",
+        name="ChongScam - Nền tảng chống lừa đảo",
+        period="Bắt đầu: 04/2026 | Kết thúc: 07/2026",
+        link="https://chongscam.vn/",
+        stack="React 19, TypeScript, NestJS 11, PostgreSQL, Redis, session authentication, RBAC, CSRF, rate limiting, Jest",
+        bullets=[
+            "Nhiệm vụ: xây dựng nền tảng kiểm tra rủi ro giao dịch, người bán đã xác minh và báo cáo lừa đảo từ cộng đồng.",
+            "Thực hiện: phát triển session/RBAC, tìm kiếm, kiểm duyệt, audit, admin operation và middleware bảo mật trên React/NestJS.",
+            "Kết quả: bàn giao hệ thống đang vận hành tại chongscam.vn với 22 controller NestJS, 20 SQL migration và 12 bộ test Jest/e2e.",
+        ],
+    ),
+    Entry(
+        role="Lập trình viên Full-stack / Thuật toán",
+        name="RouteLab - Phòng thí nghiệm đường đi ngắn nhất",
+        period="Bắt đầu: 05/2026 | Kết thúc: 07/2026",
+        link="https://tsp-delivery-route-optimizer.vercel.app/",
+        stack="React, TypeScript, Express, PostgreSQL, Dijkstra, A*, Floyd-Warshall, Bellman-Ford, Vitest, GitHub Actions",
+        bullets=[
+            "Nhiệm vụ: trực quan hóa và so sánh các thuật toán đường đi ngắn nhất trên dữ liệu bản đồ và đồ thị có trọng số.",
+            "Thực hiện: xây dựng solver, API, luồng PostgreSQL và giao diện replay từng bước cho bốn thuật toán.",
+            "Kết quả: phát hành demo có test frontend/backend tự động và CI riêng cho thuật toán backend.",
+        ],
+    ),
+    Entry(
+        role="Lập trình viên Full-stack / Blockchain",
+        name="AgriTrace - Hệ thống truy xuất nông sản",
+        period="Bắt đầu: 04/2026 | Kết thúc: 06/2026",
+        link="https://github.com/xuanhai0913/agri-traceability-system",
+        stack="React, Express, PostgreSQL, Solidity, Hardhat, IPFS, Polygon Amoy, JWT, RBAC, QR verification",
+        bullets=[
+            "Nhiệm vụ: mô hình hóa truy xuất chuỗi cung ứng nông sản giữa nhà sản xuất, kiểm định, kho và nhà phân phối.",
+            "Thực hiện: phát triển luồng React/Express/PostgreSQL, smart contract vòng đời, bằng chứng IPFS và xác minh QR.",
+            "Kết quả: công bố kiến trúc hybrid on-chain/off-chain cùng mã nguồn tái lập và contract Polygon Amoy đã triển khai.",
+        ],
+    ),
+]
+
 ENTRIES: Sequence[Entry] = [*WORK_ENTRIES, *PROJECT_ENTRIES]
 
 
-def build() -> None:
-    pdf = CvPdf(OUTPUT)
+def build(language: str = "en", output: Optional[Path] = None) -> Path:
+    if language not in CV_COPY:
+        raise ValueError(f"Unsupported language: {language}")
+    selected_output = output or (OUTPUT_VI if language == "vi" else OUTPUT_EN)
+    work_entries = WORK_ENTRIES_VI if language == "vi" else WORK_ENTRIES
+    project_entries = PROJECT_ENTRIES_VI if language == "vi" else PROJECT_ENTRIES
+    copy = CV_COPY[language]
+    selected_output.parent.mkdir(parents=True, exist_ok=True)
+
+    pdf = CvPdf(selected_output, language=language)
     pdf.header()
     pdf.summary()
     pdf.compact_section(
-        "Education",
-        [
-            (
-                "Ho Chi Minh City University of Transport (UTH):",
-                "Information Technology, 2022 - Expected 2026 | GPA: 3.24/4.00. Coursework and projects focused on software development, OOP, databases and web systems.",
-            )
-        ],
+        copy["education_section"],
+        [copy["education"]],
     )
     pdf.skills()
-    pdf.section("Work Experience", 130)
-    for item in WORK_ENTRIES:
+    pdf.section(copy["experience_section"], 130)
+    for item in work_entries:
         pdf.entry(item)
 
-    pdf.section("Independent Projects", 190)
-    for item in PROJECT_ENTRIES:
+    pdf.section(copy["projects_section"], 190)
+    for item in project_entries:
         pdf.entry(item)
 
-    pdf.compact_section(
-        "Certifications & Language",
-        [
-            (
-                "AWS Training:",
-                "AWS Cloud Practitioner Essentials; Getting into the Serverless Mindset - Completion Certificates (Jul 2026).",
-            ),
-            (
-                "AWS Training Badge:",
-                "AWS Educate Introduction to Generative AI - Training Badge (Jul 2026; verifiable via Credly).",
-            ),
-            (
-                "Professional:",
-                "Information Security Awareness (AIAcademy by AIPOWER, Jul 2026).",
-            ),
-            ("English:", "B1.4 - Intermediate; technical reading and written communication."),
-        ],
-    )
+    pdf.compact_section(copy["certifications_section"], copy["certifications"])
     pdf.save()
-    normalize_pdf(OUTPUT)
+    normalize_pdf(selected_output, title=copy["document_title"], subject=copy["document_subject"])
+    return selected_output
 
 
-def normalize_pdf(path: Path) -> None:
+def normalize_pdf(path: Path, title: str | None = None, subject: str | None = None) -> None:
     """Rewrite the PDF cross-reference table so PDF renderers do not warn."""
     temp_path = path.with_suffix(".tmp.pdf")
     reader = PdfReader(str(path))
@@ -427,9 +584,9 @@ def normalize_pdf(path: Path) -> None:
         writer.add_page(page)
     writer.add_metadata(
         {
-            "/Title": "Nguyen Xuan Hai - Full-Stack Developer CV",
+            "/Title": title or "Nguyen Xuan Hai - Full-Stack Developer CV",
             "/Author": "Nguyen Xuan Hai",
-            "/Subject": "Full-Stack Developer CV - React, ASP.NET Core, NestJS, PostgreSQL",
+            "/Subject": subject or "Full-Stack Developer CV - React, ASP.NET Core, NestJS, PostgreSQL",
             "/Creator": "Codex CV generator",
         }
     )
@@ -439,4 +596,8 @@ def normalize_pdf(path: Path) -> None:
 
 
 if __name__ == "__main__":
-    build()
+    parser = argparse.ArgumentParser(description="Generate Nguyen Xuan Hai's ATS-friendly CV.")
+    parser.add_argument("--lang", choices=sorted(CV_COPY), default="en")
+    parser.add_argument("--output", type=Path)
+    args = parser.parse_args()
+    print(build(args.lang, args.output))

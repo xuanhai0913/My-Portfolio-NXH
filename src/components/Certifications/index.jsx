@@ -49,6 +49,7 @@ import certGoogleGenAiFoundations from '../../images/certs/cert-google-gen-ai-fo
 import certGoogleGenAiLandscape from '../../images/certs/cert-google-gen-ai-landscape.png';
 import certGoogleGenAiApps from '../../images/certs/cert-google-gen-ai-apps.png';
 import certGoogleGenAiAgents from '../../images/certs/cert-google-gen-ai-agents.png';
+import certGoogleGeminiEnterprise from '../../images/certs/cert-google-gemini-enterprise-application.png';
 
 i18n.addResourceBundle('en', 'certifications', enCertifications, true, true);
 i18n.addResourceBundle('vi', 'certifications', viCertifications, true, true);
@@ -393,6 +394,17 @@ const certificates = [
     accent: "#4285f4",
     date: "Jul 2026",
     tags: ['featured', 'google-cloud', 'cloud-data']
+  },
+  {
+    id: 'google-gemini-enterprise-application',
+    title: "Create Your First Gemini Enterprise Application",
+    issuer: "Google Cloud",
+    thumbnail: certGoogleGeminiEnterprise,
+    verifyUrl: "https://www.credly.com/badges/79d65bb3-e080-4bc2-bcdc-9be19133dd08/public_url",
+    description: "Built a Gemini Enterprise application and practiced applying generative AI to enterprise search and knowledge workflows",
+    accent: "#4285f4",
+    date: "Jul 2026",
+    tags: ['featured', 'google-cloud', 'ai-ml', 'engineering']
   },
   {
     id: 'google-gen-ai-beyond-chatbot',

@@ -68,6 +68,7 @@
     "aws-planning-machine-learning-project": { "description": "Practical foundations for defining ML problems, data requirements, metrics and delivery plans." },
     "aws-vectordb-vs-graphdb-agents": { "description": "Completion certificate comparing vector and graph data stores for agentic AI use cases." },
     "google-cloud-infrastructure-foundation": { "description": "Completion badge covering Compute Engine, Cloud Shell, VPC networking and infrastructure design." },
+    "google-gemini-enterprise-application": { "description": "Built a Gemini Enterprise application and practiced applying generative AI to enterprise search and knowledge workflows." },
     "google-gen-ai-beyond-chatbot": { "description": "Foundation models, prompt engineering and organizational Gen AI strategy." },
     "google-gen-ai-foundational-concepts": { "description": "Generative AI foundations, data types, responsible AI and model limitations." },
     "google-gen-ai-landscape": { "description": "Gen AI solution layers, Google Cloud offerings and solution selection." },

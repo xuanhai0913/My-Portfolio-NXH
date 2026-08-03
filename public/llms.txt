@@ -11,6 +11,8 @@
 - [Technical notes](https://my-portfolio-nxh.vercel.app/blog): Articles about React, .NET, AI integration and web engineering.
 - [CV](https://my-portfolio-nxh.vercel.app/CV_NguyenXuanHai.pdf): ATS-readable curriculum vitae.
 - [Visual CV](https://my-portfolio-nxh.vercel.app/CV_NguyenXuanHai_visual.pdf): One-page visual curriculum vitae.
+- [CV tiếng Việt](https://my-portfolio-nxh.vercel.app/CV_NguyenXuanHai_vi.pdf): CV ATS bằng tiếng Việt.
+- [CV Visual tiếng Việt](https://my-portfolio-nxh.vercel.app/CV_NguyenXuanHai_visual_vi.pdf): CV Visual một trang bằng tiếng Việt.
 
 ## Professional profile
 

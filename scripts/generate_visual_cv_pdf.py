@@ -17,7 +17,10 @@ from svglib.svglib import svg2rlg
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OUTPUT = ROOT / "public" / "CV_NguyenXuanHai_visual.pdf"
+OUTPUT_EN = ROOT / "public" / "CV_NguyenXuanHai_visual.pdf"
+OUTPUT_VI = ROOT / "public" / "CV_NguyenXuanHai_visual_vi.pdf"
+# Preserve the existing English URL for email links and external references.
+OUTPUT = OUTPUT_EN
 PROFILE_IMAGE_CIRCLE = ROOT / "scripts" / "assets" / "nguyen_xuan_hai_profile_circle.png"
 STACK_ICON_DIR = ROOT / "scripts" / "assets" / "stack-icons" / "png"
 CONTACT_ICON_DIR = ROOT / "public" / "icon" / "contact" / "png"
@@ -41,6 +44,190 @@ WHITE = HexColor("#FFFFFF")
 CLAUDE = HexColor("#E56A2C")
 DARK_CHIP = HexColor("#102341")
 
+
+VISUAL_COPY = {
+    "en": {
+        "document_title": "Nguyen Xuan Hai - Visual CV",
+        "document_subject": "One-page visual CV - company experience, skills and selected projects",
+        "name": "Nguyen Xuan Hai",
+        "role": "Full-Stack Developer",
+        "headline": "Commercial software delivery experience since Oct 2024 through commercial product work and an ERP internship, from requirements through production support.",
+        "education_label": "EDUCATION",
+        "education": "Ho Chi Minh City University of Transport | IT | Expected 2026 | GPA 3.24/4.00",
+        "experience_title": "Work Experience",
+        "skills_title": "Core Skills",
+        "projects_title": "Independent Projects",
+        "certifications_title": "Certifications",
+        "developer_tools": "DEV TOOLS",
+        "footer_location": "Ho Chi Minh City, Vietnam",
+        "experiences": [
+            (
+                "Feb 2026\n-\nPresent",
+                "Betodemy - Japanese Learning Platform",
+                "Full-Stack Developer | 5-person team",
+                "React 19 | NestJS | PostgreSQL | Redis | Nx",
+                [
+                    "Built document-editor, challenge-player, online-class and student/admin features.",
+                    "Worked with Japan-side leadership in weekly issue, review and release cycles.",
+                ],
+                "Delivered 70+ merged MRs and closed 70+ authored issues across production workflows.",
+            ),
+            (
+                "May 2026\n-\nJul 2026",
+                "AI Power - Automotive Dealership ERP",
+                "Odoo ERP Support Developer Intern",
+                "Python 3.12 | Odoo 18 | PostgreSQL | QWeb/XML | GitLab CI",
+                [
+                    "Debugged BA/customer defects across business logic, QWeb/XML and localized reports.",
+                    "Supported sales, service, parts, warranty and TT200 accounting workflows.",
+                ],
+                "Supported fixes across all 18 custom modules and 99+ Python files without breaking the 18-state service flow.",
+            ),
+            (
+                "Oct 2024\n-\nJan 2026",
+                "OakMind Group",
+                "Full-Stack Developer | Business analysis & delivery",
+                "React 18/19 | ASP.NET Core 8 | EF Core | SQL Server | R2",
+                [
+                    "VN Media Hub: built CMS auth, moderation, caching, logging and SEO publishing flows.",
+                    "Great Link Mai House: converted WordPress/MVC workflows into React + ASP.NET Core APIs.",
+                    "OakMind Group Website: shipped live CMS/admin, SEO/analytics and Cloudflare R2 media in 28 commits.",
+                ],
+                "Owned BA clarification through production release across three company products.",
+            ),
+        ],
+        "skills": [
+            ("Frontend", "React 18/19, TypeScript, Vite"),
+            ("Backend", "ASP.NET Core, NestJS, REST API"),
+            ("Data", "PostgreSQL, SQL Server, Redis"),
+            ("ERP", "Python 3.12, Odoo 18, QWeb/XML"),
+            ("Delivery", "Docker, GitLab CI/CD, Git"),
+        ],
+        "projects": [
+            {
+                "title": "ChongScam - Trust Platform",
+                "role": "Full-Stack Developer",
+                "period": "Apr - Jul 2026",
+                "url": "https://chongscam.vn/",
+                "tech": "React 19 | NestJS 11 | PostgreSQL | Jest",
+                "impact": "Delivered a client-operated production platform spanning 22 controllers, 20 migrations and 12 test suites.",
+            },
+            {
+                "title": "RouteLab - Shortest Path Lab",
+                "role": "Full-Stack / Algorithm Developer",
+                "period": "May - Jul 2026",
+                "url": "https://tsp-delivery-route-optimizer.vercel.app/",
+                "tech": "React | TypeScript | Express | PostgreSQL | Vitest",
+                "impact": "Implemented four solvers, replay visualization, automated tests and backend algorithm CI.",
+            },
+            {
+                "title": "AgriTrace - Blockchain Traceability",
+                "role": "Full-Stack / Blockchain Developer",
+                "period": "Apr - Jun 2026",
+                "url": "https://github.com/xuanhai0913/agri-traceability-system",
+                "tech": "React | Express | PostgreSQL | Solidity | IPFS",
+                "impact": "Built multi-role supply-chain flows with hybrid on-chain evidence and QR verification.",
+            },
+        ],
+        "certifications": [
+            ("AWS Cloud Practitioner Essentials - AWS Training, Jul 2026", "https://my-portfolio-nxh.vercel.app/Cert/AWS-Cloud-Practitioner-Essentials.pdf"),
+            ("AWS Knowledge: Events and Workflows - Training Badge, Jul 2026", "https://www.credly.com/badges/7ec9cba5-c356-4f45-8692-95809e2f3e2a/public_url"),
+            ("AWS Knowledge: Serverless - Training Badge, Jul 2026", "https://www.credly.com/badges/6b334133-b6df-424e-a3ac-a46894d520ee/public_url"),
+            ("English: B1.4 - Intermediate; technical reading/writing", ""),
+        ],
+    },
+    "vi": {
+        "document_title": "Nguyễn Xuân Hải - CV Visual",
+        "document_subject": "CV Visual một trang - kinh nghiệm, kỹ năng và dự án",
+        "name": "Nguyễn Xuân Hải",
+        "role": "Lập trình viên Full-stack",
+        "headline": "Có kinh nghiệm triển khai sản phẩm phần mềm thực tế từ 10/2024, gồm hệ thống web, ERP và hỗ trợ vận hành sau phát hành.",
+        "education_label": "HỌC VẤN",
+        "education": "UTH | Công nghệ Thông tin | Dự kiến 2026 | GPA 3.24/4.00",
+        "experience_title": "Kinh nghiệm làm việc",
+        "skills_title": "Kỹ năng chính",
+        "projects_title": "Dự án cá nhân",
+        "certifications_title": "Chứng chỉ",
+        "developer_tools": "CÔNG CỤ HỖ TRỢ",
+        "footer_location": "TP. Hồ Chí Minh, Việt Nam",
+        "experiences": [
+            (
+                "02/2026\n-\nHiện tại",
+                "Betodemy - Nền tảng học tiếng Nhật",
+                "Lập trình viên Full-stack | Nhóm 5 người",
+                "React 19 | NestJS | PostgreSQL | Redis | Nx",
+                [
+                    "Phát triển document editor, challenge player, lớp học trực tuyến và luồng học viên/quản trị.",
+                    "Phối hợp họp tuần, review và phát hành để xử lý lỗi, tính năng và hỗ trợ sau release.",
+                ],
+                "Hoàn thành 70+ MR và đóng 70+ issue do bản thân tạo trong các luồng đang vận hành.",
+            ),
+            (
+                "05/2026\n-\n07/2026",
+                "AI Power - ERP đại lý ô tô",
+                "Thực tập sinh hỗ trợ Odoo ERP",
+                "Python 3.12 | Odoo 18 | PostgreSQL | QWeb/XML | GitLab CI",
+                [
+                    "Sửa lỗi từ BA/khách hàng trong business logic, QWeb/XML, i18n và báo cáo PDF.",
+                    "Hỗ trợ các luồng bán hàng, dịch vụ, phụ tùng, bảo hành và kế toán TT200.",
+                ],
+                "Hỗ trợ fix trên 18 module custom và 99+ file Python, đảm bảo luồng dịch vụ 18 trạng thái.",
+            ),
+            (
+                "10/2024\n-\n01/2026",
+                "OakMind Group",
+                "Lập trình viên Full-stack | Phân tích nghiệp vụ",
+                "React 18/19 | ASP.NET Core 8 | EF Core | SQL Server | R2",
+                [
+                    "VN Media Hub: triển khai CMS cho auth, kiểm duyệt, cache, logging và SEO.",
+                    "Great Link Mai House: chuyển luồng WordPress/MVC sang React + ASP.NET Core API.",
+                    "OakMind Group Website: triển khai CMS/admin song ngữ, SEO/analytics, R2 trong 28 commit.",
+                ],
+                "Theo sát từ làm rõ yêu cầu nghiệp vụ đến phát hành production cho ba sản phẩm của công ty.",
+            ),
+        ],
+        "skills": [
+            ("Giao diện", "React 18/19, TypeScript, Vite"),
+            ("Backend", "ASP.NET Core, NestJS, REST API"),
+            ("Dữ liệu", "PostgreSQL, SQL Server, Redis"),
+            ("ERP", "Python 3.12, Odoo 18, QWeb/XML"),
+            ("Triển khai", "Docker, GitLab CI/CD, Git"),
+        ],
+        "projects": [
+            {
+                "title": "ChongScam",
+                "role": "Lập trình viên Full-stack",
+                "period": "04 - 07/2026",
+                "url": "https://chongscam.vn/",
+                "tech": "React 19 | NestJS 11 | PostgreSQL | Jest",
+                "impact": "Bàn giao nền tảng đang vận hành với 22 controller, 20 migration và 12 bộ test tự động.",
+            },
+            {
+                "title": "RouteLab",
+                "role": "Lập trình viên Full-stack / Thuật toán",
+                "period": "05 - 07/2026",
+                "url": "https://tsp-delivery-route-optimizer.vercel.app/",
+                "tech": "React | TypeScript | Express | PostgreSQL | Vitest",
+                "impact": "Xây dựng 4 thuật toán, giao diện replay, test tự động và CI cho backend.",
+            },
+            {
+                "title": "AgriTrace",
+                "role": "Lập trình viên Full-stack / Blockchain",
+                "period": "04 - 06/2026",
+                "url": "https://github.com/xuanhai0913/agri-traceability-system",
+                "tech": "React | Express | PostgreSQL | Solidity | IPFS",
+                "impact": "Xây dựng luồng chuỗi cung ứng đa vai trò với bằng chứng blockchain và xác minh QR.",
+            },
+        ],
+        "certifications": [
+            ("AWS Cloud Practitioner Essentials - AWS Training (07/2026)", "https://my-portfolio-nxh.vercel.app/Cert/AWS-Cloud-Practitioner-Essentials.pdf"),
+            ("AWS Knowledge: Events and Workflows - Training Badge (07/2026)", "https://www.credly.com/badges/7ec9cba5-c356-4f45-8692-95809e2f3e2a/public_url"),
+            ("AWS Knowledge: Serverless - Training Badge (07/2026)", "https://www.credly.com/badges/6b334133-b6df-424e-a3ac-a46894d520ee/public_url"),
+            ("Tiếng Anh: B1.4 - đọc hiểu tài liệu kỹ thuật, viết cơ bản", ""),
+        ],
+    },
+}
+
 MARGIN = 34
 LEFT_X = MARGIN
 RIGHT_X = 354
@@ -50,16 +237,20 @@ BOTTOM = 34
 
 
 class VisualCv:
-    def __init__(self, output: Path, ai_mode: str = "tools") -> None:
+    def __init__(self, output: Path, ai_mode: str = "tools", language: str = "en") -> None:
         if ai_mode not in {"off", "tools", "featured"}:
             raise ValueError(f"Unsupported AI mode: {ai_mode}")
+        if language not in VISUAL_COPY:
+            raise ValueError(f"Unsupported language: {language}")
         self.output = output
         self.ai_mode = ai_mode
+        self.language = language
+        self.copy = VISUAL_COPY[language]
         self.c = canvas.Canvas(str(output), pagesize=A4, pageCompression=1)
         self._register_fonts()
-        self.c.setTitle("Nguyen Xuan Hai - Visual CV")
-        self.c.setAuthor("Nguyen Xuan Hai")
-        self.c.setSubject("One-page visual CV - company experience, skills and selected projects")
+        self.c.setTitle(self.copy["document_title"])
+        self.c.setAuthor(self.copy["name"])
+        self.c.setSubject(self.copy["document_subject"])
         self.c.setCreator("Codex vector visual CV generator")
 
     def _register_fonts(self) -> None:
@@ -167,11 +358,11 @@ class VisualCv:
 
         self.c.setFillColor(INK)
         self.c.setFont("Arial-Bold", 28)
-        self.c.drawString(x, y, "Nguyen Xuan Hai")
+        self.c.drawString(x, y, self.copy["name"])
         y -= 23
         self.c.setFillColor(AMBER)
         self.c.setFont("Arial-Bold", 14.2)
-        self.c.drawString(x, y, "Full-Stack Developer")
+        self.c.drawString(x, y, self.copy["role"])
         y -= 17
         self.c.setFillColor(INK)
         self.c.setFont("Arial", 9.2)
@@ -180,23 +371,15 @@ class VisualCv:
         self.c.setFillColor(TEAL)
         self.c.rect(x, y + 6, 34, 2, fill=1, stroke=0)
         y -= 10
-        y = self.text(
-            "Commercial software delivery experience since Oct 2024 through commercial product work and an ERP internship, from requirements through production support.",
-            x,
-            y,
-            360,
-            "Arial",
-            8.25,
-            MUTED,
-            9.8,
-        )
+        y = self.text(self.copy["headline"], x, y, 360, "Arial", 8.25, MUTED, 9.8)
         y -= 2
         self.c.setFillColor(TEAL_DARK)
         self.c.setFont("Arial-Bold", 7.4)
-        self.c.drawString(x, y, "EDUCATION")
+        self.c.drawString(x, y, self.copy["education_label"])
         self.c.setFillColor(INK)
         self.c.setFont("Arial", 7.4)
-        self.c.drawString(x + 49, y, "Ho Chi Minh City University of Transport | IT | Expected 2026 | GPA 3.24/4.00")
+        education_x = x + self.width(self.copy["education_label"], "Arial-Bold", 7.4) + 7
+        self.c.drawString(education_x, y, self.copy["education"])
 
         image_size = 76
         image_x = PAGE_W - MARGIN - image_size - 22
@@ -307,7 +490,7 @@ class VisualCv:
         return self.text(text, x + 9, y, width - 9, "Arial", size, INK, size + 1.6) - 1
 
     def achievement(self, text: str, x: float, y: float, width: float) -> float:
-        label = "Achievement:"
+        label = "Thành tựu:" if self.language == "vi" else "Achievement:"
         size = 7.25
         label_width = self.width(label, "Arial-Bold", size) + 4
         self.c.setFillColor(AMBER)
@@ -317,51 +500,14 @@ class VisualCv:
 
     def company_experience(self) -> None:
         y = PAGE_H - 252
-        y = self.section_title(LEFT_X, y, "Work Experience", "briefcase.svg")
+        y = self.section_title(LEFT_X, y, self.copy["experience_title"], "briefcase.svg")
         axis_x = LEFT_X + 70
         content_x = LEFT_X + 94
         self.c.setStrokeColor(HexColor("#8BA3AE"))
         self.c.setLineWidth(0.8)
         self.c.line(axis_x, y + 7, axis_x, BOTTOM + 100)
 
-        entries = [
-            (
-                "Feb 2026\n-\nPresent",
-                "Betodemy - Japanese Learning Platform",
-                "Full-Stack Developer | 5-person team",
-                "React 19 | NestJS | PostgreSQL | Redis | Nx",
-                [
-                    "Built document-editor, challenge-player, online-class and student/admin features.",
-                    "Worked with Japan-side leadership in weekly issue, review and release cycles.",
-                ],
-                "Delivered 70+ merged MRs and closed 70+ authored issues across production workflows.",
-            ),
-            (
-                "May 2026\n-\nJul 2026",
-                "AI Power - Automotive Dealership ERP",
-                "Odoo ERP Support Developer Intern",
-                "Python 3.12 | Odoo 18 | PostgreSQL | QWeb/XML | GitLab CI",
-                [
-                    "Debugged BA/customer defects across business logic, QWeb/XML and localized reports.",
-                    "Supported sales, service, parts, warranty and TT200 accounting workflows.",
-                ],
-                "Supported fixes across all 18 custom modules and 99+ Python files without breaking the 18-state service flow.",
-            ),
-            (
-                "Oct 2024\n-\nJan 2026",
-                "OakMind Group",
-                "Full-Stack Developer | Business analysis & delivery",
-                "React 18/19 | ASP.NET Core 8 | EF Core | SQL Server | R2",
-                [
-                    "VN Media Hub: built CMS auth, moderation, caching, logging and SEO publishing flows.",
-                    "Great Link Mai House: converted WordPress/MVC workflows into React + ASP.NET Core APIs.",
-                    "OakMind Group Website: shipped live CMS/admin, SEO/analytics and Cloudflare R2 media in 28 commits.",
-                ],
-                "Owned BA clarification through production release across three company products.",
-            ),
-        ]
-
-        for dates, title, role, tech, bullets, achievement in entries:
+        for dates, title, role, tech, bullets, achievement in self.copy["experiences"]:
             self.c.setFillColor(TEAL)
             self.c.setFont("Arial-Bold", 7.8)
             dy = y - 2
@@ -437,8 +583,8 @@ class VisualCv:
             return y
         self.c.setFillColor(TEAL_DARK)
         self.c.setFont("Arial-Bold", 6.6)
-        self.c.drawString(x + 2, y, "DEV TOOLS")
-        tool_x = x + 60
+        self.c.drawString(x + 2, y, self.copy["developer_tools"])
+        tool_x = x + max(60, self.width(self.copy["developer_tools"], "Arial-Bold", 6.6) + 12)
         for label, display in [("Claude", "Claude Code"), ("Codex", "Codex")]:
             self.agent_icon(tool_x + 5, y + 1.5, label, 4.2)
             self.c.setFillColor(INK)
@@ -474,23 +620,8 @@ class VisualCv:
         return y - 14
 
     def certifications(self, x: float, y: float) -> float:
-        y = self.section_title(x, y, "Certifications", "award.svg")
-        items = [
-            (
-                "AWS Cloud Practitioner Essentials - AWS Training, Jul 2026",
-                "https://my-portfolio-nxh.vercel.app/Cert/AWS-Cloud-Practitioner-Essentials.pdf",
-            ),
-            (
-                "AWS Knowledge: Events and Workflows - Training Badge, Jul 2026",
-                "https://www.credly.com/badges/7ec9cba5-c356-4f45-8692-95809e2f3e2a/public_url",
-            ),
-            (
-                "AWS Knowledge: Serverless - Training Badge, Jul 2026",
-                "https://www.credly.com/badges/6b334133-b6df-424e-a3ac-a46894d520ee/public_url",
-            ),
-            ("English: B1.4 - Intermediate; technical reading/writing", ""),
-        ]
-        for item, url in items:
+        y = self.section_title(x, y, self.copy["certifications_title"], "award.svg")
+        for item, url in self.copy["certifications"]:
             row_top = y + 7
             self.c.setFillColor(TEAL)
             self.c.circle(x + 4, y + 2.2, 1.6, fill=1, stroke=0)
@@ -503,55 +634,34 @@ class VisualCv:
     def skills_and_projects(self) -> None:
         x = RIGHT_X
         y = PAGE_H - 252
-        y = self.section_title(x, y, "Core Skills", "code-slash.svg")
-        skill_groups = [
-            ("Frontend", "React 18/19, TypeScript, Vite"),
-            ("Backend", "ASP.NET Core, NestJS, REST API"),
-            ("Data", "PostgreSQL, SQL Server, Redis"),
-            ("ERP", "Python 3.12, Odoo 18, QWeb/XML"),
-            ("Delivery", "Docker, GitLab CI/CD, Git"),
-        ]
-        for label, value in skill_groups:
+        y = self.section_title(x, y, self.copy["skills_title"], "code-slash.svg")
+        for label, value in self.copy["skills"]:
             y = self.skill_group(x, y, label, value)
         y = self.developer_tools(x, y)
 
         y -= 10
-        y = self.section_title(x, y, "Independent Projects", "folder2-open.svg")
-        projects = [
-            {
-                "title": "ChongScam - Trust Platform",
-                "role": "Full-Stack Developer",
-                "period": "Apr - Jul 2026",
-                "url": "https://chongscam.vn/",
-                "tech": "React 19 | NestJS 11 | PostgreSQL | Jest",
-                "impact": "Delivered a client-operated production platform spanning 22 controllers, 20 migrations and 12 test suites.",
-            },
-            {
-                "title": "RouteLab - Shortest Path Lab",
-                "role": "Full-Stack / Algorithm Developer",
-                "period": "May - Jul 2026",
-                "url": "https://tsp-delivery-route-optimizer.vercel.app/",
-                "tech": "React | TypeScript | Express | PostgreSQL | Vitest",
-                "impact": "Implemented four solvers, replay visualization, automated tests and backend algorithm CI.",
-            },
-            {
-                "title": "AgriTrace - Blockchain Traceability",
-                "role": "Full-Stack / Blockchain Developer",
-                "period": "Apr - Jun 2026",
-                "url": "https://github.com/xuanhai0913/agri-traceability-system",
-                "tech": "React | Express | PostgreSQL | Solidity | IPFS",
-                "impact": "Built multi-role supply-chain flows with hybrid on-chain evidence and QR verification.",
-            },
-        ]
+        y = self.section_title(x, y, self.copy["projects_title"], "folder2-open.svg")
+        projects = list(self.copy["projects"])
         if self.ai_mode == "featured":
-            projects[2] = {
-                "title": "AI Development Tools",
-                "role": "Frontend / Python Developer",
-                "period": "Mar 2025 - May 2026",
-                "url": "https://github.com/xuanhai0913/LLM-Unit-tests",
-                "tech": "React | Gemini/DeepSeek APIs | Python | pytest",
-                "impact": "Built a portfolio assistant and reusable LLM-assisted unit-test drafting workflow.",
-            }
+            projects[2] = (
+                {
+                    "title": "Công cụ phát triển AI",
+                    "role": "Lập trình viên Frontend / Python",
+                    "period": "03/2025 - 05/2026",
+                    "url": "https://github.com/xuanhai0913/LLM-Unit-tests",
+                    "tech": "React | Gemini/DeepSeek APIs | Python | pytest",
+                    "impact": "Xây dựng trợ lý portfolio và quy trình phác thảo unit test có hỗ trợ LLM.",
+                }
+                if self.language == "vi"
+                else {
+                    "title": "AI Development Tools",
+                    "role": "Frontend / Python Developer",
+                    "period": "Mar 2025 - May 2026",
+                    "url": "https://github.com/xuanhai0913/LLM-Unit-tests",
+                    "tech": "React | Gemini/DeepSeek APIs | Python | pytest",
+                    "impact": "Built a portfolio assistant and reusable LLM-assisted unit-test drafting workflow.",
+                }
+            )
         for project in projects:
             y = self.project_entry(x, y, project)
         y -= 2
@@ -565,17 +675,20 @@ class VisualCv:
         self.c.setFillColor(MUTED)
         self.c.setFont("Arial", 6.6)
         self.c.drawString(MARGIN, y - 2, "Portfolio: my-portfolio-nxh.vercel.app")
-        self.c.drawRightString(PAGE_W - MARGIN, y - 2, "Ho Chi Minh City, Vietnam")
+        self.c.drawRightString(PAGE_W - MARGIN, y - 2, self.copy["footer_location"])
 
     def save(self) -> None:
         self.c.save()
 
 
-def build(output: Path = OUTPUT, ai_mode: str = "tools") -> None:
+def build(output: Path | None = None, ai_mode: str = "tools", language: str = "en") -> Path:
+    if language not in VISUAL_COPY:
+        raise ValueError(f"Unsupported language: {language}")
     if not PROFILE_IMAGE_CIRCLE.exists():
         raise FileNotFoundError(f"Missing profile image: {PROFILE_IMAGE_CIRCLE}")
-    output.parent.mkdir(parents=True, exist_ok=True)
-    pdf = VisualCv(output, ai_mode=ai_mode)
+    selected_output = output or (OUTPUT_VI if language == "vi" else OUTPUT_EN)
+    selected_output.parent.mkdir(parents=True, exist_ok=True)
+    pdf = VisualCv(selected_output, ai_mode=ai_mode, language=language)
     pdf.background()
     pdf.header()
     pdf.contact_row()
@@ -583,11 +696,13 @@ def build(output: Path = OUTPUT, ai_mode: str = "tools") -> None:
     pdf.skills_and_projects()
     pdf.footer()
     pdf.save()
+    return selected_output
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate the reusable one-page visual CV.")
     parser.add_argument("--ai-mode", choices=["off", "tools", "featured"], default="tools")
-    parser.add_argument("--output", type=Path, default=OUTPUT)
+    parser.add_argument("--lang", choices=sorted(VISUAL_COPY), default="en")
+    parser.add_argument("--output", type=Path)
     args = parser.parse_args()
-    build(args.output, args.ai_mode)
+    print(build(args.output, args.ai_mode, args.lang))

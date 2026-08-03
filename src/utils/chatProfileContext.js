@@ -17,6 +17,10 @@ export const PROFILE_CONTEXT = {
     zalo: EXTERNAL_URLS.ZALO,
   },
   cvUrl: `${EXTERNAL_URLS.PORTFOLIO}/CV_NguyenXuanHai_visual.pdf`,
+  cvUrls: {
+    en: `${EXTERNAL_URLS.PORTFOLIO}/CV_NguyenXuanHai_visual.pdf`,
+    vi: `${EXTERNAL_URLS.PORTFOLIO}/CV_NguyenXuanHai_visual_vi.pdf`,
+  },
   skills: [
     'React.js',
     'Node.js',
@@ -116,6 +120,12 @@ export const PROFILE_CONTEXT = {
 
 export const WELCOME_MESSAGE =
   'Welcome to Nguyen Xuan Hai portfolio. You can ask me about CV, projects, experience, certifications, or contact links.';
+
+export function getCvUrl(language = 'en') {
+  return language?.startsWith('vi')
+    ? PROFILE_CONTEXT.cvUrls.vi
+    : PROFILE_CONTEXT.cvUrls.en;
+}
 
 export function buildPortfolioSystemPrompt(preferredLanguage = 'en', hasJobDescription = false, responseStyle = 'brief') {
   const languageRule = preferredLanguage === 'vi'

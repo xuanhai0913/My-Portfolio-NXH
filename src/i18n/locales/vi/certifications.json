@@ -68,6 +68,7 @@
     "aws-planning-machine-learning-project": { "description": "Nền tảng thực tiễn để xác định bài toán ML, yêu cầu dữ liệu, chỉ số và kế hoạch triển khai." },
     "aws-vectordb-vs-graphdb-agents": { "description": "Chứng nhận hoàn thành nội dung so sánh cơ sở dữ liệu vector và đồ thị cho các ứng dụng AI agent." },
     "google-cloud-infrastructure-foundation": { "description": "Huy hiệu hoàn thành về Compute Engine, Cloud Shell, mạng VPC và thiết kế hạ tầng." },
+    "google-gemini-enterprise-application": { "description": "Xây dựng ứng dụng Gemini Enterprise và thực hành ứng dụng AI tạo sinh vào tìm kiếm, khai thác tri thức trong doanh nghiệp." },
     "google-gen-ai-beyond-chatbot": { "description": "Mô hình nền tảng, kỹ thuật prompt và chiến lược Gen AI cho tổ chức." },
     "google-gen-ai-foundational-concepts": { "description": "Nền tảng AI tạo sinh, các loại dữ liệu, AI có trách nhiệm và giới hạn của mô hình." },
     "google-gen-ai-landscape": { "description": "Các lớp giải pháp Gen AI, sản phẩm Google Cloud và cách lựa chọn giải pháp." },

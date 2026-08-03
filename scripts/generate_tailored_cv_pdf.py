@@ -71,6 +71,107 @@ VARIANTS = {
             ],
         },
     },
+    "motorist-junior-web-developer": {
+        "output": ROOT / "cv" / "motorist-junior-web-developer" / "CV_NguyenXuanHai_Motorist_Junior_Web_Developer_ATS.pdf",
+        "title": "Nguyen Xuan Hai - Junior Web Developer CV",
+        "subtitle": "Junior Web Developer | React | JavaScript/TypeScript | RESTful API | SQL",
+        "summary": (
+            "Production-oriented junior web developer with commercial delivery experience since October 2024 across React, "
+            "modular backend services, RESTful APIs and relational databases. Built and supported web features using React, "
+            "JavaScript/TypeScript, NestJS, ASP.NET Core MVC/Web API, PostgreSQL and SQL Server. "
+            "Experienced with responsive UI, MVC-style separation, Git, testing, Docker, CI/CD and production debugging; "
+            "ready to transfer this foundation to Ruby on Rails."
+        ),
+        "skills": [
+            ("Frontend Web:", "React 18/19, JavaScript ES6+, TypeScript, responsive UI, component-based architecture and Bootstrap."),
+            ("Backend Foundation:", "NestJS/Node.js, ASP.NET Core MVC/Web API, RESTful API/JSON integration, MVC-style separation, OOP, authentication and validation."),
+            ("Data & Background Workflows:", "PostgreSQL, SQL Server, relational modelling, migrations, SQL debugging, Redis and BullMQ background-job exposure."),
+            ("Quality:", "Jest/Vitest/e2e testing, code review, refactoring, debugging, security-aware validation and production support."),
+            ("Delivery:", "Git, GitLab CI/CD, GitHub Actions, Docker, issue tracking, release handoff and Agile-style team collaboration."),
+            ("Rails Transition:", "Transferable MVC, SQL, REST API and Redis foundations; ready to ramp on Ruby on Rails conventions, RSpec and Sidekiq."),
+        ],
+        "work_entries": ["Betodemy", "OakMind", "AI Power"],
+        "project_entries": ["ChongScam", "RouteLab"],
+        "certification_rows": [
+            ("English:", "B1.4 - Intermediate; technical reading and written communication, actively improving spoken collaboration."),
+        ],
+        "overrides": {
+            "Betodemy": [
+                "Build React user/admin features and modular NestJS REST API workflows in a production monorepo within a 5-person team.",
+                "Trace defects across UI, API, PostgreSQL and Redis/BullMQ paths through weekly review, tests, CI and release cycles.",
+                "Achievement: delivered 70+ merged MRs and closed 70+ authored issues across production workflows.",
+            ],
+            "OakMind": [
+                "VN Media Hub: built CMS/admin UI and API workflows for authentication, content, moderation and SQL-backed reporting.",
+                "Great Link Mai House: converted legacy WordPress/MVC processes into React components, ASP.NET Core APIs and media/realtime integrations.",
+                "OakMind Group Website: shipped a bilingual React/.NET content platform with media, SEO/analytics and lead workflows.",
+                "Achievement: owned requirement clarification through production release across all three OakMind Group products.",
+            ],
+            "AI Power": [
+                "Debugged Python business logic, PostgreSQL-backed workflows and QWeb/XML reports after BA/customer requirement updates.",
+                "Worked in an existing modular MVC-style ERP framework and CI flow to prepare release-safe fixes.",
+                "Achievement: supported fixes across 18 custom modules and 99+ Python files.",
+            ],
+            "ChongScam": [
+                "Built production responsive client flows and REST APIs for session authentication, RBAC, validation, moderation and audited administration.",
+                "Achievement: shipped the client-operated platform with 22 controllers, 20 SQL migrations and 12 Jest/e2e test suites.",
+            ],
+            "RouteLab": [
+                "Built an interactive React interface, REST API and PostgreSQL data paths for four route-planning algorithms.",
+                "Achievement: published a working demo with automated tests and a GitHub Actions CI pipeline.",
+            ],
+        },
+    },
+    "amaris-junior-fullstack-dotnet": {
+        "output": ROOT / "cv" / "amaris-junior-fullstack-dotnet" / "CV_NguyenXuanHai_Amaris_Junior_FullStack_DotNet_ATS.pdf",
+        "title": "Nguyen Xuan Hai - Junior Full Stack Engineer (.NET) CV",
+        "subtitle": "Junior Full Stack Engineer | C# / ASP.NET Core | React | SQL Server | MVC",
+        "summary": (
+            "Production-oriented junior full-stack engineer with commercial delivery experience since October 2024 across "
+            "C#, ASP.NET Core MVC/Web API, React, RESTful APIs and relational data. Built and supported web features from "
+            "requirements through implementation, testing, Git-based delivery and production debugging. "
+            "Comfortable with OOP, MVC-style separation, SQL Server/PostgreSQL, authentication, responsive UI and Agile-style issue workflows."
+        ),
+        "skills": [
+            ("Full-Stack Web:", "C#, ASP.NET Core 8 MVC/Web API, React 18/19, JavaScript ES6+, TypeScript, HTML5, CSS3 and responsive UI."),
+            ("Architecture:", "Object-oriented programming, MVC-style separation, modular services, design-pattern awareness, RESTful API contracts and validation."),
+            ("Data:", "SQL Server, PostgreSQL, Entity Framework Core, TypeORM, relational modelling, migrations, SQL debugging and query support."),
+            ("Security & Integration:", "JWT/session authentication, role-based access control, authorization, API integration and production troubleshooting."),
+            ("Quality:", "Test-case design, Jest/Vitest/e2e checks, integration validation, code review, debugging and release verification; ready to extend this foundation with xUnit/NUnit."),
+            ("Delivery:", "Git, GitLab CI/CD, GitHub Actions, Docker, Agile-style issue tracking, release handoff and cross-functional BA collaboration."),
+        ],
+        "work_entries": ["Betodemy", "OakMind", "AI Power"],
+        "project_entries": ["ChongScam", "RouteLab"],
+        "certification_rows": [
+            ("English:", "B1.4 - Intermediate; technical reading and written communication, actively improving spoken technical collaboration."),
+        ],
+        "overrides": {
+            "Betodemy": [
+                "Build and troubleshoot production React/NestJS features across UI, REST API, PostgreSQL and Redis/BullMQ workflows in a 5-person team.",
+                "Handle weekly issues through implementation, review, test checks, CI, release handoff and post-release support.",
+                "Achievement: delivered 70+ merged MRs and closed 70+ authored issues across production workflows.",
+            ],
+            "OakMind": [
+                "VN Media Hub: built CMS/admin UI and ASP.NET Core API workflows for authentication, moderation, logging and SQL-backed reporting.",
+                "Great Link Mai House: converted legacy WordPress/MVC processes into React components, C# services, Entity Framework data paths and integrations.",
+                "OakMind Group Website: shipped a bilingual React 19/ASP.NET Core 8 platform with Identity/JWT, media, SEO/analytics and lead workflows.",
+                "Achievement: owned requirement clarification through production release across all three OakMind Group products.",
+            ],
+            "AI Power": [
+                "Debugged Python business logic, PostgreSQL-backed workflows and QWeb/XML reports after BA/customer requirement updates.",
+                "Worked in an existing modular MVC-style ERP framework and CI flow to prepare release-safe fixes.",
+                "Achievement: supported fixes across 18 custom modules and 99+ Python files.",
+            ],
+            "ChongScam": [
+                "Built production responsive client flows and REST APIs for session authentication, RBAC, validation, moderation and audited administration.",
+                "Achievement: shipped the client-operated platform with 22 controllers, 20 SQL migrations and 12 Jest/e2e test suites.",
+            ],
+            "RouteLab": [
+                "Built an interactive React interface, REST API and PostgreSQL data paths for four route-planning algorithms.",
+                "Achievement: published a working demo with automated tests and a GitHub Actions CI pipeline.",
+            ],
+        },
+    },
     "nanoco-it-tester": {
         "output": ROOT / "cv" / "nanoco-it-tester" / "CV_NguyenXuanHai_NANOCO_IT_Tester_ATS.pdf",
         "title": "Nguyen Xuan Hai - IT Tester CV",
@@ -625,7 +726,7 @@ def build_variant(name: str) -> Path:
     if certification_rows:
         pdf.compact_section("Certifications & Language", certification_rows)
     pdf.save()
-    base.normalize_pdf(output)
+    base.normalize_pdf(output, title=config["title"], subject=config["subtitle"])
     return output
 
 

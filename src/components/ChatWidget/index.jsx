@@ -4,6 +4,7 @@ import i18nInstance from '../../i18n';
 import { API } from '../../utils/constants';
 import useChatSession from '../../hooks/useChatSession';
 import {
+  getCvUrl,
   PROFILE_CONTEXT,
 } from '../../utils/chatProfileContext';
 import {
@@ -860,7 +861,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
   };
 
   const handleQuickCV = () => {
-    window.open(PROFILE_CONTEXT.cvUrl, '_blank', 'noopener,noreferrer');
+    window.open(getCvUrl(language), '_blank', 'noopener,noreferrer');
   };
 
   const handleChangeResponseStyle = (nextStyle) => {

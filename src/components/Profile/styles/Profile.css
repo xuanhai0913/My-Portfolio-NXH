@@ -325,6 +325,9 @@
     margin-left: 0;
   }
 
+  .btn-view-cv .btn-icon {
+    display: none;
+  }
 
   .floating-badge {
     right: 0;
