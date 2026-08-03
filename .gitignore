@@ -16,6 +16,14 @@
 /tmp/
 /public/CV_NguyenXuanHai 2.pdf
 
+# Local-only CV tailoring workspace. Never commit company-specific variants.
+/private/
+
+# Local Vite preview artifacts
+/index.vite*.html
+/src/index.preview*.jsx
+/vite.preview.config*.mjs
+
 # Python-generated files
 __pycache__/
 *.py[cod]

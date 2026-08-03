@@ -1,0 +1,5 @@
+# Dependencies for the public master CV generators.
+# Install with: python3 -m pip install -r requirements-cv.txt
+pypdf>=5.0,<7
+reportlab>=4.0,<5
+svglib>=1.5,<2
