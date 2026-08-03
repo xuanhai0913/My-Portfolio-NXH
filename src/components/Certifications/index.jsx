@@ -43,6 +43,7 @@ import certAwsAifDomain3 from '../../images/certs/cert-aws-aif-c01-domain-3-revi
 import certAwsGenAiExecutives from '../../images/certs/cert-aws-generative-ai-for-executives.png';
 import certAwsPlanningMl from '../../images/certs/cert-aws-planning-machine-learning-project.png';
 import certAwsVectorGraph from '../../images/certs/cert-aws-vectordb-vs-graphdb-agents.png';
+import certAwsAgenticAiDemonstrated from '../../images/certs/cert-aws-agentic-ai-demonstrated.png';
 import certGoogleCloudInfrastructure from '../../images/certs/cert-google-cloud-infrastructure-foundation.png';
 import certGoogleGenAiChatbot from '../../images/certs/cert-google-gen-ai-chatbot.png';
 import certGoogleGenAiFoundations from '../../images/certs/cert-google-gen-ai-foundations.png';
@@ -56,6 +57,18 @@ i18n.addResourceBundle('vi', 'certifications', viCertifications, true, true);
 
 // Certificate data
 const certificates = [
+  {
+    id: 'aws-agentic-ai-demonstrated',
+    title: 'AWS Agentic AI Demonstrated',
+    issuer: 'AWS Training & Certification',
+    thumbnail: certAwsAgenticAiDemonstrated,
+    verifyUrl: 'https://www.credly.com/badges/f6bcde81-b1ba-4570-a327-e632bae4a3e5/public_url',
+    description: 'Verified microcredential earned by passing a timed hands-on AWS exam lab focused on troubleshooting, repairing, integrating and enhancing Amazon Bedrock Agents and Guardrails',
+    actionLabel: 'Verify credential ↗',
+    accent: '#ff9900',
+    date: 'Aug 2026',
+    tags: ['featured', 'aws', 'ai-ml', 'engineering']
+  },
   {
     id: 'aws-knowledge-cloud-essentials',
     title: "AWS Knowledge: Cloud Essentials",

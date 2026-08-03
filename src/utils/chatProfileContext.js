@@ -81,6 +81,7 @@ export const PROFILE_CONTEXT = {
     'Applies AI pragmatically for issue analysis, documentation, QA support and operations without replacing engineering judgment.',
   ],
   certifications: [
+    'AWS Agentic AI Demonstrated - Microcredential (AWS Training & Certification, Aug 2026; verified via Credly; timed hands-on Amazon Bedrock Agents and Guardrails lab)',
     'AWS Knowledge: Cloud Essentials - Training Badge (AWS Training & Certification, Jul 2026; verified via Credly)',
     'AWS Cloud Practitioner Essentials - Completion Certificate (AWS Training & Certification, Jul 2026)',
     'AWS Database Migration Service Overview - Completion Certificate (AWS Training & Certification, Jul 2026; verified via AWS Skill Builder)',

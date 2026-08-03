@@ -40,6 +40,7 @@
     "showLess": "Thu gọn chứng chỉ"
   },
   "certificates": {
+    "aws-agentic-ai-demonstrated": { "description": "Chứng nhận vi mô đã được xác minh sau khi vượt qua bài lab thực hành có giới hạn thời gian của AWS về khắc phục sự cố, sửa chữa, tích hợp và nâng cấp Amazon Bedrock Agents cùng Bedrock Guardrails." },
     "aws-knowledge-cloud-essentials": { "description": "Kiến thức đã được xác minh về các khái niệm, dịch vụ, bảo mật và kiến trúc cốt lõi của AWS Cloud." },
     "aws-cloud-practitioner-essentials": { "description": "Chứng nhận hoàn thành bao quát các khái niệm và dịch vụ nền tảng của AWS Cloud." },
     "aws-database-migration-service-overview": { "description": "Nền tảng AWS DMS để lập kế hoạch, cấu hình và giám sát quá trình di chuyển cơ sở dữ liệu không đồng nhất." },
