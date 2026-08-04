@@ -13,6 +13,7 @@ export const PROFILE_CONTEXT = {
   socials: {
     github: EXTERNAL_URLS.GITHUB,
     linkedin: EXTERNAL_URLS.LINKEDIN,
+    upwork: EXTERNAL_URLS.UPWORK,
     facebook: EXTERNAL_URLS.FACEBOOK,
     zalo: EXTERNAL_URLS.ZALO,
   },

@@ -1,7 +1,7 @@
 import React, { useRef, useState, useMemo, Suspense, lazy } from 'react';
 import emailjs from '@emailjs/browser';
 import { useTranslation } from 'react-i18next';
-import { API } from '../../utils/constants';
+import { API, EXTERNAL_URLS } from '../../utils/constants';
 import { trackContactSubmit, trackSocialClick } from '../../utils/analytics';
 import SlateEditor, { SLATE_DRAFT_STORAGE_KEY } from './SlateEditor';
 import './styles/Contact.css';
@@ -211,6 +211,7 @@ const Contact = () => {
           <div className="social-links">
             <a href="https://github.com/xuanhai0913" target="_blank" rel="noreferrer" className="social-icon" aria-label={t('social.githubAria')} onClick={() => trackSocialClick('github')}>GITHUB</a>
             <a href="https://www.linkedin.com/in/xuanhai0913/" target="_blank" rel="noreferrer" className="social-icon" aria-label={t('social.linkedinAria')} onClick={() => trackSocialClick('linkedin')}>LINKEDIN</a>
+            <a href={EXTERNAL_URLS.UPWORK} target="_blank" rel="noreferrer" className="social-icon" aria-label={t('social.upworkAria')} onClick={() => trackSocialClick('upwork')}>UPWORK</a>
             <a href="https://www.youtube.com/@xuanhai0913" target="_blank" rel="noreferrer" className="social-icon" aria-label={t('social.youtubeAria')} onClick={() => trackSocialClick('youtube')}>YOUTUBE</a>
             <a href="https://dev.to/xuanhai0913" target="_blank" rel="noreferrer" className="social-icon" aria-label={t('social.devtoAria')} onClick={() => trackSocialClick('devto')}>DEV.TO</a>
             <a href="mailto:xuanhai0913750452@gmail.com" className="social-icon" aria-label={t('social.emailAria')} onClick={() => trackSocialClick('email')}>EMAIL</a>

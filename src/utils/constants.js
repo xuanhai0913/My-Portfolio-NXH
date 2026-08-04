@@ -53,6 +53,7 @@ export const EXTERNAL_URLS = {
   PORTFOLIO: 'https://my-portfolio-nxh.vercel.app',
   GITHUB: 'https://github.com/xuanhai0913',
   LINKEDIN: 'https://www.linkedin.com/in/xuanhai0913/',
+  UPWORK: 'https://www.upwork.com/freelancers/xuanhai0913',
   FACEBOOK: 'https://www.facebook.com/nguyenhai0913',
   ZALO: 'https://zalo.me/84929501116',
   INSTAGRAM: 'https://www.instagram.com/nguyenhai091375',

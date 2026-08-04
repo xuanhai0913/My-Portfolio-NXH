@@ -105,6 +105,7 @@ src/
 
 [![Website](https://img.shields.io/badge/my-portfolio-nxh.vercel.app-CCFF00?style=for-the-badge&logoColor=black)](https://my-portfolio-nxh.vercel.app)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/xuanhai0913/)
+[![Upwork](https://img.shields.io/badge/Upwork-14A800?style=for-the-badge&logo=upwork&logoColor=white)](https://www.upwork.com/freelancers/xuanhai0913)
 [![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/xuanhai0913)
 [![Facebook](https://img.shields.io/badge/Facebook-1877F2?style=for-the-badge&logo=facebook&logoColor=white)](https://www.facebook.com/nguyenhai0913)
 

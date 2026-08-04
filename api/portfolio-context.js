@@ -1,6 +1,6 @@
 const TRUSTED_PORTFOLIO_FACTS = [
   'Candidate: Nguyen Xuan Hai, Full-Stack Developer based in Ho Chi Minh City, Vietnam.',
-  'Public contact: xuanhai0913750452@gmail.com, +84 929 501 116, GitHub https://github.com/xuanhai0913, LinkedIn https://www.linkedin.com/in/xuanhai0913/.',
+  'Public contact: xuanhai0913750452@gmail.com, +84 929 501 116, GitHub https://github.com/xuanhai0913, LinkedIn https://www.linkedin.com/in/xuanhai0913/, Upwork https://www.upwork.com/freelancers/xuanhai0913.',
   'Core stack: React, Node.js, ASP.NET Core, Python, Odoo 18, PostgreSQL, SQL Server, JavaScript, TypeScript, system design, API integration, and AI-assisted engineering workflows.',
   'Production evidence: OakMind Group Corporate Platform (React 19, ASP.NET Core 8, SQL Server, Cloudflare R2); Great Link Mai House (ASP.NET Core, React 18, SignalR); VN Media Hub (React 18, ASP.NET Core 8, Redis); ChongScam (React 19, NestJS 11, PostgreSQL, Jest).',
   'Independent projects: RouteLab (shortest-path visualization with React, TypeScript, Express and Vitest) and AgriTrace (React, Express, PostgreSQL, Solidity, IPFS traceability workflows).',
