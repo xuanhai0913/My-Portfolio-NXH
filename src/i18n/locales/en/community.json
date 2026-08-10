@@ -1,0 +1,32 @@
+{
+  "eyebrow": "COMMUNITY FIELD NOTES",
+  "title": "COMMUNITY & EVENTS",
+  "intro": "A small record of the communities and initiatives that keep my work grounded in people, learning and practical craft.",
+  "galleryAria": "Community and event photo gallery",
+  "countAria": "{{count}} community moments",
+  "countLabel": "community moments",
+  "footerNote": "Photos are personal records of participation, shared as context alongside the work in this portfolio.",
+  "actions": {
+    "openPhoto": "Open photo for {{title}}",
+    "openFrame": "Open photo",
+    "closeViewer": "Close photo viewer",
+    "close": "Close"
+  },
+  "items": {
+    "aiRiser": {
+      "kind": "AI COMMUNITY / 2026",
+      "title": "AI Riser Vietnam 2026",
+      "description": "Attended AI Riser Vietnam 2026, connecting with the local developer community and following new ideas for applied AI."
+    },
+    "ech": {
+      "kind": "COMMUNITY PROJECT",
+      "title": "English Community (ECH)",
+      "description": "Participated in a community education initiative that supports free English learning for people in difficult circumstances."
+    },
+    "j2team": {
+      "kind": "DEVELOPER COMMUNITY",
+      "title": "J2TEAM Community",
+      "description": "Joined the J2TEAM Community to learn from Vietnamese developers, exchange technical perspectives and stay connected with the wider community."
+    }
+  }
+}

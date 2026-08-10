@@ -17,6 +17,7 @@ import SectionTransition from './components/SectionTransition';
 const Experience = lazy(() => import('./components/Experience/Experience'));
 const Portfolio = lazy(() => import('./components/Portfolio'));
 const Certifications = lazy(() => import('./components/Certifications'));
+const CommunityEvents = lazy(() => import('./components/CommunityEvents'));
 const Contact = lazy(() => import('./components/Contact'));
 const Footer = lazy(() => import('./components/Footer'));
 const ChatWidget = lazy(() => import('./components/ChatWidget'));
@@ -154,6 +155,14 @@ const MainPortfolio = () => {
         <DeferredSection anchorId="certifications" minHeight={700}>
           <Suspense fallback={<SectionFallback />}>
             <Certifications />
+          </Suspense>
+        </DeferredSection>
+      </ErrorBoundary>
+
+      <ErrorBoundary>
+        <DeferredSection anchorId="community" minHeight={760}>
+          <Suspense fallback={<SectionFallback />}>
+            <CommunityEvents />
           </Suspense>
         </DeferredSection>
       </ErrorBoundary>

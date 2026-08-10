@@ -1,0 +1,32 @@
+{
+  "eyebrow": "NHẬT KÝ CỘNG ĐỒNG",
+  "title": "CỘNG ĐỒNG & SỰ KIỆN",
+  "intro": "Một vài dấu mốc từ những cộng đồng và hoạt động giúp việc làm sản phẩm luôn gắn với con người, việc học và tinh thần chia sẻ.",
+  "galleryAria": "Bộ sưu tập ảnh cộng đồng và sự kiện",
+  "countAria": "{{count}} dấu mốc cộng đồng",
+  "countLabel": "dấu mốc cộng đồng",
+  "footerNote": "Ảnh là tư liệu cá nhân ghi lại quá trình tham gia, được chia sẻ để bổ sung bối cảnh cho các công việc trong portfolio.",
+  "actions": {
+    "openPhoto": "Mở ảnh của {{title}}",
+    "openFrame": "Mở ảnh",
+    "closeViewer": "Đóng trình xem ảnh",
+    "close": "Đóng"
+  },
+  "items": {
+    "aiRiser": {
+      "kind": "CỘNG ĐỒNG AI / 2026",
+      "title": "AI Riser Vietnam 2026",
+      "description": "Tham dự AI Riser Vietnam 2026, kết nối với cộng đồng developer địa phương và cập nhật các hướng ứng dụng AI mới."
+    },
+    "ech": {
+      "kind": "DỰ ÁN CỘNG ĐỒNG",
+      "title": "English Community (ECH)",
+      "description": "Tham gia sáng kiến giáo dục cộng đồng, hỗ trợ học tiếng Anh miễn phí cho những người có hoàn cảnh khó khăn."
+    },
+    "j2team": {
+      "kind": "CỘNG ĐỒNG DEVELOPER",
+      "title": "J2TEAM Community",
+      "description": "Tham gia cộng đồng J2TEAM để học hỏi từ các developer Việt Nam, trao đổi góc nhìn kỹ thuật và kết nối với cộng đồng rộng hơn."
+    }
+  }
+}
