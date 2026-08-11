@@ -10,7 +10,15 @@
     "openPhoto": "Mở ảnh của {{title}}",
     "openFrame": "Mở ảnh",
     "closeViewer": "Đóng trình xem ảnh",
-    "close": "Đóng"
+    "close": "Đóng",
+    "storyLabel": "Hành trình qua ảnh",
+    "previousPhoto": "Xem ảnh trước",
+    "nextPhoto": "Xem ảnh tiếp theo",
+    "previous": "Trước",
+    "next": "Tiếp",
+    "goToPhoto": "Xem ảnh {{index}}: {{title}}",
+    "photoProgress": "Ảnh {{current}} trên tổng số {{total}} ảnh",
+    "navigationHint": "Dùng phím mũi tên hoặc vuốt ngang để chuyển ảnh"
   },
   "items": {
     "aiRiser": {

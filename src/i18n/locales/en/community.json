@@ -10,7 +10,15 @@
     "openPhoto": "Open photo for {{title}}",
     "openFrame": "Open photo",
     "closeViewer": "Close photo viewer",
-    "close": "Close"
+    "close": "Close",
+    "storyLabel": "Photo journey",
+    "previousPhoto": "View previous photo",
+    "nextPhoto": "View next photo",
+    "previous": "Previous",
+    "next": "Next",
+    "goToPhoto": "View photo {{index}}: {{title}}",
+    "photoProgress": "Photo {{current}} of {{total}}",
+    "navigationHint": "Use arrow keys or swipe sideways to move through the story"
   },
   "items": {
     "aiRiser": {
