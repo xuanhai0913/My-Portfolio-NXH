@@ -20,13 +20,13 @@
 - Role: Full-Stack Developer
 - Location: Ho Chi Minh City, Vietnam
 - Core technologies: React, TypeScript, ASP.NET Core, NestJS, Python, Odoo 18, PostgreSQL and SQL Server
-- Education: Information Technology at University of Transport Ho Chi Minh City (UTH), expected graduation 2026, GPA 3.24/4.00
+- Education: Information Technology at University of Transport Ho Chi Minh City (UTH), 2022-2026, GPA 3.26/4.00
 - English: B1.4
 
 ## Experience
 
 - Betodemy, Full-Stack Developer, February 2026 to present: Japanese learning platform; product features, bug fixing, weekly issue/release workflow and production support.
-- AI Power, Full-Stack Developer Intern, May 2026 to July 2026: Odoo 18 automotive dealership ERP; supported debugging and fixes across 18 custom modules and 99+ Python files.
+- AI Power, Full-Stack Developer Intern, May 2026 to August 2026: Odoo 18 automotive dealership ERP; supported debugging and fixes across 18 custom modules and 99+ Python files.
 - OakMind Group, Full-Stack Developer, October 2024 to January 2026: delivered OakMind Group Corporate Platform, Great Link Mai House and VN Media Hub from requirement clarification through production release.
 
 ## Verified production work

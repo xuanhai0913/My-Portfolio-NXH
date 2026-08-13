@@ -80,7 +80,7 @@ CV_COPY = {
         ],
         "education": (
             "Ho Chi Minh City University of Transport (UTH):",
-            "Information Technology, 2022 - Expected 2026 | GPA: 3.24/4.00. Coursework and projects focused on software development, OOP, databases and web systems.",
+            "Information Technology, 2022 - 2026 | GPA: 3.26/4.00. Coursework and projects focused on software development, OOP, databases and web systems.",
         ),
         "certifications": [
             ("AWS Training:", "AWS Cloud Practitioner Essentials; Getting into the Serverless Mindset - Completion Certificates (Jul 2026)."),
@@ -125,7 +125,7 @@ CV_COPY = {
         ],
         "education": (
             "Đại học Giao thông Vận tải TP.HCM (UTH):",
-            "Công nghệ Thông tin, 2022 - Dự kiến 2026 | GPA: 3.24/4.00. Học phần và dự án tập trung vào phát triển phần mềm, OOP, cơ sở dữ liệu và hệ thống web.",
+            "Công nghệ Thông tin, 2022 - 2026 | GPA: 3.26/4.00. Học phần và dự án tập trung vào phát triển phần mềm, OOP, cơ sở dữ liệu và hệ thống web.",
         ),
         "certifications": [
             ("Đào tạo AWS:", "AWS Cloud Practitioner Essentials; Getting into the Serverless Mindset - chứng chỉ hoàn thành (07/2026)."),
@@ -399,7 +399,7 @@ WORK_ENTRIES: Sequence[Entry] = [
     Entry(
         role="Odoo ERP Support Developer Intern",
         name="AI Power - Automotive Dealership ERP",
-        period="Start: May 2026 | End: Jul 2026",
+        period="Start: May 2026 | End: Aug 2026",
         link="https://aipower.vn/vi",
         stack="Python 3.12, Odoo 18, PostgreSQL, QWeb/XML, wkhtmltopdf, Docker, GitLab CI/CD, gettext i18n",
         bullets=[
@@ -439,7 +439,7 @@ PROJECT_ENTRIES: Sequence[Entry] = [
     Entry(
         role="Full-Stack / Algorithm Developer",
         name="RouteLab - Shortest Path Laboratory",
-        period="Start: May 2026 | End: Jul 2026",
+        period="Start: May 2026 | End: Aug 2026",
         link="https://tsp-delivery-route-optimizer.vercel.app/",
         stack="React, TypeScript, Express, PostgreSQL, Dijkstra, A*, Floyd-Warshall, Bellman-Ford, Vitest, GitHub Actions",
         bullets=[
@@ -478,7 +478,7 @@ WORK_ENTRIES_VI: Sequence[Entry] = [
     Entry(
         role="Thực tập sinh hỗ trợ phát triển Odoo ERP",
         name="AI Power - ERP đại lý ô tô",
-        period="Bắt đầu: 05/2026 | Kết thúc: 07/2026",
+        period="Bắt đầu: 05/2026 | Kết thúc: 08/2026",
         link="https://aipower.vn/vi",
         stack="Python 3.12, Odoo 18, PostgreSQL, QWeb/XML, wkhtmltopdf, Docker, GitLab CI/CD, gettext i18n",
         bullets=[
@@ -518,7 +518,7 @@ PROJECT_ENTRIES_VI: Sequence[Entry] = [
     Entry(
         role="Lập trình viên Full-stack / Thuật toán",
         name="RouteLab - Phòng thí nghiệm đường đi ngắn nhất",
-        period="Bắt đầu: 05/2026 | Kết thúc: 07/2026",
+        period="Bắt đầu: 05/2026 | Kết thúc: 08/2026",
         link="https://tsp-delivery-route-optimizer.vercel.app/",
         stack="React, TypeScript, Express, PostgreSQL, Dijkstra, A*, Floyd-Warshall, Bellman-Ford, Vitest, GitHub Actions",
         bullets=[
