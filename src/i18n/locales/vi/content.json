@@ -42,6 +42,86 @@
     "profileContextReady": "Đã tải hồ sơ",
     "jdContextReady": "Đã tải ngữ cảnh JD",
     "aiConnected": "AI đã kết nối",
+    "tools": {
+      "toggle": "{{count}} công cụ",
+      "eyebrow": "NĂNG LỰC CỦA AGENT",
+      "title": "Trợ lý được phép truy cập gì?",
+      "description": "Một bộ công cụ nhỏ, minh bạch sẽ lấy dữ liệu portfolio đã duyệt trước khi trợ lý trả lời.",
+      "readOnly": "Chỉ đọc",
+      "allowed": "Được phép",
+      "close": "Đóng bảng năng lực agent",
+      "safety": "Agent không thể mở URL tùy ý, đọc file riêng tư, gửi tin nhắn hay thực hiện thao tác ghi dữ liệu.",
+      "provenance": "Nguồn dữ liệu portfolio đã dùng cho câu trả lời",
+      "verifiedWith_one": "Đã xác minh bằng {{count}} công cụ portfolio",
+      "verifiedWith_other": "Đã xác minh bằng {{count}} công cụ portfolio",
+      "catalog": {
+        "snapshot": {
+          "title": "Tóm tắt ứng viên",
+          "description": "Vai trò, kỹ năng chính, địa điểm và số liệu hồ sơ."
+        },
+        "projects": {
+          "title": "Dẫn chứng dự án",
+          "description": "Tìm dự án theo công nghệ, vai trò, phần việc hoặc kết quả."
+        },
+        "experience": {
+          "title": "Kinh nghiệm làm việc",
+          "description": "Lấy vai trò, thời gian, phạm vi và dẫn chứng đã xác minh."
+        },
+        "credentials": {
+          "title": "Chứng chỉ",
+          "description": "Tìm các chứng chỉ AWS, Google, cloud và AI tiêu biểu."
+        },
+        "contacts": {
+          "title": "Kênh công khai",
+          "description": "Lấy CV, email và hồ sơ nghề nghiệp đã được duyệt."
+        }
+      }
+    },
+    "loadingStages": {
+      "plan": "Đang hiểu câu hỏi tuyển dụng",
+      "retrieve": "Đang kiểm tra dữ liệu portfolio",
+      "compose": "Đang tạo câu trả lời có dẫn chứng",
+      "safety": "Công cụ chỉ đọc · dữ liệu công khai đã duyệt"
+    },
+    "dataCards": {
+      "coreSkills": "Kỹ năng chính",
+      "role": "Vai trò:",
+      "evidence": "Dẫn chứng:",
+      "viewProject": "Xem dự án",
+      "verifySource": "Kiểm tra nguồn",
+      "verifyCredential": "Xác minh chứng chỉ",
+      "openProjectAria": "Mở dự án {{name}} trong tab mới",
+      "openExperienceAria": "Mở nguồn {{company}} trong tab mới",
+      "openCredentialAria": "Xác minh {{name}} trong tab mới",
+      "openContactAria": "Mở kênh liên hệ {{label}}",
+      "contactSafety": "Trợ lý chỉ hiển thị các kênh công khai này và không thể tự liên hệ thay bạn.",
+      "noResults": "Không có dữ liệu portfolio đã xác minh phù hợp. Hãy thử tên công nghệ, công ty hoặc chứng chỉ rộng hơn.",
+      "stats": {
+        "productionProjects": "Dự án vận hành",
+        "portfolioProjects": "Dự án portfolio",
+        "companies": "Công ty",
+        "certifications": "Chứng chỉ",
+        "awsCredentials": "Chứng chỉ AWS"
+      }
+    },
+    "progressive": {
+      "showMoreAnswer": "Xem toàn bộ câu trả lời",
+      "showLessAnswer": "Thu gọn",
+      "evidence_one": "Xem {{count}} dẫn chứng đã xác minh",
+      "evidence_other": "Xem {{count}} dẫn chứng đã xác minh",
+      "evidenceHint": "Dự án, chứng chỉ và liên kết nguồn",
+      "showMoreRecords_one": "Xem thêm {{count}} mục",
+      "showMoreRecords_other": "Xem thêm {{count}} mục",
+      "showFewerRecords": "Thu gọn danh sách"
+    },
+    "recruiterBrief": {
+      "eyebrow": "TÓM TẮT 30 GIÂY CHO NHÀ TUYỂN DỤNG",
+      "title": "Full-stack developer thiên về sản phẩm thực tế, có dẫn chứng cloud và AI.",
+      "description": "Xem tín hiệu chính trước. Chỉ yêu cầu trợ lý kiểm chứng độ phù hợp, phần việc hoặc kết quả khi bạn cần đi sâu.",
+      "signalsAria": "Tín hiệu portfolio đã xác minh",
+      "start": "Xem tóm tắt",
+      "trust": "Dựa trên dữ liệu portfolio công khai đã duyệt · công cụ chỉ đọc"
+    },
     "commandEyebrow": "TRUNG TÂM HỖ TRỢ TUYỂN DỤNG",
     "commandTitle": "Bạn muốn xác minh điều gì?",
     "commandDescription": "Chọn một góc đánh giá. Mỗi câu trả lời đều dựa trên kinh nghiệm, dự án và chứng chỉ của Hải.",
@@ -108,7 +188,9 @@
     "removeJdAria": "Xóa ngữ cảnh JD",
     "suggestionsAria": "Câu hỏi tiếp theo được đề xuất",
     "slashCommandsAria": "Các lệnh nhanh",
-    "inputPlaceholder": "Đặt câu hỏi về Nguyễn Xuân Hải...",
+    "inputPlaceholder": "Đặt câu hỏi về Nguyễn Xuân Hải…",
+    "inputAria": "Nhắn tin cho trợ lý portfolio của Hải",
+    "composerHint": "Enter để gửi · Shift + Enter để xuống dòng · / để mở lệnh",
     "send": "Gửi",
     "emailSubject": "Trao đổi cơ hội hợp tác - Nguyễn Xuân Hải",
     "emailBody": "Chào Hải,\n\nTôi muốn trao đổi với bạn về một cơ hội hợp tác.",

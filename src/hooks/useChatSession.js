@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 const CHAT_SESSION_KEY = 'nxh_portfolio_chat_session_v1';
-const CHAT_SESSION_SCHEMA_VERSION = 2;
+const CHAT_SESSION_SCHEMA_VERSION = 3;
 const TTL_DAYS = 7;
 const TTL_MS = TTL_DAYS * 24 * 60 * 60 * 1000;
 const MAX_STORED_MESSAGES = 120;
@@ -22,6 +22,7 @@ function normalizeMessages(messages) {
       timestamp: item.timestamp || now(),
       action: item.action || null,
       modelUsed: item.modelUsed || null,
+      toolExecutions: Array.isArray(item.toolExecutions) ? item.toolExecutions : [],
     }));
 }
 

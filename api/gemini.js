@@ -4,6 +4,7 @@ const {
   normalizeLocale,
   normalizeResponseStyle,
 } = require('./portfolio-context');
+const { FUNCTION_DECLARATIONS, executeToolCalls } = require('./portfolio-tools');
 
 const GEMINI_API_BASE = 'https://generativelanguage.googleapis.com/v1beta/models';
 
@@ -325,6 +326,96 @@ async function callGeminiModel(model, apiKey, payload, timeoutMs = REQUEST_TIMEO
   } finally {
     clearTimeout(timeout);
   }
+}
+
+function extractFunctionCalls(data) {
+  const parts = data?.candidates?.[0]?.content?.parts;
+  if (!Array.isArray(parts)) return [];
+
+  return parts
+    .map((part) => part?.functionCall)
+    .filter((call) => call && typeof call.name === 'string');
+}
+
+async function callGeminiWithPortfolioTools(model, apiKey, payload, locale, deadlineAt) {
+  const initialRemainingMs = deadlineAt - Date.now();
+  if (initialRemainingMs <= 0) {
+    const timeoutError = new Error('REQUEST_DEADLINE_EXCEEDED');
+    timeoutError.name = 'AbortError';
+    throw timeoutError;
+  }
+
+  const baseGenerationConfig = {
+    temperature: payload.generationConfig.temperature,
+    maxOutputTokens: payload.generationConfig.maxOutputTokens,
+    topP: payload.generationConfig.topP,
+  };
+  const tools = [{ functionDeclarations: FUNCTION_DECLARATIONS }];
+  const initialPayload = {
+    ...payload,
+    tools,
+    toolConfig: { functionCallingConfig: { mode: 'AUTO' } },
+    generationConfig: baseGenerationConfig,
+  };
+  const initialResult = await callGeminiModel(
+    model,
+    apiKey,
+    initialPayload,
+    Math.min(REQUEST_TIMEOUT_MS, initialRemainingMs)
+  );
+
+  if (!initialResult.ok) {
+    return { ...initialResult, toolExecutions: [], dataCards: [] };
+  }
+
+  const functionCalls = extractFunctionCalls(initialResult.data);
+  if (functionCalls.length === 0) {
+    return { ...initialResult, toolExecutions: [], dataCards: [] };
+  }
+
+  const toolOutput = executeToolCalls(functionCalls, locale);
+  const modelContent = initialResult.data?.candidates?.[0]?.content;
+  if (!modelContent || !Array.isArray(modelContent.parts)) {
+    return { ...initialResult, toolExecutions: [], dataCards: [] };
+  }
+
+  const functionResponseParts = toolOutput.responses.map((item) => {
+    const functionResponse = {
+      name: item.name,
+      response: { result: item.response },
+    };
+    if (item.id) functionResponse.id = item.id;
+    return { functionResponse };
+  });
+  const finalRemainingMs = deadlineAt - Date.now();
+  if (finalRemainingMs <= 0) {
+    const timeoutError = new Error('REQUEST_DEADLINE_EXCEEDED');
+    timeoutError.name = 'AbortError';
+    throw timeoutError;
+  }
+
+  const finalPayload = {
+    ...payload,
+    contents: [
+      ...payload.contents,
+      modelContent,
+      { role: 'user', parts: functionResponseParts },
+    ],
+    tools,
+    toolConfig: { functionCallingConfig: { mode: 'NONE' } },
+  };
+  const finalResult = await callGeminiModel(
+    model,
+    apiKey,
+    finalPayload,
+    Math.min(REQUEST_TIMEOUT_MS, finalRemainingMs)
+  );
+
+  return {
+    ...finalResult,
+    toolExecutions: toolOutput.executions,
+    dataCards: toolOutput.cards,
+  };
 }
 
 function extractText(data) {
@@ -836,17 +927,31 @@ module.exports = async (req, res) => {
 
     triedModels.push(model);
     try {
-      const result = await callGeminiModel(
+      const result = await callGeminiWithPortfolioTools(
         model,
         apiKey,
         payload,
-        Math.min(REQUEST_TIMEOUT_MS, remainingMs)
+        normalizedLocale,
+        deadlineAt
       );
       const responseText = extractText(result.data);
       const parsed = tryParseJson(responseText);
-      const structuredResponse = normalizeStructuredResponse(parsed) || extractStructuredFromJsonLikeText(responseText);
+      const normalizedStructured = normalizeStructuredResponse(parsed) || extractStructuredFromJsonLikeText(responseText);
       const fallbackText = stripMarkdownNoise(responseText);
       const looksLikeRawJson = /^\s*\{[\s\S]*$/m.test(fallbackText);
+      const hasDataCards = Array.isArray(result.dataCards) && result.dataCards.length > 0;
+      const cardFallbackAnswer = isVietnamese
+        ? 'Mình đã tìm thấy dữ liệu portfolio đã xác minh phù hợp với câu hỏi.'
+        : 'I found verified portfolio data that matches this question.';
+      const structuredResponse = normalizedStructured
+        ? { ...normalizedStructured, dataCards: result.dataCards || [] }
+        : (hasDataCards
+          ? {
+            answer: looksLikeRawJson || !fallbackText ? cardFallbackAnswer : fallbackText,
+            dataCards: result.dataCards,
+            suggestions: [],
+          }
+          : null);
       const safeText = structuredResponse
         ? buildReadableStructuredText(structuredResponse, isVietnamese)
         : (looksLikeRawJson ? '' : fallbackText);
@@ -858,6 +963,7 @@ module.exports = async (req, res) => {
           fallbackTried: triedModels.length - 1,
           responseText: safeText,
           structuredResponse,
+          toolExecutions: result.toolExecutions || [],
         });
       }
 

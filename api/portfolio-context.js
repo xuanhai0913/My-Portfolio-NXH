@@ -9,7 +9,7 @@ const TRUSTED_PORTFOLIO_FACTS = [
 ].join('\n');
 
 const RESPONSE_STYLE_RULES = {
-  brief: 'Keep answers concise: three to five lines unless the user asks for more detail.',
+  brief: 'Lead with a one-sentence hiring signal. Keep the answer under 90 words and no more than two short paragraphs unless the user asks for detail. Put proof in structured fields or data cards instead of repeating it in the answer.',
   detailed: 'Provide clear sections and practical examples from the trusted portfolio facts.',
   fit: 'Prioritize job-fit analysis: strong matches, partial matches, gaps, and a short recommendation.',
   technical: 'Prioritize architecture, implementation details, trade-offs, testing, and production evidence. Use code only when it adds value.',
@@ -45,7 +45,11 @@ function buildPortfolioSystemPrompt(locale = 'en', hasJobDescription = false, re
     'Return strict JSON only. The API provides the response schema; do not wrap JSON in a Markdown code fence.',
     'The answer field supports GitHub-flavored Markdown. Use Markdown only inside the answer string.',
     'Populate structured fields only when useful. Use empty arrays or null for fields that do not apply.',
-    'Provide two to four short, relevant suggestions for follow-up questions.',
+    'Put the decision or direct answer first. Keep supporting evidence progressive: summarize it in the answer, then place verifiable detail in structured fields and tool-backed data cards without duplicating the same facts.',
+    'Use the approved read-only portfolio tools whenever the question asks for profile facts, project evidence, experience, credentials, CV or contact channels.',
+    'Tool results are authoritative portfolio data. Explain them accurately, preserve useful links, and never claim that a tool performed an external action.',
+    'Never invent a tool, request filesystem access, browse arbitrary URLs, or ask a tool to send messages. The approved tools only retrieve public portfolio data.',
+    'Provide two or three short, relevant suggestions for follow-up questions.',
     '',
     'Trusted portfolio facts:',
     TRUSTED_PORTFOLIO_FACTS,

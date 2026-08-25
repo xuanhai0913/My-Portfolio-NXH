@@ -17,6 +17,12 @@ import {
   resolveStructuredAction,
 } from '../../utils/chatActions';
 import { getTrackedChatEvents, trackChatEvent } from '../../utils/chatTelemetry';
+import {
+  getPortfolioToolDefinition,
+  PORTFOLIO_AGENT_TOOLS,
+  RECRUITER_BRIEF_STATS,
+} from '../../utils/portfolioAgentTools';
+import AgentResultCards, { getSafeAgentLink } from './AgentResultCards';
 import './ChatWidget.css';
 
 const MAX_CONTEXT_MESSAGES = 16;
@@ -42,6 +48,7 @@ function createMessage(role, content, extra = {}) {
     timestamp: Date.now(),
     action: extra.action || null,
     modelUsed: extra.modelUsed || null,
+    toolExecutions: Array.isArray(extra.toolExecutions) ? extra.toolExecutions : [],
   };
 }
 
@@ -267,6 +274,31 @@ function MarkdownMessage({ children }) {
   return <div className="chat-markdown">{blocks}</div>;
 }
 
+function ExpandableMarkdownMessage({ children }) {
+  const { t } = useTranslation('content');
+  const [expanded, setExpanded] = useState(false);
+  const content = String(children || '');
+  const isLong = content.length > 460 || content.split('\n').length > 8;
+
+  return (
+    <div className={`chat-answer ${isLong ? 'is-long' : ''} ${expanded ? 'is-expanded' : ''}`}>
+      <div className="chat-answer-content">
+        <MarkdownMessage>{content}</MarkdownMessage>
+      </div>
+      {isLong ? (
+        <button
+          type="button"
+          className="chat-answer-toggle"
+          onClick={() => setExpanded((current) => !current)}
+          aria-expanded={expanded}
+        >
+          {t(expanded ? 'chat.progressive.showLessAnswer' : 'chat.progressive.showMoreAnswer')}
+        </button>
+      ) : null}
+    </div>
+  );
+}
+
 function parseJsonLikeAssistantContent(content, t) {
   if (!content || typeof content !== 'string') return null;
   const trimmed = content.trim();
@@ -308,6 +340,7 @@ function parseJsonLikeAssistantContent(content, t) {
         nextActions: [],
         fitSummary: null,
         suggestions: [],
+        dataCards: [],
       },
     };
   }
@@ -324,6 +357,7 @@ function parseJsonLikeAssistantContent(content, t) {
   const interviewQuestions = getCaseInsensitiveField(parsed, 'interviewQuestions');
   const nextActions = getCaseInsensitiveField(parsed, 'nextActions');
   const fitSummary = getCaseInsensitiveField(parsed, 'fitSummary');
+  const dataCards = getCaseInsensitiveField(parsed, 'dataCards');
 
   if (
     !answer
@@ -338,6 +372,7 @@ function parseJsonLikeAssistantContent(content, t) {
     && !Array.isArray(interviewQuestions)
     && !Array.isArray(nextActions)
     && !fitSummary
+    && !Array.isArray(dataCards)
   ) {
     return null;
   }
@@ -359,6 +394,7 @@ function parseJsonLikeAssistantContent(content, t) {
       nextActions: Array.isArray(nextActions) ? nextActions : [],
       fitSummary: fitSummary && typeof fitSummary === 'object' ? fitSummary : null,
       suggestions: [],
+      dataCards: Array.isArray(dataCards) ? dataCards : [],
     },
   };
 }
@@ -376,57 +412,37 @@ function ActionCard({ action, onRunNextAction, onAskInterviewQuestion }) {
     const hasRiskFlags = Array.isArray(action.riskFlags) && action.riskFlags.length > 0;
     const hasInterviewQuestions = Array.isArray(action.interviewQuestions) && action.interviewQuestions.length > 0;
     const hasNextActions = Array.isArray(action.nextActions) && action.nextActions.length > 0;
+    const hasHighlights = Array.isArray(action.highlights) && action.highlights.length > 0;
+    const hasLinks = Array.isArray(action.links) && action.links.length > 0;
+    const hasDataCards = Array.isArray(action.dataCards) && action.dataCards.length > 0;
+    const hasFitDetails = Boolean(
+      action.fitSummary
+      && (
+        (Array.isArray(action.fitSummary.strongMatches) && action.fitSummary.strongMatches.length > 0)
+        || (Array.isArray(action.fitSummary.gaps) && action.fitSummary.gaps.length > 0)
+      )
+    );
+    const evidenceCount = Math.max(1, (action.dataCards || []).reduce((total, card) => (
+      total + (Array.isArray(card?.items) ? card.items.length : 1)
+    ), 0));
+    const hasEvidenceDetails = hasDataCards
+      || hasHighlights
+      || hasInsights
+      || hasTimeline
+      || hasSkillsMatrix
+      || hasRiskFlags
+      || hasInterviewQuestions
+      || hasLinks
+      || hasFitDetails;
 
     return (
       <div className="chat-action-card chat-rich-card">
         {hasQuickFacts ? (
           <div className="chat-facts-grid">
-            {action.quickFacts.map((item, index) => (
+            {action.quickFacts.slice(0, 3).map((item, index) => (
               <div key={`fact-${index}`} className="chat-fact-item">
                 <span>{item.label}</span>
                 <strong>{item.value}</strong>
-              </div>
-            ))}
-          </div>
-        ) : null}
-
-        {Array.isArray(action.highlights) && action.highlights.length > 0 ? (
-          <ul>
-            {action.highlights.map((item, index) => (
-              <li key={`highlight-${index}`}>{item}</li>
-            ))}
-          </ul>
-        ) : null}
-
-        {hasInsights ? (
-          <div className="chat-insights-list">
-            {action.insights.map((item, index) => (
-              <article key={`insight-${index}`} className={`chat-insight-item priority-${item.priority || 'medium'}`}>
-                {item.title ? <h5>{item.title}</h5> : null}
-                {item.detail ? <p>{item.detail}</p> : null}
-              </article>
-            ))}
-          </div>
-        ) : null}
-
-        {hasTimeline ? (
-          <div className="chat-timeline">
-            {action.timeline.map((item, index) => (
-              <div key={`timeline-${index}`} className="chat-timeline-item">
-                <strong>{item.phase || t('chat.structured.step', { count: index + 1 })}</strong>
-                <span>{item.detail}</span>
-              </div>
-            ))}
-          </div>
-        ) : null}
-
-        {hasSkillsMatrix ? (
-          <div className="chat-skills-matrix">
-            {action.skillsMatrix.map((item, index) => (
-              <div key={`skill-${index}`} className="chat-skill-row">
-                <span className="chat-skill-name">{item.skill}</span>
-                <span className={`chat-skill-level level-${item.level || 'medium'}`}>{item.level || t('chat.structured.medium')}</span>
-                {item.evidence ? <small>{item.evidence}</small> : null}
               </div>
             ))}
           </div>
@@ -442,33 +458,137 @@ function ActionCard({ action, onRunNextAction, onAskInterviewQuestion }) {
           </div>
         ) : null}
 
-        {hasRiskFlags ? (
-          <div className="chat-risk-flags">
-            {action.riskFlags.map((item, index) => (
-              <article key={`risk-${index}`} className={`chat-risk-item severity-${item.severity || 'medium'}`}>
-                <h6>{item.title || t('chat.structured.risk')}</h6>
-                {item.detail ? <p>{item.detail}</p> : null}
-              </article>
-            ))}
+        {action.fitSummary ? (
+          <div className="chat-fit-summary chat-fit-summary-primary">
+            <p><strong>{t('chat.structured.match')}</strong> {action.fitSummary.matchLevel || t('chat.structured.unknown')}</p>
+            {action.fitSummary.recommendation ? (
+              <p><strong>{t('chat.structured.recommendation')}</strong> {action.fitSummary.recommendation}</p>
+            ) : null}
           </div>
         ) : null}
 
-        {hasInterviewQuestions ? (
-          <div className="chat-interview-questions">
-            <p><strong>{t('chat.structured.interviewQuestions')}</strong></p>
-            <ol>
-              {action.interviewQuestions.map((item, index) => (
-                <li key={`question-${index}`}>
-                  <button type="button" onClick={() => onAskInterviewQuestion?.(item)}>{item}</button>
-                </li>
-              ))}
-            </ol>
-          </div>
+        {hasEvidenceDetails ? (
+          <details className="chat-evidence-disclosure">
+            <summary>
+              <span>
+                <strong>{t('chat.progressive.evidence', { count: evidenceCount })}</strong>
+                <small>{t('chat.progressive.evidenceHint')}</small>
+              </span>
+              <i aria-hidden="true">+</i>
+            </summary>
+            <div className="chat-evidence-content">
+              <AgentResultCards cards={action.dataCards} />
+
+              {hasHighlights ? (
+                <ul>
+                  {action.highlights.map((item, index) => (
+                    <li key={`highlight-${index}`}>{item}</li>
+                  ))}
+                </ul>
+              ) : null}
+
+              {hasInsights ? (
+                <div className="chat-insights-list">
+                  {action.insights.map((item, index) => (
+                    <article key={`insight-${index}`} className={`chat-insight-item priority-${item.priority || 'medium'}`}>
+                      {item.title ? <h5>{item.title}</h5> : null}
+                      {item.detail ? <p>{item.detail}</p> : null}
+                    </article>
+                  ))}
+                </div>
+              ) : null}
+
+              {hasTimeline ? (
+                <div className="chat-timeline">
+                  {action.timeline.map((item, index) => (
+                    <div key={`timeline-${index}`} className="chat-timeline-item">
+                      <strong>{item.phase || t('chat.structured.step', { count: index + 1 })}</strong>
+                      <span>{item.detail}</span>
+                    </div>
+                  ))}
+                </div>
+              ) : null}
+
+              {hasSkillsMatrix ? (
+                <div className="chat-skills-matrix">
+                  {action.skillsMatrix.map((item, index) => (
+                    <div key={`skill-${index}`} className="chat-skill-row">
+                      <span className="chat-skill-name">{item.skill}</span>
+                      <span className={`chat-skill-level level-${item.level || 'medium'}`}>{item.level || t('chat.structured.medium')}</span>
+                      {item.evidence ? <small>{item.evidence}</small> : null}
+                    </div>
+                  ))}
+                </div>
+              ) : null}
+
+              {hasRiskFlags ? (
+                <div className="chat-risk-flags">
+                  {action.riskFlags.map((item, index) => (
+                    <article key={`risk-${index}`} className={`chat-risk-item severity-${item.severity || 'medium'}`}>
+                      <h6>{item.title || t('chat.structured.risk')}</h6>
+                      {item.detail ? <p>{item.detail}</p> : null}
+                    </article>
+                  ))}
+                </div>
+              ) : null}
+
+              {hasFitDetails ? (
+                <div className="chat-fit-summary">
+                  {Array.isArray(action.fitSummary.strongMatches) && action.fitSummary.strongMatches.length > 0 ? (
+                    <>
+                      <p><strong>{t('chat.structured.strongMatches')}</strong></p>
+                      <ul>
+                        {action.fitSummary.strongMatches.map((item, index) => (
+                          <li key={`strong-${index}`}>{item}</li>
+                        ))}
+                      </ul>
+                    </>
+                  ) : null}
+                  {Array.isArray(action.fitSummary.gaps) && action.fitSummary.gaps.length > 0 ? (
+                    <>
+                      <p><strong>{t('chat.structured.gaps')}</strong></p>
+                      <ul>
+                        {action.fitSummary.gaps.map((item, index) => (
+                          <li key={`gap-${index}`}>{item}</li>
+                        ))}
+                      </ul>
+                    </>
+                  ) : null}
+                </div>
+              ) : null}
+
+              {hasInterviewQuestions ? (
+                <div className="chat-interview-questions">
+                  <p><strong>{t('chat.structured.interviewQuestions')}</strong></p>
+                  <ol>
+                    {action.interviewQuestions.map((item, index) => (
+                      <li key={`question-${index}`}>
+                        <button type="button" onClick={() => onAskInterviewQuestion?.(item)}>{item}</button>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              ) : null}
+
+              {hasLinks ? (
+                <div className="chat-action-list">
+                  {action.links.map((item, index) => {
+                    const safeUrl = getSafeAgentLink(item.url);
+                    return safeUrl ? (
+                      <a key={`${safeUrl}-${index}`} href={safeUrl} target="_blank" rel="noopener noreferrer">
+                        {item.label}
+                      </a>
+                    ) : null;
+                  })}
+                </div>
+              ) : null}
+            </div>
+          </details>
         ) : null}
 
         {hasNextActions ? (
           <div className="chat-next-actions">
-            {action.nextActions.map((item, index) => {
+            {action.nextActions.slice(0, 3).map((item, index) => {
               return (
                 <button
                   key={`next-${index}`}
@@ -479,48 +599,6 @@ function ActionCard({ action, onRunNextAction, onAskInterviewQuestion }) {
                 </button>
               );
             })}
-          </div>
-        ) : null}
-
-        {Array.isArray(action.links) && action.links.length > 0 ? (
-          <div className="chat-action-list">
-            {action.links.map((item, index) => (
-              <a key={`${item.url}-${index}`} href={item.url} target="_blank" rel="noopener noreferrer">
-                {item.label}
-              </a>
-            ))}
-          </div>
-        ) : null}
-
-        {action.fitSummary ? (
-          <div className="chat-fit-summary">
-            <p><strong>{t('chat.structured.match')}</strong> {action.fitSummary.matchLevel || t('chat.structured.unknown')}</p>
-
-            {Array.isArray(action.fitSummary.strongMatches) && action.fitSummary.strongMatches.length > 0 ? (
-              <>
-                <p><strong>{t('chat.structured.strongMatches')}</strong></p>
-                <ul>
-                  {action.fitSummary.strongMatches.map((item, index) => (
-                    <li key={`strong-${index}`}>{item}</li>
-                  ))}
-                </ul>
-              </>
-            ) : null}
-
-            {Array.isArray(action.fitSummary.gaps) && action.fitSummary.gaps.length > 0 ? (
-              <>
-                <p><strong>{t('chat.structured.gaps')}</strong></p>
-                <ul>
-                  {action.fitSummary.gaps.map((item, index) => (
-                    <li key={`gap-${index}`}>{item}</li>
-                  ))}
-                </ul>
-              </>
-            ) : null}
-
-            {action.fitSummary.recommendation ? (
-              <p><strong>{t('chat.structured.recommendation')}</strong> {action.fitSummary.recommendation}</p>
-            ) : null}
           </div>
         ) : null}
       </div>
@@ -611,6 +689,47 @@ function CopilotIcon({ type }) {
   );
 }
 
+function AgentToolIcon({ type }) {
+  const paths = {
+    profile: (
+      <>
+        <circle cx="12" cy="8" r="3" />
+        <path d="M5.5 19c.8-3.5 3-5.2 6.5-5.2s5.7 1.7 6.5 5.2" />
+      </>
+    ),
+    projects: (
+      <>
+        <path d="M4 6.5h6l1.8 2H20v10H4z" />
+        <path d="M8 12h8M8 15h5" />
+      </>
+    ),
+    experience: (
+      <>
+        <rect x="4" y="7" width="16" height="11" rx="1.5" />
+        <path d="M9 7V5h6v2M4 12h16M10 12v2h4v-2" />
+      </>
+    ),
+    credentials: (
+      <>
+        <circle cx="12" cy="10" r="6" />
+        <path d="m9.5 10 1.7 1.7 3.5-3.6M9 15l-1 5 4-2 4 2-1-5" />
+      </>
+    ),
+    contacts: (
+      <>
+        <rect x="3.5" y="5.5" width="17" height="13" rx="2" />
+        <path d="m5 7 7 5 7-5" />
+      </>
+    ),
+  };
+
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      {paths[type] || paths.profile}
+    </svg>
+  );
+}
+
 const ChatWidget = ({ mode = 'floating' }) => {
   const { t, i18n } = useTranslation('content');
   const isStandalonePage = mode === 'page';
@@ -644,6 +763,8 @@ const ChatWidget = ({ mode = 'floating' }) => {
   const [activeHeaderAction, setActiveHeaderAction] = useState('');
   const [showActionsMenu, setShowActionsMenu] = useState(false);
   const [showTelemetryPanel, setShowTelemetryPanel] = useState(false);
+  const [showToolbox, setShowToolbox] = useState(false);
+  const [loadingStage, setLoadingStage] = useState(0);
   const [telemetryEvents, setTelemetryEvents] = useState([]);
   const [activeCommandIndex, setActiveCommandIndex] = useState(0);
   const chatBodyRef = useRef(null);
@@ -721,6 +842,10 @@ const ChatWidget = ({ mode = 'floating' }) => {
     const handleEscape = (event) => {
       if (event.key !== 'Escape' || event.defaultPrevented) return;
       event.preventDefault();
+      if (showToolbox) {
+        setShowToolbox(false);
+        return;
+      }
       setOpen(false);
       requestAnimationFrame(() => {
         (launcherRef.current || previousFocusRef.current)?.focus?.();
@@ -729,12 +854,29 @@ const ChatWidget = ({ mode = 'floating' }) => {
 
     document.addEventListener('keydown', handleEscape);
     return () => document.removeEventListener('keydown', handleEscape);
-  }, [isStandalonePage, open]);
+  }, [isStandalonePage, open, showToolbox]);
 
   useEffect(() => {
     if (!open || !chatBodyRef.current) return;
     chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
   }, [messages, loading, open]);
+
+  useEffect(() => {
+    if (!loading) {
+      setLoadingStage(0);
+      return undefined;
+    }
+
+    const timer = window.setInterval(() => {
+      setLoadingStage((stage) => Math.min(stage + 1, 2));
+    }, 900);
+    return () => window.clearInterval(timer);
+  }, [loading]);
+
+  useEffect(() => {
+    if (input || !inputRef.current) return;
+    inputRef.current.style.height = 'auto';
+  }, [input]);
 
   useEffect(() => {
     if (!showActionsMenu) return undefined;
@@ -791,6 +933,18 @@ const ChatWidget = ({ mode = 'floating' }) => {
       prompt: t(`chat.modes.${key}.prompt`),
     }))
   ), [t]);
+  const primaryCopilotMode = copilotModes[0];
+  const secondaryCopilotModes = copilotModes.slice(1, 3);
+  const agentTools = useMemo(() => PORTFOLIO_AGENT_TOOLS.map((tool) => ({
+    ...tool,
+    title: t(tool.titleKey),
+    description: t(tool.descriptionKey),
+  })), [t]);
+  const loadingStageLabel = t([
+    'chat.loadingStages.plan',
+    'chat.loadingStages.retrieve',
+    'chat.loadingStages.compose',
+  ][loadingStage]);
   const isHeaderActionBusy = Boolean(activeHeaderAction);
   const commandPrefixInput = input.trimStart();
   const isCommandMode = commandPrefixInput.startsWith('/');
@@ -803,6 +957,9 @@ const ChatWidget = ({ mode = 'floating' }) => {
 
     return CONTACT_TRIGGER_REGEX.test(recentUserText);
   }, [messages]);
+  const isInitialRecruiterView = messages.length === 1
+    && messages[0]?.role === 'assistant'
+    && WELCOME_MESSAGES.has(messages[0]?.content);
 
   const handleClear = () => {
     clearSession(initialMessages);
@@ -1180,7 +1337,15 @@ const ChatWidget = ({ mode = 'floating' }) => {
   };
 
   const handleInputKeyDown = (event) => {
-    if (!isCommandMode || filteredSlashCommands.length === 0) return;
+    if (event.nativeEvent?.isComposing) return;
+
+    if (!isCommandMode || filteredSlashCommands.length === 0) {
+      if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+        handleSend(input);
+      }
+      return;
+    }
 
     if (event.key === 'ArrowDown') {
       event.preventDefault();
@@ -1201,7 +1366,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
       return;
     }
 
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && !event.shiftKey) {
       event.preventDefault();
       runCommandAtIndex(activeCommandIndex);
     }
@@ -1236,6 +1401,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
       return {
         content: fallbackText,
         modelUsed: payload?.modelUsed || null,
+        toolExecutions: [],
       };
     }
 
@@ -1271,6 +1437,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
       modelUsed: payload.modelUsed,
       action: ensuredAction,
       suggestions: payload?.structuredResponse?.suggestions || [],
+      toolExecutions: Array.isArray(payload.toolExecutions) ? payload.toolExecutions : [],
     };
   };
 
@@ -1305,6 +1472,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
       appendMessage(createMessage('assistant', modelReply.content, {
         modelUsed: modelReply.modelUsed,
         action: modelReply.action,
+        toolExecutions: modelReply.toolExecutions,
       }));
     } catch (error) {
       trackChatEvent('message_send_failed', {
@@ -1484,6 +1652,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
         appendMessage(createMessage('assistant', modelReply.content, {
           modelUsed: modelReply.modelUsed,
           action: modelReply.action,
+          toolExecutions: modelReply.toolExecutions,
         }));
       } catch (error) {
         appendMessage(
@@ -1622,13 +1791,53 @@ const ChatWidget = ({ mode = 'floating' }) => {
           </div>
         </header>
 
-        <div className="chat-status-rail" aria-label={t('chat.contextStatus')}>
-          <span className={jobDescription ? 'ready' : ''}>
-            {jobDescription ? t('chat.jdContextReady') : t('chat.profileContextReady')}
-          </span>
-          <span>{t(`chat.styles.${responseStyle}`)}</span>
-          <span>{language.toUpperCase()}</span>
-          {lastModelUsed ? <span>{t('chat.aiConnected')}</span> : null}
+        <div className="chat-context-bar">
+          <div className="chat-status-rail" aria-label={t('chat.contextStatus')}>
+            <span className={jobDescription ? 'ready' : ''}>
+              {jobDescription ? t('chat.jdContextReady') : t('chat.profileContextReady')}
+            </span>
+            <span>{t(`chat.styles.${responseStyle}`)}</span>
+            <span>{language.toUpperCase()}</span>
+            {lastModelUsed ? <span>{t('chat.aiConnected')}</span> : null}
+            <button
+              type="button"
+              className={showToolbox ? 'active' : ''}
+              onClick={() => setShowToolbox((current) => !current)}
+              aria-expanded={showToolbox}
+              aria-controls="chat-agent-toolbox"
+            >
+              {t('chat.tools.toggle', { count: agentTools.length })}
+            </button>
+          </div>
+
+          {showToolbox ? (
+            <section id="chat-agent-toolbox" className="chat-agent-toolbox" aria-labelledby="chat-agent-toolbox-title">
+              <div className="chat-agent-toolbox-head">
+                <div>
+                  <span>{t('chat.tools.eyebrow')}</span>
+                  <h4 id="chat-agent-toolbox-title">{t('chat.tools.title')}</h4>
+                  <p>{t('chat.tools.description')}</p>
+                </div>
+                <div className="chat-toolbox-actions">
+                  <span className="chat-readonly-badge"><i aria-hidden="true" />{t('chat.tools.readOnly')}</span>
+                  <button type="button" onClick={() => setShowToolbox(false)} aria-label={t('chat.tools.close')}>×</button>
+                </div>
+              </div>
+              <div className="chat-agent-tool-grid">
+                {agentTools.map((tool) => (
+                  <article key={tool.id}>
+                    <span className="chat-agent-tool-icon"><AgentToolIcon type={tool.icon} /></span>
+                    <div>
+                      <h5>{tool.title}</h5>
+                      <p>{tool.description}</p>
+                    </div>
+                    <span className="chat-tool-allowed">{t('chat.tools.allowed')}</span>
+                  </article>
+                ))}
+              </div>
+              <p className="chat-tool-safety"><span aria-hidden="true">◎</span>{t('chat.tools.safety')}</p>
+            </section>
+          ) : null}
         </div>
 
         {isDevMode && showTelemetryPanel ? (
@@ -1649,15 +1858,38 @@ const ChatWidget = ({ mode = 'floating' }) => {
         ) : null}
 
         <div className="chat-body" role="log" aria-live="polite" ref={chatBodyRef}>
-          {messages.length <= 1 && !loading ? (
-            <section className="chat-command-deck" aria-labelledby="chat-command-title">
+          {isInitialRecruiterView && !loading ? (
+            <section className="chat-command-deck recruiter-brief" aria-labelledby="chat-command-title">
               <div className="chat-command-intro">
-                <span>{t('chat.commandEyebrow')}</span>
-                <h4 id="chat-command-title">{t('chat.commandTitle')}</h4>
-                <p>{t('chat.commandDescription')}</p>
+                <span>{t('chat.recruiterBrief.eyebrow')}</span>
+                <h4 id="chat-command-title">{t('chat.recruiterBrief.title')}</h4>
+                <p>{t('chat.recruiterBrief.description')}</p>
               </div>
-              <div className="chat-mode-grid">
-                {copilotModes.map((item) => (
+
+              <dl className="recruiter-signal-grid" aria-label={t('chat.recruiterBrief.signalsAria')}>
+                {RECRUITER_BRIEF_STATS.map((item) => (
+                  <div key={item.key}>
+                    <dd>{item.value}</dd>
+                    <dt>{t(`chat.dataCards.stats.${item.key}`)}</dt>
+                  </div>
+                ))}
+              </dl>
+
+              <button
+                className="recruiter-primary-action"
+                type="button"
+                onClick={() => handleSend(primaryCopilotMode.prompt)}
+              >
+                <span className="chat-mode-icon"><CopilotIcon type={primaryCopilotMode.key} /></span>
+                <span>
+                  <strong>{primaryCopilotMode.title}</strong>
+                  <small>{primaryCopilotMode.description}</small>
+                </span>
+                <b>{t('chat.recruiterBrief.start')}</b>
+              </button>
+
+              <div className="chat-mode-grid recruiter-secondary-actions">
+                {secondaryCopilotModes.map((item) => (
                   <button
                     key={item.key}
                     type="button"
@@ -1668,14 +1900,17 @@ const ChatWidget = ({ mode = 'floating' }) => {
                       <strong>{item.title}</strong>
                       <small>{item.description}</small>
                     </span>
-                    <b aria-hidden="true">↗</b>
                   </button>
                 ))}
               </div>
+
+              <p className="recruiter-trust-note"><i aria-hidden="true" />{t('chat.recruiterBrief.trust')}</p>
             </section>
           ) : null}
 
           {messages.map((message) => {
+            if (isInitialRecruiterView && message.id === messages[0]?.id) return null;
+
             const parsedAssistantContent = message.role === 'assistant' && !message.action
               ? parseJsonLikeAssistantContent(message.content, t)
               : null;
@@ -1699,7 +1934,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
                     {message.role === 'assistant' ? t('chat.assistantName') : t('chat.you')}
                   </span>
                   {message.role === 'assistant'
-                    ? <MarkdownMessage>{displayText}</MarkdownMessage>
+                    ? <ExpandableMarkdownMessage>{displayText}</ExpandableMarkdownMessage>
                     : <p>{displayText}</p>}
                   {displayAction ? (
                     <ActionCard
@@ -1707,6 +1942,29 @@ const ChatWidget = ({ mode = 'floating' }) => {
                       onRunNextAction={handleRunStructuredAction}
                       onAskInterviewQuestion={handleAskInterviewQuestion}
                     />
+                  ) : null}
+                  {message.role === 'assistant' && Array.isArray(message.toolExecutions) && message.toolExecutions.length > 0 ? (
+                    <div className="chat-tool-provenance" aria-label={t('chat.tools.provenance')}>
+                      <span className="chat-tool-provenance-label">
+                        <i aria-hidden="true">✓</i>
+                        {t('chat.tools.verifiedWith', {
+                          count: message.toolExecutions.filter((tool) => tool.status === 'success').length,
+                        })}
+                      </span>
+                      <div>
+                        {message.toolExecutions.map((execution, index) => {
+                          const definition = getPortfolioToolDefinition(execution.name);
+                          return (
+                            <span key={`${execution.name}-${index}`} className={execution.status === 'success' ? 'success' : 'rejected'}>
+                              {definition ? t(definition.titleKey) : execution.name}
+                              {execution.status === 'success' && Number.isFinite(execution.resultCount)
+                                ? ` · ${execution.resultCount}`
+                                : ''}
+                            </span>
+                          );
+                        })}
+                      </div>
+                    </div>
                   ) : null}
                 </div>
               </article>
@@ -1718,7 +1976,13 @@ const ChatWidget = ({ mode = 'floating' }) => {
               <span className="chat-message-avatar" aria-hidden="true">H</span>
               <div className="chat-message-content">
                 <span className="chat-message-author">{t('chat.assistantName')}</span>
-                <p className="chat-thinking"><i /><i /><i /> {t('chat.thinking')}</p>
+                <div className="chat-agent-progress" role="status">
+                  <span className="chat-agent-progress-icon" aria-hidden="true"><i /><i /><i /></span>
+                  <div>
+                    <strong>{loadingStageLabel}</strong>
+                    <small>{t('chat.loadingStages.safety')}</small>
+                  </div>
+                </div>
               </div>
             </article>
           ) : null}
@@ -1735,22 +1999,6 @@ const ChatWidget = ({ mode = 'floating' }) => {
         ) : null}
 
         <div className="chat-input-wrap">
-          <div className="chat-style-row">
-            <span>{t('chat.responseStyle')}</span>
-            <div className="chat-style-actions">
-              {['brief', 'detailed', 'fit', 'technical'].map((item) => (
-                <button
-                  key={item}
-                  type="button"
-                  className={responseStyle === item ? 'active' : ''}
-                  onClick={() => handleChangeResponseStyle(item)}
-                >
-                  {t(`chat.styles.${item}`)}
-                </button>
-              ))}
-            </div>
-          </div>
-
           {shouldShowContactActions ? (
             <div className="chat-quick-actions">
               <button type="button" onClick={handleQuickMail}>{t('chat.quickEmail')}</button>
@@ -1759,27 +2007,8 @@ const ChatWidget = ({ mode = 'floating' }) => {
             </div>
           ) : null}
 
-          <div className="chat-context-row">
-            <button type="button" className="chat-context-btn" onClick={handleJDUploadClick}>
-              {t('chat.uploadJd')}
-            </button>
-            {jobDescription ? (
-              <div className="chat-jd-pill" role="status" aria-live="polite">
-                <span>{jobDescriptionFile || t('chat.jdLoaded')}</span>
-                <button type="button" onClick={clearJDContext} aria-label={t('chat.removeJdAria')}>x</button>
-              </div>
-            ) : null}
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept=".txt,.md,.json"
-              onChange={handleJDFileChange}
-              className="chat-file-input"
-            />
-          </div>
-
           <div className="chat-suggestions" aria-label={t('chat.suggestionsAria')}>
-            {suggestions.map((item) => (
+            {suggestions.slice(0, 3).map((item) => (
               <button key={item} type="button" onClick={() => handleSend(item)}>
                 {item}
               </button>
@@ -1817,20 +2046,68 @@ const ChatWidget = ({ mode = 'floating' }) => {
               handleSend(input);
             }}
           >
-            <input
+            <textarea
               ref={inputRef}
-              type="text"
+              rows="1"
               value={input}
-              onChange={(event) => setInput(event.target.value)}
+              onChange={(event) => {
+                setInput(event.target.value);
+                event.target.style.height = 'auto';
+                event.target.style.height = `${Math.min(event.target.scrollHeight, 120)}px`;
+              }}
               onKeyDown={handleInputKeyDown}
               placeholder={t('chat.inputPlaceholder')}
-              maxLength={600}
+              aria-label={t('chat.inputAria')}
+              aria-describedby="chat-composer-hint"
+              name="portfolio-question"
+              autoComplete="off"
+              maxLength={1600}
               disabled={!preferredLanguage}
             />
-            <button type="submit" disabled={loading || !input.trim() || !preferredLanguage}>
-              {t('chat.send')}
+            <button type="submit" className="chat-send-button" disabled={loading || !input.trim() || !preferredLanguage} aria-label={t('chat.send')}>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m4 5 16 7-16 7 3-7zM7 12h13" />
+              </svg>
             </button>
           </form>
+
+          <div className="chat-composer-toolbar">
+            <label className="chat-style-select">
+              <span>{t('chat.responseStyle')}</span>
+              <select
+                value={responseStyle}
+                onChange={(event) => handleChangeResponseStyle(event.target.value)}
+                aria-label={t('chat.responseStyle')}
+              >
+                {['brief', 'detailed', 'fit', 'technical'].map((item) => (
+                  <option key={item} value={item}>{t(`chat.styles.${item}`)}</option>
+                ))}
+              </select>
+            </label>
+
+            {jobDescription ? (
+              <div className="chat-jd-pill" role="status" aria-live="polite">
+                <span>{jobDescriptionFile || t('chat.jdLoaded')}</span>
+                <button type="button" onClick={clearJDContext} aria-label={t('chat.removeJdAria')}>×</button>
+              </div>
+            ) : (
+              <button type="button" className="chat-context-btn" onClick={handleJDUploadClick}>
+                {t('chat.uploadJd')}
+              </button>
+            )}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept=".txt,.md,.json"
+              onChange={handleJDFileChange}
+              className="chat-file-input"
+            />
+
+            {input.length >= 1200 ? <span className="chat-character-count">{input.length}/1600</span> : null}
+          </div>
+          <div id="chat-composer-hint" className="chat-composer-hint">
+            <span>{t('chat.composerHint')}</span>
+          </div>
         </div>
       </section>
     </>

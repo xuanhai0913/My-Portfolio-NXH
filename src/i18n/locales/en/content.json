@@ -42,6 +42,86 @@
     "profileContextReady": "Profile context ready",
     "jdContextReady": "JD context loaded",
     "aiConnected": "AI connected",
+    "tools": {
+      "toggle": "{{count}} tools",
+      "eyebrow": "AGENT CAPABILITIES",
+      "title": "What the copilot can access",
+      "description": "A small, explicit toolset retrieves approved portfolio facts before the assistant answers.",
+      "readOnly": "Read only",
+      "allowed": "Allowed",
+      "close": "Close agent capabilities",
+      "safety": "No arbitrary URLs, private files, external messages, or write actions are available to the agent.",
+      "provenance": "Verified portfolio data sources used for this answer",
+      "verifiedWith_one": "Verified with {{count}} portfolio tool",
+      "verifiedWith_other": "Verified with {{count}} portfolio tools",
+      "catalog": {
+        "snapshot": {
+          "title": "Candidate snapshot",
+          "description": "Headline, core skills, location and portfolio totals."
+        },
+        "projects": {
+          "title": "Project evidence",
+          "description": "Search projects by stack, role, ownership or outcome."
+        },
+        "experience": {
+          "title": "Work experience",
+          "description": "Retrieve verified roles, dates, scope and delivery evidence."
+        },
+        "credentials": {
+          "title": "Credentials",
+          "description": "Search selected AWS, Google, cloud and AI credentials."
+        },
+        "contacts": {
+          "title": "Public channels",
+          "description": "Retrieve approved CV, email and professional links."
+        }
+      }
+    },
+    "loadingStages": {
+      "plan": "Understanding the hiring question",
+      "retrieve": "Checking verified portfolio data",
+      "compose": "Building an evidence-led answer",
+      "safety": "Read-only tools · approved public data"
+    },
+    "dataCards": {
+      "coreSkills": "Core skills",
+      "role": "Role:",
+      "evidence": "Evidence:",
+      "viewProject": "View project",
+      "verifySource": "Verify source",
+      "verifyCredential": "Verify credential",
+      "openProjectAria": "Open {{name}} project in a new tab",
+      "openExperienceAria": "Open {{company}} source in a new tab",
+      "openCredentialAria": "Verify {{name}} in a new tab",
+      "openContactAria": "Open {{label}} contact channel",
+      "contactSafety": "The assistant can reveal these public channels but cannot contact anyone on your behalf.",
+      "noResults": "No verified portfolio records matched this request. Try a broader technology, company, or credential name.",
+      "stats": {
+        "productionProjects": "Live projects",
+        "portfolioProjects": "Portfolio projects",
+        "companies": "Companies",
+        "certifications": "Credentials",
+        "awsCredentials": "AWS credentials"
+      }
+    },
+    "progressive": {
+      "showMoreAnswer": "Show full answer",
+      "showLessAnswer": "Show less",
+      "evidence_one": "View {{count}} verified record",
+      "evidence_other": "View {{count}} verified records",
+      "evidenceHint": "Projects, credentials and source links",
+      "showMoreRecords_one": "Show {{count}} more",
+      "showMoreRecords_other": "Show {{count}} more",
+      "showFewerRecords": "Show fewer"
+    },
+    "recruiterBrief": {
+      "eyebrow": "30-SECOND RECRUITER BRIEF",
+      "title": "Production-minded full-stack developer with cloud and AI proof.",
+      "description": "Scan the signal first. Ask the copilot to verify fit, ownership, or delivery evidence only when you need it.",
+      "signalsAria": "Verified portfolio signals",
+      "start": "Start brief",
+      "trust": "Grounded in approved public portfolio data · read-only retrieval"
+    },
     "commandEyebrow": "RECRUITER COMMAND CENTER",
     "commandTitle": "What would you like to verify?",
     "commandDescription": "Start with a hiring lens. Every answer is grounded in Hai's experience, projects, and credentials.",
@@ -108,7 +188,9 @@
     "removeJdAria": "Remove JD context",
     "suggestionsAria": "Suggested follow-up questions",
     "slashCommandsAria": "Slash commands",
-    "inputPlaceholder": "Ask about Nguyen Xuan Hai...",
+    "inputPlaceholder": "Ask about Nguyen Xuan Hai…",
+    "inputAria": "Message Hai's portfolio copilot",
+    "composerHint": "Enter to send · Shift + Enter for a new line · / for commands",
     "send": "Send",
     "emailSubject": "Portfolio Inquiry - Nguyen Xuan Hai",
     "emailBody": "Hello Hai,\n\nI would like to discuss an opportunity.",
