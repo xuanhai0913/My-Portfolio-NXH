@@ -212,6 +212,7 @@ const Workspace = () => {
                 </span>
                 {field.type === 'select' ? (
                   <select
+                    name={field.name}
                     value={inputs[field.name] || ''}
                     onChange={(event) => updateInput(field.name, event.target.value)}
                   >
@@ -220,6 +221,8 @@ const Workspace = () => {
                 ) : field.type === 'text' ? (
                   <input
                     type="text"
+                    name={field.name}
+                    autoComplete="off"
                     value={inputs[field.name] || ''}
                     placeholder={t(`tools.items.${tool.slug}.fields.${field.name}.placeholder`, { defaultValue: field.placeholder })}
                     maxLength="500"
@@ -227,6 +230,7 @@ const Workspace = () => {
                   />
                 ) : (
                   <textarea
+                    name={field.name}
                     value={inputs[field.name] || ''}
                     placeholder={t(`tools.items.${tool.slug}.fields.${field.name}.placeholder`, { defaultValue: field.placeholder })}
                     maxLength="12000"

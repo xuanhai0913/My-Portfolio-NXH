@@ -19,7 +19,7 @@
   margin: 0 auto;
   opacity: 0;
   transform: translateY(30px);
-  transition: all 0.8s ease;
+  transition: opacity 0.8s var(--ease-out-quart), transform 0.8s var(--ease-out-expo);
 }
 
 .about-grid.in-view {
@@ -43,6 +43,7 @@
   color: var(--text-primary);
   position: relative;
   display: inline-block;
+  text-wrap: balance;
 }
 
 .about-header::after {

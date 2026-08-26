@@ -506,6 +506,13 @@ const Portfolio = () => {
       aria-labelledby="portfolio-title"
     >
       <div className="portfolio-sticky">
+        <div
+          className="portfolio-reading-progress"
+          aria-hidden="true"
+          style={{ '--portfolio-progress': scrollProgress }}
+        >
+          <span />
+        </div>
         {/* Fixed Header */}
         <div className="portfolio-header scrolly-header">
           <h2 id="portfolio-title" className="section-title glitch-text" data-text={t('heading')}>{t('heading')}</h2>
@@ -647,24 +654,18 @@ const Portfolio = () => {
             <div className="scroll-progress">
               <div
                 className="progress-bar"
-                style={{ height: `${scrollProgress * 100}%` }}
+                style={{ transform: `scaleY(${scrollProgress})` }}
               ></div>
               <div className="progress-dots">
                 {allProjects.map((project, index) => (
-                  <div
+                  <button
                     key={project.id}
+                    type="button"
                     className={`progress-dot ${safeActiveIndex >= index ? 'active' : ''}`}
                     onClick={() => handleProjectClick(index)}
-                    role="button"
-                    tabIndex={0}
                     aria-label={t('aria.selectProject', { title: project.title })}
-                    onKeyDown={(event) => {
-                      if (event.key === 'Enter' || event.key === ' ') {
-                        event.preventDefault();
-                        handleProjectClick(index);
-                      }
-                    }}
-                  ></div>
+                    aria-current={safeActiveIndex === index ? 'step' : undefined}
+                  />
                 ))}
               </div>
             </div>

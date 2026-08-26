@@ -66,6 +66,7 @@
   margin: 0;
   color: var(--workspace-muted);
   line-height: 1.6;
+  text-wrap: pretty;
 }
 
 .workspace-runtime {
@@ -163,6 +164,7 @@
   font-family: var(--font-mono);
   font-size: 0.78rem;
   line-height: 1.65;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
 }
 
 .workspace-field input:focus,
@@ -176,6 +178,7 @@
   min-height: 330px;
   resize: vertical;
   tab-size: 2;
+  overscroll-behavior: contain;
 }
 
 .workspace-field--textarea textarea {
@@ -210,6 +213,13 @@
   font-size: 0.7rem;
   font-weight: 800;
   cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 160ms var(--ease-out-quart), box-shadow 160ms ease;
+}
+
+.workspace-submit-row button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(212, 255, 0, 0.14);
 }
 
 .workspace-submit-row button:disabled {
@@ -701,5 +711,10 @@
 @media (prefers-reduced-motion: reduce) {
   .workspace-loading-bar::after {
     animation: none;
+  }
+
+  .workspace-submit-row button:hover:not(:disabled) {
+    transform: none;
+    box-shadow: none;
   }
 }
