@@ -1,5 +1,6 @@
 {
   "heading": "DỰ ÁN_",
+  "securityFeature": "Case study mới: Security Lab",
   "labels": {
     "role": "VAI TRÒ",
     "impact": "KẾT QUẢ",
@@ -12,6 +13,7 @@
     "pet": "Dự án tự phát triển"
   },
   "actions": {
+    "caseStudy": "KHÁM PHÁ DỰ ÁN",
     "visitSite": "TRUY CẬP",
     "github": "GITHUB_",
     "previous": "TRƯỚC",
@@ -33,6 +35,13 @@
     "githubVariant": "Xem mã nguồn phiên bản {{variant}} của {{title}} trên GitHub"
   },
   "items": {
+    "securityLab": {
+      "title": "RAT-HAILAMDEV · Security Lab",
+      "description": "Lab lập trình mạng bằng Python để tìm hiểu TLS, cách phân tách thông điệp JSON và ranh giới tin cậy trong quản trị từ xa.",
+      "role": "Tự phát triển · Python & Lập trình mạng",
+      "achievement": "Xây dựng mô hình client/server với TLS 1.3, quản lý phiên dùng lock và ghi nhận rõ giới hạn bảo mật. Có sơ đồ tương tác giải thích kiến trúc.",
+      "badge": "LAB BẢO MẬT"
+    },
     "oakmind": {
       "title": "OakMind Group - Nền tảng doanh nghiệp",
       "description": "CMS doanh nghiệp đang vận hành cho mảng truyền thông và xuất nhập khẩu B2B, xây dựng bằng React 19 và ASP.NET Core 8.",

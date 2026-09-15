@@ -80,9 +80,9 @@ export const WORK_EXPERIENCE = [
   },
   {
     company: 'AI Power – Automotive Dealership ERP',
-    role: 'ODOO ERP DEVELOPER INTERN',
-    period: 'May 2026 – Aug 2026',
-    description: 'Supported an Odoo 18 ERP for automotive dealerships in Vietnam, covering sales, an 18-state after-sales service workflow, spare parts, warranty, and TT200 accounting. Turned requirements gathered by the BA team into fixes and enhancements across business logic, QWeb/XML views, PDF reports, localization, Docker workflows, and GitLab CI.',
+    role: 'FULL-STACK DEVELOPER | ODOO / PYTHON',
+    period: 'May 2026 – Sep 2026',
+    description: 'Developed and supported an Odoo 18 ERP for automotive dealerships in Vietnam, covering sales, an 18-state after-sales service workflow, spare parts, warranty, and TT200 accounting. Turned BA/customer change requests into fixes and enhancements across business logic, QWeb/XML views, PDF reports, localization, Docker workflows, and GitLab CI.',
     achievement: 'Supported debugging and fixes across all 18 custom modules and 99+ Python files while preserving the 18-state after-sales service workflow.',
     technologies: ['Python 3.12', 'Odoo 18', 'PostgreSQL', 'QWeb/XML', 'wkhtmltopdf', 'Docker', 'GitLab CI', 'gettext i18n'],
     logo: 'https://aipower.vn/images/logos/logo-vn.svg?ver=0.0.2',

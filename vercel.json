@@ -4,6 +4,14 @@
   "outputDirectory": "build",
   "rewrites": [
     {
+      "source": "/projects/security-lab",
+      "destination": "/_seo/projects-security-lab.html"
+    },
+    {
+      "source": "/vi/projects/security-lab",
+      "destination": "/_seo/vi-projects-security-lab.html"
+    },
+    {
       "source": "/.well-known/discord",
       "destination": "/discord-verification.txt"
     },

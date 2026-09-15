@@ -16,6 +16,11 @@ const localizedPages = {
       description: 'Full-Stack Developer building production React, ASP.NET Core, NestJS and Odoo systems. Explore verified client work, engineering projects and credentials.',
       keywords: 'Nguyễn Xuân Hải, Full-Stack Developer Ho Chi Minh City, React Developer, ASP.NET Core, NestJS, Odoo Developer'
     },
+    securityLab: {
+      title: 'RAT-HAILAMDEV · Security Lab | Nguyễn Xuân Hải',
+      description: 'An interactive Python networking case study: TLS 1.3, JSON message framing, concurrency and the trust boundaries of a learning lab.',
+      keywords: 'Python security lab, TLS, socket programming, security engineering case study, RAT-HAILAMDEV'
+    },
     assistant: {
       title: 'Portfolio AI Assistant | Nguyễn Xuân Hải',
       description: 'Ask Nguyễn Xuân Hải’s portfolio assistant about verified skills, production projects, work experience, credentials and contact details.',
@@ -47,6 +52,11 @@ const localizedPages = {
       title: 'Nguyễn Xuân Hải | Lập trình viên Full-Stack tại TP.HCM',
       description: 'Lập trình viên Full-Stack xây dựng hệ thống production với React, ASP.NET Core, NestJS và Odoo. Xem dự án thực tế, kinh nghiệm và chứng chỉ.',
       keywords: 'Nguyễn Xuân Hải, lập trình viên Full-Stack TP.HCM, React, ASP.NET Core, NestJS, Odoo'
+    },
+    securityLab: {
+      title: 'RAT-HAILAMDEV · Lab bảo mật | Nguyễn Xuân Hải',
+      description: 'Khám phá lab mạng Python qua sơ đồ tương tác: TLS 1.3, giao thức JSON, xử lý đồng thời và các giới hạn bảo mật của mô hình học tập.',
+      keywords: 'lab bảo mật Python, TLS, lập trình socket, case study bảo mật, RAT-HAILAMDEV'
     },
     assistant: {
       title: 'Trợ lý AI Portfolio | Nguyễn Xuân Hải',
@@ -131,6 +141,7 @@ const getRouteDetails = (pathname) => {
   let page = 'portfolio';
 
   if (route.startsWith('/assistant')) page = 'assistant';
+  else if (route === '/projects/security-lab') page = 'securityLab';
   else if (route.startsWith('/videos')) page = 'videos';
   else if (route.startsWith('/tools')) page = 'tools';
   else if (route.startsWith('/3d')) page = 'threeD';

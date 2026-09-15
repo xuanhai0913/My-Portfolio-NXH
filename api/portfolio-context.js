@@ -4,6 +4,7 @@ const TRUSTED_PORTFOLIO_FACTS = [
   'Core stack: React, Node.js, ASP.NET Core, Python, Odoo 18, PostgreSQL, SQL Server, JavaScript, TypeScript, system design, API integration, and AI-assisted engineering workflows.',
   'Production evidence: OakMind Group Corporate Platform (React 19, ASP.NET Core 8, SQL Server, Cloudflare R2); Great Link Mai House (ASP.NET Core, React 18, SignalR); VN Media Hub (React 18, ASP.NET Core 8, Redis); ChongScam (React 19, NestJS 11, PostgreSQL, Jest).',
   'Independent projects: RouteLab (shortest-path visualization with React, TypeScript, Express and Vitest) and AgriTrace (React, Express, PostgreSQL, Solidity, IPFS traceability workflows).',
+  'Security research: RAT-HAILAMDEV is an educational Python client/server lab with TLS 1.3, newline-delimited JSON and lock-protected session handling. It is not production-ready: client authentication, authorization and filesystem sandboxing are not implemented. The portfolio case study illustrates its architecture and proposed hardening; do not describe those proposals as shipped features.',
   'AI workflow experience: project-specific AI context and reusable rules, planning, code review, automation, QA support, documentation, and CI/CD handoff. AI supports—not replaces—engineering judgment.',
   'English: intermediate technical reading and written communication. Do not claim an unlisted certification, employer, seniority level, salary range, notice period, or skill proficiency as fact.',
 ].join('\n');

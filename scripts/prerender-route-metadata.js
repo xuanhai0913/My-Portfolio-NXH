@@ -14,6 +14,22 @@ const SEO_DIRECTORY = path.join(OUTPUT_DIRECTORY, '_seo');
 
 const routes = [
   {
+    path: '/projects/security-lab',
+    file: 'projects-security-lab.html',
+    locale: 'en',
+    title: 'RAT-HAILAMDEV · Security Lab | Nguyễn Xuân Hải',
+    description: 'An interactive Python networking case study: TLS 1.3, JSON message framing, concurrency and the trust boundaries of a learning lab.',
+    keywords: 'Python security lab, TLS, socket programming, security engineering case study, RAT-HAILAMDEV',
+  },
+  {
+    path: '/vi/projects/security-lab',
+    file: 'vi-projects-security-lab.html',
+    locale: 'vi',
+    title: 'RAT-HAILAMDEV · Lab bảo mật | Nguyễn Xuân Hải',
+    description: 'Khám phá lab mạng Python qua sơ đồ tương tác: TLS 1.3, giao thức JSON, xử lý đồng thời và các giới hạn bảo mật của mô hình học tập.',
+    keywords: 'lab bảo mật Python, TLS, lập trình socket, case study bảo mật, RAT-HAILAMDEV',
+  },
+  {
     path: '/vi',
     file: 'vi.html',
     locale: 'vi',

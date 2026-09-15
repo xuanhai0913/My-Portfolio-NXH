@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" fill="none">
+  <rect width="1600" height="1000" fill="#0e140b"/>
+  <defs><pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse"><path d="M64 0H0V64" stroke="#d0f783" stroke-opacity=".07"/></pattern></defs>
+  <rect width="1600" height="1000" fill="url(#grid)"/>
+  <g font-family="monospace" fill="#a8b298" font-size="24"><text x="90" y="95">ENGINEERING CASE STUDY / 2026</text><text x="1230" y="95">PYTHON LAB</text></g>
+  <circle cx="800" cy="430" r="210" stroke="#70834b" stroke-dasharray="8 12"/>
+  <circle cx="800" cy="430" r="158" stroke="#d0f783" stroke-opacity=".5"/>
+  <path d="m800 320 85 38v65c0 47-54 86-85 102-31-16-85-55-85-102v-65Z" stroke="#d0f783" stroke-width="4"/>
+  <path d="m763 424 25 25 48-51" stroke="#d0f783" stroke-width="5"/>
+  <path d="M270 430h320m420 0h320" stroke="#849b60" stroke-width="2"/>
+  <circle cx="590" cy="430" r="7" fill="#d0f783"/><circle cx="1010" cy="430" r="7" fill="#d0f783"/>
+  <g font-family="monospace" font-size="28" fill="#f0f3e6" text-anchor="middle"><text x="300" y="400">CLIENT</text><text x="1300" y="400">SERVER</text><text x="800" y="610" fill="#d0f783">TLS 1.3</text></g>
+  <text x="90" y="805" fill="#f1f2e9" font-family="sans-serif" font-size="82" font-weight="600">RAT-HAILAMDEV</text>
+  <text x="95" y="877" fill="#d0f783" font-family="monospace" font-size="27">SOCKETS / JSON / TRUST BOUNDARIES</text>
+  <path d="M90 930h1420" stroke="#39462b"/>
+</svg>

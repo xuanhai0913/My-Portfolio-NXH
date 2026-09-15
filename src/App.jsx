@@ -28,6 +28,7 @@ const Hero3D = lazy(() => import('./components/Hero3D'));
 const Blog = lazy(() => import('./components/Blog'));
 const Tools = lazy(() => import('./pages/Tools'));
 const ToolWorkspace = lazy(() => import('./pages/Tools/Workspace'));
+const SecurityLab = lazy(() => import('./pages/SecurityLab'));
 
 // Defer third-party analytics (bundle-defer-third-party)
 const SpeedInsights = lazy(() =>
@@ -101,6 +102,27 @@ const ChatSurface = ({ mode }) => (
 // Hoisted Main Portfolio Page (rerender-no-inline-components)
 const MainPortfolio = () => {
   const { t } = useTranslation();
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    const targetId = hash.slice(1);
+    if (!['profile', 'about', 'experience', 'portfolio', 'certifications', 'community', 'contact'].includes(targetId)) return undefined;
+
+    // Hash navigation can arrive before a deferred section is mounted. Scroll
+    // to its placeholder to load it, then align the real section once it exists.
+    let placeholder;
+    const alignTarget = () => {
+      const target = document.getElementById(targetId);
+      if (!target || target === placeholder) return;
+      target.scrollIntoView({ behavior: 'instant', block: 'start' });
+      if (target.classList.contains('deferred-section-anchor')) placeholder = target;
+      else observer.disconnect();
+    };
+    const observer = new MutationObserver(alignTarget);
+    observer.observe(document.getElementById('main-content'), { childList: true, subtree: true });
+    alignTarget();
+    return () => observer.disconnect();
+  }, [hash]);
 
   useEffect(() => {
     // Initialize analytics tracking (analytics-tracking skill)
@@ -195,6 +217,13 @@ const renderLocalizedRoutes = (prefix) => (
   <React.Fragment key={prefix || 'en'}>
     <Route path={routePath(prefix, '/')} element={<MainPortfolio />} />
     <Route path={routePath(prefix, '/assistant')} element={<ChatSurface mode="page" />} />
+    <Route path={routePath(prefix, '/projects/security-lab')} element={(
+      <ErrorBoundary>
+        <Suspense fallback={<LoadingFallback />}>
+          <SecurityLab />
+        </Suspense>
+      </ErrorBoundary>
+    )} />
     <Route path={routePath(prefix, '/videos')} element={(
       <ErrorBoundary>
         <Suspense fallback={<LoadingFallback />}>

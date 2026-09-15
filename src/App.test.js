@@ -14,4 +14,16 @@ describe('route metadata', () => {
   test('keeps experimental 3D pages out of the index', () => {
     expect(getRouteMeta('/3d').robots).toBe('noindex, follow');
   });
+
+  test.each(['en', 'vi'])('serves matching client and prerender metadata for the %s security case study', (locale) => {
+    const { routes } = require('../scripts/prerender-route-metadata');
+    const pathname = `${locale === 'vi' ? '/vi' : ''}/projects/security-lab`;
+    const meta = getRouteMeta(pathname);
+    const shell = routes.find(route => route.path === pathname);
+    expect(meta.title).toBe(shell.title);
+    expect(meta.description).toBe(shell.description);
+    expect(meta.locale).toBe(locale);
+    expect(meta.vietnameseUrl).toBe('https://my-portfolio-nxh.vercel.app/vi/projects/security-lab');
+    expect(meta.englishUrl).toBe('https://my-portfolio-nxh.vercel.app/projects/security-lab');
+  });
 });

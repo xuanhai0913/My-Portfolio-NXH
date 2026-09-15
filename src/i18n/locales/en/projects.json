@@ -1,5 +1,6 @@
 {
   "heading": "PROJECTS_",
+  "securityFeature": "New case study: Security Lab",
   "labels": {
     "role": "ROLE",
     "impact": "OUTCOME",
@@ -12,6 +13,7 @@
     "pet": "Independent builds"
   },
   "actions": {
+    "caseStudy": "EXPLORE THE CASE STUDY",
     "visitSite": "VISIT SITE",
     "github": "GITHUB_",
     "previous": "PREV",
@@ -33,6 +35,13 @@
     "githubVariant": "View the {{variant}} source code for {{title}} on GitHub"
   },
   "items": {
+    "securityLab": {
+      "title": "RAT-HAILAMDEV · Security Lab",
+      "description": "A Python networking lab exploring TLS, JSON message framing and the trust boundaries of remote administration.",
+      "role": "Creator · Python & Networking",
+      "achievement": "Built a client/server prototype with TLS 1.3, lock-protected session handling and documented security limitations. Explore the interactive architecture walkthrough.",
+      "badge": "SECURITY LAB"
+    },
     "oakmind": {
       "title": "OakMind Group Corporate Platform",
       "description": "Production CMS for media and B2B import-export operations, built with React 19 and ASP.NET Core 8.",

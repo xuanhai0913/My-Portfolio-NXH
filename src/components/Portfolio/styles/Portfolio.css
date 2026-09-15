@@ -109,6 +109,21 @@
   text-transform: uppercase;
 }
 
+.project-case-study-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  margin-top: 6px;
+  color: #d0f783;
+  font-size: .72rem;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  touch-action: manipulation;
+}
+
+.project-case-study-link:hover { color: #efffd8; }
+
 .project-group-switch {
   display: inline-flex;
   gap: 0.35rem;
@@ -286,7 +301,7 @@
   height: 100%;
   overflow: hidden;
   padding-left: 0;
-  margin-top: 76px;
+  margin-top: 126px;
 }
 
 .list-inner {

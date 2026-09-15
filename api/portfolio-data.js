@@ -20,12 +20,22 @@ const PORTFOLIO_DATA = {
   },
   stats: {
     productionProjects: 7,
-    portfolioProjects: 10,
+    portfolioProjects: 11,
     companies: 3,
     certifications: 45,
     awsCredentials: 28,
   },
   projects: [
+    {
+      id: 'security-lab',
+      name: 'RAT-HAILAMDEV · Security Lab',
+      category: 'Independent security research lab · bảo mật · lập trình mạng',
+      stack: ['Python', 'TLS 1.3', 'TCP sockets', 'JSON', 'Threading'],
+      evidence: 'Educational client/server prototype with TLS 1.3, newline-delimited JSON and lock-protected session handling. Client authentication, authorization and filesystem sandboxing are not implemented; not a production security product.',
+      role: 'Creator · Python and networking',
+      url: 'https://my-portfolio-nxh.vercel.app/projects/security-lab',
+      repository: 'https://github.com/xuanhai0913/RAT-HAILAMDEV',
+    },
     {
       id: 'oakmind',
       name: 'OakMind Group Corporate Platform',
@@ -96,7 +106,7 @@ const PORTFOLIO_DATA = {
       id: 'aipower',
       company: 'AI Power',
       role: 'Full-Stack Developer · Odoo/Python',
-      period: 'May 2026 – Aug 2026',
+      period: 'May 2026 – Sep 2026',
       summary: 'Developed and supported an Odoo 18 ERP for automotive dealerships across sales, after-sales service, spare parts, warranty and accounting workflows.',
       evidence: 'Supported debugging and fixes across all 18 custom modules and 99+ Python files while preserving the 18-state service workflow.',
       stack: ['Python 3.12', 'Odoo 18', 'PostgreSQL', 'QWeb/XML', 'Docker', 'GitLab CI'],

@@ -62,6 +62,17 @@ const projectCatalog = [
       group: "client"
     },
     {
+      id: "securityLab",
+      image: "/images/projects/rat-security-lab.svg",
+      caseStudy: "/projects/security-lab",
+      github: "https://github.com/xuanhai0913/RAT-HAILAMDEV",
+      technologies: ["Python", "TLS 1.3", "TCP Sockets", "JSON"],
+      badge: true,
+      company: "SECURITY RESEARCH",
+      year: "2026",
+      group: "pet"
+    },
+    {
       id: "chongScam",
       image: chongScam,
       demo: "https://chongscam.vn/",
@@ -454,6 +465,12 @@ const Portfolio = () => {
         </div>
 
         <div className="showcase-actions">
+          {project.caseStudy && (
+            <a href={localizePath(project.caseStudy)} className="action-btn primary"
+              onClick={() => trackProjectClick(project.title, 'case-study')}>
+              <span className="btn-text">{t('actions.caseStudy')}</span>
+            </a>
+          )}
           {project.demo && (
             <a
               href={project.demo.startsWith('/') ? localizePath(project.demo) : project.demo}
@@ -516,6 +533,10 @@ const Portfolio = () => {
         {/* Fixed Header */}
         <div className="portfolio-header scrolly-header">
           <h2 id="portfolio-title" className="section-title glitch-text" data-text={t('heading')}>{t('heading')}</h2>
+          <a className="project-case-study-link" href={localizePath('/projects/security-lab')}
+            onClick={() => trackProjectClick('RAT-HAILAMDEV', 'featured-case-study')}>
+            <span aria-hidden="true">◎</span> {t('securityFeature')}
+          </a>
           <p className="project-overview">
             {t('overview', {
               total: projectCatalog.length,
