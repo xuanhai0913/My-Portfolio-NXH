@@ -35,6 +35,20 @@
     "githubVariant": "Xem mã nguồn phiên bản {{variant}} của {{title}} trên GitHub"
   },
   "items": {
+    "ddosLab": {
+      "title": "DDOS-HAILAMDEV · Bộ công cụ phòng thủ",
+      "description": "Toolkit Python nghiên cứu giám sát lưu lượng theo ngưỡng và mô phỏng các kịch bản DoS/DDoS.",
+      "role": "Tự phát triển · Nghiên cứu bảo mật mạng",
+      "achievement": "Xây dựng mô-đun giám sát và mô phỏng để tìm hiểu đỉnh lưu lượng và chính sách giảm thiểu. Chỉ số mô phỏng dùng dữ liệu sinh, chưa phải benchmark mạng thực tế.",
+      "badge": "NGHIÊN CỨU"
+    },
+    "malwareLab": {
+      "title": "Malware-HAILAMDEV · Phân tích mã độc",
+      "description": "Prototype Python phục vụ phân tích mã độc, tập trung kiểm tra tệp nhị phân và nghiên cứu hành vi.",
+      "role": "Tự phát triển · Nghiên cứu phân tích mã độc",
+      "achievement": "Triển khai mã phân tích tĩnh cho metadata, chuỗi, entropy và disassembly với LIEF và Capstone. Framework tổng thể đang ở giai đoạn nghiên cứu.",
+      "badge": "PROTOTYPE"
+    },
     "securityLab": {
       "title": "RAT-HAILAMDEV · Security Lab",
       "description": "Lab lập trình mạng bằng Python để tìm hiểu TLS, cách phân tách thông điệp JSON và ranh giới tin cậy trong quản trị từ xa.",

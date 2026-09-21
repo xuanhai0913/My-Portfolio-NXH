@@ -35,6 +35,20 @@
     "githubVariant": "View the {{variant}} source code for {{title}} on GitHub"
   },
   "items": {
+    "ddosLab": {
+      "title": "DDOS-HAILAMDEV · Defense Toolkit",
+      "description": "A Python research toolkit for threshold-based traffic monitoring and synthetic DoS/DDoS scenarios.",
+      "role": "Creator · Network Security Research",
+      "achievement": "Built monitoring and simulation modules to explore traffic peaks and mitigation policies. Simulation metrics use generated data, not real network benchmarks.",
+      "badge": "RESEARCH"
+    },
+    "malwareLab": {
+      "title": "Malware-HAILAMDEV · Analysis Framework",
+      "description": "A Python prototype for malware analysis, with a focus on binary inspection and behavioral research.",
+      "role": "Creator · Malware Analysis Research",
+      "achievement": "Implemented static-analysis code for file metadata, strings, entropy and disassembly using LIEF and Capstone. The broader framework remains a research prototype.",
+      "badge": "PROTOTYPE"
+    },
     "securityLab": {
       "title": "RAT-HAILAMDEV · Security Lab",
       "description": "A Python networking lab exploring TLS, JSON message framing and the trust boundaries of remote administration.",

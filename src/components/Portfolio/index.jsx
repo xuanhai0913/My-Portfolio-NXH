@@ -73,6 +73,26 @@ const projectCatalog = [
       group: "pet"
     },
     {
+      id: "ddosLab",
+      image: "/images/projects/ddos-lab.svg",
+      github: "https://github.com/xuanhai0913/DDOS-HAILAMDEV",
+      technologies: ["Python", "asyncio", "Traffic Analysis"],
+      badge: true,
+      company: "SECURITY RESEARCH",
+      year: "2026",
+      group: "pet"
+    },
+    {
+      id: "malwareLab",
+      image: "/images/projects/malware-lab.svg",
+      github: "https://github.com/xuanhai0913/Malware-HAILAMDEV",
+      technologies: ["Python", "LIEF", "Capstone", "Static Analysis"],
+      badge: true,
+      company: "SECURITY RESEARCH",
+      year: "2026",
+      group: "pet"
+    },
+    {
       id: "chongScam",
       image: chongScam,
       demo: "https://chongscam.vn/",

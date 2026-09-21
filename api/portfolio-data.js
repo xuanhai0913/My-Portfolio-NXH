@@ -20,12 +20,30 @@ const PORTFOLIO_DATA = {
   },
   stats: {
     productionProjects: 7,
-    portfolioProjects: 11,
+    portfolioProjects: 13,
     companies: 3,
     certifications: 45,
     awsCredentials: 28,
   },
   projects: [
+    {
+      id: 'ddos-lab',
+      name: 'DDOS-HAILAMDEV · Defense Toolkit',
+      category: 'Independent security research · bảo mật mạng',
+      stack: ['Python', 'asyncio', 'Traffic Analysis'],
+      evidence: 'Monitoring and synthetic DoS/DDoS simulation modules. Simulation metrics use generated data, not real network benchmarks; research prototype.',
+      role: 'Creator · Network Security Research',
+      url: 'https://github.com/xuanhai0913/DDOS-HAILAMDEV',
+    },
+    {
+      id: 'malware-lab',
+      name: 'Malware-HAILAMDEV · Analysis Framework',
+      category: 'Independent security research · phân tích mã độc',
+      stack: ['Python', 'LIEF', 'Capstone', 'Static Analysis'],
+      evidence: 'Static-analysis code for file metadata, strings, entropy and disassembly. Broader malware analysis framework is a research prototype, not a validated production defense platform.',
+      role: 'Creator · Malware Analysis Research',
+      url: 'https://github.com/xuanhai0913/Malware-HAILAMDEV',
+    },
     {
       id: 'security-lab',
       name: 'RAT-HAILAMDEV · Security Lab',
