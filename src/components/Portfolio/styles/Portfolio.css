@@ -1397,3 +1397,45 @@
     font-size: 1.2rem;
   }
 }
+
+/* Compact, user-controlled project browser. */
+.portfolio-section.portfolio-compact { height: auto; min-height: 0; padding: 80px 0; }
+.portfolio-compact .portfolio-sticky { position: relative; height: auto; min-height: 0; width: min(1320px, 92%); margin: auto; }
+.portfolio-compact .scrolly-header { position: static; margin-bottom: 28px; }
+.portfolio-compact .section-title { font-size: clamp(1.5rem, 3vw, 2.4rem); color: var(--text-primary); }
+.portfolio-compact .project-overview { max-width: none; }
+.portfolio-compact .project-counter,
+.portfolio-compact .scroll-progress,
+.portfolio-compact .scroll-hint,
+.portfolio-compact .portfolio-reading-progress { display: none; }
+.portfolio-compact .project-group-switch { margin-top: 16px; flex-wrap: wrap; }
+.portfolio-compact .project-group-switch button { min-height: 44px; }
+.portfolio-compact .scrollytelling-grid { height: auto; padding: 0; grid-template-columns: minmax(240px, 300px) minmax(0, 1fr); gap: 24px; align-items: start; }
+.portfolio-compact .project-list { margin: 0; height: auto; max-height: 470px; overflow-y: auto; justify-content: flex-start; scrollbar-width: thin; scrollbar-color: #68782b #111; }
+.portfolio-compact .project-list-item { min-height: 64px; grid-template-columns: 22px 46px minmax(0, 1fr); gap: 10px; padding: 10px; }
+.portfolio-compact .item-content { display: block; min-width: 0; }
+.portfolio-compact .item-title { display: block; white-space: normal; font-size: .76rem; line-height: 1.4; }
+.portfolio-compact .item-badge,
+.portfolio-compact .item-year,
+.portfolio-compact .item-progress { display: none; }
+.portfolio-compact .project-list-item.passed { opacity: 1; }
+.portfolio-compact .project-showcase { height: auto; padding: 0; }
+.portfolio-compact .showcase-card { box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; animation: none; }
+.portfolio-compact .showcase-title { font-size: clamp(1.3rem, 2vw, 2rem); line-height: 1.15; text-transform: none; }
+.portfolio-compact .showcase-desc { display: block; overflow: visible; }
+.portfolio-compact .showcase-evidence { grid-template-columns: 1fr; }
+.portfolio-compact .portfolio-mobile { padding: 0; }
+.portfolio-compact .mobile-nav-item { min-height: 56px; }
+.portfolio-compact .mobile-project-stage { display: block; }
+.portfolio-compact .action-btn { min-height: 44px; }
+.portfolio-compact button:focus-visible { outline: 2px solid var(--color-accent); outline-offset: -2px; }
+@media (max-width: 1100px) and (min-width: 901px) {
+  .portfolio-compact .showcase-card { grid-template-columns: 1fr; }
+  .portfolio-compact .visual-frame { aspect-ratio: 16/7; }
+}
+@media (max-width: 900px) {
+  .portfolio-section.portfolio-compact { padding: 56px 0; }
+  .portfolio-compact .showcase-card { grid-template-columns: 1fr; gap: 16px; }
+  .portfolio-compact .project-group-switch button { font-size: .7rem; }
+  .portfolio-compact .visual-frame { aspect-ratio: 16/9; }
+}
