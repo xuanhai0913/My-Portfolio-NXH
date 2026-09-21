@@ -20,6 +20,14 @@
     "photoProgress": "Photo {{current}} of {{total}}",
     "navigationHint": "Use arrow keys or swipe sideways to move through the story"
   },
+  "certificate": {
+    "title": "A milestone worth sharing.",
+    "description": "My AI Riser Vietnam participant certificate, featuring the Top 500 badge — a keepsake alongside the people and ideas from the event.",
+    "view": "View full certificate",
+    "photos": "See the event photo",
+    "alt": "AI Riser Vietnam certificate of completion for Nguyễn Xuân Hải, with a Top 500 badge and the date Oct 2026",
+    "note": "Display copy: duplicate name and badge text corrected with AI. Original wording and date retained."
+  },
   "items": {
     "aiRiser": {
       "kind": "AI COMMUNITY / 2026",

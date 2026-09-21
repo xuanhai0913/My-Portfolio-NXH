@@ -165,6 +165,22 @@ const CommunityEvents = () => {
           </div>
         </header>
 
+        <article className="community-certificate" aria-labelledby="community-certificate-title">
+          <a className="community-certificate__image" href="/images/community-ai-riser-certificate.png" target="_blank" rel="noopener noreferrer" aria-label={t('certificate.view')}>
+            <img src="/images/community-ai-riser-certificate.png" alt={t('certificate.alt')} width="1494" height="1052" loading="lazy" decoding="async" />
+          </a>
+          <div className="community-certificate__copy">
+            <p className="community-events-eyebrow">AI RISER VIETNAM 2026</p>
+            <h3 id="community-certificate-title">{t('certificate.title')}</h3>
+            <p>{t('certificate.description')}</p>
+            <div className="community-certificate__actions">
+              <a href="/images/community-ai-riser-certificate.png" target="_blank" rel="noopener noreferrer">{t('certificate.view')}</a>
+              <button type="button" onClick={() => setActiveMomentId('aiRiser')} aria-haspopup="dialog">{t('certificate.photos')}</button>
+            </div>
+            <small>{t('certificate.note')}</small>
+          </div>
+        </article>
+
         <div className="community-events-grid" role="group" aria-label={t('galleryAria')}>
           {communityMoments.map((moment, index) => {
             const title = t(`items.${moment.id}.title`);

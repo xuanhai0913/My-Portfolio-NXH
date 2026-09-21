@@ -20,6 +20,14 @@
     "photoProgress": "Ảnh {{current}} trên tổng số {{total}} ảnh",
     "navigationHint": "Dùng phím mũi tên hoặc vuốt ngang để chuyển ảnh"
   },
+  "certificate": {
+    "title": "Một dấu mốc đáng nhớ.",
+    "description": "Chứng nhận tham gia AI Riser Vietnam của tôi, với huy hiệu Top 500 — lưu lại cùng những cuộc gặp gỡ và ý tưởng từ sự kiện.",
+    "view": "Xem chứng nhận đầy đủ",
+    "photos": "Xem ảnh sự kiện",
+    "alt": "Chứng nhận hoàn thành AI Riser Vietnam cho Nguyễn Xuân Hải, có huy hiệu Top 500 và ngày Oct 2026",
+    "note": "Bản hiển thị đã dùng AI sửa chữ bị lặp ở tên và huy hiệu; giữ nguyên nội dung và ngày trên ảnh gốc."
+  },
   "items": {
     "aiRiser": {
       "kind": "CỘNG ĐỒNG AI / 2026",
