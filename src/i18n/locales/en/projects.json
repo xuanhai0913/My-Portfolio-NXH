@@ -1,6 +1,6 @@
 {
   "heading": "PROJECTS_",
-  "securityFeature": "New case study: Security Lab",
+  "securityFeature": "Security Hub · 5 research projects",
   "labels": {
     "role": "ROLE",
     "impact": "OUTCOME",
@@ -35,6 +35,20 @@
     "githubVariant": "View the {{variant}} source code for {{title}} on GitHub"
   },
   "items": {
+    "sqliLab": {
+      "title": "SQLI-HAILAMDEV · Database Security",
+      "description": "A SQL injection research prototype exploring the boundary between user input and database instructions.",
+      "role": "Creator · Web Security Research",
+      "achievement": "Organized analysis modules, database adapters and a Flask coordination service. The Security Hub explains query parameterization and least privilege through an interactive model.",
+      "badge": "PROTOTYPE"
+    },
+    "xssLab": {
+      "title": "KLG-XSS · Browser Security Research",
+      "description": "A lab exploring XSS contexts and input-capture risks at the browser trust boundary.",
+      "role": "Creator · Web Security Research",
+      "achievement": "Built a research prototype with browser-analysis modules and a Flask service. The portfolio walkthrough focuses on safe rendering, sanitization and defense in depth.",
+      "badge": "PROTOTYPE"
+    },
     "ddosLab": {
       "title": "DDOS-HAILAMDEV · Defense Toolkit",
       "description": "A Python research toolkit for threshold-based traffic monitoring and synthetic DoS/DDoS scenarios.",

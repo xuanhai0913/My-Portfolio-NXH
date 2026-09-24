@@ -73,6 +73,28 @@ const projectCatalog = [
       group: "pet"
     },
     {
+      id: "sqliLab",
+      image: "/images/projects/web-security-labs.svg",
+      caseStudy: "/security?topic=sqli",
+      github: "https://github.com/xuanhai0913/SQLI-HAILAMDEV",
+      technologies: ["Python", "SQL", "Flask"],
+      badge: true,
+      company: "SECURITY RESEARCH",
+      year: "2026",
+      group: "pet"
+    },
+    {
+      id: "xssLab",
+      image: "/images/projects/web-security-labs.svg",
+      caseStudy: "/security?topic=xss",
+      github: "https://github.com/xuanhai0913/klg-xss-hailamdev",
+      technologies: ["Python", "JavaScript", "Flask"],
+      badge: true,
+      company: "SECURITY RESEARCH",
+      year: "2026",
+      group: "pet"
+    },
+    {
       id: "ddosLab",
       image: "/images/projects/ddos-lab.svg",
       github: "https://github.com/xuanhai0913/DDOS-HAILAMDEV",
@@ -482,8 +504,8 @@ const Portfolio = () => {
         {/* Fixed Header */}
         <div className="portfolio-header scrolly-header">
           <h2 id="portfolio-title" className="section-title glitch-text" data-text={t('heading')}>{t('heading')}</h2>
-          <a className="project-case-study-link" href={localizePath('/projects/security-lab')}
-            onClick={() => trackProjectClick('RAT-HAILAMDEV', 'featured-case-study')}>
+          <a className="project-case-study-link" href={localizePath('/security')}
+            onClick={() => trackProjectClick('Security Hub', 'featured-case-study')}>
             <span aria-hidden="true">◎</span> {t('securityFeature')}
           </a>
           <p className="project-overview">

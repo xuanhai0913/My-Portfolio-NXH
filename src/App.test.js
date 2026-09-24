@@ -15,6 +15,15 @@ describe('route metadata', () => {
     expect(getRouteMeta('/3d').robots).toBe('noindex, follow');
   });
 
+  test.each(['/security', '/vi/security'])('matches the prerendered security hub at %s', pathname => {
+    const { routes } = require('../scripts/prerender-route-metadata');
+    const meta = getRouteMeta(pathname);
+    const shell = routes.find(route => route.path === pathname);
+    expect(meta.title).toBe(shell.title);
+    expect(meta.description).toBe(shell.description);
+    expect(meta.url).toBe(`https://my-portfolio-nxh.vercel.app${pathname}`);
+  });
+
   test.each(['en', 'vi'])('serves matching client and prerender metadata for the %s security case study', (locale) => {
     const { routes } = require('../scripts/prerender-route-metadata');
     const pathname = `${locale === 'vi' ? '/vi' : ''}/projects/security-lab`;

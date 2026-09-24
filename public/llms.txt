@@ -40,6 +40,9 @@
 
 ## Independent engineering projects
 
+- [Security Hub](https://my-portfolio-nxh.vercel.app/security): Interactive EN/VI field notes covering five research projects, attack concepts and defensive designs. Illustrations are not live attacks or proof of implemented controls.
+- [SQLI-HAILAMDEV](https://github.com/xuanhai0913/SQLI-HAILAMDEV): SQL injection research prototype with database adapters and Flask coordination. No validated detection accuracy or production readiness claimed.
+- [KLG-XSS-HAILAMDEV](https://github.com/xuanhai0913/klg-xss-hailamdev): Research prototype exploring XSS contexts and input-capture risks. The portfolio explains safe rendering and sanitization through a conceptual model.
 - [DDOS-HAILAMDEV](https://github.com/xuanhai0913/DDOS-HAILAMDEV): Python research toolkit for traffic monitoring and synthetic DoS/DDoS simulation. Metrics use generated data, not real network benchmarks.
 - [Malware-HAILAMDEV](https://github.com/xuanhai0913/Malware-HAILAMDEV): Python malware-analysis research prototype with static-analysis code for metadata, strings, entropy and disassembly using LIEF and Capstone.
 - [RAT-HAILAMDEV Security Lab](https://my-portfolio-nxh.vercel.app/projects/security-lab): Educational Python client/server research with TLS 1.3, JSON framing and concurrency. Interactive architecture case study; not a production security product. Authentication, authorization and filesystem sandboxing are documented limitations. [Source repository](https://github.com/xuanhai0913/RAT-HAILAMDEV).

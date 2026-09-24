@@ -1,6 +1,6 @@
 {
   "heading": "DỰ ÁN_",
-  "securityFeature": "Case study mới: Security Lab",
+  "securityFeature": "Security Hub · 5 dự án nghiên cứu",
   "labels": {
     "role": "VAI TRÒ",
     "impact": "KẾT QUẢ",
@@ -35,6 +35,20 @@
     "githubVariant": "Xem mã nguồn phiên bản {{variant}} của {{title}} trên GitHub"
   },
   "items": {
+    "sqliLab": {
+      "title": "SQLI-HAILAMDEV · Bảo mật dữ liệu",
+      "description": "Prototype nghiên cứu SQL injection, tìm hiểu ranh giới giữa dữ liệu người dùng và câu lệnh cơ sở dữ liệu.",
+      "role": "Tác giả · Nghiên cứu bảo mật web",
+      "achievement": "Tổ chức các mô-đun phân tích, adapter cơ sở dữ liệu và dịch vụ điều phối Flask. Security Hub minh họa truy vấn tham số hóa và quyền tối thiểu qua sơ đồ tương tác.",
+      "badge": "PROTOTYPE"
+    },
+    "xssLab": {
+      "title": "KLG-XSS · Nghiên cứu bảo mật trình duyệt",
+      "description": "Lab tìm hiểu các ngữ cảnh XSS và rủi ro thu thập đầu vào tại ranh giới tin cậy của trình duyệt.",
+      "role": "Tác giả · Nghiên cứu bảo mật web",
+      "achievement": "Xây dựng prototype với mô-đun phân tích trình duyệt và dịch vụ Flask. Phần minh họa trong portfolio tập trung vào render an toàn, sanitize và phòng vệ nhiều lớp.",
+      "badge": "PROTOTYPE"
+    },
     "ddosLab": {
       "title": "DDOS-HAILAMDEV · Bộ công cụ phòng thủ",
       "description": "Toolkit Python nghiên cứu giám sát lưu lượng theo ngưỡng và mô phỏng các kịch bản DoS/DDoS.",

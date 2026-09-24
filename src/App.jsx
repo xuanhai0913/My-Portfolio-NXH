@@ -29,6 +29,7 @@ const Blog = lazy(() => import('./components/Blog'));
 const Tools = lazy(() => import('./pages/Tools'));
 const ToolWorkspace = lazy(() => import('./pages/Tools/Workspace'));
 const SecurityLab = lazy(() => import('./pages/SecurityLab'));
+const SecurityHub = lazy(() => import('./pages/SecurityHub'));
 
 // Defer third-party analytics (bundle-defer-third-party)
 const SpeedInsights = lazy(() =>
@@ -217,6 +218,11 @@ const renderLocalizedRoutes = (prefix) => (
   <React.Fragment key={prefix || 'en'}>
     <Route path={routePath(prefix, '/')} element={<MainPortfolio />} />
     <Route path={routePath(prefix, '/assistant')} element={<ChatSurface mode="page" />} />
+    <Route path={routePath(prefix, '/security')} element={(
+      <ErrorBoundary>
+        <Suspense fallback={<LoadingFallback />}><SecurityHub /></Suspense>
+      </ErrorBoundary>
+    )} />
     <Route path={routePath(prefix, '/projects/security-lab')} element={(
       <ErrorBoundary>
         <Suspense fallback={<LoadingFallback />}>

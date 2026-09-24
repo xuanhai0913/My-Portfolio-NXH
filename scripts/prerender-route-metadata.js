@@ -14,6 +14,22 @@ const SEO_DIRECTORY = path.join(OUTPUT_DIRECTORY, '_seo');
 
 const routes = [
   {
+    path: '/security',
+    file: 'security.html',
+    locale: 'en',
+    title: 'Security Hub · Research & Defense | Nguyễn Xuân Hải',
+    description: 'Explore five security research projects through interactive explanations of SQL injection, XSS, DDoS, malware analysis and trust boundaries.',
+    keywords: 'security portfolio, SQL injection, XSS, DDoS, malware analysis, defensive design',
+  },
+  {
+    path: '/vi/security',
+    file: 'vi-security.html',
+    locale: 'vi',
+    title: 'Security Hub · Nghiên cứu & Phòng vệ | Nguyễn Xuân Hải',
+    description: 'Khám phá năm dự án bảo mật qua minh họa tương tác về SQL injection, XSS, DDoS, phân tích mã độc và ranh giới tin cậy.',
+    keywords: 'portfolio bảo mật, SQL injection, XSS, DDoS, phân tích mã độc, thiết kế phòng vệ',
+  },
+  {
     path: '/projects/security-lab',
     file: 'projects-security-lab.html',
     locale: 'en',

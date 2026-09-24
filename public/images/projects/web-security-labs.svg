@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760">
+  <defs><pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M48 0H0V48" fill="none" stroke="#263025" stroke-width="1"/></pattern></defs>
+  <rect width="1200" height="760" fill="#0c100d"/><rect width="1200" height="760" fill="url(#grid)"/>
+  <g font-family="monospace"><text x="70" y="90" fill="#d0f783" font-size="18" letter-spacing="4">HAILAMDEV / WEB SECURITY RESEARCH</text>
+  <text x="70" y="205" fill="#ecede4" font-size="70">THE TRUST BOUNDARY.</text>
+  <text x="70" y="260" fill="#a8aea4" font-size="24">Understand the attack. Design the defense.</text>
+  <path d="M230 440H970" stroke="#67745a" stroke-width="2" stroke-dasharray="8 8"/>
+  <g fill="#151c16" stroke="#465340"><rect x="70" y="340" width="280" height="210"/><rect x="460" y="340" width="280" height="210" stroke="#d0f783"/><rect x="850" y="340" width="280" height="210"/></g>
+  <g fill="#d0f783" font-size="40" text-anchor="middle"><text x="210" y="435">INPUT</text><text x="600" y="435">CONTROL</text><text x="990" y="435">SYSTEM</text></g>
+  <g fill="#a8aea4" font-size="17" text-anchor="middle"><text x="210" y="492">UNTRUSTED DATA</text><text x="600" y="492">EXPLICIT BOUNDARIES</text><text x="990" y="492">SCOPED BEHAVIOR</text></g>
+  <text x="70" y="665" fill="#ecede4" font-size="28">SQLi / XSS</text><text x="1130" y="665" text-anchor="end" fill="#a8aea4" font-size="18">RESEARCH PROTOTYPES · 2026</text></g>
+</svg>

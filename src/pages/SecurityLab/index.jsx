@@ -37,7 +37,7 @@ const SecurityLab = () => {
   return (
     <article className="security-lab" aria-labelledby="security-lab-title">
       <div className="sl-shell">
-        <a className="sl-back" href={localizePath('/#portfolio')}>{copy.back}</a>
+        <a className="sl-back" href={localizePath('/security?topic=rat')}>{locale === 'vi' ? 'Về Security Hub' : 'Back to Security Hub'}</a>
         <header className="sl-hero">
           <div className="sl-hero-copy">
             <p className="sl-eyebrow">{copy.eyebrow}</p>

@@ -3,6 +3,8 @@
   "buildCommand": "npm run build",
   "outputDirectory": "build",
   "rewrites": [
+    { "source": "/security", "destination": "/_seo/security.html" },
+    { "source": "/vi/security", "destination": "/_seo/vi-security.html" },
     {
       "source": "/projects/security-lab",
       "destination": "/_seo/projects-security-lab.html"

@@ -20,12 +20,32 @@ const PORTFOLIO_DATA = {
   },
   stats: {
     productionProjects: 7,
-    portfolioProjects: 13,
+    portfolioProjects: 15,
     companies: 3,
     certifications: 45,
     awsCredentials: 28,
   },
   projects: [
+    {
+      id: 'sqli-lab',
+      name: 'SQLI-HAILAMDEV · Database Security Research',
+      category: 'Independent security research · SQL injection · bảo mật cơ sở dữ liệu',
+      stack: ['Python', 'SQL', 'Flask'],
+      evidence: 'Research prototype organized around SQL injection analysis, database adapters and a Flask coordination service. The portfolio illustrates parameterized queries and least privilege; it does not establish detection accuracy or production readiness.',
+      role: 'Creator · Web Security Research',
+      url: 'https://my-portfolio-nxh.vercel.app/security?topic=sqli',
+      repository: 'https://github.com/xuanhai0913/SQLI-HAILAMDEV',
+    },
+    {
+      id: 'xss-lab',
+      name: 'KLG-XSS · Browser Security Research',
+      category: 'Independent security research · cross-site scripting · XSS · bảo mật trình duyệt',
+      stack: ['Python', 'JavaScript', 'Flask'],
+      evidence: 'Lab prototype exploring XSS contexts and input-capture risks, with browser-analysis modules and a Flask service. Portfolio models explain safe rendering and sanitization, not live attacks or validated production defenses.',
+      role: 'Creator · Web Security Research',
+      url: 'https://my-portfolio-nxh.vercel.app/security?topic=xss',
+      repository: 'https://github.com/xuanhai0913/klg-xss-hailamdev',
+    },
     {
       id: 'ddos-lab',
       name: 'DDOS-HAILAMDEV · Defense Toolkit',

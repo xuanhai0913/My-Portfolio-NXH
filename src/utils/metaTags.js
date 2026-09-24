@@ -11,6 +11,11 @@ export const defaultMetaTags = {
 
 const localizedPages = {
   en: {
+    security: {
+      title: 'Security Hub · Research & Defense | Nguyễn Xuân Hải',
+      description: 'Explore five security research projects through interactive explanations of SQL injection, XSS, DDoS, malware analysis and trust boundaries.',
+      keywords: 'security portfolio, SQL injection, XSS, DDoS, malware analysis, defensive design'
+    },
     portfolio: {
       title: 'Nguyễn Xuân Hải | Full-Stack Developer in Ho Chi Minh City',
       description: 'Full-Stack Developer building production React, ASP.NET Core, NestJS and Odoo systems. Explore verified client work, engineering projects and credentials.',
@@ -48,6 +53,11 @@ const localizedPages = {
     }
   },
   vi: {
+    security: {
+      title: 'Security Hub · Nghiên cứu & Phòng vệ | Nguyễn Xuân Hải',
+      description: 'Khám phá năm dự án bảo mật qua minh họa tương tác về SQL injection, XSS, DDoS, phân tích mã độc và ranh giới tin cậy.',
+      keywords: 'portfolio bảo mật, SQL injection, XSS, DDoS, phân tích mã độc, thiết kế phòng vệ'
+    },
     portfolio: {
       title: 'Nguyễn Xuân Hải | Lập trình viên Full-Stack tại TP.HCM',
       description: 'Lập trình viên Full-Stack xây dựng hệ thống production với React, ASP.NET Core, NestJS và Odoo. Xem dự án thực tế, kinh nghiệm và chứng chỉ.',
@@ -141,6 +151,7 @@ const getRouteDetails = (pathname) => {
   let page = 'portfolio';
 
   if (route.startsWith('/assistant')) page = 'assistant';
+  else if (route === '/security') page = 'security';
   else if (route === '/projects/security-lab') page = 'securityLab';
   else if (route.startsWith('/videos')) page = 'videos';
   else if (route.startsWith('/tools')) page = 'tools';

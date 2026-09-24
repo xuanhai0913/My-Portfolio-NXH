@@ -27,7 +27,7 @@ describe('portfolio agent tools', () => {
   });
 
   test.each(['security', 'RAT-HAILAMDEV', 'bảo mật'])('finds the security lab for %s without claiming production readiness', (query) => {
-    const { result } = executePortfolioTool('search_portfolio_projects', { query });
+    const { result } = executePortfolioTool('search_portfolio_projects', { query, limit: 6 });
     const project = result.items.find(item => item.id === 'security-lab');
     expect(project.url).toBe('https://my-portfolio-nxh.vercel.app/projects/security-lab');
     expect(project.evidence).toContain('not a production security product');
