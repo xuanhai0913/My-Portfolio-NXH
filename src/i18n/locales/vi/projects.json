@@ -17,7 +17,9 @@
     "visitSite": "TRUY CẬP",
     "github": "GITHUB_",
     "previous": "TRƯỚC",
-    "next": "SAU"
+    "next": "SAU",
+    "video": "XEM DEMO · 2:50",
+    "submission": "BÀI DỰ THI DEVPOST"
   },
   "hints": {
     "swipe": "Vuốt sang trái hoặc phải để đổi dự án",
@@ -136,6 +138,20 @@
       "description": "Portfolio React dành cho nhà tuyển dụng, trình bày bằng chứng dự án có cấu trúc, giao diện thích ứng và analytics.",
       "role": "Nhà thiết kế & Lập trình viên Frontend",
       "achievement": "Xây dựng luồng khám phá dự án, trải nghiệm liên hệ dựa trên Slate, chuyển động GSAP và trợ lý portfolio theo ngữ cảnh."
+    },
+    "learnsprint": {
+      "title": "LearnSprint · Thử sức ca làm việc đầu tiên",
+      "description": "Mô phỏng công việc điều phối vận hành cho người trưởng thành chuẩn bị đi làm: kiểm tra kho, lập kế hoạch giao hàng, xử lý chậm trễ và bàn giao.",
+      "role": "Tác giả cá nhân · Sản phẩm, full-stack & AWS",
+      "achievement": "Đã nộp demo chạy trên AWS cùng MCP server tự host. Bedrock đề xuất thay đổi để người học Apply hoặc Undo; quyết định được lưu và đối chiếu qua ca mới.",
+      "badge": "DỰ ÁN HACKATHON"
     }
+  },
+  "learnsprint": {
+    "status": "ĐÃ NỘP BÀI · 26/09/2026",
+    "track": "Dự thi cá nhân · Track Alexa+ · AWS Builder Mini Challenge",
+    "videoNote": "Demo quay trên AWS · Giọng đọc tiếng Anh · Phụ đề Anh + Việt",
+    "play": "Phát video demo LearnSprint",
+    "limits": "Tác giả Nguyễn Xuân Hải · Mã nguồn công khai với MIT · Đã nộp ngày 26/09/2026."
   }
 }

@@ -17,7 +17,9 @@
     "visitSite": "VISIT SITE",
     "github": "GITHUB_",
     "previous": "PREV",
-    "next": "NEXT"
+    "next": "NEXT",
+    "video": "WATCH DEMO · 2:50",
+    "submission": "DEVPOST ENTRY"
   },
   "hints": {
     "swipe": "Swipe left or right to change project",
@@ -136,6 +138,20 @@
       "description": "Recruiter-facing React portfolio that presents structured project evidence, responsive interactions, and analytics.",
       "role": "Designer & Frontend Developer",
       "achievement": "Built the project discovery flow, Slate-based contact experience, GSAP motion, and a contextual portfolio assistant."
+    },
+    "learnsprint": {
+      "title": "LearnSprint · Practice your first shift",
+      "description": "A simulated operations shift for adults preparing for their first job: investigate stock, plan deliveries, negotiate a delay and hand off decisions.",
+      "role": "Solo creator · Product, full-stack & AWS",
+      "achievement": "Submitted a working AWS demo and self-hosted MCP server. Bedrock proposes bounded edits; learners explicitly Apply or Undo. Decisions persist into a changed-condition replay.",
+      "badge": "HACKATHON ENTRY"
     }
+  },
+  "learnsprint": {
+    "status": "SUBMITTED · 26 SEP 2026",
+    "track": "Individual entry · Alexa+ track · AWS Builder Mini Challenge",
+    "videoNote": "Recorded AWS demo · English narration · English + Vietnamese captions",
+    "play": "Play LearnSprint demo",
+    "limits": "Built by Nguyễn Xuân Hải · Public source under MIT · Submitted September 26, 2026."
   }
 }

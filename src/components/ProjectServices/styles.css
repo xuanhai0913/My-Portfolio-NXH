@@ -1,0 +1,3 @@
+.project-services { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 12px 0; list-style: none; }
+.project-services li { display: flex; align-items: center; gap: 7px; padding: 6px 9px; border: 1px solid rgba(255,255,255,.18); color: var(--text-primary); font-size: .72rem; }
+.project-services img { object-fit: contain; flex: 0 0 28px; }

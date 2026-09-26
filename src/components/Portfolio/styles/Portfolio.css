@@ -1439,3 +1439,9 @@
   .portfolio-compact .project-group-switch button { font-size: .7rem; }
   .portfolio-compact .visual-frame { aspect-ratio: 16/9; }
 }
+
+.project-competition { display: grid; gap: 6px; padding: 12px; border-left: 3px solid #ff9900; background: rgba(255,153,0,.06); }
+.project-competition > span { color: #ffb84d; font: 700 .65rem var(--font-mono); letter-spacing: .05em; }
+.project-competition a { color: var(--text-primary); font-size: .83rem; line-height: 1.5; text-underline-offset: 3px; }
+.project-competition small { color: var(--text-secondary); font-size: .72rem; line-height: 1.5; }
+.portfolio-compact .showcase-card:has(.project-competition) .evidence-item p { display: block; overflow: visible; }

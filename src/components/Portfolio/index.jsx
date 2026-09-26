@@ -6,6 +6,8 @@ import { trackProjectClick } from '../../utils/analytics';
 import enProjects from '../../i18n/locales/en/projects.json';
 import viProjects from '../../i18n/locales/vi/projects.json';
 import './styles/Portfolio.css';
+import { learnsprint } from '../../data/learnsprint';
+import ProjectServices from '../ProjectServices';
 
 // Import project images
 import prj1 from '../../images/project/prj1.webp';
@@ -23,6 +25,7 @@ i18n.addResourceBundle('en', 'projects', enProjects, true, true);
 i18n.addResourceBundle('vi', 'projects', viProjects, true, true);
 
 const projectCatalog = [
+    learnsprint,
     {
       id: "oakmind",
       image: oakMind,
@@ -424,6 +427,14 @@ const Portfolio = () => {
           )}
         </div>
 
+        {project.competition && (
+          <div className="project-competition">
+            <span>{t('learnsprint.status')}</span>
+            <a href={project.competition} target="_blank" rel="noopener noreferrer">{project.competitionName} ↗</a>
+            <small>{t('learnsprint.track')}</small>
+          </div>
+        )}
+        {project.services && <ProjectServices services={project.services} />}
         <div className="showcase-stack">
           <span className="stack-label">
             <ProjectUiIcon type="stack" />
@@ -437,6 +448,18 @@ const Portfolio = () => {
         </div>
 
         <div className="showcase-actions">
+          {project.video && (
+            <a href={localizePath(project.video)} className="action-btn primary"
+              onClick={() => trackProjectClick(project.title, 'video')}>
+              <span aria-hidden="true">▶</span> {t('actions.video')}
+            </a>
+          )}
+          {project.submission && (
+            <a href={project.submission} className="action-btn secondary" target="_blank" rel="noopener noreferrer"
+              onClick={() => trackProjectClick(project.title, 'devpost')}>
+              {t('actions.submission')} ↗
+            </a>
+          )}
           {project.caseStudy && (
             <a href={localizePath(project.caseStudy)} className="action-btn primary"
               onClick={() => trackProjectClick(project.title, 'case-study')}>
