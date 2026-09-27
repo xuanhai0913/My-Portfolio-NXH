@@ -1,25 +1,20 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import useLocaleNavigation from '../../hooks/useLocaleNavigation';
 import i18n from '../../i18n';
 import { trackProjectClick } from '../../utils/analytics';
 import enProjects from '../../i18n/locales/en/projects.json';
 import viProjects from '../../i18n/locales/vi/projects.json';
-import './styles/Portfolio.css';
+import './styles/Gallery.css';
 import { learnsprint } from '../../data/learnsprint';
-import ProjectServices from '../ProjectServices';
 
 // Import project images
 import prj1 from '../../images/project/prj1.webp';
-import prj3 from '../../images/project/prj3.webp';
-import prj6 from '../../images/project/prj6.webp';
-import prj8 from '../../images/project/prj8.webp';
 import prj10 from '../../images/project/prj10.webp';
 import visionKey from '../../images/project/visionKey.webp';
 import agriTrace from '../../images/project/agritrace.webp';
 import chongScam from '../../images/project/chongscam.webp';
 import routeLab from '../../images/project/routelab.webp';
-import oakMind from '../../images/project/oakmind.webp';
 
 i18n.addResourceBundle('en', 'projects', enProjects, true, true);
 i18n.addResourceBundle('vi', 'projects', viProjects, true, true);
@@ -28,7 +23,8 @@ const projectCatalog = [
     learnsprint,
     {
       id: "oakmind",
-      image: oakMind,
+      image: "/images/projects/gallery/oakmind-cover.webp",
+      capture: "/images/projects/gallery/oakmind-capture.png",
       demo: "https://oakmindgroup.com/",
       technologies: ["React 19", "ASP.NET Core 8", "SQL Server", "Cloudflare R2"],
       badge: true,
@@ -38,7 +34,8 @@ const projectCatalog = [
     },
     {
       id: "greatLinkMaiHouse",
-      image: prj8,
+      image: "/images/projects/gallery/greatlink-cover.webp",
+      capture: "/images/projects/gallery/greatlink-capture.png",
       demo: "https://greatlinkmaihouse.com/",
       technologies: ["React", "ASP.NET Core", "SQL Server", "SignalR"],
       badge: true,
@@ -48,7 +45,8 @@ const projectCatalog = [
     },
     {
       id: "educationEnglish",
-      image: prj6,
+      image: "/images/projects/gallery/education-cover.webp",
+      capture: "/images/projects/gallery/education-capture.png",
       demo: "https://ech.edu.vn",
       technologies: ["ASP.NET Core", "EF Core", "SQL Server", "QuestPDF"],
       company: "ECH COMMUNITY",
@@ -57,7 +55,8 @@ const projectCatalog = [
     },
     {
       id: "vnMediaHub",
-      image: prj3,
+      image: "/images/projects/gallery/vnmedia-cover.webp",
+      capture: "/images/projects/gallery/vnmedia-capture.png",
       demo: "https://vnmediahub.com",
       technologies: ["React", "ASP.NET Core", "SQL Server", "Redis"],
       company: "OAKMIND GROUP",
@@ -186,512 +185,80 @@ const projectCatalog = [
     }
 ];
 
-const projectGroups = ['all', 'client', 'pet'];
 
-const ProjectUiIcon = ({ type }) => {
-  const paths = {
-    all: (
-      <>
-        <rect x="3" y="3" width="7" height="7" rx="1" />
-        <rect x="14" y="3" width="7" height="7" rx="1" />
-        <rect x="3" y="14" width="7" height="7" rx="1" />
-        <rect x="14" y="14" width="7" height="7" rx="1" />
-      </>
-    ),
-    client: (
-      <>
-        <path d="M4 8h16v11H4z" />
-        <path d="M9 8V5h6v3M4 12h16M10 12v2h4v-2" />
-      </>
-    ),
-    pet: (
-      <>
-        <path d="M9 3v5l-5 9a2 2 0 0 0 1.8 3h12.4a2 2 0 0 0 1.8-3l-5-9V3" />
-        <path d="M8 13h8M8 3h8" />
-      </>
-    ),
-    role: (
-      <>
-        <circle cx="12" cy="8" r="3" />
-        <path d="M5 20c.8-4 3.1-6 7-6s6.2 2 7 6" />
-      </>
-    ),
-    impact: (
-      <>
-        <path d="M4 18V9M10 18V5M16 18v-7M22 18H2" />
-        <path d="m16 7 3-3 3 3M19 4v8" />
-      </>
-    ),
-    stack: (
-      <>
-        <path d="m12 3 9 5-9 5-9-5 9-5Z" />
-        <path d="m3 12 9 5 9-5M3 16l9 5 9-5" />
-      </>
-    )
-  };
-
-  return (
-    <svg className="project-ui-icon" viewBox="0 0 24 24" aria-hidden="true">
-      {paths[type] || paths.all}
-    </svg>
-  );
+const selectedIds = ['oakmind', 'greatLinkMaiHouse', 'educationEnglish', 'vnMediaHub'];
+const galleryCopy = {
+  en: { eyebrow: 'SELECTED WORK', title: 'Built for the real world.', intro: 'A selection of client platforms and independent products.', selected: 'Selected', all: 'All projects', details: 'View contribution', original: 'Original screenshot', more: 'Explore all', count: 'projects', security: 'Security research', competitions: 'Competition projects', role: 'My role', outcome: 'Contribution & outcome', stack: 'Technology', live: 'Live site', source: 'Source code', study: 'Case study', video: 'Watch demo', submission: 'Submission', covers: 'Presentation covers based on live website captures. Original screenshots are available in each project.' },
+  vi: { eyebrow: 'DỰ ÁN CHỌN LỌC', title: 'Từ ý tưởng đến thực tế.', intro: 'Một số nền tảng khách hàng và sản phẩm tôi tự phát triển.', selected: 'Chọn lọc', all: 'Tất cả', details: 'Xem đóng góp', original: 'Ảnh chụp gốc', more: 'Khám phá toàn bộ', count: 'dự án', security: 'Nghiên cứu bảo mật', competitions: 'Dự án cuộc thi', role: 'Vai trò của tôi', outcome: 'Đóng góp & kết quả', stack: 'Công nghệ', live: 'Website', source: 'Mã nguồn', study: 'Case study', video: 'Xem demo', submission: 'Bài dự thi', covers: 'Ảnh trình bày dựa trên giao diện website đang chạy. Có thể xem ảnh chụp gốc trong từng dự án.' },
 };
 
-const Portfolio = () => {
+function ProjectCard({ project, text, t, localizePath }) {
+  const title = t(`items.${project.id}.title`);
+  const links = [
+    project.caseStudy && { href: project.caseStudy, label: text.study, type: 'case-study' },
+    project.video && { href: project.video, label: text.video, type: 'video' },
+    project.submission && { href: project.submission, label: text.submission, type: 'devpost' },
+    project.demo && { href: project.demo, label: text.live, type: 'demo' },
+    project.github && { href: project.github, label: text.source, type: 'github' },
+    ...(project.githubLinks || []).map(link => ({ href: link.url, label: link.label, type: 'github' })),
+  ].filter(Boolean);
+  return <article className="work-card">
+    <div className={`work-image ${project.capture ? 'work-image-framed' : ''}`}>
+      {project.capture ? <img className="work-backdrop" src={project.image} alt="" aria-hidden="true" loading="lazy" decoding="async" width="1536" height="1024" /> : null}
+      <img className="work-screenshot" src={project.capture || project.image} alt={t('aria.preview', { title })} loading="lazy" decoding="async" width="1536" height="1024" />
+      <span className="work-year">{project.year}</span>
+    </div>
+    <div className="work-card-heading">
+      <h3>{title}</h3>
+      <p>{t(`items.${project.id}.role`)}</p>
+    </div>
+    <details className="work-details">
+      <summary>{text.details}<span aria-hidden="true">+</span></summary>
+      <div className="work-detail-body">
+        <p>{t(`items.${project.id}.description`)}</p>
+        <h4>{text.outcome}</h4>
+        <p>{t(`items.${project.id}.achievement`)}</p>
+        <ul className="work-stack" aria-label={text.stack}>{project.technologies.map(tech => <li key={tech}>{tech}</li>)}</ul>
+        <div className="work-links">
+          {links.map(link => <a key={link.href} href={link.href.startsWith('/') ? localizePath(link.href) : link.href}
+            target={link.href.startsWith('/') ? undefined : '_blank'} rel={link.href.startsWith('/') ? undefined : 'noopener noreferrer'}
+            onClick={() => trackProjectClick(title, link.type)}>{link.label}<span aria-hidden="true"> ↗</span></a>)}
+          {project.capture ? <a href={project.capture} target="_blank" rel="noopener noreferrer">{text.original}</a> : null}
+        </div>
+      </div>
+    </details>
+  </article>;
+}
+
+export default function Portfolio() {
   const { t } = useTranslation('projects');
-  const { localizePath } = useLocaleNavigation();
-  const sectionRef = useRef(null);
-  const projectListRef = useRef(null);
-  const mobileNavRef = useRef(null);
-  const touchStartXRef = useRef(null);
-  const touchStartYRef = useRef(null);
-  const prevIndexRef = useRef(0);
-  const hasPreloadedRef = useRef(false);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
-  const [projectGroup, setProjectGroup] = useState('all');
-  const filteredCatalog = projectGroup === 'all'
-    ? projectCatalog
-    : projectCatalog.filter((project) => project.group === projectGroup);
-  const projectCount = filteredCatalog.length;
-  const allProjects = filteredCatalog.map((project) => ({
-    ...project,
-    title: t(`items.${project.id}.title`),
-    description: t(`items.${project.id}.description`),
-    role: t(`items.${project.id}.role`),
-    achievement: t(`items.${project.id}.achievement`),
-    badge: project.badge ? t(`items.${project.id}.badge`) : null,
-  }));
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 900px)');
-    const updateMode = () => setIsMobile(mediaQuery.matches);
-
-    updateMode();
-    mediaQuery.addEventListener('change', updateMode);
-    return () => mediaQuery.removeEventListener('change', updateMode);
-  }, []);
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return undefined;
-
-    const preloadProjectImages = () => {
-      if (hasPreloadedRef.current) return;
-      hasPreloadedRef.current = true;
-
-      projectCatalog.forEach((project) => {
-        const image = new Image();
-        image.decoding = 'async';
-        image.src = project.image;
-      });
-    };
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-        preloadProjectImages();
-        observer.disconnect();
-      },
-      { rootMargin: '900px 0px' }
-    );
-
-    observer.observe(section);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!isMobile) return undefined;
-
-    const current = Number.isFinite(activeIndex) ? activeIndex : 0;
-    setScrollProgress((current + 1) / projectCount);
-
-    const activeTab = mobileNavRef.current?.querySelector('[aria-selected="true"]');
-    activeTab?.scrollIntoView({
-      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
-      block: 'nearest',
-      inline: 'center'
-    });
-
-    return undefined;
-  }, [activeIndex, isMobile, projectCount]);
-
-  const handleProjectClick = (index) => {
-    setActiveIndex(index);
-  };
-  const handlePrevProject = () => {
-    setActiveIndex((prev) => {
-      const next = (prev - 1 + projectCount) % projectCount;
-      prevIndexRef.current = next;
-      return next;
-    });
-  };
-
-  const handleNextProject = () => {
-    setActiveIndex((prev) => {
-      const next = (prev + 1) % projectCount;
-      prevIndexRef.current = next;
-      return next;
-    });
-  };
-
-  const handleStageTouchStart = (event) => {
-    if (!isMobile) return;
-    const firstTouch = event.touches[0];
-    touchStartXRef.current = firstTouch.clientX;
-    touchStartYRef.current = firstTouch.clientY;
-  };
-
-  const handleStageTouchEnd = (event) => {
-    if (!isMobile || touchStartXRef.current === null || touchStartYRef.current === null) {
-      return;
-    }
-
-    const endTouch = event.changedTouches[0];
-    const deltaX = endTouch.clientX - touchStartXRef.current;
-    const deltaY = endTouch.clientY - touchStartYRef.current;
-
-    touchStartXRef.current = null;
-    touchStartYRef.current = null;
-
-    // Ignore mostly vertical gestures so natural page scrolling still works.
-    if (Math.abs(deltaX) < Math.abs(deltaY)) return;
-
-    const SWIPE_THRESHOLD = 45;
-    if (deltaX <= -SWIPE_THRESHOLD) {
-      handleNextProject();
-    } else if (deltaX >= SWIPE_THRESHOLD) {
-      handlePrevProject();
-    }
-  };
-
-  const safeActiveIndex = Number.isFinite(activeIndex)
-    ? Math.min(projectCount - 1, Math.max(0, activeIndex))
-    : 0;
-  const activeProject = allProjects[safeActiveIndex] || allProjects[0];
-
-  const handleGroupChange = (group) => {
-    if (group === projectGroup) return;
-    setProjectGroup(group);
-    setActiveIndex(0);
-    prevIndexRef.current = 0;
-    setScrollProgress(0);
-
-  };
-
-  const renderShowcaseCard = (project, prioritizeImage = false) => (
-    <article className="showcase-card">
-      <div className="showcase-visual">
-        <div className="visual-frame">
-          <img
-            src={project.image}
-            alt={t('aria.preview', { title: project.title })}
-            className="showcase-image"
-            loading={prioritizeImage ? 'eager' : 'lazy'}
-            fetchpriority={prioritizeImage ? 'high' : 'low'}
-            decoding="async"
-            width="1600"
-            height="1000"
-          />
-        </div>
-        {project.badge && (
-          <div className="showcase-badge">{project.badge}</div>
-        )}
+  const { locale, localizePath } = useLocaleNavigation();
+  const [group, setGroup] = useState('selected');
+  const text = galleryCopy[locale] || galleryCopy.en;
+  const projects = group === 'selected'
+    ? selectedIds.map(id => projectCatalog.find(project => project.id === id))
+    : projectCatalog.filter(project => group === 'all' || project.group === group);
+  return <section id="portfolio" className="work-gallery" aria-labelledby="portfolio-title">
+    <div className="work-shell">
+      <header className="work-heading">
+        <p className="work-eyebrow">{text.eyebrow}</p>
+        <h2 id="portfolio-title">{text.title}</h2>
+        <p>{text.intro}</p>
+      </header>
+      <div className="work-filters" role="group" aria-label={t('aria.projectGroups')}>
+        {['selected', 'client', 'pet', 'all'].map(key => <button key={key} type="button" aria-pressed={group === key} onClick={() => setGroup(key)}>
+          {key === 'selected' ? text.selected : key === 'all' ? text.all : t(`groups.${key}`)}
+        </button>)}
       </div>
-
-      <div className="showcase-info">
-        <div className="showcase-meta">
-          {project.company && <span className="showcase-company">{project.company}</span>}
-          <span className="showcase-year">{project.year}</span>
-        </div>
-        <h3 className="showcase-title">{project.title}</h3>
-        <p className="showcase-desc">{project.description}</p>
-
-        <div className="showcase-evidence">
-          <div className="evidence-item">
-            <span className="evidence-icon"><ProjectUiIcon type="role" /></span>
-            <div>
-              <span className="evidence-label">{t('labels.role')}</span>
-              <p>{project.role}</p>
-            </div>
-          </div>
-          {project.achievement && (
-            <div className="evidence-item">
-              <span className="evidence-icon"><ProjectUiIcon type="impact" /></span>
-              <div>
-                <span className="evidence-label">{t('labels.impact')}</span>
-                <p>{project.achievement}</p>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {project.competition && (
-          <div className="project-competition">
-            <span>{t('learnsprint.status')}</span>
-            <a href={project.competition} target="_blank" rel="noopener noreferrer">{project.competitionName} ↗</a>
-            <small>{t('learnsprint.track')}</small>
-          </div>
-        )}
-        {project.services && <ProjectServices services={project.services} />}
-        <div className="showcase-stack">
-          <span className="stack-label">
-            <ProjectUiIcon type="stack" />
-            {t('labels.stack')}
-          </span>
-          <div className="showcase-tech">
-            {project.technologies.map((tech) => (
-              <span key={tech} className="tech-pill">{tech}</span>
-            ))}
-          </div>
-        </div>
-
-        <div className="showcase-actions">
-          {project.video && (
-            <a href={localizePath(project.video)} className="action-btn primary"
-              onClick={() => trackProjectClick(project.title, 'video')}>
-              <span aria-hidden="true">▶</span> {t('actions.video')}
-            </a>
-          )}
-          {project.submission && (
-            <a href={project.submission} className="action-btn secondary" target="_blank" rel="noopener noreferrer"
-              onClick={() => trackProjectClick(project.title, 'devpost')}>
-              {t('actions.submission')} ↗
-            </a>
-          )}
-          {project.caseStudy && (
-            <a href={localizePath(project.caseStudy)} className="action-btn primary"
-              onClick={() => trackProjectClick(project.title, 'case-study')}>
-              <span className="btn-text">{t('actions.caseStudy')}</span>
-            </a>
-          )}
-          {project.demo && (
-            <a
-              href={project.demo.startsWith('/') ? localizePath(project.demo) : project.demo}
-              target={project.demo.startsWith('/') ? '_self' : '_blank'}
-              rel="noopener noreferrer"
-              className="action-btn primary"
-              aria-label={t('aria.visitSite', { title: project.title })}
-              onClick={() => trackProjectClick(project.title, 'demo')}
-            >
-              <span className="btn-text">{t('actions.visitSite')}</span>
-              <span className="btn-icon" aria-hidden="true">↗</span>
-            </a>
-          )}
-          {project.github && (
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="action-btn secondary"
-              aria-label={t('aria.github', { title: project.title })}
-              onClick={() => trackProjectClick(project.title, 'github')}
-            >
-              <span className="btn-text">{t('actions.github')}</span>
-            </a>
-          )}
-          {project.githubLinks && project.githubLinks.map((link) => (
-            <a
-              key={link.url}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="action-btn secondary"
-              aria-label={t('aria.githubVariant', { title: project.title, variant: link.label })}
-              onClick={() => trackProjectClick(project.title, `github-${link.label}`)}
-            >
-              <span className="btn-text">{link.label}</span>
-            </a>
-          ))}
-        </div>
+      <p className="work-result-count" aria-live="polite">{projects.length} / {projectCatalog.length} {text.count}</p>
+      <div className="work-grid">
+        {projects.map(project => <ProjectCard key={project.id} project={project} text={text} t={t} localizePath={localizePath} />)}
       </div>
-    </article>
-  );
-
-  return (
-    <section
-      id="portfolio"
-      className="portfolio-section portfolio-scrollytelling portfolio-compact"
-      ref={sectionRef}
-      aria-labelledby="portfolio-title"
-    >
-      <div className="portfolio-sticky">
-        <div
-          className="portfolio-reading-progress"
-          aria-hidden="true"
-          style={{ '--portfolio-progress': scrollProgress }}
-        >
-          <span />
-        </div>
-        {/* Fixed Header */}
-        <div className="portfolio-header scrolly-header">
-          <h2 id="portfolio-title" className="section-title glitch-text" data-text={t('heading')}>{t('heading')}</h2>
-          <a className="project-case-study-link" href={localizePath('/security')}
-            onClick={() => trackProjectClick('Security Hub', 'featured-case-study')}>
-            <span aria-hidden="true">◎</span> {t('securityFeature')}
-          </a>
-          <p className="project-overview">
-            {t('overview', {
-              total: projectCatalog.length,
-              client: projectCatalog.filter((project) => project.group === 'client').length,
-              pet: projectCatalog.filter((project) => project.group === 'pet').length
-            })}
-          </p>
-          <div className="project-group-switch" role="group" aria-label={t('aria.projectGroups')}>
-            {projectGroups.map((group) => (
-              <button
-                key={group}
-                type="button"
-                className={projectGroup === group ? 'is-active' : ''}
-                aria-pressed={projectGroup === group}
-                onClick={() => handleGroupChange(group)}
-              >
-                <ProjectUiIcon type={group} />
-                <span>{t(`groups.${group}`)}</span>
-                <small>
-                  {group === 'all'
-                    ? projectCatalog.length
-                    : projectCatalog.filter((project) => project.group === group).length}
-                </small>
-              </button>
-            ))}
-          </div>
-          <div className="project-counter">
-            <span className="current">{String(safeActiveIndex + 1).padStart(2, '0')}</span>
-            <span className="divider">/</span>
-            <span className="total">{String(projectCount).padStart(2, '0')}</span>
-          </div>
-        </div>
-
-        {isMobile ? (
-          <div className="portfolio-mobile">
-            <div
-              ref={mobileNavRef}
-              className="mobile-project-nav"
-              role="tablist"
-              aria-label={t('aria.projectNavigation')}
-            >
-              {allProjects.map((project, index) => (
-                <button
-                  key={project.id}
-                  role="tab"
-                  aria-selected={safeActiveIndex === index}
-                  aria-label={t('aria.selectProject', { title: project.title })}
-                  className={`mobile-nav-item ${safeActiveIndex === index ? 'active' : ''}`}
-                  onClick={() => handleProjectClick(index)}
-                >
-                  <span className="mobile-nav-index">{String(index + 1).padStart(2, '0')}</span>
-                  <span className="mobile-nav-title">{project.title}</span>
-                </button>
-              ))}
-            </div>
-
-            <div
-              className="mobile-project-stage"
-              onTouchStart={handleStageTouchStart}
-              onTouchEnd={handleStageTouchEnd}
-            >
-              {renderShowcaseCard(activeProject, true)}
-            </div>
-
-            <p className="mobile-swipe-hint">{t('hints.swipe')}</p>
-
-            <div className="mobile-project-controls">
-              <button type="button" className="mobile-control-btn" onClick={handlePrevProject} aria-label={t('aria.previousProject')}>
-                {t('actions.previous')}
-              </button>
-              <span className="mobile-control-counter">
-                {String(safeActiveIndex + 1).padStart(2, '0')} / {String(projectCount).padStart(2, '0')}
-              </span>
-              <button type="button" className="mobile-control-btn" onClick={handleNextProject} aria-label={t('aria.nextProject')}>
-                {t('actions.next')}
-              </button>
-            </div>
-          </div>
-        ) : (
-          <>
-            {/* Main Content Grid */}
-            <div className="scrollytelling-grid">
-              {/* Project List (Left Side) */}
-              <div className="project-list" ref={projectListRef}>
-                <div className="list-inner">
-                  {allProjects.map((project, index) => (
-                    <button
-                      key={project.id}
-                      aria-label={t('aria.selectProject', { title: project.title })}
-                      aria-pressed={safeActiveIndex === index}
-                      className={`project-list-item ${safeActiveIndex === index ? 'active' : ''} ${index < safeActiveIndex ? 'passed' : ''}`}
-                      onClick={() => handleProjectClick(index)}
-                    >
-                      <span className="item-index">{String(index + 1).padStart(2, '0')}</span>
-                      <img
-                        className="item-thumb"
-                        src={project.image}
-                        alt=""
-                        loading="lazy"
-                        decoding="async"
-                        width="96"
-                        height="64"
-                      />
-                      <div className="item-content">
-                        <span className="item-title">{project.title}</span>
-                        {project.badge && <span className="item-badge">{project.badge}</span>}
-                      </div>
-                      <span className="item-year">{project.year}</span>
-                      <div className="item-progress">
-                        <div
-                          className="progress-fill"
-                          style={{
-                            transform: `scaleX(${safeActiveIndex === index ? 1 : safeActiveIndex > index ? 1 : 0})`,
-                          }}
-                        ></div>
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Project Detail (Right Side) */}
-              <div className="project-showcase">
-                {renderShowcaseCard(activeProject, true)}
-              </div>
-            </div>
-
-            {/* Vertical Progress Indicator */}
-            <div className="scroll-progress">
-              <div
-                className="progress-bar"
-                style={{ transform: `scaleY(${scrollProgress})` }}
-              ></div>
-              <div className="progress-dots">
-                {allProjects.map((project, index) => (
-                  <button
-                    key={project.id}
-                    type="button"
-                    className={`progress-dot ${safeActiveIndex >= index ? 'active' : ''}`}
-                    onClick={() => handleProjectClick(index)}
-                    aria-label={t('aria.selectProject', { title: project.title })}
-                    aria-current={safeActiveIndex === index ? 'step' : undefined}
-                  />
-                ))}
-              </div>
-            </div>
-          </>
-        )}
-
-        {/* Scroll Hint */}
-        <div className={`scroll-hint ${scrollProgress > 0.1 || isMobile ? 'hidden' : ''}`}>
-          <span className="hint-text">{t('hints.scroll')}</span>
-          <div className="hint-arrow">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M12 5L12 19M12 19L5 12M12 19L19 12" stroke="currentColor" strokeWidth="2" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-export default Portfolio;
+      <footer className="work-footer">
+        {group !== 'all' ? <button type="button" onClick={() => setGroup('all')}>{text.more} {projectCatalog.length} {text.count}<span aria-hidden="true"> ↗</span></button> : null}
+        <div><a href={localizePath('/security')}>{text.security}</a><a href={localizePath('/competitions')}>{text.competitions}</a></div>
+        <p>{text.covers}</p>
+      </footer>
+    </div>
+  </section>;
+}
