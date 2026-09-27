@@ -5,6 +5,7 @@ import useLocaleNavigation from '../../hooks/useLocaleNavigation';
 import './styles/Header.css';
 
 const ICON_PATHS = {
+  competitions: <><path d="M8 3h8v6a4 4 0 0 1-8 0V3ZM8 5H4v2a4 4 0 0 0 4 4m8-6h4v2a4 4 0 0 1-4 4M12 13v6m-4 2h8" /></>,
   security: <><path d="m12 2 8 3v6c0 5-5 9-8 11-3-2-8-6-8-11V5Z" /><path d="m8 12 3 3 5-6" /></>,
   home: <><path d="m3 11 9-8 9 8" /><path d="M5 10v10h14V10" /><path d="M9 20v-6h6v6" /></>,
   user: <><circle cx="12" cy="8" r="4" /><path d="M4 21a8 8 0 0 1 16 0" /></>,
@@ -98,6 +99,7 @@ const Header = () => {
     { id: 'about', icon: 'user', label: t('header.about', { defaultValue: 'About' }), href: '#about' },
     { id: 'portfolio', icon: 'portfolio', label: t('header.portfolio', { defaultValue: 'Portfolio' }), href: '#portfolio' },
     { id: 'security', icon: 'security', label: locale === 'vi' ? 'Bảo mật' : 'Security', href: '/security', isRoute: true },
+    { id: 'competitions', icon: 'competitions', label: locale === 'vi' ? 'Cuộc thi' : 'Competitions', href: '/competitions', isRoute: true },
     { id: 'certifications', icon: 'certifications', label: t('header.certifications', { defaultValue: 'Certifications' }), href: '#certifications' },
     { id: 'tools', icon: 'tools', label: t('header.tools', { defaultValue: 'Tools' }), href: '/tools', isRoute: true },
     { id: 'blog', icon: 'blog', label: t('header.blog', { defaultValue: 'Blog' }), href: '/blog', isRoute: true },

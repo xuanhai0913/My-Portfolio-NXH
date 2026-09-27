@@ -11,6 +11,11 @@ export const defaultMetaTags = {
 
 const localizedPages = {
   en: {
+    competitions: {
+      title: 'Competition Projects | Nguyễn Xuân Hải',
+      description: 'Explore LearnSprint and ScamSignal AI: competition demos, personal contributions, engineering decisions and lessons learned.',
+      keywords: 'LearnSprint, ScamSignal AI, hackathon, developer portfolio'
+    },
     security: {
       title: 'Security Hub · Research & Defense | Nguyễn Xuân Hải',
       description: 'Explore five security research projects through interactive explanations of SQL injection, XSS, DDoS, malware analysis and trust boundaries.',
@@ -53,6 +58,11 @@ const localizedPages = {
     }
   },
   vi: {
+    competitions: {
+      title: 'Dự án cuộc thi | Nguyễn Xuân Hải',
+      description: 'Khám phá LearnSprint và ScamSignal AI qua demo, đóng góp cá nhân, quyết định kỹ thuật và bài học từ các cuộc thi.',
+      keywords: 'LearnSprint, ScamSignal AI, cuộc thi, portfolio lập trình viên'
+    },
     security: {
       title: 'Security Hub · Nghiên cứu & Phòng vệ | Nguyễn Xuân Hải',
       description: 'Khám phá năm dự án bảo mật qua minh họa tương tác về SQL injection, XSS, DDoS, phân tích mã độc và ranh giới tin cậy.',
@@ -151,6 +161,7 @@ const getRouteDetails = (pathname) => {
   let page = 'portfolio';
 
   if (route.startsWith('/assistant')) page = 'assistant';
+  else if (route === '/competitions') page = 'competitions';
   else if (route === '/security') page = 'security';
   else if (route === '/projects/security-lab') page = 'securityLab';
   else if (route.startsWith('/videos')) page = 'videos';

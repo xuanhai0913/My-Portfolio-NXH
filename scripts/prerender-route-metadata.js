@@ -14,6 +14,18 @@ const SEO_DIRECTORY = path.join(OUTPUT_DIRECTORY, '_seo');
 
 const routes = [
   {
+    path: '/competitions', file: 'competitions.html', locale: 'en',
+    title: 'Competition Projects | Nguyễn Xuân Hải',
+    description: 'Explore LearnSprint and ScamSignal AI: competition demos, personal contributions, engineering decisions and lessons learned.',
+    keywords: 'LearnSprint, ScamSignal AI, hackathon, developer portfolio',
+  },
+  {
+    path: '/vi/competitions', file: 'vi-competitions.html', locale: 'vi',
+    title: 'Dự án cuộc thi | Nguyễn Xuân Hải',
+    description: 'Khám phá LearnSprint và ScamSignal AI qua demo, đóng góp cá nhân, quyết định kỹ thuật và bài học từ các cuộc thi.',
+    keywords: 'LearnSprint, ScamSignal AI, cuộc thi, portfolio lập trình viên',
+  },
+  {
     path: '/security',
     file: 'security.html',
     locale: 'en',

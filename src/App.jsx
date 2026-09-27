@@ -16,6 +16,7 @@ import SectionTransition from './components/SectionTransition';
 // Below-fold sections stay out of the critical bundle.
 const Experience = lazy(() => import('./components/Experience/Experience'));
 const Portfolio = lazy(() => import('./components/Portfolio'));
+const Competitions = lazy(() => import('./components/Competitions'));
 const Certifications = lazy(() => import('./components/Certifications'));
 const CommunityEvents = lazy(() => import('./components/CommunityEvents'));
 const Contact = lazy(() => import('./components/Contact'));
@@ -107,7 +108,7 @@ const MainPortfolio = () => {
 
   useEffect(() => {
     const targetId = hash.slice(1);
-    if (!['profile', 'about', 'experience', 'portfolio', 'certifications', 'community', 'contact'].includes(targetId)) return undefined;
+    if (!['profile', 'about', 'experience', 'competitions', 'portfolio', 'certifications', 'community', 'contact'].includes(targetId)) return undefined;
 
     // Hash navigation can arrive before a deferred section is mounted. Scroll
     // to its placeholder to load it, then align the real section once it exists.
@@ -167,6 +168,12 @@ const MainPortfolio = () => {
       </ErrorBoundary>
 
       <ErrorBoundary>
+        <DeferredSection anchorId="competitions" minHeight={760}>
+          <Suspense fallback={<SectionFallback />}><Competitions compact /></Suspense>
+        </DeferredSection>
+      </ErrorBoundary>
+
+      <ErrorBoundary>
         <DeferredSection anchorId="portfolio" minHeight={900}>
           <Suspense fallback={<SectionFallback />}>
             <Portfolio />
@@ -218,6 +225,9 @@ const renderLocalizedRoutes = (prefix) => (
   <React.Fragment key={prefix || 'en'}>
     <Route path={routePath(prefix, '/')} element={<MainPortfolio />} />
     <Route path={routePath(prefix, '/assistant')} element={<ChatSurface mode="page" />} />
+    <Route path={routePath(prefix, '/competitions')} element={(
+      <ErrorBoundary><Suspense fallback={<LoadingFallback />}><Competitions /></Suspense></ErrorBoundary>
+    )} />
     <Route path={routePath(prefix, '/security')} element={(
       <ErrorBoundary>
         <Suspense fallback={<LoadingFallback />}><SecurityHub /></Suspense>
