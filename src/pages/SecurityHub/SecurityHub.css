@@ -58,7 +58,19 @@
 .sh-connector > span { position: absolute; right: 0; top: -12px; }
 .sh-connector.is-reached { color: var(--sh-state); }
 .sh-connector i { position: absolute; top: -3px; left: 0; width: 6px; height: 6px; background: var(--sh-state); opacity: 0; }
-.is-playing .sh-connector i { animation: sh-packet 1.2s cubic-bezier(.22,1,.36,1) infinite; }
+.is-playing .sh-connector.is-active i { animation: sh-packet 1.2s cubic-bezier(.22,1,.36,1) infinite; }
+.sh-node { color:var(--sh-paper); font:inherit; cursor:pointer; border-radius:12px; transition:transform 220ms cubic-bezier(.22,1,.36,1),border-color 220ms,background-color 220ms; }
+.sh-node:hover { transform:translateY(-3px); border-color:var(--sh-state); }
+.sh-node:active { transform:translateY(0) scale(.98); }
+.sh-node.is-current::after { content:''; position:absolute; bottom:-1px; width:32px; height:3px; border-radius:3px; background:var(--sh-state); }
+.sh-step-copy p { animation:sh-copy-in 260ms cubic-bezier(.22,1,.36,1) both; }
+.sh-deep-dive { border-top:1px solid var(--sh-line); }
+.sh-deep-dive > summary { list-style:none; display:flex; align-items:center; justify-content:space-between; gap:16px; min-height:60px; padding:18px 32px; font-size:.85rem; color:var(--sh-paper); cursor:pointer; }
+.sh-deep-dive > summary::-webkit-details-marker { display:none; }
+.sh-deep-dive > summary span { font-size:1.4rem; color:var(--sh-lime); transition:transform 200ms ease; }
+.sh-deep-dive[open] > summary span { transform:rotate(45deg); }
+.sh-deep-dive[open] .sh-explanation { animation:sh-copy-in 240ms ease-out both; }
+@keyframes sh-copy-in { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
 .sh-playback { display: flex; align-items: center; justify-content: space-between; gap: 28px; padding: 24px 32px 8px; }
 .sh-step-copy { flex: 1; min-height: 85px; }
 .sh-step-copy > span { font: .6rem var(--font-mono); color: var(--sh-state); }

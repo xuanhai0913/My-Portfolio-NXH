@@ -81,19 +81,22 @@ export default function SecurityHub() {
               </div>
               <div className="sh-diagram" aria-label={topic.nodes.join(' → ')}>
                 {topic.nodes.map((node, index) => <React.Fragment key={node}>
-                  {index > 0 ? <div className={`sh-connector ${step >= index ? 'is-reached' : ''}`} aria-hidden="true"><i /><span>→</span></div> : null}
-                  <div className={`sh-node ${step === index ? 'is-current' : ''} ${index === 1 ? 'sh-boundary' : ''}`}><span className="sh-node-number">0{index + 1}</span><NodeIcon index={index} /><strong>{node}</strong><span>{index === 1 && defended ? topic.control : ['INPUT', 'TRUST BOUNDARY', 'OUTCOME'][index]}</span></div>
+                  {index > 0 ? <div className={`sh-connector ${step >= index ? 'is-reached' : ''} ${step === index - 1 ? 'is-active' : ''}`} aria-hidden="true"><i /><span>→</span></div> : null}
+                  <button type="button" aria-label={`${copy.stage} ${index + 1}: ${node}`} aria-pressed={step === index} onClick={() => { setPlaying(false); setStep(index); }} className={`sh-node ${step === index ? 'is-current' : ''} ${index === 1 ? 'sh-boundary' : ''}`}><span className="sh-node-number">0{index + 1}</span><NodeIcon index={index} /><strong>{node}</strong><span>{index === 1 && defended ? topic.control : (locale === 'vi' ? ['ĐẦU VÀO', 'RANH GIỚI TIN CẬY', 'KẾT QUẢ'] : ['INPUT', 'TRUST BOUNDARY', 'OUTCOME'])[index]}</span></button>
                 </React.Fragment>)}
               </div>
               <div className="sh-playback">
-                <div className="sh-step-copy" aria-live="polite" aria-atomic="true"><span>{copy.stage} 0{step + 1} / 03</span><p>{steps[step]}</p></div>
+                <div className="sh-step-copy" aria-live="polite" aria-atomic="true"><span>{copy.stage} 0{step + 1} / 03</span><p key={`${selected.id}-${defended}-${step}`}>{steps[step]}</p></div>
                 <div className="sh-controls"><button type="button" onClick={() => { if (step === 2 && !playing) setStep(0); setPlaying(value => !value); }}><span aria-hidden="true">{playing ? 'Ⅱ' : '▷'}</span>{playing ? copy.pause : step === 2 ? copy.replay : copy.play}</button><button type="button" disabled={step === 2} onClick={() => { setPlaying(false); setStep(current => Math.min(2, current + 1)); }}>{copy.next}<span aria-hidden="true">→</span></button></div>
               </div>
               <p className="sh-model-note">{copy.model}</p>
+              <details className="sh-deep-dive" key={selected.id}>
+              <summary>{locale === 'vi' ? 'Tìm hiểu tác động & cách phòng chống' : 'Explore impact & defensive controls'}<span aria-hidden="true">+</span></summary>
               <div className="sh-explanation">
                 <div className="sh-impact"><p className="sh-kicker">{copy.impact}</p><p>{topic.impact}</p><span>{copy.related}</span><a href={repositoryUrl(selected)} target="_blank" rel="noopener noreferrer">{selected.repo} ↗</a></div>
                 <div><p className="sh-kicker">{copy.defense}</p><ol>{topic.defenses.map(defense => <li key={defense}>{defense}</li>)}</ol><a className="sh-reference" href={selected.source} target="_blank" rel="noopener noreferrer">{selected.sourceName} ↗</a></div>
               </div>
+              </details>
               <div className="sh-lesson"><span>{copy.takeaway}</span><p>{topic.lesson}</p></div>
             </div> : null}
           </div>)}
