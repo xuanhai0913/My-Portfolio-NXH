@@ -77,7 +77,9 @@
         }
       }
     },
+    "latestMessage": "Back to latest messages",
     "loadingStages": {
+      "waiting": "Waiting for the assistant’s response",
       "plan": "Understanding the hiring question",
       "retrieve": "Checking verified portfolio data",
       "compose": "Building an evidence-led answer",

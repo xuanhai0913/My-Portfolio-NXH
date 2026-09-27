@@ -77,7 +77,9 @@
         }
       }
     },
+    "latestMessage": "Về tin nhắn mới nhất",
     "loadingStages": {
+      "waiting": "Đang chờ trợ lý phản hồi",
       "plan": "Đang hiểu câu hỏi tuyển dụng",
       "retrieve": "Đang kiểm tra dữ liệu portfolio",
       "compose": "Đang tạo câu trả lời có dẫn chứng",

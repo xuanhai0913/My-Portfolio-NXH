@@ -24,6 +24,7 @@ import {
 } from '../../utils/portfolioAgentTools';
 import AgentResultCards, { getSafeAgentLink } from './AgentResultCards';
 import './ChatWidget.css';
+import './AssistantExperience.css';
 
 const MAX_CONTEXT_MESSAGES = 16;
 const CHAT_LANGUAGE_KEY = 'nxh_chat_language_v1';
@@ -764,10 +765,11 @@ const ChatWidget = ({ mode = 'floating' }) => {
   const [showActionsMenu, setShowActionsMenu] = useState(false);
   const [showTelemetryPanel, setShowTelemetryPanel] = useState(false);
   const [showToolbox, setShowToolbox] = useState(false);
-  const [loadingStage, setLoadingStage] = useState(0);
+  const [showLatestMessage, setShowLatestMessage] = useState(false);
   const [telemetryEvents, setTelemetryEvents] = useState([]);
   const [activeCommandIndex, setActiveCommandIndex] = useState(0);
   const chatBodyRef = useRef(null);
+  const followMessagesRef = useRef(true);
   const inputRef = useRef(null);
   const fileInputRef = useRef(null);
   const toastTimeoutRef = useRef(null);
@@ -858,20 +860,29 @@ const ChatWidget = ({ mode = 'floating' }) => {
 
   useEffect(() => {
     if (!open || !chatBodyRef.current) return;
-    chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
+    if (followMessagesRef.current) {
+      chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
+    }
   }, [messages, loading, open]);
 
-  useEffect(() => {
-    if (!loading) {
-      setLoadingStage(0);
-      return undefined;
-    }
+  const handleChatScroll = () => {
+    const body = chatBodyRef.current;
+    if (!body) return;
+    const nearBottom = body.scrollHeight - body.scrollTop - body.clientHeight < 80;
+    followMessagesRef.current = nearBottom;
+    setShowLatestMessage(!nearBottom);
+  };
 
-    const timer = window.setInterval(() => {
-      setLoadingStage((stage) => Math.min(stage + 1, 2));
-    }, 900);
-    return () => window.clearInterval(timer);
-  }, [loading]);
+  const scrollToLatestMessage = () => {
+    const body = chatBodyRef.current;
+    if (!body) return;
+    followMessagesRef.current = true;
+    setShowLatestMessage(false);
+    body.scrollTo({
+      top: body.scrollHeight,
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+    });
+  };
 
   useEffect(() => {
     if (input || !inputRef.current) return;
@@ -940,11 +951,7 @@ const ChatWidget = ({ mode = 'floating' }) => {
     title: t(tool.titleKey),
     description: t(tool.descriptionKey),
   })), [t]);
-  const loadingStageLabel = t([
-    'chat.loadingStages.plan',
-    'chat.loadingStages.retrieve',
-    'chat.loadingStages.compose',
-  ][loadingStage]);
+  const loadingStageLabel = t('chat.loadingStages.waiting');
   const isHeaderActionBusy = Boolean(activeHeaderAction);
   const commandPrefixInput = input.trimStart();
   const isCommandMode = commandPrefixInput.startsWith('/');
@@ -962,6 +969,8 @@ const ChatWidget = ({ mode = 'floating' }) => {
     && WELCOME_MESSAGES.has(messages[0]?.content);
 
   const handleClear = () => {
+    followMessagesRef.current = true;
+    setShowLatestMessage(false);
     clearSession(initialMessages);
     setLastModelUsed(null);
     setAiSuggestions([]);
@@ -1444,6 +1453,8 @@ const ChatWidget = ({ mode = 'floating' }) => {
   const handleSend = async (text) => {
     const trimmed = (text || '').trim();
     if (!trimmed || loading) return;
+    followMessagesRef.current = true;
+    setShowLatestMessage(false);
 
     trackChatEvent('message_send', {
       length: trimmed.length,
@@ -1857,9 +1868,16 @@ const ChatWidget = ({ mode = 'floating' }) => {
           </div>
         ) : null}
 
-        <div className="chat-body" role="log" aria-live="polite" ref={chatBodyRef}>
+        <div className="chat-body" role="log" aria-live="polite" ref={chatBodyRef} onScroll={handleChatScroll}>
           {isInitialRecruiterView && !loading ? (
             <section className="chat-command-deck recruiter-brief" aria-labelledby="chat-command-title">
+              <svg className="assistant-pathways" viewBox="0 0 480 80" fill="none" aria-hidden="true">
+                <path d="M20 40H140C190 40 190 14 240 14H460M140 40H460M140 40C190 40 190 66 240 66H460" />
+                <circle className="assistant-path-origin" cx="20" cy="40" r="5" />
+                <circle className="assistant-path-node" cx="240" cy="14" r="4" />
+                <circle className="assistant-path-node" cx="300" cy="40" r="4" />
+                <circle className="assistant-path-node" cx="360" cy="66" r="4" />
+              </svg>
               <div className="chat-command-intro">
                 <span>{t('chat.recruiterBrief.eyebrow')}</span>
                 <h4 id="chat-command-title">{t('chat.recruiterBrief.title')}</h4>
@@ -1999,6 +2017,11 @@ const ChatWidget = ({ mode = 'floating' }) => {
         ) : null}
 
         <div className="chat-input-wrap">
+          {showLatestMessage ? (
+            <button type="button" className="chat-latest-message" onClick={scrollToLatestMessage}>
+              <span aria-hidden="true">↓</span> {t('chat.latestMessage')}
+            </button>
+          ) : null}
           {shouldShowContactActions ? (
             <div className="chat-quick-actions">
               <button type="button" onClick={handleQuickMail}>{t('chat.quickEmail')}</button>

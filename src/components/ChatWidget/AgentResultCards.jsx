@@ -3,6 +3,13 @@ import { useTranslation } from 'react-i18next';
 
 const SAFE_LINK_PROTOCOLS = new Set(['https:', 'mailto:', 'tel:']);
 const INITIAL_VISIBLE_ITEMS = 2;
+// Only curated local assets, never image URLs supplied by an AI response.
+const PROJECT_PREVIEWS = {
+  oakmind: '/images/projects/gallery/oakmind-capture.png',
+  greatlink: '/images/projects/gallery/greatlink-capture.png',
+  vnmediahub: '/images/projects/gallery/vnmedia-capture.png',
+  learnsprint: '/images/projects/learnsprint/preview.png',
+};
 
 function RevealMoreButton({ expanded, hiddenCount, onToggle }) {
   const { t } = useTranslation('content');
@@ -105,8 +112,8 @@ function ProjectCards({ card }) {
       <CardHeading card={card} />
       <div className="agent-project-list">
         {visibleItems.map((item, index) => (
-          <article key={item.id || `${item.name}-${index}`} className="agent-project-item">
-            <div className="agent-item-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</div>
+          <article key={item.id || `${item.name}-${index}`} className="agent-project-item" style={{ '--result-order': Math.min(index, 4) }}>
+            {PROJECT_PREVIEWS[item.id] ? <img className="agent-project-preview" src={PROJECT_PREVIEWS[item.id]} alt="" loading="lazy" decoding="async" width="480" height="300" /> : <div className="agent-item-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</div>}
             <div className="agent-project-copy">
               <div className="agent-project-title-row">
                 <h6>{item.name}</h6>
