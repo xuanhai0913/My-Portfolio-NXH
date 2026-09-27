@@ -15,11 +15,25 @@ const SecurityLab = () => {
   const { locale, localizePath } = useLocaleNavigation();
   const copy = securityLabCopy[locale];
   const [activeLayer, setActiveLayer] = useState(1);
+  const [activeChapter, setActiveChapter] = useState('lab-brief');
   const tabRefs = useRef([]);
   const layer = copy.layers[activeLayer];
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
+  }, []);
+
+  useEffect(() => {
+    if (!('IntersectionObserver' in window)) return undefined;
+    const observer = new IntersectionObserver(entries => {
+      const visible = entries.filter(entry => entry.isIntersecting);
+      if (visible.length) setActiveChapter(visible[0].target.id);
+    }, { rootMargin: '-15% 0px -55% 0px', threshold: 0 });
+    ['lab-brief', 'lab-architecture', 'lab-lessons'].forEach(id => {
+      const section = document.getElementById(id);
+      if (section) observer.observe(section);
+    });
+    return () => observer.disconnect();
   }, []);
 
   const handleTabKey = (event, index) => {
@@ -55,7 +69,16 @@ const SecurityLab = () => {
           </div>
         </header>
 
-        <section className="sl-brief" aria-labelledby="sl-brief-title">
+        <nav className="sl-story-nav" aria-label={locale === 'vi' ? 'Lộ trình case study' : 'Case study chapters'}>
+          {['lab-brief', 'lab-architecture', 'lab-lessons'].map((id, index) => (
+            <a key={id} href={`#${id}`} aria-current={activeChapter === id ? 'location' : undefined}>
+              <span aria-hidden="true">0{index + 1}</span>
+              {(locale === 'vi' ? ['Tổng quan', 'Kiến trúc', 'Bài học'] : ['Overview', 'Architecture', 'Lessons'])[index]}
+            </a>
+          ))}
+        </nav>
+
+        <section id="lab-brief" className="sl-brief" aria-labelledby="sl-brief-title">
           <div><p className="sl-eyebrow">{copy.status}</p><h2 id="sl-brief-title">{copy.brief}</h2><p>{copy.summary}</p></div>
           <dl className="sl-facts">{copy.facts.map(fact => <div key={fact.label}><dt>{fact.label}</dt><dd>{fact.value}</dd></div>)}</dl>
         </section>
@@ -86,7 +109,7 @@ const SecurityLab = () => {
           </div>
         </section>
 
-        <section className="sl-lessons" aria-labelledby="sl-lessons-title">
+        <section id="lab-lessons" className="sl-lessons" aria-labelledby="sl-lessons-title">
           <div className="sl-section-heading"><span className="sl-section-number" aria-hidden="true">02</span><div><h2 id="sl-lessons-title">{copy.lessonsTitle}</h2><p>{copy.lessonsIntro}</p></div></div>
           <div className="sl-review-list">{copy.lessons.map((lesson, index) => (
             <details className="sl-review" key={lesson.title}>
