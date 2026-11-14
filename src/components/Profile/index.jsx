@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ExperiencePopup from './ExperiencePopup';
 import CVPreview from './CVPreview';
+import { WORK_EXPERIENCE } from '../../utils/constants';
 import './homeTranslations';
 import './styles/Profile.css';
 
@@ -71,10 +72,11 @@ const Profile = () => {
               type="button"
               className="floating-badge"
               onClick={() => setShowExperience(true)}
-              aria-label={`${t('profile.experienceBadge')} — ${t('profile.experienceBadgeAria')}`}
+              aria-haspopup="dialog"
+              aria-label={`${t('profile.experienceBadge', { count: WORK_EXPERIENCE.length })} — ${t('profile.experienceBadgeAria')}`}
             >
               <span className="status-dot" aria-hidden="true"></span>
-              {t('profile.experienceBadge')}
+              {t('profile.experienceBadge', { count: WORK_EXPERIENCE.length })}
             </button>
 
             {/* Decorative Grid Lines */}

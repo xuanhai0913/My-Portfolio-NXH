@@ -10,6 +10,14 @@
     "unmute": "Bật nhạc nền"
   },
   "records": {
+    "fptIs": {
+      "company": "FPT IS",
+      "role": "Lập trình viên .NET",
+      "period": "10/2026 – Hiện tại",
+      "description": "Phát triển và bảo trì tính năng cho hệ thống quản lý bệnh viện FPT.eHospital (HIS), từ màn hình nghiệp vụ đến dịch vụ C#, truy vấn SQL Server và mẫu in.",
+      "achievement": "Xây dựng luồng bàn giao người bệnh và lập hồ sơ lâm sàng, gồm kiểm tra dữ liệu nhập và xử lý chữ ký số. Kiểm thử các thay đổi trên môi trường phát triển và staging, chuẩn bị gói bàn giao qua SVN.",
+      "link": "https://fpt-is.com/ehospital-2-0/"
+    },
     "betodemy": {
       "company": "Betodemy – Nền tảng học tiếng Nhật",
       "role": "LẬP TRÌNH VIÊN FULL-STACK",

@@ -10,6 +10,15 @@
     "unmute": "Unmute background music"
   },
   "records": {
+    "fptIs": {
+      "company": "FPT IS",
+      "role": ".NET Developer",
+      "period": "Oct 2026 – Present",
+      "description": "Develop and maintain FPT.eHospital features across clinical forms, C# services, SQL Server and printable reports for the hospital information system (HIS).",
+      "achievement": "Implemented patient handover and clinical documentation workflows with input validation and digital-signature handling. Tested changes in development and staging and prepared versioned release packages in SVN.",
+      "technologies": ["C# / .NET", "WinForms", "SQL Server", "RDL Reports", "SVN"],
+      "link": "https://fpt-is.com/en/ehospital-2-0/"
+    },
     "betodemy": {
       "company": "Betodemy – Japanese Learning Platform",
       "role": "FULL-STACK DEVELOPER",

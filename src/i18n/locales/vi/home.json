@@ -4,37 +4,20 @@
     "titleLine2": "FULL-STACK",
     "introBeforeName": "Tôi là",
     "introAfterName": "— tôi phát triển ứng dụng web bằng React, .NET Core, Odoo và AI.",
-    "introLine2": "Từ nền tảng B2B, hệ thống ERP đến các công cụ ứng dụng AI đã được đưa vào vận hành cho khách hàng tại Việt Nam.",
+    "introLine2": "Hiện tôi là lập trình viên .NET tại FPT IS, phát triển phần mềm quản lý bệnh viện FPT.eHospital.",
     "viewCv": "XEM CV",
     "viewCvAria": "Xem CV / hồ sơ năng lực",
     "scrollHint": "CUỘN ĐỂ KHÁM PHÁ",
     "profileImageAlt": "Nguyễn Xuân Hải",
-    "experienceBadge": "KINH NGHIỆM TẠI 3 CÔNG TY",
+    "experienceBadge": "KINH NGHIỆM TẠI {{count}} CÔNG TY",
     "experienceBadgeAria": "Xem chi tiết kinh nghiệm làm việc"
   },
   "experience": {
     "dialogAria": "Chi tiết kinh nghiệm làm việc",
     "closeAria": "Đóng chi tiết kinh nghiệm làm việc",
     "title": "NHẬT_KÝ_KINH_NGHIỆM",
-    "companyExperience": "KINH_NGHIỆM_CÔNG_TY:",
-    "companyCount": "3 CÔNG TY",
-    "jobs": [
-      {
-        "company": "Betodemy – Nền tảng học tiếng Nhật",
-        "role": "LẬP TRÌNH VIÊN FULL-STACK",
-        "period": "02/2026 – Hiện tại"
-      },
-      {
-        "company": "AI Power – ERP đại lý ô tô",
-        "role": "LẬP TRÌNH VIÊN FULL-STACK | ODOO / PYTHON",
-        "period": "05/2026 – 09/2026"
-      },
-      {
-        "company": "OakMind Group – 3 sản phẩm web thực tế",
-        "role": "LẬP TRÌNH VIÊN FULL-STACK · PHÂN TÍCH NGHIỆP VỤ",
-        "period": "10/2024 – 01/2026"
-      }
-    ]
+    "companyExperience": "TỔNG CỘNG",
+    "companyCount": "{{count}} CÔNG TY"
   },
   "cvPreview": {
     "dialogAria": "Xem trước CV",
@@ -49,7 +32,7 @@
     "title": "VỀ_TÔI",
     "bioBeforeRole": "Tôi là một",
     "role": "Lập trình viên Full-Stack",
-    "bioAfterRole": "đang sống và làm việc tại Thành phố Hồ Chí Minh. Tôi tập trung vào React, .NET Core, Odoo và cách ứng dụng AI vào quy trình phát triển phần mềm. Kinh nghiệm của tôi trải từ nền tảng B2B, hệ thống ERP cho đại lý ô tô đến các công cụ hỗ trợ lập kế hoạch, review code và tự động hóa công việc.",
+    "bioAfterRole": "tại TP. Hồ Chí Minh. Hiện tôi là lập trình viên .NET tại FPT IS, tham gia phát triển FPT.eHospital. Tôi cũng có kinh nghiệm xây dựng nền tảng web B2B, ERP cho đại lý ô tô và ứng dụng AI vào quy trình phát triển phần mềm.",
     "stats": "Tôi đã tham gia triển khai hơn 9 dự án lên môi trường thực tế, trong đó có 3 nền tảng phục vụ người dùng tại Việt Nam. Công nghệ sử dụng chính gồm React, .NET Core, Odoo, Node.js, PostgreSQL cùng các công cụ AI như Claude, Codex, Gemini, DeepSeek và OpenAI API.",
     "currentlyComment": "/* Hiện tại */",
     "currentlyAction": "đang_xây_dựng",

@@ -456,16 +456,19 @@
 
 .total-exp {
   display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
   justify-content: space-between;
   align-items: center;
   font-family: var(--font-mono);
   color: #fff;
 }
 
-.scramble-text {
+.popup-company-count {
   font-weight: 700;
   color: var(--color-accent);
   font-size: 1.2rem;
+    white-space: nowrap;
 }
 
 /* Animations */

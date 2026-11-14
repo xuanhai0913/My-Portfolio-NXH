@@ -4,37 +4,22 @@
     "titleLine2": "DEVELOPER",
     "introBeforeName": "I'm",
     "introAfterName": "— I build production web apps with React, .NET Core, Odoo & AI.",
-    "introLine2": "From B2B platforms and ERP workflows to AI-powered tools, shipped for real clients in Vietnam.",
+    "introLine2": "I’m currently a .NET Developer at FPT IS, working on FPT.eHospital.",
     "viewCv": "VIEW CV",
     "viewCvAria": "View CV / Resume",
     "scrollHint": "SCROLL TO EXPLORE",
     "profileImageAlt": "Nguyễn Xuân Hải",
-    "experienceBadge": "EXPERIENCE AT 3 COMPANIES",
+    "experienceBadge_one": "EXPERIENCE AT {{count}} COMPANY",
+    "experienceBadge_other": "EXPERIENCE AT {{count}} COMPANIES",
     "experienceBadgeAria": "View work experience details"
   },
   "experience": {
     "dialogAria": "Work experience details",
     "closeAria": "Close work experience details",
     "title": "EXPERIENCE_LOG",
-    "companyExperience": "COMPANY_EXPERIENCE:",
-    "companyCount": "3 COMPANIES",
-    "jobs": [
-      {
-        "company": "Betodemy – Japanese Learning Platform",
-        "role": "FULL-STACK DEVELOPER",
-        "period": "Start: February 2026 | End: Present"
-      },
-      {
-        "company": "AI Power – Automotive Dealership ERP",
-        "role": "FULL-STACK DEVELOPER | ODOO / PYTHON",
-        "period": "Start: May 2026 | End: September 2026"
-      },
-      {
-        "company": "OakMind Group – Three Production Web Products",
-        "role": "FULL-STACK DEVELOPER · BUSINESS ANALYSIS",
-        "period": "Start: October 2024 | End: January 2026"
-      }
-    ]
+    "companyExperience": "TOTAL",
+    "companyCount_one": "{{count}} COMPANY",
+    "companyCount_other": "{{count}} COMPANIES"
   },
   "cvPreview": {
     "dialogAria": "CV preview",
@@ -49,7 +34,7 @@
     "title": "ABOUT_ME",
     "bioBeforeRole": "Nguyễn Xuân Hải is a",
     "role": "Full-Stack Developer",
-    "bioAfterRole": "based in Ho Chi Minh City, Vietnam, specializing in React, .NET Core, Odoo, and practical AI-assisted engineering workflows. He builds production web applications — from B2B platforms and automotive dealership ERP workflows to AI agents that support planning, code review, automation, and delivery.",
+    "bioAfterRole": "based in Ho Chi Minh City, Vietnam. He works as a .NET Developer at FPT IS on FPT.eHospital. His broader experience includes B2B web platforms, automotive ERP and AI-assisted development.",
     "stats": "9+ projects shipped to production, including 3 commercial platforms serving real users in Vietnam. Tech stack spans React frontends, .NET Core and Odoo backends, Node.js APIs, PostgreSQL, and AI workflows with Claude, Codex, Antigravity-style agents, Gemini, DeepSeek, and OpenAI APIs.",
     "currentlyComment": "/* Currently */",
     "currentlyAction": "building",

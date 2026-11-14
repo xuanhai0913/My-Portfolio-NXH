@@ -1,4 +1,4 @@
-const { PORTFOLIO_DATA } = require('./portfolio-data');
+const { PORTFOLIO_DATA, FPT_IS_EXPERIENCE } = require('./portfolio-data');
 
 const MAX_QUERY_LENGTH = 120;
 const MAX_RESULT_ITEMS = 6;
@@ -127,12 +127,15 @@ function executePortfolioTool(name, rawArgs = {}, locale = 'en') {
 
   if (name === 'get_work_experience') {
     const query = sanitizeQuery(args.query);
-    const items = searchItems(PORTFOLIO_DATA.experience, query, 3);
+    const timeline = locale === 'vi'
+      ? PORTFOLIO_DATA.experience.map(item => item.id === FPT_IS_EXPERIENCE.en.id ? FPT_IS_EXPERIENCE.vi : item)
+      : PORTFOLIO_DATA.experience;
+    const items = searchItems(timeline, query, MAX_RESULT_ITEMS);
     return {
       result: { query, count: items.length, items },
       card: {
         type: 'experience',
-        eyebrow: getLocalizedCopy(locale, 'Verified experience', 'Kinh nghiệm đã xác minh'),
+        eyebrow: getLocalizedCopy(locale, 'Work experience', 'Kinh nghiệm làm việc'),
         title: getLocalizedCopy(locale, 'Work timeline', 'Dòng thời gian công việc'),
         items,
       },

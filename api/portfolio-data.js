@@ -1,14 +1,70 @@
+const enExperience = require('../src/i18n/locales/en/experience.json').records;
+const viExperience = require('../src/i18n/locales/vi/experience.json').records;
+
+function fptExperience(record) {
+  return {
+    id: 'fpt-is',
+    company: record.company,
+    role: record.role,
+    period: record.period,
+    summary: record.description,
+    evidence: record.achievement,
+    stack: enExperience.fptIs.technologies,
+    url: record.link,
+  };
+}
+
+const FPT_IS_EXPERIENCE = {
+  en: fptExperience(enExperience.fptIs),
+  vi: fptExperience(viExperience.fptIs),
+};
+
+const WORK_EXPERIENCE = [
+  FPT_IS_EXPERIENCE.en,
+  {
+    id: 'betodemy',
+    company: 'Betodemy',
+    role: 'Full-Stack Developer',
+    period: 'Feb 2026 – Present',
+    summary: 'Builds and maintains student portals, online classes, admin tools, gamified practice and multilingual learning content in a five-developer product team.',
+    evidence: 'Delivered 70+ merged MRs and closed 70+ authored issues across document-editor, online-class and student/admin workflows.',
+    stack: ['React 19', 'NestJS', 'PostgreSQL', 'Redis', 'BullMQ', 'Nx', 'GitLab CI/CD'],
+    url: 'https://betodemy.com/',
+  },
+  {
+    id: 'aipower',
+    company: 'AI Power',
+    role: 'Full-Stack Developer · Odoo/Python',
+    period: 'May 2026 – Sep 2026',
+    summary: 'Developed and supported an Odoo 18 ERP for automotive dealerships across sales, after-sales service, spare parts, warranty and accounting workflows.',
+    evidence: 'Supported debugging and fixes across all 18 custom modules and 99+ Python files while preserving the 18-state service workflow.',
+    stack: ['Python 3.12', 'Odoo 18', 'PostgreSQL', 'QWeb/XML', 'Docker', 'GitLab CI'],
+    url: 'https://aipower.vn/vi',
+  },
+  {
+    id: 'oakmind-experience',
+    company: 'OakMind Group',
+    role: 'Full-Stack Developer · Business Analysis',
+    period: 'Oct 2024 – Jan 2026',
+    summary: 'Handled requirement clarification, full-stack development and releases across three live web products.',
+    evidence: 'Took all three products from requirement clarification through release; delivered the live corporate website in 28 authored commits.',
+    stack: ['React 18/19', 'ASP.NET Core 8', 'SQL Server', 'Redis', 'SignalR', 'Cloudflare R2'],
+    url: 'https://oakmindgroup.com/',
+  },
+];
+
 const PORTFOLIO_DATA = {
   profile: {
     name: 'Nguyen Xuan Hai',
     title: 'Full-Stack Developer',
     location: 'Ho Chi Minh City, Vietnam',
-    summary: 'Full-stack developer working across React, ASP.NET Core, NestJS, Python/Odoo and AI-assisted engineering workflows.',
+    summary: '.NET Developer at FPT IS working on FPT.eHospital, with full-stack experience in React, ASP.NET Core, NestJS, Python/Odoo and AI-assisted development.',
     languages: ['Vietnamese (native)', 'English (B1.4; technical reading and written communication)'],
     coreSkills: [
       'React',
       'Node.js',
       'ASP.NET Core',
+      'C#',
       'NestJS',
       'Python',
       'Odoo 18',
@@ -21,7 +77,7 @@ const PORTFOLIO_DATA = {
   stats: {
     productionProjects: 7,
     portfolioProjects: 15,
-    companies: 3,
+    companies: WORK_EXPERIENCE.length,
     certifications: 45,
     awsCredentials: 28,
   },
@@ -129,38 +185,7 @@ const PORTFOLIO_DATA = {
       url: 'https://github.com/xuanhai0913/agri-traceability-system',
     },
   ],
-  experience: [
-    {
-      id: 'betodemy',
-      company: 'Betodemy',
-      role: 'Full-Stack Developer',
-      period: 'Feb 2026 – Present',
-      summary: 'Builds and maintains student portals, online classes, admin tools, gamified practice and multilingual learning content in a five-developer product team.',
-      evidence: 'Delivered 70+ merged MRs and closed 70+ authored issues across document-editor, online-class and student/admin workflows.',
-      stack: ['React 19', 'NestJS', 'PostgreSQL', 'Redis', 'BullMQ', 'Nx', 'GitLab CI/CD'],
-      url: 'https://betodemy.com/',
-    },
-    {
-      id: 'aipower',
-      company: 'AI Power',
-      role: 'Full-Stack Developer · Odoo/Python',
-      period: 'May 2026 – Sep 2026',
-      summary: 'Developed and supported an Odoo 18 ERP for automotive dealerships across sales, after-sales service, spare parts, warranty and accounting workflows.',
-      evidence: 'Supported debugging and fixes across all 18 custom modules and 99+ Python files while preserving the 18-state service workflow.',
-      stack: ['Python 3.12', 'Odoo 18', 'PostgreSQL', 'QWeb/XML', 'Docker', 'GitLab CI'],
-      url: 'https://aipower.vn/vi',
-    },
-    {
-      id: 'oakmind-experience',
-      company: 'OakMind Group',
-      role: 'Full-Stack Developer · Business Analysis',
-      period: 'Oct 2024 – Jan 2026',
-      summary: 'Handled requirement clarification, full-stack development and releases across three live web products.',
-      evidence: 'Took all three products from requirement clarification through release; delivered the live corporate website in 28 authored commits.',
-      stack: ['React 18/19', 'ASP.NET Core 8', 'SQL Server', 'Redis', 'SignalR', 'Cloudflare R2'],
-      url: 'https://oakmindgroup.com/',
-    },
-  ],
+  experience: WORK_EXPERIENCE,
   credentials: [
     {
       id: 'aws-agentic-ai',
@@ -227,4 +252,4 @@ const PORTFOLIO_DATA = {
   ],
 };
 
-module.exports = { PORTFOLIO_DATA };
+module.exports = { PORTFOLIO_DATA, FPT_IS_EXPERIENCE };

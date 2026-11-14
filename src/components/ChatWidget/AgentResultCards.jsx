@@ -166,7 +166,7 @@ function ExperienceCard({ card }) {
                 </div>
               ) : null}
               <ResultLink href={item.url} label={t('chat.dataCards.openExperienceAria', { company: item.company })}>
-                {t('chat.dataCards.verifySource')}
+                {t('chat.dataCards.experienceLink', { company: item.company })}
               </ResultLink>
             </div>
           </article>

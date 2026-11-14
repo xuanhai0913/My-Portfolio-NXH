@@ -7,8 +7,6 @@ import enExperience from '../../i18n/locales/en/experience.json';
 import viExperience from '../../i18n/locales/vi/experience.json';
 import { WORK_EXPERIENCE } from '../../utils/constants';
 
-const EXPERIENCE_KEYS = ['betodemy', 'aiPower', 'oakMindGroup'];
-
 if (!i18n.hasResourceBundle('en', 'experience')) {
     i18n.addResourceBundle('en', 'experience', enExperience);
 }
@@ -185,40 +183,41 @@ const Experience = () => {
 
                 <div className="experience-timeline">
                     {WORK_EXPERIENCE.map((job, index) => {
-                        const experienceKey = EXPERIENCE_KEYS[index] ?? String(index);
-                        const company = t(`records.${experienceKey}.company`, { defaultValue: job.company });
+                        const recordKey = `records.${job.id}`;
+                        const company = t(`${recordKey}.company`, { defaultValue: job.company });
+                        const link = t(`${recordKey}.link`, { defaultValue: job.link });
 
                         return (
-                            <div key={experienceKey} className="experience-item" style={{ '--delay': `${index * 0.2}s` }}>
+                            <div key={job.id} className="experience-item" style={{ '--delay': `${index * 0.2}s` }}>
                                 <div className="experience-marker"></div>
                                 <div className="experience-content">
                                     <div className="experience-header">
                                         <div className="company-info">
                                             {job.logo && (
-                                                job.link ? (
-                                                    <a href={job.link} target="_blank" rel="noopener noreferrer" className="company-logo-link">
+                                                link ? (
+                                                    <a href={link} target="_blank" rel="noopener noreferrer" className="company-logo-link">
                                                         <img src={job.logo} alt={t('companyLogoAlt', { company })} className="company-logo" />
                                                     </a>
                                                 ) : (
                                                     <img src={job.logo} alt={t('companyLogoAlt', { company })} className="company-logo" />
                                                 )
                                             )}
-                                            {job.link ? (
-                                                <a href={job.link} target="_blank" rel="noopener noreferrer" className="company-name-link">
+                                            {link ? (
+                                                <a href={link} target="_blank" rel="noopener noreferrer" className="company-name-link">
                                                     <h3 className="company-name">{company}</h3>
                                                 </a>
                                             ) : (
                                                 <h3 className="company-name">{company}</h3>
                                             )}
                                         </div>
-                                        <span className="job-period">{t(`records.${experienceKey}.period`, { defaultValue: job.period })}</span>
+                                        <span className="job-period">{t(`${recordKey}.period`, { defaultValue: job.period })}</span>
                                     </div>
-                                    <h4 className="job-role">{t(`records.${experienceKey}.role`, { defaultValue: job.role })}</h4>
-                                    <p className="job-description">{t(`records.${experienceKey}.description`, { defaultValue: job.description })}</p>
+                                    <h4 className="job-role">{t(`${recordKey}.role`, { defaultValue: job.role })}</h4>
+                                    <p className="job-description">{t(`${recordKey}.description`, { defaultValue: job.description })}</p>
                                     {job.achievement && (
                                         <p className="job-achievement">
                                             <span className="achievement-label">{t('impactLabel')}</span>
-                                            <span>{t(`records.${experienceKey}.achievement`, { defaultValue: job.achievement })}</span>
+                                            <span>{t(`${recordKey}.achievement`, { defaultValue: job.achievement })}</span>
                                         </p>
                                     )}
 

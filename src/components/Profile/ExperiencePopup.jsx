@@ -125,13 +125,13 @@ const ExperiencePopup = ({ onClose }) => {
                 <h3 id="experience-popup-title" className="popup-title">{t('experience.title')}</h3>
 
                 <ul className="popup-list">
-                    {WORK_EXPERIENCE.map((job, index) => (
-                        <li key={index} className="popup-item">
+                    {WORK_EXPERIENCE.map(job => (
+                        <li key={job.id} className="popup-item">
                             <div className="popup-item-header">
-                                <span className="popup-company">{t(`experience.jobs.${index}.company`, { defaultValue: job.company })}</span>
-                                <span className="popup-duration">{t(`experience.jobs.${index}.role`, { defaultValue: job.role })}</span>
+                                <span className="popup-company">{t(`records.${job.id}.company`, { ns: 'experience', defaultValue: job.company })}</span>
+                                <span className="popup-duration">{t(`records.${job.id}.role`, { ns: 'experience', defaultValue: job.role })}</span>
                             </div>
-                            <div className="popup-period">{t(`experience.jobs.${index}.period`, { defaultValue: job.period })}</div>
+                            <div className="popup-period">{t(`records.${job.id}.period`, { ns: 'experience', defaultValue: job.period })}</div>
                         </li>
                     ))}
                 </ul>
@@ -139,7 +139,7 @@ const ExperiencePopup = ({ onClose }) => {
                 <div className="popup-footer">
                     <div className="total-exp">
                         <span>{t('experience.companyExperience')}</span>
-                        <span className="scramble-text">{t('experience.companyCount')}</span>
+                        <span className="popup-company-count">{t('experience.companyCount', { count: WORK_EXPERIENCE.length })}</span>
                     </div>
                 </div>
             </div>

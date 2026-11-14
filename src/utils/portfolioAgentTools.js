@@ -1,3 +1,5 @@
+import { WORK_EXPERIENCE } from './constants';
+
 export const PORTFOLIO_AGENT_TOOLS = [
   {
     id: 'get_candidate_snapshot',
@@ -33,7 +35,7 @@ export const PORTFOLIO_AGENT_TOOLS = [
 
 export const RECRUITER_BRIEF_STATS = [
   { key: 'productionProjects', value: 7 },
-  { key: 'companies', value: 3 },
+  { key: 'companies', value: WORK_EXPERIENCE.length },
   { key: 'certifications', value: 45 },
 ];
 

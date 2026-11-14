@@ -1,6 +1,10 @@
-import { PORTFOLIO_AGENT_TOOLS, getPortfolioToolDefinition } from './portfolioAgentTools';
+import { PORTFOLIO_AGENT_TOOLS, RECRUITER_BRIEF_STATS, getPortfolioToolDefinition } from './portfolioAgentTools';
+import { WORK_EXPERIENCE } from './constants';
+import enTimeline from '../i18n/locales/en/experience.json';
+import viTimeline from '../i18n/locales/vi/experience.json';
 
 const { executePortfolioTool, executeToolCalls } = require('../../api/portfolio-tools');
+const { buildPortfolioSystemPrompt } = require('../../api/portfolio-context');
 
 describe('portfolio agent tools', () => {
   test('publishes the same five read-only capabilities to the interface', () => {
@@ -33,16 +37,35 @@ describe('portfolio agent tools', () => {
     expect(project.evidence).toContain('not a production security product');
   });
 
-  test('keeps the AI Power end month consistent across timeline, profile and assistant', () => {
-    const enTimeline = require('../i18n/locales/en/experience.json');
-    const viTimeline = require('../i18n/locales/vi/experience.json');
-    const enProfile = require('../i18n/locales/en/home.json');
-    const viProfile = require('../i18n/locales/vi/home.json');
+  test('keeps the AI Power end month consistent across the localized timeline and assistant', () => {
     const { result } = executePortfolioTool('get_work_experience', { query: 'AI Power' });
     expect(result.items[0].period).toBe('May 2026 – Sep 2026');
     expect(enTimeline.records.aiPower.period).toBe('May 2026 – Sep 2026');
     expect(viTimeline.records.aiPower.period).toBe('05/2026 – 09/2026');
-    expect(JSON.stringify(enProfile)).toContain('September 2026');
-    expect(JSON.stringify(viProfile)).toContain('05/2026 – 09/2026');
+  });
+
+  test('keeps all four companies in the timeline and both profile counts', () => {
+    const timeline = executePortfolioTool('get_work_experience', {});
+    const snapshot = executePortfolioTool('get_candidate_snapshot');
+
+    expect(WORK_EXPERIENCE.map(job => job.id)).toEqual(['fptIs', 'betodemy', 'aiPower', 'oakMindGroup']);
+    expect(Object.keys(enTimeline.records)).toEqual(Object.keys(viTimeline.records));
+    expect(timeline.result.items.map(item => item.company)).toEqual(['FPT IS', 'Betodemy', 'AI Power', 'OakMind Group']);
+    expect(snapshot.card.stats.companies).toBe(WORK_EXPERIENCE.length);
+    expect(RECRUITER_BRIEF_STATS).toContainEqual({ key: 'companies', value: WORK_EXPERIENCE.length });
+  });
+
+  test.each([
+    ['en', '.NET Developer', 'Oct 2026 – Present', enTimeline.records.fptIs],
+    ['vi', 'Lập trình viên .NET', '10/2026 – Hiện tại', viTimeline.records.fptIs],
+  ])('returns FPT IS evidence in %s from the same record as the timeline', (locale, role, period, record) => {
+    const { result, card } = executePortfolioTool('get_work_experience', { query: 'FPT IS' }, locale);
+
+    expect(result.count).toBe(1);
+    expect(card.items).toEqual(result.items);
+    expect(result.items[0]).toMatchObject({
+      company: 'FPT IS', role, period, summary: record.description, evidence: record.achievement, url: record.link,
+    });
+    expect(buildPortfolioSystemPrompt(locale)).toContain('Current role: .NET Developer at FPT IS');
   });
 });

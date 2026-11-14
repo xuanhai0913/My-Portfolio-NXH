@@ -3,6 +3,8 @@
  * Following technical standards: No magic numbers/strings
  */
 
+import experience from '../i18n/locales/en/experience.json';
+
 // Social Platform Colors (Brand Guidelines)
 export const SOCIAL_COLORS = {
   FACEBOOK: '#1877F2',
@@ -69,6 +71,11 @@ export const DEFAULTS = {
 // Work Experience Data
 export const WORK_EXPERIENCE = [
   {
+    id: 'fptIs',
+    ...experience.records.fptIs,
+  },
+  {
+    id: 'betodemy',
     company: 'Betodemy – Japanese Learning Platform',
     role: 'FULL-STACK DEVELOPER',
     period: 'Feb 2026 – Present',
@@ -79,6 +86,7 @@ export const WORK_EXPERIENCE = [
     link: 'https://betodemy.com/'
   },
   {
+    id: 'aiPower',
     company: 'AI Power – Automotive Dealership ERP',
     role: 'FULL-STACK DEVELOPER | ODOO / PYTHON',
     period: 'May 2026 – Sep 2026',
@@ -89,6 +97,7 @@ export const WORK_EXPERIENCE = [
     link: 'https://aipower.vn/vi'
   },
   {
+    id: 'oakMindGroup',
     company: 'OakMind Group – Three Production Web Products',
     role: 'FULL-STACK DEVELOPER · BUSINESS ANALYSIS',
     period: 'Oct 2024 – Jan 2026',

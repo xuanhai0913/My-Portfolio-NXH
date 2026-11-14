@@ -1,5 +1,8 @@
+const { FPT_IS_EXPERIENCE: { en: fptExperience } } = require('./portfolio-data');
+
 const TRUSTED_PORTFOLIO_FACTS = [
   'Candidate: Nguyen Xuan Hai, Full-Stack Developer based in Ho Chi Minh City, Vietnam.',
+  `Current role: ${fptExperience.role} at ${fptExperience.company} (${fptExperience.period}). ${fptExperience.summary} ${fptExperience.evidence} The linked FPT.eHospital page is product context, not employment verification or evidence of a production rollout.`,
   'Public contact: xuanhai0913750452@gmail.com, +84 929 501 116, GitHub https://github.com/xuanhai0913, LinkedIn https://www.linkedin.com/in/xuanhai0913/, Upwork https://www.upwork.com/freelancers/xuanhai0913.',
   'Core stack: React, Node.js, ASP.NET Core, Python, Odoo 18, PostgreSQL, SQL Server, JavaScript, TypeScript, system design, API integration, and AI-assisted engineering workflows.',
   'Production evidence: OakMind Group Corporate Platform (React 19, ASP.NET Core 8, SQL Server, Cloudflare R2); Great Link Mai House (ASP.NET Core, React 18, SignalR); VN Media Hub (React 18, ASP.NET Core 8, Redis); ChongScam (React 19, NestJS 11, PostgreSQL, Jest).',
